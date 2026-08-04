@@ -1,22 +1,14 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["partialIndexes"]
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  FREE
-  UNCOVER
-  UNLOCK
-  UNLEASH
-  ADMIN
-}
-
 model User {
   id                                 String                          @id @default(uuid())
-  role                               Role                            @default(FREE)
   name                               String?
   email                              String                          @unique
   emailVerified                      DateTime?
@@ -32,7 +24,6 @@ model User {
   nutritionComplianceScore           Int?
   trainingConsistencyScore           Int?
   profileLastUpdated                 DateTime?
-  personalBestsBackfilledAt          DateTime?
   currentFitnessExplanation          String?
   recoveryCapacityExplanation        String?
   nutritionComplianceExplanation     String?
@@ -41,30 +32,26 @@ model User {
   recoveryCapacityExplanationJson    Json?
   nutritionComplianceExplanationJson Json?
   trainingConsistencyExplanationJson Json?
+  aiAutoAnalyzeNutrition             Boolean                         @default(false)
+  aiAutoAnalyzeWorkouts              Boolean                         @default(false)
+  aiModelPreference                  String?                         @default("flash")
+  aiPersona                          String?                         @default("Supportive")
   city                               String?
   country                            String?
   distanceUnits                      String?                         @default("Kilometers")
   form                               String?                         @default("Absolute value")
   height                             Int?
   heightUnits                        String?                         @default("cm")
+  hrZones                            Json?
   language                           String?                         @default("English")
+  powerZones                         Json?
   restingHr                          Int?
   sex                                String?
   state                              String?
   temperatureUnits                   String?                         @default("Celsius")
-  uiLanguage                         String?                         @default("en")
   timezone                           String?
   visibility                         String?                         @default("Private")
   weightUnits                        String?                         @default("Kilograms")
-  weightSourceMode                   String                          @default("AUTO")
-  teamVisibility                     TeamVisibility?                 @default(COACHES_ONLY)
-  hrZones                            Json?
-  powerZones                         Json?
-  aiAutoAnalyzeNutrition             Boolean                         @default(false)
-  aiAutoAnalyzeWorkouts              Boolean                         @default(false)
-  aiModelPreference                  String?                         @default("flash")
-  aiPersona                          String?                         @default("Supportive")
-  dashboardSettings                  Json?
   altitude                           Int?
   isAdmin                            Boolean                         @default(false)
   lthr                               Int?
@@ -77,6 +64,39 @@ model User {
   hrPowerAlignmentScore              Int?
   aiContext                          String?
   nickname                           String?
+  nutritionTrackingEnabled           Boolean                         @default(true)
+  recoverySensitivity                String?                         @default("MEDIUM")
+  stripeCustomerId                   String?                         @unique
+  stripeSubscriptionId               String?                         @unique
+  subscriptionPeriodEnd              DateTime?
+  subscriptionStatus                 SubscriptionStatus              @default(NONE)
+  subscriptionTier                   SubscriptionTier                @default(FREE)
+  aiDeepAnalysisEnabled              Boolean                         @default(false)
+  aiProactivityEnabled               Boolean                         @default(false)
+  aiAutoAnalyzeReadiness             Boolean                         @default(false)
+  dashboardSettings                  Json?
+  lastLoginAt                        DateTime?
+  lastLoginIp                        String?
+  registrationCountry                String?
+  registrationIp                     String?
+  aiRequireToolApproval              Boolean                         @default(false)
+  subscriptionStartedAt              DateTime?
+  updateWorkoutNotesEnabled          Boolean                         @default(true)
+  trialEndsAt                        DateTime?
+  pendingSubscriptionPeriodEnd       DateTime?
+  pendingSubscriptionTier            SubscriptionTier?
+  aiConversationalEngagement         Boolean                         @default(true)
+  shareRewardClaimedAt               DateTime?
+  shareRewardDaysGranted             Int?                            @default(0)
+  aiTtsStyle                         String?                         @default("coach")
+  aiTtsVoiceName                     String?                         @default("Kore")
+  aiTtsSpeed                         String?                         @default("normal")
+  aiTtsAutoReadMessages              Boolean                         @default(false)
+  emailError                         String?
+  emailStatus                        String                          @default("VALID")
+  weightSourceMode                   String                          @default("AUTO")
+  uiLanguage                         String?                         @default("en")
+  aiMemoryEnabled                    Boolean                         @default(false)
   publicAuthorSlug                   String?                         @unique
   publicDisplayName                  String?
   publicBio                          String?
@@ -84,132 +104,103 @@ model User {
   publicWebsiteUrl                   String?
   publicSocialLinks                  Json?
   publicCoachingBrand                String?
+  personalBestsBackfilledAt          DateTime?
+  teamVisibility                     TeamVisibility?                 @default(COACHES_ONLY)
+  featureFlags                       Json?
   coachProfileEnabled                Boolean                         @default(false)
   coachProfileSlug                   String?                         @unique
   coachPublicPage                    Json?
   athleteProfileEnabled              Boolean                         @default(false)
   athleteProfileSlug                 String?                         @unique
   athletePublicPage                  Json?
-  nutritionTrackingEnabled           Boolean                         @default(true)
-  recoverySensitivity                String?                         @default("MEDIUM")
-  lastLoginAt                        DateTime?
-  lastLoginIp                        String?
-  registrationIp                     String?
-  registrationCountry                String?
-  trialEndsAt                        DateTime?
-  shareRewardClaimedAt               DateTime?
-  shareRewardDaysGranted             Int?                            @default(0)
-  referralCode                       String?                         @unique
-  referredByUserId                   String?
-  referredBy                         User?                           @relation("UserReferrals", fields: [referredByUserId], references: [id], onDelete: SetNull)
-  referralsGiven                     User[]                          @relation("UserReferrals")
-  referralsAsReferrer                Referral[]                      @relation("ReferralReferrer")
-  referralAsReferee                  Referral?                       @relation("ReferralReferee")
-  stripeCustomerId                   String?                         @unique
-  stripeSubscriptionId               String?                         @unique
-  subscriptionPeriodEnd              DateTime?
-  subscriptionStartedAt              DateTime?
-  subscriptionStatus                 SubscriptionStatus              @default(NONE)
-  subscriptionTier                   SubscriptionTier                @default(FREE)
-  pendingSubscriptionTier            SubscriptionTier?
-  pendingSubscriptionPeriodEnd       DateTime?
-  aiDeepAnalysisEnabled              Boolean                         @default(false)
-  aiProactivityEnabled               Boolean                         @default(false)
-  aiAutoAnalyzeReadiness             Boolean                         @default(false)
-  aiRequireToolApproval              Boolean                         @default(false)
-  aiConversationalEngagement         Boolean                         @default(true)
-  aiMemoryEnabled                    Boolean                         @default(false)
-  featureFlags                       Json?
-  updateWorkoutNotesEnabled          Boolean                         @default(true)
-  aiTtsStyle                         String?                         @default("coach")
-  aiTtsVoiceName                     String?                         @default("Kore")
-  aiTtsSpeed                         String?                         @default("normal")
-  aiTtsAutoReadMessages              Boolean                         @default(false)
-  emailStatus                        String                          @default("VALID")
-  emailError                         String?
   deactivatedAt                      DateTime?
   deactivationReason                 String?
+  referralCode                       String?                         @unique
+  referredByUserId                   String?
+  role                               Role                            @default(FREE)
+  intervalsApiKey                    String?
+  intervalsAthleteId                 String?
   accounts                           Account[]
   activityRecommendations            ActivityRecommendation[]
   apiKeys                            ApiKey[]
+  athleteGroups                      AthleteGroup[]                  @relation("CoachGroups")
+  groupMemberships                   AthleteGroupMember[]            @relation("AthleteGroupMemberships")
+  journeyEvents                      AthleteJourneyEvent[]
   auditLogs                          AuditLog[]
+  bodyMeasurementEntries             BodyMeasurementEntry[]
+  bugReports                         BugReport[]
+  bugReportComments                  BugReportComment[]
   calendarNotes                      CalendarNote[]
   chatParticipations                 ChatParticipant[]
   chatTurns                          ChatTurn[]
+  checkIns                           CheckIn[]
+  coachAthleteInvitesSent            CoachAthleteInvite[]
+  feedbacks                          CoachFeedback[]
   invites                            CoachingInvite[]
   coaches                            CoachingRelationship[]          @relation("AthleteRelation")
   athletes                           CoachingRelationship[]          @relation("CoachRelation")
-  coachingRequestsReceived           CoachingRequest[]               @relation("CoachRequestsReceived")
   coachingRequestsSent               CoachingRequest[]               @relation("AthleteRequestsSent")
+  coachingRequestsReceived           CoachingRequest[]               @relation("CoachRequestsReceived")
+  customFieldDefinitions             CustomFieldDefinition[]
   dailyCheckins                      DailyCheckin[]
   dailyMetrics                       DailyMetric[]
+  dashboards                         Dashboard[]
+  emailDeliveries                    EmailDelivery[]
+  emailPreferences                   EmailPreference[]
   events                             Event[]
-  participatingEvents                Event[]                         @relation("EventParticipants")
+  favoriteTrainingPlans              FavoriteTrainingPlan[]
   fitFiles                           FitFile[]
   goals                              Goal[]
   integrations                       Integration[]
   llmUsage                           LlmUsage[]
-  quotaDenials                       QuotaDenial[]
+  mcpToolExecutions                  McpToolExecution[]
+  metricHistory                      MetricHistory[]
+  mobilePushDevices                  MobilePushDevice[]
+  mobilePushPreference               MobilePushPreference?
   nutrition                          Nutrition[]
+  nutritionPlans                     NutritionPlan[]
+  nutritionRecommendations           NutritionRecommendation[]
   oauthApps                          OAuthApp[]
   oauthCodes                         OAuthAuthCode[]
   oauthConsents                      OAuthConsent[]
   oauthTokens                        OAuthToken[]
-  mcpToolExecutions                  McpToolExecution[]
+  partnerCampaignRedemptions         PartnerCampaignRedemption[]
+  personalBests                      PersonalBest[]
   plannedWorkouts                    PlannedWorkout[]
-  workoutStructureGenerationRuns     WorkoutStructureGenerationRun[]
+  providerSubscriptions              ProviderSubscription[]
+  quotaDenials                       QuotaDenial[]
   recommendations                    Recommendation[]
+  referralAsReferee                  Referral?                       @relation("ReferralReferee")
+  referralsAsReferrer                Referral[]                      @relation("ReferralReferrer")
   reports                            Report[]
   reportTemplates                    ReportTemplate[]
   scoreTrendExplanations             ScoreTrendExplanation[]
   sessions                           Session[]
   shareTokens                        ShareToken[]
   sportSettings                      SportSettings[]
+  strengthExerciseLibraryItems       StrengthExerciseLibraryItem[]
+  subscriptionLifecycleEvents        SubscriptionLifecycleEvent[]
   supportMessages                    SupportMessage[]
-  bugReports                         BugReport[]
-  bugReportComments                  BugReportComment[]
-  notifications                      UserNotification[]
-  mobilePushDevices                  MobilePushDevice[]
-  mobilePushPreference               MobilePushPreference?
   syncQueue                          SyncQueue[]
+  ownedTeams                         Team[]                          @relation("TeamOwner")
+  teamMemberships                    TeamMember[]
   trainingAvailability               TrainingAvailability[]
   trainingPlans                      TrainingPlan[]
+  trainingPlanFolders                TrainingPlanFolder[]
+  referredBy                         User?                           @relation("UserReferrals", fields: [referredByUserId], references: [id])
+  referralsGiven                     User[]                          @relation("UserReferrals")
+  memories                           UserMemory[]
+  notifications                      UserNotification[]
+  nutritionSettings                  UserNutritionSettings?
   systemMessageDismissals            UserSystemMessageDismissal[]
   weeklyTrainingPlans                WeeklyTrainingPlan[]
   wellness                           Wellness[]
+  widgets                            Widget[]
   workouts                           Workout[]
-  metricHistory                      MetricHistory[]
-  trainingPlanFolders                TrainingPlanFolder[]
-  favoriteTrainingPlans              FavoriteTrainingPlan[]
-  bodyMeasurementEntries             BodyMeasurementEntry[]
-  personalBests                      PersonalBest[]
+  workoutStructureGenerationRuns     WorkoutStructureGenerationRun[]
   workoutTemplates                   WorkoutTemplate[]
   workoutTemplateFolders             WorkoutTemplateFolder[]
-  strengthExerciseLibraryItems       StrengthExerciseLibraryItem[]
-  journeyEvents                      AthleteJourneyEvent[]
-  nutritionSettings                  UserNutritionSettings?
-  nutritionRecommendations           NutritionRecommendation[]
-  nutritionPlans                     NutritionPlan[]
-  emailPreferences                   EmailPreference[]
-  emailDeliveries                    EmailDelivery[]
-  memories                           UserMemory[]
-  athleteGroups                      AthleteGroup[]                  @relation("CoachGroups")
-  groupMemberships                   AthleteGroupMember[]            @relation("AthleteGroupMemberships")
-  teamMemberships                    TeamMember[]
-  ownedTeams                         Team[]                          @relation("TeamOwner")
-  dashboards                         Dashboard[]
-  widgets                            Widget[]
-  customFieldDefinitions             CustomFieldDefinition[]
-  coachAthleteInvitesSent            CoachAthleteInvite[]
-  partnerCampaignRedemptions         PartnerCampaignRedemption[]
-  providerSubscriptions              ProviderSubscription[]
-  subscriptionLifecycleEvents        SubscriptionLifecycleEvent[]
-  checkIns                           CheckIn[]
-  feedbacks                          CoachFeedback[]
-
-  // Intervals.icu Sync
-  intervalsApiKey     String?
-  intervalsAthleteId  String?
+  participatingEvents                Event[]                         @relation("EventParticipants")
 
   @@index([createdAt])
   @@index([deactivatedAt])
@@ -227,8 +218,8 @@ model Referral {
   attributedAt   DateTime       @default(now())
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
-  referrer       User           @relation("ReferralReferrer", fields: [referrerUserId], references: [id], onDelete: Cascade)
   referee        User           @relation("ReferralReferee", fields: [refereeUserId], references: [id], onDelete: Cascade)
+  referrer       User           @relation("ReferralReferrer", fields: [referrerUserId], references: [id], onDelete: Cascade)
 
   @@index([referrerUserId])
   @@index([code])
@@ -264,10 +255,10 @@ model SportSettings {
   restingHr           Int?
   warmupTime          Int?
   zoneConfiguration   Json?
-  targetPolicy        Json?
-  targetFormatPolicy  Json?
   name                String?
   isDefault           Boolean  @default(false)
+  targetPolicy        Json?
+  targetFormatPolicy  Json?
   user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, source, externalId])
@@ -280,12 +271,12 @@ model SystemMessage {
   content        String
   type           String                       @default("INFO")
   isActive       Boolean                      @default(true)
-  targetUrl      String?
-  actionLabel    String?
   expiresAt      DateTime?
-  minUserAgeDays Int                          @default(0)
   createdAt      DateTime                     @default(now())
   updatedAt      DateTime                     @updatedAt
+  actionLabel    String?
+  targetUrl      String?
+  minUserAgeDays Int                          @default(0)
   dismissals     UserSystemMessageDismissal[]
 }
 
@@ -304,29 +295,29 @@ model UserSystemMessageDismissal {
 model OAuthApp {
   id                 String              @id @default(uuid())
   name               String
-  sourceName         String?
   description        String?
   homepageUrl        String?
   logoUrl            String?
   clientId           String              @unique @default(dbgenerated("gen_random_uuid()"))
   clientSecret       String
-  webhookSecret      String?
   redirectUris       String[]
   isTrusted          Boolean             @default(false)
-  isOfficial         Boolean             @default(false)
   isPublic           Boolean             @default(false)
-  isPublicClient     Boolean             @default(false)
-  registrationType   String              @default("manual")
   ownerId            String
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
+  webhookSecret      String?
+  sourceName         String?
+  isPublicClient     Boolean             @default(false)
+  registrationType   String              @default("manual")
+  isOfficial         Boolean             @default(false)
+  mcpIdempotencyKeys McpIdempotencyKey[]
+  mcpToolExecutions  McpToolExecution[]
   owner              User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   codes              OAuthAuthCode[]
   consents           OAuthConsent[]
   tokens             OAuthToken[]
   workouts           Workout[]           @relation("WorkoutOAuthApp")
-  mcpToolExecutions  McpToolExecution[]
-  mcpIdempotencyKeys McpIdempotencyKey[]
 
   @@index([ownerId])
 }
@@ -350,11 +341,11 @@ model OAuthAuthCode {
   userId              String
   redirectUri         String
   scopes              String[]
-  resource            String?
   codeChallenge       String?
   codeChallengeMethod String?  @default("S256")
   expiresAt           DateTime
   createdAt           DateTime @default(now())
+  resource            String?
   app                 OAuthApp @relation(fields: [appId], references: [id], onDelete: Cascade)
   user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -368,15 +359,15 @@ model OAuthToken {
   appId                 String
   userId                String
   scopes                String[]
-  resource              String?
-  refreshTokenRotatedAt DateTime?
   createdAt             DateTime            @default(now())
   lastUsedAt            DateTime?
   lastIp                String?
+  resource              String?
+  refreshTokenRotatedAt DateTime?
+  mcpIdempotencyKeys    McpIdempotencyKey[]
+  mcpToolExecutions     McpToolExecution[]
   app                   OAuthApp            @relation(fields: [appId], references: [id], onDelete: Cascade)
   user                  User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  mcpToolExecutions     McpToolExecution[]
-  mcpIdempotencyKeys    McpIdempotencyKey[]
 
   @@index([accessToken])
   @@index([refreshToken])
@@ -395,9 +386,9 @@ model McpToolExecution {
   durationMs  Int?
   createdAt   DateTime    @default(now())
   completedAt DateTime?
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   app         OAuthApp    @relation(fields: [appId], references: [id], onDelete: Cascade)
-  token       OAuthToken? @relation(fields: [tokenId], references: [id], onDelete: SetNull)
+  token       OAuthToken? @relation(fields: [tokenId], references: [id])
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
   @@index([appId, createdAt])
@@ -443,11 +434,11 @@ model ShareToken {
   userId       String
   resourceType String
   resourceId   String
-  accessMode   String?   @default("PREVIEW")
   token        String    @unique @default(dbgenerated("gen_random_uuid()"))
   expiresAt    DateTime?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+  accessMode   String?   @default("PREVIEW")
   user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
@@ -529,9 +520,10 @@ model CoachingRequest {
   reviewedAt      DateTime?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  coach           User      @relation("CoachRequestsReceived", fields: [coachId], references: [id], onDelete: Cascade)
   athlete         User      @relation("AthleteRequestsSent", fields: [athleteId], references: [id], onDelete: Cascade)
+  coach           User      @relation("CoachRequestsReceived", fields: [coachId], references: [id], onDelete: Cascade)
 
+  @@unique([coachId, athleteId], map: "CoachingRequest_pending_unique_idx", where: raw("(status = 'PENDING'::text)"))
   @@index([coachId, status])
   @@index([athleteId, status])
 }
@@ -590,11 +582,11 @@ model Event {
   priority         String?  @default("B")
   websiteUrl       String?
   startTime        String?
-  syncStatus       String?  @default("SYNCED")
   syncError        String?
+  syncStatus       String?  @default("SYNCED")
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  goals            Goal[]   @relation("EventToGoal")
   participants     User[]   @relation("EventParticipants")
+  goals            Goal[]   @relation("EventToGoal")
 
   @@unique([userId, source, externalId])
   @@index([userId])
@@ -655,11 +647,6 @@ model Integration {
   user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, provider])
-  // Prevents two different users from concurrently linking the same external
-  // provider account (e.g. two Garmin OAuth callbacks racing on the same
-  // externalUserId). Postgres unique indexes treat NULL as distinct from any
-  // other value, so providers that never populate externalUserId (ultrahuman,
-  // hevy, yazio, ...) are unaffected and can still have unlimited NULL rows.
   @@unique([provider, externalUserId])
 }
 
@@ -682,7 +669,6 @@ model Workout {
   maxHr                           Int?
   tss                             Float?
   kilojoules                      Int?
-  tags                            String[]          @default([])
   rawJson                         Json?
   atl                             Float?
   averageCadence                  Int?
@@ -724,7 +710,6 @@ model Workout {
   completenessScore               Int?
   duplicateOf                     String?
   isDuplicate                     Boolean           @default(false)
-  customMetrics                   Json?             @default("{}")
   notes                           String?
   notesUpdatedAt                  DateTime?
   plannedWorkoutId                String?
@@ -735,7 +720,6 @@ model Workout {
   gearId                          String?
   isPrivate                       Boolean?          @default(false)
   shareToken                      String?           @unique
-  summaryPolyline                 String?           @db.Text
   carbsUsed                       Int?
   hrLoad                          Float?
   strainScore                     Float?
@@ -744,20 +728,23 @@ model Workout {
   workAboveFtp                    Int?
   feedback                        String?
   feedbackText                    String?
+  tags                            String[]          @default([])
+  summaryPolyline                 String?
   oauthAppId                      String?
+  customMetrics                   Json?             @default("{}")
   fitFile                         FitFile?
+  metricHistory                   MetricHistory[]
+  personalBests                   PersonalBest[]
   planAdherence                   PlanAdherence?
   reports                         ReportWorkout[]
   canonicalWorkout                Workout?          @relation("WorkoutDuplicates", fields: [duplicateOf], references: [id])
   duplicates                      Workout[]         @relation("WorkoutDuplicates")
-  oauthApp                        OAuthApp?         @relation("WorkoutOAuthApp", fields: [oauthAppId], references: [id], onDelete: SetNull)
+  oauthApp                        OAuthApp?         @relation("WorkoutOAuthApp", fields: [oauthAppId], references: [id])
   plannedWorkout                  PlannedWorkout?   @relation(fields: [plannedWorkoutId], references: [id])
   user                            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   exercises                       WorkoutExercise[]
   streams                         WorkoutStream?
   streamsV2                       WorkoutStreamV2?
-  metricHistory                   MetricHistory[]
-  personalBests                   PersonalBest[]
 
   @@unique([userId, source, externalId])
   @@index([tags], type: Gin)
@@ -841,11 +828,11 @@ model WorkoutStream {
   powerZoneTimes   Json?
   hrv              Json?
   leftRightBalance Json?
-  targetPower      Json?
   respiration      Json?
   temp             Json?
   torque           Json?
   extrasMeta       Json?
+  targetPower      Json?
   workout          Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
 
   @@index([workoutId])
@@ -888,33 +875,26 @@ model WorkoutStreamV2 {
 }
 
 model WorkoutTemplate {
-  id          String  @id @default(uuid())
-  userId      String
-  folderId    String?
-  title       String
-  description String?
-  type        String // Ride, Run, Swim, Gym
-  sport       String  @default("Cycling")
-  category    String? // Threshold, VO2Max, Endurance, etc.
-
-  // The structure: Reusable interval steps (same format as PlannedWorkout)
+  id                String                 @id @default(uuid())
+  userId            String
+  title             String
+  description       String?
+  type              String
+  sport             String                 @default("Cycling")
+  category          String?
   structuredWorkout Json?
-
-  durationSec   Int
-  tss           Float?
-  workIntensity Float?
-
-  // Meta-data for organization
-  tags       String[]
-  isPublic   Boolean   @default(false)
-  usageCount Int       @default(0)
-  lastUsedAt DateTime?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  folder WorkoutTemplateFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  durationSec       Int
+  tss               Float?
+  workIntensity     Float?
+  tags              String[]
+  isPublic          Boolean                @default(false)
+  usageCount        Int                    @default(0)
+  lastUsedAt        DateTime?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  folderId          String?
+  folder            WorkoutTemplateFolder? @relation(fields: [folderId], references: [id])
+  user              User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([category])
@@ -922,18 +902,17 @@ model WorkoutTemplate {
 }
 
 model WorkoutTemplateFolder {
-  id        String   @id @default(uuid())
+  id        String                  @id @default(uuid())
   userId    String
   parentId  String?
   name      String
-  order     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user      User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  parent    WorkoutTemplateFolder?  @relation("WorkoutTemplateFolderHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
-  children  WorkoutTemplateFolder[] @relation("WorkoutTemplateFolderHierarchy")
+  order     Int                     @default(0)
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
   templates WorkoutTemplate[]
+  parent    WorkoutTemplateFolder?  @relation("WorkoutTemplateFolderHierarchy", fields: [parentId], references: [id])
+  children  WorkoutTemplateFolder[] @relation("WorkoutTemplateFolderHierarchy")
+  user      User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([parentId])
@@ -944,10 +923,8 @@ model StrengthExerciseLibraryItem {
   id                 String   @id @default(uuid())
   userId             String
   title              String
-  aliases            String[] @default([])
   intent             String?
   movementPattern    String?
-  targetMuscleGroups String[]
   notes              String?
   videoUrl           String?
   sets               Int?
@@ -956,14 +933,15 @@ model StrengthExerciseLibraryItem {
   duration           Int?
   rest               String?
   rpe                Float?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
   prescriptionMode   String?
   loadMode           String?
   defaultRest        String?
   setRows            Json?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  targetMuscleGroups String[]
+  aliases            String[] @default([])
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([userId, updatedAt])
@@ -985,12 +963,10 @@ model FitFile {
 }
 
 model PlannedWorkout {
-  id                             String                          @id @default(uuid())
+  id                             String                         @id @default(uuid())
   userId                         String
   externalId                     String
-  date                           DateTime                        @db.Date
-  dayIndex                       Int? // 0-6 (Mon-Sun) for templates
-  weekIndex                      Int? // 1-N for templates
+  date                           DateTime                       @db.Date
   title                          String
   description                    String?
   type                           String?
@@ -999,42 +975,44 @@ model PlannedWorkout {
   distanceMeters                 Float?
   tss                            Float?
   workIntensity                  Float?
-  completed                      Boolean?                        @default(false)
+  completed                      Boolean?                       @default(false)
   rawJson                        Json?
-  createdAt                      DateTime                        @default(now())
-  updatedAt                      DateTime                        @updatedAt
+  createdAt                      DateTime                       @default(now())
+  updatedAt                      DateTime                       @updatedAt
   lastSyncedAt                   DateTime?
-  modifiedLocally                Boolean                         @default(false)
+  modifiedLocally                Boolean                        @default(false)
+  syncError                      String?
+  syncStatus                     String?                        @default("SYNCED")
+  shareToken                     String?                        @unique
+  completionStatus               String                         @default("PENDING")
+  structuredWorkout              Json?
+  trainingWeekId                 String?
+  targetArea                     String?
+  managedBy                      String                         @default("USER")
+  fuelingStrategy                String?
+  startTime                      String?
+  createdFromSettingsSnapshot    Json?
+  lastGenerationSettingsSnapshot Json?
+  lastGenerationContext          Json?
   lastStructureEditedAt          DateTime?
   lastStructureEditSource        String?
   lastStructurePublishedAt       DateTime?
   lastRemoteStructureSeenAt      DateTime?
   structureHash                  String?
   remoteStructureHash            String?
-  syncConflict                   Boolean                         @default(false)
+  syncConflict                   Boolean                        @default(false)
   pendingRemoteStructuredWorkout Json?
-  syncError                      String?
-  syncStatus                     String?                         @default("SYNCED")
-  structureRevision              Int                             @default(0)
-  generationRevision             Int                             @default(0)
-  shareToken                     String?                         @unique
-  completionStatus               String                          @default("PENDING")
-  structuredWorkout              Json?
-  trainingWeekId                 String?
-  targetArea                     String?
-  managedBy                      String                          @default("USER")
-  fuelingStrategy                String?
-  startTime                      String?
-  createdFromSettingsSnapshot    Json?
-  lastGenerationSettingsSnapshot Json?
-  lastGenerationContext          Json?
+  dayIndex                       Int?
+  weekIndex                      Int?
+  structureRevision              Int                            @default(0)
+  generationRevision             Int                            @default(0)
   recommendations                ActivityRecommendation[]
   planAdherences                 PlanAdherence[]
+  trainingWeek                   TrainingWeek?                  @relation(fields: [trainingWeekId], references: [id])
+  user                           User                           @relation(fields: [userId], references: [id], onDelete: Cascade)
   publishTargets                 PlannedWorkoutPublishTarget[]
-  structureGenerationRuns        WorkoutStructureGenerationRun[]
-  trainingWeek                   TrainingWeek?                   @relation(fields: [trainingWeekId], references: [id])
-  user                           User                            @relation(fields: [userId], references: [id], onDelete: Cascade)
   completedWorkouts              Workout[]
+  structureGenerationRuns        WorkoutStructureGenerationRun?
 
   @@unique([userId, externalId])
   @@index([userId, date])
@@ -1043,7 +1021,7 @@ model PlannedWorkout {
 
 model WorkoutStructureGenerationRun {
   id                 String         @id @default(uuid())
-  plannedWorkoutId   String
+  plannedWorkoutId   String         @unique(map: "WorkoutStructureGenerationRun_active_per_workout_idx", where: raw("(status = ANY (ARRAY['PENDING'::text, 'RUNNING'::text]))"))
   userId             String
   mode               String
   generationRevision Int
@@ -1118,8 +1096,8 @@ model DailyMetric {
   strainScore    Float?
   spO2           Float?
   sleepDeepSecs  Int?
-  sleepRemSecs   Int?
   sleepLightSecs Int?
+  sleepRemSecs   Int?
   sleepAwakeSecs Int?
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -1138,10 +1116,6 @@ model Wellness {
   sleepHours            Float?
   sleepScore            Int?
   sleepQuality          Int?
-  sleepDeepSecs         Int?
-  sleepRemSecs          Int?
-  sleepLightSecs        Int?
-  sleepAwakeSecs        Int?
   readiness             Int?
   recoveryScore         Int?
   soreness              Int?
@@ -1153,10 +1127,8 @@ model Wellness {
   spO2                  Float?
   ctl                   Float?
   atl                   Float?
-  tsb                   Float?
   comments              String?
   rawJson               Json?
-  customMetrics         Json?     @default("{}")
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
   abdomen               Float?
@@ -1172,13 +1144,6 @@ model Wellness {
   skinTemp              Float?
   systolic              Int?
   vo2max                Float?
-  restingCaloriesBurned Int?
-  activeCaloriesBurned  Int?
-  totalCaloriesBurned   Int?
-  steps                 Int?
-  distanceMeters        Float?
-  exerciseMinutes       Int?
-  floors                Int?
   aiAnalysis            String?
   aiAnalysisJson        Json?
   aiAnalysisStatus      String?   @default("NOT_STARTED")
@@ -1187,7 +1152,20 @@ model Wellness {
   feedbackText          String?
   history               Json?
   lastSource            String?
-  tags                  String? // Comma-separated tags (e.g. "Alcohol", "Sick")
+  tags                  String?
+  sleepDeepSecs         Int?
+  sleepLightSecs        Int?
+  sleepRemSecs          Int?
+  sleepAwakeSecs        Int?
+  restingCaloriesBurned Int?
+  activeCaloriesBurned  Int?
+  totalCaloriesBurned   Int?
+  customMetrics         Json?     @default("{}")
+  tsb                   Float?
+  steps                 Int?
+  distanceMeters        Float?
+  exerciseMinutes       Int?
+  floors                Int?
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, date])
@@ -1237,11 +1215,11 @@ model Nutrition {
   fuelingPlan                   Json?
   isManualLock                  Boolean           @default(false)
   sourcePrecedence              String?
-  startingGlycogenPercentage    Float?
-  startingFluidDeficit          Float?
-  endingGlycogenPercentage      Float?
   endingFluidDeficit            Float?
+  endingGlycogenPercentage      Float?
   isChainValid                  Boolean           @default(false)
+  startingFluidDeficit          Float?
+  startingGlycogenPercentage    Float?
   user                          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   reports                       ReportNutrition[]
 
@@ -1254,41 +1232,41 @@ model UserNutritionSettings {
   userId                  String   @unique
   bmr                     Int?
   activityLevel           String?
-  baseCaloriesMode        String   @default("AUTO")
-  nonExerciseBaseCalories Int?
   baseProteinPerKg        Float    @default(1.6)
   baseFatPerKg            Float    @default(1.0)
   currentCarbMax          Int      @default(60)
   ultimateCarbGoal        Int      @default(90)
   sweatRate               Float?
   sodiumTarget            Int      @default(750)
-  quickAddVolumes         Int[]    @default([250, 500, 750])
   preWorkoutWindow        Int      @default(120)
   postWorkoutWindow       Int      @default(60)
   carbsPerHourLow         Int      @default(30)
   carbsPerHourMedium      Int      @default(60)
   carbsPerHourHigh        Int      @default(90)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
   carbScalingFactor       Float    @default(1.0)
-  fuelingSensitivity      Float    @default(1.0)
-  fuelState1Trigger       Float    @default(0.60)
-  fuelState1Min           Float    @default(3.0)
-  fuelState1Max           Float    @default(4.5)
-  fuelState2Trigger       Float    @default(0.85)
-  fuelState2Min           Float    @default(5.0)
-  fuelState2Max           Float    @default(7.5)
-  fuelState3Min           Float    @default(8.0)
-  fuelState3Max           Float    @default(12.0)
-  metabolicFloor          Float    @default(0.60)
   enabledSupplements      String[] @default([])
   goalProfile             String   @default("MAINTAIN")
-  targetAdjustmentPercent Float    @default(0.0)
   mealPattern             Json?
+  targetAdjustmentPercent Float    @default(0.0)
   dietaryProfile          String[] @default([])
   foodAllergies           String[] @default([])
   foodIntolerances        String[] @default([])
   lifestyleExclusions     String[] @default([])
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  fuelState1Max           Float    @default(4.5)
+  fuelState1Min           Float    @default(3.0)
+  fuelState1Trigger       Float    @default(0.60)
+  fuelState2Max           Float    @default(7.5)
+  fuelState2Min           Float    @default(5.0)
+  fuelState2Trigger       Float    @default(0.85)
+  fuelState3Max           Float    @default(12.0)
+  fuelState3Min           Float    @default(8.0)
+  fuelingSensitivity      Float    @default(1.0)
+  metabolicFloor          Float    @default(0.60)
+  baseCaloriesMode        String   @default("AUTO")
+  nonExerciseBaseCalories Int?
+  quickAddVolumes         Int[]    @default([250, 500, 750])
   user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -1412,11 +1390,11 @@ model NutritionRecommendation {
   id          String   @id @default(uuid())
   userId      String
   date        DateTime @db.Date
-  scope       String // 'MEAL' | 'DAY'
-  windowType  String? // 'PRE_WORKOUT' | 'INTRA_WORKOUT' | 'POST_WORKOUT' | 'DAILY_BASE'
-  status      String   @default("PENDING") // 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED'
-  contextJson Json // target + constraints snapshot
-  resultJson  Json? // recommendation options
+  scope       String
+  windowType  String?
+  status      String   @default("PENDING")
+  contextJson Json
+  resultJson  Json?
   runId       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -1431,7 +1409,7 @@ model NutritionPlan {
   userId                 String
   startDate              DateTime            @db.Date
   endDate                DateTime            @db.Date
-  status                 String              @default("DRAFT") // 'DRAFT' | 'ACTIVE' | 'LOCKED' | 'COMPLETED'
+  status                 String              @default("DRAFT")
   sourceRecommendationId String?
   summaryJson            Json?
   createdAt              DateTime            @default(now())
@@ -1449,9 +1427,9 @@ model NutritionPlanMeal {
   date                  DateTime      @db.Date
   windowType            String
   scheduledAt           DateTime
-  status                String        @default("PLANNED") // 'PLANNED' | 'DONE' | 'SKIPPED' | 'REPLACED'
-  targetJson            Json // macro target snapshot
-  mealJson              Json // selected option, ingredients, portions, absorption type
+  status                String        @default("PLANNED")
+  targetJson            Json
+  mealJson              Json
   actualNutritionItemId String?
   createdAt             DateTime      @default(now())
   updatedAt             DateTime      @updatedAt
@@ -1464,15 +1442,15 @@ model NutritionPlanMeal {
 model MealOptionCatalog {
   id             String   @id @default(uuid())
   title          String
-  windowType     String // 'PRE' | 'INTRA' | 'POST' | 'BASE'
-  absorptionType String // 'RAPID' | 'BALANCED' | 'COMPLEX'
-  dietaryBuckets String[] // 'VEGAN', 'GLUTEN_FREE', etc.
-  baseMacros     Json // { carbs, protein, fat, kcal }
-  keyIngredient  String // The primary carb source for scaling
-  ingredients    Json // List of items with quantity, unit, isScalable
+  windowType     String
+  absorptionType String
+  dietaryBuckets String[]
+  baseMacros     Json
+  keyIngredient  String
+  ingredients    Json
   prepMinutes    Int
-  constraintTags String[] // 'low-fodmap', 'no-nuts', etc.
-  source         String   @default("SYSTEM") // 'SYSTEM' | 'LLM'
+  constraintTags String[]
+  source         String   @default("SYSTEM")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
@@ -1494,13 +1472,20 @@ model TrainingPlan {
   description            String?
   fromTemplateId         String?
   isTemplate             Boolean                        @default(false)
+  name                   String?
+  activityTypes          Json?
+  customInstructions     String?
+  recoveryRhythm         Int                            @default(4)
+  hasBeenSavedAsTemplate Boolean                        @default(false)
+  difficulty             Int?                           @default(5)
   isPublic               Boolean                        @default(false)
   slug                   String?                        @unique
+  athleteNotes           String?
+  coachNotes             String?
   visibility             String                         @default("PRIVATE")
   accessState            String                         @default("PRIVATE")
   primarySport           String?
   sportSubtype           String?
-  difficulty             Int?                           @default(5)
   skillLevel             String?
   planLanguage           String?
   daysPerWeek            Int?
@@ -1514,24 +1499,17 @@ model TrainingPlan {
   faq                    String?
   extraContent           String?
   isFeatured             Boolean                        @default(false)
-  name                   String?
-  coachNotes             String?
-  athleteNotes           String?
-  activityTypes          Json?
-  customInstructions     String?
-  recoveryRhythm         Int                            @default(4)
-  hasBeenSavedAsTemplate Boolean                        @default(false)
   folderId               String?
   teamId                 String?
+  favorites              FavoriteTrainingPlan[]
   blocks                 TrainingBlock[]
-  sampleWeeks            TrainingPlanPublicSampleWeek[]
+  folder                 TrainingPlanFolder?            @relation(fields: [folderId], references: [id])
   template               TrainingPlan?                  @relation("PlanTemplate", fields: [fromTemplateId], references: [id])
   derivedPlans           TrainingPlan[]                 @relation("PlanTemplate")
   goal                   Goal?                          @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  team                   Team?                          @relation(fields: [teamId], references: [id])
   user                   User                           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  folder                 TrainingPlanFolder?            @relation(fields: [folderId], references: [id], onDelete: SetNull)
-  team                   Team?                          @relation(fields: [teamId], references: [id], onDelete: SetNull)
-  favorites              FavoriteTrainingPlan[]
+  sampleWeeks            TrainingPlanPublicSampleWeek[]
 
   @@index([userId, status])
   @@index([isTemplate])
@@ -1549,7 +1527,6 @@ model TrainingBlock {
   trainingPlanId    String
   order             Int
   name              String
-  description       String?
   type              String
   primaryFocus      String
   startDate         DateTime
@@ -1558,6 +1535,7 @@ model TrainingBlock {
   progressionLogic  String?
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt
+  description       String?
   plan              TrainingPlan   @relation(fields: [trainingPlanId], references: [id], onDelete: Cascade)
   weeks             TrainingWeek[]
 
@@ -1580,8 +1558,8 @@ model TrainingWeek {
   focusKey            String?
   focusLabel          String?
   workouts            PlannedWorkout[]
-  block               TrainingBlock                  @relation(fields: [blockId], references: [id], onDelete: Cascade)
   publicPlanSamples   TrainingPlanPublicSampleWeek[]
+  block               TrainingBlock                  @relation(fields: [blockId], references: [id], onDelete: Cascade)
 
   @@index([blockId, weekNumber])
 }
@@ -1614,7 +1592,7 @@ model TrainingAvailability {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   bikeAccess     Boolean  @default(false)
-  slots          Json? // Detailed slot-specific availability
+  slots          Json?
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, dayOfWeek])
@@ -1721,10 +1699,10 @@ model ChatRoom {
   deletedAt     DateTime?
   lastMessageAt DateTime?         @default(now())
   metadata      Json?
-  messages      ChatMessage[]
-  turns         ChatTurn[]
-  users         ChatParticipant[]
   bugReports    BugReport[]
+  messages      ChatMessage[]
+  users         ChatParticipant[]
+  turns         ChatTurn[]
   memories      UserMemory[]
 
   @@index([lastMessageAt])
@@ -1748,8 +1726,8 @@ model UserMemory {
   metadata        Json?
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
-  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   room            ChatRoom?          @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, status])
   @@index([userId, scope, status])
@@ -1772,7 +1750,6 @@ model ChatMessage {
   id        String    @id @default(uuid())
   content   String
   roomId    String
-  turnId    String?
   senderId  String
   files     Json?
   replyToId String?
@@ -1780,8 +1757,9 @@ model ChatMessage {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   metadata  Json?
+  turnId    String?
   room      ChatRoom  @relation(fields: [roomId], references: [id], onDelete: Cascade)
-  turn      ChatTurn? @relation(fields: [turnId], references: [id], onDelete: SetNull)
+  turn      ChatTurn? @relation(fields: [turnId], references: [id])
 
   @@index([roomId, createdAt])
   @@index([turnId])
@@ -1805,12 +1783,12 @@ model ChatTurn {
   metadata           Json?
   createdAt          DateTime                @default(now())
   updatedAt          DateTime                @updatedAt
+  messages           ChatMessage[]
   room               ChatRoom                @relation(fields: [roomId], references: [id], onDelete: Cascade)
   user               User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  messages           ChatMessage[]
-  llmUsage           LlmUsage[]
   events             ChatTurnEvent[]
   toolExecutions     ChatTurnToolExecution[]
+  llmUsage           LlmUsage[]
 
   @@index([roomId, createdAt])
   @@index([userId, createdAt])
@@ -1858,7 +1836,6 @@ model SyncQueue {
   entityType        String
   entityId          String
   operation         String
-  structureRevision Int?
   payload           Json
   status            String    @default("PENDING")
   attempts          Int       @default(0)
@@ -1867,6 +1844,7 @@ model SyncQueue {
   completedAt       DateTime?
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
+  structureRevision Int?
   user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, status])
@@ -1903,8 +1881,8 @@ model PartnerCampaign {
   isActive           Boolean                     @default(true)
   createdAt          DateTime                    @default(now())
   updatedAt          DateTime                    @updatedAt
-  redemptions        PartnerCampaignRedemption[]
   campaignEvents     PartnerCampaignEvent[]
+  redemptions        PartnerCampaignRedemption[]
 
   @@index([isActive])
 }
@@ -1977,7 +1955,6 @@ model PartnerCampaignEvent {
 model LlmUsage {
   id               String    @id @default(uuid())
   userId           String?
-  turnId           String?
   provider         String
   model            String
   modelType        String?
@@ -1986,12 +1963,9 @@ model LlmUsage {
   entityId         String?
   promptTokens     Int?
   completionTokens Int?
-  cachedTokens     Int?      @default(0)
-  reasoningTokens  Int?      @default(0)
   totalTokens      Int?
   estimatedCost    Float?
   durationMs       Int?
-  ttft             Int?
   retryCount       Int       @default(0)
   success          Boolean
   errorType        String?
@@ -2003,9 +1977,13 @@ model LlmUsage {
   responseFull     String?
   feedback         String?
   feedbackText     String?
+  cachedTokens     Int?      @default(0)
+  reasoningTokens  Int?      @default(0)
+  ttft             Int?
   counted          Boolean   @default(true)
+  turnId           String?
+  turn             ChatTurn? @relation(fields: [turnId], references: [id])
   user             User?     @relation(fields: [userId], references: [id])
-  turn             ChatTurn? @relation(fields: [turnId], references: [id], onDelete: SetNull)
 
   @@index([userId, createdAt])
   @@index([turnId])
@@ -2023,7 +2001,6 @@ model PlanAdherence {
   intensityScore   Int?
   durationScore    Int?
   executionScore   Int?
-  cadenceScore     Int?
   summary          String?
   deviations       Json?
   recommendations  Json?
@@ -2032,6 +2009,7 @@ model PlanAdherence {
   modelVersion     String?
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
+  cadenceScore     Int?
   plannedWorkout   PlannedWorkout @relation(fields: [plannedWorkoutId], references: [id], onDelete: Cascade)
   workout          Workout        @relation(fields: [workoutId], references: [id], onDelete: Cascade)
 
@@ -2076,14 +2054,14 @@ model WebhookLog {
 
 model LlmAnalysisLevelSettings {
   id             String                 @id @default(uuid())
-  level          String                 @unique // 'flash', 'pro', 'experimental'
-  model          String                 @default("flash") // flash/pro family
-  modelId        String                 @default("gemini-2.5-flash") // exact ID
+  level          String                 @unique
+  model          String                 @default("flash")
   thinkingBudget Int                    @default(2000)
   thinkingLevel  String                 @default("low")
   maxSteps       Int                    @default(3)
   createdAt      DateTime               @default(now())
   updatedAt      DateTime               @updatedAt
+  modelId        String                 @default("gemini-2.5-flash")
   overrides      LlmOperationOverride[]
 }
 
@@ -2092,65 +2070,15 @@ model LlmOperationOverride {
   analysisLevelSettingsId String
   operation               String
   model                   String?
-  modelId                 String?
   thinkingBudget          Int?
   thinkingLevel           String?
   maxSteps                Int?
   createdAt               DateTime                 @default(now())
   updatedAt               DateTime                 @updatedAt
+  modelId                 String?
   analysisLevelSettings   LlmAnalysisLevelSettings @relation(fields: [analysisLevelSettingsId], references: [id], onDelete: Cascade)
 
   @@unique([analysisLevelSettingsId, operation])
-}
-
-enum ReferralStatus {
-  ATTRIBUTED
-  REWARDED
-  REVOKED
-}
-
-enum SubscriptionTier {
-  FREE
-  SUPPORTER
-  PRO
-}
-
-enum TeamVisibility {
-  COACHES_ONLY
-  TEAMMATES
-}
-
-enum SubscriptionStatus {
-  ACTIVE
-  CANCELED
-  PAST_DUE
-  UNPAID
-  NONE
-  CONTRIBUTOR
-}
-
-enum SubscriptionProvider {
-  STRIPE
-  APPLE
-  GOOGLE
-}
-
-enum ProviderSubscriptionStatus {
-  ACTIVE
-  CANCELED
-  GRACE_PERIOD
-  BILLING_RETRY
-  PAST_DUE
-  PAUSED
-  PENDING
-  EXPIRED
-  REVOKED
-  UNKNOWN
-}
-
-enum SubscriptionEnvironment {
-  SANDBOX
-  PRODUCTION
 }
 
 model ProviderSubscription {
@@ -2190,8 +2118,8 @@ model SubscriptionLifecycleEvent {
   environment            SubscriptionEnvironment
   payload                Json?
   createdAt              DateTime                @default(now())
-  providerSubscription   ProviderSubscription?   @relation(fields: [providerSubscriptionId], references: [id], onDelete: SetNull)
-  user                   User?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  providerSubscription   ProviderSubscription?   @relation(fields: [providerSubscriptionId], references: [id])
+  user                   User?                   @relation(fields: [userId], references: [id])
 
   @@index([userId, eventAt])
   @@index([provider, eventAt])
@@ -2206,13 +2134,13 @@ model BugReport {
   context     Json?
   logs        String?
   status      BugStatus          @default(OPEN)
-  priority    String?            @default("MEDIUM")
-  metadata    Json?
-  reactions   Json?
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
-  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  metadata    Json?
+  priority    String?            @default("MEDIUM")
+  reactions   Json?
   chatRoom    ChatRoom?          @relation(fields: [chatRoomId], references: [id])
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments    BugReportComment[]
 
   @@index([userId])
@@ -2226,30 +2154,17 @@ model BugReportComment {
   userId         String
   content        String
   isAdmin        Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
   type           CommentType @default(MESSAGE)
   acknowledgedAt DateTime?
   acknowledgedBy String?
   reactions      Json?
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
   bugReport      BugReport   @relation(fields: [bugReportId], references: [id], onDelete: Cascade)
   user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([bugReportId])
   @@index([userId])
-}
-
-enum CommentType {
-  NOTE
-  MESSAGE
-}
-
-enum BugStatus {
-  OPEN
-  IN_PROGRESS
-  NEED_MORE_INFO
-  RESOLVED
-  CLOSED
 }
 
 model UserNotification {
@@ -2305,7 +2220,7 @@ model AthleteJourneyEvent {
   category           JourneyEventCategory
   severity           Int                  @default(5)
   description        String?
-  metabolicSnapshot  Json? // Stores E_bal, Fluid_debt, and Carb_rate at the time of the event
+  metabolicSnapshot  Json?
   suspectedTriggerId String?
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
@@ -2313,6 +2228,429 @@ model AthleteJourneyEvent {
 
   @@index([userId, timestamp])
   @@index([category])
+}
+
+model EmailPreference {
+  id                String                 @id @default(uuid())
+  userId            String
+  channel           EmailPreferenceChannel @default(EMAIL)
+  onboarding        Boolean                @default(true)
+  workoutAnalysis   Boolean                @default(true)
+  planUpdates       Boolean                @default(true)
+  billing           Boolean                @default(true)
+  productUpdates    Boolean                @default(true)
+  retentionNudges   Boolean                @default(true)
+  marketing         Boolean                @default(false)
+  globalUnsubscribe Boolean                @default(false)
+  consentUpdatedAt  DateTime               @default(now())
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  dailyCoach        Boolean                @default(true)
+  dailyCoachDays    String[]               @default(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"])
+  dailyCoachTime    String?                @default("07:00")
+  thresholdUpdates  Boolean                @default(true)
+  user              User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, channel])
+  @@index([userId])
+}
+
+model EmailDelivery {
+  id                String              @id @default(uuid())
+  userId            String?
+  templateKey       String
+  provider          EmailProvider       @default(RESEND)
+  providerMessageId String?             @unique
+  eventKey          String
+  audience          EmailAudience
+  status            EmailDeliveryStatus @default(QUEUED)
+  toEmail           String
+  subject           String
+  fromEmail         String?
+  replyToEmail      String?
+  idempotencyKey    String?             @unique
+  metadata          Json?
+  errorCode         String?
+  errorMessage      String?
+  queuedAt          DateTime?
+  sentAt            DateTime?
+  deliveredAt       DateTime?
+  openedAt          DateTime?
+  clickedAt         DateTime?
+  bouncedAt         DateTime?
+  complainedAt      DateTime?
+  unsubscribedAt    DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  htmlBody          String?
+  textBody          String?
+  user              User?               @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+  @@index([eventKey, createdAt])
+  @@index([status, createdAt])
+  @@index([toEmail, createdAt])
+}
+
+model EmailSuppression {
+  id        String   @id @default(uuid())
+  email     String
+  reason    String
+  source    String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, reason, active])
+  @@index([email])
+}
+
+model MetricHistory {
+  id               String   @id @default(uuid())
+  userId           String
+  type             String
+  value            Float
+  oldValue         Float?
+  date             DateTime @default(now())
+  workoutId        String?
+  source           String   @default("AUTOMATIC")
+  notes            String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  sportProfileName String?
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workout          Workout? @relation(fields: [workoutId], references: [id])
+
+  @@index([userId])
+  @@index([type])
+  @@index([date])
+}
+
+model BodyMeasurementEntry {
+  id            String   @id @default(uuid())
+  userId        String
+  recordedAt    DateTime
+  metricKey     String
+  displayName   String?
+  value         Float
+  unit          String
+  source        String
+  sourceRefType String?
+  sourceRefId   String?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  isDuplicate   Boolean  @default(false)
+  customMetrics Json?    @default("{}")
+  isDeleted     Boolean  @default(false)
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, metricKey, recordedAt(sort: Desc)])
+  @@index([userId, recordedAt(sort: Desc)])
+}
+
+model PersonalBest {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  category  String
+  value     Float
+  unit      String
+  date      DateTime
+  workoutId String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  metadata  Json?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workout   Workout? @relation(fields: [workoutId], references: [id])
+
+  @@unique([userId, type])
+  @@index([userId])
+  @@index([category])
+}
+
+model Team {
+  id            String         @id @default(uuid())
+  name          String
+  slug          String         @unique
+  description   String?
+  ownerId       String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  groups        AthleteGroup[]
+  owner         User           @relation("TeamOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  invites       TeamInvite[]
+  members       TeamMember[]
+  trainingPlans TrainingPlan[]
+
+  @@index([ownerId])
+}
+
+model TeamMember {
+  id        String   @id @default(uuid())
+  teamId    String
+  userId    String
+  role      TeamRole @default(ATHLETE)
+  status    String   @default("ACTIVE")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@index([teamId])
+  @@index([userId])
+}
+
+model AthleteGroup {
+  id          String               @id @default(uuid())
+  name        String
+  description String?
+  coachId     String
+  teamId      String?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  coach       User                 @relation("CoachGroups", fields: [coachId], references: [id], onDelete: Cascade)
+  team        Team?                @relation(fields: [teamId], references: [id])
+  members     AthleteGroupMember[]
+  invites     TeamInvite[]
+
+  @@index([coachId])
+  @@index([teamId])
+}
+
+model AthleteGroupMember {
+  id        String       @id @default(uuid())
+  groupId   String
+  athleteId String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  athlete   User         @relation("AthleteGroupMemberships", fields: [athleteId], references: [id], onDelete: Cascade)
+  group     AthleteGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, athleteId])
+  @@index([groupId])
+  @@index([athleteId])
+}
+
+model TeamInvite {
+  id        String        @id @default(uuid())
+  teamId    String
+  email     String?
+  role      TeamRole      @default(ATHLETE)
+  code      String        @unique
+  status    String        @default("PENDING")
+  expiresAt DateTime
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  groupId   String?
+  group     AthleteGroup? @relation(fields: [groupId], references: [id])
+  team      Team          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([teamId])
+  @@index([code])
+}
+
+model CustomFieldDefinition {
+  id         String   @id @default(uuid())
+  ownerId    String
+  entityType String
+  fieldKey   String
+  label      String
+  dataType   String
+  unit       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  owner      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@unique([ownerId, entityType, fieldKey])
+  @@index([ownerId])
+}
+
+model Dashboard {
+  id        String   @id @default(uuid())
+  ownerId   String
+  name      String
+  layout    Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     Int      @default(0)
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  widgets   Widget[]
+
+  @@index([ownerId])
+  @@index([ownerId, order])
+}
+
+model Widget {
+  id          String     @id @default(uuid())
+  ownerId     String
+  dashboardId String?
+  name        String
+  config      Json
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  dashboard   Dashboard? @relation(fields: [dashboardId], references: [id])
+  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([ownerId])
+  @@index([dashboardId])
+}
+
+model TrainingPlanFolder {
+  id        String               @id @default(uuid())
+  userId    String
+  parentId  String?
+  name      String
+  order     Int                  @default(0)
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+  plans     TrainingPlan[]
+  parent    TrainingPlanFolder?  @relation("TrainingPlanFolderHierarchy", fields: [parentId], references: [id])
+  children  TrainingPlanFolder[] @relation("TrainingPlanFolderHierarchy")
+  user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([parentId])
+}
+
+model FavoriteTrainingPlan {
+  id        String       @id @default(uuid())
+  userId    String
+  planId    String
+  createdAt DateTime     @default(now())
+  plan      TrainingPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, planId])
+  @@index([userId])
+  @@index([planId])
+}
+
+model CheckIn {
+  id                 String          @id @default(uuid())
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  userId             String
+  personalChallenges String?
+  personalGoals      String?
+  personalHighlights String?
+  personalNotes      String?
+  wellnessInjury     String?
+  wellnessPain       String?
+  personalFatigue    Int?
+  trainingDifficulty Int?
+  trainingHydration  Int?
+  trainingLoad       Int?
+  trainingNutrition  Int?
+  trainingRecovery   Int?
+  wellnessSleep      Int?
+  wellnessStress     Int?
+  wellnessPainScore  Int?            @default(1)
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedbacks          CoachFeedback[]
+
+  @@index([userId])
+}
+
+model CoachFeedback {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     String
+  checkInId  String?
+  komodoUrl  String?
+  coachNotes String?
+  checkIn    CheckIn? @relation(fields: [checkInId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([checkInId])
+}
+
+model ScheduledTaskConfig {
+  id             String    @id @default(cuid())
+  taskName       String    @unique
+  displayName    String
+  cronExpression String
+  enabled        Boolean   @default(true)
+  lastRunAt      DateTime?
+  lastStatus     String?
+  lastError      String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+enum Role {
+  FREE
+  UNCOVER
+  UNLOCK
+  UNLEASH
+  ADMIN
+}
+
+enum ReferralStatus {
+  ATTRIBUTED
+  REWARDED
+  REVOKED
+}
+
+enum SubscriptionTier {
+  FREE
+  SUPPORTER
+  PRO
+}
+
+enum TeamVisibility {
+  COACHES_ONLY
+  TEAMMATES
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  UNPAID
+  NONE
+  CONTRIBUTOR
+}
+
+enum SubscriptionProvider {
+  STRIPE
+  APPLE
+  GOOGLE
+}
+
+enum ProviderSubscriptionStatus {
+  ACTIVE
+  CANCELED
+  GRACE_PERIOD
+  BILLING_RETRY
+  PAST_DUE
+  PAUSED
+  PENDING
+  EXPIRED
+  REVOKED
+  UNKNOWN
+}
+
+enum SubscriptionEnvironment {
+  SANDBOX
+  PRODUCTION
+}
+
+enum CommentType {
+  NOTE
+  MESSAGE
+}
+
+enum BugStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  NEED_MORE_INFO
 }
 
 enum JourneyEventType {
@@ -2340,7 +2678,6 @@ enum EmailAudience {
 
 enum EmailDeliveryStatus {
   QUEUED
-  SENDING
   SENT
   DELIVERED
   OPENED
@@ -2350,6 +2687,7 @@ enum EmailDeliveryStatus {
   UNSUBSCRIBED
   FAILED
   SUPPRESSED
+  SENDING
 }
 
 enum EmailProvider {
@@ -2386,385 +2724,9 @@ enum UserMemoryStatus {
   DELETED
 }
 
-model EmailPreference {
-  id                String                 @id @default(uuid())
-  userId            String
-  channel           EmailPreferenceChannel @default(EMAIL)
-  onboarding        Boolean                @default(true)
-  workoutAnalysis   Boolean                @default(true)
-  thresholdUpdates  Boolean                @default(true)
-  planUpdates       Boolean                @default(true)
-  billing           Boolean                @default(true) // usually required/limited toggle UX
-  productUpdates    Boolean                @default(true)
-  retentionNudges   Boolean                @default(true)
-  dailyCoach        Boolean                @default(true)
-  dailyCoachTime    String?                @default("07:00") // 24h format HH:mm
-  dailyCoachDays    String[]               @default(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"])
-  marketing         Boolean                @default(false)
-  globalUnsubscribe Boolean                @default(false)
-  consentUpdatedAt  DateTime               @default(now())
-  createdAt         DateTime               @default(now())
-  updatedAt         DateTime               @updatedAt
-  user              User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, channel])
-  @@index([userId])
-}
-
-model EmailDelivery {
-  id                String              @id @default(uuid())
-  userId            String?
-  templateKey       String // e.g. WORKOUT_ANALYSIS_READY_V1 (maps to code component)
-  provider          EmailProvider       @default(RESEND)
-  providerMessageId String?             @unique
-  eventKey          String // e.g. WORKOUT_ANALYSIS_READY
-  audience          EmailAudience
-  status            EmailDeliveryStatus @default(QUEUED)
-  toEmail           String
-  subject           String
-  htmlBody          String?             @db.Text
-  textBody          String?             @db.Text
-  fromEmail         String?
-  replyToEmail      String?
-  idempotencyKey    String?             @unique
-  metadata          Json?
-  errorCode         String?
-  errorMessage      String?
-  queuedAt          DateTime?
-  sentAt            DateTime?
-  deliveredAt       DateTime?
-  openedAt          DateTime?
-  clickedAt         DateTime?
-  bouncedAt         DateTime?
-  complainedAt      DateTime?
-  unsubscribedAt    DateTime?
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  user              User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  @@index([userId, createdAt])
-  @@index([eventKey, createdAt])
-  @@index([status, createdAt])
-  @@index([toEmail, createdAt])
-}
-
-model EmailSuppression {
-  id        String   @id @default(uuid())
-  email     String
-  reason    String // UNSUBSCRIBE, BOUNCE, COMPLAINT, MANUAL
-  source    String? // webhook/manual/system
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([email, reason, active])
-  @@index([email])
-}
-
-model MetricHistory {
-  id     String @id @default(uuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  type     String // LTHR, FTP, MAX_HR, THRESHOLD_PACE, PEAK_POWER_5S, etc.
-  value    Float
-  oldValue Float?
-
-  date      DateTime @default(now())
-  workoutId String?
-  workout   Workout? @relation(fields: [workoutId], references: [id], onDelete: SetNull)
-
-  source           String  @default("AUTOMATIC") // AUTOMATIC, MANUAL
-  sportProfileName String?
-  notes            String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-  @@index([type])
-  @@index([date])
-}
-
-model BodyMeasurementEntry {
-  id            String   @id @default(uuid())
-  userId        String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  recordedAt    DateTime
-  metricKey     String
-  displayName   String?
-  value         Float
-  unit          String
-  source        String
-  sourceRefType String?
-  sourceRefId   String?
-  notes         String?
-  isDuplicate   Boolean  @default(false)
-  isDeleted     Boolean  @default(false)
-  customMetrics Json?    @default("{}")
-  createdAt     DateTime @default(now())
-
-  updatedAt DateTime @updatedAt
-
-  @@index([userId, metricKey, recordedAt(sort: Desc)])
-  @@index([userId, recordedAt(sort: Desc)])
-}
-
-model PersonalBest {
-  id     String @id @default(uuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  type     String // RUN_1K, RUN_5K, POWER_5S, POWER_20M, CLIMB_MAX, etc.
-  category String // RUN, CYCLE, SWIM, OTHER
-  value    Float
-  unit     String
-
-  date      DateTime
-  workoutId String?
-  workout   Workout? @relation(fields: [workoutId], references: [id], onDelete: SetNull)
-
-  notes    String?
-  metadata Json? // Context stats: { avgHr: 160, avgCadence: 90, etc. }
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, type]) // Each user has one all-time best per type
-  @@index([userId])
-  @@index([category])
-}
-
 enum TeamRole {
   OWNER
   ADMIN
   COACH
   ATHLETE
-}
-
-model Team {
-  id            String         @id @default(uuid())
-  name          String
-  slug          String         @unique
-  description   String?
-  ownerId       String
-  owner         User           @relation("TeamOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  members       TeamMember[]
-  groups        AthleteGroup[]
-  invites       TeamInvite[]
-  trainingPlans TrainingPlan[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-
-  @@index([ownerId])
-}
-
-model TeamMember {
-  id        String   @id @default(uuid())
-  teamId    String
-  userId    String
-  role      TeamRole @default(ATHLETE)
-  status    String   @default("ACTIVE")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([teamId, userId])
-  @@index([teamId])
-  @@index([userId])
-}
-
-model AthleteGroup {
-  id          String               @id @default(uuid())
-  name        String
-  description String?
-  coachId     String
-  teamId      String?
-  createdAt   DateTime             @default(now())
-  updatedAt   DateTime             @updatedAt
-  coach       User                 @relation("CoachGroups", fields: [coachId], references: [id], onDelete: Cascade)
-  team        Team?                @relation(fields: [teamId], references: [id], onDelete: SetNull)
-  members     AthleteGroupMember[]
-  invites     TeamInvite[]
-
-  @@index([coachId])
-  @@index([teamId])
-}
-
-model AthleteGroupMember {
-  id        String       @id @default(uuid())
-  groupId   String
-  athleteId String
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
-  athlete   User         @relation("AthleteGroupMemberships", fields: [athleteId], references: [id], onDelete: Cascade)
-  group     AthleteGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
-
-  @@unique([groupId, athleteId])
-  @@index([groupId])
-  @@index([athleteId])
-}
-
-model TeamInvite {
-  id        String        @id @default(uuid())
-  teamId    String
-  email     String? // Optional: restrict to a specific email
-  role      TeamRole      @default(ATHLETE)
-  code      String        @unique
-  status    String        @default("PENDING") // PENDING, ACCEPTED, EXPIRED, REVOKED
-  expiresAt DateTime
-  groupId   String?
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
-  team      Team          @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  group     AthleteGroup? @relation(fields: [groupId], references: [id], onDelete: SetNull)
-
-  @@index([teamId])
-  @@index([code])
-}
-
-model CustomFieldDefinition {
-  id         String   @id @default(uuid())
-  ownerId    String // The User who defined this field
-  entityType String // "WELLNESS" | "WORKOUT"
-  fieldKey   String // The key in the JSONB object
-  label      String // Display name
-  dataType   String // "NUMBER" | "BOOLEAN" | "STRING"
-  unit       String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  owner      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-
-  @@unique([ownerId, entityType, fieldKey])
-  @@index([ownerId])
-}
-
-model Dashboard {
-  id        String   @id @default(uuid())
-  ownerId   String
-  name      String
-  layout    Json // [{ widgetId: string, x: number, y: number, w: number, h: number }]
-  order     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  widgets   Widget[]
-
-  @@index([ownerId])
-  @@index([ownerId, order])
-}
-
-model Widget {
-  id          String     @id @default(uuid())
-  ownerId     String
-  dashboardId String?
-  name        String
-  config      Json // The AQL configuration
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  dashboard   Dashboard? @relation(fields: [dashboardId], references: [id], onDelete: SetNull)
-
-  @@index([ownerId])
-  @@index([dashboardId])
-}
-
-model TrainingPlanFolder {
-  id        String   @id @default(uuid())
-  userId    String
-  parentId  String?
-  name      String
-  order     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user     User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  parent   TrainingPlanFolder?  @relation("TrainingPlanFolderHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
-  children TrainingPlanFolder[] @relation("TrainingPlanFolderHierarchy")
-  plans    TrainingPlan[]
-
-  @@index([userId])
-  @@index([parentId])
-}
-
-model FavoriteTrainingPlan {
-  id        String   @id @default(uuid())
-  userId    String
-  planId    String
-  createdAt DateTime @default(now())
-
-  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  plan TrainingPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, planId])
-  @@index([userId])
-  @@index([planId])
-}
-
-// 1. Add CheckIn model
-model CheckIn {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
-  userId    String
-  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feedbacks CoachFeedback[]
-
-  // Text Responses
-  personalChallenges String?
-  personalGoals      String?
-  personalHighlights String?
-  personalNotes      String? @db.Text
-  wellnessInjury     String?
-  wellnessPain       String?
-  wellnessPainScore  Int?    @default(1)
-
-  // Integer Metrics (1-10 scales)
-  personalFatigue    Int?
-  trainingDifficulty Int?
-  trainingHydration  Int?
-  trainingLoad       Int?
-  trainingNutrition  Int?
-  trainingRecovery   Int?
-  wellnessSleep      Int?
-  wellnessStress     Int?
-
-  @@index([userId])
-}
-
-// 2. Add CoachFeedback model
-model CoachFeedback {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  checkInId String?
-  checkIn   CheckIn? @relation(fields: [checkInId], references: [id], onDelete: SetNull)
-
-  // Content
-  komodoUrl  String?
-  coachNotes String? @db.Text
-
-  @@index([userId])
-  @@index([checkInId])
-}
-
-
-model ScheduledTaskConfig {
-  id             String    @id @default(cuid())
-  taskName       String    @unique
-  displayName    String
-  cronExpression String
-  enabled        Boolean   @default(true)
-  lastRunAt      DateTime?
-  lastStatus     String?
-  lastError      String?   @db.Text
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
 }
