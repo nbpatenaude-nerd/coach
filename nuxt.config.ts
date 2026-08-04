@@ -421,11 +421,17 @@ export default defineNuxtConfig({
       '@tolgee/web',
       '@tolgee/format-icu',
       '@modelcontextprotocol/server',
-      '@modelcontextprotocol/node'
+      '@modelcontextprotocol/node',
+      '@prisma/client'
     ]
   },
 
   vite: {
+    resolve: {
+      alias: {
+        '.prisma/client/index-browser': './node_modules/.prisma/client/index-browser.js'
+      }
+    },
     server: {
       watch: {
         ignored: [
