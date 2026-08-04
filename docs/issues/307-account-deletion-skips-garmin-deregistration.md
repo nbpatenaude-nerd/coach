@@ -9,12 +9,12 @@
 
 ## Description
 
-Garmin Developer Program Start Guide requires partners to call delete-user-registration when the partner app provides Delete Account / Opt-Out. Disconnect already did this; full account deletion did not — tokens could remain registered at Garmin after Coach Watts wiped the user.
+Garmin Developer Program Start Guide requires partners to call delete-user-registration when the partner app provides Delete Account / Opt-Out. Disconnect already did this; full account deletion did not — tokens could remain registered at Garmin after Journey Endurance Coaching Platform wiped the user.
 
 ## Steps to Reproduce
 
 1. Connect Garmin on an account.
-2. Delete the Coach Watts account (self-serve or admin).
+2. Delete the Journey Endurance Coaching Platform account (self-serve or admin).
 3. Observe no `DELETE https://apis.garmin.com/wellness-api/rest/user/registration` before DB cascade.
 
 ## Expected Behavior

@@ -1,9 +1,9 @@
 # Strava API Application Description & Use Case
 
-**Application Name:** Coach Watts
+**Application Name:** Journey Endurance Coaching Platform
 
 **Description:**
-Coach Watts is a personal training companion application designed to help individual athletes analyze their fitness progress and training habits.
+Journey Endurance Coaching Platform is a personal training companion application designed to help individual athletes analyze their fitness progress and training habits.
 
 **Use Case:**
 We use the Strava API to allow individual users to authenticate and import their own personal activity history (rides, runs, swims) and detailed metrics (power, heart rate, speed) into a private, secure dashboard. The imported data is used exclusively to:

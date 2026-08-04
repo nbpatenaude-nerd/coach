@@ -19,7 +19,7 @@ describe('email templates', () => {
     expect(result.html).toMatchSnapshot()
     expect(result.html).toContain('manage your email preferences')
     expect(result.html).toContain('https://coachwatts.com/unsubscribe?token=test')
-    expect(result.html).toContain('Join Coach Watts on Discord')
+    expect(result.html).toContain('Join Journey Endurance Coaching Platform on Discord')
     expect(result.html).toContain('discord.gg/dPYkzg49T9')
     expect(result.html).toContain('Connect Your First Data Source')
   })

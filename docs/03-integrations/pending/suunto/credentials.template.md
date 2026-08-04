@@ -13,7 +13,7 @@ Never commit the filled file.
 
 ## App registration
 
-- App name: Coach Watts
+- App name: Journey Endurance Coaching Platform
 - Client ID:
 - Client secret:
 - Redirect URIs registered:

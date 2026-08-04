@@ -1,6 +1,6 @@
 # Hammerhead Karoo API — integration brief
 
-**Status:** not in Coach Watts codebase (2026-07-22). No `hammerhead` / `karoo` provider.
+**Status:** not in Journey Endurance Coaching Platform codebase (2026-07-22). No `hammerhead` / `karoo` provider.
 **Goal:** Pull Karoo activities (FIT) and push structured workouts (FIT/ZWO) for cyclists.
 **Agent credentials session:** [agent-session.md](./agent-session.md)
 
@@ -36,12 +36,12 @@ OAuth 2.0 authorization code + refresh.
 
 ### Scopes (space-delimited)
 
-| Scope                        | Purpose                                         | Coach Watts MVP       |
-| ---------------------------- | ----------------------------------------------- | --------------------- |
-| `activity:read`              | List/get activities + FIT + activity webhooks   | **Required**          |
-| `workout:write`              | Create/update/delete workouts (`.fit` / `.zwo`) | **Required** for push |
-| `route:read` / `route:write` | Routes                                          | Optional later        |
-| `metrics:write`              | Push FTP / zones / weight                       | Optional later        |
+| Scope                        | Purpose                                         | Journey Endurance Coaching Platform MVP |
+| ---------------------------- | ----------------------------------------------- | --------------------------------------- |
+| `activity:read`              | List/get activities + FIT + activity webhooks   | **Required**                            |
+| `workout:write`              | Create/update/delete workouts (`.fit` / `.zwo`) | **Required** for push                   |
+| `route:read` / `route:write` | Routes                                          | Optional later                          |
+| `metrics:write`              | Push FTP / zones / weight                       | Optional later                          |
 
 Users may grant a **subset** of requested scopes on the consent screen — handle
 partial grants.
@@ -68,7 +68,7 @@ partial grants.
 
 Token response includes `access_token`, `refresh_token`, `expires_in`, `user_id`.
 
-## Coach Watts product scope (proposed)
+## Journey Endurance Coaching Platform product scope (proposed)
 
 ### Phase A — MVP
 
@@ -123,16 +123,16 @@ Pattern references: ROUVY OAuth + FIT ingest + workout publish.
 - [ ] API licence accepted?
 - [ ] Client ID/secret + webhook secret captured?
 - [ ] Redirect URLs saved?
-- [ ] SVG logo uploaded (use Coach Watts logo SVG if required)?
+- [ ] SVG logo uploaded (use Journey Endurance Coaching Platform logo SVG if required)?
 - [ ] Smoke: authorize → list activities → download one FIT?
 
 ## Ecosystem peers seen on Karoo “Connect” (2026-07-22)
 
-These are **other apps** that already connect to Hammerhead — useful as Coach Watts
+These are **other apps** that already connect to Hammerhead — useful as Journey Endurance Coaching Platform
 integration prospects, not as steps inside the Hammerhead credential session.
 Tracked in watts-marketing `knowledge/distribution/integrations/contacts.md`.
 
-| App           | Karoo promise                  | Coach Watts take                                              |
+| App           | Karoo promise                  | Journey Endurance Coaching Platform take                      |
 | ------------- | ------------------------------ | ------------------------------------------------------------- |
 | Ride with GPS | Sync rides + pinned routes     | **Best next:** public OAuth API                               |
 | Nolio         | Sync rides + upcoming workouts | Open API after form; coaching overlap — careful positioning   |

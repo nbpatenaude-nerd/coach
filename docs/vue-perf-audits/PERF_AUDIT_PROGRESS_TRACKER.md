@@ -1,6 +1,6 @@
 # Vue Performance Audit Progress Tracker
 
-**Project**: Coach Watts (`coach-wattz`)  
+**Project**: Journey Endurance Coaching Platform (`coach-wattz`)  
 **Auditor**: Antigravity Vue Performance Specialist  
 **Total Vue Files Audited**: 218 Vue Files  
 **Date**: July 26, 2026

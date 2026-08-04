@@ -43,7 +43,7 @@
               }
             "
           >
-            Connect with Coach Watts
+            Connect with Journey Endurance Coaching Platform
           </UButton>
         </div>
 
@@ -239,7 +239,7 @@
                     }
                   "
                 >
-                  Sync to Coach Watts
+                  Sync to Journey Endurance Coaching Platform
                 </UButton>
 
                 <!-- Recent Wellness Items -->

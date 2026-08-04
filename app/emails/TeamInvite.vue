@@ -48,7 +48,9 @@
         font-style="normal"
       />
     </EHead>
-    <EPreview>You're invited to join {{ teamName }} on Coach Watts.</EPreview>
+    <EPreview
+      >You're invited to join {{ teamName }} on Journey Endurance Coaching Platform.</EPreview
+    >
     <EBody
       style="
         background-color: #f4f4f5;
@@ -82,7 +84,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Coach Watts"
+              alt="Journey Endurance Coaching Platform"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -102,7 +104,7 @@
           </EHeading>
           <EText style="font-size: 15px; line-height: 1.6; color: #71717a; margin-bottom: 20px">
             You've been invited to join <strong>{{ teamName }}</strong> as {{ roleLabel }} inside
-            Coach Watts.
+            Journey Endurance Coaching Platform.
           </EText>
           <div
             v-if="code"
@@ -163,7 +165,7 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Coach Watts
+            Journey Endurance Coaching Platform
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0">
             AI-powered endurance coaching that adapts to you.

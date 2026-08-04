@@ -93,7 +93,7 @@ function buildShapePayload(
   const base = buildGarminTrainingPayload(
     {
       title: `[CW SHAPE] ${shape} ${dateLabel}`,
-      description: `Coach Watts Garmin payload experiment: ${shape}`,
+      description: `Journey Endurance Coaching Platform Garmin payload experiment: ${shape}`,
       type: 'Ride',
       durationSec: 5400,
       steps: TEMPO_STEPS
@@ -266,7 +266,7 @@ const garminShapeProbeCommand = new Command('garmin-shape-probe')
       const expiresAt = integration.expiresAt?.getTime() || 0
       if (expiresAt && Date.now() >= expiresAt) {
         throw new Error(
-          `Garmin access token expired at ${integration.expiresAt?.toISOString()}. Reconnect Garmin in Coach Watts.`
+          `Garmin access token expired at ${integration.expiresAt?.toISOString()}. Reconnect Garmin in Journey Endurance Coaching Platform.`
         )
       }
 

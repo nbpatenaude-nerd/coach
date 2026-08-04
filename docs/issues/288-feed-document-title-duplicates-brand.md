@@ -7,13 +7,13 @@
 
 ## Summary
 
-Several pages supply `Coach Watts` in their local/default title even though the global title template appends the product name. Titles therefore duplicate the brand and some routes lose a meaningful page name entirely.
+Several pages supply `Journey Endurance Coaching Platform` in their local/default title even though the global title template appends the product name. Titles therefore duplicate the brand and some routes lose a meaningful page name entirely.
 
 ## Actual Behavior
 
-- `/feed`: `Activity Feed | Coach Watts - Coach Watts`
-- `/library/workouts`, `/library/exercises`, and `/library/plans`: `Coach Watts - Coach Watts`
-- `/coaching/calendar`: `Coach Watts - Coach Watts`
+- `/feed`: `Activity Feed | Journey Endurance Coaching Platform - Journey Endurance Coaching Platform`
+- `/library/workouts`, `/library/exercises`, and `/library/plans`: `Journey Endurance Coaching Platform - Journey Endurance Coaching Platform`
+- `/coaching/calendar`: `Journey Endurance Coaching Platform - Journey Endurance Coaching Platform`
 
 ## Affected Files
 

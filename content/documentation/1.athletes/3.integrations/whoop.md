@@ -3,12 +3,12 @@ title: Whoop Integration
 description: Sync Whoop Strain, Recovery, and Sleep data to optimize your training intensity.
 ---
 
-[Whoop](https://whoop.com) provides 24/7 physiological monitoring, tracking your Strain, Recovery, and Sleep. Coach Watts uses this data to adjust your training intensity based on your body's recovery.
+[Whoop](https://whoop.com) provides 24/7 physiological monitoring, tracking your Strain, Recovery, and Sleep. Journey Endurance Coaching Platform uses this data to adjust your training intensity based on your body's recovery.
 
 ## Setup Guide
 
 1. Go to **Settings → Apps** on the Dashboard.
-2. Click **Connect with Whoop** and authorize Coach Watts.
+2. Click **Connect with Whoop** and authorize Journey Endurance Coaching Platform.
 
 ## What Syncs?
 
@@ -26,7 +26,7 @@ Tip: WHOOP data updates automatically throughout the day as it syncs with the WH
 ### Recovery score not updating
 
 - Open the WHOOP app to force a sync to WHOOP cloud first
-- Click **Sync** on the Coach Watts Dashboard
+- Click **Sync** on the Journey Endurance Coaching Platform Dashboard
 - WHOOP recovery is published after your sleep is processed — typically after waking
 
 ### Connection lost

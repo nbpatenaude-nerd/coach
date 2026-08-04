@@ -1,6 +1,6 @@
-# Coach Watts Developer API
+# Journey Endurance Coaching Platform Developer API
 
-Welcome to the Coach Watts Developer Platform. You can build applications, integrations, and tools that interact with Coach Watts user data.
+Welcome to the Journey Endurance Coaching Platform Developer Platform. You can build applications, integrations, and tools that interact with Journey Endurance Coaching Platform user data.
 
 ## Getting Started
 

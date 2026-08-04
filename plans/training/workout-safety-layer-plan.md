@@ -2,7 +2,7 @@
 
 ## 1. Objective
 
-Introduce a deterministic workout safety layer that sits between workout generation/editing and persistence so Coach Watts can:
+Introduce a deterministic workout safety layer that sits between workout generation/editing and persistence so Journey Endurance Coaching Platform can:
 
 1. Prevent unsafe load jumps and overly aggressive long runs.
 2. Apply phase-aware safeguards for rebuilding athletes and less experienced runners.

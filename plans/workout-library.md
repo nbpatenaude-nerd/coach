@@ -2,7 +2,7 @@
 
 ## 1. Objective
 
-Implement a high-performance, AI-integrated **Workout Library** for Coach Watts that allows users to save, organize, and intelligently reuse structured workouts. The goal is to leapfrog existing platforms (TrainingPeaks, Intervals.icu) by moving from "digital filing cabinets" to an "intelligent workout assistant" that understands intent and context.
+Implement a high-performance, AI-integrated **Workout Library** for Journey Endurance Coaching Platform that allows users to save, organize, and intelligently reuse structured workouts. The goal is to leapfrog existing platforms (TrainingPeaks, Intervals.icu) by moving from "digital filing cabinets" to an "intelligent workout assistant" that understands intent and context.
 
 ## 2. Scope
 

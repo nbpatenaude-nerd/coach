@@ -1,6 +1,6 @@
 ---
 title: Help Center
-description: FAQ, troubleshooting, and support resources for Coach Watts users.
+description: FAQ, troubleshooting, and support resources for Journey Endurance Coaching Platform users.
 ---
 
 Find answers to common questions, learn key terminology, and get support when you need it.

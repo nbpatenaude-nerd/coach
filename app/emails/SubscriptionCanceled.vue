@@ -44,7 +44,7 @@
         font-style="normal"
       />
     </EHead>
-    <EPreview>Your Coach Watts subscription has been canceled.</EPreview>
+    <EPreview>Your Journey Endurance Coaching Platform subscription has been canceled.</EPreview>
     <EBody
       style="
         background-color: #f4f4f5;
@@ -72,7 +72,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Coach Watts"
+              alt="Journey Endurance Coaching Platform"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -94,9 +94,9 @@
             Hi {{ name || 'Athlete' }},
           </EText>
           <EText style="font-size: 15px; line-height: 1.6; color: #71717a; margin-bottom: 20px">
-            Your {{ tier || 'Coach Watts' }} subscription has been canceled. You will continue to
-            have access until the end of your current billing period, after which your account will
-            revert to the Free plan.
+            Your {{ tier || 'Journey Endurance Coaching Platform' }} subscription has been canceled.
+            You will continue to have access until the end of your current billing period, after
+            which your account will revert to the Free plan.
           </EText>
           <div style="text-align: center; margin-bottom: 24px">
             <EButton
@@ -125,7 +125,7 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Coach Watts
+            Journey Endurance Coaching Platform
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0">
             AI-powered endurance coaching that adapts to you.

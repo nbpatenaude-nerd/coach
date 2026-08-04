@@ -1,6 +1,6 @@
-# Coach Watts Development Rules & Guidelines
+# Journey Endurance Coaching Platform Development Rules & Guidelines
 
-This file aggregates all critical development rules and guidelines for the Coach Watts project. All AI agents and developers must strictly adhere to these rules to ensure code quality, consistency, and system stability.
+This file aggregates all critical development rules and guidelines for the Journey Endurance Coaching Platform project. All AI agents and developers must strictly adhere to these rules to ensure code quality, consistency, and system stability.
 
 ## 1. Database Management
 

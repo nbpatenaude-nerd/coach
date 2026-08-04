@@ -3,7 +3,7 @@ title: Withings Integration
 description: Monitor your body composition and blood pressure with Withings integration.
 ---
 
-[Withings](https://withings.com) provides smart scales and health devices. Coach Watts uses this data to track your body composition and physical health trends.
+[Withings](https://withings.com) provides smart scales and health devices. Journey Endurance Coaching Platform uses this data to track your body composition and physical health trends.
 
 ## Setup Guide
 
@@ -21,7 +21,7 @@ description: Monitor your body composition and blood pressure with Withings inte
 ### Weight not updating
 
 - Step on the scale and confirm the reading appears in the Withings app
-- Click **Sync** on the Coach Watts Dashboard
+- Click **Sync** on the Journey Endurance Coaching Platform Dashboard
 - Weight changes feed into [nutrition targets](/documentation/athletes/fueling-logic) on the next calculation
 
 ### Body composition missing

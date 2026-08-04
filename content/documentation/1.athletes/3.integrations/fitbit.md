@@ -1,9 +1,9 @@
 ---
 title: Fitbit Integration
-description: Sync your Fitbit activities, steps, and sleep data with Coach Watts.
+description: Sync your Fitbit activities, steps, and sleep data with Journey Endurance Coaching Platform.
 ---
 
-[Fitbit](https://www.fitbit.com) provides a wide range of wearables for tracking your daily activity, heart rate, and sleep. Connecting Fitbit to Coach Watts ensures your general activity and recovery metrics are accounted for in your AI coaching.
+[Fitbit](https://www.fitbit.com) provides a wide range of wearables for tracking your daily activity, heart rate, and sleep. Connecting Fitbit to Journey Endurance Coaching Platform ensures your general activity and recovery metrics are accounted for in your AI coaching.
 
 ## Setup Guide
 
@@ -27,7 +27,7 @@ Note: Fitbit data syncs periodically throughout the day as your device syncs wit
 ### Sleep data missing
 
 - Confirm your Fitbit model supports sleep tracking
-- Sync your device with the Fitbit app first, then click **Sync** in Coach Watts
+- Sync your device with the Fitbit app first, then click **Sync** in Journey Endurance Coaching Platform
 
 ### Activities not appearing
 

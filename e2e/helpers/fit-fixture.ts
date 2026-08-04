@@ -17,7 +17,7 @@ export function generateSampleFitBuffer(title: string = 'E2E Test Ride'): Buffer
     serial_number: 99999,
     time_created: toFitTimestamp(now),
     number: 1,
-    product_name: 'Coach Watts E2E Test'
+    product_name: 'Journey Endurance Coaching Platform E2E Test'
   })
 
   // 2. Activity Session Summary

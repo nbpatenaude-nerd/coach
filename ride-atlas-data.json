@@ -1,6 +1,6 @@
 {
   "meta": {
-    "source": "Coach Watts production workout 1c314d3e-2355-4cfc-b088-b7b52788e4bc",
+    "source": "Journey Endurance Coaching Platform production workout 1c314d3e-2355-4cfc-b088-b7b52788e4bc",
     "note": "Resampled uniformly in distance from 25,959 native 1 Hz samples. route[].x/y are already projected to a 0..1 box with y flipped for screen space — multiply by your draw area.",
     "generated": "2026-07-26"
   },

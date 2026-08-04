@@ -1,6 +1,6 @@
 # Suunto — agent credentials session
 
-**Goal:** Get Coach Watts accepted into the Suunto Partner Network, configure the
+**Goal:** Get Journey Endurance Coaching Platform accepted into the Suunto Partner Network, configure the
 OAuth app in API Zone, and capture secrets into `.secrets/suunto.md` (gitignored).
 
 **Human must be present** for email verification, 2FA, and signing the API agreement.
@@ -8,7 +8,7 @@ OAuth app in API Zone, and capture secrets into `.secrets/suunto.md` (gitignored
 ## Preconditions
 
 - [ ] Business mailbox access for `laszlo.racz@coachwatts.com` (Himalaya `-a coachwatts`)
-- [ ] Company facts from [../README.md](../README.md) “Shared Coach Watts application facts”
+- [ ] Company facts from [../README.md](../README.md) “Shared Journey Endurance Coaching Platform application facts”
 - [ ] Local site URL / port known (default redirect assumes `http://localhost:3099`)
 - [ ] Empty template ready: copy [credentials.template.md](./credentials.template.md) →
       `.secrets/suunto.md`
@@ -48,7 +48,7 @@ In profile → OAuth / application settings, set:
 
 | Field                | Value                                                     |
 | -------------------- | --------------------------------------------------------- |
-| App name             | Coach Watts                                               |
+| App name             | Journey Endurance Coaching Platform                       |
 | Client secret        | Generate strong secret; store immediately                 |
 | Redirect URI (local) | `http://localhost:3099/api/integrations/suunto/callback`  |
 | Redirect URI (prod)  | `https://coachwatts.com/api/integrations/suunto/callback` |

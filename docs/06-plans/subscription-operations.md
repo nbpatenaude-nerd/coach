@@ -1,6 +1,6 @@
 # Subscription operations (Stripe + Apple + Google via RevenueCat)
 
-Coach Watts is the authorization source of truth. RevenueCat normalizes commerce events, but mobile customer info alone never unlocks server-paid features. Provider rows project back to the legacy `User.subscription*` fields so existing gates keep their behavior during migration.
+Journey Endurance Coaching Platform is the authorization source of truth. RevenueCat normalizes commerce events, but mobile customer info alone never unlocks server-paid features. Provider rows project back to the legacy `User.subscription*` fields so existing gates keep their behavior during migration.
 
 ## Product mapping
 
@@ -25,7 +25,7 @@ Monitor webhook response rates, `SubscriptionLifecycleEvent` lag, and audit acti
 
 After deployment, run `pnpm backfill:provider-subscriptions` once to seed provider rows from existing Stripe user fields. Then import active Stripe subscriptions to RevenueCat using the Stripe app public API key and compare active user/provider counts before enabling acquisition.
 
-For customer lookup, start with the stable Coach Watts user UUID in RevenueCat and `ProviderSubscription.userId`. A foreground reconcile fetches that RevenueCat customer and recomputes the canonical tier.
+For customer lookup, start with the stable Journey Endurance Coaching Platform user UUID in RevenueCat and `ProviderSubscription.userId`. A foreground reconcile fetches that RevenueCat customer and recomputes the canonical tier.
 
 ## Support actions
 

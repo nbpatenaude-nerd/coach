@@ -15,8 +15,8 @@
       >
         <NuxtLink to="/" class="flex shrink-0 items-center transition-opacity hover:opacity-90">
           <img
-            src="/media/coach_watts_text_cropped.webp"
-            alt="Journey Endurance Coaching"
+            src="/media/Tri%20Nerd%20Logos/TriNerds_pixelbadge_logo.png"
+            alt="Tri Nerds"
             class="h-10 w-auto object-contain sm:h-12"
           />
         </NuxtLink>

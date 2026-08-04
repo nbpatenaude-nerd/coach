@@ -1,8 +1,8 @@
-# Coach Watts - Implementation Guide
+# Journey Endurance Coaching Platform - Implementation Guide
 
 ## Overview
 
-This guide provides a sequential, step-by-step approach to building the Coach Watts application. Each phase includes detailed prompts designed for use with SWE agents or as a developer implementation checklist.
+This guide provides a sequential, step-by-step approach to building the Journey Endurance Coaching Platform application. Each phase includes detailed prompts designed for use with SWE agents or as a developer implementation checklist.
 
 ## Prerequisites
 
@@ -175,7 +175,7 @@ export default NuxtAuthHandler({
   <div class="min-h-screen flex items-center justify-center">
     <UCard>
       <template #header>
-        <h1 class="text-2xl font-bold">Welcome to Coach Watts</h1>
+        <h1 class="text-2xl font-bold">Welcome to Journey Endurance Coaching Platform</h1>
       </template>
 
       <UButton @click="signIn('google')"> Sign in with Google </UButton>
@@ -1812,7 +1812,7 @@ NODE_ENV=development
 
 ## Conclusion
 
-This implementation guide provides a complete roadmap for building Coach Watts. Follow each phase sequentially, validating work at each step before proceeding. The modular structure allows for parallel development of different components once the foundation is established.
+This implementation guide provides a complete roadmap for building Journey Endurance Coaching Platform. Follow each phase sequentially, validating work at each step before proceeding. The modular structure allows for parallel development of different components once the foundation is established.
 
 For questions or issues, refer to:
 

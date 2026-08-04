@@ -1,4 +1,4 @@
-## Coach Watts Hot Context
+## Journey Endurance Coaching Platform Hot Context
 
 This file tracks ongoing project state, active blockers, and recent architectural changes that haven't yet been formalized in `RULES.md` or `docs/`.
 

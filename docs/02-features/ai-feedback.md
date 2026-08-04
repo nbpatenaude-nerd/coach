@@ -1,6 +1,6 @@
 # AI Feedback Component
 
-The `AiFeedback` component is a standardized UI element designed to capture user feedback on AI-generated content throughout the Coach Watts application. It provides a simple "Thumbs Up" / "Thumbs Down" interface and supports capturing detailed text feedback.
+The `AiFeedback` component is a standardized UI element designed to capture user feedback on AI-generated content throughout the Journey Endurance Coaching Platform application. It provides a simple "Thumbs Up" / "Thumbs Down" interface and supports capturing detailed text feedback.
 
 ## Purpose
 

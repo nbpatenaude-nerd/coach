@@ -2,7 +2,7 @@
 
 ## Overview
 
-Currently, Coach Watts has a "short-term memory" limited to the current chat session and a "structural memory" derived from the database (profile, workouts, wellness). However, qualitative information (e.g., "My left knee hurts when I go over 90rpm", "I prefer high-intensity intervals in the morning") is lost between sessions.
+Currently, Journey Endurance Coaching Platform has a "short-term memory" limited to the current chat session and a "structural memory" derived from the database (profile, workouts, wellness). However, qualitative information (e.g., "My left knee hurts when I go over 90rpm", "I prefer high-intensity intervals in the morning") is lost between sessions.
 
 The **Cross-Chat Memory System** introduces a persistent "long-term memory" layer allowing the AI to store and retrieve qualitative facts about the user.
 

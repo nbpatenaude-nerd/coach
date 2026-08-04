@@ -3,7 +3,7 @@ title: Hevy Integration
 description: Sync your strength training and weightlifting sessions from Hevy.
 ---
 
-[Hevy](https://www.hevyapp.com) is a premier workout tracker for weightlifting and strength training. Coach Watts integrates with Hevy to incorporate your resistance training into your overall athletic load.
+[Hevy](https://www.hevyapp.com) is a premier workout tracker for weightlifting and strength training. Journey Endurance Coaching Platform integrates with Hevy to incorporate your resistance training into your overall athletic load.
 
 ## Setup Guide
 
@@ -26,9 +26,9 @@ Note: Strength training volume is factored into your physical fatigue and recove
 ### Workouts not appearing
 
 - Save the workout in Hevy and wait for it to sync to Hevy cloud
-- Click **Sync** on the Coach Watts Dashboard
+- Click **Sync** on the Journey Endurance Coaching Platform Dashboard
 - Strength sessions appear in your activity history alongside endurance workouts
 
 ### Missing exercise details
 
-Coach Watts imports sets, reps, and weights when Hevy provides them. Custom exercises without standard names may have limited detail.
+Journey Endurance Coaching Platform imports sets, reps, and weights when Hevy provides them. Custom exercises without standard names may have limited detail.

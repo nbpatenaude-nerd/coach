@@ -1,6 +1,6 @@
 # Systematic Vue Performance Audit — Executive Summary & Master Report
 
-**Project**: Coach Watts ([`coach-wattz`](file:///Users/hdkiller/Develop/coach-wattz))  
+**Project**: Journey Endurance Coaching Platform ([`coach-wattz`](file:///Users/hdkiller/Develop/coach-wattz))  
 **Total Vue Files Audited**: 218 Vue files across components, pages, layouts, and emails  
 **Date**: July 26, 2026  
 **Auditor**: Antigravity Vue Performance Specialist v1.0  

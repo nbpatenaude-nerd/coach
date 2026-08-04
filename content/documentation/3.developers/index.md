@@ -1,9 +1,9 @@
 ---
 title: Developer Hub
-description: Resources and guides for building on top of the Coach Watts platform.
+description: Resources and guides for building on top of the Journey Endurance Coaching Platform platform.
 ---
 
-Welcome to the Coach Watts developer documentation. This section is designed for integration partners and developers looking to extend the platform or integrate with our API.
+Welcome to the Journey Endurance Coaching Platform developer documentation. This section is designed for integration partners and developers looking to extend the platform or integrate with our API.
 
 ## Getting started
 

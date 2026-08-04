@@ -206,7 +206,7 @@ The PMC is a line chart with three traces:
 }
 ```
 
-## Implementation in Coach Watts
+## Implementation in Journey Endurance Coaching Platform
 
 ### Database Schema Requirements
 

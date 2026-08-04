@@ -1,9 +1,9 @@
 # Pending device / platform integrations
 
-Engineering briefs for integrations that are **not yet live** in Coach Watts.
+Engineering briefs for integrations that are **not yet live** in Journey Endurance Coaching Platform.
 Each folder is designed so a **new agent chat** can run a browser-assisted
 registration session, capture credentials into gitignored `.secrets/`, then
-implement against the Coach Watts integration patterns used by Garmin / ROUVY /
+implement against the Journey Endurance Coaching Platform integration patterns used by Garmin / ROUVY /
 Strava.
 
 | Provider                                     | Brief                                             | Access model                         | Phase 0 (credentials)       | Phase 1 (product)                    |
@@ -39,14 +39,14 @@ Strava.
 
 (Confirm local port matches `NUXT` / site URL in your `.env`.)
 
-## Shared Coach Watts application facts (for forms)
+## Shared Journey Endurance Coaching Platform application facts (for forms)
 
 Use these consistently across partner applications:
 
 | Field             | Value                                                                                                                                                          |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Legal entity      | Watt Mind Kft.                                                                                                                                                 |
-| Product           | Coach Watts                                                                                                                                                    |
+| Product           | Journey Endurance Coaching Platform                                                                                                                            |
 | Website           | https://coachwatts.com                                                                                                                                         |
 | Privacy           | https://coachwatts.com/privacy                                                                                                                                 |
 | Terms             | https://coachwatts.com/terms                                                                                                                                   |

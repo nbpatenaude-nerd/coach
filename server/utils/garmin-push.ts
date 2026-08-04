@@ -661,7 +661,7 @@ export async function createGarminCourse(integration: Integration, payload: any)
 }
 
 /**
- * Map Coach Watts sport types to Training API V2 sport enums.
+ * Map Journey Endurance Coaching Platform sport types to Training API V2 sport enums.
  * V2 single-segment sports: RUNNING, CYCLING, LAP_SWIMMING, STRENGTH_TRAINING,
  * CARDIO_TRAINING, GENERIC, YOGA, PILATES.
  */

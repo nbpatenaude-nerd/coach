@@ -10,7 +10,7 @@ The system currently operates in **Strict enforcement** mode for most operations
 
 ### 2.1 Rolling Windows
 
-Unlike systems that reset on the 1st of the month, Coach Watts uses **Rolling Windows**.
+Unlike systems that reset on the 1st of the month, Journey Endurance Coaching Platform uses **Rolling Windows**.
 
 - A "4-hour" window means the system looks at the last 4 hours from the current moment.
 - As time passes, old usage records "drop out" of the window, making room for new requests.

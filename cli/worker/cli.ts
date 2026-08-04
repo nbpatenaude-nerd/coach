@@ -7,7 +7,10 @@ import { cleanCommand } from './clean'
 
 const program = new Command()
 
-program.name('cw:worker').description('Coach Watts Webhook Worker CLI').version('1.0.0')
+program
+  .name('cw:worker')
+  .description('Journey Endurance Coaching Platform Webhook Worker CLI')
+  .version('1.0.0')
 
 program.addCommand(startCommand)
 program.addCommand(pingCommand)

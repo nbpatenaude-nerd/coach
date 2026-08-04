@@ -3,7 +3,7 @@ title: Settings
 description: Configure your profile, sport physiology, availability, AI coach, connected apps, billing, privacy, and developer access.
 ---
 
-Settings influence how Coach Watts imports data, calculates zones and nutrition, generates workouts, communicates with you, and uses AI features.
+Settings influence how Journey Endurance Coaching Platform imports data, calculates zones and nutrition, generates workouts, communicates with you, and uses AI features.
 
 ## Profile settings
 

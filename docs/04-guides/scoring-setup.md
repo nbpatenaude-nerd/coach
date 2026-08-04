@@ -1,6 +1,6 @@
 # Scoring System Setup & Maintenance
 
-This guide covers the technical setup, maintenance, and troubleshooting of the [Coach Watts Scoring System](../02-features/analytics/scoring-system.md).
+This guide covers the technical setup, maintenance, and troubleshooting of the [Journey Endurance Coaching Platform Scoring System](../02-features/analytics/scoring-system.md).
 
 ## 🚀 Quick Start
 

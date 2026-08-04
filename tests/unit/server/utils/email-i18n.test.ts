@@ -4,12 +4,12 @@ import { resolveEmailSubject } from '../../../../server/utils/email-i18n'
 describe('Email i18n Subject Resolution', () => {
   it('resolves English subject by default', () => {
     const subject = resolveEmailSubject('Welcome', 'en')
-    expect(subject).toBe('Welcome to Coach Watts!')
+    expect(subject).toBe('Welcome to Journey Endurance Coaching Platform!')
   })
 
   it('resolves Hungarian subject when uiLanguage is hu', () => {
     const subject = resolveEmailSubject('Welcome', 'hu')
-    expect(subject).toBe('Üdvözlünk a Coach Watts platformon!')
+    expect(subject).toBe('Üdvözlünk a Journey Endurance Coaching Platform platformon!')
   })
 
   it('resolves German subject for DailyRecommendation', () => {
@@ -24,7 +24,7 @@ describe('Email i18n Subject Resolution', () => {
 
   it('falls back to English when language is unsupported', () => {
     const subject = resolveEmailSubject('Welcome', 'sw')
-    expect(subject).toBe('Welcome to Coach Watts!')
+    expect(subject).toBe('Welcome to Journey Endurance Coaching Platform!')
   })
 
   it('uses fallback subject when templateKey is unknown', () => {

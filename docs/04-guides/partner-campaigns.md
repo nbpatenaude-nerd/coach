@@ -2,7 +2,7 @@
 
 Partner campaigns grant time-limited complimentary access through promotional entitlements. They do not create Stripe subscriptions and do not modify `trialEndsAt`.
 
-Campaigns can also attach one or more **canonical public events**. Athletes can then explicitly add those events as personal Coach Watts training goals. That is **not** official race registration.
+Campaigns can also attach one or more **canonical public events**. Athletes can then explicitly add those events as personal Journey Endurance Coaching Platform training goals. That is **not** official race registration.
 
 ## Architecture
 
@@ -27,7 +27,7 @@ Never share one organizer-owned `Event` row across athletes.
 1. Open partner URL
 2. Sign up or log in (callback preserved)
 3. Redeem partner benefit (no card, no auto-charge)
-4. Explicitly confirm “Add to my Coach Watts goals”
+4. Explicitly confirm “Add to my Journey Endurance Coaching Platform goals”
 5. Optional: open official registration URL separately
 
 Wording rules:

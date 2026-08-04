@@ -2,7 +2,7 @@
 
 ## Summary
 
-Coach Watts chat is now a durable, turn-based system built around persisted `ChatTurn` state, in-app background execution, websocket-first delivery, and database-backed recovery.
+Journey Endurance Coaching Platform chat is now a durable, turn-based system built around persisted `ChatTurn` state, in-app background execution, websocket-first delivery, and database-backed recovery.
 
 This replaced the older request-bound chat model where the HTTP request owned the full LLM lifecycle.
 

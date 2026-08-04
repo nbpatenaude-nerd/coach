@@ -1,15 +1,15 @@
 ---
 title: Polar Integration
-description: Sync your Polar Flow activities and training metrics directly to Coach Watts.
+description: Sync your Polar Flow activities and training metrics directly to Journey Endurance Coaching Platform.
 ---
 
-[Polar](https://www.polar.com) is a leader in heart rate monitoring and physical training analysis. By connecting Polar Flow to Coach Watts, we can automatically analyze your training sessions.
+[Polar](https://www.polar.com) is a leader in heart rate monitoring and physical training analysis. By connecting Polar Flow to Journey Endurance Coaching Platform, we can automatically analyze your training sessions.
 
 ## Setup Guide
 
 1. Go to **Settings → Apps** on the Dashboard.
 2. Click **Connect with Polar**.
-3. Authorize Coach Watts to access your training and physical data.
+3. Authorize Journey Endurance Coaching Platform to access your training and physical data.
 
 ## What Syncs?
 
@@ -17,7 +17,7 @@ description: Sync your Polar Flow activities and training metrics directly to Co
 - **Physical Metrics**: Weight and other biometric data stored in Polar Flow.
 
 ::alert{type="success"}
-Tip: Using a Polar H10 or Verity Sense ensures the highest heart rate accuracy for your Coach Watts performance analysis.
+Tip: Using a Polar H10 or Verity Sense ensures the highest heart rate accuracy for your Journey Endurance Coaching Platform performance analysis.
 ::
 
 ## Troubleshooting
@@ -25,7 +25,7 @@ Tip: Using a Polar H10 or Verity Sense ensures the highest heart rate accuracy f
 ### Activities not syncing
 
 - Confirm the session is saved to Polar Flow (not just on the watch)
-- Click **Sync** on the Coach Watts Dashboard after uploading to Polar Flow
+- Click **Sync** on the Journey Endurance Coaching Platform Dashboard after uploading to Polar Flow
 
 ### Heart rate gaps
 

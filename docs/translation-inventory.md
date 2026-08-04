@@ -1,6 +1,6 @@
 # Translation Inventory & Roadmap
 
-This document tracks the progress of internationalization (i18n) across Coach Watts and provides a granular mapping of components to namespaces.
+This document tracks the progress of internationalization (i18n) across Journey Endurance Coaching Platform and provides a granular mapping of components to namespaces.
 
 ## Status Legend
 

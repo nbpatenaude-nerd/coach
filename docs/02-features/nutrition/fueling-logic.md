@@ -1,6 +1,6 @@
 # Nutrition Fueling Logic
 
-This document describes the core metabolic engine and fueling logic used by Coach Watts to calculate carbohydrate and energy requirements.
+This document describes the core metabolic engine and fueling logic used by Journey Endurance Coaching Platform to calculate carbohydrate and energy requirements.
 
 ## Fuel States
 

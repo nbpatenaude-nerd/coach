@@ -1,9 +1,9 @@
 ---
 title: Athletes
-description: Guides and resources for athletes using Coach Watts to optimize their training.
+description: Guides and resources for athletes using Journey Endurance Coaching Platform to optimize their training.
 ---
 
-Welcome to the Coach Watts athlete guides. This section is designed to help you get the most out of our platform.
+Welcome to the Journey Endurance Coaching Platform athlete guides. This section is designed to help you get the most out of our platform.
 
 ## Start here
 
@@ -13,7 +13,7 @@ Welcome to the Coach Watts athlete guides. This section is designed to help you 
 - **[AI Chat & Supported Tools](/documentation/athletes/chat-interaction)** — data-connected actions, analysis, memory, media, voice, and conversation controls
 - **[Account & Profile Setup](/documentation/athletes/account-profile)** — FTP, zones, availability, nutrition settings
 
-## Using Coach Watts
+## Using Journey Endurance Coaching Platform
 
 - **[Features Overview](/documentation/athletes/features)** — map of all platform capabilities
 - **[Training Plans](/documentation/athletes/training-plans)** — goal-driven periodized plans

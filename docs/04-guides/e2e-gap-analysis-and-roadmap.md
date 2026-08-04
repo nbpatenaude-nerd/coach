@@ -2,9 +2,9 @@
 
 ## 1. Executive Summary
 
-This guide outlines the complete **Gap Analysis** for the Coach Watts End-to-End (E2E) test suite.
+This guide outlines the complete **Gap Analysis** for the Journey Endurance Coaching Platform End-to-End (E2E) test suite.
 
-While Coach Watts features a fast, isolated Playwright E2E testing architecture (`coach_e2e` PostgreSQL instance, Dragonfly Redis, seeded fixtures, parallel worker execution), a significant portion of existing test files operate as **shallow smoke tests** (verifying navigation, page titles, and element presence) rather than **deep functional tests** (verifying end-to-end state mutations, background tasks, API responses, and database updates).
+While Journey Endurance Coaching Platform features a fast, isolated Playwright E2E testing architecture (`coach_e2e` PostgreSQL instance, Dragonfly Redis, seeded fixtures, parallel worker execution), a significant portion of existing test files operate as **shallow smoke tests** (verifying navigation, page titles, and element presence) rather than **deep functional tests** (verifying end-to-end state mutations, background tasks, API responses, and database updates).
 
 This document serves as the master tracking reference for filling all E2E test gaps.
 

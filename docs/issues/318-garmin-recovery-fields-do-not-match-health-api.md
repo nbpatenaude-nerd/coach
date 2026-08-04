@@ -30,7 +30,7 @@ available.
 ## Expected Behavior
 
 Recovery mapping is based on documented Garmin fields, with an explicit product rule for converting
-absolute samples or charged/drained values into the Coach Watts recovery model.
+absolute samples or charged/drained values into the Journey Endurance Coaching Platform recovery model.
 
 ## Affected Files
 

@@ -1,9 +1,9 @@
 ---
 title: Integrations
-description: Connect Coach Watts to your favorite training apps and devices to get the most accurate AI coaching.
+description: Connect Journey Endurance Coaching Platform to your favorite training apps and devices to get the most accurate AI coaching.
 ---
 
-Coach Watts works best when it has a complete picture of your training and recovery. Connect your devices and platforms to sync your workouts, wellness data, and nutrition automatically.
+Journey Endurance Coaching Platform works best when it has a complete picture of your training and recovery. Connect your devices and platforms to sync your workouts, wellness data, and nutrition automatically.
 
 ## Supported Services
 

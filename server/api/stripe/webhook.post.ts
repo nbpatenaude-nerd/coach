@@ -168,7 +168,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription, even
         templateKey: 'SubscriptionCanceled',
         eventKey: `SUBSCRIPTION_CANCELED_${user.id}`,
         audience: 'TRANSACTIONAL',
-        subject: 'Your Coach Watts subscription has been canceled',
+        subject: 'Your Journey Endurance Coaching Platform subscription has been canceled',
         props: {
           name: user.name || 'Athlete',
           tier: user.subscriptionTier
@@ -310,7 +310,8 @@ export default defineEventHandler(async (event) => {
                 templateKey: 'PaymentFailed',
                 eventKey: `INVOICE_PAYMENT_FAILED_${failedInvoice.id}`,
                 audience: 'TRANSACTIONAL',
-                subject: 'Action Required: Payment failed for your Coach Watts subscription',
+                subject:
+                  'Action Required: Payment failed for your Journey Endurance Coaching Platform subscription',
                 props: {
                   name: user.name || 'Athlete',
                   tier: user.subscriptionTier,
@@ -342,7 +343,8 @@ export default defineEventHandler(async (event) => {
                 templateKey: 'PaymentSucceeded',
                 eventKey: `INVOICE_PAYMENT_SUCCEEDED_${successInvoice.id}`,
                 audience: 'TRANSACTIONAL',
-                subject: 'Receipt for your Coach Watts subscription payment',
+                subject:
+                  'Receipt for your Journey Endurance Coaching Platform subscription payment',
                 props: {
                   name: user.name || 'Athlete',
                   tier: user.subscriptionTier,

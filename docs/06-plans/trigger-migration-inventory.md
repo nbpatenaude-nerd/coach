@@ -1,12 +1,12 @@
 # Background Task & Trigger Migration Inventory
 
-This document tracks all background tasks implemented in Coach Watts, their capabilities, queue assignments, dependency decoupling status, and migration status for supporting **Redis/BullMQ (`cw:worker`)** alongside or in place of **Trigger.dev** (specifically for self-hosted instances or self-managed queue infrastructure).
+This document tracks all background tasks implemented in Journey Endurance Coaching Platform, their capabilities, queue assignments, dependency decoupling status, and migration status for supporting **Redis/BullMQ (`cw:worker`)** alongside or in place of **Trigger.dev** (specifically for self-hosted instances or self-managed queue infrastructure).
 
 ---
 
 ## Architecture Overview
 
-Coach Watts supports two execution modes for background tasks:
+Journey Endurance Coaching Platform supports two execution modes for background tasks:
 
 1. **Trigger.dev Driver (`TASK_QUEUE_DRIVER=trigger`)**: Dispatches tasks to Trigger.dev Cloud/Self-Hosted platform using `@trigger.dev/sdk/v3`. Used by default in cloud production.
 2. **Redis/BullMQ Driver (`TASK_QUEUE_DRIVER=redis`)**: Dispatches tasks to local Redis queues processed by `cw:worker` ([`cli/worker/start.ts`](file:///Users/hdkiller/Develop/coach-wattz/cli/worker/start.ts)). Enables running the full application stack without external SaaS dependencies in self-hosted deployments.

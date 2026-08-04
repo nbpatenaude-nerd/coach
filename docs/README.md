@@ -1,6 +1,6 @@
-# Coach Watts Documentation
+# Journey Endurance Coaching Platform Documentation
 
-Welcome to the Coach Watts documentation. This comprehensive guide covers the system architecture, database design, project structure, and step-by-step implementation instructions for building an AI-powered cycling coach application.
+Welcome to the Journey Endurance Coaching Platform documentation. This comprehensive guide covers the system architecture, database design, project structure, and step-by-step implementation instructions for building an AI-powered cycling coach application.
 
 ## 📚 Documentation Overview
 

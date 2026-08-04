@@ -1,6 +1,6 @@
 # Realtime Message Bus
 
-This document describes the Redis-backed realtime message bus used by Coach Watts for:
+This document describes the Redis-backed realtime message bus used by Journey Endurance Coaching Platform for:
 
 - activity/calendar refresh events
 - background task monitor updates
@@ -9,7 +9,7 @@ This document describes the Redis-backed realtime message bus used by Coach Watt
 
 ## Overview
 
-Coach Watts uses a single user-scoped realtime path:
+Journey Endurance Coaching Platform uses a single user-scoped realtime path:
 
 1. Server code publishes a message with `sendToUser(userId, data)`.
 2. The current process delivers it to any local WebSocket peers for that user.

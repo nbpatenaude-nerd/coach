@@ -4,7 +4,7 @@
 
 ## Architecture
 
-Coach Watts acts as an OAuth 2.0 IdP using custom API endpoints backed by Prisma.
+Journey Endurance Coaching Platform acts as an OAuth 2.0 IdP using custom API endpoints backed by Prisma.
 
 ### Data Models
 

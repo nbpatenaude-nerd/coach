@@ -2,13 +2,13 @@
 
 ## Current web project (agents — read this first)
 
-| Field                 | Value                                                                                                                      |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Organization**      | `watt-mind` (EU)                                                                                                           |
-| **Project**           | `coach-watts-web`                                                                                                          |
-| **Dashboard**         | https://watt-mind.sentry.io/issues/?project=4511817881157712                                                               |
-| **Env vars**          | `SENTRY_ORG=watt-mind`, `SENTRY_PROJECT=coach-watts-web` (see `.env`)                                                      |
-| **Linear automation** | Native Sentry → Linear alert configuration, filtered to event environment `production` and targeting the Coach Watts team. |
+| Field                 | Value                                                                                                                                              |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Organization**      | `watt-mind` (EU)                                                                                                                                   |
+| **Project**           | `coach-watts-web`                                                                                                                                  |
+| **Dashboard**         | https://watt-mind.sentry.io/issues/?project=4511817881157712                                                                                       |
+| **Env vars**          | `SENTRY_ORG=watt-mind`, `SENTRY_PROJECT=coach-watts-web` (see `.env`)                                                                              |
+| **Linear automation** | Native Sentry → Linear alert configuration, filtered to event environment `production` and targeting the Journey Endurance Coaching Platform team. |
 
 Use `watt-mind` / `coach-watts-web` for new investigation and issue capture. **Do not use** `coach-watts-app` for this repository: it is the mobile companion application with its own DSN and issue stream.
 

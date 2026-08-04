@@ -1,4 +1,4 @@
-# Coach Watts - Database Schema
+# Journey Endurance Coaching Platform - Database Schema
 
 ## Overview
 

@@ -1,6 +1,6 @@
-# Syncing Data to Coach Watts
+# Syncing Data to Journey Endurance Coaching Platform
 
-This guide explains how to sync third-party data—including activities, wellness metrics, and nutrition logs—to Coach Watts via our OAuth 2.0 API.
+This guide explains how to sync third-party data—including activities, wellness metrics, and nutrition logs—to Journey Endurance Coaching Platform via our OAuth 2.0 API.
 
 ## Core Scopes
 
@@ -17,7 +17,7 @@ To write data, your application must request the following scopes during the aut
 
 ## 1. Activities (FIT Files)
 
-Coach Watts is built to process high-resolution training data. We recommend uploading original `.fit` files whenever possible.
+Journey Endurance Coaching Platform is built to process high-resolution training data. We recommend uploading original `.fit` files whenever possible.
 
 - **Endpoint:** `POST /api/workouts/upload-fit`
 - **Content-Type:** `multipart/form-data`
@@ -42,7 +42,7 @@ curl -X POST https://app.coachwatts.com/api/workouts/upload-fit
 
 ## 2. Wellness Metrics
 
-Use this endpoint to sync daily health indicators. Coach Watts uses these to adjust the athlete's recovery capacity scores.
+Use this endpoint to sync daily health indicators. Journey Endurance Coaching Platform uses these to adjust the athlete's recovery capacity scores.
 
 - **Endpoint:** `POST /api/wellness`
 - **Content-Type:** `application/json`
@@ -109,7 +109,7 @@ Nutrition sync is critical for our **Metabolic Wave** engine. We use exact times
 
 ### Flat Timeline Sync
 
-Instead of categorizing items into "Breakfast" or "Dinner," send a flat list of items with their exact consumption time. Coach Watts will automatically bucket them based on the user's custom meal windows.
+Instead of categorizing items into "Breakfast" or "Dinner," send a flat list of items with their exact consumption time. Journey Endurance Coaching Platform will automatically bucket them based on the user's custom meal windows.
 
 ### Payload Schema
 
@@ -154,7 +154,7 @@ Instead of categorizing items into "Breakfast" or "Dinner," send a flat list of 
 }
 ```
 
-_Note: If you provide `items`, Coach Watts will automatically calculate daily macro totals for the athlete._
+_Note: If you provide `items`, Journey Endurance Coaching Platform will automatically calculate daily macro totals for the athlete._
 
 ---
 

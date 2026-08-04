@@ -12,13 +12,13 @@ The Garmin authorization request uses PKCE but does not send or validate OAuth `
 initiated authorization.
 
 If browser identity changes between authorization and callback, the callback uses the current session
-and can link the Garmin account to a different Coach Watts user than the one that initiated the flow.
+and can link the Garmin account to a different Journey Endurance Coaching Platform user than the one that initiated the flow.
 Explicit state validation also provides defense in depth against callback/request correlation attacks.
 
 ## Steps to Reproduce
 
-1. Begin Garmin authorization as Coach Watts user A.
-2. Change the active Coach Watts identity before completing Garmin consent.
+1. Begin Garmin authorization as Journey Endurance Coaching Platform user A.
+2. Change the active Journey Endurance Coaching Platform identity before completing Garmin consent.
 3. Complete the callback while authenticated as user B.
 4. Observe the callback associates the token using the current user B session.
 
@@ -36,6 +36,6 @@ identity or state does not match.
 
 - [ ] Authorization sends an unpredictable OAuth `state`
 - [ ] Callback validates state with constant-time-safe comparison where applicable
-- [ ] State/verifier storage is bound to the initiating Coach Watts user/session
+- [ ] State/verifier storage is bound to the initiating Journey Endurance Coaching Platform user/session
 - [ ] State and verifier cookies are cleared on success and terminal failure
 - [ ] Tests cover missing, mismatched, replayed, expired, and identity-switched callbacks

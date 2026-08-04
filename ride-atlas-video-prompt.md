@@ -27,7 +27,7 @@ narrate what the sensor data is actually saying.
 | `src/Root.tsx`                                          | Register the composition here.                                                                                                                                                                                                                                                 |
 | `src/i18n/`                                             | Locale plumbing. See "Scope" below before wiring this up.                                                                                                                                                                                                                      |
 
-**In the Coach Watts repos — the layout you are mocking:**
+**In the Journey Endurance Coaching Platform repos — the layout you are mocking:**
 
 - `/Users/hdkiller/Develop/watts-mobile/app/(app)/activity/[id].tsx` — the real
   workout-detail screen. Section order: sport icon + title → date · type → hero

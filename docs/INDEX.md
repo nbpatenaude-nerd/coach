@@ -1,6 +1,6 @@
-# Coach Watts Documentation Index
+# Journey Endurance Coaching Platform Documentation Index
 
-Welcome to the comprehensive documentation for the Coach Watts project.
+Welcome to the comprehensive documentation for the Journey Endurance Coaching Platform project.
 
 ## 🏗️ 01. Architecture
 
@@ -65,11 +65,11 @@ Detailed documentation for specific application features.
 
 ### Security & Auth
 
-- [**OAuth 2.0 Identity Provider**](./02-features/oauth-provider.md) - Integrating third-party apps with Coach Watts.
+- [**OAuth 2.0 Identity Provider**](./02-features/oauth-provider.md) - Integrating third-party apps with Journey Endurance Coaching Platform.
 
 ## 👩‍💻 Developer API
 
-Documentation for building apps on top of Coach Watts.
+Documentation for building apps on top of Journey Endurance Coaching Platform.
 
 - [**Overview**](./developer/README.md) - Getting started.
 - [**Authentication**](./developer/authentication.md) - OAuth 2.0 guide.

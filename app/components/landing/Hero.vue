@@ -1,18 +1,18 @@
 <template>
   <div
     id="hero"
-    class="relative isolate overflow-hidden min-h-[80vh] flex items-center justify-center"
+    class="relative isolate overflow-hidden min-h-[80vh] flex items-center justify-center bg-slate-950"
   >
-    <!-- Subtle parallax/animated background -->
+    <!-- Sci-Fi background -->
     <div
-      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-900/40 via-[oklch(12%_0.015_155)] to-[oklch(12%_0.015_155)] opacity-80"
+      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950 to-slate-950 opacity-100"
     ></div>
-    <div class="absolute inset-0 -z-10 opacity-10 mix-blend-overlay"></div>
+    <div class="absolute inset-0 -z-10 opacity-30 mix-blend-overlay"></div>
     <div
-      class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[200%] h-[100%] animate-[spin_60s_linear_infinite] opacity-30 pointer-events-none"
+      class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[200%] h-[100%] animate-[spin_60s_linear_infinite] opacity-40 pointer-events-none"
     >
       <div
-        class="absolute inset-0 bg-gradient-to-r from-transparent via-primary-500/10 to-transparent blur-3xl rounded-full"
+        class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent blur-3xl rounded-full"
       ></div>
     </div>
 
@@ -21,49 +21,44 @@
       class="relative z-10 mx-auto flex max-w-[88rem] flex-col items-center px-6 pb-16 pt-24 sm:pb-20 sm:pt-32 lg:px-8 text-center transition-all duration-1000 transform"
       :class="[isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
     >
-      <NuxtLink
-        to="#why-us"
-        class="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-widest text-gray-400 transition-colors hover:text-white mb-8"
-      >
-        <span
-          class="rounded-sm bg-primary-500/10 px-2.5 py-1 text-primary-400 ring-1 ring-inset ring-primary-500/25"
-        >
-          NEW BRANDING
-        </span>
-        <span class="inline-flex items-center gap-1.5">
-          Read the Manifesto
-          <UIcon name="i-heroicons-chevron-right" class="h-4 w-4" />
-        </span>
-      </NuxtLink>
+      <!-- Central glowing waypoint dot for slider intersection -->
+      <div
+        class="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.9)] z-20"
+      ></div>
+
+      <img
+        src="/media/Tri%20Nerd%20Logos/TriNerds_pixelbadge_logo.png"
+        alt="Tri Nerds"
+        class="w-32 h-auto mb-8 drop-shadow-[0_0_15px_rgba(236,72,153,0.5)]"
+      />
 
       <h1
         class="font-athletic mt-6 text-balance text-5xl font-bold uppercase leading-[0.9] tracking-tight text-white sm:text-6xl xl:text-[5rem] max-w-4xl"
       >
         Level Up Your Endurance.<br />
-        <span class="text-primary-500">Welcome to the Tri Nerds.</span>
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+          >Welcome to the Tri Nerds.</span
+        >
       </h1>
-      <p class="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-gray-400 sm:text-xl">
+      <p class="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-cyan-100/70 sm:text-xl">
         We don't just log miles. We analyze the Acute:Chronic Workload Ratio. Join a community of
-        multisport geeks powered by an elite AI Digital Coaching Twin.
+        multisport geeks powered by an elite AI Coaching Assistant.
       </p>
 
       <div class="mt-10 flex flex-wrap items-center justify-center gap-5">
         <UButton
           to="/join"
           size="xl"
-          color="primary"
-          variant="solid"
-          class="hero-cta h-14 rounded-xl px-8 text-[13px] font-bold uppercase tracking-[0.18em] transition-[background-color,transform] duration-200 hover:brightness-110 active:translate-y-px"
+          class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-8 shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all hover:scale-105"
         >
-          Join the Guild (Free)
+          Take the Next Step
         </UButton>
         <UButton
-          to="#why-us"
+          to="#bentoSectionRef"
           size="xl"
-          color="neutral"
-          variant="link"
-          trailing-icon="i-heroicons-arrow-right-20-solid"
-          class="text-[13px] font-bold uppercase tracking-[0.12em] text-gray-400 transition-colors hover:text-white"
+          variant="outline"
+          class="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 hover:border-pink-400 px-8 transition-all"
         >
           Explore the Tech
         </UButton>
@@ -75,11 +70,11 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
 
-  const heroRef = ref(null)
   const isVisible = ref(false)
+  const heroRef = ref<HTMLElement | null>(null)
 
   onMounted(() => {
-    // Trigger animation shortly after mount for the hero
+    // Slight delay for smooth load-in effect
     setTimeout(() => {
       isVisible.value = true
     }, 100)

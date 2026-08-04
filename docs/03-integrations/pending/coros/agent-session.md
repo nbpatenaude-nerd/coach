@@ -1,6 +1,6 @@
 # COROS — agent credentials session
 
-**Goal:** Submit a focused COROS API application for Coach Watts and capture any
+**Goal:** Submit a focused COROS API application for Journey Endurance Coaching Platform and capture any
 immediate confirmation IDs. Full client IDs/secrets usually arrive **only after
 approval** with private documentation.
 

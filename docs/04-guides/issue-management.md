@@ -1,9 +1,9 @@
-# Linear & Agentic Issue Management — Coach Watts
+# Linear & Agentic Issue Management — Journey Endurance Coaching Platform
 
-Issue tracking standards, ticket templates, and AI agent execution workflow for **Coach Watts** in **Linear** (team key **`CW`**).
+Issue tracking standards, ticket templates, and AI agent execution workflow for **Journey Endurance Coaching Platform** in **Linear** (team key **`CW`**).
 
 > [!NOTE]
-> This guide covers Coach Watts product development and distribution only. Internal company governance and private consulting workflows live in the internal Watt Mind documentation repository.
+> This guide covers Journey Endurance Coaching Platform product development and distribution only. Internal company governance and private consulting workflows live in the internal Watt Mind documentation repository.
 
 ---
 
@@ -21,17 +21,17 @@ Files under `docs/issues/` are the **archive** of resolved issues plus specs. Th
 
 ## 2. Team & projects
 
-**Team:** `Coach Watts` — key **`CW`** (`CW-1`, `CW-105`, …)
+**Team:** `Journey Endurance Coaching Platform` — key **`CW`** (`CW-1`, `CW-105`, …)
 
-| Project                                | Scope                                                         | Repo              |
-| -------------------------------------- | ------------------------------------------------------------- | ----------------- |
-| Coach Watts – Web & AI Core Platform   | Nuxt 3 web app, AI Coach chatroom, Prisma, Trigger.dev        | `coach-wattz`     |
-| Coach Watts – Mobile App               | Expo / React Native, iOS & Android                            | `watts-mobile`    |
-| Coach Watts – App Store Distribution   | App Store Connect, Google Play, TestFlight, RevenueCat        | `watts-mobile`    |
-| Coach Watts – Feeder & Ingestion       | Intervals.icu, Strava, Oura, Yazio connectors; event scrapers | `watts-feeder`    |
-| Coach Watts – BI & Analytics           | Platform analytics, telemetry, dashboards                     | `watts-bi`        |
-| Coach Watts – Marketing & Outreach     | Social, event promos, race entrant campaigns                  | `watts-marketing` |
-| Coach Watts – Integration Partnerships | Partner business agreements                                   | —                 |
+| Project                                                        | Scope                                                         | Repo              |
+| -------------------------------------------------------------- | ------------------------------------------------------------- | ----------------- |
+| Journey Endurance Coaching Platform – Web & AI Core Platform   | Nuxt 3 web app, AI Coach chatroom, Prisma, Trigger.dev        | `coach-wattz`     |
+| Journey Endurance Coaching Platform – Mobile App               | Expo / React Native, iOS & Android                            | `watts-mobile`    |
+| Journey Endurance Coaching Platform – App Store Distribution   | App Store Connect, Google Play, TestFlight, RevenueCat        | `watts-mobile`    |
+| Journey Endurance Coaching Platform – Feeder & Ingestion       | Intervals.icu, Strava, Oura, Yazio connectors; event scrapers | `watts-feeder`    |
+| Journey Endurance Coaching Platform – BI & Analytics           | Platform analytics, telemetry, dashboards                     | `watts-bi`        |
+| Journey Endurance Coaching Platform – Marketing & Outreach     | Social, event promos, race entrant campaigns                  | `watts-marketing` |
+| Journey Endurance Coaching Platform – Integration Partnerships | Partner business agreements                                   | —                 |
 
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: Yazio Integration
-description: Track your calories and macronutrients by connecting Yazio to Coach Watts.
+description: Track your calories and macronutrients by connecting Yazio to Journey Endurance Coaching Platform.
 ---
 
-[Yazio](https://yazio.com) is one of the most popular apps for calorie counting and macro tracking. Coach Watts syncs your nutrition data to ensure your fueling matches your training load.
+[Yazio](https://yazio.com) is one of the most popular apps for calorie counting and macro tracking. Journey Endurance Coaching Platform syncs your nutrition data to ensure your fueling matches your training load.
 
 ## Setup Guide
 
@@ -30,4 +30,4 @@ Success: Once linked, your nutrition logs appear in your daily nutrition view an
 
 ### Macros look incorrect
 
-Coach Watts maps Yazio macros to its fueling model. Small rounding differences are normal. If values are significantly off, disconnect and reconnect Yazio.
+Journey Endurance Coaching Platform maps Yazio macros to its fueling model. Small rounding differences are normal. If values are significantly off, disconnect and reconnect Yazio.

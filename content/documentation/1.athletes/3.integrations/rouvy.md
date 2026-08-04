@@ -1,30 +1,30 @@
 ---
 title: ROUVY Integration
-description: How indoor cycling activities from ROUVY appear in Coach Watts.
+description: How indoor cycling activities from ROUVY appear in Journey Endurance Coaching Platform.
 ---
 
-[ROUVY](https://rouvy.com) is a virtual cycling platform for indoor training. Coach Watts does not connect to ROUVY directly — activities arrive through your linked activity platform.
+[ROUVY](https://rouvy.com) is a virtual cycling platform for indoor training. Journey Endurance Coaching Platform does not connect to ROUVY directly — activities arrive through your linked activity platform.
 
-## How ROUVY data reaches Coach Watts
+## How ROUVY data reaches Journey Endurance Coaching Platform
 
-ROUVY exports completed rides to connected platforms. To get ROUVY activities into Coach Watts:
+ROUVY exports completed rides to connected platforms. To get ROUVY activities into Journey Endurance Coaching Platform:
 
 1. Enable sync from ROUVY to **Strava** or **Garmin Connect** in your ROUVY account settings
-2. Connect that platform to Coach Watts via **Settings → Apps**
+2. Connect that platform to Journey Endurance Coaching Platform via **Settings → Apps**
 3. Completed ROUVY rides appear as regular cycling activities
 
 ## Recommended setup
 
-| ROUVY syncs to | Coach Watts connection                                            |
+| ROUVY syncs to | Journey Endurance Coaching Platform connection                    |
 | -------------- | ----------------------------------------------------------------- |
 | Strava         | [Strava Integration](/documentation/athletes/integrations/strava) |
 | Garmin Connect | [Garmin Integration](/documentation/athletes/integrations/garmin) |
 
 ::alert{type="info"}
-Connect only one primary activity source. If both Strava and Garmin receive ROUVY exports, pick one for Coach Watts to avoid duplicate activities.
+Connect only one primary activity source. If both Strava and Garmin receive ROUVY exports, pick one for Journey Endurance Coaching Platform to avoid duplicate activities.
 ::
 
-## What Coach Watts analyzes
+## What Journey Endurance Coaching Platform analyzes
 
 ROUVY rides sync with the same analysis as outdoor rides:
 

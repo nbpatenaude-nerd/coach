@@ -1,4 +1,4 @@
-# Coach Watts — Issue Tracker
+# Journey Endurance Coaching Platform — Issue Tracker
 
 Last reviewed: 2026-07-27 (issue 383 — Intervals.icu scope handling)
 

@@ -1,13 +1,13 @@
 ---
 title: Telegram Integration
-description: Learn how to connect Coach Watts to Telegram and use it for quick training insights and analysis.
+description: Learn how to connect Journey Endurance Coaching Platform to Telegram and use it for quick training insights and analysis.
 ---
 
-The Coach Watts Telegram integration allows you to chat with your coach directly from your favorite messaging app. It's perfect for quick questions about your training, nutrition, or checking your recovery status on the go.
+The Journey Endurance Coaching Platform Telegram integration allows you to chat with your coach directly from your favorite messaging app. It's perfect for quick questions about your training, nutrition, or checking your recovery status on the go.
 
 ## 1. Setup Guide
 
-To link your Coach Watts account to Telegram:
+To link your Journey Endurance Coaching Platform account to Telegram:
 
 1. Log in to your **Dashboard**.
 2. Navigate to **Settings → Apps**.
@@ -25,20 +25,20 @@ The bot supports several commands to help you manage your interaction:
 
 - `/help`: Displays a list of available commands and a brief overview of what the coach can do.
 - `/start`: Used initially to link your account or to restart the conversation if you've disconnected.
-- `/roominfo`: Shows the current Chat Room ID. Coach Watts organizes conversations into "Rooms" (sessions) to maintain context.
+- `/roominfo`: Shows the current Chat Room ID. Journey Endurance Coaching Platform organizes conversations into "Rooms" (sessions) to maintain context.
 
 ## 3. How it Works
 
 ### Chat Sessions
 
-To keep your conversations focused and efficient, Coach Watts uses **Session Rooms**.
+To keep your conversations focused and efficient, Journey Endurance Coaching Platform uses **Session Rooms**.
 
 - If you haven't chatted for more than **6 hours**, a new room will be automatically created.
 - This ensures the AI isn't overwhelmed by weeks of old context while still remembering recent instructions.
 
 ### What to Ask
 
-You can ask anything you would normally ask in the main Coach Watts Chat:
+You can ask anything you would normally ask in the main Journey Endurance Coaching Platform Chat:
 
 - "How did my workout look today?"
 - "What should I eat before my long run tomorrow?"

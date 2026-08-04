@@ -61,7 +61,7 @@ export const scheduleOnboardingDripTask = task({
           eventKey: 'ONBOARDING_DRIP_DAY2',
           idempotencyKey: `onboarding-drip-day2:${userId}`,
           audience: 'ENGAGEMENT',
-          subject: 'Connect your training apps to unlock Coach Watts',
+          subject: 'Connect your training apps to unlock Journey Endurance Coaching Platform',
           props: {
             name: userDay2.name || 'Athlete'
           }
@@ -87,7 +87,7 @@ export const scheduleOnboardingDripTask = task({
         eventKey: 'ONBOARDING_DRIP_DAY7',
         idempotencyKey: `onboarding-drip-day7:${userId}`,
         audience: 'ENGAGEMENT',
-        subject: 'How was your first week with Coach Watts?',
+        subject: 'How was your first week with Journey Endurance Coaching Platform?',
         props: {
           name: userDay7.name || 'Athlete'
         }

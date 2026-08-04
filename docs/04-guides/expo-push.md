@@ -1,6 +1,6 @@
 # Expo Push — Ops Configuration & Delivery Strategy
 
-Server-side Expo push for the Coach Watts mobile companion is implemented in
+Server-side Expo push for the Journey Endurance Coaching Platform mobile companion is implemented in
 `server/utils/expo-push.ts` via `sendExpoPushToUser`. Sends are **best-effort**:
 callers are never blocked on push failure.
 

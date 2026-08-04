@@ -1,9 +1,9 @@
 ---
 title: Oura Integration
-description: Deeply integrate your Oura Ring recovery and readiness data into Coach Watts.
+description: Deeply integrate your Oura Ring recovery and readiness data into Journey Endurance Coaching Platform.
 ---
 
-The [Oura Ring](https://ouraring.com) is our most detailed source for recovery and readiness data. Coach Watts integrates deeply with Oura to help you understand your body's adaptation to training.
+The [Oura Ring](https://ouraring.com) is our most detailed source for recovery and readiness data. Journey Endurance Coaching Platform integrates deeply with Oura to help you understand your body's adaptation to training.
 
 ## Setup Guide
 
@@ -12,7 +12,7 @@ The [Oura Ring](https://ouraring.com) is our most detailed source for recovery a
 
 ## What Syncs?
 
-| Metric        | Frequency | Usage in Coach Watts                           |
+| Metric        | Frequency | Usage in Journey Endurance Coaching Platform   |
 | :------------ | :-------- | :--------------------------------------------- |
 | **Readiness** | Daily     | Adjusts today's recommended activity.          |
 | **Sleep**     | Nightly   | Tracks overall recovery trends.                |
@@ -29,8 +29,8 @@ Note: We extract raw biometrics (HRV, Resting Heart Rate) to ensure our internal
 ### Readiness not showing
 
 - Oura readiness publishes after your sleep is scored — usually within an hour of waking
-- Open the Oura app to confirm the data exists, then **Sync** in Coach Watts
+- Open the Oura app to confirm the data exists, then **Sync** in Journey Endurance Coaching Platform
 
 ### Connecting multiple wellness devices
 
-If you also connect Garmin or WHOOP, Coach Watts prioritizes the most recent data. For consistent trends, one primary wellness source is recommended.
+If you also connect Garmin or WHOOP, Journey Endurance Coaching Platform prioritizes the most recent data. For consistent trends, one primary wellness source is recommended.

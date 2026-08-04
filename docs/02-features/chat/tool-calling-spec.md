@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines how to add tool/function calling capabilities to the Coach Watts chat feature, allowing the AI to dynamically fetch workout data, nutrition logs, and other information from the database.
+This document outlines how to add tool/function calling capabilities to the Journey Endurance Coaching Platform chat feature, allowing the AI to dynamically fetch workout data, nutrition logs, and other information from the database.
 
 ## Feasibility: ✅ Highly Feasible
 
@@ -274,7 +274,7 @@ export default defineEventHandler(async (event) => {
     _id: aiMessage.id,
     content: aiMessage.content,
     senderId: aiMessage.senderId,
-    username: 'Coach Watts',
+    username: 'Journey Endurance Coaching Platform',
     avatar: '/media/logo.webp',
     date: new Date(aiMessage.createdAt).toLocaleDateString(),
     timestamp: new Date(aiMessage.createdAt).toLocaleTimeString([], {

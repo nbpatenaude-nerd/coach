@@ -16,7 +16,7 @@ function normalizePersistedSetting(setting: any) {
     resolveTargetPolicyAndLoadPreference(setting)
 
   // Intervals.icu has historically returned running pace-zone bounds in
-  // metres/minute, while Coach Watts stores and consumes pace as m/s. Keep
+  // metres/minute, while Journey Endurance Coaching Platform stores and consumes pace as m/s. Keep
   // the persisted database value untouched, but normalize the repository
   // representation so every caller receives one canonical unit.
   const thresholdPace = Number(setting.thresholdPace || 0)

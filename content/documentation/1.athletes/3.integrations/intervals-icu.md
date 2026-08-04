@@ -3,13 +3,13 @@ title: Intervals.icu Integration
 description: Connect Intervals.icu for advanced power analysis, HR zones, and fitness trends.
 ---
 
-[Intervals.icu](https://intervals.icu) is a powerful analysis platform for endurance athletes. By connecting it to Coach Watts, we can sync your heart rate and power zones for more accurate AI coaching.
+[Intervals.icu](https://intervals.icu) is a powerful analysis platform for endurance athletes. By connecting it to Journey Endurance Coaching Platform, we can sync your heart rate and power zones for more accurate AI coaching.
 
 ## Setup Guide
 
 1. Go to **Settings → Apps** on the Dashboard.
 2. Click **Connect with Intervals.icu**.
-3. Authorize Coach Watts to access your training data.
+3. Authorize Journey Endurance Coaching Platform to access your training data.
 
 ::alert{type="success"}
 Success: Once authorized, your training zones and fitness data will sync automatically.
@@ -25,7 +25,7 @@ Success: Once authorized, your training zones and fitness data will sync automat
 
 ### Zones look wrong
 
-- Verify zones are set correctly in Intervals.icu first — Coach Watts pulls from your Intervals profile
+- Verify zones are set correctly in Intervals.icu first — Journey Endurance Coaching Platform pulls from your Intervals profile
 - Click **Sync** after updating zones in Intervals.icu
 
 ### Strava disabled when Intervals is connected

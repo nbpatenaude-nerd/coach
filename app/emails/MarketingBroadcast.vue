@@ -47,7 +47,7 @@
         font-style="normal"
       />
     </EHead>
-    <EPreview>{{ headline || 'Coach Watts Announcement' }}</EPreview>
+    <EPreview>{{ headline || 'Journey Endurance Coaching Platform Announcement' }}</EPreview>
     <EBody
       style="
         background-color: #f4f4f5;
@@ -81,7 +81,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Coach Watts"
+              alt="Journey Endurance Coaching Platform"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -97,7 +97,7 @@
               letter-spacing: -0.025em;
             "
           >
-            {{ headline || 'Coach Watts Announcement' }}
+            {{ headline || 'Journey Endurance Coaching Platform Announcement' }}
           </EHeading>
           <EText style="font-size: 16px; line-height: 1.6; color: #71717a; margin-bottom: 14px">
             Hi {{ name || 'Athlete' }},
@@ -135,7 +135,7 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Coach Watts
+            Journey Endurance Coaching Platform
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0 0 12px">
             AI-powered endurance coaching that adapts to you.

@@ -45,7 +45,9 @@
         font-style="normal"
       />
     </EHead>
-    <EPreview>Your Coach Watts subscription payment was successful.</EPreview>
+    <EPreview
+      >Your Journey Endurance Coaching Platform subscription payment was successful.</EPreview
+    >
     <EBody
       style="
         background-color: #f4f4f5;
@@ -79,7 +81,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Coach Watts"
+              alt="Journey Endurance Coaching Platform"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -102,7 +104,8 @@
           </EText>
           <EText style="font-size: 15px; line-height: 1.6; color: #71717a; margin-bottom: 20px">
             Thank you for your payment {{ amount ? '(' + amount + ')' : '' }} for your
-            {{ tier || 'Coach Watts' }} subscription. Your plan remains active.
+            {{ tier || 'Journey Endurance Coaching Platform' }} subscription. Your plan remains
+            active.
           </EText>
           <div style="text-align: center; margin-bottom: 24px">
             <EButton
@@ -128,7 +131,7 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Coach Watts
+            Journey Endurance Coaching Platform
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0">
             AI-powered endurance coaching that adapts to you.

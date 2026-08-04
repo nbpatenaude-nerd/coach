@@ -96,7 +96,7 @@ export const generateCommand = new Command('generate')
     console.log(chalk.gray('Generating summary...'))
 
     const prompt = `
-You are a helpful assistant for Coach Watts, a cycling coaching app.
+You are a helpful assistant for Journey Endurance Coaching Platform, a cycling coaching app.
 Here is the technical changelog/commits for the latest release (v${version}):
 
 ${latestVersionBlock}

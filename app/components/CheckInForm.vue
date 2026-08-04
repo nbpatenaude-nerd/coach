@@ -65,7 +65,7 @@
 
       toast.add({
         title: 'Check-In Submitted!',
-        description: 'Coach Watts is analyzing your data...',
+        description: 'Journey Endurance Coaching Platform is analyzing your data...',
         icon: 'i-heroicons-check-circle',
         color: 'green'
       })

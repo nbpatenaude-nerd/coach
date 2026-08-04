@@ -3,7 +3,7 @@ title: Garmin Integration
 description: Sync high-fidelity training and wellness data (HRV, Sleep, Stress) from Garmin Connect.
 ---
 
-[Garmin Connect](https://connect.garmin.com) provides high-fidelity training and wellness data. While you can sync activities via Strava, connecting Garmin directly gives Coach Watts access to advanced recovery metrics.
+[Garmin Connect](https://connect.garmin.com) provides high-fidelity training and wellness data. While you can sync activities via Strava, connecting Garmin directly gives Journey Endurance Coaching Platform access to advanced recovery metrics.
 
 ## Setup Guide
 
