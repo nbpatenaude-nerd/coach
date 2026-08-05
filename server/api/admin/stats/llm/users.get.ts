@@ -1,9 +1,8 @@
 import { defineEventHandler, createError, getQuery } from 'h3'
-import pkg from '../../../../utils/generated-prisma/client'
 import { getServerSession } from '../../../../utils/session'
 import { prisma } from '../../../../utils/db'
 import { getStartOfDaysAgoUTC, getStartOfDayUTC } from '../../../../utils/date'
-const { Prisma } = pkg
+import { Prisma  } from '../../../../utils/generated-prisma/client'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)

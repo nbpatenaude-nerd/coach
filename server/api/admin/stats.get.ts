@@ -2,10 +2,9 @@ import { defineEventHandler, createError } from 'h3'
 import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'
 import type { SubscriptionTier } from '../../utils/generated-prisma/client'
-import pkg from '../../utils/generated-prisma/client'
 import { webhookQueue, pingQueue } from '../../utils/queue'
 import { QUOTA_REGISTRY } from '../../utils/quotas/registry'
-const { Prisma } = pkg
+import { Prisma  } from '../../utils/generated-prisma/client'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)

@@ -1,12 +1,11 @@
 import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'
-import pkg from '../../utils/generated-prisma/client'
 import { workoutRepository } from '../../utils/repositories/workoutRepository'
 import { activityRecommendationRepository } from '../../utils/repositories/activityRecommendationRepository'
 import { reportRepository } from '../../utils/repositories/reportRepository'
 import { recommendationRepository } from '../../utils/repositories/recommendationRepository'
 import { scoreTrendExplanationRepository } from '../../utils/repositories/scoreTrendExplanationRepository'
-const { Prisma } = pkg
+import { Prisma  } from '../../utils/generated-prisma/client'
 
 defineRouteMeta({
   openAPI: {

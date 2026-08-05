@@ -1,4 +1,3 @@
-import pkg from '../generated-prisma/client'
 import { prisma } from '../db'
 import { athleteMetricsService } from '../athleteMetricsService'
 import { sportSettingsRepository } from './sportSettingsRepository'
@@ -8,7 +7,7 @@ import {
   isUniqueConstraintError,
   MAX_INVITE_CODE_RETRIES
 } from '../invite-code'
-const { Prisma } = pkg
+import { Prisma  } from '../generated-prisma/client'
 
 function normalizeReadinessScore(
   readiness: number | null | undefined,
