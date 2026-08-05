@@ -1,5 +1,4 @@
 import { prisma } from '../db'
-import { JourneyEventCategory } from '@prisma/client'
 
 export interface FuelingOverride {
   strategy?: string

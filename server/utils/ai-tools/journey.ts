@@ -9,7 +9,7 @@ import {
   getStartOfLocalDateUTC,
   getEndOfLocalDateUTC
 } from '../date'
-import { JourneyEventType, JourneyEventCategory } from '@prisma/client'
+import type { JourneyEventType, JourneyEventCategory } from '@prisma/client'
 
 export const journeyTools = (userId: string, timezone: string) => ({
   record_wellness_event: tool({
@@ -21,10 +21,19 @@ export const journeyTools = (userId: string, timezone: string) => ({
         .optional()
         .describe('ISO timestamp or time string (HH:mm) of the event. Defaults to now.'),
       event_type: z
-        .nativeEnum(JourneyEventType)
+        .enum(['SYMPTOM', 'WELLNESS_CHECK', 'RECOVERY_NOTE'])
         .describe('The type of event (SYMPTOM, WELLNESS_CHECK, RECOVERY_NOTE)'),
       category: z
-        .nativeEnum(JourneyEventCategory)
+        .enum([
+          'GI_DISTRESS',
+          'MUSCLE_PAIN',
+          'FATIGUE',
+          'SLEEP',
+          'MOOD',
+          'CRAMPING',
+          'DIZZINESS',
+          'HUNGER'
+        ])
         .describe(
           'The category of the feeling (GI_DISTRESS, MUSCLE_PAIN, FATIGUE, SLEEP, MOOD, etc.)'
         ),
@@ -80,7 +89,16 @@ export const journeyTools = (userId: string, timezone: string) => ({
         .optional()
         .describe('End date in ISO format (YYYY-MM-DD). Defaults to start_date'),
       category: z
-        .nativeEnum(JourneyEventCategory)
+        .enum([
+          'GI_DISTRESS',
+          'MUSCLE_PAIN',
+          'FATIGUE',
+          'SLEEP',
+          'MOOD',
+          'CRAMPING',
+          'DIZZINESS',
+          'HUNGER'
+        ])
         .optional()
         .describe('Filter by specific category')
     }),
@@ -124,7 +142,18 @@ export const journeyTools = (userId: string, timezone: string) => ({
       'Update an existing wellness event. Use this if the user wants to correct a mistake (e.g., "I meant severity 8, not 5") or add more details.',
     inputSchema: z.object({
       id: z.string().describe('The UUID of the event to update'),
-      category: z.nativeEnum(JourneyEventCategory).optional(),
+      category: z
+        .enum([
+          'GI_DISTRESS',
+          'MUSCLE_PAIN',
+          'FATIGUE',
+          'SLEEP',
+          'MOOD',
+          'CRAMPING',
+          'DIZZINESS',
+          'HUNGER'
+        ])
+        .optional(),
       severity: z.number().min(1).max(10).optional(),
       description: z.string().optional(),
       timestamp: z.string().optional().describe('ISO timestamp or time string (HH:mm)')

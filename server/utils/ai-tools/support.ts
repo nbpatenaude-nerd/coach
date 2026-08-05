@@ -2,11 +2,11 @@ import { tool } from 'ai'
 import { z } from 'zod/v3'
 import { prisma } from '../db'
 import { issuesRepository } from '../repositories/issuesRepository'
-import { BugStatus } from '@prisma/client'
+import type { BugStatus } from '@prisma/client'
 import type { AiSettings } from '../ai-user-settings'
 import { issueCommentContentSchema } from '../issues/commentValidation'
 
-const bugStatusSchema = z.nativeEnum(BugStatus)
+const bugStatusSchema = z.enum(['OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED', 'NEED_MORE_INFO'])
 const ticketCreateSchema = z.object({
   title: z.string().describe('Short, descriptive title of the bug/ticket'),
   description: z
