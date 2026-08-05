@@ -1,5 +1,5 @@
 import { dispatchTask } from './task-dispatcher'
-import type { EmailAudience } from './generated-prisma/client'
+import type { EmailAudience } from '#imports'
 import { getEmailTemplateDefinition } from './email-template-registry'
 import { buildUserRunTags } from './trigger-run-tags'
 

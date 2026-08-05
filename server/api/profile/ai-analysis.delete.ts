@@ -1,6 +1,5 @@
 import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'
-import pkg from '../../utils/generated-prisma/client'
 import { workoutRepository } from '../../utils/repositories/workoutRepository'
 import { activityRecommendationRepository } from '../../utils/repositories/activityRecommendationRepository'
 import { reportRepository } from '../../utils/repositories/reportRepository'

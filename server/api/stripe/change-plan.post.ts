@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import type { SubscriptionTier } from '../../utils/generated-prisma/client'
+import type { SubscriptionTier } from '#imports'
 import { z } from 'zod/v3'
 import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'

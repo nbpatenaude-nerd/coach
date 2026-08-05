@@ -1,6 +1,4 @@
 import { prisma } from '../db'
-import type { Prisma } from '../generated-prisma/client'
-
 export const availabilityRepository = {
   /**
    * Get all availability records for a user, ordered by day of week (0=Sunday)

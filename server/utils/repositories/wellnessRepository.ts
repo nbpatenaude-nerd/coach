@@ -1,5 +1,4 @@
 import { prisma } from '../db'
-import type { Prisma } from '../generated-prisma/client'
 import { normalizeWellnessFields } from '../wellnessNormalization'
 
 function areEquivalentValues(left: unknown, right: unknown) {

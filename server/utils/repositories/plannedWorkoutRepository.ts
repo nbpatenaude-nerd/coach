@@ -1,5 +1,4 @@
 import { prisma } from '../db'
-import type { Prisma } from '../generated-prisma/client'
 import { publishActivityEvent } from '../activity-realtime'
 
 export const plannedWorkoutRepository = {

@@ -1,4 +1,4 @@
-import type { SubscriptionTier, User } from './generated-prisma/client'
+import type { SubscriptionTier, User } from '#imports'
 import { prisma } from './db'
 
 export function isLifetimeSubscriber(user: Pick<User, 'subscriptionStatus'>): boolean {

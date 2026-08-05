@@ -1,4 +1,4 @@
-import type { Integration } from './generated-prisma/client'
+import type { Integration } from '#imports'
 import { prisma } from './db'
 import { IntegrationAuthError, IntegrationProviderError } from './integration-errors'
 

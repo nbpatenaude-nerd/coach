@@ -1,4 +1,4 @@
-import type { SubscriptionEnvironment } from './generated-prisma/client'
+import type { SubscriptionEnvironment } from '#imports'
 import { prisma } from './db'
 import { auditLogRepository } from './repositories/auditLogRepository'
 import {

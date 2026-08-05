@@ -1,11 +1,10 @@
 import type {
-  Prisma,
   ProviderSubscription,
   ProviderSubscriptionStatus,
   SubscriptionEnvironment,
   SubscriptionProvider,
   SubscriptionTier
-} from './generated-prisma/client'
+} from '#imports'
 import {
   pickStripeSubscriptionId,
   projectProviderSubscriptions,

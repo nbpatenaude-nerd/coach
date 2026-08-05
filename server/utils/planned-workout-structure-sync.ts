@@ -1,6 +1,4 @@
 import { createHash } from 'node:crypto'
-import { Prisma } from './generated-prisma/client'
-
 type StructureEditSource = 'USER' | 'AI' | 'REMOTE_IMPORT' | 'PUBLISH'
 
 type PlannedWorkoutStructureState = {

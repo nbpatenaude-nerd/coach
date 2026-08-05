@@ -1,7 +1,7 @@
-import pkg from './generated-prisma/client'
+import { PrismaClient, Prisma } from '../generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
-const { PrismaClient } = pkg
+export { Prisma }
 
 const prismaClientSingleton = () => {
   const pool = new pg.Pool({

@@ -1,4 +1,4 @@
-import type { Integration } from './generated-prisma/client'
+import type { Integration } from '#imports'
 import { ensureValidGarminToken } from './garmin'
 
 export type GarminTargetThresholds = {

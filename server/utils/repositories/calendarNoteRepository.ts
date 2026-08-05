@@ -1,6 +1,4 @@
 import { prisma } from '../db'
-import type { Prisma } from '../generated-prisma/client'
-
 export const calendarNoteRepository = {
   async upsert(
     userId: string,

@@ -1,5 +1,4 @@
-import pkg from '../generated-prisma/client'
-import type { SubscriptionTier } from '../generated-prisma/client'
+import type { SubscriptionTier } from '#imports'
 import { prisma } from '../db'
 import type { QuotaOperation } from './registry'
 import {

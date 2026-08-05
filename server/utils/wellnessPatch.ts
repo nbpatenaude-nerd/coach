@@ -1,5 +1,4 @@
 import type { H3Event } from 'h3'
-import pkg from './generated-prisma/client'
 import { z } from 'zod/v3'
 import { requireAuth } from './auth-guard'
 import { prisma } from './db'
