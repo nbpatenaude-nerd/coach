@@ -286,14 +286,12 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
-    originEnvKey: 'NUXT_AUTH_ORIGIN',
-    baseURL: process.env.NUXT_AUTH_ORIGIN || 'http://localhost:3099/api/auth',
+    baseURL: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3099',
     provider: {
       type: 'authjs'
     },
-    session: {
-      enableRefreshPeriodically: true,
-      enableRefreshOnWindowFocus: true
+    globalAppMiddleware: {
+      isEnabled: false
     }
   },
 

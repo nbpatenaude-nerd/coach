@@ -45,6 +45,51 @@
               {{ t('login.form_subtitle') }}
             </p>
 
+            <form class="mt-8 space-y-4" @submit.prevent="handleCredentialsLogin">
+              <div>
+                <UInput
+                  v-model="email"
+                  type="email"
+                  placeholder="Email"
+                  required
+                  class="w-full"
+                  size="xl"
+                />
+              </div>
+              <div>
+                <UInput
+                  v-model="password"
+                  type="password"
+                  placeholder="Password"
+                  required
+                  class="w-full"
+                  size="xl"
+                />
+              </div>
+              <UButton
+                type="submit"
+                block
+                size="xl"
+                color="primary"
+                variant="solid"
+                class="h-14 min-w-full rounded-xl text-xs font-bold uppercase tracking-[0.15em]"
+                :loading="loadingCredentials || isInitializing"
+              >
+                Sign In with Email
+              </UButton>
+            </form>
+
+            <div class="mt-4 text-center">
+              <NuxtLink
+                to="/auth/forgot-password"
+                class="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+              >
+                Legacy Athlete? Forgot your password? Click here to claim your account.
+              </NuxtLink>
+            </div>
+
+            <UDivider class="mt-8" label="OR" />
+
             <div class="mt-8 space-y-3">
               <UButton
                 v-if="appleSignInEnabled"
@@ -201,7 +246,11 @@
   const loadingApple = ref(false)
   const loadingStrava = ref(false)
   const loadingIntervals = ref(false)
+  const loadingCredentials = ref(false)
   const isInitializing = ref(false)
+
+  const email = ref('')
+  const password = ref('')
 
   async function handleAppleLogin() {
     trackLogin('apple')
@@ -268,6 +317,23 @@
       })
       isInitializing.value = false
       loadingIntervals.value = false
+    }
+  }
+
+  async function handleCredentialsLogin() {
+    trackLogin('credentials')
+    isInitializing.value = true
+    loadingCredentials.value = true
+    try {
+      await signIn('credentials', { email: email.value, password: password.value, callbackUrl })
+    } catch (error: any) {
+      toast.add({
+        title: t.value('login.error_title'),
+        description: error.message || 'Invalid email or password',
+        color: 'error'
+      })
+      isInitializing.value = false
+      loadingCredentials.value = false
     }
   }
 </script>
