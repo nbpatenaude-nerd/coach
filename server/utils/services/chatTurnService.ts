@@ -1,4 +1,3 @@
-import type { Prisma } from '../generated-prisma/client'
 import { prisma } from '../db'
 import { expandStoredChatMessages, truncateMessages } from '../chat/history'
 import { shouldExcludeAssistantMessageFromHistory } from '../chat/message-state'

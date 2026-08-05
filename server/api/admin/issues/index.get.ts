@@ -1,8 +1,7 @@
 import { getServerSession } from '../../../utils/session'
 import { issuesRepository } from '../../../utils/repositories/issuesRepository'
 import { prisma } from '../../../utils/db'
-import type { BugStatus } from '../../../utils/generated-prisma/client'
-
+import type { BugStatus } from '#imports'
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
   if (!session?.user?.isAdmin) {

@@ -1,4 +1,3 @@
-import type { Prisma } from '../generated-prisma/client'
 import { prisma } from '../db'
 
 export const bodyMeasurementRepository = {

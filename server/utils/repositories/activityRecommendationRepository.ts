@@ -1,6 +1,4 @@
 import { prisma } from '../db'
-import type { Prisma } from '../generated-prisma/client'
-
 export const activityRecommendationRepository = {
   async findToday(userId: string, date: Date) {
     return prisma.activityRecommendation.findFirst({

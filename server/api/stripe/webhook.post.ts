@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import type { SubscriptionStatus } from '../../utils/generated-prisma/client'
+import type { SubscriptionStatus } from '#imports'
 import { prisma } from '../../utils/db'
 import { stripe } from '../../utils/stripe'
 import { auditLogRepository } from '../../utils/repositories/auditLogRepository'

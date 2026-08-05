@@ -1,4 +1,3 @@
-import type { Prisma } from './generated-prisma/client'
 import { prisma } from './db'
 import type { StructureRunSource } from './trigger-run-tags'
 import { STRUCTURE_GENERATION_RUN_STALE_AFTER_MS } from './workout-ai-timeouts'

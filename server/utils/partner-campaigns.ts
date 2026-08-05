@@ -1,8 +1,4 @@
-import type {
-  PartnerCampaign,
-  PartnerCampaignRedemption,
-  SubscriptionTier
-} from './generated-prisma/client'
+import type { PartnerCampaign, PartnerCampaignRedemption, SubscriptionTier } from '#imports'
 import { prisma } from './db'
 import { maxSubscriptionTier, resolveEffectiveTier } from '../../shared/effective-tier'
 import { normalizeSlug } from '../../shared/slug'

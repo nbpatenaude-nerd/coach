@@ -2,8 +2,7 @@ import { defineEventHandler, createError } from 'h3'
 import { getServerSession } from '../../../../utils/session'
 import { prisma } from '../../../../utils/db'
 import { getStartOfDaysAgoUTC } from '../../../../utils/date'
-import type { SubscriptionTier } from '../../../../utils/generated-prisma/client'
-
+import type { SubscriptionTier } from '#imports'
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
 
