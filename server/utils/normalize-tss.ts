@@ -11,7 +11,7 @@
  * 6. Estimate from duration/intensity if HR data available
  */
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from './generated-prisma/client'
 import { prisma } from './db'
 import { attachStreamToWorkout } from './repositories/workoutStreamRepository'
 import { userRepository } from './repositories/userRepository'

@@ -2,7 +2,7 @@ import { tool } from 'ai'
 import { z } from 'zod/v3'
 import { prisma } from '../db'
 import { issuesRepository } from '../repositories/issuesRepository'
-import type { BugStatus } from '@prisma/client'
+import type { BugStatus } from '../generated-prisma/client'
 import type { AiSettings } from '../ai-user-settings'
 import { issueCommentContentSchema } from '../issues/commentValidation'
 

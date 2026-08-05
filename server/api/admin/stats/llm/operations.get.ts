@@ -1,5 +1,5 @@
 import { defineEventHandler, createError, getQuery } from 'h3'
-import pkg from '@prisma/client'
+import pkg from '../../../../utils/generated-prisma/client'
 import { getServerSession } from '../../../../utils/session'
 import { prisma } from '../../../../utils/db'
 import { getStartOfDaysAgoUTC } from '../../../../utils/date'

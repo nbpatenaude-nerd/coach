@@ -5,7 +5,7 @@ import { generateUnsubscribeToken } from '../unsubscribe-token'
 import { EMAIL_TEMPLATE_REGISTRY, getEmailTemplateDefinition } from '../email-template-registry'
 import { getInternalApiToken } from '../internal-api-token'
 import { resolveEmailSubject } from '../email-i18n'
-import type { EmailAudience, EmailDeliveryStatus } from '@prisma/client'
+import type { EmailAudience, EmailDeliveryStatus } from '../generated-prisma/client'
 
 /**
  * Statuses that mean Resend already accepted/processed the send. A delivery

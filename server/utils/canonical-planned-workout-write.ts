@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from './generated-prisma/client'
 import { createError } from 'h3'
 import { prisma } from './db'
 import {

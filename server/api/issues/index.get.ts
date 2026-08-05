@@ -1,7 +1,7 @@
 import { requireAuth } from '../../utils/auth-guard'
 import { issuesRepository } from '../../utils/repositories/issuesRepository'
 import { prisma } from '../../utils/db'
-import type { BugStatus } from '@prisma/client'
+import type { BugStatus } from '../../utils/generated-prisma/client'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event, ['issue:read'])

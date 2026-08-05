@@ -1,5 +1,5 @@
 import { prisma } from '../db'
-import type { BugStatus } from '@prisma/client'
+import type { BugStatus } from '../generated-prisma/client'
 
 export interface IssueMetadata {
   priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT'

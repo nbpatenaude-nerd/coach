@@ -1,4 +1,4 @@
-import type { PublicEvent } from '@prisma/client'
+import type { PublicEvent } from './generated-prisma/client'
 import { prisma } from './db'
 import { isValidSlug, normalizeSlug } from '../../shared/slug'
 

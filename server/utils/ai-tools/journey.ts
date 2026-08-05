@@ -9,7 +9,7 @@ import {
   getStartOfLocalDateUTC,
   getEndOfLocalDateUTC
 } from '../date'
-import type { JourneyEventType, JourneyEventCategory } from '@prisma/client'
+import type { JourneyEventType, JourneyEventCategory } from '../generated-prisma/client'
 
 export const journeyTools = (userId: string, timezone: string) => ({
   record_wellness_event: tool({

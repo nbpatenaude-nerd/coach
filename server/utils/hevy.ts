@@ -1,4 +1,4 @@
-import type { Integration } from '@prisma/client'
+import type { Integration } from './generated-prisma/client'
 
 const HEVY_API_BASE = 'https://api.hevyapp.com/v1'
 

@@ -1,4 +1,4 @@
-import type { UserNutritionSettings } from '@prisma/client'
+import type { UserNutritionSettings } from '../generated-prisma/client'
 import { nutritionSettingsRepository } from '../repositories/nutritionSettingsRepository'
 
 export const DEFAULT_NUTRITION_SETTINGS: Omit<

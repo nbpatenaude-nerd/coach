@@ -1,7 +1,7 @@
 import { prisma } from '../db'
 import { metabolicService } from './metabolicService'
 import { getUserTimezone, getStartOfDayUTC, getEndOfDayUTC } from '../date'
-import type { JourneyEventType, JourneyEventCategory } from '@prisma/client'
+import type { JourneyEventType, JourneyEventCategory } from '../generated-prisma/client'
 
 export interface WellnessEventInput {
   userId: string

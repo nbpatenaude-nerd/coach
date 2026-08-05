@@ -1,5 +1,5 @@
 import { prisma } from '../db'
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../generated-prisma/client'
 
 export const scoreTrendExplanationRepository = {
   async findByMetric(userId: string, type: string, period: number, metric: string) {

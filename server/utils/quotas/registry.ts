@@ -1,4 +1,4 @@
-import type { SubscriptionTier } from '@prisma/client'
+import type { SubscriptionTier } from '../generated-prisma/client'
 
 export type QuotaOperation =
   | 'chat'

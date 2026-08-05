@@ -5,7 +5,7 @@ import type {
   UserMemoryScope,
   UserMemorySource,
   UserMemoryStatus
-} from '@prisma/client'
+} from '../generated-prisma/client'
 import { prisma } from '../db'
 
 export type MemoryCandidate = {

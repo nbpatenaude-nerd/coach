@@ -1,4 +1,4 @@
-import pkg from '@prisma/client'
+import pkg from '../generated-prisma/client'
 import { prisma } from '../db'
 import { athleteMetricsService } from '../athleteMetricsService'
 import { sportSettingsRepository } from './sportSettingsRepository'

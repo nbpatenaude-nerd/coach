@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '../../../../utils/generated-prisma/client'
 import { getServerSession } from '../../../../utils/session'
 import { prisma } from '../../../../utils/db'
 import { computeStructuredWorkoutHash } from '../../../../utils/planned-workout-structure-sync'

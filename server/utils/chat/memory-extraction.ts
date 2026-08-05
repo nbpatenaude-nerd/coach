@@ -1,6 +1,6 @@
 import { generateObject } from 'ai'
 import { createGoogle } from '@ai-sdk/google'
-import type { UserMemoryCategory, UserMemoryScope } from '@prisma/client'
+import type { UserMemoryCategory, UserMemoryScope } from '../generated-prisma/client'
 import { z } from 'zod/v3'
 import { calculateLlmCost } from '../ai-config'
 import { prisma } from '../db'

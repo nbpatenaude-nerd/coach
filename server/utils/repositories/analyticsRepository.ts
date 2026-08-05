@@ -1,4 +1,4 @@
-import { Prisma, type Workout } from '@prisma/client'
+import { Prisma, type Workout } from '../generated-prisma/client'
 import { prisma } from '../db'
 
 export interface AnalyticsQueryOptions {

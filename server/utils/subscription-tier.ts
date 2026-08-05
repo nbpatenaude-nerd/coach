@@ -1,5 +1,5 @@
 import type Stripe from 'stripe'
-import type { SubscriptionTier } from '@prisma/client'
+import type { SubscriptionTier } from './generated-prisma/client'
 
 type StripeTierConfig = {
   stripeSupporterProductId?: string

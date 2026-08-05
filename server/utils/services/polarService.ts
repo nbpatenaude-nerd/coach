@@ -1,5 +1,5 @@
 import { prisma } from '../db'
-import type { Integration } from '@prisma/client'
+import type { Integration } from '../generated-prisma/client'
 import {
   listPolarExercises,
   listPolarSleeps,
