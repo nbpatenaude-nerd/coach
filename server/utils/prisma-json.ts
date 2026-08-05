@@ -1,4 +1,5 @@
-import { Prisma } from '@prisma/client'
+import pkg from '@prisma/client'
+const { Prisma } = pkg
 
 export function toPrismaInputJsonValue(value: unknown): Prisma.InputJsonValue {
   return JSON.parse(JSON.stringify(value ?? {})) as Prisma.InputJsonValue

@@ -1,6 +1,7 @@
 import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'
-import { Prisma } from '@prisma/client'
+import pkg from '@prisma/client'
+const { Prisma } = pkg
 
 defineRouteMeta({
   openAPI: {

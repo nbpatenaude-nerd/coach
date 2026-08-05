@@ -1,10 +1,11 @@
 import type { H3Event } from 'h3'
-import { Prisma } from '@prisma/client'
+import pkg from '@prisma/client'
 import { z } from 'zod/v3'
 import { requireAuth } from './auth-guard'
 import { prisma } from './db'
 import { bodyMeasurementService } from './services/bodyMeasurementService'
 import { normalizeWellnessFields } from './wellnessNormalization'
+const { Prisma } = pkg
 
 export const wellnessPatchSchema = z.object({
   date: z.string().optional(),

@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
-import { Prisma } from '@prisma/client'
+import pkg from '@prisma/client'
+const { Prisma } = pkg
 
 type StructureEditSource = 'USER' | 'AI' | 'REMOTE_IMPORT' | 'PUBLISH'
 

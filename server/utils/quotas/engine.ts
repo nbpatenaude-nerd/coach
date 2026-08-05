@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import pkg from '@prisma/client'
 import type { SubscriptionTier } from '@prisma/client'
 import { prisma } from '../db'
 import type { QuotaOperation } from './registry'
@@ -12,6 +12,7 @@ import type { QuotaStatus } from '~~/app/types/quotas'
 import { getUserTimezone, getStartOfDayUTC, getEndOfDayUTC } from '../date'
 import { resolveEffectiveTier } from '../../../shared/effective-tier'
 import { getActivePromotionalGrant } from '../partner-campaigns'
+const { Prisma } = pkg
 
 async function resolveEffectiveTierForUser(userId: string): Promise<SubscriptionTier | null> {
   const user = await prisma.user.findUnique({

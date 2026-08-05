@@ -1,5 +1,6 @@
 import { prisma } from '../db'
-import { Prisma } from '@prisma/client'
+import pkg from '@prisma/client'
+const { Prisma } = pkg
 
 /** Sentinel returned by `updateWithVersionCheck` when the row changed since it was read. */
 export const CONCURRENT_UPDATE_CONFLICT = Symbol('CONCURRENT_UPDATE_CONFLICT')

@@ -421,8 +421,7 @@ export default defineNuxtConfig({
       '@tolgee/web',
       '@tolgee/format-icu',
       '@modelcontextprotocol/server',
-      '@modelcontextprotocol/node',
-      '@prisma/client'
+      '@modelcontextprotocol/node'
     ]
   },
 
