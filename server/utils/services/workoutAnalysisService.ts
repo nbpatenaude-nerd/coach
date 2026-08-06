@@ -35,7 +35,7 @@ import {
   type WorkoutAnalysisFactsV2
 } from '../workout-analysis-facts'
 import { summarizePowerFromWatts } from '../power-metrics'
-import type { JourneyEventCategory } from '#imports'
+import type { JourneyEventCategory } from '~/server/utils/generated-prisma/client'
 import { registerTaskHandler } from '../task-registry'
 
 const logger = console

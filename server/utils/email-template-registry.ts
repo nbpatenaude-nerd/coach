@@ -1,4 +1,4 @@
-import type { EmailAudience } from '#imports'
+import type { EmailAudience } from '~/server/utils/generated-prisma/client'
 export type EmailPreferenceKey =
   | 'onboarding'
   | 'workoutAnalysis'

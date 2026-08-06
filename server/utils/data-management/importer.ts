@@ -1,4 +1,4 @@
-import type { PrismaClient } from '#imports'
+import type { PrismaClient } from '~/server/utils/generated-prisma/client'
 import { v4 as uuidv4 } from 'uuid'
 import { buildLegacyAdapterWriteData } from '../../utils/canonical-planned-workout-write'
 

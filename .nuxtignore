@@ -1,2 +1,2 @@
-server/utils/generated-prisma/browser.ts
-server/utils/generated-prisma/internal/*Browser.ts
+server/utils/generated-prisma/**
+server/utils/generated-prisma/

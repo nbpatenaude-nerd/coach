@@ -4,7 +4,7 @@ import type {
   SubscriptionEnvironment,
   SubscriptionProvider,
   SubscriptionTier
-} from '#imports'
+} from '~/server/utils/generated-prisma/client'
 import {
   pickStripeSubscriptionId,
   projectProviderSubscriptions,
