@@ -105,7 +105,13 @@ const sentryEnabled = process.env.NODE_ENV === 'production' || process.env.SENTR
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ignore: ['examples/**', 'coverage/**', 'backups/**', 'server/utils/generated-prisma/**'],
+  ignore: [
+    'examples/**',
+    'coverage/**',
+    'backups/**',
+    'server/utils/generated-prisma/browser.ts',
+    'server/utils/generated-prisma/internal/*Browser.ts'
+  ],
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
