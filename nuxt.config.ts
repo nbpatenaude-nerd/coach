@@ -2,6 +2,16 @@ import pkg from './package.json'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 
+const AUTH_ORIGIN = process.env.NUXT_AUTH_ORIGIN || 'http://localhost:3099/api/auth'
+
+// @sidebase/nuxt-auth consumes this value verbatim (server-side only the pathname is
+// used). Without the /api/auth suffix, session fetches recurse into SSR and OOM the server.
+if (process.env.NODE_ENV === 'production' && !AUTH_ORIGIN.endsWith('/api/auth')) {
+  throw new Error(
+    `NUXT_AUTH_ORIGIN must end with /api/auth, got "${process.env.NUXT_AUTH_ORIGIN}". See docs/04-guides/deployment.md.`
+  )
+}
+
 const TERMS = [
   'negative-split',
   'tempo',
@@ -233,23 +243,23 @@ export default defineNuxtConfig({
       process.env.SOURCEMAP === 'false'
         ? (undefined as any)
         : {
-            production: 'runtime',
-            route: '/_openapi.json',
-            meta: {
-              title: 'Journey Endurance Coaching API',
-              description: 'AI-powered endurance and multisport coaching platform API',
-              version: pkg.version
-            },
-            ui: {
-              scalar: {
-                route: '/_docs/scalar',
-                theme: 'purple'
-              },
-              swagger: {
-                route: '/_docs/swagger'
-              }
-            }
+          production: 'runtime',
+          route: '/_openapi.json',
+          meta: {
+            title: 'Journey Endurance Coaching API',
+            description: 'AI-powered endurance and multisport coaching platform API',
+            version: pkg.version
           },
+          ui: {
+            scalar: {
+              route: '/_docs/scalar',
+              theme: 'purple'
+            },
+            swagger: {
+              route: '/_docs/swagger'
+            }
+          }
+        },
     // Ensure unhead is properly bundled/traced
     externals: {
       // @vue-email/compiler dynamically loads vue-email at runtime.
@@ -286,17 +296,19 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
-    baseURL: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3099',
+    originEnvKey: 'NUXT_AUTH_ORIGIN',
+    baseURL: AUTH_ORIGIN,
     provider: {
       type: 'authjs'
     },
-    globalAppMiddleware: {
-      isEnabled: false
+    sessionRefresh: {
+      enablePeriodically: 5 * 60 * 1000,
+      enableOnWindowFocus: true
     }
   },
 
   runtimeConfig: {
-    authOrigin: process.env.NUXT_AUTH_ORIGIN || 'http://localhost:3099',
+    authOrigin: AUTH_ORIGIN,
     // E2E stack must exercise real auth redirects; ignore local AUTH_BYPASS_USER.
     authBypassEnabled: process.env.E2E_MODE === 'true' ? false : !!process.env.AUTH_BYPASS_USER,
     authBypassUser: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_USER || '',
