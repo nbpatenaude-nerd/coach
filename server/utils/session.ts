@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 import { getCookie, getHeader } from 'h3'
-import { getServerSession as getBaseSession } from '#auth'
+import { getToken } from 'next-auth/jwt'
 import { prisma } from './db'
 import { coachingRepository } from './repositories/coachingRepository'
 
@@ -26,43 +26,75 @@ export interface CustomSession {
 /**
  * Centralized session utility that handles regular authentication
  * and admin impersonation.
+ *
+ * Uses getToken() to read the JWT directly from cookies — no outbound HTTP
+ * fetch, no auth.baseURL dependency, no recursion risk in production.
  */
 export async function getServerSession(event: H3Event): Promise<CustomSession | null> {
-  // 1. Check for standard auth session
-  const session = await getBaseSession(event)
+  // Read the JWT directly from the request cookie — no HTTP round-trip,
+  // no dependency on auth.baseURL, no recursion possible.
+  const token = await getToken({
+    req: event.node.req as any,
+    secret: process.env.AUTH_SECRET || ''
+  })
 
-  if (!session || !session.user) {
+  if (!token || !token.sub) {
     return null
   }
 
-  const baseUserId = (session.user as any).id
-  if (baseUserId) {
-    const baseUser = await prisma.user.findUnique({
-      where: { id: baseUserId },
-      select: {
-        deactivatedAt: true
-      }
-    })
+  // Map JWT token fields to our session shape
+  const baseUserId = (token.id as string) || token.sub
 
-    if (!baseUser || baseUser.deactivatedAt) {
-      return null
+  // Verify the user still exists and is not deactivated
+  const baseUser = await prisma.user.findUnique({
+    where: { id: baseUserId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      image: true,
+      timezone: true,
+      language: true,
+      uiLanguage: true,
+      deactivatedAt: true,
+      isAdmin: true
     }
+  })
+
+  if (!baseUser || baseUser.deactivatedAt) {
+    return null
+  }
+
+  const baseSession: CustomSession = {
+    user: {
+      id: baseUser.id,
+      name: baseUser.name,
+      email: baseUser.email,
+      image: baseUser.image,
+      timezone: baseUser.timezone ?? null,
+      language: baseUser.language ?? null,
+      uiLanguage: baseUser.uiLanguage ?? null,
+      deactivatedAt: baseUser.deactivatedAt ?? null,
+      isAdmin: baseUser.isAdmin ?? false
+    },
+    expires: token.exp
+      ? new Date(token.exp * 1000).toISOString()
+      : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
   }
 
   // 2. Handle Admin Impersonation
   const impersonatedUserId = getCookie(event, 'auth.impersonated_user_id')
 
-  if ((session.user as any).isAdmin && impersonatedUserId) {
-    // If user is admin and requesting impersonation, fetch the target user
+  if (baseUser.isAdmin && impersonatedUserId) {
     const targetUser = await prisma.user.findUnique({
       where: { id: impersonatedUserId }
     })
 
     if (targetUser) {
       return {
-        ...session,
+        ...baseSession,
         user: {
-          ...session.user,
+          ...baseSession.user!,
           id: targetUser.id,
           name: targetUser.name,
           email: targetUser.email,
@@ -73,21 +105,19 @@ export async function getServerSession(event: H3Event): Promise<CustomSession | 
           deactivatedAt: targetUser.deactivatedAt ?? null,
           isAdmin: (targetUser as any).isAdmin || false,
           isImpersonating: true,
-          originalUserId: (session.user as any).id,
-          originalUserEmail: session.user.email
+          originalUserId: baseUser.id,
+          originalUserEmail: baseUser.email
         }
-      } as CustomSession
+      }
     }
   }
 
   // 3. Handle Coaching "Act As"
   const actAsUserId =
     getHeader(event, 'x-act-as-user') || getCookie(event, 'coach_wattz_act_as_user')
-  const currentUserId = (session.user as any).id
 
-  if (actAsUserId && actAsUserId !== currentUserId) {
-    // Verify coaching relationship
-    const hasRelationship = await coachingRepository.checkRelationship(currentUserId, actAsUserId)
+  if (actAsUserId && actAsUserId !== baseUser.id) {
+    const hasRelationship = await coachingRepository.checkRelationship(baseUser.id, actAsUserId)
 
     if (hasRelationship) {
       const targetUser = await prisma.user.findUnique({
@@ -96,9 +126,9 @@ export async function getServerSession(event: H3Event): Promise<CustomSession | 
 
       if (targetUser) {
         return {
-          ...session,
+          ...baseSession,
           user: {
-            ...session.user,
+            ...baseSession.user!,
             id: targetUser.id,
             name: targetUser.name,
             email: targetUser.email,
@@ -109,22 +139,13 @@ export async function getServerSession(event: H3Event): Promise<CustomSession | 
             deactivatedAt: targetUser.deactivatedAt ?? null,
             isAdmin: (targetUser as any).isAdmin || false,
             isCoaching: true,
-            originalUserId: currentUserId,
-            originalUserEmail: session.user.email
+            originalUserId: baseUser.id,
+            originalUserEmail: baseUser.email
           }
-        } as CustomSession
+        }
       }
     }
   }
 
-  // Ensure default session matches CustomSession
-  if (!(session.user as any).id) {
-    // Need to fetch user id if not in session token
-    // This logic depends on how auth is set up (JWT vs Database)
-    // Usually next-auth-prisma-adapter puts id in session user if configured.
-    // If not, we might need to fetch it.
-    // Assuming it IS there for now but typed as 'any' to fix TS error.
-  }
-
-  return session as unknown as CustomSession
+  return baseSession
 }
