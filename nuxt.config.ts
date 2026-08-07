@@ -243,23 +243,23 @@ export default defineNuxtConfig({
       process.env.SOURCEMAP === 'false'
         ? (undefined as any)
         : {
-          production: 'runtime',
-          route: '/_openapi.json',
-          meta: {
-            title: 'Journey Endurance Coaching API',
-            description: 'AI-powered endurance and multisport coaching platform API',
-            version: pkg.version
-          },
-          ui: {
-            scalar: {
-              route: '/_docs/scalar',
-              theme: 'purple'
+            production: 'runtime',
+            route: '/_openapi.json',
+            meta: {
+              title: 'Journey Endurance Coaching API',
+              description: 'AI-powered endurance and multisport coaching platform API',
+              version: pkg.version
             },
-            swagger: {
-              route: '/_docs/swagger'
+            ui: {
+              scalar: {
+                route: '/_docs/scalar',
+                theme: 'purple'
+              },
+              swagger: {
+                route: '/_docs/swagger'
+              }
             }
-          }
-        },
+          },
     // Ensure unhead is properly bundled/traced
     externals: {
       // @vue-email/compiler dynamically loads vue-email at runtime.
@@ -280,6 +280,7 @@ export default defineNuxtConfig({
       '0 17 * * 5': ['telegram:weekend-race-broadcast']
     },
     imports: {
+      dirs: ['!server/utils/generated-prisma'],
       imports: [
         {
           from: fileURLToPath(new URL('./server/utils/define-route-meta', import.meta.url)).replace(
