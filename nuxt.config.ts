@@ -286,7 +286,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
-    originEnvKey: 'NUXT_AUTH_ORIGIN',
+    originEnvKey: 'NUXT_PUBLIC_SITE_URL',
     provider: {
       type: 'authjs',
       trustHost: true
