@@ -7,5 +7,8 @@
     "statusBarItem.remoteForeground": "#15202b"
   },
   "peacock.color": "#cba6f7",
-  "cSpell.words": ["nums", "vueuse"]
+  "cSpell.words": ["nums", "vueuse"],
+  "qwen-code.apiKey": "sk-sp-H.DYRMY.hU80.MEYCIQDyUbPRLhu5VNEO68B78TH4HXq-3pbe-sk-sp-H.DYRMY.H1qd.MEYCIQChAu7KIyLswuXfJ7e5HHzH29nqzYoH2RJZosrcNTEUiwIhAMRPWSXYaV36jHAIHsVlkVf3fr_AYyLsH_q-OuuM5uS7",
+  "qwen-code.codingPlanRegion": "global",
+  "qwen-code.provider": "api-key"
 }
