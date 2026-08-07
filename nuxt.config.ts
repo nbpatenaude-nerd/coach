@@ -477,7 +477,12 @@ export default defineNuxtConfig({
   },
 
   sourcemap: {
-    client: process.env.SOURCEMAP === 'false' ? false : 'hidden'
+    client:
+      process.env.NODE_ENV === 'development' || process.env.SOURCEMAP === 'false'
+        ? false
+        : 'hidden',
+    server:
+      process.env.NODE_ENV === 'development' || process.env.SOURCEMAP === 'false' ? false : 'hidden'
   },
 
   nuxtApiShield: {
