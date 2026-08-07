@@ -286,8 +286,10 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
+    originEnvKey: 'NUXT_AUTH_ORIGIN',
     provider: {
-      type: 'authjs'
+      type: 'authjs',
+      trustHost: true
     },
     globalAppMiddleware: {
       isEnabled: false
