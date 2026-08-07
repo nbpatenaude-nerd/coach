@@ -286,7 +286,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
-    baseURL: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3099',
     provider: {
       type: 'authjs'
     },
