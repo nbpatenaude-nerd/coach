@@ -1,4 +1,8 @@
-import type { SubscriptionStatus, SubscriptionTier, User } from '#imports'
+import type {
+  SubscriptionStatus,
+  SubscriptionTier,
+  User
+} from '~/server/utils/generated-prisma/client'
 import { resolveEffectiveTier } from '../../shared/effective-tier'
 
 export interface UserEntitlements {

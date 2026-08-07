@@ -1,7 +1,7 @@
 import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'
 import { stripe } from '../../utils/stripe'
-import type { SubscriptionStatus, SubscriptionTier } from '#imports'
+import type { SubscriptionStatus, SubscriptionTier } from '~/server/utils/generated-prisma/client'
 import type Stripe from 'stripe'
 import { getPriceProductId, resolveSubscriptionTier } from '../../utils/subscription-tier'
 import { ensureStripeCustomerForUser } from '../../utils/stripe-customer'

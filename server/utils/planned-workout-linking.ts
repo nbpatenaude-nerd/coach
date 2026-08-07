@@ -1,4 +1,4 @@
-import type { PlannedWorkout, Workout } from '#imports'
+import type { PlannedWorkout, Workout } from '~/server/utils/generated-prisma/client'
 import { prisma } from './db'
 import { formatUserDate, getUserTimezone } from './date'
 import { publishActivityEvent } from './activity-realtime'

@@ -1,5 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import type { PrismaClient } from '#imports'
+import type { PrismaClient } from '~/server/utils/generated-prisma/client'
 import pg from 'pg'
 import { sendTelegramMessage } from '../../utils/telegram'
 

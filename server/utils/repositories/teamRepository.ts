@@ -1,6 +1,6 @@
 import { prisma } from '../db'
 import { slugifyPublicName } from '../../../shared/public-plans'
-import type { TeamRole } from '#imports'
+import type { TeamRole } from '~/server/utils/generated-prisma/client'
 import { coachingRepository } from './coachingRepository'
 import {
   generateInviteCode,

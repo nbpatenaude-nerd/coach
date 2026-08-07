@@ -1,5 +1,8 @@
 import { z } from 'zod'
-import type { ProviderSubscriptionStatus, SubscriptionEnvironment } from '#imports'
+import type {
+  ProviderSubscriptionStatus,
+  SubscriptionEnvironment
+} from '~/server/utils/generated-prisma/client'
 import { prisma } from '../../utils/db'
 import { isUniqueConstraintError } from '../../utils/invite-code'
 import { auditLogRepository } from '../../utils/repositories/auditLogRepository'

@@ -1,5 +1,5 @@
 import { Yazio } from 'yazio'
-import type { Integration } from '#imports'
+import type { Integration } from '~/server/utils/generated-prisma/client'
 import { getProfileForItem } from './nutrition-domain/absorption'
 import { recalculateNutritionTotals } from './nutrition/totals'
 

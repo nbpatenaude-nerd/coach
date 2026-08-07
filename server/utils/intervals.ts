@@ -1,4 +1,4 @@
-import type { Integration } from '#imports'
+import type { Integration } from '~/server/utils/generated-prisma/client'
 import { formatUserDate } from './date'
 import { roundToTwoDecimals } from './number'
 import { mergeWorkoutTags } from './workout-tags'

@@ -1,4 +1,4 @@
-import type { EmailDeliveryStatus } from '#imports'
+import type { EmailDeliveryStatus } from '~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 
 /**
