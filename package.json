@@ -2,6 +2,7 @@
   "dependencies": {
     "@ai-sdk/google": "^4.0.10",
     "@ai-sdk/vue": "^4.0.18",
+    "@auth/core": "^0.34.3",
     "@flow-js/garmin-connect": "^1.6.17",
     "@google-cloud/storage": "^7.18.0",
     "@googlemaps/polyline-codec": "^1.0.28",
@@ -42,6 +43,7 @@
     "@vueuse/core": "^14.3.0",
     "ai": "^7.0.37",
     "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.11.1",
     "bullmq": "^5.79.3",
     "chalk": "^5.6.2",
     "chart.js": "^4.5.1",
