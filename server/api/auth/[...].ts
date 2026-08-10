@@ -11,6 +11,20 @@ export default NuxtAuthHandler({
   session: {
     strategy: 'jwt'
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user && token.id) {
+        ;(session.user as any).id = token.id
+      }
+      return session
+    }
+  },
   providers: [
     // @ts-expect-error: NextAuth provider default export mismatch
     GoogleProvider.default({

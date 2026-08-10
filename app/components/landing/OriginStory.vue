@@ -14,17 +14,23 @@
         <p
           class="mt-2 text-4xl font-semibold tracking-tight text-white font-athletic sm:text-5xl uppercase text-balance"
         >
-          Why Tri Nerds?
+          Why 'Tri Nerds'?
         </p>
         <p class="mt-6 text-lg/8 text-cyan-100/70">
-          Nick & David are the two goons behind Tri Nerds. After bonding over their shared obsession
-          with Star Wars, the Cosmere, and D&D, they realized they could apply the same obsessive
-          min-maxing logic to their endurance training.
+          Nick & David are the two goons behind Tri Nerds. Both have grown up with the bug for
+          adventure and exploration, which has led them both down paths that lead to what are
+          colloquially referred to as "Nerdy" hobbies. Be it the simple pleasure of Star Wars films,
+          exploring Brandon Sanderson's Cosmere, delving into Dungeons filled with Mimics & kobolds,
+          or simply enjoying some nostalgic video games or TCG's, these two love to wax poetic on
+          their favorite moments of fantasy and sci-fi. They also love endurance sport and the
+          challenges it poses to help us learn and grow as well as unite towards a common goal: self
+          discovery & improvement.
         </p>
         <p class="mt-4 text-lg/8 text-cyan-100/70">
-          We built this platform to bring enterprise-grade AI coaching, precision fueling
-          algorithms, and data-driven deep dives to the multisport community. The Journey is the
-          Destination. Let's min-max it together.
+          We built this platform to bring together the technological benefit of AI coaching,
+          community driven goals and events, expert knowledge and leading research to help every
+          athlete take their next step. We may start our journey alone, and we may finish it alone,
+          but we should never have to walk the path alone. Journey before destination.
         </p>
       </div>
     </div>

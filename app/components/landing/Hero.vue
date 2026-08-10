@@ -42,8 +42,8 @@
         >
       </h1>
       <p class="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-cyan-100/70 sm:text-xl">
-        We don't just log miles. We analyze the Acute:Chronic Workload Ratio. Join a community of
-        multisport geeks powered by an elite AI Coaching Assistant.
+        We don't just log miles. We value the process. Join a community of multisport geeks powered
+        by an elite AI Coaching Assistant.
       </p>
 
       <div class="mt-10 flex flex-wrap items-center justify-center gap-5">
