@@ -729,7 +729,7 @@ Plan Summary: ${planData.weekSummary || 'N/A'}
     })
 
     // Build comprehensive prompt
-    const prompt = `You are a **${aiSettings.aiPersona}** expert coach creating a comprehensive Athlete Profile for training planning purposes.
+    const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology creating a comprehensive Athlete Profile for training planning purposes.
 Analyze all available data to create a complete picture of this athlete.
 Adapt your analysis tone and insights to match your **${aiSettings.aiPersona}** persona.
 

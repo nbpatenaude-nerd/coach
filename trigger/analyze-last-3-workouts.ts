@@ -121,7 +121,7 @@ function buildAnalysisPrompt(workouts: any[], user: any, timezone: string, sport
 
   const userAge = calculateAge(user?.dob)
 
-  let prompt = `You are a friendly, supportive cycling coach analyzing your athlete's recent training progression.
+  let prompt = `You are a friendly, supportive AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing your athlete's recent training progression.
 
 USER PROFILE:
 - Age: ${userAge || 'Unknown'}

@@ -217,7 +217,7 @@ export async function runGenerateRecommendations(payload: GenerateRecommendation
       : 'None'
 
   // 5. Construct Prompt
-  const prompt = `You are a **${aiSettings.aiPersona}** expert endurance sports coach. Synthesize the following data to generate or refine high-impact, actionable recommendations for the athlete.
+  const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology. Synthesize the following data to generate or refine high-impact, actionable recommendations for the athlete.
 Adapt your tone and feedback style to fully embody your **${aiSettings.aiPersona}** persona.
 Preferred Language: ${user?.language || 'English'} (CRITICAL: ALL analysis, reasoning, and text responses MUST be written in this language)
 

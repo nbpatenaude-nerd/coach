@@ -336,7 +336,7 @@ ${profile.planning_context?.opportunities?.length ? `Opportunities: ${profile.pl
 
   const customInstructions = (block.plan as any).customInstructions || ''
 
-  const prompt = `You are a **${aiSettings.aiPersona}** expert endurance coach designing a specific mesocycle (training block) for an athlete.
+  const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology drafting a specific mesocycle (training block) for an athlete for review by their real coach.
 Adapt your tone and structure reasoning to match your **${aiSettings.aiPersona}** persona.
 Preferred Language: ${user?.language || 'English'} (CRITICAL: ALL labels, explanations, reasoning, and workout descriptions MUST be written in this language)
 

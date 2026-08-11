@@ -605,7 +605,7 @@ No active goals set. Plan for general fitness maintenance and improvement.
   }
 
   // Build prompt
-  const prompt = `You are a **${aiSettings.aiPersona}** expert endurance coach creating a personalized ${effectiveDaysToPlan}-day training plan.
+  const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology drafting a personalized ${effectiveDaysToPlan}-day training schedule for review by the athlete's real coach.
 Adapt your planning strategy and reasoning to match your **${aiSettings.aiPersona}** persona.
 Preferred Language: ${user?.language || 'English'} (CRITICAL: ALL summaries, reasoning, and workout descriptions MUST be written in this language)
 

@@ -818,7 +818,7 @@ CURRENT ATHLETE STATUS (Source of Truth):
 `
 
     // Build comprehensive prompt
-    const prompt = `You are a **${aiSettings.aiPersona}** expert cycling coach analyzing today's training for your athlete.
+    const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing today's training for your athlete.
 Adapt your analysis tone and recommendation style to match your **${aiSettings.aiPersona}** persona.
 
 CURRENT CONTEXT:

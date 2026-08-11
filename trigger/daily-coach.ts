@@ -22,10 +22,7 @@ import { isWithinPreferredEmailTime } from '../server/utils/email-schedule'
 import { getCurrentFitnessSummary } from '../server/utils/training-stress'
 import { evaluateFitbitRecoveryAlert } from '../server/utils/wellness'
 import { dispatchTask } from '../server/utils/task-dispatcher'
-import {
-  formatPromptHeight,
-  formatPromptWeight
-} from '../server/utils/ai-prompt-format'
+import { formatPromptHeight, formatPromptWeight } from '../server/utils/ai-prompt-format'
 
 const suggestionSchema = {
   type: 'object',
@@ -258,7 +255,7 @@ ${activeGoals
     })
 
     // Build prompt with comprehensive context
-    const prompt = `You are a **${aiSettings.aiPersona}** cycling coach providing daily workout guidance.
+    const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology providing daily workout guidance.
 Adapt your tone and style to match your persona.
 Preferred Language: ${user?.language || 'English'} (ALL analysis and text responses MUST be in this language)
 

@@ -311,7 +311,7 @@ ${activeGoals
       })
 
       // Build prompt for structured analysis
-      const prompt = `You are a **${aiSettings.aiPersona}** expert cycling coach analyzing the previous week of training data (last 7 days).
+      const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing the previous week of training data (last 7 days).
 Adapt your analysis tone and style to match your persona.
 Preferred Language: ${user?.language || 'English'} (CRITICAL: ALL analysis, summaries, and recommendations MUST be written in this language)
 

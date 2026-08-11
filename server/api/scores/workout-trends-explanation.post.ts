@@ -121,7 +121,7 @@ export default defineEventHandler(async (event) => {
     take: 10 // Last 10 workouts for context
   })
 
-  const prompt = `You are a **${aiSettings.aiPersona}** expert coach analyzing workout performance trends.
+  const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing workout performance trends.
 Adapt your analysis tone and insights to match your **${aiSettings.aiPersona}** persona.
 
 SUMMARY (Last ${days} days):

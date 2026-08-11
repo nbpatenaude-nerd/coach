@@ -215,7 +215,7 @@ function buildCustomPrompt(
     general: 'Provide a comprehensive, balanced analysis covering all relevant aspects.'
   }
 
-  let prompt = `You are an expert coach analyzing custom ${dataTypeLabel.toLowerCase()} data for ${timeframeDesc}.
+  let prompt = `You are an AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing custom ${dataTypeLabel.toLowerCase()} data for ${timeframeDesc}.
 Preferred Language: ${user?.language || 'English'} (ALL analysis and text responses MUST be in this language)
 
 USER PROFILE:
