@@ -45,6 +45,9 @@ NUXT_AUTH_SECRET="your_secure_random_string"
 # IMPORTANT: These must match your live domain!
 NUXT_AUTH_ORIGIN="https://app.journeyendurance.ca/api/auth"
 NUXT_PUBLIC_SITE_URL="https://app.journeyendurance.ca/"
+
+# Email Service (Resend)
+RESEND_API_KEY="re_..."
 ```
 
 ### Local Development `.env` (on your machine)
