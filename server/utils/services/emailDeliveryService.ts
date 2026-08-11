@@ -301,7 +301,7 @@ export const EmailDeliveryService = {
 
     if (isSuppressed && audience !== 'TRANSACTIONAL') return
 
-    const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'
+    const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.com'
     const unsubToken = user ? generateUnsubscribeToken(user.id) : ''
     const unsubscribeUrl = unsubToken
       ? `${baseUrl}/unsubscribe?token=${unsubToken}`

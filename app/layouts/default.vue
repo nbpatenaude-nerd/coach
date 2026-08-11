@@ -138,7 +138,7 @@
   }
 
   // Navigation Items
-  const { isUncoverPlus, isUnlockPlus, isUnleash } = useNavigation()
+  const { isUncoverPlus, isUnlockPlus, isUnleash, isAdmin } = useNavigation()
 
   const links = computed<NavigationMenuItem[][]>(() => {
     // Force re-evaluation on language change or ready state
@@ -228,14 +228,18 @@
             }
           ]
         : []),
-      {
-        label: navLabel('navigation_training_plan', 'Training Plan'),
-        icon: 'i-lucide-calendar',
-        to: '/plan',
-        onSelect: () => {
-          open.value = false
-        }
-      },
+      ...(isAdmin.value || showFullCoachingSuite.value
+        ? [
+            {
+              label: navLabel('navigation_training_plan', 'Training Plan'),
+              icon: 'i-lucide-calendar',
+              to: '/plan',
+              onSelect: () => {
+                open.value = false
+              }
+            }
+          ]
+        : []),
       {
         label: navLabel('navigation_workouts', 'Workouts'),
         icon: 'i-lucide-activity',
@@ -339,7 +343,7 @@
           }
         ]
       },
-      ...(showFullCoachingSuite.value
+      ...(isAdmin.value || showFullCoachingSuite.value
         ? [
             {
               label: 'Coaching',

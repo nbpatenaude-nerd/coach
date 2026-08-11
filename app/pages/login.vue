@@ -144,25 +144,6 @@
                 </template>
                 {{ isInitializing ? t('login.connecting') : t('login.strava') }}
               </UButton>
-
-              <UButton
-                block
-                size="xl"
-                color="neutral"
-                variant="outline"
-                class="h-14 min-w-full rounded-xl border-white/10 text-xs font-bold uppercase tracking-[0.12em]"
-                :loading="loadingIntervals || isInitializing"
-                @click="
-                  () => {
-                    void handleIntervalsLogin()
-                  }
-                "
-              >
-                <template #leading>
-                  <img src="/images/logos/intervals.png" alt="" class="h-5 w-5" />
-                </template>
-                {{ isInitializing ? t('login.connecting') : t('login.intervals') }}
-              </UButton>
             </div>
 
             <p class="mt-8 text-sm text-gray-400">
@@ -300,23 +281,6 @@
       })
       isInitializing.value = false
       loadingStrava.value = false
-    }
-  }
-
-  async function handleIntervalsLogin() {
-    trackLogin('intervals')
-    isInitializing.value = true
-    loadingIntervals.value = true
-    try {
-      await signIn('intervals', { callbackUrl })
-    } catch (error: any) {
-      toast.add({
-        title: t.value('login.error_title'),
-        description: error.message || t.value('login.error_intervals'),
-        color: 'error'
-      })
-      isInitializing.value = false
-      loadingIntervals.value = false
     }
   }
 

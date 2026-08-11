@@ -235,7 +235,7 @@
           : Math.max(0, Math.round((Date.now() - consentViewedAt.value) / 1000))
 
       trackConsentCompleted(TERMS_OF_SERVICE_VERSION, PRIVACY_POLICY_VERSION, secondsSinceView)
-      await navigateTo(postConsentDestination.value)
+      window.location.href = postConsentDestination.value
     } catch (error: unknown) {
       console.error('Failed to save consent:', error)
       const message =

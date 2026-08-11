@@ -2,9 +2,12 @@ import { prisma } from '../db'
 import { updateIntervalsActivityDescription } from '../intervals'
 
 export const SUMMARY_BLOCK_HEADER = 'Journey Workout Analysis'
-export const SUMMARY_ATTRIBUTION_URL = '🔗 https://CoachWatts.com - AI Endurance Coaching'
+export const SUMMARY_ATTRIBUTION_URL = '🔗 https://journeyendurance.com - AI Endurance Coaching'
 
 const PREVIOUS_SUMMARY_BLOCK_PATTERNS = [
+  /\n?\[Journey Endurance AI Summary\][\s\S]*?\[\/Journey Endurance AI Summary\]\n?/g,
+  /\n?\[Journey Endurance Workout Analysis\][\s\S]*?\[\/Journey Endurance Workout Analysis\]\n?/g,
+  /\n?Journey Endurance Workout Analysis[\s\S]*?🔗 https:\/\/journeyendurance\.com - AI Endurance Coaching\n?/g,
   /\n?\[CoachWatts\.com AI Summary\][\s\S]*?\[\/CoachWatts\.com AI Summary\]\n?/g,
   /\n?\[CoachWatts AI Summary\][\s\S]*?\[\/CoachWatts AI Summary\]\n?/g,
   /\n?\[CoachWatts Workout Analyisis\][\s\S]*?\[\/CoachWatts Workout Analyisis\]\n?/g,

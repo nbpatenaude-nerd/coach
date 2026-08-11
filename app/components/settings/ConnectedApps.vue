@@ -28,25 +28,11 @@
             @click="
               () => {
                 trackIntegrationConnectStart('intervals')
-                signIn('intervals')
-              }
-            "
-          >
-            Connect
-          </UButton>
-          <UButton
-            color="neutral"
-            variant="link"
-            size="xs"
-            :padded="false"
-            @click="
-              () => {
-                trackIntegrationConnectStart('intervals')
                 navigateTo('/connect-intervals')
               }
             "
           >
-            Connect manually (API Key)
+            Connect
           </UButton>
         </div>
         <div v-else class="flex items-center gap-2">

@@ -113,6 +113,9 @@
                 @dismiss="handleCompleteSetup"
               />
 
+              <!-- Weekly Check-In (For All Athletes) -->
+              <DashboardCheckIn />
+
               <!-- Garmin Attribution -->
               <div v-if="isGarminConnected" class="flex justify-end px-4 sm:px-0">
                 <div class="flex items-center gap-1.5">
@@ -225,13 +228,11 @@
                 </UCard>
               </div>
 
-              <!-- Row: Coach Interaction (Check-In & Feedback) -->
+              <!-- Row: Coach Interaction (Feedback) -->
               <div
                 v-if="isUnlockPlus"
                 class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2"
               >
-                <!-- Daily Digital Twin Check-In trigger -->
-                <DashboardCheckIn />
                 <!-- "Ask Coach" launcher -->
                 <DashboardCoachFeedback />
               </div>

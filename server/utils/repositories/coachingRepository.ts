@@ -7,7 +7,7 @@ import {
   isUniqueConstraintError,
   MAX_INVITE_CODE_RETRIES
 } from '../invite-code'
-import { Prisma  } from '../generated-prisma/client'
+import { Prisma } from '../generated-prisma/client'
 
 function normalizeReadinessScore(
   readiness: number | null | undefined,
@@ -292,6 +292,10 @@ export const coachingRepository = {
                 overallScore: true,
                 plannedWorkoutId: true
               }
+            },
+            checkIns: {
+              orderBy: { createdAt: 'desc' },
+              take: 20
             }
           }
         }
@@ -1022,6 +1026,45 @@ export const coachingRepository = {
       await (tx as any).coachingInvite.update({
         where: { id: invite.id },
         data: { status: 'ACCEPTED', usedBy: coachId }
+      })
+
+      return relationship
+    })
+  },
+
+  async connectCoachWithCode(athleteId: string, code: string) {
+    const invite = await (prisma as any).coachAthleteInvite.findUnique({
+      where: { code }
+    })
+
+    if (!invite || invite.status !== 'PENDING' || invite.expiresAt < new Date()) {
+      throw new Error('Invalid or expired invite code')
+    }
+
+    if (invite.coachId === athleteId) {
+      throw new Error('You cannot coach yourself')
+    }
+
+    // Create the relationship and mark invite as used
+    return await prisma.$transaction(async (tx) => {
+      const relationship = await (tx as any).coachingRelationship.upsert({
+        where: {
+          coachId_athleteId: {
+            coachId: invite.coachId,
+            athleteId
+          }
+        },
+        update: { status: 'ACTIVE' },
+        create: {
+          coachId: invite.coachId,
+          athleteId,
+          status: 'ACTIVE'
+        }
+      })
+
+      await (tx as any).coachAthleteInvite.update({
+        where: { id: invite.id },
+        data: { status: 'ACCEPTED', acceptedBy: athleteId }
       })
 
       return relationship

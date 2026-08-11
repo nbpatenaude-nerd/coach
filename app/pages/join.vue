@@ -103,25 +103,6 @@
                 </template>
                 {{ joinStrava }}
               </UButton>
-
-              <UButton
-                block
-                size="xl"
-                color="neutral"
-                variant="outline"
-                class="h-14 min-w-full rounded-xl border-white/10 text-xs font-bold uppercase tracking-[0.12em]"
-                :loading="loadingIntervals"
-                @click="
-                  () => {
-                    void handleIntervalsLogin()
-                  }
-                "
-              >
-                <template #leading>
-                  <img src="/images/logos/intervals.png" alt="" class="h-5 w-5" />
-                </template>
-                {{ joinIntervals }}
-              </UButton>
             </div>
 
             <p class="mt-5 text-xs font-bold uppercase tracking-widest text-primary-400">
@@ -323,23 +304,6 @@
       showSignupError(joinErrorStrava.value, error, 'strava')
       trackSignupFailed('strava', 'oauth_start', signupFailureCode(error), acquisitionContext.value)
       loadingStrava.value = false
-    }
-  }
-
-  async function handleIntervalsLogin() {
-    trackSignupStarted('intervals', acquisitionContext.value)
-    loadingIntervals.value = true
-    try {
-      await signIn('intervals', { callbackUrl })
-    } catch (error: unknown) {
-      showSignupError(joinErrorIntervals.value, error, 'intervals')
-      trackSignupFailed(
-        'intervals',
-        'oauth_start',
-        signupFailureCode(error),
-        acquisitionContext.value
-      )
-      loadingIntervals.value = false
     }
   }
 </script>

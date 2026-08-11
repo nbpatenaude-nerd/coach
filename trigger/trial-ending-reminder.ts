@@ -114,7 +114,7 @@ export const trialEndingReminderCron = task({
             trialEndsAt: formatUserDate(user.trialEndsAt, user.timezone || 'UTC', 'EEEE, MMMM d'),
             usageHighlights,
             supporterHighlights: formatSupporterHighlights(),
-            pricingUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'}/settings/billing`
+            pricingUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.com'}/settings/billing`
           }
         })
         dispatchedCount++

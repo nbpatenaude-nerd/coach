@@ -385,7 +385,7 @@ CRITICAL INSTRUCTIONS:
                 date: formatUserDate(todayDateOnly, timezone, 'EEEE, MMM d'),
                 recommendation: suggestion.action.toUpperCase().replace('_', ' '),
                 reasoning: suggestion.reason,
-                unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'}/profile/settings?tab=communication`
+                unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.com'}/profile/settings?tab=communication`
               }
             })
           }

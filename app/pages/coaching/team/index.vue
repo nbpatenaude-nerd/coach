@@ -33,9 +33,18 @@
 
         <!-- 1. My Coaches List -->
         <div>
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 px-4 sm:px-0">
-            My Coaches
-          </h2>
+          <div class="flex items-center justify-between mb-4 px-4 sm:px-0">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">My Coaches</h2>
+            <UButton
+              color="neutral"
+              variant="outline"
+              label="Add Coach"
+              icon="i-heroicons-plus"
+              size="xs"
+              class="font-bold"
+              @click="isConnectCoachModalOpen = true"
+            />
+          </div>
 
           <div v-if="loading" class="space-y-0 sm:space-y-4">
             <UCard v-for="i in 2" :key="i" :ui="mobileListCardUi">
@@ -398,6 +407,44 @@
       />
     </template>
   </UModal>
+
+  <!-- Connect Coach Modal -->
+  <UModal
+    v-model:open="isConnectCoachModalOpen"
+    title="Add a Coach"
+    description="Enter the invitation code provided by your coach to connect."
+  >
+    <template #body>
+      <div class="space-y-4">
+        <UFormField
+          label="Coach Invitation Code"
+          help="Enter the 10-character code provided by your coach."
+        >
+          <UInput
+            v-model="connectCoachCode"
+            placeholder="e.g. ABCDEFGH12"
+            class="font-mono uppercase text-center text-xl w-full"
+            maxlength="10"
+          />
+        </UFormField>
+      </div>
+    </template>
+    <template #footer>
+      <UButton
+        label="Cancel"
+        color="neutral"
+        variant="ghost"
+        @click="isConnectCoachModalOpen = false"
+      />
+      <UButton
+        label="Connect"
+        color="primary"
+        :loading="connectingCoach"
+        :disabled="!connectCoachCode || connectCoachCode.length < 8"
+        @click="void connectCoach()"
+      />
+    </template>
+  </UModal>
 </template>
 
 <script setup lang="ts">
@@ -428,10 +475,12 @@
   const removingCoach = ref(false)
   const creatingTeam = ref(false)
   const joiningTeam = ref(false)
+  const connectingCoach = ref(false)
 
   const isRemoveModalOpen = ref(false)
   const isCreateTeamModalOpen = ref(false)
   const isJoinTeamModalOpen = ref(false)
+  const isConnectCoachModalOpen = ref(false)
   const coachToRemove = ref<any>(null)
 
   const newTeam = ref({
@@ -439,9 +488,33 @@
     description: ''
   })
   const joinCode = ref('')
+  const connectCoachCode = ref('')
 
   const toast = useToast()
   const router = useRouter()
+
+  async function connectCoach() {
+    if (!connectCoachCode.value) return
+    connectingCoach.value = true
+    try {
+      await $fetch<any, string & {}>('/api/coaching/coaches/connect', {
+        method: 'POST',
+        body: { code: connectCoachCode.value.toUpperCase() }
+      })
+      toast.add({ title: 'Coach connected!', color: 'success' })
+      isConnectCoachModalOpen.value = false
+      connectCoachCode.value = ''
+      await fetchData()
+    } catch (e: any) {
+      toast.add({
+        title: 'Failed to connect',
+        description: e.data?.message || 'Invalid code',
+        color: 'error'
+      })
+    } finally {
+      connectingCoach.value = false
+    }
+  }
 
   async function fetchData() {
     loading.value = true

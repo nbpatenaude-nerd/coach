@@ -1152,7 +1152,7 @@ Maintain your **${aiSettings.aiPersona}** persona throughout.`
                   date: formatUserDate(today, userTimezone, 'EEEE, MMM d'),
                   recommendation: analysis.recommendation.toUpperCase().replace('_', ' '),
                   reasoning: analysis.reasoning,
-                  unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'}/profile/settings?tab=communication`
+                  unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.com'}/profile/settings?tab=communication`
                 }
               },
               {
