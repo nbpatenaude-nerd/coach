@@ -21,6 +21,17 @@ export default NuxtAuthHandler({
     async session({ session, token }) {
       if (session.user && token.id) {
         ;(session.user as any).id = token.id
+
+        // Fetch fresh user data needed for global middleware checks
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { termsAcceptedAt: true, deactivatedAt: true }
+        })
+
+        if (dbUser) {
+          ;(session.user as any).termsAcceptedAt = dbUser.termsAcceptedAt
+          ;(session.user as any).deactivatedAt = dbUser.deactivatedAt
+        }
       }
       return session
     }
