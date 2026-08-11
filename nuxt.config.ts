@@ -185,7 +185,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-gtag',
     'nuxt-api-shield',
-    '@sentry/nuxt/module',
+    // '@sentry/nuxt/module',
     '@nuxt/eslint',
     '@vue-email/nuxt'
   ],
@@ -479,7 +479,7 @@ export default defineNuxtConfig({
   },
 
   sentry: {
-    enabled: sentryEnabled,
+    enabled: false,
     org: process.env.SENTRY_ORG || 'watt-mind',
     project: process.env.SENTRY_PROJECT || 'coach-watts-web',
     sourceMapsUploadOptions: {
