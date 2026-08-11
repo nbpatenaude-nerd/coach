@@ -2,7 +2,16 @@
   <div class="relative min-h-screen overflow-x-clip bg-slate-950 selection:bg-cyan-500/30">
     <div class="pointer-events-none fixed inset-0 z-10 opacity-[0.03] grain-overlay" />
 
-    <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32">
+    <!-- Interactive Background Pattern -->
+    <div class="fixed inset-0 z-0 opacity-40">
+      <UiInteractiveGridPattern
+        :squares="[60, 40]"
+        squares-class-name="text-cyan-500/50 hover:text-purple-400/80"
+        class-name="[mask-image:radial-gradient(1200px_circle_at_center,white,transparent)]"
+      />
+    </div>
+
+    <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32 z-10">
       <!-- Continuous Glowing Hyperlane Route Line -->
       <div
         class="absolute left-6 sm:left-1/2 top-0 bottom-0 w-[2px] sm:-translate-x-1/2 bg-slate-800/50 pointer-events-none z-0"
