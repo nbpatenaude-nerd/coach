@@ -76,21 +76,23 @@
 
         <!-- Tier 2: UNLOCK (Highlighted) -->
         <div
-          class="pricing-card bg-slate-900 rounded-3xl border-2 border-pink-500 p-8 flex flex-col relative transform md:-translate-y-4 shadow-[0_0_30px_rgba(236,72,153,0.15)] group overflow-hidden z-20"
+          class="pricing-card bg-slate-900 rounded-3xl border-2 border-pink-500 p-8 flex flex-col relative transform md:-translate-y-4 shadow-[0_0_30px_rgba(236,72,153,0.15)] group z-20"
         >
-          <div
-            class="absolute inset-0 bg-linear-to-b from-pink-500/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity z-0"
-          ></div>
-          <div
-            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
-            style="
-              background: radial-gradient(
-                600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(236, 72, 153, 0.15),
-                transparent 40%
-              );
-            "
-          ></div>
+          <div class="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-0">
+            <div
+              class="absolute inset-0 bg-linear-to-b from-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+            ></div>
+            <div
+              class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style="
+                background: radial-gradient(
+                  600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                  rgba(236, 72, 153, 0.15),
+                  transparent 40%
+                );
+              "
+            ></div>
+          </div>
           <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
             <span
               class="bg-pink-500 text-white text-xs font-bold uppercase tracking-widest py-1 px-3 rounded-full"
