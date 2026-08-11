@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, computed, onBeforeUnmount } from 'vue'
+  import { ref, computed, watch, onBeforeUnmount } from 'vue'
   import { useWindowScroll } from '@vueuse/core'
   // @ts-expect-error - no types available
   import WebGLFluid from 'webgl-fluid'
@@ -31,14 +31,14 @@
   let fluidInstance: any = null
   const globalListeners: { type: string; listener: EventListener }[] = []
 
-  onMounted(() => {
-    if (canvasRef.value) {
+  watch(canvasRef, (canvas) => {
+    if (canvas) {
       // Advanced Proxy: webgl-fluid strictly listens to the canvas for mouse events.
       // Because our canvas sits at z-0, the z-10 UI elements completely block hover events.
       // We intercept the canvas.addEventListener calls and redirect them to the global window,
       // injecting the exact offsetX/Y coordinates it needs.
-      const originalAddEventListener = canvasRef.value.addEventListener.bind(canvasRef.value)
-      canvasRef.value.addEventListener = (type: string, listener: any, options?: any) => {
+      const originalAddEventListener = canvas.addEventListener.bind(canvas)
+      canvas.addEventListener = (type: string, listener: any, options?: any) => {
         if (
           ['mousemove', 'mousedown', 'mouseup', 'touchstart', 'touchmove', 'touchend'].includes(
             type
@@ -75,7 +75,7 @@
       }
 
       // Initialize WebGL Fluid Simulation with fog-like physics
-      fluidInstance = WebGLFluid(canvasRef.value, {
+      fluidInstance = WebGLFluid(canvas, {
         IMMEDIATE: true,
         TRIGGER: 'hover',
         SIM_RESOLUTION: 128,
