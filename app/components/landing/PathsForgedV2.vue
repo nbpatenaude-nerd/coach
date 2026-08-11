@@ -12,7 +12,7 @@
       "
     ></div>
 
-    <div class="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-352 mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div
         ref="pathsHeader"
         class="flex flex-col sm:flex-row justify-between items-end mb-16 gap-6 opacity-0 translate-y-12"

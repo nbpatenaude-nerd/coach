@@ -43,29 +43,21 @@
 
 <script setup lang="ts">
   import { useId } from '#imports'
-  import type { PropType } from 'vue'
 
-  const props = defineProps({
-    width: {
-      type: Number,
-      default: 40
-    },
-    height: {
-      type: Number,
-      default: 40
-    },
-    squares: {
-      type: Array as PropType<number[]>,
-      default: () => [40, 40]
-    },
-    className: {
-      type: String,
-      default: ''
-    },
-    squaresClassName: {
-      type: String,
-      default: ''
-    }
+  export interface Props {
+    width?: number
+    height?: number
+    squares?: [number, number]
+    className?: string
+    squaresClassName?: string
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    width: 40,
+    height: 40,
+    squares: () => [40, 40],
+    className: '',
+    squaresClassName: ''
   })
 
   const patternId = useId()

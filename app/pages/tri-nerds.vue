@@ -14,10 +14,10 @@
     <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32 z-10">
       <!-- Continuous Glowing Hyperlane Route Line -->
       <div
-        class="absolute left-6 sm:left-1/2 top-0 bottom-0 w-[2px] sm:-translate-x-1/2 bg-slate-800/50 pointer-events-none z-0"
+        class="absolute left-6 sm:left-1/2 top-0 bottom-0 w-0.5 sm:-translate-x-1/2 bg-slate-800/50 pointer-events-none z-0"
       >
         <div
-          class="w-full bg-gradient-to-b from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-100 ease-out"
+          class="w-full bg-linear-to-b from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-100 ease-out"
           :style="{ height: `${scrollProgress}%` }"
         ></div>
       </div>
@@ -55,9 +55,7 @@
       class="bg-slate-900/80 backdrop-blur-md px-6 pt-12 pb-24 sm:pb-32 lg:px-8 transition-all duration-700 transform relative z-10"
       :class="[isClosingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
     >
-      <div
-        class="mx-auto flex max-w-[88rem] flex-col items-center text-center gap-8 mt-12 sm:mt-16"
-      >
+      <div class="mx-auto flex max-w-352 flex-col items-center text-center gap-8 mt-12 sm:mt-16">
         <h2
           class="font-athletic text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl"
         >
