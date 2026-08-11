@@ -784,7 +784,7 @@ export async function queueWorkoutInsightEmail(options: QueueWorkoutInsightEmail
   }
 
   const timezone = user.timezone || 'UTC'
-  const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'
+  const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.com'
   const distanceKm =
     workout.distanceMeters && workout.distanceMeters > 0
       ? Math.round((workout.distanceMeters / 1000) * 10) / 10
@@ -1120,7 +1120,7 @@ export async function queueThresholdUpdateEmail(options: {
 
   const percentIncrease =
     oldValue > 0 ? Math.round(((newValue - oldValue) / oldValue) * 100) : undefined
-  const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'
+  const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.com'
 
   await queueEmail({
     userId,

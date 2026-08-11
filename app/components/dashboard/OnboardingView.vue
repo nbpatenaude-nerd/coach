@@ -374,13 +374,13 @@
       connectFromSetupHub('strava', () => navigateTo('/connect-strava'))
       return
     }
-    connectFromSetupHub('intervals', () => signIn('intervals'))
+    connectFromSetupHub('intervals', () => navigateTo('/connect-intervals'))
   }
 
   function connectSecondaryProvider(provider: SecondaryProvider) {
     if (provider.disabled) return
     if (provider.oauth === 'intervals') {
-      connectFromSetupHub('intervals', () => signIn('intervals'))
+      connectFromSetupHub('intervals', () => navigateTo('/connect-intervals'))
       return
     }
     if (provider.path) {
