@@ -30,7 +30,7 @@
             <div class="flex items-center gap-3 mb-2">
               <UAvatar :src="user?.image || undefined" :alt="user?.name || 'User'" size="xs" />
               <span class="text-sm text-gray-500 dark:text-gray-400">
-                {{ user?.name || 'Coach Wattz User' }} shared their nutrition
+                {{ user?.name || 'Journey Endurance User' }} shared their nutrition
               </span>
             </div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Daily Nutrition</h1>
@@ -183,10 +183,10 @@
 
   const pageTitle = computed(() =>
     nutrition.value
-      ? `Daily Nutrition - ${formatDate(nutrition.value.date)} | Coach Wattz`
-      : 'Shared Nutrition | Coach Wattz'
+      ? `Daily Nutrition - ${formatDate(nutrition.value.date)} | Journey Endurance`
+      : 'Shared Nutrition | Journey Endurance'
   )
-  const pageDescription = computed(() => 'View shared nutrition data on Coach Wattz.')
+  const pageDescription = computed(() => 'View shared nutrition data on Journey Endurance.')
 
   useHead({
     title: pageTitle,

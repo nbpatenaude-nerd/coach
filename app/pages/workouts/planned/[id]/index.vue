@@ -1201,8 +1201,8 @@
           <div class="text-red-800 dark:text-red-200">
             <p class="font-medium">Are you sure you want to delete this workout?</p>
             <p class="mt-1">
-              This will permanently remove the planned workout from Coach Wattz. If it was synced to
-              Intervals.icu, it will also be deleted from there.
+              This will permanently remove the planned workout from Journey Endurance. If it was
+              synced to Intervals.icu, it will also be deleted from there.
             </p>
           </div>
         </div>
@@ -1248,7 +1248,7 @@
         :share-title="
           workout?.title
             ? `Planned Workout: ${workout.title}`
-            : 'Planned workout shared from Coach Wattz'
+            : 'Planned workout shared from Journey Endurance'
         "
         @update:expiry-value="shareExpiryValue = $event"
         @generate="generateShareLink"

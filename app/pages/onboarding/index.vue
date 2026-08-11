@@ -163,7 +163,7 @@
   const consentTitle = translateOrFallback('consent.title', 'Welcome to the Future of Training')
   const consentSubtitle = translateOrFallback(
     'consent.subtitle',
-    "You're just a few clicks away from AI-powered coaching insights. Let's get your account set up for success."
+    "You're just a few clicks away from connecting with a coach and community, backed by personalized AI insights. Let's get your account set up for success."
   )
   const consentTermsLabel = translateOrFallback('consent.terms_label', 'Accept Legal Terms')
   const consentTermsAgree = translateOrFallback('consent.terms_agree', 'I agree to the')
@@ -176,7 +176,7 @@
   )
   const consentHealthHelp = translateOrFallback(
     'consent.health_help',
-    'I explicitly consent to the processing of my health and biometric data (HR, power, location) so Journey Endurance Coaching can generate personalized AI coaching.'
+    'I explicitly consent to the processing of my health and biometric data (HR, power, location) so Journey Endurance Coaching can leverage AI to help your coach manage small schedule changes and personalize your insights.'
   )
   const consentValidationHint = translateOrFallback(
     'consent.validation_hint',

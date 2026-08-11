@@ -44,7 +44,7 @@ export default defineAppConfig({
   brand: {
     name: 'Journey Endurance Coaching',
     shortName: 'Journey',
-    tagline: 'AI-powered endurance coaching that adapts to you.'
+    tagline: 'Real coaching and community, powered by an AI assistant that adapts to your life.'
   },
   // Custom design tokens for consistent usage
   theme: {

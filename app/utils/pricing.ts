@@ -54,10 +54,10 @@ export const PRICING_PLANS: PricingPlan[] = [
     monthlyPrice: 14.99,
     annualPrice: 119.0,
     description: 'Your full-service Digital Twin and Coach.',
-    mobileDescription: 'Adaptive planning and elite AI coaching.',
+    mobileDescription: 'Adaptive planning and elite AI-assisted coaching.',
     features: [
       'Adaptive race strategy and periodized planning',
-      'Thoughtful AI coaching with scenario analysis',
+      'Thoughtful AI-assisted coaching with scenario analysis',
       'Proactive alerts for readiness and overreaching risk',
       'Advanced trend intelligence with long-horizon forecasting',
       'Fast-lane priority processing and response'

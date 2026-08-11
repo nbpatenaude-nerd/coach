@@ -973,13 +973,13 @@
       {
         name: 'description',
         content:
-          'Your training overview, recovery status, and personalized AI coaching recommendations.'
+          'Your training overview, recovery status, and personalized AI-assisted recommendations to keep you on track.'
       },
       { property: 'og:title', content: 'Dashboard | Journey Endurance Coaching' },
       {
         property: 'og:description',
         content:
-          'Your training overview, recovery status, and personalized AI coaching recommendations.'
+          'Your training overview, recovery status, and personalized AI-assisted recommendations to keep you on track.'
       }
     ]
   })

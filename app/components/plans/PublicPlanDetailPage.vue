@@ -870,17 +870,18 @@
   })
 
   useSeoMeta({
-    title: () => (plan.value ? `${plan.value.name} | Coach Wattz` : 'Training Plan | Coach Wattz'),
+    title: () =>
+      plan.value ? `${plan.value.name} | Journey Endurance` : 'Training Plan | Journey Endurance',
     description: () =>
       plan.value?.publicDescription ||
       plan.value?.publicHeadline ||
-      'Discover a public training plan on Coach Wattz.',
+      'Discover a public training plan on Journey Endurance.',
     ogTitle: () =>
-      plan.value ? `${plan.value.name} | Coach Wattz` : 'Training Plan | Coach Wattz',
+      plan.value ? `${plan.value.name} | Journey Endurance` : 'Training Plan | Journey Endurance',
     ogDescription: () =>
       plan.value?.publicDescription ||
       plan.value?.publicHeadline ||
-      'Discover a public training plan on Coach Wattz.'
+      'Discover a public training plan on Journey Endurance.'
   })
 
   useHead(() => ({

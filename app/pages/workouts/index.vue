@@ -623,7 +623,7 @@
       {
         name: 'description',
         content:
-          'View and analyze your training sessions with AI-powered insights for every workout.'
+          'View and analyze your training sessions with AI-assisted insights for every workout.'
       }
     ]
   })

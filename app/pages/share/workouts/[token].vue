@@ -36,7 +36,7 @@
                     size="xs"
                   />
                   <span class="text-sm text-gray-500 dark:text-gray-400">
-                    {{ workout.user?.name || 'Coach Wattz User' }} shared a workout
+                    {{ workout.user?.name || 'Journey Endurance User' }} shared a workout
                   </span>
                 </div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -577,19 +577,19 @@
 
   const pageTitle = computed(() =>
     workout.value
-      ? `${workout.value.title} - Shared Workout | Coach Wattz`
-      : 'Shared Workout | Coach Wattz'
+      ? `${workout.value.title} - Shared Workout | Journey Endurance`
+      : 'Shared Workout | Journey Endurance'
   )
   const pageDescription = computed(() => {
     if (workout.value) {
       const dateStr = formatDate(workout.value.date)
       const summary = workout.value.aiAnalysisJson?.executive_summary || ''
-      return `Check out this ${workout.value.type || ''} workout on Coach Wattz: ${workout.value.title} (${dateStr}). ${summary}`.substring(
+      return `Check out this ${workout.value.type || ''} workout on Journey Endurance: ${workout.value.title} (${dateStr}). ${summary}`.substring(
         0,
         160
       )
     }
-    return 'View shared workout analysis and performance metrics on Coach Wattz.'
+    return 'View shared workout analysis and performance metrics on Journey Endurance.'
   })
 
   const config = useRuntimeConfig()
@@ -624,7 +624,7 @@
             datePublished: workout.value?.date,
             author: {
               '@type': 'Person',
-              name: workout.value?.user?.name || 'Coach Wattz User'
+              name: workout.value?.user?.name || 'Journey Endurance User'
             }
           })
         )

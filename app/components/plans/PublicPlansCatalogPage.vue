@@ -409,23 +409,23 @@
   useSeoMeta({
     title: () => {
       if (activeSubtypeLabel.value && activeSportMeta.value) {
-        return `${activeSportMeta.value.label} ${activeSubtypeLabel.value} Training Plans | Coach Wattz`
+        return `${activeSportMeta.value.label} ${activeSubtypeLabel.value} Training Plans | Journey Endurance`
       }
       if (activeSportMeta.value) {
-        return `${activeSportMeta.value.label} Training Plans | Coach Wattz`
+        return `${activeSportMeta.value.label} Training Plans | Journey Endurance`
       }
-      return 'Public Training Plans | Coach Wattz'
+      return 'Public Training Plans | Journey Endurance'
     },
     description:
       'Browse public endurance training plans by sport, skill level, language, weekly rhythm, and duration.',
     ogTitle: () => {
       if (activeSubtypeLabel.value && activeSportMeta.value) {
-        return `${activeSportMeta.value.label} ${activeSubtypeLabel.value} Training Plans | Coach Wattz`
+        return `${activeSportMeta.value.label} ${activeSubtypeLabel.value} Training Plans | Journey Endurance`
       }
       if (activeSportMeta.value) {
-        return `${activeSportMeta.value.label} Training Plans | Coach Wattz`
+        return `${activeSportMeta.value.label} Training Plans | Journey Endurance`
       }
-      return 'Public Training Plans | Coach Wattz'
+      return 'Public Training Plans | Journey Endurance'
     },
     ogDescription:
       'Browse public endurance training plans by sport, skill level, language, weekly rhythm, and duration.'

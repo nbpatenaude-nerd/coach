@@ -24,7 +24,7 @@
         </span>
       </h2>
       <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Join hundreds of endurance athletes using Coach Wattz to unlock personalized insights,
+        Join hundreds of endurance athletes using Journey Endurance to unlock personalized insights,
         optimize recovery, and crush their goals.
       </p>
 

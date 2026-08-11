@@ -361,7 +361,7 @@
             Journey Endurance Coaching
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0 0 16px">
-            AI-powered endurance coaching that adapts to you.
+            Real coaching and community, powered by an AI assistant that adapts to your life.
           </EText>
           <EText style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0">
             You're receiving this because you registered at Journey Endurance Coaching.

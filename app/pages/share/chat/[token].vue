@@ -34,15 +34,15 @@
 
   const pageTitle = computed(() =>
     chatData.value
-      ? `${chatData.value.name || 'Chat'} - Shared Chat | Coach Wattz`
-      : 'Shared Chat | Coach Wattz'
+      ? `${chatData.value.name || 'Chat'} - Shared Chat | Journey Endurance`
+      : 'Shared Chat | Journey Endurance'
   )
   const pageDescription = computed(() => {
     if (chatData.value) {
-      const user = chatData.value.user?.name || 'Coach Wattz User'
-      return `Check out this AI coaching conversation shared by ${user} on Coach Wattz.`
+      const user = chatData.value.user?.name || 'Journey Endurance User'
+      return `Check out this AI coaching conversation shared by ${user} on Journey Endurance.`
     }
-    return 'View shared AI coaching conversation on Coach Wattz.'
+    return 'View shared AI coaching conversation on Journey Endurance.'
   })
 
   useHead({
@@ -91,7 +91,7 @@
           />
           <div>
             <span class="text-sm font-medium text-gray-900 dark:text-white">
-              {{ chatData.user?.name || 'Coach Wattz User' }}
+              {{ chatData.user?.name || 'Journey Endurance User' }}
             </span>
             <p class="text-xs text-gray-500 dark:text-gray-400">
               Shared a conversation from {{ formatDate(chatData.createdAt) }}

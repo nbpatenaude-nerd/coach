@@ -402,13 +402,13 @@
       {
         name: 'description',
         content:
-          'Generate and view AI-powered coaching reports, including weekly analysis, workout insights, and nutrition reviews.'
+          'Generate and view AI-assisted coaching reports, including weekly analysis, workout insights, and nutrition reviews.'
       },
       { property: 'og:title', content: 'Reports | Journey Endurance Coaching' },
       {
         property: 'og:description',
         content:
-          'Generate and view AI-powered coaching reports, including weekly analysis, workout insights, and nutrition reviews.'
+          'Generate and view AI-assisted coaching reports, including weekly analysis, workout insights, and nutrition reviews.'
       }
     ]
   })
