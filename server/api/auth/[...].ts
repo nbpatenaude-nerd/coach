@@ -29,7 +29,8 @@ export default NuxtAuthHandler({
     // @ts-expect-error: NextAuth provider default export mismatch
     GoogleProvider.default({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      allowDangerousEmailAccountLinking: true
     }),
     // @ts-expect-error: NextAuth provider default export mismatch
     CredentialsProvider.default({

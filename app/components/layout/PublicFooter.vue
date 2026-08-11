@@ -1,6 +1,6 @@
 <template>
   <!-- Ft2 statement footer — closes the page, does not catalogue a sitemap -->
-  <footer class="border-t border-white/10 bg-[oklch(14%_0.018_155)] py-12">
+  <footer class="border-t border-white/10 bg-slate-950 py-12 relative z-10">
     <UContainer>
       <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
         <div class="max-w-md">
