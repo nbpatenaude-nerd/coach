@@ -8,7 +8,7 @@
           class="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.9)] z-20"
         ></div>
         <h2
-          class="font-athletic text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400"
+          class="font-athletic text-3xl font-bold uppercase tracking-tight text-transparent sm:text-4xl bg-clip-text bg-linear-to-r from-pink-400 to-cyan-400"
         >
           Charting Your Trajectory
         </h2>

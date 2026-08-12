@@ -2611,6 +2611,8 @@ enum ReferralStatus {
 
 enum SubscriptionTier {
   FREE
+  SUPPORTER
+  PRO
   UNCOVER
   UNLOCK
   UNLEASH

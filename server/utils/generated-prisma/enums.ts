@@ -28,6 +28,8 @@ export type ReferralStatus = (typeof ReferralStatus)[keyof typeof ReferralStatus
 
 export const SubscriptionTier = {
   FREE: 'FREE',
+  SUPPORTER: 'SUPPORTER',
+  PRO: 'PRO',
   UNCOVER: 'UNCOVER',
   UNLOCK: 'UNLOCK',
   UNLEASH: 'UNLEASH'

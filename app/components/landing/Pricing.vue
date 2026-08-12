@@ -10,7 +10,7 @@
           class="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.9)] z-20"
         ></div>
         <h2
-          class="font-athletic text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500"
+          class="font-athletic text-3xl font-bold uppercase tracking-tight sm:text-4xl text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-pink-500"
         >
           The Journey Framework
         </h2>
@@ -122,14 +122,14 @@
           <div
             class="absolute top-0 right-0 -mr-4 -mt-4 w-32 h-32 bg-pink-500 rounded-full opacity-10 blur-xl pointer-events-none"
           ></div>
-          <div class="relative z-10 flex-grow">
+          <div class="relative z-10 grow">
             <div class="mb-4">
               <span
                 class="text-pink-400 font-semibold text-sm uppercase tracking-wide flex flex-wrap items-center gap-2"
               >
                 Custom Coaching
                 <UBadge
-                  color="pink"
+                  color="primary"
                   variant="subtle"
                   size="xs"
                   class="bg-pink-500/10 text-pink-400 ring-pink-500/30"
@@ -232,16 +232,16 @@
 
   useIntersectionObserver(
     headerRef,
-    ([{ isIntersecting }]) => {
-      if (isIntersecting) isHeaderVisible.value = true
+    (entries) => {
+      if (entries[0]?.isIntersecting) isHeaderVisible.value = true
     },
     { threshold: 0.1 }
   )
 
   useIntersectionObserver(
     cardsRef,
-    ([{ isIntersecting }]) => {
-      if (isIntersecting) isCardsVisible.value = true
+    (entries) => {
+      if (entries[0]?.isIntersecting) isCardsVisible.value = true
     },
     { threshold: 0.1 }
   )

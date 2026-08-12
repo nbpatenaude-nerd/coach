@@ -5,20 +5,20 @@
   >
     <!-- Sci-Fi background -->
     <div
-      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950/0 to-slate-950/0 opacity-100"
+      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950/0 to-slate-950/0 opacity-100"
     ></div>
     <div class="absolute inset-0 -z-10 opacity-30 mix-blend-overlay"></div>
     <div
-      class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[200%] h-[100%] animate-[spin_60s_linear_infinite] opacity-40 pointer-events-none"
+      class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[200%] h-full animate-[spin_60s_linear_infinite] opacity-40 pointer-events-none"
     >
       <div
-        class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent blur-3xl rounded-full"
+        class="absolute inset-0 bg-linear-to-r from-transparent via-cyan-500/10 to-transparent blur-3xl rounded-full"
       ></div>
     </div>
 
     <div
       ref="heroRef"
-      class="relative z-20 mx-auto flex max-w-[88rem] flex-col items-center px-6 pb-16 pt-24 sm:pb-20 sm:pt-32 lg:px-8 text-center transition-all duration-1000 transform"
+      class="relative z-20 mx-auto flex max-w-352 flex-col items-center px-6 pb-16 pt-24 sm:pb-20 sm:pt-32 lg:px-8 text-center transition-all duration-1000 transform"
       :class="[isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
     >
       <!-- Central glowing waypoint dot for slider intersection -->
@@ -41,7 +41,7 @@
         >
           Level Up Your Endurance.<br />
           <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+            class="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-pink-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"
             >Welcome to the Tri Nerds.</span
           >
         </h1>
