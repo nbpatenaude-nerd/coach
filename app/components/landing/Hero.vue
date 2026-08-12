@@ -28,7 +28,7 @@
 
       <!-- Solid wrapper container -->
       <div
-        class="bg-slate-950 p-8 sm:p-16 rounded-[3rem] border border-white/5 shadow-2xl flex flex-col items-center relative z-20 w-full max-w-4xl mx-auto pointer-events-auto"
+        class="bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex flex-col items-center relative z-20 w-full max-w-4xl mx-auto pointer-events-auto"
       >
         <img
           src="/media/Tri%20Nerd%20Logos/TriNerds_pixelbadge_logo.png"

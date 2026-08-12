@@ -219,8 +219,8 @@
                   icon="i-heroicons-lock-closed"
                   color="primary"
                   variant="subtle"
-                  title="Upgrade to Unlock Your Digital Twin"
-                  description="Upgrade your account to get daily AI check-ins, glycogen tracking, and live performance metrics."
+                  title="Unleash the Journey Endurance AI Assistant"
+                  description="Upgrade your account to get the AI Exercise Physiologist and deeper physiological insights."
                 />
                 <UCard>
                   <h3 class="font-bold">12-Week Intro Plan</h3>

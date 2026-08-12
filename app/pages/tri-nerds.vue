@@ -56,7 +56,7 @@
       :class="[isClosingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
     >
       <div
-        class="mx-auto flex max-w-4xl flex-col items-center text-center gap-4 mt-12 sm:mt-16 bg-slate-950 p-6 sm:p-8 rounded-[3rem] border border-white/5 shadow-2xl relative z-20 pointer-events-auto"
+        class="mx-auto flex max-w-3xl flex-col items-center text-center gap-4 mt-12 sm:mt-16 bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] relative z-20 pointer-events-auto"
       >
         <h2
           class="font-athletic text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl"

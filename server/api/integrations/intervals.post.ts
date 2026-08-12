@@ -112,7 +112,8 @@ export default defineEventHandler(async (event) => {
           accessToken: apiKey,
           externalUserId: finalAthleteId,
           lastSyncAt: new Date(),
-          syncStatus: 'SUCCESS'
+          syncStatus: 'SUCCESS',
+          ingestWorkouts: true
           // Don't reset initialSyncCompleted if it's already true
         }
       })
@@ -126,7 +127,8 @@ export default defineEventHandler(async (event) => {
           externalUserId: finalAthleteId,
           syncStatus: 'SUCCESS',
           lastSyncAt: new Date(),
-          initialSyncCompleted: false // New integration needs initial sync
+          initialSyncCompleted: false, // New integration needs initial sync
+          ingestWorkouts: true
         }
       })
     }
