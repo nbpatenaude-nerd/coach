@@ -1,9 +1,10 @@
 import { requireAuth } from '../../utils/auth-guard'
 import { z } from 'zod'
-import { analyzeAthleteSystemPrompt } from '../../utils/analyzeAthletePrompt'
+import { getAnalyzeAthleteSystemPrompt } from '../../utils/analyzeAthletePrompt'
 import { fetchAthleteIntervalsData } from '../../utils/intervals'
 import { generateCoachAnalysis, buildWorkoutSummary } from '../../utils/gemini'
 import { prisma } from '../../utils/db'
+import { getUserEntitlements } from '../../utils/entitlements'
 
 const analyzeAthleteSchema = z.object({
   checkInId: z.string()
@@ -34,6 +35,15 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  // Determine entitlements
+  const entitlements = getUserEntitlements({
+    subscriptionTier: user.subscriptionTier,
+    subscriptionStatus: user.subscriptionStatus,
+    subscriptionPeriodEnd: user.subscriptionPeriodEnd,
+    trialEndsAt: user.trialEndsAt,
+    promotionalGrantTier: null
+  })
+
   // Fetch Intervals data
   const intervalsData = await fetchAthleteIntervalsData(
     user.intervalsApiKey,
@@ -45,7 +55,7 @@ export default defineEventHandler(async (event) => {
     ? buildWorkoutSummary(intervalsData.recentActivities)
     : 'No recent workouts recorded.'
 
-  const prompt = `${analyzeAthleteSystemPrompt}
+  const prompt = `${getAnalyzeAthleteSystemPrompt(entitlements.tier)}
 
 ## Athlete Data
 Subjective Check-In Metrics:
@@ -65,7 +75,7 @@ ${workoutSummary}
 Provide a short, punchy analysis (2-3 sentences) integrating the kinesiology framework and plant-based fueling directives based on this data. Do not include any JSON wrappers, just the raw text.`
 
   try {
-    const analysis = await generateCoachAnalysis(prompt, 'flash', {
+    const analysis = await generateCoachAnalysis(prompt, entitlements.aiModel, {
       userId: user.id,
       operation: 'digital_twin_analyze_athlete'
     })

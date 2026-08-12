@@ -1,5 +1,6 @@
 import { prisma } from './db'
 import type { GeminiModel } from './ai-config'
+import { getUserEntitlements } from './entitlements'
 
 export interface AiSettings {
   aiPersona: string
@@ -61,9 +62,11 @@ export async function getUserAiSettings(userId: string): Promise<AiSettings> {
       aiTtsStyle: true,
       aiTtsVoiceName: true,
       aiTtsSpeed: true,
-      aiTtsSpeed: true,
       aiTtsAutoReadMessages: true,
-      subscriptionStatus: true
+      subscriptionStatus: true,
+      subscriptionTier: true,
+      subscriptionPeriodEnd: true,
+      trialEndsAt: true
     }
   })
 
@@ -71,10 +74,18 @@ export async function getUserAiSettings(userId: string): Promise<AiSettings> {
     return DEFAULT_SETTINGS
   }
 
-  let dynamicModelPreference: GeminiModel = 'flash'
-  if (user.subscriptionStatus === 'SUPPORTER' || user.subscriptionStatus === 'PRO') {
-    dynamicModelPreference = 'pro'
-  }
+  // Determine promotional tier from a separate query if needed, or assume null
+  // since ai-user-settings is a fast-path config. For exact model entitlement,
+  // we use the entitlements logic.
+  const entitlements = getUserEntitlements({
+    subscriptionTier: user.subscriptionTier,
+    subscriptionStatus: user.subscriptionStatus,
+    subscriptionPeriodEnd: user.subscriptionPeriodEnd,
+    trialEndsAt: user.trialEndsAt,
+    promotionalGrantTier: null // Assuming null here to avoid complex DB joins for now
+  })
+
+  const dynamicModelPreference: GeminiModel = entitlements.aiModel
 
   return {
     aiPersona: user.aiPersona || DEFAULT_SETTINGS.aiPersona,
