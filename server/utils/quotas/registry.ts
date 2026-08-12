@@ -30,14 +30,14 @@ export const QUOTA_REGISTRY: Record<
   Partial<Record<QuotaOperation, QuotaDefinition>>
 > = {
   FREE: {
-    chat: { limit: 5, window: '4 hours', enforcement: 'STRICT' },
-    workout_analysis: { limit: 6, window: '7 days', enforcement: 'STRICT' },
-    athlete_profile_generation: { limit: 1, window: '24 hours', enforcement: 'STRICT' },
+    chat: { limit: 20, window: '4 hours', enforcement: 'STRICT' },
+    workout_analysis: { limit: 12, window: '7 days', enforcement: 'STRICT' },
+    athlete_profile_generation: { limit: 2, window: '24 hours', enforcement: 'STRICT' },
     goal_suggestions: { limit: 1, window: '24 hours', enforcement: 'STRICT' },
     goal_review: { limit: 1, window: '24 hours', enforcement: 'STRICT' },
     daily_checkin: { limit: 1, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
     unified_report_generation: { limit: 1, window: '30 days', enforcement: 'STRICT' },
-    nutrition_analysis: { limit: 3, window: '7 days', enforcement: 'STRICT' },
+    nutrition_analysis: { limit: 1, window: '7 days', enforcement: 'STRICT' },
     activity_recommendation: {
       limit: 2,
       window: '1 day',
@@ -45,52 +45,52 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 3, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 5, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 4, window: '7 days', enforcement: 'STRICT' },
     wellness_analysis: { limit: 3, window: '7 days', enforcement: 'STRICT' },
-    custom_report_generation: { limit: 1, window: '30 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 2, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 1, window: '7 days', enforcement: 'STRICT' }
   },
   SUPPORTER: {
-    chat: { limit: 50, window: '4 hours', enforcement: 'STRICT' },
-    workout_analysis: { limit: 30, window: '7 days', enforcement: 'STRICT' },
-    athlete_profile_generation: { limit: 5, window: '24 hours', enforcement: 'STRICT' },
-    goal_suggestions: { limit: 5, window: '24 hours', enforcement: 'STRICT' },
-    goal_review: { limit: 5, window: '24 hours', enforcement: 'STRICT' },
+    chat: { limit: 40, window: '4 hours', enforcement: 'STRICT' },
+    workout_analysis: { limit: 20, window: '7 days', enforcement: 'STRICT' },
+    athlete_profile_generation: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    goal_suggestions: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    goal_review: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    daily_checkin: { limit: 2, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
+    unified_report_generation: { limit: 3, window: '30 days', enforcement: 'STRICT' },
+    nutrition_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
+    activity_recommendation: {
+      limit: 4,
+      window: '1 day',
+      enforcement: 'STRICT',
+      resetType: 'CALENDAR'
+    },
+    meal_recommendation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 8, window: '7 days', enforcement: 'STRICT' },
+    wellness_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
+    weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
+  },
+  PRO: {
+    chat: { limit: 60, window: '4 hours', enforcement: 'STRICT' },
+    workout_analysis: { limit: 40, window: '7 days', enforcement: 'STRICT' },
+    athlete_profile_generation: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
+    goal_suggestions: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
+    goal_review: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
     daily_checkin: { limit: 2, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
     unified_report_generation: { limit: 5, window: '30 days', enforcement: 'STRICT' },
-    nutrition_analysis: { limit: 20, window: '7 days', enforcement: 'STRICT' },
+    nutrition_analysis: { limit: 14, window: '7 days', enforcement: 'STRICT' },
     activity_recommendation: {
-      limit: 5,
+      limit: 6,
       window: '1 day',
       enforcement: 'STRICT',
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 10, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 20, window: '7 days', enforcement: 'STRICT' },
-    wellness_analysis: { limit: 20, window: '7 days', enforcement: 'STRICT' },
-    custom_report_generation: { limit: 5, window: '30 days', enforcement: 'STRICT' },
-    weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
-  },
-  PRO: {
-    chat: { limit: 500, window: '4 hours', enforcement: 'STRICT' },
-    workout_analysis: { limit: 150, window: '7 days', enforcement: 'STRICT' },
-    athlete_profile_generation: { limit: 20, window: '24 hours', enforcement: 'STRICT' },
-    goal_suggestions: { limit: 20, window: '24 hours', enforcement: 'STRICT' },
-    goal_review: { limit: 20, window: '24 hours', enforcement: 'STRICT' },
-    daily_checkin: { limit: 5, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
-    unified_report_generation: { limit: 20, window: '30 days', enforcement: 'STRICT' },
-    nutrition_analysis: { limit: 100, window: '7 days', enforcement: 'STRICT' },
-    activity_recommendation: {
-      limit: 20,
-      window: '1 day',
-      enforcement: 'STRICT',
-      resetType: 'CALENDAR'
-    },
-    meal_recommendation: { limit: 50, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 250, window: '7 days', enforcement: 'STRICT' },
-    wellness_analysis: { limit: 100, window: '7 days', enforcement: 'STRICT' },
-    custom_report_generation: { limit: 20, window: '30 days', enforcement: 'STRICT' },
-    weekly_plan_generation: { limit: 5, window: '7 days', enforcement: 'STRICT' }
+    generate_structured_workout: { limit: 12, window: '7 days', enforcement: 'STRICT' },
+    wellness_analysis: { limit: 14, window: '7 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 8, window: '30 days', enforcement: 'STRICT' },
+    weekly_plan_generation: { limit: 4, window: '7 days', enforcement: 'STRICT' }
   }
 }
 

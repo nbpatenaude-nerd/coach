@@ -62,7 +62,14 @@
             <div class="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-full mb-3 inline-block">
               <UIcon name="i-heroicons-academic-cap" class="w-6 h-6 text-neutral-400" />
             </div>
-            <p class="text-neutral-500 text-sm">You haven't connected with any coaches yet.</p>
+            <p class="text-neutral-500 text-sm mb-4">You haven't connected with any coaches yet.</p>
+            <UButton
+              color="primary"
+              variant="outline"
+              icon="i-lucide-user-plus"
+              label="Add Coach"
+              @click="isConnectCoachModalOpen = true"
+            />
           </div>
 
           <div v-else class="space-y-0 sm:space-y-3">
@@ -477,6 +484,7 @@
   const joiningTeam = ref(false)
   const connectingCoach = ref(false)
 
+  const route = useRoute()
   const isRemoveModalOpen = ref(false)
   const isCreateTeamModalOpen = ref(false)
   const isJoinTeamModalOpen = ref(false)
@@ -624,5 +632,10 @@
     })
   }
 
-  onMounted(fetchData)
+  onMounted(() => {
+    void fetchData()
+    if (route.query.invite === 'true') {
+      isConnectCoachModalOpen.value = true
+    }
+  })
 </script>

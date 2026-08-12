@@ -557,3 +557,8 @@ export type ScheduledTaskConfig = Prisma.ScheduledTaskConfigModel
  *
  */
 export type PasswordResetToken = Prisma.PasswordResetTokenModel
+/**
+ * Model WeeklyCheckIn
+ *
+ */
+export type WeeklyCheckIn = Prisma.WeeklyCheckInModel

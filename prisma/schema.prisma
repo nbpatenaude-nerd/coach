@@ -57,6 +57,7 @@ model User {
   weightUnits                        String?                         @default("Kilograms")
   altitude                           Int?
   isAdmin                            Boolean                         @default(false)
+  isCoach                            Boolean                         @default(false)
   lthr                               Int?
   healthConsentAcceptedAt            DateTime?
   privacyPolicyVersion               String?
@@ -97,9 +98,13 @@ model User {
   aiTtsAutoReadMessages              Boolean                         @default(false)
   emailError                         String?
   emailStatus                        String                          @default("VALID")
+
+  // System Flags
+  hasDashboardAccess                 Boolean                         @default(true)
   weightSourceMode                   String                          @default("AUTO")
   uiLanguage                         String?                         @default("en")
   aiMemoryEnabled                    Boolean                         @default(false)
+  aiWorkoutAutonomyLimit             Int                             @default(10)
   publicAuthorSlug                   String?                         @unique
   publicDisplayName                  String?
   publicBio                          String?
@@ -137,6 +142,7 @@ model User {
   chatParticipations                 ChatParticipant[]
   chatTurns                          ChatTurn[]
   checkIns                           CheckIn[]
+  weeklyCheckIns                     WeeklyCheckIn[]
   coachAthleteInvitesSent            CoachAthleteInvite[]
   feedbacks                          CoachFeedback[]
   invites                            CoachingInvite[]
@@ -2748,3 +2754,26 @@ model PasswordResetToken {
   @@unique([email, token])
 }
 
+model WeeklyCheckIn {
+  id               String   @id @default(cuid())
+  athleteId        String
+  coachId          String?
+  weekStartDate    DateTime // The Sunday that starts this week
+  submittedAt      DateTime @default(now())
+  
+  // Basic check-in data
+  feelingScore     Int?     // 1-10
+  fatigueScore     Int?     // 1-10
+  stressScore      Int?     // 1-10
+  sleepQuality     Int?     // 1-10
+  
+  notes            String?  @db.Text
+  coachFeedback    String?  @db.Text
+  coachReviewedAt  DateTime?
+
+  athlete          User     @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+
+  @@unique([athleteId, weekStartDate])
+  @@index([athleteId])
+  @@index([coachId])
+}

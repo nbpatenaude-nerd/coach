@@ -15,7 +15,9 @@ export const useNavigation = () => {
 
   const isUnleash = computed(() => ['UNLEASH', 'ADMIN'].includes(role.value))
 
-  const isAdmin = computed(() => role.value === 'ADMIN')
+  const isAdmin = computed(() => role.value === 'ADMIN' || data.value?.user?.isAdmin === true)
+
+  const isCoach = computed(() => role.value === 'ADMIN' || data.value?.user?.isCoach === true)
 
   return {
     role,
@@ -23,6 +25,7 @@ export const useNavigation = () => {
     isUncoverPlus,
     isUnlockPlus,
     isUnleash,
-    isAdmin
+    isAdmin,
+    isCoach
   }
 }

@@ -11,7 +11,7 @@
       />
     </div>
 
-    <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32 z-10">
+    <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32 z-10 pointer-events-none">
       <!-- Continuous Glowing Hyperlane Route Line -->
       <div
         class="absolute left-6 sm:left-1/2 top-0 bottom-0 w-0.5 sm:-translate-x-1/2 bg-slate-800/50 pointer-events-none z-0"
@@ -22,19 +22,19 @@
         ></div>
       </div>
 
-      <div ref="heroSectionRef">
+      <div ref="heroSectionRef" class="pointer-events-auto">
         <LandingHero class="mb-8 sm:mb-12 relative z-10" />
       </div>
 
-      <div ref="originSectionRef">
+      <div ref="originSectionRef" class="pointer-events-auto">
         <LandingOriginStory class="py-16 sm:py-20 relative z-10" />
       </div>
 
-      <div ref="journeySectionRef">
+      <div ref="journeySectionRef" class="pointer-events-auto">
         <LandingJourneyTimeline class="py-16 sm:py-20 relative z-10" />
       </div>
 
-      <div ref="pricingSectionRef">
+      <div ref="pricingSectionRef" class="pointer-events-auto">
         <LandingPricing class="py-20 sm:py-24 relative z-10" />
       </div>
 

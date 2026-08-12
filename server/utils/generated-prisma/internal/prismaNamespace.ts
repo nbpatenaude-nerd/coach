@@ -481,7 +481,8 @@ export const ModelName = {
   CheckIn: 'CheckIn',
   CoachFeedback: 'CoachFeedback',
   ScheduledTaskConfig: 'ScheduledTaskConfig',
-  PasswordResetToken: 'PasswordResetToken'
+  PasswordResetToken: 'PasswordResetToken',
+  WeeklyCheckIn: 'WeeklyCheckIn'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -610,6 +611,7 @@ export type TypeMap<
       | 'coachFeedback'
       | 'scheduledTaskConfig'
       | 'passwordResetToken'
+      | 'weeklyCheckIn'
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -8695,6 +8697,81 @@ export type TypeMap<
         }
       }
     }
+    WeeklyCheckIn: {
+      payload: Prisma.$WeeklyCheckInPayload<ExtArgs>
+      fields: Prisma.WeeklyCheckInFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WeeklyCheckInFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WeeklyCheckInFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>
+        }
+        findFirst: {
+          args: Prisma.WeeklyCheckInFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WeeklyCheckInFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>
+        }
+        findMany: {
+          args: Prisma.WeeklyCheckInFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>[]
+        }
+        create: {
+          args: Prisma.WeeklyCheckInCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>
+        }
+        createMany: {
+          args: Prisma.WeeklyCheckInCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WeeklyCheckInCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>[]
+        }
+        delete: {
+          args: Prisma.WeeklyCheckInDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>
+        }
+        update: {
+          args: Prisma.WeeklyCheckInUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>
+        }
+        deleteMany: {
+          args: Prisma.WeeklyCheckInDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WeeklyCheckInUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WeeklyCheckInUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>[]
+        }
+        upsert: {
+          args: Prisma.WeeklyCheckInUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeeklyCheckInPayload>
+        }
+        aggregate: {
+          args: Prisma.WeeklyCheckInAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWeeklyCheckIn>
+        }
+        groupBy: {
+          args: Prisma.WeeklyCheckInGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WeeklyCheckInGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WeeklyCheckInCountArgs<ExtArgs>
+          result:
+            runtime.Types.Utils.Optional<Prisma.WeeklyCheckInCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -8782,6 +8859,7 @@ export const UserScalarFieldEnum = {
   weightUnits: 'weightUnits',
   altitude: 'altitude',
   isAdmin: 'isAdmin',
+  isCoach: 'isCoach',
   lthr: 'lthr',
   healthConsentAcceptedAt: 'healthConsentAcceptedAt',
   privacyPolicyVersion: 'privacyPolicyVersion',
@@ -8822,9 +8900,11 @@ export const UserScalarFieldEnum = {
   aiTtsAutoReadMessages: 'aiTtsAutoReadMessages',
   emailError: 'emailError',
   emailStatus: 'emailStatus',
+  hasDashboardAccess: 'hasDashboardAccess',
   weightSourceMode: 'weightSourceMode',
   uiLanguage: 'uiLanguage',
   aiMemoryEnabled: 'aiMemoryEnabled',
+  aiWorkoutAutonomyLimit: 'aiWorkoutAutonomyLimit',
   publicAuthorSlug: 'publicAuthorSlug',
   publicDisplayName: 'publicDisplayName',
   publicBio: 'publicBio',
@@ -11013,6 +11093,24 @@ export const PasswordResetTokenScalarFieldEnum = {
 export type PasswordResetTokenScalarFieldEnum =
   (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
+export const WeeklyCheckInScalarFieldEnum = {
+  id: 'id',
+  athleteId: 'athleteId',
+  coachId: 'coachId',
+  weekStartDate: 'weekStartDate',
+  submittedAt: 'submittedAt',
+  feelingScore: 'feelingScore',
+  fatigueScore: 'fatigueScore',
+  stressScore: 'stressScore',
+  sleepQuality: 'sleepQuality',
+  notes: 'notes',
+  coachFeedback: 'coachFeedback',
+  coachReviewedAt: 'coachReviewedAt'
+} as const
+
+export type WeeklyCheckInScalarFieldEnum =
+  (typeof WeeklyCheckInScalarFieldEnum)[keyof typeof WeeklyCheckInScalarFieldEnum]
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -11680,6 +11778,7 @@ export type GlobalOmitConfig = {
   coachFeedback?: Prisma.CoachFeedbackOmit
   scheduledTaskConfig?: Prisma.ScheduledTaskConfigOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
+  weeklyCheckIn?: Prisma.WeeklyCheckInOmit
 }
 
 /* Types for Logging */

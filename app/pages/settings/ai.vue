@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6">
+  <div v-if="userStore.isAdmin || isCoachForAnyone" class="space-y-6">
     <UCard :ui="{ ...profileSettingsCardUi, body: 'hidden' }">
       <template #header>
         <h2 class="text-xl font-bold uppercase tracking-tight">{{ t('ai_coach_header') }}</h2>
@@ -84,6 +84,11 @@
       <SettingsAiUsageHistory />
     </ClientOnly>
   </div>
+  <div v-else class="p-8 text-center text-gray-500">
+    <UIcon name="i-heroicons-lock-closed" class="w-12 h-12 mx-auto mb-4 opacity-50" />
+    <h3 class="text-lg font-bold mb-2">Access Restricted</h3>
+    <p>These settings are managed by your Coach or Administrator.</p>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -110,6 +115,7 @@
   })
 
   const userStore = useUserStore()
+  const { isCoachForAnyone } = useCoachingRole()
   const showUpgradeBanner = useLocalStorage('ai-settings-upgrade-banner', true)
   const hasSuccessBypass = computed(() => route.query.success === 'true')
 

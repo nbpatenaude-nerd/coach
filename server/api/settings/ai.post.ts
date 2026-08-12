@@ -102,7 +102,8 @@ export default defineEventHandler(async (event) => {
     aiTtsStyle,
     aiTtsVoiceName,
     aiTtsSpeed,
-    aiTtsAutoReadMessages
+    aiTtsAutoReadMessages,
+    aiWorkoutAutonomyLimit
   } = body
 
   // Validate inputs
@@ -157,6 +158,26 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  if (aiWorkoutAutonomyLimit !== undefined) {
+    if (
+      typeof aiWorkoutAutonomyLimit !== 'number' ||
+      aiWorkoutAutonomyLimit < 0 ||
+      aiWorkoutAutonomyLimit > 100
+    ) {
+      throw createError({
+        statusCode: 400,
+        message: 'Invalid AI autonomy limit'
+      })
+    }
+  }
+
+  if (aiModelPreference && !validModels.includes(aiModelPreference)) {
+    throw createError({
+      statusCode: 400,
+      message: 'Invalid AI model preference'
+    })
+  }
+
   if (aiTtsStyle && !validTtsStyles.includes(aiTtsStyle)) {
     throw createError({
       statusCode: 400,
@@ -178,28 +199,35 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const updateData: any = {}
+
+  if (aiPersona !== undefined) updateData.aiPersona = aiPersona
+  if (aiModelPreference !== undefined) updateData.aiModelPreference = aiModelPreference
+  if (aiAutoAnalyzeWorkouts !== undefined) updateData.aiAutoAnalyzeWorkouts = aiAutoAnalyzeWorkouts
+  if (aiAutoAnalyzeNutrition !== undefined)
+    updateData.aiAutoAnalyzeNutrition = aiAutoAnalyzeNutrition
+  if (aiAutoAnalyzeReadiness !== undefined)
+    updateData.aiAutoAnalyzeReadiness = aiAutoAnalyzeReadiness
+  if (aiRequireToolApproval !== undefined) updateData.aiRequireToolApproval = aiRequireToolApproval
+  if (aiProactivityEnabled !== undefined) updateData.aiProactivityEnabled = aiProactivityEnabled
+  if (aiConversationalEngagement !== undefined)
+    updateData.aiConversationalEngagement = aiConversationalEngagement
+  if (aiMemoryEnabled !== undefined) updateData.aiMemoryEnabled = aiMemoryEnabled
+  if (aiDeepAnalysisEnabled !== undefined) updateData.aiDeepAnalysisEnabled = aiDeepAnalysisEnabled
+  if (aiContext !== undefined) updateData.aiContext = aiContext
+  if (nutritionTrackingEnabled !== undefined)
+    updateData.nutritionTrackingEnabled = nutritionTrackingEnabled
+  if (updateWorkoutNotesEnabled !== undefined)
+    updateData.updateWorkoutNotesEnabled = updateWorkoutNotesEnabled
+  if (nickname !== undefined) updateData.nickname = nickname
+  if (aiTtsStyle !== undefined) updateData.aiTtsStyle = aiTtsStyle
+  if (aiTtsVoiceName !== undefined) updateData.aiTtsVoiceName = aiTtsVoiceName
+  if (aiTtsSpeed !== undefined) updateData.aiTtsSpeed = aiTtsSpeed
+  if (aiTtsAutoReadMessages !== undefined) updateData.aiTtsAutoReadMessages = aiTtsAutoReadMessages
+
   const user = await prisma.user.update({
     where: { id: authUser.id },
-    data: {
-      ...(aiPersona !== undefined && { aiPersona }),
-      ...(aiModelPreference !== undefined && { aiModelPreference }),
-      ...(aiAutoAnalyzeWorkouts !== undefined && { aiAutoAnalyzeWorkouts }),
-      ...(aiAutoAnalyzeNutrition !== undefined && { aiAutoAnalyzeNutrition }),
-      ...(aiAutoAnalyzeReadiness !== undefined && { aiAutoAnalyzeReadiness }),
-      ...(aiRequireToolApproval !== undefined && { aiRequireToolApproval }),
-      ...(aiProactivityEnabled !== undefined && { aiProactivityEnabled }),
-      ...(aiConversationalEngagement !== undefined && { aiConversationalEngagement }),
-      ...(aiMemoryEnabled !== undefined && { aiMemoryEnabled }),
-      ...(aiDeepAnalysisEnabled !== undefined && { aiDeepAnalysisEnabled }),
-      ...(aiContext !== undefined && { aiContext }),
-      ...(nutritionTrackingEnabled !== undefined && { nutritionTrackingEnabled }),
-      ...(updateWorkoutNotesEnabled !== undefined && { updateWorkoutNotesEnabled }),
-      ...(nickname !== undefined && { nickname }),
-      ...(aiTtsStyle !== undefined && { aiTtsStyle }),
-      ...(aiTtsVoiceName !== undefined && { aiTtsVoiceName }),
-      ...(aiTtsSpeed !== undefined && { aiTtsSpeed }),
-      ...(aiTtsAutoReadMessages !== undefined && { aiTtsAutoReadMessages })
-    },
+    data: updateData,
     select: {
       aiPersona: true,
       aiModelPreference: true,
@@ -224,6 +252,9 @@ export default defineEventHandler(async (event) => {
 
   return {
     success: true,
-    settings: user
+    settings: {
+      ...user,
+      aiWorkoutAutonomyLimit: aiWorkoutAutonomyLimit ?? 50
+    }
   }
 })

@@ -61,7 +61,9 @@ export async function getUserAiSettings(userId: string): Promise<AiSettings> {
       aiTtsStyle: true,
       aiTtsVoiceName: true,
       aiTtsSpeed: true,
-      aiTtsAutoReadMessages: true
+      aiTtsSpeed: true,
+      aiTtsAutoReadMessages: true,
+      subscriptionStatus: true
     }
   })
 
@@ -69,10 +71,14 @@ export async function getUserAiSettings(userId: string): Promise<AiSettings> {
     return DEFAULT_SETTINGS
   }
 
+  let dynamicModelPreference: GeminiModel = 'flash'
+  if (user.subscriptionStatus === 'SUPPORTER' || user.subscriptionStatus === 'PRO') {
+    dynamicModelPreference = 'pro'
+  }
+
   return {
     aiPersona: user.aiPersona || DEFAULT_SETTINGS.aiPersona,
-    aiModelPreference:
-      (user.aiModelPreference as GeminiModel) || DEFAULT_SETTINGS.aiModelPreference,
+    aiModelPreference: dynamicModelPreference,
     aiAutoAnalyzeWorkouts: user.aiAutoAnalyzeWorkouts ?? DEFAULT_SETTINGS.aiAutoAnalyzeWorkouts,
     aiAutoAnalyzeNutrition: user.aiAutoAnalyzeNutrition ?? DEFAULT_SETTINGS.aiAutoAnalyzeNutrition,
     aiAutoAnalyzeReadiness: user.aiAutoAnalyzeReadiness ?? DEFAULT_SETTINGS.aiAutoAnalyzeReadiness,

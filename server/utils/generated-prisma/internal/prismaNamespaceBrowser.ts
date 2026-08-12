@@ -155,7 +155,8 @@ export const ModelName = {
   CheckIn: 'CheckIn',
   CoachFeedback: 'CoachFeedback',
   ScheduledTaskConfig: 'ScheduledTaskConfig',
-  PasswordResetToken: 'PasswordResetToken'
+  PasswordResetToken: 'PasswordResetToken',
+  WeeklyCheckIn: 'WeeklyCheckIn'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -222,6 +223,7 @@ export const UserScalarFieldEnum = {
   weightUnits: 'weightUnits',
   altitude: 'altitude',
   isAdmin: 'isAdmin',
+  isCoach: 'isCoach',
   lthr: 'lthr',
   healthConsentAcceptedAt: 'healthConsentAcceptedAt',
   privacyPolicyVersion: 'privacyPolicyVersion',
@@ -262,9 +264,11 @@ export const UserScalarFieldEnum = {
   aiTtsAutoReadMessages: 'aiTtsAutoReadMessages',
   emailError: 'emailError',
   emailStatus: 'emailStatus',
+  hasDashboardAccess: 'hasDashboardAccess',
   weightSourceMode: 'weightSourceMode',
   uiLanguage: 'uiLanguage',
   aiMemoryEnabled: 'aiMemoryEnabled',
+  aiWorkoutAutonomyLimit: 'aiWorkoutAutonomyLimit',
   publicAuthorSlug: 'publicAuthorSlug',
   publicDisplayName: 'publicDisplayName',
   publicBio: 'publicBio',
@@ -2452,6 +2456,24 @@ export const PasswordResetTokenScalarFieldEnum = {
 
 export type PasswordResetTokenScalarFieldEnum =
   (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
+
+export const WeeklyCheckInScalarFieldEnum = {
+  id: 'id',
+  athleteId: 'athleteId',
+  coachId: 'coachId',
+  weekStartDate: 'weekStartDate',
+  submittedAt: 'submittedAt',
+  feelingScore: 'feelingScore',
+  fatigueScore: 'fatigueScore',
+  stressScore: 'stressScore',
+  sleepQuality: 'sleepQuality',
+  notes: 'notes',
+  coachFeedback: 'coachFeedback',
+  coachReviewedAt: 'coachReviewedAt'
+} as const
+
+export type WeeklyCheckInScalarFieldEnum =
+  (typeof WeeklyCheckInScalarFieldEnum)[keyof typeof WeeklyCheckInScalarFieldEnum]
 
 export const SortOrder = {
   asc: 'asc',

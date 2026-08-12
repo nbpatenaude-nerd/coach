@@ -606,6 +606,7 @@
   const reviewingRequestId = ref<string | null>(null)
   const reviewingAction = ref<'approve' | 'decline' | null>(null)
   const inviteTab = ref('share')
+  const route = useRoute()
   const router = useRouter()
   const toast = useToast()
   const { messageAthlete } = useCoachingMessageAthlete()
@@ -823,5 +824,10 @@
     router.push(`/coaching/athletes/${athlete.id}`)
   }
 
-  onMounted(fetchData)
+  onMounted(() => {
+    void fetchData()
+    if (route.query.invite === 'true') {
+      openInviteModal('share')
+    }
+  })
 </script>

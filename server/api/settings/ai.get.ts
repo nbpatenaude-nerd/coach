@@ -65,8 +65,6 @@ export default defineEventHandler(async (event) => {
       updateWorkoutNotesEnabled: true,
       nickname: true,
       aiTtsStyle: true,
-      aiTtsVoiceName: true,
-      aiTtsSpeed: true,
       aiTtsAutoReadMessages: true
     }
   })
@@ -96,6 +94,7 @@ export default defineEventHandler(async (event) => {
     aiTtsStyle: user.aiTtsStyle || 'coach',
     aiTtsVoiceName: user.aiTtsVoiceName || 'Kore',
     aiTtsSpeed: user.aiTtsSpeed || 'normal',
-    aiTtsAutoReadMessages: user.aiTtsAutoReadMessages ?? false
+    aiTtsAutoReadMessages: user.aiTtsAutoReadMessages ?? false,
+    aiWorkoutAutonomyLimit: 50
   }
 })

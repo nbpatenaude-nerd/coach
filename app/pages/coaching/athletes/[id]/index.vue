@@ -588,59 +588,7 @@
             </div>
 
             <div v-else-if="item.value === 'checkins'" class="space-y-6 pt-4">
-              <UCard :ui="mobileListCardUi">
-                <template #header>
-                  <h3 class="font-bold">Historical Check-Ins</h3>
-                </template>
-                <div v-if="athlete.checkIns?.length" class="space-y-4">
-                  <div
-                    v-for="checkIn in athlete.checkIns"
-                    :key="checkIn.id"
-                    class="rounded-lg border border-gray-200 dark:border-gray-800 p-4"
-                  >
-                    <div class="flex items-center justify-between mb-3">
-                      <span class="font-bold">{{ formatLongDate(checkIn.createdAt) }}</span>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Difficulty</p>
-                        <p>{{ checkIn.trainingDifficulty || '--' }}</p>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Fatigue</p>
-                        <p>{{ checkIn.personalFatigue || '--' }}</p>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Stress</p>
-                        <p>{{ checkIn.wellnessStress || '--' }}</p>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Sleep</p>
-                        <p>{{ checkIn.wellnessSleep || '--' }}</p>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Pain</p>
-                        <p>{{ checkIn.wellnessPainScore || '--' }}</p>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Load</p>
-                        <p>{{ checkIn.trainingLoad || '--' }}</p>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Recovery</p>
-                        <p>{{ checkIn.trainingRecovery || '--' }}</p>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 uppercase font-bold">Nutrition</p>
-                        <p>{{ checkIn.trainingNutrition || '--' }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-else class="text-center py-8 text-gray-500 italic">
-                  No check-ins recorded.
-                </div>
-              </UCard>
+              <CoachingAthleteCheckIns :athlete-id="athleteId" />
             </div>
           </template>
         </UTabs>

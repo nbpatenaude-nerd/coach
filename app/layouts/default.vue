@@ -138,7 +138,7 @@
   }
 
   // Navigation Items
-  const { isUncoverPlus, isUnlockPlus, isUnleash, isAdmin } = useNavigation()
+  const { isUncoverPlus, isUnlockPlus, isUnleash, isAdmin, isCoach } = useNavigation()
 
   const links = computed<NavigationMenuItem[][]>(() => {
     // Force re-evaluation on language change or ready state
@@ -228,7 +228,7 @@
             }
           ]
         : []),
-      ...(isAdmin.value || showFullCoachingSuite.value
+      ...(isCoach.value
         ? [
             {
               label: navLabel('navigation_training_plan', 'Training Plan'),
@@ -343,7 +343,7 @@
           }
         ]
       },
-      ...(isAdmin.value || showFullCoachingSuite.value
+      ...(isCoach.value
         ? [
             {
               label: 'Coaching',
@@ -669,7 +669,7 @@
         label: label('navigation_coaching', 'Coaching'),
         defaultOpen: route.path.startsWith('/coaching') || route.path === '/analytics',
         items: sectionItems(
-          showFullCoachingSuite.value
+          isCoach.value
             ? [
                 {
                   label: label('navigation_coaching', 'Coaching'),

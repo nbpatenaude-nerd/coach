@@ -39,6 +39,7 @@ export type UserAvgAggregateOutputType = {
   lthr: number | null
   hrPowerAlignmentScore: number | null
   shareRewardDaysGranted: number | null
+  aiWorkoutAutonomyLimit: number | null
 }
 
 export type UserSumAggregateOutputType = {
@@ -55,6 +56,7 @@ export type UserSumAggregateOutputType = {
   lthr: number | null
   hrPowerAlignmentScore: number | null
   shareRewardDaysGranted: number | null
+  aiWorkoutAutonomyLimit: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -99,6 +101,7 @@ export type UserMinAggregateOutputType = {
   weightUnits: string | null
   altitude: number | null
   isAdmin: boolean | null
+  isCoach: boolean | null
   lthr: number | null
   healthConsentAcceptedAt: Date | null
   privacyPolicyVersion: string | null
@@ -137,9 +140,11 @@ export type UserMinAggregateOutputType = {
   aiTtsAutoReadMessages: boolean | null
   emailError: string | null
   emailStatus: string | null
+  hasDashboardAccess: boolean | null
   weightSourceMode: string | null
   uiLanguage: string | null
   aiMemoryEnabled: boolean | null
+  aiWorkoutAutonomyLimit: number | null
   publicAuthorSlug: string | null
   publicDisplayName: string | null
   publicBio: string | null
@@ -203,6 +208,7 @@ export type UserMaxAggregateOutputType = {
   weightUnits: string | null
   altitude: number | null
   isAdmin: boolean | null
+  isCoach: boolean | null
   lthr: number | null
   healthConsentAcceptedAt: Date | null
   privacyPolicyVersion: string | null
@@ -241,9 +247,11 @@ export type UserMaxAggregateOutputType = {
   aiTtsAutoReadMessages: boolean | null
   emailError: string | null
   emailStatus: string | null
+  hasDashboardAccess: boolean | null
   weightSourceMode: string | null
   uiLanguage: string | null
   aiMemoryEnabled: boolean | null
+  aiWorkoutAutonomyLimit: number | null
   publicAuthorSlug: string | null
   publicDisplayName: string | null
   publicBio: string | null
@@ -313,6 +321,7 @@ export type UserCountAggregateOutputType = {
   weightUnits: number
   altitude: number
   isAdmin: number
+  isCoach: number
   lthr: number
   healthConsentAcceptedAt: number
   privacyPolicyVersion: number
@@ -353,9 +362,11 @@ export type UserCountAggregateOutputType = {
   aiTtsAutoReadMessages: number
   emailError: number
   emailStatus: number
+  hasDashboardAccess: number
   weightSourceMode: number
   uiLanguage: number
   aiMemoryEnabled: number
+  aiWorkoutAutonomyLimit: number
   publicAuthorSlug: number
   publicDisplayName: number
   publicBio: number
@@ -396,6 +407,7 @@ export type UserAvgAggregateInputType = {
   lthr?: true
   hrPowerAlignmentScore?: true
   shareRewardDaysGranted?: true
+  aiWorkoutAutonomyLimit?: true
 }
 
 export type UserSumAggregateInputType = {
@@ -412,6 +424,7 @@ export type UserSumAggregateInputType = {
   lthr?: true
   hrPowerAlignmentScore?: true
   shareRewardDaysGranted?: true
+  aiWorkoutAutonomyLimit?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -456,6 +469,7 @@ export type UserMinAggregateInputType = {
   weightUnits?: true
   altitude?: true
   isAdmin?: true
+  isCoach?: true
   lthr?: true
   healthConsentAcceptedAt?: true
   privacyPolicyVersion?: true
@@ -494,9 +508,11 @@ export type UserMinAggregateInputType = {
   aiTtsAutoReadMessages?: true
   emailError?: true
   emailStatus?: true
+  hasDashboardAccess?: true
   weightSourceMode?: true
   uiLanguage?: true
   aiMemoryEnabled?: true
+  aiWorkoutAutonomyLimit?: true
   publicAuthorSlug?: true
   publicDisplayName?: true
   publicBio?: true
@@ -560,6 +576,7 @@ export type UserMaxAggregateInputType = {
   weightUnits?: true
   altitude?: true
   isAdmin?: true
+  isCoach?: true
   lthr?: true
   healthConsentAcceptedAt?: true
   privacyPolicyVersion?: true
@@ -598,9 +615,11 @@ export type UserMaxAggregateInputType = {
   aiTtsAutoReadMessages?: true
   emailError?: true
   emailStatus?: true
+  hasDashboardAccess?: true
   weightSourceMode?: true
   uiLanguage?: true
   aiMemoryEnabled?: true
+  aiWorkoutAutonomyLimit?: true
   publicAuthorSlug?: true
   publicDisplayName?: true
   publicBio?: true
@@ -670,6 +689,7 @@ export type UserCountAggregateInputType = {
   weightUnits?: true
   altitude?: true
   isAdmin?: true
+  isCoach?: true
   lthr?: true
   healthConsentAcceptedAt?: true
   privacyPolicyVersion?: true
@@ -710,9 +730,11 @@ export type UserCountAggregateInputType = {
   aiTtsAutoReadMessages?: true
   emailError?: true
   emailStatus?: true
+  hasDashboardAccess?: true
   weightSourceMode?: true
   uiLanguage?: true
   aiMemoryEnabled?: true
+  aiWorkoutAutonomyLimit?: true
   publicAuthorSlug?: true
   publicDisplayName?: true
   publicBio?: true
@@ -874,6 +896,7 @@ export type UserGroupByOutputType = {
   weightUnits: string | null
   altitude: number | null
   isAdmin: boolean
+  isCoach: boolean
   lthr: number | null
   healthConsentAcceptedAt: Date | null
   privacyPolicyVersion: string | null
@@ -914,9 +937,11 @@ export type UserGroupByOutputType = {
   aiTtsAutoReadMessages: boolean
   emailError: string | null
   emailStatus: string
+  hasDashboardAccess: boolean
   weightSourceMode: string
   uiLanguage: string | null
   aiMemoryEnabled: boolean
+  aiWorkoutAutonomyLimit: number
   publicAuthorSlug: string | null
   publicDisplayName: string | null
   publicBio: string | null
@@ -1010,6 +1035,7 @@ export type UserWhereInput = {
   weightUnits?: Prisma.StringNullableFilter<'User'> | string | null
   altitude?: Prisma.IntNullableFilter<'User'> | number | null
   isAdmin?: Prisma.BoolFilter<'User'> | boolean
+  isCoach?: Prisma.BoolFilter<'User'> | boolean
   lthr?: Prisma.IntNullableFilter<'User'> | number | null
   healthConsentAcceptedAt?: Prisma.DateTimeNullableFilter<'User'> | Date | string | null
   privacyPolicyVersion?: Prisma.StringNullableFilter<'User'> | string | null
@@ -1051,9 +1077,11 @@ export type UserWhereInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFilter<'User'> | boolean
   emailError?: Prisma.StringNullableFilter<'User'> | string | null
   emailStatus?: Prisma.StringFilter<'User'> | string
+  hasDashboardAccess?: Prisma.BoolFilter<'User'> | boolean
   weightSourceMode?: Prisma.StringFilter<'User'> | string
   uiLanguage?: Prisma.StringNullableFilter<'User'> | string | null
   aiMemoryEnabled?: Prisma.BoolFilter<'User'> | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFilter<'User'> | number
   publicAuthorSlug?: Prisma.StringNullableFilter<'User'> | string | null
   publicDisplayName?: Prisma.StringNullableFilter<'User'> | string | null
   publicBio?: Prisma.StringNullableFilter<'User'> | string | null
@@ -1091,6 +1119,7 @@ export type UserWhereInput = {
   chatParticipations?: Prisma.ChatParticipantListRelationFilter
   chatTurns?: Prisma.ChatTurnListRelationFilter
   checkIns?: Prisma.CheckInListRelationFilter
+  weeklyCheckIns?: Prisma.WeeklyCheckInListRelationFilter
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteListRelationFilter
   feedbacks?: Prisma.CoachFeedbackListRelationFilter
   invites?: Prisma.CoachingInviteListRelationFilter
@@ -1217,6 +1246,7 @@ export type UserOrderByWithRelationInput = {
   weightUnits?: Prisma.SortOrderInput | Prisma.SortOrder
   altitude?: Prisma.SortOrderInput | Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isCoach?: Prisma.SortOrder
   lthr?: Prisma.SortOrderInput | Prisma.SortOrder
   healthConsentAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   privacyPolicyVersion?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1257,9 +1287,11 @@ export type UserOrderByWithRelationInput = {
   aiTtsAutoReadMessages?: Prisma.SortOrder
   emailError?: Prisma.SortOrderInput | Prisma.SortOrder
   emailStatus?: Prisma.SortOrder
+  hasDashboardAccess?: Prisma.SortOrder
   weightSourceMode?: Prisma.SortOrder
   uiLanguage?: Prisma.SortOrderInput | Prisma.SortOrder
   aiMemoryEnabled?: Prisma.SortOrder
+  aiWorkoutAutonomyLimit?: Prisma.SortOrder
   publicAuthorSlug?: Prisma.SortOrderInput | Prisma.SortOrder
   publicDisplayName?: Prisma.SortOrderInput | Prisma.SortOrder
   publicBio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1297,6 +1329,7 @@ export type UserOrderByWithRelationInput = {
   chatParticipations?: Prisma.ChatParticipantOrderByRelationAggregateInput
   chatTurns?: Prisma.ChatTurnOrderByRelationAggregateInput
   checkIns?: Prisma.CheckInOrderByRelationAggregateInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInOrderByRelationAggregateInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteOrderByRelationAggregateInput
   feedbacks?: Prisma.CoachFeedbackOrderByRelationAggregateInput
   invites?: Prisma.CoachingInviteOrderByRelationAggregateInput
@@ -1424,6 +1457,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     weightUnits?: Prisma.StringNullableFilter<'User'> | string | null
     altitude?: Prisma.IntNullableFilter<'User'> | number | null
     isAdmin?: Prisma.BoolFilter<'User'> | boolean
+    isCoach?: Prisma.BoolFilter<'User'> | boolean
     lthr?: Prisma.IntNullableFilter<'User'> | number | null
     healthConsentAcceptedAt?: Prisma.DateTimeNullableFilter<'User'> | Date | string | null
     privacyPolicyVersion?: Prisma.StringNullableFilter<'User'> | string | null
@@ -1463,9 +1497,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     aiTtsAutoReadMessages?: Prisma.BoolFilter<'User'> | boolean
     emailError?: Prisma.StringNullableFilter<'User'> | string | null
     emailStatus?: Prisma.StringFilter<'User'> | string
+    hasDashboardAccess?: Prisma.BoolFilter<'User'> | boolean
     weightSourceMode?: Prisma.StringFilter<'User'> | string
     uiLanguage?: Prisma.StringNullableFilter<'User'> | string | null
     aiMemoryEnabled?: Prisma.BoolFilter<'User'> | boolean
+    aiWorkoutAutonomyLimit?: Prisma.IntFilter<'User'> | number
     publicDisplayName?: Prisma.StringNullableFilter<'User'> | string | null
     publicBio?: Prisma.StringNullableFilter<'User'> | string | null
     publicLocation?: Prisma.StringNullableFilter<'User'> | string | null
@@ -1499,6 +1535,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     chatParticipations?: Prisma.ChatParticipantListRelationFilter
     chatTurns?: Prisma.ChatTurnListRelationFilter
     checkIns?: Prisma.CheckInListRelationFilter
+    weeklyCheckIns?: Prisma.WeeklyCheckInListRelationFilter
     coachAthleteInvitesSent?: Prisma.CoachAthleteInviteListRelationFilter
     feedbacks?: Prisma.CoachFeedbackListRelationFilter
     invites?: Prisma.CoachingInviteListRelationFilter
@@ -1634,6 +1671,7 @@ export type UserOrderByWithAggregationInput = {
   weightUnits?: Prisma.SortOrderInput | Prisma.SortOrder
   altitude?: Prisma.SortOrderInput | Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isCoach?: Prisma.SortOrder
   lthr?: Prisma.SortOrderInput | Prisma.SortOrder
   healthConsentAcceptedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   privacyPolicyVersion?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1674,9 +1712,11 @@ export type UserOrderByWithAggregationInput = {
   aiTtsAutoReadMessages?: Prisma.SortOrder
   emailError?: Prisma.SortOrderInput | Prisma.SortOrder
   emailStatus?: Prisma.SortOrder
+  hasDashboardAccess?: Prisma.SortOrder
   weightSourceMode?: Prisma.SortOrder
   uiLanguage?: Prisma.SortOrderInput | Prisma.SortOrder
   aiMemoryEnabled?: Prisma.SortOrder
+  aiWorkoutAutonomyLimit?: Prisma.SortOrder
   publicAuthorSlug?: Prisma.SortOrderInput | Prisma.SortOrder
   publicDisplayName?: Prisma.SortOrderInput | Prisma.SortOrder
   publicBio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -1758,6 +1798,7 @@ export type UserScalarWhereWithAggregatesInput = {
   weightUnits?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
   altitude?: Prisma.IntNullableWithAggregatesFilter<'User'> | number | null
   isAdmin?: Prisma.BoolWithAggregatesFilter<'User'> | boolean
+  isCoach?: Prisma.BoolWithAggregatesFilter<'User'> | boolean
   lthr?: Prisma.IntNullableWithAggregatesFilter<'User'> | number | null
   healthConsentAcceptedAt?:
     Prisma.DateTimeNullableWithAggregatesFilter<'User'> | Date | string | null
@@ -1803,9 +1844,11 @@ export type UserScalarWhereWithAggregatesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolWithAggregatesFilter<'User'> | boolean
   emailError?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
   emailStatus?: Prisma.StringWithAggregatesFilter<'User'> | string
+  hasDashboardAccess?: Prisma.BoolWithAggregatesFilter<'User'> | boolean
   weightSourceMode?: Prisma.StringWithAggregatesFilter<'User'> | string
   uiLanguage?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
   aiMemoryEnabled?: Prisma.BoolWithAggregatesFilter<'User'> | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntWithAggregatesFilter<'User'> | number
   publicAuthorSlug?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
   publicDisplayName?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
   publicBio?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
@@ -1881,6 +1924,7 @@ export type UserCreateInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -1921,9 +1965,11 @@ export type UserCreateInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -1960,6 +2006,7 @@ export type UserCreateInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -2077,6 +2124,7 @@ export type UserUncheckedCreateInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -2117,9 +2165,11 @@ export type UserUncheckedCreateInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -2157,6 +2207,7 @@ export type UserUncheckedCreateInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -2273,6 +2324,7 @@ export type UserUpdateInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2316,9 +2368,11 @@ export type UserUpdateInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2357,6 +2411,7 @@ export type UserUpdateInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -2474,6 +2529,7 @@ export type UserUncheckedUpdateInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2517,9 +2573,11 @@ export type UserUncheckedUpdateInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2559,6 +2617,7 @@ export type UserUncheckedUpdateInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -2675,6 +2734,7 @@ export type UserCreateManyInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -2715,9 +2775,11 @@ export type UserCreateManyInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -2791,6 +2853,7 @@ export type UserUpdateManyMutationInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2834,9 +2897,11 @@ export type UserUpdateManyMutationInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2911,6 +2976,7 @@ export type UserUncheckedUpdateManyInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2954,9 +3020,11 @@ export type UserUncheckedUpdateManyInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3047,6 +3115,7 @@ export type UserCountOrderByAggregateInput = {
   weightUnits?: Prisma.SortOrder
   altitude?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isCoach?: Prisma.SortOrder
   lthr?: Prisma.SortOrder
   healthConsentAcceptedAt?: Prisma.SortOrder
   privacyPolicyVersion?: Prisma.SortOrder
@@ -3087,9 +3156,11 @@ export type UserCountOrderByAggregateInput = {
   aiTtsAutoReadMessages?: Prisma.SortOrder
   emailError?: Prisma.SortOrder
   emailStatus?: Prisma.SortOrder
+  hasDashboardAccess?: Prisma.SortOrder
   weightSourceMode?: Prisma.SortOrder
   uiLanguage?: Prisma.SortOrder
   aiMemoryEnabled?: Prisma.SortOrder
+  aiWorkoutAutonomyLimit?: Prisma.SortOrder
   publicAuthorSlug?: Prisma.SortOrder
   publicDisplayName?: Prisma.SortOrder
   publicBio?: Prisma.SortOrder
@@ -3129,6 +3200,7 @@ export type UserAvgOrderByAggregateInput = {
   lthr?: Prisma.SortOrder
   hrPowerAlignmentScore?: Prisma.SortOrder
   shareRewardDaysGranted?: Prisma.SortOrder
+  aiWorkoutAutonomyLimit?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -3173,6 +3245,7 @@ export type UserMaxOrderByAggregateInput = {
   weightUnits?: Prisma.SortOrder
   altitude?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isCoach?: Prisma.SortOrder
   lthr?: Prisma.SortOrder
   healthConsentAcceptedAt?: Prisma.SortOrder
   privacyPolicyVersion?: Prisma.SortOrder
@@ -3211,9 +3284,11 @@ export type UserMaxOrderByAggregateInput = {
   aiTtsAutoReadMessages?: Prisma.SortOrder
   emailError?: Prisma.SortOrder
   emailStatus?: Prisma.SortOrder
+  hasDashboardAccess?: Prisma.SortOrder
   weightSourceMode?: Prisma.SortOrder
   uiLanguage?: Prisma.SortOrder
   aiMemoryEnabled?: Prisma.SortOrder
+  aiWorkoutAutonomyLimit?: Prisma.SortOrder
   publicAuthorSlug?: Prisma.SortOrder
   publicDisplayName?: Prisma.SortOrder
   publicBio?: Prisma.SortOrder
@@ -3277,6 +3352,7 @@ export type UserMinOrderByAggregateInput = {
   weightUnits?: Prisma.SortOrder
   altitude?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  isCoach?: Prisma.SortOrder
   lthr?: Prisma.SortOrder
   healthConsentAcceptedAt?: Prisma.SortOrder
   privacyPolicyVersion?: Prisma.SortOrder
@@ -3315,9 +3391,11 @@ export type UserMinOrderByAggregateInput = {
   aiTtsAutoReadMessages?: Prisma.SortOrder
   emailError?: Prisma.SortOrder
   emailStatus?: Prisma.SortOrder
+  hasDashboardAccess?: Prisma.SortOrder
   weightSourceMode?: Prisma.SortOrder
   uiLanguage?: Prisma.SortOrder
   aiMemoryEnabled?: Prisma.SortOrder
+  aiWorkoutAutonomyLimit?: Prisma.SortOrder
   publicAuthorSlug?: Prisma.SortOrder
   publicDisplayName?: Prisma.SortOrder
   publicBio?: Prisma.SortOrder
@@ -3353,6 +3431,7 @@ export type UserSumOrderByAggregateInput = {
   lthr?: Prisma.SortOrder
   hrPowerAlignmentScore?: Prisma.SortOrder
   shareRewardDaysGranted?: Prisma.SortOrder
+  aiWorkoutAutonomyLimit?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -3445,6 +3524,14 @@ export type EnumSubscriptionTierFieldUpdateOperationsInput = {
 
 export type NullableEnumSubscriptionTierFieldUpdateOperationsInput = {
   set?: $Enums.SubscriptionTier | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type NullableEnumTeamVisibilityFieldUpdateOperationsInput = {
@@ -5652,6 +5739,32 @@ export type UserUpdateOneRequiredWithoutFeedbacksNestedInput = {
   >
 }
 
+export type UserCreateNestedOneWithoutWeeklyCheckInsInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutWeeklyCheckInsInput,
+    Prisma.UserUncheckedCreateWithoutWeeklyCheckInsInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWeeklyCheckInsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWeeklyCheckInsNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutWeeklyCheckInsInput,
+    Prisma.UserUncheckedCreateWithoutWeeklyCheckInsInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWeeklyCheckInsInput
+  upsert?: Prisma.UserUpsertWithoutWeeklyCheckInsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutWeeklyCheckInsInput,
+      Prisma.UserUpdateWithoutWeeklyCheckInsInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutWeeklyCheckInsInput
+  >
+}
+
 export type UserCreateWithoutReferralsGivenInput = {
   id?: string
   name?: string | null
@@ -5700,6 +5813,7 @@ export type UserCreateWithoutReferralsGivenInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -5740,9 +5854,11 @@ export type UserCreateWithoutReferralsGivenInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -5779,6 +5895,7 @@ export type UserCreateWithoutReferralsGivenInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -5895,6 +6012,7 @@ export type UserUncheckedCreateWithoutReferralsGivenInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -5935,9 +6053,11 @@ export type UserUncheckedCreateWithoutReferralsGivenInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -5975,6 +6095,7 @@ export type UserUncheckedCreateWithoutReferralsGivenInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -6098,6 +6219,7 @@ export type UserCreateWithoutReferredByInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -6138,9 +6260,11 @@ export type UserCreateWithoutReferredByInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -6177,6 +6301,7 @@ export type UserCreateWithoutReferredByInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -6293,6 +6418,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -6333,9 +6459,11 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -6372,6 +6500,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -6521,6 +6650,7 @@ export type UserUpdateWithoutReferralsGivenInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6564,9 +6694,11 @@ export type UserUpdateWithoutReferralsGivenInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6605,6 +6737,7 @@ export type UserUpdateWithoutReferralsGivenInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -6721,6 +6854,7 @@ export type UserUncheckedUpdateWithoutReferralsGivenInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6764,9 +6898,11 @@ export type UserUncheckedUpdateWithoutReferralsGivenInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6806,6 +6942,7 @@ export type UserUncheckedUpdateWithoutReferralsGivenInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -6952,6 +7089,7 @@ export type UserScalarWhereInput = {
   weightUnits?: Prisma.StringNullableFilter<'User'> | string | null
   altitude?: Prisma.IntNullableFilter<'User'> | number | null
   isAdmin?: Prisma.BoolFilter<'User'> | boolean
+  isCoach?: Prisma.BoolFilter<'User'> | boolean
   lthr?: Prisma.IntNullableFilter<'User'> | number | null
   healthConsentAcceptedAt?: Prisma.DateTimeNullableFilter<'User'> | Date | string | null
   privacyPolicyVersion?: Prisma.StringNullableFilter<'User'> | string | null
@@ -6993,9 +7131,11 @@ export type UserScalarWhereInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFilter<'User'> | boolean
   emailError?: Prisma.StringNullableFilter<'User'> | string | null
   emailStatus?: Prisma.StringFilter<'User'> | string
+  hasDashboardAccess?: Prisma.BoolFilter<'User'> | boolean
   weightSourceMode?: Prisma.StringFilter<'User'> | string
   uiLanguage?: Prisma.StringNullableFilter<'User'> | string | null
   aiMemoryEnabled?: Prisma.BoolFilter<'User'> | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFilter<'User'> | number
   publicAuthorSlug?: Prisma.StringNullableFilter<'User'> | string | null
   publicDisplayName?: Prisma.StringNullableFilter<'User'> | string | null
   publicBio?: Prisma.StringNullableFilter<'User'> | string | null
@@ -7069,6 +7209,7 @@ export type UserCreateWithoutReferralAsRefereeInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -7109,9 +7250,11 @@ export type UserCreateWithoutReferralAsRefereeInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -7148,6 +7291,7 @@ export type UserCreateWithoutReferralAsRefereeInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -7264,6 +7408,7 @@ export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -7304,9 +7449,11 @@ export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -7344,6 +7491,7 @@ export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -7467,6 +7615,7 @@ export type UserCreateWithoutReferralsAsReferrerInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -7507,9 +7656,11 @@ export type UserCreateWithoutReferralsAsReferrerInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -7546,6 +7697,7 @@ export type UserCreateWithoutReferralsAsReferrerInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -7662,6 +7814,7 @@ export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -7702,9 +7855,11 @@ export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -7742,6 +7897,7 @@ export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -7885,6 +8041,7 @@ export type UserUpdateWithoutReferralAsRefereeInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7928,9 +8085,11 @@ export type UserUpdateWithoutReferralAsRefereeInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -7969,6 +8128,7 @@ export type UserUpdateWithoutReferralAsRefereeInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -8085,6 +8245,7 @@ export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8128,9 +8289,11 @@ export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8170,6 +8333,7 @@ export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -8305,6 +8469,7 @@ export type UserUpdateWithoutReferralsAsReferrerInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8348,9 +8513,11 @@ export type UserUpdateWithoutReferralsAsReferrerInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8389,6 +8556,7 @@ export type UserUpdateWithoutReferralsAsReferrerInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -8505,6 +8673,7 @@ export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8548,9 +8717,11 @@ export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -8590,6 +8761,7 @@ export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -8705,6 +8877,7 @@ export type UserCreateWithoutSportSettingsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -8745,9 +8918,11 @@ export type UserCreateWithoutSportSettingsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -8784,6 +8959,7 @@ export type UserCreateWithoutSportSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -8900,6 +9076,7 @@ export type UserUncheckedCreateWithoutSportSettingsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -8940,9 +9117,11 @@ export type UserUncheckedCreateWithoutSportSettingsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -8980,6 +9159,7 @@ export type UserUncheckedCreateWithoutSportSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -9123,6 +9303,7 @@ export type UserUpdateWithoutSportSettingsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9166,9 +9347,11 @@ export type UserUpdateWithoutSportSettingsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9207,6 +9390,7 @@ export type UserUpdateWithoutSportSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -9323,6 +9507,7 @@ export type UserUncheckedUpdateWithoutSportSettingsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9366,9 +9551,11 @@ export type UserUncheckedUpdateWithoutSportSettingsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9408,6 +9595,7 @@ export type UserUncheckedUpdateWithoutSportSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -9523,6 +9711,7 @@ export type UserCreateWithoutSystemMessageDismissalsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -9563,9 +9752,11 @@ export type UserCreateWithoutSystemMessageDismissalsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -9602,6 +9793,7 @@ export type UserCreateWithoutSystemMessageDismissalsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -9718,6 +9910,7 @@ export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -9758,9 +9951,11 @@ export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -9798,6 +9993,7 @@ export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -9941,6 +10137,7 @@ export type UserUpdateWithoutSystemMessageDismissalsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -9984,9 +10181,11 @@ export type UserUpdateWithoutSystemMessageDismissalsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10025,6 +10224,7 @@ export type UserUpdateWithoutSystemMessageDismissalsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -10141,6 +10341,7 @@ export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10184,9 +10385,11 @@ export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10226,6 +10429,7 @@ export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -10341,6 +10545,7 @@ export type UserCreateWithoutOauthAppsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -10381,9 +10586,11 @@ export type UserCreateWithoutOauthAppsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -10420,6 +10627,7 @@ export type UserCreateWithoutOauthAppsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -10536,6 +10744,7 @@ export type UserUncheckedCreateWithoutOauthAppsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -10576,9 +10785,11 @@ export type UserUncheckedCreateWithoutOauthAppsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -10616,6 +10827,7 @@ export type UserUncheckedCreateWithoutOauthAppsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -10759,6 +10971,7 @@ export type UserUpdateWithoutOauthAppsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10802,9 +11015,11 @@ export type UserUpdateWithoutOauthAppsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -10843,6 +11058,7 @@ export type UserUpdateWithoutOauthAppsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -10959,6 +11175,7 @@ export type UserUncheckedUpdateWithoutOauthAppsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11002,9 +11219,11 @@ export type UserUncheckedUpdateWithoutOauthAppsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11044,6 +11263,7 @@ export type UserUncheckedUpdateWithoutOauthAppsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -11159,6 +11379,7 @@ export type UserCreateWithoutOauthConsentsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -11199,9 +11420,11 @@ export type UserCreateWithoutOauthConsentsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -11238,6 +11461,7 @@ export type UserCreateWithoutOauthConsentsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -11354,6 +11578,7 @@ export type UserUncheckedCreateWithoutOauthConsentsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -11394,9 +11619,11 @@ export type UserUncheckedCreateWithoutOauthConsentsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -11434,6 +11661,7 @@ export type UserUncheckedCreateWithoutOauthConsentsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -11577,6 +11805,7 @@ export type UserUpdateWithoutOauthConsentsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11620,9 +11849,11 @@ export type UserUpdateWithoutOauthConsentsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11661,6 +11892,7 @@ export type UserUpdateWithoutOauthConsentsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -11777,6 +12009,7 @@ export type UserUncheckedUpdateWithoutOauthConsentsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11820,9 +12053,11 @@ export type UserUncheckedUpdateWithoutOauthConsentsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -11862,6 +12097,7 @@ export type UserUncheckedUpdateWithoutOauthConsentsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -11977,6 +12213,7 @@ export type UserCreateWithoutOauthCodesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -12017,9 +12254,11 @@ export type UserCreateWithoutOauthCodesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -12056,6 +12295,7 @@ export type UserCreateWithoutOauthCodesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -12172,6 +12412,7 @@ export type UserUncheckedCreateWithoutOauthCodesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -12212,9 +12453,11 @@ export type UserUncheckedCreateWithoutOauthCodesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -12252,6 +12495,7 @@ export type UserUncheckedCreateWithoutOauthCodesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -12395,6 +12639,7 @@ export type UserUpdateWithoutOauthCodesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12438,9 +12683,11 @@ export type UserUpdateWithoutOauthCodesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12479,6 +12726,7 @@ export type UserUpdateWithoutOauthCodesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -12595,6 +12843,7 @@ export type UserUncheckedUpdateWithoutOauthCodesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12638,9 +12887,11 @@ export type UserUncheckedUpdateWithoutOauthCodesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -12680,6 +12931,7 @@ export type UserUncheckedUpdateWithoutOauthCodesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -12795,6 +13047,7 @@ export type UserCreateWithoutOauthTokensInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -12835,9 +13088,11 @@ export type UserCreateWithoutOauthTokensInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -12874,6 +13129,7 @@ export type UserCreateWithoutOauthTokensInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -12990,6 +13246,7 @@ export type UserUncheckedCreateWithoutOauthTokensInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -13030,9 +13287,11 @@ export type UserUncheckedCreateWithoutOauthTokensInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -13070,6 +13329,7 @@ export type UserUncheckedCreateWithoutOauthTokensInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -13213,6 +13473,7 @@ export type UserUpdateWithoutOauthTokensInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13256,9 +13517,11 @@ export type UserUpdateWithoutOauthTokensInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13297,6 +13560,7 @@ export type UserUpdateWithoutOauthTokensInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -13413,6 +13677,7 @@ export type UserUncheckedUpdateWithoutOauthTokensInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13456,9 +13721,11 @@ export type UserUncheckedUpdateWithoutOauthTokensInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -13498,6 +13765,7 @@ export type UserUncheckedUpdateWithoutOauthTokensInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -13613,6 +13881,7 @@ export type UserCreateWithoutMcpToolExecutionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -13653,9 +13922,11 @@ export type UserCreateWithoutMcpToolExecutionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -13692,6 +13963,7 @@ export type UserCreateWithoutMcpToolExecutionsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -13808,6 +14080,7 @@ export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -13848,9 +14121,11 @@ export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -13888,6 +14163,7 @@ export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -14031,6 +14307,7 @@ export type UserUpdateWithoutMcpToolExecutionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14074,9 +14351,11 @@ export type UserUpdateWithoutMcpToolExecutionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14115,6 +14394,7 @@ export type UserUpdateWithoutMcpToolExecutionsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -14231,6 +14511,7 @@ export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14274,9 +14555,11 @@ export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14316,6 +14599,7 @@ export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -14431,6 +14715,7 @@ export type UserCreateWithoutAuditLogsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -14471,9 +14756,11 @@ export type UserCreateWithoutAuditLogsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -14509,6 +14796,7 @@ export type UserCreateWithoutAuditLogsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -14626,6 +14914,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -14666,9 +14955,11 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -14705,6 +14996,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -14849,6 +15141,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14892,9 +15185,11 @@ export type UserUpdateWithoutAuditLogsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -14932,6 +15227,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -15049,6 +15345,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15092,9 +15389,11 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15133,6 +15432,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -15249,6 +15549,7 @@ export type UserCreateWithoutShareTokensInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -15289,9 +15590,11 @@ export type UserCreateWithoutShareTokensInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -15328,6 +15631,7 @@ export type UserCreateWithoutShareTokensInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -15444,6 +15748,7 @@ export type UserUncheckedCreateWithoutShareTokensInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -15484,9 +15789,11 @@ export type UserUncheckedCreateWithoutShareTokensInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -15524,6 +15831,7 @@ export type UserUncheckedCreateWithoutShareTokensInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -15667,6 +15975,7 @@ export type UserUpdateWithoutShareTokensInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15710,9 +16019,11 @@ export type UserUpdateWithoutShareTokensInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15751,6 +16062,7 @@ export type UserUpdateWithoutShareTokensInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -15867,6 +16179,7 @@ export type UserUncheckedUpdateWithoutShareTokensInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15910,9 +16223,11 @@ export type UserUncheckedUpdateWithoutShareTokensInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -15952,6 +16267,7 @@ export type UserUncheckedUpdateWithoutShareTokensInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -16067,6 +16383,7 @@ export type UserCreateWithoutApiKeysInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -16107,9 +16424,11 @@ export type UserCreateWithoutApiKeysInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -16145,6 +16464,7 @@ export type UserCreateWithoutApiKeysInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -16262,6 +16582,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -16302,9 +16623,11 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -16341,6 +16664,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -16485,6 +16809,7 @@ export type UserUpdateWithoutApiKeysInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16528,9 +16853,11 @@ export type UserUpdateWithoutApiKeysInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16568,6 +16895,7 @@ export type UserUpdateWithoutApiKeysInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -16685,6 +17013,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16728,9 +17057,11 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -16769,6 +17100,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -16885,6 +17217,7 @@ export type UserCreateWithoutCoachesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -16925,9 +17258,11 @@ export type UserCreateWithoutCoachesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -16964,6 +17299,7 @@ export type UserCreateWithoutCoachesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -17080,6 +17416,7 @@ export type UserUncheckedCreateWithoutCoachesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -17120,9 +17457,11 @@ export type UserUncheckedCreateWithoutCoachesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -17160,6 +17499,7 @@ export type UserUncheckedCreateWithoutCoachesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -17283,6 +17623,7 @@ export type UserCreateWithoutAthletesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -17323,9 +17664,11 @@ export type UserCreateWithoutAthletesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -17362,6 +17705,7 @@ export type UserCreateWithoutAthletesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -17478,6 +17822,7 @@ export type UserUncheckedCreateWithoutAthletesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -17518,9 +17863,11 @@ export type UserUncheckedCreateWithoutAthletesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -17558,6 +17905,7 @@ export type UserUncheckedCreateWithoutAthletesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -17701,6 +18049,7 @@ export type UserUpdateWithoutCoachesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17744,9 +18093,11 @@ export type UserUpdateWithoutCoachesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17785,6 +18136,7 @@ export type UserUpdateWithoutCoachesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -17901,6 +18253,7 @@ export type UserUncheckedUpdateWithoutCoachesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17944,9 +18297,11 @@ export type UserUncheckedUpdateWithoutCoachesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -17986,6 +18341,7 @@ export type UserUncheckedUpdateWithoutCoachesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -18121,6 +18477,7 @@ export type UserUpdateWithoutAthletesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18164,9 +18521,11 @@ export type UserUpdateWithoutAthletesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18205,6 +18564,7 @@ export type UserUpdateWithoutAthletesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -18321,6 +18681,7 @@ export type UserUncheckedUpdateWithoutAthletesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18364,9 +18725,11 @@ export type UserUncheckedUpdateWithoutAthletesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18406,6 +18769,7 @@ export type UserUncheckedUpdateWithoutAthletesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -18521,6 +18885,7 @@ export type UserCreateWithoutInvitesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -18561,9 +18926,11 @@ export type UserCreateWithoutInvitesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -18600,6 +18967,7 @@ export type UserCreateWithoutInvitesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
@@ -18716,6 +19084,7 @@ export type UserUncheckedCreateWithoutInvitesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -18756,9 +19125,11 @@ export type UserUncheckedCreateWithoutInvitesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -18796,6 +19167,7 @@ export type UserUncheckedCreateWithoutInvitesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
@@ -18939,6 +19311,7 @@ export type UserUpdateWithoutInvitesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -18982,9 +19355,11 @@ export type UserUpdateWithoutInvitesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19023,6 +19398,7 @@ export type UserUpdateWithoutInvitesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
@@ -19139,6 +19515,7 @@ export type UserUncheckedUpdateWithoutInvitesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19182,9 +19559,11 @@ export type UserUncheckedUpdateWithoutInvitesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19224,6 +19603,7 @@ export type UserUncheckedUpdateWithoutInvitesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
@@ -19339,6 +19719,7 @@ export type UserCreateWithoutCoachAthleteInvitesSentInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -19379,9 +19760,11 @@ export type UserCreateWithoutCoachAthleteInvitesSentInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -19418,6 +19801,7 @@ export type UserCreateWithoutCoachAthleteInvitesSentInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
   coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
@@ -19534,6 +19918,7 @@ export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -19574,9 +19959,11 @@ export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -19614,6 +20001,7 @@ export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
   coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
@@ -19757,6 +20145,7 @@ export type UserUpdateWithoutCoachAthleteInvitesSentInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19800,9 +20189,11 @@ export type UserUpdateWithoutCoachAthleteInvitesSentInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -19841,6 +20232,7 @@ export type UserUpdateWithoutCoachAthleteInvitesSentInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
   coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
@@ -19957,6 +20349,7 @@ export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -20000,9 +20393,11 @@ export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -20042,6 +20437,7 @@ export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
   coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
@@ -20157,6 +20553,7 @@ export type UserCreateWithoutCoachingRequestsSentInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -20197,9 +20594,11 @@ export type UserCreateWithoutCoachingRequestsSentInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -20236,6 +20635,7 @@ export type UserCreateWithoutCoachingRequestsSentInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -20352,6 +20752,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -20392,9 +20793,11 @@ export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -20432,6 +20835,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -20555,6 +20959,7 @@ export type UserCreateWithoutCoachingRequestsReceivedInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -20595,9 +21000,11 @@ export type UserCreateWithoutCoachingRequestsReceivedInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -20634,6 +21041,7 @@ export type UserCreateWithoutCoachingRequestsReceivedInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -20750,6 +21158,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -20790,9 +21199,11 @@ export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -20830,6 +21241,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -20973,6 +21385,7 @@ export type UserUpdateWithoutCoachingRequestsSentInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21016,9 +21429,11 @@ export type UserUpdateWithoutCoachingRequestsSentInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21057,6 +21472,7 @@ export type UserUpdateWithoutCoachingRequestsSentInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -21173,6 +21589,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21216,9 +21633,11 @@ export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21258,6 +21677,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -21393,6 +21813,7 @@ export type UserUpdateWithoutCoachingRequestsReceivedInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21436,9 +21857,11 @@ export type UserUpdateWithoutCoachingRequestsReceivedInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21477,6 +21900,7 @@ export type UserUpdateWithoutCoachingRequestsReceivedInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -21593,6 +22017,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21636,9 +22061,11 @@ export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -21678,6 +22105,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -21793,6 +22221,7 @@ export type UserCreateWithoutGoalsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -21833,9 +22262,11 @@ export type UserCreateWithoutGoalsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -21872,6 +22303,7 @@ export type UserCreateWithoutGoalsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -21988,6 +22420,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -22028,9 +22461,11 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -22068,6 +22503,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -22208,6 +22644,7 @@ export type UserUpdateWithoutGoalsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22251,9 +22688,11 @@ export type UserUpdateWithoutGoalsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22292,6 +22731,7 @@ export type UserUpdateWithoutGoalsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -22408,6 +22848,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22451,9 +22892,11 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -22493,6 +22936,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -22608,6 +23052,7 @@ export type UserCreateWithoutEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -22648,9 +23093,11 @@ export type UserCreateWithoutEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -22687,6 +23134,7 @@ export type UserCreateWithoutEventsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -22803,6 +23251,7 @@ export type UserUncheckedCreateWithoutEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -22843,9 +23292,11 @@ export type UserUncheckedCreateWithoutEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -22883,6 +23334,7 @@ export type UserUncheckedCreateWithoutEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -23006,6 +23458,7 @@ export type UserCreateWithoutParticipatingEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -23046,9 +23499,11 @@ export type UserCreateWithoutParticipatingEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -23085,6 +23540,7 @@ export type UserCreateWithoutParticipatingEventsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -23201,6 +23657,7 @@ export type UserUncheckedCreateWithoutParticipatingEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -23241,9 +23698,11 @@ export type UserUncheckedCreateWithoutParticipatingEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -23281,6 +23740,7 @@ export type UserUncheckedCreateWithoutParticipatingEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -23424,6 +23884,7 @@ export type UserUpdateWithoutEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23467,9 +23928,11 @@ export type UserUpdateWithoutEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23508,6 +23971,7 @@ export type UserUpdateWithoutEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -23624,6 +24088,7 @@ export type UserUncheckedUpdateWithoutEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23667,9 +24132,11 @@ export type UserUncheckedUpdateWithoutEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -23709,6 +24176,7 @@ export type UserUncheckedUpdateWithoutEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -23852,6 +24320,7 @@ export type UserCreateWithoutAccountsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -23892,9 +24361,11 @@ export type UserCreateWithoutAccountsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -23930,6 +24401,7 @@ export type UserCreateWithoutAccountsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -24047,6 +24519,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -24087,9 +24560,11 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -24126,6 +24601,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -24270,6 +24746,7 @@ export type UserUpdateWithoutAccountsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24313,9 +24790,11 @@ export type UserUpdateWithoutAccountsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24353,6 +24832,7 @@ export type UserUpdateWithoutAccountsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -24470,6 +24950,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24513,9 +24994,11 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -24554,6 +25037,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -24670,6 +25154,7 @@ export type UserCreateWithoutSessionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -24710,9 +25195,11 @@ export type UserCreateWithoutSessionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -24749,6 +25236,7 @@ export type UserCreateWithoutSessionsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -24865,6 +25353,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -24905,9 +25394,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -24945,6 +25436,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -25088,6 +25580,7 @@ export type UserUpdateWithoutSessionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25131,9 +25624,11 @@ export type UserUpdateWithoutSessionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25172,6 +25667,7 @@ export type UserUpdateWithoutSessionsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -25288,6 +25784,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25331,9 +25828,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25373,6 +25872,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -25488,6 +25988,7 @@ export type UserCreateWithoutIntegrationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -25528,9 +26029,11 @@ export type UserCreateWithoutIntegrationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -25567,6 +26070,7 @@ export type UserCreateWithoutIntegrationsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -25683,6 +26187,7 @@ export type UserUncheckedCreateWithoutIntegrationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -25723,9 +26228,11 @@ export type UserUncheckedCreateWithoutIntegrationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -25763,6 +26270,7 @@ export type UserUncheckedCreateWithoutIntegrationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -25906,6 +26414,7 @@ export type UserUpdateWithoutIntegrationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25949,9 +26458,11 @@ export type UserUpdateWithoutIntegrationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -25990,6 +26501,7 @@ export type UserUpdateWithoutIntegrationsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -26106,6 +26618,7 @@ export type UserUncheckedUpdateWithoutIntegrationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26149,9 +26662,11 @@ export type UserUncheckedUpdateWithoutIntegrationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26191,6 +26706,7 @@ export type UserUncheckedUpdateWithoutIntegrationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -26306,6 +26822,7 @@ export type UserCreateWithoutWorkoutsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -26346,9 +26863,11 @@ export type UserCreateWithoutWorkoutsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -26385,6 +26904,7 @@ export type UserCreateWithoutWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -26501,6 +27021,7 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -26541,9 +27062,11 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -26581,6 +27104,7 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -26724,6 +27248,7 @@ export type UserUpdateWithoutWorkoutsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26767,9 +27292,11 @@ export type UserUpdateWithoutWorkoutsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26808,6 +27335,7 @@ export type UserUpdateWithoutWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -26924,6 +27452,7 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -26967,9 +27496,11 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27009,6 +27540,7 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -27124,6 +27656,7 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -27164,9 +27697,11 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -27203,6 +27738,7 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -27319,6 +27855,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -27359,9 +27896,11 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -27399,6 +27938,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -27542,6 +28082,7 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27585,9 +28126,11 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27626,6 +28169,7 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -27742,6 +28286,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27785,9 +28330,11 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -27827,6 +28374,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -27942,6 +28490,7 @@ export type UserCreateWithoutWorkoutTemplateFoldersInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -27982,9 +28531,11 @@ export type UserCreateWithoutWorkoutTemplateFoldersInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -28021,6 +28572,7 @@ export type UserCreateWithoutWorkoutTemplateFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -28137,6 +28689,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -28177,9 +28730,11 @@ export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -28217,6 +28772,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -28360,6 +28916,7 @@ export type UserUpdateWithoutWorkoutTemplateFoldersInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28403,9 +28960,11 @@ export type UserUpdateWithoutWorkoutTemplateFoldersInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28444,6 +29003,7 @@ export type UserUpdateWithoutWorkoutTemplateFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -28560,6 +29120,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28603,9 +29164,11 @@ export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -28645,6 +29208,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -28760,6 +29324,7 @@ export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -28800,9 +29365,11 @@ export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -28839,6 +29406,7 @@ export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -28955,6 +29523,7 @@ export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -28995,9 +29564,11 @@ export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -29035,6 +29606,7 @@ export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -29178,6 +29750,7 @@ export type UserUpdateWithoutStrengthExerciseLibraryItemsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29221,9 +29794,11 @@ export type UserUpdateWithoutStrengthExerciseLibraryItemsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29262,6 +29837,7 @@ export type UserUpdateWithoutStrengthExerciseLibraryItemsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -29378,6 +29954,7 @@ export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29421,9 +29998,11 @@ export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -29463,6 +30042,7 @@ export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -29578,6 +30158,7 @@ export type UserCreateWithoutFitFilesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -29618,9 +30199,11 @@ export type UserCreateWithoutFitFilesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -29657,6 +30240,7 @@ export type UserCreateWithoutFitFilesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -29773,6 +30357,7 @@ export type UserUncheckedCreateWithoutFitFilesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -29813,9 +30398,11 @@ export type UserUncheckedCreateWithoutFitFilesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -29853,6 +30440,7 @@ export type UserUncheckedCreateWithoutFitFilesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -29996,6 +30584,7 @@ export type UserUpdateWithoutFitFilesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30039,9 +30628,11 @@ export type UserUpdateWithoutFitFilesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30080,6 +30671,7 @@ export type UserUpdateWithoutFitFilesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -30196,6 +30788,7 @@ export type UserUncheckedUpdateWithoutFitFilesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30239,9 +30832,11 @@ export type UserUncheckedUpdateWithoutFitFilesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30281,6 +30876,7 @@ export type UserUncheckedUpdateWithoutFitFilesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -30396,6 +30992,7 @@ export type UserCreateWithoutPlannedWorkoutsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -30436,9 +31033,11 @@ export type UserCreateWithoutPlannedWorkoutsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -30475,6 +31074,7 @@ export type UserCreateWithoutPlannedWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -30591,6 +31191,7 @@ export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -30631,9 +31232,11 @@ export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -30671,6 +31274,7 @@ export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -30814,6 +31418,7 @@ export type UserUpdateWithoutPlannedWorkoutsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30857,9 +31462,11 @@ export type UserUpdateWithoutPlannedWorkoutsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -30898,6 +31505,7 @@ export type UserUpdateWithoutPlannedWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -31014,6 +31622,7 @@ export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31057,9 +31666,11 @@ export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31099,6 +31710,7 @@ export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -31214,6 +31826,7 @@ export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -31254,9 +31867,11 @@ export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -31293,6 +31908,7 @@ export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -31409,6 +32025,7 @@ export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -31449,9 +32066,11 @@ export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -31489,6 +32108,7 @@ export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -31632,6 +32252,7 @@ export type UserUpdateWithoutWorkoutStructureGenerationRunsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31675,9 +32296,11 @@ export type UserUpdateWithoutWorkoutStructureGenerationRunsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31716,6 +32339,7 @@ export type UserUpdateWithoutWorkoutStructureGenerationRunsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -31832,6 +32456,7 @@ export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31875,9 +32500,11 @@ export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -31917,6 +32544,7 @@ export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -32032,6 +32660,7 @@ export type UserCreateWithoutCalendarNotesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -32072,9 +32701,11 @@ export type UserCreateWithoutCalendarNotesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -32110,6 +32741,7 @@ export type UserCreateWithoutCalendarNotesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -32227,6 +32859,7 @@ export type UserUncheckedCreateWithoutCalendarNotesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -32267,9 +32900,11 @@ export type UserUncheckedCreateWithoutCalendarNotesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -32306,6 +32941,7 @@ export type UserUncheckedCreateWithoutCalendarNotesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -32450,6 +33086,7 @@ export type UserUpdateWithoutCalendarNotesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32493,9 +33130,11 @@ export type UserUpdateWithoutCalendarNotesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32533,6 +33172,7 @@ export type UserUpdateWithoutCalendarNotesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -32650,6 +33290,7 @@ export type UserUncheckedUpdateWithoutCalendarNotesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32693,9 +33334,11 @@ export type UserUncheckedUpdateWithoutCalendarNotesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -32734,6 +33377,7 @@ export type UserUncheckedUpdateWithoutCalendarNotesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -32850,6 +33494,7 @@ export type UserCreateWithoutDailyMetricsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -32890,9 +33535,11 @@ export type UserCreateWithoutDailyMetricsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -32929,6 +33576,7 @@ export type UserCreateWithoutDailyMetricsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -33045,6 +33693,7 @@ export type UserUncheckedCreateWithoutDailyMetricsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -33085,9 +33734,11 @@ export type UserUncheckedCreateWithoutDailyMetricsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -33125,6 +33776,7 @@ export type UserUncheckedCreateWithoutDailyMetricsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -33268,6 +33920,7 @@ export type UserUpdateWithoutDailyMetricsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33311,9 +33964,11 @@ export type UserUpdateWithoutDailyMetricsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33352,6 +34007,7 @@ export type UserUpdateWithoutDailyMetricsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -33468,6 +34124,7 @@ export type UserUncheckedUpdateWithoutDailyMetricsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33511,9 +34168,11 @@ export type UserUncheckedUpdateWithoutDailyMetricsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -33553,6 +34212,7 @@ export type UserUncheckedUpdateWithoutDailyMetricsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -33668,6 +34328,7 @@ export type UserCreateWithoutWellnessInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -33708,9 +34369,11 @@ export type UserCreateWithoutWellnessInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -33747,6 +34410,7 @@ export type UserCreateWithoutWellnessInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -33863,6 +34527,7 @@ export type UserUncheckedCreateWithoutWellnessInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -33903,9 +34568,11 @@ export type UserUncheckedCreateWithoutWellnessInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -33943,6 +34610,7 @@ export type UserUncheckedCreateWithoutWellnessInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -34086,6 +34754,7 @@ export type UserUpdateWithoutWellnessInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34129,9 +34798,11 @@ export type UserUpdateWithoutWellnessInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34170,6 +34841,7 @@ export type UserUpdateWithoutWellnessInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -34286,6 +34958,7 @@ export type UserUncheckedUpdateWithoutWellnessInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34329,9 +35002,11 @@ export type UserUncheckedUpdateWithoutWellnessInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34371,6 +35046,7 @@ export type UserUncheckedUpdateWithoutWellnessInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -34486,6 +35162,7 @@ export type UserCreateWithoutNutritionInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -34526,9 +35203,11 @@ export type UserCreateWithoutNutritionInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -34565,6 +35244,7 @@ export type UserCreateWithoutNutritionInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -34681,6 +35361,7 @@ export type UserUncheckedCreateWithoutNutritionInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -34721,9 +35402,11 @@ export type UserUncheckedCreateWithoutNutritionInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -34761,6 +35444,7 @@ export type UserUncheckedCreateWithoutNutritionInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -34904,6 +35588,7 @@ export type UserUpdateWithoutNutritionInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34947,9 +35632,11 @@ export type UserUpdateWithoutNutritionInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -34988,6 +35675,7 @@ export type UserUpdateWithoutNutritionInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -35104,6 +35792,7 @@ export type UserUncheckedUpdateWithoutNutritionInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35147,9 +35836,11 @@ export type UserUncheckedUpdateWithoutNutritionInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35189,6 +35880,7 @@ export type UserUncheckedUpdateWithoutNutritionInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -35304,6 +35996,7 @@ export type UserCreateWithoutNutritionSettingsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -35344,9 +36037,11 @@ export type UserCreateWithoutNutritionSettingsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -35383,6 +36078,7 @@ export type UserCreateWithoutNutritionSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -35499,6 +36195,7 @@ export type UserUncheckedCreateWithoutNutritionSettingsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -35539,9 +36236,11 @@ export type UserUncheckedCreateWithoutNutritionSettingsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -35579,6 +36278,7 @@ export type UserUncheckedCreateWithoutNutritionSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -35722,6 +36422,7 @@ export type UserUpdateWithoutNutritionSettingsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35765,9 +36466,11 @@ export type UserUpdateWithoutNutritionSettingsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35806,6 +36509,7 @@ export type UserUpdateWithoutNutritionSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -35922,6 +36626,7 @@ export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -35965,9 +36670,11 @@ export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36007,6 +36714,7 @@ export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -36122,6 +36830,7 @@ export type UserCreateWithoutReportTemplatesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -36162,9 +36871,11 @@ export type UserCreateWithoutReportTemplatesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -36201,6 +36912,7 @@ export type UserCreateWithoutReportTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -36317,6 +37029,7 @@ export type UserUncheckedCreateWithoutReportTemplatesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -36357,9 +37070,11 @@ export type UserUncheckedCreateWithoutReportTemplatesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -36397,6 +37112,7 @@ export type UserUncheckedCreateWithoutReportTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -36540,6 +37256,7 @@ export type UserUpdateWithoutReportTemplatesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36583,9 +37300,11 @@ export type UserUpdateWithoutReportTemplatesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36624,6 +37343,7 @@ export type UserUpdateWithoutReportTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -36740,6 +37460,7 @@ export type UserUncheckedUpdateWithoutReportTemplatesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36783,9 +37504,11 @@ export type UserUncheckedUpdateWithoutReportTemplatesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -36825,6 +37548,7 @@ export type UserUncheckedUpdateWithoutReportTemplatesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -36940,6 +37664,7 @@ export type UserCreateWithoutReportsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -36980,9 +37705,11 @@ export type UserCreateWithoutReportsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -37019,6 +37746,7 @@ export type UserCreateWithoutReportsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -37135,6 +37863,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -37175,9 +37904,11 @@ export type UserUncheckedCreateWithoutReportsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -37215,6 +37946,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -37358,6 +38090,7 @@ export type UserUpdateWithoutReportsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37401,9 +38134,11 @@ export type UserUpdateWithoutReportsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37442,6 +38177,7 @@ export type UserUpdateWithoutReportsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -37558,6 +38294,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37601,9 +38338,11 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -37643,6 +38382,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -37758,6 +38498,7 @@ export type UserCreateWithoutActivityRecommendationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -37798,9 +38539,11 @@ export type UserCreateWithoutActivityRecommendationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -37836,6 +38579,7 @@ export type UserCreateWithoutActivityRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -37953,6 +38697,7 @@ export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -37993,9 +38738,11 @@ export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -38032,6 +38779,7 @@ export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -38176,6 +38924,7 @@ export type UserUpdateWithoutActivityRecommendationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38219,9 +38968,11 @@ export type UserUpdateWithoutActivityRecommendationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38259,6 +39010,7 @@ export type UserUpdateWithoutActivityRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -38376,6 +39128,7 @@ export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38419,9 +39172,11 @@ export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -38460,6 +39215,7 @@ export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -38576,6 +39332,7 @@ export type UserCreateWithoutNutritionRecommendationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -38616,9 +39373,11 @@ export type UserCreateWithoutNutritionRecommendationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -38655,6 +39414,7 @@ export type UserCreateWithoutNutritionRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -38771,6 +39531,7 @@ export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -38811,9 +39572,11 @@ export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -38851,6 +39614,7 @@ export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -38994,6 +39758,7 @@ export type UserUpdateWithoutNutritionRecommendationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39037,9 +39802,11 @@ export type UserUpdateWithoutNutritionRecommendationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39078,6 +39845,7 @@ export type UserUpdateWithoutNutritionRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -39194,6 +39962,7 @@ export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39237,9 +40006,11 @@ export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39279,6 +40050,7 @@ export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -39394,6 +40166,7 @@ export type UserCreateWithoutNutritionPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -39434,9 +40207,11 @@ export type UserCreateWithoutNutritionPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -39473,6 +40248,7 @@ export type UserCreateWithoutNutritionPlansInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -39589,6 +40365,7 @@ export type UserUncheckedCreateWithoutNutritionPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -39629,9 +40406,11 @@ export type UserUncheckedCreateWithoutNutritionPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -39669,6 +40448,7 @@ export type UserUncheckedCreateWithoutNutritionPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -39812,6 +40592,7 @@ export type UserUpdateWithoutNutritionPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39855,9 +40636,11 @@ export type UserUpdateWithoutNutritionPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -39896,6 +40679,7 @@ export type UserUpdateWithoutNutritionPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -40012,6 +40796,7 @@ export type UserUncheckedUpdateWithoutNutritionPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40055,9 +40840,11 @@ export type UserUncheckedUpdateWithoutNutritionPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40097,6 +40884,7 @@ export type UserUncheckedUpdateWithoutNutritionPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -40212,6 +41000,7 @@ export type UserCreateWithoutTrainingPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -40252,9 +41041,11 @@ export type UserCreateWithoutTrainingPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -40291,6 +41082,7 @@ export type UserCreateWithoutTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -40407,6 +41199,7 @@ export type UserUncheckedCreateWithoutTrainingPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -40447,9 +41240,11 @@ export type UserUncheckedCreateWithoutTrainingPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -40487,6 +41282,7 @@ export type UserUncheckedCreateWithoutTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -40630,6 +41426,7 @@ export type UserUpdateWithoutTrainingPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40673,9 +41470,11 @@ export type UserUpdateWithoutTrainingPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40714,6 +41513,7 @@ export type UserUpdateWithoutTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -40830,6 +41630,7 @@ export type UserUncheckedUpdateWithoutTrainingPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40873,9 +41674,11 @@ export type UserUncheckedUpdateWithoutTrainingPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -40915,6 +41718,7 @@ export type UserUncheckedUpdateWithoutTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -41030,6 +41834,7 @@ export type UserCreateWithoutTrainingAvailabilityInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -41070,9 +41875,11 @@ export type UserCreateWithoutTrainingAvailabilityInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -41109,6 +41916,7 @@ export type UserCreateWithoutTrainingAvailabilityInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -41225,6 +42033,7 @@ export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -41265,9 +42074,11 @@ export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -41305,6 +42116,7 @@ export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -41448,6 +42260,7 @@ export type UserUpdateWithoutTrainingAvailabilityInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41491,9 +42304,11 @@ export type UserUpdateWithoutTrainingAvailabilityInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41532,6 +42347,7 @@ export type UserUpdateWithoutTrainingAvailabilityInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -41648,6 +42464,7 @@ export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41691,9 +42508,11 @@ export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -41733,6 +42552,7 @@ export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -41848,6 +42668,7 @@ export type UserCreateWithoutWeeklyTrainingPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -41888,9 +42709,11 @@ export type UserCreateWithoutWeeklyTrainingPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -41927,6 +42750,7 @@ export type UserCreateWithoutWeeklyTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -42043,6 +42867,7 @@ export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -42083,9 +42908,11 @@ export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -42123,6 +42950,7 @@ export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -42266,6 +43094,7 @@ export type UserUpdateWithoutWeeklyTrainingPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42309,9 +43138,11 @@ export type UserUpdateWithoutWeeklyTrainingPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42350,6 +43181,7 @@ export type UserUpdateWithoutWeeklyTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -42466,6 +43298,7 @@ export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42509,9 +43342,11 @@ export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -42551,6 +43386,7 @@ export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -42666,6 +43502,7 @@ export type UserCreateWithoutScoreTrendExplanationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -42706,9 +43543,11 @@ export type UserCreateWithoutScoreTrendExplanationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -42745,6 +43584,7 @@ export type UserCreateWithoutScoreTrendExplanationsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -42861,6 +43701,7 @@ export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -42901,9 +43742,11 @@ export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -42941,6 +43784,7 @@ export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -43084,6 +43928,7 @@ export type UserUpdateWithoutScoreTrendExplanationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43127,9 +43972,11 @@ export type UserUpdateWithoutScoreTrendExplanationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43168,6 +44015,7 @@ export type UserUpdateWithoutScoreTrendExplanationsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -43284,6 +44132,7 @@ export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43327,9 +44176,11 @@ export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43369,6 +44220,7 @@ export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -43484,6 +44336,7 @@ export type UserCreateWithoutRecommendationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -43524,9 +44377,11 @@ export type UserCreateWithoutRecommendationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -43563,6 +44418,7 @@ export type UserCreateWithoutRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -43679,6 +44535,7 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -43719,9 +44576,11 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -43759,6 +44618,7 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -43902,6 +44762,7 @@ export type UserUpdateWithoutRecommendationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43945,9 +44806,11 @@ export type UserUpdateWithoutRecommendationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -43986,6 +44849,7 @@ export type UserUpdateWithoutRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -44102,6 +44966,7 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44145,9 +45010,11 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44187,6 +45054,7 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -44302,6 +45170,7 @@ export type UserCreateWithoutDailyCheckinsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -44342,9 +45211,11 @@ export type UserCreateWithoutDailyCheckinsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -44381,6 +45252,7 @@ export type UserCreateWithoutDailyCheckinsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -44497,6 +45369,7 @@ export type UserUncheckedCreateWithoutDailyCheckinsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -44537,9 +45410,11 @@ export type UserUncheckedCreateWithoutDailyCheckinsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -44577,6 +45452,7 @@ export type UserUncheckedCreateWithoutDailyCheckinsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -44720,6 +45596,7 @@ export type UserUpdateWithoutDailyCheckinsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44763,9 +45640,11 @@ export type UserUpdateWithoutDailyCheckinsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44804,6 +45683,7 @@ export type UserUpdateWithoutDailyCheckinsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -44920,6 +45800,7 @@ export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -44963,9 +45844,11 @@ export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -45005,6 +45888,7 @@ export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -45120,6 +46004,7 @@ export type UserCreateWithoutMemoriesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -45160,9 +46045,11 @@ export type UserCreateWithoutMemoriesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -45199,6 +46086,7 @@ export type UserCreateWithoutMemoriesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -45315,6 +46203,7 @@ export type UserUncheckedCreateWithoutMemoriesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -45355,9 +46244,11 @@ export type UserUncheckedCreateWithoutMemoriesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -45395,6 +46286,7 @@ export type UserUncheckedCreateWithoutMemoriesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -45538,6 +46430,7 @@ export type UserUpdateWithoutMemoriesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -45581,9 +46474,11 @@ export type UserUpdateWithoutMemoriesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -45622,6 +46517,7 @@ export type UserUpdateWithoutMemoriesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -45738,6 +46634,7 @@ export type UserUncheckedUpdateWithoutMemoriesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -45781,9 +46678,11 @@ export type UserUncheckedUpdateWithoutMemoriesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -45823,6 +46722,7 @@ export type UserUncheckedUpdateWithoutMemoriesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -45938,6 +46838,7 @@ export type UserCreateWithoutChatParticipationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -45978,9 +46879,11 @@ export type UserCreateWithoutChatParticipationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -46016,6 +46919,7 @@ export type UserCreateWithoutChatParticipationsInput = {
   calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -46133,6 +47037,7 @@ export type UserUncheckedCreateWithoutChatParticipationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -46173,9 +47078,11 @@ export type UserUncheckedCreateWithoutChatParticipationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -46212,6 +47119,7 @@ export type UserUncheckedCreateWithoutChatParticipationsInput = {
   calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -46356,6 +47264,7 @@ export type UserUpdateWithoutChatParticipationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -46399,9 +47308,11 @@ export type UserUpdateWithoutChatParticipationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -46439,6 +47350,7 @@ export type UserUpdateWithoutChatParticipationsInput = {
   calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -46556,6 +47468,7 @@ export type UserUncheckedUpdateWithoutChatParticipationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -46599,9 +47512,11 @@ export type UserUncheckedUpdateWithoutChatParticipationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -46640,6 +47555,7 @@ export type UserUncheckedUpdateWithoutChatParticipationsInput = {
   calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -46756,6 +47672,7 @@ export type UserCreateWithoutChatTurnsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -46796,9 +47713,11 @@ export type UserCreateWithoutChatTurnsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -46834,6 +47753,7 @@ export type UserCreateWithoutChatTurnsInput = {
   calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -46951,6 +47871,7 @@ export type UserUncheckedCreateWithoutChatTurnsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -46991,9 +47912,11 @@ export type UserUncheckedCreateWithoutChatTurnsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -47030,6 +47953,7 @@ export type UserUncheckedCreateWithoutChatTurnsInput = {
   calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -47174,6 +48098,7 @@ export type UserUpdateWithoutChatTurnsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -47217,9 +48142,11 @@ export type UserUpdateWithoutChatTurnsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -47257,6 +48184,7 @@ export type UserUpdateWithoutChatTurnsInput = {
   calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -47374,6 +48302,7 @@ export type UserUncheckedUpdateWithoutChatTurnsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -47417,9 +48346,11 @@ export type UserUncheckedUpdateWithoutChatTurnsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -47458,6 +48389,7 @@ export type UserUncheckedUpdateWithoutChatTurnsInput = {
   calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -47574,6 +48506,7 @@ export type UserCreateWithoutSyncQueueInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -47614,9 +48547,11 @@ export type UserCreateWithoutSyncQueueInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -47653,6 +48588,7 @@ export type UserCreateWithoutSyncQueueInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -47769,6 +48705,7 @@ export type UserUncheckedCreateWithoutSyncQueueInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -47809,9 +48746,11 @@ export type UserUncheckedCreateWithoutSyncQueueInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -47849,6 +48788,7 @@ export type UserUncheckedCreateWithoutSyncQueueInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -47992,6 +48932,7 @@ export type UserUpdateWithoutSyncQueueInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -48035,9 +48976,11 @@ export type UserUpdateWithoutSyncQueueInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -48076,6 +49019,7 @@ export type UserUpdateWithoutSyncQueueInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -48192,6 +49136,7 @@ export type UserUncheckedUpdateWithoutSyncQueueInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -48235,9 +49180,11 @@ export type UserUncheckedUpdateWithoutSyncQueueInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -48277,6 +49224,7 @@ export type UserUncheckedUpdateWithoutSyncQueueInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -48392,6 +49340,7 @@ export type UserCreateWithoutQuotaDenialsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -48432,9 +49381,11 @@ export type UserCreateWithoutQuotaDenialsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -48471,6 +49422,7 @@ export type UserCreateWithoutQuotaDenialsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -48587,6 +49539,7 @@ export type UserUncheckedCreateWithoutQuotaDenialsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -48627,9 +49580,11 @@ export type UserUncheckedCreateWithoutQuotaDenialsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -48667,6 +49622,7 @@ export type UserUncheckedCreateWithoutQuotaDenialsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -48810,6 +49766,7 @@ export type UserUpdateWithoutQuotaDenialsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -48853,9 +49810,11 @@ export type UserUpdateWithoutQuotaDenialsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -48894,6 +49853,7 @@ export type UserUpdateWithoutQuotaDenialsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -49010,6 +49970,7 @@ export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -49053,9 +50014,11 @@ export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -49095,6 +50058,7 @@ export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -49210,6 +50174,7 @@ export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -49250,9 +50215,11 @@ export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -49289,6 +50256,7 @@ export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -49405,6 +50373,7 @@ export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -49445,9 +50414,11 @@ export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -49485,6 +50456,7 @@ export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -49628,6 +50600,7 @@ export type UserUpdateWithoutPartnerCampaignRedemptionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -49671,9 +50644,11 @@ export type UserUpdateWithoutPartnerCampaignRedemptionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -49712,6 +50687,7 @@ export type UserUpdateWithoutPartnerCampaignRedemptionsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -49828,6 +50804,7 @@ export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -49871,9 +50848,11 @@ export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -49913,6 +50892,7 @@ export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -50028,6 +51008,7 @@ export type UserCreateWithoutLlmUsageInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -50068,9 +51049,11 @@ export type UserCreateWithoutLlmUsageInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -50107,6 +51090,7 @@ export type UserCreateWithoutLlmUsageInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -50223,6 +51207,7 @@ export type UserUncheckedCreateWithoutLlmUsageInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -50263,9 +51248,11 @@ export type UserUncheckedCreateWithoutLlmUsageInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -50303,6 +51290,7 @@ export type UserUncheckedCreateWithoutLlmUsageInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -50446,6 +51434,7 @@ export type UserUpdateWithoutLlmUsageInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -50489,9 +51478,11 @@ export type UserUpdateWithoutLlmUsageInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -50530,6 +51521,7 @@ export type UserUpdateWithoutLlmUsageInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -50646,6 +51638,7 @@ export type UserUncheckedUpdateWithoutLlmUsageInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -50689,9 +51682,11 @@ export type UserUncheckedUpdateWithoutLlmUsageInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -50731,6 +51726,7 @@ export type UserUncheckedUpdateWithoutLlmUsageInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -50846,6 +51842,7 @@ export type UserCreateWithoutSupportMessagesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -50886,9 +51883,11 @@ export type UserCreateWithoutSupportMessagesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -50925,6 +51924,7 @@ export type UserCreateWithoutSupportMessagesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -51041,6 +52041,7 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -51081,9 +52082,11 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -51121,6 +52124,7 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -51264,6 +52268,7 @@ export type UserUpdateWithoutSupportMessagesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -51307,9 +52312,11 @@ export type UserUpdateWithoutSupportMessagesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -51348,6 +52355,7 @@ export type UserUpdateWithoutSupportMessagesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -51464,6 +52472,7 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -51507,9 +52516,11 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -51549,6 +52560,7 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -51664,6 +52676,7 @@ export type UserCreateWithoutProviderSubscriptionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -51704,9 +52717,11 @@ export type UserCreateWithoutProviderSubscriptionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -51743,6 +52758,7 @@ export type UserCreateWithoutProviderSubscriptionsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -51859,6 +52875,7 @@ export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -51899,9 +52916,11 @@ export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -51939,6 +52958,7 @@ export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -52082,6 +53102,7 @@ export type UserUpdateWithoutProviderSubscriptionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -52125,9 +53146,11 @@ export type UserUpdateWithoutProviderSubscriptionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -52166,6 +53189,7 @@ export type UserUpdateWithoutProviderSubscriptionsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -52282,6 +53306,7 @@ export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -52325,9 +53350,11 @@ export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -52367,6 +53394,7 @@ export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -52482,6 +53510,7 @@ export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -52522,9 +53551,11 @@ export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -52561,6 +53592,7 @@ export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -52677,6 +53709,7 @@ export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -52717,9 +53750,11 @@ export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -52757,6 +53792,7 @@ export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -52900,6 +53936,7 @@ export type UserUpdateWithoutSubscriptionLifecycleEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -52943,9 +53980,11 @@ export type UserUpdateWithoutSubscriptionLifecycleEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -52984,6 +54023,7 @@ export type UserUpdateWithoutSubscriptionLifecycleEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -53100,6 +54140,7 @@ export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -53143,9 +54184,11 @@ export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -53185,6 +54228,7 @@ export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -53300,6 +54344,7 @@ export type UserCreateWithoutBugReportsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -53340,9 +54385,11 @@ export type UserCreateWithoutBugReportsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -53378,6 +54425,7 @@ export type UserCreateWithoutBugReportsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -53495,6 +54543,7 @@ export type UserUncheckedCreateWithoutBugReportsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -53535,9 +54584,11 @@ export type UserUncheckedCreateWithoutBugReportsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -53574,6 +54625,7 @@ export type UserUncheckedCreateWithoutBugReportsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -53718,6 +54770,7 @@ export type UserUpdateWithoutBugReportsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -53761,9 +54814,11 @@ export type UserUpdateWithoutBugReportsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -53801,6 +54856,7 @@ export type UserUpdateWithoutBugReportsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -53918,6 +54974,7 @@ export type UserUncheckedUpdateWithoutBugReportsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -53961,9 +55018,11 @@ export type UserUncheckedUpdateWithoutBugReportsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -54002,6 +55061,7 @@ export type UserUncheckedUpdateWithoutBugReportsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -54118,6 +55178,7 @@ export type UserCreateWithoutBugReportCommentsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -54158,9 +55219,11 @@ export type UserCreateWithoutBugReportCommentsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -54196,6 +55259,7 @@ export type UserCreateWithoutBugReportCommentsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -54313,6 +55377,7 @@ export type UserUncheckedCreateWithoutBugReportCommentsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -54353,9 +55418,11 @@ export type UserUncheckedCreateWithoutBugReportCommentsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -54392,6 +55459,7 @@ export type UserUncheckedCreateWithoutBugReportCommentsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -54536,6 +55604,7 @@ export type UserUpdateWithoutBugReportCommentsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -54579,9 +55648,11 @@ export type UserUpdateWithoutBugReportCommentsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -54619,6 +55690,7 @@ export type UserUpdateWithoutBugReportCommentsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -54736,6 +55808,7 @@ export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -54779,9 +55852,11 @@ export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -54820,6 +55895,7 @@ export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -54936,6 +56012,7 @@ export type UserCreateWithoutNotificationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -54976,9 +56053,11 @@ export type UserCreateWithoutNotificationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -55015,6 +56094,7 @@ export type UserCreateWithoutNotificationsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -55131,6 +56211,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -55171,9 +56252,11 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -55211,6 +56294,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -55354,6 +56438,7 @@ export type UserUpdateWithoutNotificationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -55397,9 +56482,11 @@ export type UserUpdateWithoutNotificationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -55438,6 +56525,7 @@ export type UserUpdateWithoutNotificationsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -55554,6 +56642,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -55597,9 +56686,11 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -55639,6 +56730,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -55754,6 +56846,7 @@ export type UserCreateWithoutMobilePushDevicesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -55794,9 +56887,11 @@ export type UserCreateWithoutMobilePushDevicesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -55833,6 +56928,7 @@ export type UserCreateWithoutMobilePushDevicesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -55949,6 +57045,7 @@ export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -55989,9 +57086,11 @@ export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -56029,6 +57128,7 @@ export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -56172,6 +57272,7 @@ export type UserUpdateWithoutMobilePushDevicesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -56215,9 +57316,11 @@ export type UserUpdateWithoutMobilePushDevicesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -56256,6 +57359,7 @@ export type UserUpdateWithoutMobilePushDevicesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -56372,6 +57476,7 @@ export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -56415,9 +57520,11 @@ export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -56457,6 +57564,7 @@ export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -56572,6 +57680,7 @@ export type UserCreateWithoutMobilePushPreferenceInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -56612,9 +57721,11 @@ export type UserCreateWithoutMobilePushPreferenceInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -56651,6 +57762,7 @@ export type UserCreateWithoutMobilePushPreferenceInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -56767,6 +57879,7 @@ export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -56807,9 +57920,11 @@ export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -56847,6 +57962,7 @@ export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -56990,6 +58106,7 @@ export type UserUpdateWithoutMobilePushPreferenceInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -57033,9 +58150,11 @@ export type UserUpdateWithoutMobilePushPreferenceInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -57074,6 +58193,7 @@ export type UserUpdateWithoutMobilePushPreferenceInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -57190,6 +58310,7 @@ export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -57233,9 +58354,11 @@ export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -57275,6 +58398,7 @@ export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -57390,6 +58514,7 @@ export type UserCreateWithoutJourneyEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -57430,9 +58555,11 @@ export type UserCreateWithoutJourneyEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -57468,6 +58595,7 @@ export type UserCreateWithoutJourneyEventsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -57585,6 +58713,7 @@ export type UserUncheckedCreateWithoutJourneyEventsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -57625,9 +58754,11 @@ export type UserUncheckedCreateWithoutJourneyEventsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -57664,6 +58795,7 @@ export type UserUncheckedCreateWithoutJourneyEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -57808,6 +58940,7 @@ export type UserUpdateWithoutJourneyEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -57851,9 +58984,11 @@ export type UserUpdateWithoutJourneyEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -57891,6 +59026,7 @@ export type UserUpdateWithoutJourneyEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -58008,6 +59144,7 @@ export type UserUncheckedUpdateWithoutJourneyEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -58051,9 +59188,11 @@ export type UserUncheckedUpdateWithoutJourneyEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -58092,6 +59231,7 @@ export type UserUncheckedUpdateWithoutJourneyEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -58208,6 +59348,7 @@ export type UserCreateWithoutEmailPreferencesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -58248,9 +59389,11 @@ export type UserCreateWithoutEmailPreferencesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -58287,6 +59430,7 @@ export type UserCreateWithoutEmailPreferencesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -58403,6 +59547,7 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -58443,9 +59588,11 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -58483,6 +59630,7 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -58626,6 +59774,7 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -58669,9 +59818,11 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -58710,6 +59861,7 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -58826,6 +59978,7 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -58869,9 +60022,11 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -58911,6 +60066,7 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -59026,6 +60182,7 @@ export type UserCreateWithoutEmailDeliveriesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -59066,9 +60223,11 @@ export type UserCreateWithoutEmailDeliveriesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -59105,6 +60264,7 @@ export type UserCreateWithoutEmailDeliveriesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -59221,6 +60381,7 @@ export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -59261,9 +60422,11 @@ export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -59301,6 +60464,7 @@ export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -59444,6 +60608,7 @@ export type UserUpdateWithoutEmailDeliveriesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -59487,9 +60652,11 @@ export type UserUpdateWithoutEmailDeliveriesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -59528,6 +60695,7 @@ export type UserUpdateWithoutEmailDeliveriesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -59644,6 +60812,7 @@ export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -59687,9 +60856,11 @@ export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -59729,6 +60900,7 @@ export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -59844,6 +61016,7 @@ export type UserCreateWithoutMetricHistoryInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -59884,9 +61057,11 @@ export type UserCreateWithoutMetricHistoryInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -59923,6 +61098,7 @@ export type UserCreateWithoutMetricHistoryInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -60039,6 +61215,7 @@ export type UserUncheckedCreateWithoutMetricHistoryInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -60079,9 +61256,11 @@ export type UserUncheckedCreateWithoutMetricHistoryInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -60119,6 +61298,7 @@ export type UserUncheckedCreateWithoutMetricHistoryInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -60262,6 +61442,7 @@ export type UserUpdateWithoutMetricHistoryInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -60305,9 +61486,11 @@ export type UserUpdateWithoutMetricHistoryInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -60346,6 +61529,7 @@ export type UserUpdateWithoutMetricHistoryInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -60462,6 +61646,7 @@ export type UserUncheckedUpdateWithoutMetricHistoryInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -60505,9 +61690,11 @@ export type UserUncheckedUpdateWithoutMetricHistoryInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -60547,6 +61734,7 @@ export type UserUncheckedUpdateWithoutMetricHistoryInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -60662,6 +61850,7 @@ export type UserCreateWithoutBodyMeasurementEntriesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -60702,9 +61891,11 @@ export type UserCreateWithoutBodyMeasurementEntriesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -60740,6 +61931,7 @@ export type UserCreateWithoutBodyMeasurementEntriesInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -60857,6 +62049,7 @@ export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -60897,9 +62090,11 @@ export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -60936,6 +62131,7 @@ export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -61080,6 +62276,7 @@ export type UserUpdateWithoutBodyMeasurementEntriesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -61123,9 +62320,11 @@ export type UserUpdateWithoutBodyMeasurementEntriesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -61163,6 +62362,7 @@ export type UserUpdateWithoutBodyMeasurementEntriesInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -61280,6 +62480,7 @@ export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -61323,9 +62524,11 @@ export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -61364,6 +62567,7 @@ export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -61480,6 +62684,7 @@ export type UserCreateWithoutPersonalBestsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -61520,9 +62725,11 @@ export type UserCreateWithoutPersonalBestsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -61559,6 +62766,7 @@ export type UserCreateWithoutPersonalBestsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -61675,6 +62883,7 @@ export type UserUncheckedCreateWithoutPersonalBestsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -61715,9 +62924,11 @@ export type UserUncheckedCreateWithoutPersonalBestsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -61755,6 +62966,7 @@ export type UserUncheckedCreateWithoutPersonalBestsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -61898,6 +63110,7 @@ export type UserUpdateWithoutPersonalBestsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -61941,9 +63154,11 @@ export type UserUpdateWithoutPersonalBestsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -61982,6 +63197,7 @@ export type UserUpdateWithoutPersonalBestsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -62098,6 +63314,7 @@ export type UserUncheckedUpdateWithoutPersonalBestsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -62141,9 +63358,11 @@ export type UserUncheckedUpdateWithoutPersonalBestsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -62183,6 +63402,7 @@ export type UserUncheckedUpdateWithoutPersonalBestsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -62298,6 +63518,7 @@ export type UserCreateWithoutOwnedTeamsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -62338,9 +63559,11 @@ export type UserCreateWithoutOwnedTeamsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -62377,6 +63600,7 @@ export type UserCreateWithoutOwnedTeamsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -62493,6 +63717,7 @@ export type UserUncheckedCreateWithoutOwnedTeamsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -62533,9 +63758,11 @@ export type UserUncheckedCreateWithoutOwnedTeamsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -62573,6 +63800,7 @@ export type UserUncheckedCreateWithoutOwnedTeamsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -62716,6 +63944,7 @@ export type UserUpdateWithoutOwnedTeamsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -62759,9 +63988,11 @@ export type UserUpdateWithoutOwnedTeamsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -62800,6 +64031,7 @@ export type UserUpdateWithoutOwnedTeamsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -62916,6 +64148,7 @@ export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -62959,9 +64192,11 @@ export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -63001,6 +64236,7 @@ export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -63116,6 +64352,7 @@ export type UserCreateWithoutTeamMembershipsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -63156,9 +64393,11 @@ export type UserCreateWithoutTeamMembershipsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -63195,6 +64434,7 @@ export type UserCreateWithoutTeamMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -63311,6 +64551,7 @@ export type UserUncheckedCreateWithoutTeamMembershipsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -63351,9 +64592,11 @@ export type UserUncheckedCreateWithoutTeamMembershipsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -63391,6 +64634,7 @@ export type UserUncheckedCreateWithoutTeamMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -63534,6 +64778,7 @@ export type UserUpdateWithoutTeamMembershipsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -63577,9 +64822,11 @@ export type UserUpdateWithoutTeamMembershipsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -63618,6 +64865,7 @@ export type UserUpdateWithoutTeamMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -63734,6 +64982,7 @@ export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -63777,9 +65026,11 @@ export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -63819,6 +65070,7 @@ export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -63934,6 +65186,7 @@ export type UserCreateWithoutAthleteGroupsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -63974,9 +65227,11 @@ export type UserCreateWithoutAthleteGroupsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -64012,6 +65267,7 @@ export type UserCreateWithoutAthleteGroupsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -64129,6 +65385,7 @@ export type UserUncheckedCreateWithoutAthleteGroupsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -64169,9 +65426,11 @@ export type UserUncheckedCreateWithoutAthleteGroupsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -64208,6 +65467,7 @@ export type UserUncheckedCreateWithoutAthleteGroupsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -64352,6 +65612,7 @@ export type UserUpdateWithoutAthleteGroupsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -64395,9 +65656,11 @@ export type UserUpdateWithoutAthleteGroupsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -64435,6 +65698,7 @@ export type UserUpdateWithoutAthleteGroupsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -64552,6 +65816,7 @@ export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -64595,9 +65860,11 @@ export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -64636,6 +65903,7 @@ export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -64752,6 +66020,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -64792,9 +66061,11 @@ export type UserCreateWithoutGroupMembershipsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -64830,6 +66101,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -64947,6 +66219,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -64987,9 +66260,11 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -65026,6 +66301,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -65170,6 +66446,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -65213,9 +66490,11 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -65253,6 +66532,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -65370,6 +66650,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -65413,9 +66694,11 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -65454,6 +66737,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -65570,6 +66854,7 @@ export type UserCreateWithoutCustomFieldDefinitionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -65610,9 +66895,11 @@ export type UserCreateWithoutCustomFieldDefinitionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -65649,6 +66936,7 @@ export type UserCreateWithoutCustomFieldDefinitionsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -65765,6 +67053,7 @@ export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -65805,9 +67094,11 @@ export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -65845,6 +67136,7 @@ export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -65988,6 +67280,7 @@ export type UserUpdateWithoutCustomFieldDefinitionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -66031,9 +67324,11 @@ export type UserUpdateWithoutCustomFieldDefinitionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -66072,6 +67367,7 @@ export type UserUpdateWithoutCustomFieldDefinitionsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -66188,6 +67484,7 @@ export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -66231,9 +67528,11 @@ export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -66273,6 +67572,7 @@ export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -66388,6 +67688,7 @@ export type UserCreateWithoutDashboardsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -66428,9 +67729,11 @@ export type UserCreateWithoutDashboardsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -66467,6 +67770,7 @@ export type UserCreateWithoutDashboardsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -66583,6 +67887,7 @@ export type UserUncheckedCreateWithoutDashboardsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -66623,9 +67928,11 @@ export type UserUncheckedCreateWithoutDashboardsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -66663,6 +67970,7 @@ export type UserUncheckedCreateWithoutDashboardsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -66806,6 +68114,7 @@ export type UserUpdateWithoutDashboardsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -66849,9 +68158,11 @@ export type UserUpdateWithoutDashboardsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -66890,6 +68201,7 @@ export type UserUpdateWithoutDashboardsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -67006,6 +68318,7 @@ export type UserUncheckedUpdateWithoutDashboardsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -67049,9 +68362,11 @@ export type UserUncheckedUpdateWithoutDashboardsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -67091,6 +68406,7 @@ export type UserUncheckedUpdateWithoutDashboardsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -67206,6 +68522,7 @@ export type UserCreateWithoutWidgetsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -67246,9 +68563,11 @@ export type UserCreateWithoutWidgetsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -67285,6 +68604,7 @@ export type UserCreateWithoutWidgetsInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -67401,6 +68721,7 @@ export type UserUncheckedCreateWithoutWidgetsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -67441,9 +68762,11 @@ export type UserUncheckedCreateWithoutWidgetsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -67481,6 +68804,7 @@ export type UserUncheckedCreateWithoutWidgetsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -67624,6 +68948,7 @@ export type UserUpdateWithoutWidgetsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -67667,9 +68992,11 @@ export type UserUpdateWithoutWidgetsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -67708,6 +69035,7 @@ export type UserUpdateWithoutWidgetsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -67824,6 +69152,7 @@ export type UserUncheckedUpdateWithoutWidgetsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -67867,9 +69196,11 @@ export type UserUncheckedUpdateWithoutWidgetsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -67909,6 +69240,7 @@ export type UserUncheckedUpdateWithoutWidgetsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -68024,6 +69356,7 @@ export type UserCreateWithoutTrainingPlanFoldersInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -68064,9 +69397,11 @@ export type UserCreateWithoutTrainingPlanFoldersInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -68103,6 +69438,7 @@ export type UserCreateWithoutTrainingPlanFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -68219,6 +69555,7 @@ export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -68259,9 +69596,11 @@ export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -68299,6 +69638,7 @@ export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -68442,6 +69782,7 @@ export type UserUpdateWithoutTrainingPlanFoldersInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -68485,9 +69826,11 @@ export type UserUpdateWithoutTrainingPlanFoldersInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -68526,6 +69869,7 @@ export type UserUpdateWithoutTrainingPlanFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -68642,6 +69986,7 @@ export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -68685,9 +70030,11 @@ export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -68727,6 +70074,7 @@ export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -68842,6 +70190,7 @@ export type UserCreateWithoutFavoriteTrainingPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -68882,9 +70231,11 @@ export type UserCreateWithoutFavoriteTrainingPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -68921,6 +70272,7 @@ export type UserCreateWithoutFavoriteTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -69037,6 +70389,7 @@ export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -69077,9 +70430,11 @@ export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -69117,6 +70472,7 @@ export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -69260,6 +70616,7 @@ export type UserUpdateWithoutFavoriteTrainingPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -69303,9 +70660,11 @@ export type UserUpdateWithoutFavoriteTrainingPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -69344,6 +70703,7 @@ export type UserUpdateWithoutFavoriteTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -69460,6 +70820,7 @@ export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -69503,9 +70864,11 @@ export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -69545,6 +70908,7 @@ export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -69660,6 +71024,7 @@ export type UserCreateWithoutCheckInsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -69700,9 +71065,11 @@ export type UserCreateWithoutCheckInsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -69738,6 +71105,7 @@ export type UserCreateWithoutCheckInsInput = {
   calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
@@ -69855,6 +71223,7 @@ export type UserUncheckedCreateWithoutCheckInsInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -69895,9 +71264,11 @@ export type UserUncheckedCreateWithoutCheckInsInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -69934,6 +71305,7 @@ export type UserUncheckedCreateWithoutCheckInsInput = {
   calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
@@ -70078,6 +71450,7 @@ export type UserUpdateWithoutCheckInsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -70121,9 +71494,11 @@ export type UserUpdateWithoutCheckInsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -70161,6 +71536,7 @@ export type UserUpdateWithoutCheckInsInput = {
   calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -70278,6 +71654,7 @@ export type UserUncheckedUpdateWithoutCheckInsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -70321,9 +71698,11 @@ export type UserUncheckedUpdateWithoutCheckInsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -70362,6 +71741,7 @@ export type UserUncheckedUpdateWithoutCheckInsInput = {
   calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -70478,6 +71858,7 @@ export type UserCreateWithoutFeedbacksInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -70518,9 +71899,11 @@ export type UserCreateWithoutFeedbacksInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -70557,6 +71940,7 @@ export type UserCreateWithoutFeedbacksInput = {
   chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
   invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
   coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
@@ -70673,6 +72057,7 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -70713,9 +72098,11 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -70753,6 +72140,7 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
   chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
   checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
   invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
   coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
@@ -70896,6 +72284,7 @@ export type UserUpdateWithoutFeedbacksInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -70939,9 +72328,11 @@ export type UserUpdateWithoutFeedbacksInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -70980,6 +72371,7 @@ export type UserUpdateWithoutFeedbacksInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
   coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
@@ -71096,6 +72488,7 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71139,9 +72532,845 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referredByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUncheckedUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
+  invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUncheckedUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUncheckedUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUncheckedUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUncheckedUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUncheckedUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUncheckedUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUncheckedUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUncheckedUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedUpdateManyWithoutUserNestedInput
+  referralsGiven?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUncheckedUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUncheckedUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+}
+
+export type UserCreateWithoutWeeklyCheckInsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  events?: Prisma.EventCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsGivenInput
+  referralsGiven?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
+  participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+}
+
+export type UserUncheckedCreateWithoutWeeklyCheckInsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  referredByUserId?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportUncheckedCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageUncheckedCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryUncheckedCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionUncheckedCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppUncheckedCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestUncheckedCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenUncheckedCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsUncheckedCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueUncheckedCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedCreateNestedManyWithoutUserInput
+  referralsGiven?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessUncheckedCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetUncheckedCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
+  participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+}
+
+export type UserCreateOrConnectWithoutWeeklyCheckInsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutWeeklyCheckInsInput,
+    Prisma.UserUncheckedCreateWithoutWeeklyCheckInsInput
+  >
+}
+
+export type UserUpsertWithoutWeeklyCheckInsInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutWeeklyCheckInsInput,
+    Prisma.UserUncheckedUpdateWithoutWeeklyCheckInsInput
+  >
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutWeeklyCheckInsInput,
+    Prisma.UserUncheckedCreateWithoutWeeklyCheckInsInput
+  >
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWeeklyCheckInsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutWeeklyCheckInsInput,
+    Prisma.UserUncheckedUpdateWithoutWeeklyCheckInsInput
+  >
+}
+
+export type UserUpdateWithoutWeeklyCheckInsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsGivenNestedInput
+  referralsGiven?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
+  participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWeeklyCheckInsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71182,6 +73411,7 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
   coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
   athletes?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutCoachNestedInput
@@ -71296,6 +73526,7 @@ export type UserCreateManyReferredByInput = {
   weightUnits?: string | null
   altitude?: number | null
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: number | null
   healthConsentAcceptedAt?: Date | string | null
   privacyPolicyVersion?: string | null
@@ -71336,9 +73567,11 @@ export type UserCreateManyReferredByInput = {
   aiTtsAutoReadMessages?: boolean
   emailError?: string | null
   emailStatus?: string
+  hasDashboardAccess?: boolean
   weightSourceMode?: string
   uiLanguage?: string | null
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
   publicAuthorSlug?: string | null
   publicDisplayName?: string | null
   publicBio?: string | null
@@ -71411,6 +73644,7 @@ export type UserUpdateWithoutReferredByInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71454,9 +73688,11 @@ export type UserUpdateWithoutReferredByInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71495,6 +73731,7 @@ export type UserUpdateWithoutReferredByInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -71611,6 +73848,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71654,9 +73892,11 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71695,6 +73935,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -71811,6 +74052,7 @@ export type UserUncheckedUpdateManyWithoutReferredByInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71854,9 +74096,11 @@ export type UserUncheckedUpdateManyWithoutReferredByInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71931,6 +74175,7 @@ export type UserUpdateWithoutParticipatingEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -71974,9 +74219,11 @@ export type UserUpdateWithoutParticipatingEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -72015,6 +74262,7 @@ export type UserUpdateWithoutParticipatingEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
@@ -72131,6 +74379,7 @@ export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -72174,9 +74423,11 @@ export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -72216,6 +74467,7 @@ export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
   chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
   chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
   checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
   coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
   feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
   invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
@@ -72331,6 +74583,7 @@ export type UserUncheckedUpdateManyWithoutParticipatingEventsInput = {
   weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -72374,9 +74627,11 @@ export type UserUncheckedUpdateManyWithoutParticipatingEventsInput = {
   aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
   emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
   weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
   uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
   publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -72423,6 +74678,7 @@ export type UserCountOutputType = {
   chatParticipations: number
   chatTurns: number
   checkIns: number
+  weeklyCheckIns: number
   coachAthleteInvitesSent: number
   feedbacks: number
   invites: number
@@ -72505,6 +74761,7 @@ export type UserCountOutputTypeSelect<
   chatParticipations?: boolean | UserCountOutputTypeCountChatParticipationsArgs
   chatTurns?: boolean | UserCountOutputTypeCountChatTurnsArgs
   checkIns?: boolean | UserCountOutputTypeCountCheckInsArgs
+  weeklyCheckIns?: boolean | UserCountOutputTypeCountWeeklyCheckInsArgs
   coachAthleteInvitesSent?: boolean | UserCountOutputTypeCountCoachAthleteInvitesSentArgs
   feedbacks?: boolean | UserCountOutputTypeCountFeedbacksArgs
   invites?: boolean | UserCountOutputTypeCountInvitesArgs
@@ -72707,6 +74964,15 @@ export type UserCountOutputTypeCountCheckInsArgs<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.CheckInWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWeeklyCheckInsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  where?: Prisma.WeeklyCheckInWhereInput
 }
 
 /**
@@ -73327,6 +75593,7 @@ export type UserSelect<
     weightUnits?: boolean
     altitude?: boolean
     isAdmin?: boolean
+    isCoach?: boolean
     lthr?: boolean
     healthConsentAcceptedAt?: boolean
     privacyPolicyVersion?: boolean
@@ -73367,9 +75634,11 @@ export type UserSelect<
     aiTtsAutoReadMessages?: boolean
     emailError?: boolean
     emailStatus?: boolean
+    hasDashboardAccess?: boolean
     weightSourceMode?: boolean
     uiLanguage?: boolean
     aiMemoryEnabled?: boolean
+    aiWorkoutAutonomyLimit?: boolean
     publicAuthorSlug?: boolean
     publicDisplayName?: boolean
     publicBio?: boolean
@@ -73407,6 +75676,7 @@ export type UserSelect<
     chatParticipations?: boolean | Prisma.User$chatParticipationsArgs<ExtArgs>
     chatTurns?: boolean | Prisma.User$chatTurnsArgs<ExtArgs>
     checkIns?: boolean | Prisma.User$checkInsArgs<ExtArgs>
+    weeklyCheckIns?: boolean | Prisma.User$weeklyCheckInsArgs<ExtArgs>
     coachAthleteInvitesSent?: boolean | Prisma.User$coachAthleteInvitesSentArgs<ExtArgs>
     feedbacks?: boolean | Prisma.User$feedbacksArgs<ExtArgs>
     invites?: boolean | Prisma.User$invitesArgs<ExtArgs>
@@ -73531,6 +75801,7 @@ export type UserSelectCreateManyAndReturn<
     weightUnits?: boolean
     altitude?: boolean
     isAdmin?: boolean
+    isCoach?: boolean
     lthr?: boolean
     healthConsentAcceptedAt?: boolean
     privacyPolicyVersion?: boolean
@@ -73571,9 +75842,11 @@ export type UserSelectCreateManyAndReturn<
     aiTtsAutoReadMessages?: boolean
     emailError?: boolean
     emailStatus?: boolean
+    hasDashboardAccess?: boolean
     weightSourceMode?: boolean
     uiLanguage?: boolean
     aiMemoryEnabled?: boolean
+    aiWorkoutAutonomyLimit?: boolean
     publicAuthorSlug?: boolean
     publicDisplayName?: boolean
     publicBio?: boolean
@@ -73653,6 +75926,7 @@ export type UserSelectUpdateManyAndReturn<
     weightUnits?: boolean
     altitude?: boolean
     isAdmin?: boolean
+    isCoach?: boolean
     lthr?: boolean
     healthConsentAcceptedAt?: boolean
     privacyPolicyVersion?: boolean
@@ -73693,9 +75967,11 @@ export type UserSelectUpdateManyAndReturn<
     aiTtsAutoReadMessages?: boolean
     emailError?: boolean
     emailStatus?: boolean
+    hasDashboardAccess?: boolean
     weightSourceMode?: boolean
     uiLanguage?: boolean
     aiMemoryEnabled?: boolean
+    aiWorkoutAutonomyLimit?: boolean
     publicAuthorSlug?: boolean
     publicDisplayName?: boolean
     publicBio?: boolean
@@ -73772,6 +76048,7 @@ export type UserSelectScalar = {
   weightUnits?: boolean
   altitude?: boolean
   isAdmin?: boolean
+  isCoach?: boolean
   lthr?: boolean
   healthConsentAcceptedAt?: boolean
   privacyPolicyVersion?: boolean
@@ -73812,9 +76089,11 @@ export type UserSelectScalar = {
   aiTtsAutoReadMessages?: boolean
   emailError?: boolean
   emailStatus?: boolean
+  hasDashboardAccess?: boolean
   weightSourceMode?: boolean
   uiLanguage?: boolean
   aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: boolean
   publicAuthorSlug?: boolean
   publicDisplayName?: boolean
   publicBio?: boolean
@@ -73890,6 +76169,7 @@ export type UserOmit<
   | 'weightUnits'
   | 'altitude'
   | 'isAdmin'
+  | 'isCoach'
   | 'lthr'
   | 'healthConsentAcceptedAt'
   | 'privacyPolicyVersion'
@@ -73930,9 +76210,11 @@ export type UserOmit<
   | 'aiTtsAutoReadMessages'
   | 'emailError'
   | 'emailStatus'
+  | 'hasDashboardAccess'
   | 'weightSourceMode'
   | 'uiLanguage'
   | 'aiMemoryEnabled'
+  | 'aiWorkoutAutonomyLimit'
   | 'publicAuthorSlug'
   | 'publicDisplayName'
   | 'publicBio'
@@ -73975,6 +76257,7 @@ export type UserInclude<
   chatParticipations?: boolean | Prisma.User$chatParticipationsArgs<ExtArgs>
   chatTurns?: boolean | Prisma.User$chatTurnsArgs<ExtArgs>
   checkIns?: boolean | Prisma.User$checkInsArgs<ExtArgs>
+  weeklyCheckIns?: boolean | Prisma.User$weeklyCheckInsArgs<ExtArgs>
   coachAthleteInvitesSent?: boolean | Prisma.User$coachAthleteInvitesSentArgs<ExtArgs>
   feedbacks?: boolean | Prisma.User$feedbacksArgs<ExtArgs>
   invites?: boolean | Prisma.User$invitesArgs<ExtArgs>
@@ -74074,6 +76357,7 @@ export type $UserPayload<
     chatParticipations: Prisma.$ChatParticipantPayload<ExtArgs>[]
     chatTurns: Prisma.$ChatTurnPayload<ExtArgs>[]
     checkIns: Prisma.$CheckInPayload<ExtArgs>[]
+    weeklyCheckIns: Prisma.$WeeklyCheckInPayload<ExtArgs>[]
     coachAthleteInvitesSent: Prisma.$CoachAthleteInvitePayload<ExtArgs>[]
     feedbacks: Prisma.$CoachFeedbackPayload<ExtArgs>[]
     invites: Prisma.$CoachingInvitePayload<ExtArgs>[]
@@ -74191,6 +76475,7 @@ export type $UserPayload<
       weightUnits: string | null
       altitude: number | null
       isAdmin: boolean
+      isCoach: boolean
       lthr: number | null
       healthConsentAcceptedAt: Date | null
       privacyPolicyVersion: string | null
@@ -74231,9 +76516,11 @@ export type $UserPayload<
       aiTtsAutoReadMessages: boolean
       emailError: string | null
       emailStatus: string
+      hasDashboardAccess: boolean
       weightSourceMode: string
       uiLanguage: string | null
       aiMemoryEnabled: boolean
+      aiWorkoutAutonomyLimit: number
       publicAuthorSlug: string | null
       publicDisplayName: string | null
       publicBio: string | null
@@ -74915,6 +77202,17 @@ export interface Prisma__UserClient<
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$CheckInPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >
+  weeklyCheckIns<T extends Prisma.User$weeklyCheckInsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$weeklyCheckInsArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$WeeklyCheckInPayload<ExtArgs>,
         T,
         'findMany',
         GlobalOmitOptions
@@ -75733,6 +78031,7 @@ export interface UserFieldRefs {
   readonly weightUnits: Prisma.FieldRef<'User', 'String'>
   readonly altitude: Prisma.FieldRef<'User', 'Int'>
   readonly isAdmin: Prisma.FieldRef<'User', 'Boolean'>
+  readonly isCoach: Prisma.FieldRef<'User', 'Boolean'>
   readonly lthr: Prisma.FieldRef<'User', 'Int'>
   readonly healthConsentAcceptedAt: Prisma.FieldRef<'User', 'DateTime'>
   readonly privacyPolicyVersion: Prisma.FieldRef<'User', 'String'>
@@ -75773,9 +78072,11 @@ export interface UserFieldRefs {
   readonly aiTtsAutoReadMessages: Prisma.FieldRef<'User', 'Boolean'>
   readonly emailError: Prisma.FieldRef<'User', 'String'>
   readonly emailStatus: Prisma.FieldRef<'User', 'String'>
+  readonly hasDashboardAccess: Prisma.FieldRef<'User', 'Boolean'>
   readonly weightSourceMode: Prisma.FieldRef<'User', 'String'>
   readonly uiLanguage: Prisma.FieldRef<'User', 'String'>
   readonly aiMemoryEnabled: Prisma.FieldRef<'User', 'Boolean'>
+  readonly aiWorkoutAutonomyLimit: Prisma.FieldRef<'User', 'Int'>
   readonly publicAuthorSlug: Prisma.FieldRef<'User', 'String'>
   readonly publicDisplayName: Prisma.FieldRef<'User', 'String'>
   readonly publicBio: Prisma.FieldRef<'User', 'String'>
@@ -76604,6 +78905,33 @@ export type User$checkInsArgs<
   take?: number
   skip?: number
   distinct?: Prisma.CheckInScalarFieldEnum | Prisma.CheckInScalarFieldEnum[]
+}
+
+/**
+ * User.weeklyCheckIns
+ */
+export type User$weeklyCheckInsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the WeeklyCheckIn
+   */
+  select?: Prisma.WeeklyCheckInSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WeeklyCheckIn
+   */
+  omit?: Prisma.WeeklyCheckInOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WeeklyCheckInInclude<ExtArgs> | null
+  where?: Prisma.WeeklyCheckInWhereInput
+  orderBy?:
+    Prisma.WeeklyCheckInOrderByWithRelationInput | Prisma.WeeklyCheckInOrderByWithRelationInput[]
+  cursor?: Prisma.WeeklyCheckInWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WeeklyCheckInScalarFieldEnum | Prisma.WeeklyCheckInScalarFieldEnum[]
 }
 
 /**
