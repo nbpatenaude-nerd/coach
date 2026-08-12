@@ -1,11 +1,11 @@
 <template>
   <div
     id="hero"
-    class="relative isolate overflow-hidden min-h-[80vh] flex items-center justify-center bg-slate-950"
+    class="relative isolate overflow-hidden min-h-[80vh] flex items-center justify-center bg-transparent"
   >
     <!-- Sci-Fi background -->
     <div
-      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950 to-slate-950 opacity-100"
+      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950/0 to-slate-950/0 opacity-100"
     ></div>
     <div class="absolute inset-0 -z-10 opacity-30 mix-blend-overlay"></div>
     <div
