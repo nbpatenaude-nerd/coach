@@ -8,11 +8,7 @@ import { generateTrainingContext, formatTrainingContextForPrompt } from '../trai
 import { getInjuryLabel } from '../../utils/wellness'
 import { filterGoalsForContext } from '../goal-context'
 import { getUserAiSettings } from '../ai-user-settings'
-import {
-  formatPromptDistance,
-  formatPromptHeight,
-  formatPromptWeight
-} from '../ai-prompt-format'
+import { formatPromptDistance, formatPromptHeight, formatPromptWeight } from '../ai-prompt-format'
 
 type BuildAthleteContextOptions = {
   includeDomainToolInstructions?: boolean
@@ -71,7 +67,8 @@ export async function buildAthleteContext(
         recoveryCapacityExplanationJson: true,
         nutritionComplianceExplanationJson: true,
         trainingConsistencyExplanationJson: true,
-        profileLastUpdated: true
+        profileLastUpdated: true,
+        subscriptionStatus: true
       }
     }),
     prisma.goal.findMany({

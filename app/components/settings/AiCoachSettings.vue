@@ -36,44 +36,31 @@
         </div>
       </div>
 
-      <!-- Analysis Levels Selection -->
+      <!-- Coach Autonomy Limit -->
       <div>
-        <label class="block text-sm font-medium mb-2">{{ t('coach_analysis_levels') }}</label>
-        <p class="text-sm text-muted mb-3">{{ t('coach_analysis_levels_desc') }}</p>
-        <div class="space-y-3">
-          <div
-            v-for="model in modelOptions"
-            :key="model.value"
-            class="flex items-start gap-3 p-4 border rounded-lg cursor-pointer hover:border-primary transition-colors relative"
-            :class="{
-              'border-primary bg-primary/5': localSettings.aiModelPreference === model.value,
-              'opacity-60 grayscale-[0.5]': !isModelAvailable(model)
-            }"
-            @click="
-              () => {
-                void handleModelClick(model)
-              }
-            "
+        <div class="flex items-center justify-between mb-2">
+          <label class="block text-sm font-medium">Coach Autonomy Limit</label>
+          <span class="text-sm font-bold text-primary"
+            >{{ localSettings.aiWorkoutAutonomyLimit }}%</span
           >
-            <input
-              type="radio"
-              :checked="localSettings.aiModelPreference === model.value"
-              :disabled="!isModelAvailable(model)"
-              class="mt-1"
-            />
-            <div class="flex-1">
-              <div class="flex items-center gap-2">
-                <div class="font-medium">{{ model.label }}</div>
-                <div v-if="shouldShowLock(model)" class="flex items-center gap-2">
-                  <UBadge color="primary" variant="subtle" size="sm">{{
-                    t('billing_tier_pro')
-                  }}</UBadge>
-                  <UIcon name="i-heroicons-lock-closed" class="w-4 h-4 text-neutral-500" />
-                </div>
-              </div>
-              <div class="text-sm text-muted mt-1">{{ model.description }}</div>
-            </div>
-          </div>
+        </div>
+        <p class="text-sm text-muted mb-4">
+          Determine how much the AI can alter an athlete's workouts (between 10% and 50%) without
+          requiring explicit Coach approval.
+        </p>
+        <div class="px-2">
+          <URange
+            v-model="localSettings.aiWorkoutAutonomyLimit"
+            :min="10"
+            :max="50"
+            :step="5"
+            size="md"
+            @change="handleChange"
+          />
+        </div>
+        <div class="flex justify-between text-xs text-muted mt-2 px-2">
+          <span>10% (Strict)</span>
+          <span>50% (Flexible)</span>
         </div>
       </div>
 
@@ -149,29 +136,30 @@
       aiAutoAnalyzeWorkouts: boolean
       aiAutoAnalyzeNutrition: boolean
       aiAutoAnalyzeReadiness: boolean
+      aiRequireToolApproval: boolean
       aiProactivityEnabled: boolean
       aiConversationalEngagement: boolean
+      aiMemoryEnabled: boolean
       aiDeepAnalysisEnabled: boolean
-      aiContext?: string | null
+      aiContext: string | null
       nutritionTrackingEnabled: boolean
       updateWorkoutNotesEnabled: boolean
-      nickname?: string | null
-      aiTtsStyle: 'coach' | 'calm' | 'direct' | 'energetic'
+      nickname: string | null
+      aiTtsStyle: string
       aiTtsVoiceName: string
-      aiTtsSpeed: 'slow' | 'normal' | 'fast'
+      aiTtsSpeed: string
       aiTtsAutoReadMessages: boolean
+      aiWorkoutAutonomyLimit: number
     }
   }>()
 
   const emit = defineEmits<{
-    save: [settings: typeof props.settings]
+    (e: 'save', settings: any): void
   }>()
 
   const localSettings = ref({ ...props.settings })
   const saving = ref(false)
   const isVoiceSettingsOpen = ref(false)
-  const userStore = useUserStore()
-  const upgradeModal = useUpgradeModal()
 
   const personaOptions = [
     { value: 'Analytical', label: t.value('coach_persona_analytical') },
@@ -179,58 +167,6 @@
     { value: 'Drill Sergeant', label: t.value('coach_persona_drill') },
     { value: 'Motivational', label: t.value('coach_persona_motivational') }
   ]
-
-  const modelOptions = [
-    {
-      value: 'flash',
-      label: t.value('coach_model_quick_label'),
-      description: t.value('coach_model_quick_desc'),
-      minTier: 'FREE'
-    },
-    {
-      value: 'pro',
-      label: t.value('coach_model_thoughtful_label'),
-      description: t.value('coach_model_thoughtful_desc'),
-      minTier: 'PRO'
-    },
-    {
-      value: 'experimental',
-      label: t.value('coach_model_experimental_label'),
-      description: t.value('coach_model_experimental_desc'),
-      minTier: 'PRO'
-    }
-  ]
-
-  const isContributor = computed(() => userStore.user?.subscriptionStatus === 'CONTRIBUTOR')
-
-  function isModelAvailable(model: any) {
-    if (props.forceUnlocked) return true
-    if (model.minTier === 'FREE') return true
-    if (isContributor.value) return true
-    return userStore.hasMinimumTier(model.minTier as any)
-  }
-
-  function shouldShowLock(model: any) {
-    return model.minTier === 'PRO' && !isModelAvailable(model)
-  }
-
-  function handleModelClick(model: any) {
-    if (isModelAvailable(model)) {
-      selectModel(model.value)
-      return
-    }
-
-    upgradeModal.show({
-      featureTitle: `${model.label} ${t.value('coach_upgrade_analysis_suffix')}`,
-      featureDescription: t.value('coach_upgrade_analysis_desc'),
-      recommendedTier: 'pro'
-    })
-  }
-
-  function selectModel(value: string) {
-    localSettings.value.aiModelPreference = value
-    handleChange()
-  }
 
   function handleChange() {
     // Auto-save on change (optional, can be removed if you want explicit save only)

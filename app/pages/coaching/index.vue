@@ -42,7 +42,7 @@
               :label="tr('index_add_athlete', 'Add Athlete')"
               size="sm"
               class="font-bold whitespace-nowrap"
-              to="/coaching/athletes"
+              to="/coaching/athletes?invite=true"
             />
             <UButton
               color="neutral"

@@ -632,7 +632,11 @@
   }
 
   function linkAccount(provider: string) {
-    signIn(provider, { callbackUrl: window.location.href })
+    if (provider === 'intervals') {
+      navigateTo('/connect-intervals')
+    } else {
+      signIn(provider, { callbackUrl: window.location.href })
+    }
   }
 
   // Initialize weight for display based on units
