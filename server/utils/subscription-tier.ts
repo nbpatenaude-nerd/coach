@@ -1,16 +1,21 @@
 import type Stripe from 'stripe'
 import type { SubscriptionTier } from '~/server/utils/generated-prisma/client'
 type StripeTierConfig = {
-  stripeSupporterProductId?: string
-  stripeSupporterMonthlyPriceId?: string
-  stripeSupporterAnnualPriceId?: string
-  stripeSupporterMonthlyEurPriceId?: string
-  stripeSupporterAnnualEurPriceId?: string
-  stripeProProductId?: string
-  stripeProMonthlyPriceId?: string
-  stripeProAnnualPriceId?: string
-  stripeProMonthlyEurPriceId?: string
-  stripeProAnnualEurPriceId?: string
+  stripeUncoverProductId?: string
+  stripeUncoverMonthlyPriceId?: string
+  stripeUncoverAnnualPriceId?: string
+  stripeUncoverMonthlyEurPriceId?: string
+  stripeUncoverAnnualEurPriceId?: string
+  stripeUnlockProductId?: string
+  stripeUnlockMonthlyPriceId?: string
+  stripeUnlockAnnualPriceId?: string
+  stripeUnlockMonthlyEurPriceId?: string
+  stripeUnlockAnnualEurPriceId?: string
+  stripeUnleashProductId?: string
+  stripeUnleashMonthlyPriceId?: string
+  stripeUnleashAnnualPriceId?: string
+  stripeUnleashMonthlyEurPriceId?: string
+  stripeUnleashAnnualEurPriceId?: string
 }
 
 export function getPriceProductId(priceProduct: Stripe.Price['product']): string | null {
@@ -24,8 +29,9 @@ function inferTierFromText(value?: string | null): SubscriptionTier | null {
   const normalized = value.trim().toLowerCase()
   if (!normalized) return null
 
-  if (normalized.includes('supporter')) return 'SUPPORTER'
-  if (normalized === 'pro' || normalized.includes(' pro')) return 'PRO'
+  if (normalized.includes('uncover')) return 'UNCOVER'
+  if (normalized.includes('unlock')) return 'UNLOCK'
+  if (normalized.includes('unleash')) return 'UNLEASH'
 
   return null
 }
@@ -49,23 +55,31 @@ export async function resolveSubscriptionTier(
   const priceId = price?.id
   const productId = getPriceProductId((price?.product as Stripe.Price['product']) ?? null)
 
-  const supporterPriceIds = [
-    config.stripeSupporterMonthlyPriceId,
-    config.stripeSupporterAnnualPriceId,
-    config.stripeSupporterMonthlyEurPriceId,
-    config.stripeSupporterAnnualEurPriceId
+  const uncoverPriceIds = [
+    config.stripeUncoverMonthlyPriceId,
+    config.stripeUncoverAnnualPriceId,
+    config.stripeUncoverMonthlyEurPriceId,
+    config.stripeUncoverAnnualEurPriceId
   ].filter(Boolean)
-  const proPriceIds = [
-    config.stripeProMonthlyPriceId,
-    config.stripeProAnnualPriceId,
-    config.stripeProMonthlyEurPriceId,
-    config.stripeProAnnualEurPriceId
+  const unlockPriceIds = [
+    config.stripeUnlockMonthlyPriceId,
+    config.stripeUnlockAnnualPriceId,
+    config.stripeUnlockMonthlyEurPriceId,
+    config.stripeUnlockAnnualEurPriceId
+  ].filter(Boolean)
+  const unleashPriceIds = [
+    config.stripeUnleashMonthlyPriceId,
+    config.stripeUnleashAnnualPriceId,
+    config.stripeUnleashMonthlyEurPriceId,
+    config.stripeUnleashAnnualEurPriceId
   ].filter(Boolean)
 
-  if (priceId && supporterPriceIds.includes(priceId)) return 'SUPPORTER'
-  if (priceId && proPriceIds.includes(priceId)) return 'PRO'
-  if (productId && productId === config.stripeSupporterProductId) return 'SUPPORTER'
-  if (productId && productId === config.stripeProProductId) return 'PRO'
+  if (priceId && uncoverPriceIds.includes(priceId)) return 'UNCOVER'
+  if (priceId && unlockPriceIds.includes(priceId)) return 'UNLOCK'
+  if (priceId && unleashPriceIds.includes(priceId)) return 'UNLEASH'
+  if (productId && productId === config.stripeUncoverProductId) return 'UNCOVER'
+  if (productId && productId === config.stripeUnlockProductId) return 'UNLOCK'
+  if (productId && productId === config.stripeUnleashProductId) return 'UNLEASH'
 
   const inlineProduct =
     price?.product && typeof price.product !== 'string' ? (price.product as Stripe.Product) : null

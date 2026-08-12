@@ -351,6 +351,11 @@ export default defineNuxtConfig({
     stripeProAnnualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
     stripeProMonthlyEurPriceId: process.env.STRIPE_PRO_MONTHLY_EUR_PRICE_ID || '',
     stripeProAnnualEurPriceId: process.env.STRIPE_PRO_ANNUAL_EUR_PRICE_ID || '',
+    stripeUnleashProductId: process.env.STRIPE_UNLEASH_PRODUCT_ID || '',
+    stripeUnleashMonthlyPriceId: process.env.STRIPE_UNLEASH_MONTHLY_PRICE_ID || '',
+    stripeUnleashAnnualPriceId: process.env.STRIPE_UNLEASH_ANNUAL_PRICE_ID || '',
+    stripeUnleashMonthlyEurPriceId: process.env.STRIPE_UNLEASH_MONTHLY_EUR_PRICE_ID || '',
+    stripeUnleashAnnualEurPriceId: process.env.STRIPE_UNLEASH_ANNUAL_EUR_PRICE_ID || '',
 
     // RevenueCat and provider-neutral subscription reconciliation (server-only keys)
     revenueCatApiBaseUrl: process.env.REVENUECAT_API_BASE_URL || 'https://api.revenuecat.com/v1',
@@ -360,6 +365,7 @@ export default defineNuxtConfig({
     revenueCatAcceptSandbox: process.env.REVENUECAT_ACCEPT_SANDBOX || 'false',
     subscriptionSupporterProductIds: process.env.SUBSCRIPTION_SUPPORTER_PRODUCT_IDS || '',
     subscriptionProProductIds: process.env.SUBSCRIPTION_PRO_PRODUCT_IDS || '',
+    subscriptionUnleashProductIds: process.env.SUBSCRIPTION_UNLEASH_PRODUCT_IDS || '',
 
     // Telegram
     telegramBotToken: process.env.TELEGRAM_BOT_TOKEN || '',
@@ -389,6 +395,10 @@ export default defineNuxtConfig({
       stripeProAnnualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
       stripeProMonthlyEurPriceId: process.env.STRIPE_PRO_MONTHLY_EUR_PRICE_ID || '',
       stripeProAnnualEurPriceId: process.env.STRIPE_PRO_ANNUAL_EUR_PRICE_ID || '',
+      stripeUnleashMonthlyPriceId: process.env.STRIPE_UNLEASH_MONTHLY_PRICE_ID || '',
+      stripeUnleashAnnualPriceId: process.env.STRIPE_UNLEASH_ANNUAL_PRICE_ID || '',
+      stripeUnleashMonthlyEurPriceId: process.env.STRIPE_UNLEASH_MONTHLY_EUR_PRICE_ID || '',
+      stripeUnleashAnnualEurPriceId: process.env.STRIPE_UNLEASH_ANNUAL_EUR_PRICE_ID || '',
       subscriptionsEnabled: process.env.NUXT_PUBLIC_SUBSCRIPTIONS_ENABLED !== 'false',
       nativeSubscriptionsEnabled: process.env.NUXT_PUBLIC_NATIVE_SUBSCRIPTIONS_ENABLED === 'true',
       stravaEnabled: process.env.NUXT_PUBLIC_STRAVA_ENABLED !== 'false',

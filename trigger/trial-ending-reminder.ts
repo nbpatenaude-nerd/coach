@@ -36,16 +36,16 @@ async function getWeeklyUsageSummary(userId: string) {
   }))
 }
 
-function formatSupporterHighlights() {
-  const supporter = QUOTA_REGISTRY.SUPPORTER
+function formatUncoverHighlights() {
+  const uncover = QUOTA_REGISTRY.UNCOVER
   return [
-    { label: 'Daily check-ins', value: `${supporter.daily_checkin?.limit ?? 0}/day` },
+    { label: 'Daily check-ins', value: `${uncover.daily_checkin?.limit ?? 0}/day` },
     {
       label: 'Activity recommendations',
-      value: `${supporter.activity_recommendation?.limit ?? 0}/day`
+      value: `${uncover.activity_recommendation?.limit ?? 0}/day`
     },
-    { label: 'Workout analysis', value: `${supporter.workout_analysis?.limit ?? 0}/week` },
-    { label: 'AI chat', value: `${supporter.chat?.limit ?? 0}/4h` }
+    { label: 'Workout analysis', value: `${uncover.workout_analysis?.limit ?? 0}/week` },
+    { label: 'AI chat', value: `${uncover.chat?.limit ?? 0}/4h` }
   ]
 }
 
@@ -113,7 +113,7 @@ export const trialEndingReminderCron = task({
             name: user.name || 'Athlete',
             trialEndsAt: formatUserDate(user.trialEndsAt, user.timezone || 'UTC', 'EEEE, MMMM d'),
             usageHighlights,
-            supporterHighlights: formatSupporterHighlights(),
+            uncoverHighlights: formatUncoverHighlights(),
             pricingUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.com'}/settings/billing`
           }
         })

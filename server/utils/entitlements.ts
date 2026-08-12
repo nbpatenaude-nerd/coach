@@ -6,7 +6,7 @@ import type {
 import { resolveEffectiveTier } from '../../shared/effective-tier'
 
 export interface UserEntitlements {
-  tier: 'FREE' | 'SUPPORTER' | 'PRO'
+  tier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH'
   autoSync: boolean
   autoAnalysis: boolean
   aiModel: 'flash' | 'pro'
@@ -26,9 +26,9 @@ function entitlementsFromTier(effectiveTier: SubscriptionTier): UserEntitlements
     tier: effectiveTier,
     autoSync: effectiveTier !== 'FREE',
     autoAnalysis: effectiveTier !== 'FREE',
-    aiModel: effectiveTier === 'PRO' ? 'pro' : 'flash',
+    aiModel: effectiveTier === 'UNLEASH' || effectiveTier === 'UNLOCK' ? 'pro' : 'flash',
     priorityProcessing: effectiveTier !== 'FREE',
-    proactivity: effectiveTier === 'PRO'
+    proactivity: effectiveTier === 'UNLEASH'
   }
 }
 
@@ -42,10 +42,10 @@ function entitlementsFromTier(effectiveTier: SubscriptionTier): UserEntitlements
 export function getUserEntitlements(user: EntitlementUser): UserEntitlements {
   const config = useRuntimeConfig()
 
-  // If Stripe is not configured (self-hosted mode), everyone is PRO
+  // If Stripe is not configured (self-hosted mode), everyone is UNLEASH
   if (!config.stripeSecretKey) {
     return {
-      tier: 'PRO',
+      tier: 'UNLEASH',
       autoSync: true,
       autoAnalysis: true,
       aiModel: 'pro',
@@ -81,9 +81,9 @@ export function hasEntitlement(
  */
 export function hasMinimumTier(
   user: EntitlementUser,
-  minimumTier: 'FREE' | 'SUPPORTER' | 'PRO'
+  minimumTier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH'
 ): boolean {
   const entitlements = getUserEntitlements(user)
-  const tierHierarchy = { FREE: 0, SUPPORTER: 1, PRO: 2 }
+  const tierHierarchy = { FREE: 0, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
   return tierHierarchy[entitlements.tier] >= tierHierarchy[minimumTier]
 }

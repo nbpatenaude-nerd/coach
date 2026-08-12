@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
   // 3. Recent Premium Users (Last 50)
   const recentPremiumUsers = await prisma.user.findMany({
     where: {
-      subscriptionTier: { in: ['SUPPORTER', 'PRO'] }
+      subscriptionTier: { in: ['UNCOVER', 'UNLOCK', 'UNLEASH'] }
     },
     orderBy: [{ subscriptionStartedAt: 'desc' }, { id: 'desc' }],
     take: 50,
@@ -52,15 +52,17 @@ export default defineEventHandler(async (event) => {
     _count: { id: true },
     where: {
       subscriptionStatus: 'ACTIVE',
-      subscriptionTier: { in: ['SUPPORTER', 'PRO'] }
+      subscriptionTier: { in: ['UNCOVER', 'UNLOCK', 'UNLEASH'] }
     }
   })
 
   activeTierCounts.forEach((group) => {
-    if (group.subscriptionTier === 'SUPPORTER') {
+    if (group.subscriptionTier === 'UNCOVER') {
       estimatedMRR += group._count.id * 8.99
-    } else if (group.subscriptionTier === 'PRO') {
+    } else if (group.subscriptionTier === 'UNLOCK') {
       estimatedMRR += group._count.id * 14.99
+    } else if (group.subscriptionTier === 'UNLEASH') {
+      estimatedMRR += group._count.id * 29.99
     }
   })
 

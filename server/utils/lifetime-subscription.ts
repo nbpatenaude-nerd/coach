@@ -7,7 +7,7 @@ export function isLifetimeSubscriber(user: Pick<User, 'subscriptionStatus'>): bo
 
 export async function grantLifetimeSubscription(
   userId: string,
-  tier: Extract<SubscriptionTier, 'PRO' | 'SUPPORTER'> = 'PRO'
+  tier: Extract<SubscriptionTier, 'UNLEASH' | 'UNLOCK' | 'UNCOVER'> = 'UNLEASH'
 ) {
   return prisma.user.update({
     where: { id: userId },

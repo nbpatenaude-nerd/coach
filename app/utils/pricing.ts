@@ -1,5 +1,5 @@
 export type BillingInterval = 'monthly' | 'annual'
-export type PricingTier = 'free' | 'supporter' | 'pro'
+export type PricingTier = 'free' | 'uncover' | 'unlock' | 'unleash'
 export type SupportedCurrency = 'usd' | 'eur'
 
 export interface PricingPlan {
@@ -20,7 +20,7 @@ export interface PricingPlan {
 export const PRICING_PLANS: PricingPlan[] = [
   {
     key: 'free',
-    name: 'Free',
+    name: 'Tri Nerds',
     monthlyPrice: 0,
     annualPrice: null,
     description: "The smartest logbook you've ever used.",
@@ -34,8 +34,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     popular: false
   },
   {
-    key: 'supporter',
-    name: 'Supporter',
+    key: 'uncover',
+    name: 'Uncover',
     monthlyPrice: 8.99,
     annualPrice: 89.99,
     description: 'Automated insights for the self-coached athlete.',
@@ -46,21 +46,33 @@ export const PRICING_PLANS: PricingPlan[] = [
       'Priority processing during peak usage',
       'Reliable trend tracking and weekly summaries'
     ],
-    popular: true
+    popular: false
   },
   {
-    key: 'pro',
-    name: 'Pro',
+    key: 'unlock',
+    name: 'Unlock',
     monthlyPrice: 14.99,
     annualPrice: 119.0,
-    description: 'Your full-service Digital Twin and Coach.',
-    mobileDescription: 'Adaptive planning and elite AI-assisted coaching.',
+    description: 'Unlock your true potential with detailed planning.',
+    mobileDescription: 'Adaptive planning and AI-assisted coaching.',
     features: [
       'Adaptive race strategy and periodized planning',
       'Thoughtful AI-assisted coaching with scenario analysis',
+      'Advanced trend intelligence with forecasting'
+    ],
+    popular: true
+  },
+  {
+    key: 'unleash',
+    name: 'Unleash',
+    monthlyPrice: 24.99,
+    annualPrice: 199.0,
+    description: 'Your full-service Digital Twin and Coach.',
+    mobileDescription: 'Elite AI-assisted coaching.',
+    features: [
       'Proactive alerts for readiness and overreaching risk',
-      'Advanced trend intelligence with long-horizon forecasting',
-      'Fast-lane priority processing and response'
+      'Fast-lane priority processing and response',
+      'Premium access to new models'
     ],
     popular: false
   }
@@ -121,7 +133,7 @@ export function getStripePriceId(
   const config = useRuntimeConfig()
   const eur = currency === 'eur'
 
-  if (plan.key === 'supporter') {
+  if (plan.key === 'uncover') {
     if (interval === 'monthly') {
       return eur
         ? config.public.stripeSupporterMonthlyEurPriceId
@@ -132,11 +144,22 @@ export function getStripePriceId(
       : config.public.stripeSupporterAnnualPriceId
   }
 
-  if (plan.key === 'pro') {
+  if (plan.key === 'unlock') {
     if (interval === 'monthly') {
       return eur ? config.public.stripeProMonthlyEurPriceId : config.public.stripeProMonthlyPriceId
     }
     return eur ? config.public.stripeProAnnualEurPriceId : config.public.stripeProAnnualPriceId
+  }
+
+  if (plan.key === 'unleash') {
+    if (interval === 'monthly') {
+      return eur
+        ? config.public.stripeUnleashMonthlyEurPriceId
+        : config.public.stripeUnleashMonthlyPriceId
+    }
+    return eur
+      ? config.public.stripeUnleashAnnualEurPriceId
+      : config.public.stripeUnleashAnnualPriceId
   }
 
   return undefined

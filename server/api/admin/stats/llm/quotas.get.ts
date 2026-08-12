@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const showAll = query.all === 'true'
   const results: any[] = []
 
-  const validDbTiers = ['FREE', 'SUPPORTER', 'PRO']
+  const validDbTiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
 
   // Iterate through tiers and operations to find users near limits
   for (const tier of Object.keys(QUOTA_REGISTRY) as SubscriptionTier[]) {

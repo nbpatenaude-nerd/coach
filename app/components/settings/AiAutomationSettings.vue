@@ -119,7 +119,9 @@
           />
         </div>
         <div v-if="!canUseTier('PRO')" class="flex items-center gap-2">
-          <UBadge color="primary" variant="subtle" size="xs">{{ t('billing_tier_pro') }}</UBadge>
+          <UBadge color="primary" variant="subtle" size="xs">{{
+            t('billing_tier_unleash')
+          }}</UBadge>
           <UButton
             icon="i-heroicons-lock-closed"
             color="neutral"
@@ -150,7 +152,9 @@
           />
         </div>
         <div v-if="!canUseTier('PRO')" class="flex items-center gap-2">
-          <UBadge color="primary" variant="subtle" size="xs">{{ t('billing_tier_pro') }}</UBadge>
+          <UBadge color="primary" variant="subtle" size="xs">{{
+            t('billing_tier_unleash')
+          }}</UBadge>
           <UButton
             icon="i-heroicons-lock-closed"
             color="neutral"

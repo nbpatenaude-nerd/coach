@@ -50,7 +50,7 @@ export const QUOTA_REGISTRY: Record<
     custom_report_generation: { limit: 2, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 1, window: '7 days', enforcement: 'STRICT' }
   },
-  SUPPORTER: {
+  UNCOVER: {
     chat: { limit: 40, window: '4 hours', enforcement: 'STRICT' },
     workout_analysis: { limit: 20, window: '7 days', enforcement: 'STRICT' },
     athlete_profile_generation: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
@@ -71,7 +71,28 @@ export const QUOTA_REGISTRY: Record<
     custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
   },
-  PRO: {
+  UNLOCK: {
+    chat: { limit: 50, window: '4 hours', enforcement: 'STRICT' },
+    workout_analysis: { limit: 30, window: '7 days', enforcement: 'STRICT' },
+    athlete_profile_generation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
+    goal_suggestions: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
+    goal_review: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
+    daily_checkin: { limit: 2, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
+    unified_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
+    nutrition_analysis: { limit: 10, window: '7 days', enforcement: 'STRICT' },
+    activity_recommendation: {
+      limit: 5,
+      window: '1 day',
+      enforcement: 'STRICT',
+      resetType: 'CALENDAR'
+    },
+    meal_recommendation: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 10, window: '7 days', enforcement: 'STRICT' },
+    wellness_analysis: { limit: 10, window: '7 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 6, window: '30 days', enforcement: 'STRICT' },
+    weekly_plan_generation: { limit: 3, window: '7 days', enforcement: 'STRICT' }
+  },
+  UNLEASH: {
     chat: { limit: 60, window: '4 hours', enforcement: 'STRICT' },
     workout_analysis: { limit: 40, window: '7 days', enforcement: 'STRICT' },
     athlete_profile_generation: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
@@ -155,9 +176,10 @@ export function quotaFeatureCode(operation: string): string | null {
 }
 
 /** Next paid tier above `tier`, or null when already on the top tier. */
-export function getNextTier(tier: SubscriptionTier): 'SUPPORTER' | 'PRO' | null {
-  if (tier === 'FREE') return 'SUPPORTER'
-  if (tier === 'SUPPORTER') return 'PRO'
+export function getNextTier(tier: SubscriptionTier): 'UNCOVER' | 'UNLOCK' | 'UNLEASH' | null {
+  if (tier === 'FREE') return 'UNCOVER'
+  if (tier === 'UNCOVER') return 'UNLOCK'
+  if (tier === 'UNLOCK') return 'UNLEASH'
   return null
 }
 
@@ -169,13 +191,19 @@ export function getNextTier(tier: SubscriptionTier): 'SUPPORTER' | 'PRO' | null 
 export function resolveUpgradeForOperation(
   operation: string,
   tier: SubscriptionTier
-): { nextTier: 'SUPPORTER' | 'PRO'; nextTierLimit: number } | null {
+): { nextTier: 'UNCOVER' | 'UNLOCK' | 'UNLEASH'; nextTierLimit: number } | null {
   const canonical = mapOperationToQuota(operation)
   if (!canonical) return null
 
   const currentLimit = QUOTA_REGISTRY[tier][canonical]?.limit ?? 0
-  const candidates: ('SUPPORTER' | 'PRO')[] =
-    tier === 'FREE' ? ['SUPPORTER', 'PRO'] : tier === 'SUPPORTER' ? ['PRO'] : []
+  const candidates: ('UNCOVER' | 'UNLOCK' | 'UNLEASH')[] =
+    tier === 'FREE'
+      ? ['UNCOVER', 'UNLOCK', 'UNLEASH']
+      : tier === 'UNCOVER'
+        ? ['UNLOCK', 'UNLEASH']
+        : tier === 'UNLOCK'
+          ? ['UNLEASH']
+          : []
 
   for (const candidate of candidates) {
     const limit = QUOTA_REGISTRY[candidate][canonical]?.limit

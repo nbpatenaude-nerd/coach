@@ -13,7 +13,7 @@ function resolveEffectiveTier(user: {
   trialEndsAt: Date | null
 }): SubscriptionTier {
   const isTrialActive = user.trialEndsAt && new Date(user.trialEndsAt) > new Date()
-  return user.subscriptionTier === 'FREE' && isTrialActive ? 'SUPPORTER' : user.subscriptionTier
+  return user.subscriptionTier === 'FREE' && isTrialActive ? 'UNCOVER' : user.subscriptionTier
 }
 
 function enrichQuotasWithNextTier(

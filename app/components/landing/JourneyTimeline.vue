@@ -2,7 +2,7 @@
   <div id="tech" class="relative isolate overflow-hidden bg-transparent py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div
-        class="mx-auto max-w-2xl text-center mb-16 relative bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+        class="mx-auto max-w-2xl text-center mb-16 relative bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] pointer-events-auto"
       >
         <div
           class="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-pink-500 shadow-[0_0_20px_rgba(236,72,153,0.9)] z-20"
@@ -47,7 +47,7 @@
 
             <div class="w-full sm:w-1/2 flex sm:justify-end pl-14 sm:pl-0 sm:pr-12">
               <UCard
-                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02]"
+                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02] pointer-events-auto"
                 :class="[
                   scrollProgress > 15
                     ? 'bg-slate-950/60 border-cyan-400/60 shadow-[0_0_30px_rgba(34,211,238,0.3)]'
@@ -120,7 +120,7 @@
             <div class="hidden sm:block sm:w-1/2"></div>
             <div class="w-full sm:w-1/2 flex sm:justify-start pl-14 sm:pl-12 sm:pr-0">
               <UCard
-                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02]"
+                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02] pointer-events-auto"
                 :class="[
                   scrollProgress > 40
                     ? 'bg-slate-950/60 border-pink-500/60 shadow-[0_0_30px_rgba(236,72,153,0.3)]'
@@ -191,7 +191,7 @@
 
             <div class="w-full sm:w-1/2 flex sm:justify-end pl-14 sm:pl-0 sm:pr-12">
               <UCard
-                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02]"
+                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02] pointer-events-auto"
                 :class="[
                   scrollProgress > 65
                     ? 'bg-slate-950/60 border-purple-500/60 shadow-[0_0_30px_rgba(168,85,247,0.3)]'
@@ -264,7 +264,7 @@
             <div class="hidden sm:block sm:w-1/2"></div>
             <div class="w-full sm:w-1/2 flex sm:justify-start pl-14 sm:pl-12 sm:pr-0">
               <UCard
-                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02]"
+                class="w-full text-left backdrop-blur-sm border transition-all duration-500 ease-in-out cursor-pointer hover:scale-[1.02] pointer-events-auto"
                 :class="[
                   scrollProgress > 90
                     ? 'bg-slate-950/60 border-cyan-400/60 shadow-[0_0_30px_rgba(34,211,238,0.3)]'

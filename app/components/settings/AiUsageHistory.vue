@@ -221,7 +221,7 @@
             color: isFlash ? 'info' : 'secondary',
             size: 'xs'
           },
-          () => (isFlash ? t.value('usage_model_flash') : t.value('billing_tier_pro'))
+          () => (isFlash ? t.value('usage_model_flash') : t.value('billing_tier_unleash'))
         )
       }
     },

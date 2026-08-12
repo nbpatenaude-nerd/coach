@@ -2,7 +2,7 @@
   <div class="relative isolate overflow-hidden">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
       <div
-        class="mx-auto max-w-3xl lg:text-center bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+        class="mx-auto max-w-3xl lg:text-center bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] pointer-events-auto"
       >
         <div
           class="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.9)] z-20"

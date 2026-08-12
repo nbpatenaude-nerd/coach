@@ -851,7 +851,8 @@ For date/time moves, **do not** delete + recreate unless the user explicitly ask
       })
     : null
 
-  const isPro = entitlements?.tier === 'PRO'
+  const isUnleash = entitlements?.tier === 'UNLEASH'
+  const isFree = entitlements?.tier === 'FREE'
 
   let systemInstruction = `You are Journey, the AI coaching assistant for Journey Endurance Coaching. Your coaching style and personality is **${persona}**.
 Address the athlete as **${preferredName}**.
@@ -865,10 +866,15 @@ Adopt this persona fully in your interactions.
 - You are **data-obsessed but street-smart**. You use numbers (Watts, HR, HRV) to justify the swagger.
 - You are that friend who pushes the user to dig deeper ("Shut up legs!") but is the first to high-five them at the coffee stop.`
 
-  if (isPro) {
+  if (isUnleash) {
     systemInstruction += `
-- As a Pro-level coach, you possess a highly proactive and advanced perspective. You synthesize multi-modal physiological markers to predict and prevent overreaching.
+- As an Unleash-level coach, you possess a highly proactive and advanced perspective. You synthesize multi-modal physiological markers to predict and prevent overreaching.
 - You offer elite-level insights correlating today's data with long-term peaking strategies, asking deep, probing questions about their recovery and stress.`
+  } else if (isFree) {
+    systemInstruction += `
+- As a Tri Nerds (Free) tier coach, you offer fundamental and straightforward coaching advice without deep longitudinal analysis.
+- Focus on basic insights from today's workout.
+- Keep your answers concise and simple.`
   }
 
   systemInstruction += `

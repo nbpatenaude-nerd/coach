@@ -15,18 +15,15 @@
     "save_pct": "Save {pct}%"
   },
   "btn": {
-    "choose_supporter": "Choose Supporter",
     "current_plan": "Current Plan",
-    "downgrade_free": "Downgrade to Free",
-    "get_pro": "Get Pro",
-    "get_supporter": "Get Supporter",
-    "sign_up": "Sign Up",
+    "downgrade": "Downgrade",
+    "upgrade": "Upgrade",
     "start_free": "Start Free",
-    "stay_free": "Stay Free",
-    "switch_pro": "Switch to Pro",
-    "switch_supporter": "Switch to Supporter",
-    "unavailable": "Temporarily Unavailable",
-    "upgrade_pro": "Upgrade to Pro"
+    "get_uncover": "Get Uncover",
+    "get_unlock": "Get Unlock",
+    "get_unleash": "Get Unleash",
+    "sign_up": "Sign Up",
+    "unavailable": "Temporarily Unavailable"
   },
   "cancel_anytime": "Cancel anytime. Instant downgrade to Free.",
   "description": "Start free with a 14-day full-access trial. Upgrade when you need more.",
@@ -56,24 +53,29 @@
       "feature_2": "Manual sync mode",
       "feature_3": "On-demand analysis",
       "feature_4": "Quick AI analysis",
-      "name": "Free"
+      "name": "Tri Nerds"
     },
-    "pro": {
-      "description": "Your full-service Digital Twin and Coach.",
-      "feature_1": "Adaptive race strategy and periodized planning",
-      "feature_2": "Thoughtful AI-assisted coaching with scenario analysis",
-      "feature_3": "Proactive alerts for readiness and overreaching risk",
-      "feature_4": "Advanced trend intelligence with long-horizon forecasting",
-      "feature_5": "Fast-lane priority processing and response",
-      "name": "Pro"
-    },
-    "supporter": {
+    "uncover": {
       "description": "Automated insights for the self-coached athlete.",
       "feature_1": "Automatic sync for workouts and health metrics",
       "feature_2": "Always-on AI analysis after new activities",
       "feature_3": "Priority processing during peak usage",
       "feature_4": "Reliable trend tracking and weekly summaries",
-      "name": "Supporter"
+      "name": "Uncover"
+    },
+    "unlock": {
+      "description": "Unlock your true potential with detailed planning.",
+      "feature_1": "Adaptive race strategy and periodized planning",
+      "feature_2": "Thoughtful AI-assisted coaching with scenario analysis",
+      "feature_3": "Advanced trend intelligence with forecasting",
+      "name": "Unlock"
+    },
+    "unleash": {
+      "description": "Your full-service Digital Twin and Coach.",
+      "feature_1": "Proactive alerts for readiness and overreaching risk",
+      "feature_2": "Fast-lane priority processing and response",
+      "feature_3": "Premium access to new models",
+      "name": "Unleash"
     }
   },
   "upgrade_modal": {

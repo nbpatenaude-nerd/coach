@@ -161,15 +161,17 @@
 
   const tierColor = computed(() => {
     const tier = data.value?.tier || 'FREE'
-    if (tier === 'PRO') return 'primary'
-    if (tier === 'SUPPORTER') return 'info'
+    if (tier === 'UNLEASH') return 'primary'
+    if (tier === 'UNLOCK') return 'info'
+    if (tier === 'UNCOVER') return 'neutral'
     return 'neutral'
   })
 
   const tierLabel = computed(() => {
     const tier = (data.value?.tier || 'FREE').toUpperCase()
-    if (tier === 'PRO') return t.value('billing_tier_pro')
-    if (tier === 'SUPPORTER') return t.value('billing_tier_supporter')
+    if (tier === 'UNLEASH') return t.value('billing_tier_unleash')
+    if (tier === 'UNLOCK') return t.value('billing_tier_unlock')
+    if (tier === 'UNCOVER') return t.value('billing_tier_uncover')
     return t.value('billing_tier_free')
   })
 

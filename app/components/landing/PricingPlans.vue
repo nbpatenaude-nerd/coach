@@ -79,8 +79,8 @@
     </div>
 
     <div
-      class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-7xl mx-auto"
-      :class="props.conversionGoal === 'pro' ? 'lg:[grid-template-columns:1fr_1.1fr_1fr]' : ''"
+      class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-stretch max-w-360 mx-auto"
+      :class="props.conversionGoal === 'unleash' ? 'lg:grid-cols-[1fr_1fr_1.1fr_1fr]' : ''"
     >
       <div
         v-for="plan in displayedPlans"
@@ -124,7 +124,7 @@
             </span>
           </div>
 
-          <div class="min-h-[2.5rem]">
+          <div class="min-h-10">
             <template v-if="billingInterval === 'annual' && plan.annualPrice">
               <div class="text-xs font-black text-primary-500 uppercase tracking-widest mb-1">
                 {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
@@ -150,11 +150,11 @@
           </div>
         </div>
 
-        <p class="text-lg text-gray-400 font-medium leading-relaxed mb-10 min-h-[4rem]">
+        <p class="text-lg text-gray-400 font-medium leading-relaxed mb-10 min-h-16">
           {{ t(`plan.${plan.key}.description`) }}
         </p>
 
-        <ul class="space-y-4 mb-10 flex-grow">
+        <ul class="space-y-4 mb-10 grow">
           <li
             v-for="(feature, fIndex) in plan.features"
             :key="fIndex"
@@ -162,7 +162,7 @@
           >
             <UIcon
               name="i-heroicons-check-circle-solid"
-              class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary-500"
+              class="w-5 h-5 shrink-0 mt-0.5 text-primary-500"
             />
             <span class="leading-tight">{{ t(`plan.${plan.key}.feature_${fIndex + 1}`) }}</span>
           </li>
@@ -263,7 +263,7 @@
       conversionGoal?: ConversionGoal
     }>(),
     {
-      conversionGoal: 'supporter'
+      conversionGoal: 'unlock'
     }
   )
 
@@ -290,7 +290,9 @@
   const displayedPlans = computed(() => {
     const planByKey = new Map(PRICING_PLANS.map((plan) => [plan.key, plan]))
     const orderedKeys: PricingTier[] =
-      props.conversionGoal === 'pro' ? ['pro', 'supporter', 'free'] : ['free', 'supporter', 'pro']
+      props.conversionGoal === 'unleash'
+        ? ['unleash', 'unlock', 'uncover', 'free']
+        : ['free', 'uncover', 'unlock', 'unleash']
 
     return orderedKeys
       .map((key) => planByKey.get(key))
@@ -309,7 +311,7 @@
 
   function getPlanBadge(plan: PricingPlan): string | null {
     if (isPrimaryPlan(plan)) {
-      return props.conversionGoal === 'pro'
+      return props.conversionGoal === 'unleash'
         ? translate('badge.best_value')
         : translate('badge.most_popular')
     }
@@ -327,32 +329,32 @@
   }
 
   function getPlanOrderClass(plan: PricingPlan): string {
-    if (props.conversionGoal !== 'pro') return ''
-    if (plan.key === 'supporter') return 'lg:order-1'
-    if (plan.key === 'pro') return 'lg:order-2'
-    return 'lg:order-3'
+    if (props.conversionGoal !== 'unleash') return ''
+    if (plan.key === 'uncover') return 'lg:order-1'
+    if (plan.key === 'unlock') return 'lg:order-2'
+    if (plan.key === 'unleash') return 'lg:order-3'
+    return 'lg:order-4'
   }
 
   function getButtonLabel(plan: PricingPlan): string {
     if (isCurrentPlan(plan)) return translate('btn.current_plan')
     if (status.value !== 'authenticated') {
       if (plan.key === 'free') return translate('btn.start_free')
-      if (plan.key === 'supporter') return translate('btn.get_supporter')
-      return translate('btn.get_pro')
+      if (plan.key === 'uncover') return translate('btn.get_uncover')
+      if (plan.key === 'unlock') return translate('btn.get_unlock')
+      return translate('btn.get_unleash')
     }
 
     const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-    const tiers = ['FREE', 'SUPPORTER', 'PRO']
+    const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
     const currentLevel = tiers.indexOf(currentTier)
     const planLevel = tiers.indexOf(plan.key.toUpperCase())
 
     if (planLevel > currentLevel) {
-      return plan.key === 'pro' ? translate('btn.upgrade_pro') : translate('btn.choose_supporter')
+      return translate('btn.upgrade')
     }
     if (planLevel < currentLevel) {
-      return plan.key === 'free'
-        ? translate('btn.downgrade_free')
-        : translate('btn.switch_supporter')
+      return translate('btn.downgrade')
     }
     return translate('btn.current_plan')
   }
@@ -364,7 +366,7 @@
     const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
     if (priceId) {
       const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-      const tiers = ['FREE', 'SUPPORTER', 'PRO']
+      const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
       const currentLevel = tiers.indexOf(currentTier)
       const planLevel = tiers.indexOf(plan.key.toUpperCase())
       const direction = planLevel > currentLevel ? 'upgrade' : 'downgrade'
@@ -385,7 +387,7 @@
   async function handlePlanSelect(plan: PricingPlan) {
     if (userStore.user?.stripeCustomerId && userStore.user?.subscriptionTier !== 'FREE') {
       const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-      const tiers = ['FREE', 'SUPPORTER', 'PRO']
+      const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
       const currentLevel = tiers.indexOf(currentTier)
       const planLevel = tiers.indexOf(plan.key.toUpperCase())
 

@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div
         ref="headerRef"
-        class="mx-auto mb-16 max-w-2xl text-center transition-all duration-700 transform relative bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+        class="mx-auto mb-16 max-w-2xl text-center transition-all duration-700 transform relative bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] pointer-events-auto"
         :class="[isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
       >
         <div
@@ -25,7 +25,7 @@
       >
         <!-- Tier 1: FREE -->
         <UCard
-          class="flex flex-col justify-between bg-slate-950/60 backdrop-blur-sm border border-cyan-500/20 h-full transition-all duration-700 transform hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-400/50"
+          class="flex flex-col justify-between bg-slate-950/60 backdrop-blur-sm border border-cyan-500/20 h-full transition-all duration-700 transform hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-400/50 pointer-events-auto"
           :class="[isCardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16']"
           :style="{ transitionDelay: '100ms' }"
         >
@@ -69,7 +69,7 @@
 
         <!-- Tier 2: UNCOVER -->
         <UCard
-          class="flex flex-col justify-between bg-slate-900/60 backdrop-blur-md border border-cyan-500/20 h-full transition-all duration-700 transform hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-400/50"
+          class="flex flex-col justify-between bg-slate-900/60 backdrop-blur-md border border-cyan-500/20 h-full transition-all duration-700 transform hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-400/50 pointer-events-auto"
           :class="[isCardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16']"
           :style="{ transitionDelay: '200ms' }"
         >
@@ -115,7 +115,7 @@
 
         <!-- Tier 3: UNLOCK -->
         <UCard
-          class="flex flex-col justify-between bg-slate-900/60 backdrop-blur-md border border-pink-500/50 ring-1 ring-pink-500/50 h-full relative overflow-hidden transition-all duration-700 transform hover:shadow-[0_0_30px_rgba(236,72,153,0.3)]"
+          class="flex flex-col justify-between bg-slate-900/60 backdrop-blur-md border border-pink-500/50 ring-1 ring-pink-500/50 h-full relative overflow-hidden transition-all duration-700 transform hover:shadow-[0_0_30px_rgba(236,72,153,0.3)] pointer-events-auto"
           :class="[isCardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16']"
           :style="{ transitionDelay: '300ms' }"
         >
@@ -172,7 +172,7 @@
 
         <!-- Tier 4: UNLEASH -->
         <UCard
-          class="flex flex-col justify-between bg-slate-900/60 backdrop-blur-md border border-cyan-500/20 h-full transition-all duration-700 transform hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-400/50"
+          class="flex flex-col justify-between bg-slate-900/60 backdrop-blur-md border border-cyan-500/20 h-full transition-all duration-700 transform hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:border-cyan-400/50 pointer-events-auto"
           :class="[isCardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16']"
           :style="{ transitionDelay: '400ms' }"
         >

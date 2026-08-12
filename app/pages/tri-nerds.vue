@@ -3,7 +3,7 @@
     <div class="pointer-events-none fixed inset-0 z-10 opacity-[0.03] grain-overlay" />
 
     <!-- Interactive Background Pattern -->
-    <div class="fixed inset-0 z-0 opacity-40">
+    <div class="fixed inset-0 z-10 opacity-40">
       <UiInteractiveGridPattern
         :squares="[60, 40]"
         squares-class-name="text-cyan-500/50 hover:text-purple-400/80"
@@ -11,10 +11,10 @@
       />
     </div>
 
-    <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32 z-10 pointer-events-none">
+    <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32 z-20 pointer-events-none">
       <!-- Continuous Glowing Hyperlane Route Line -->
       <div
-        class="absolute left-6 sm:left-1/2 top-0 bottom-0 w-0.5 sm:-translate-x-1/2 bg-slate-800/50 pointer-events-none z-0"
+        class="absolute left-6 sm:left-1/2 top-24 sm:top-32 bottom-0 w-0.5 sm:-translate-x-1/2 bg-slate-800/50 pointer-events-none z-0"
       >
         <div
           class="w-full bg-linear-to-b from-cyan-400 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all duration-100 ease-out"
@@ -22,20 +22,20 @@
         ></div>
       </div>
 
-      <div ref="heroSectionRef" class="pointer-events-auto">
-        <LandingHero class="mb-8 sm:mb-12 relative z-10" />
+      <div ref="heroSectionRef" class="relative z-20 pointer-events-none">
+        <LandingHero class="mb-8 sm:mb-12 relative z-20" />
       </div>
 
-      <div ref="originSectionRef" class="pointer-events-auto">
-        <LandingOriginStory class="py-16 sm:py-20 relative z-10" />
+      <div ref="originSectionRef" class="relative z-20 pointer-events-none">
+        <LandingOriginStory class="py-16 sm:py-20 relative z-20" />
       </div>
 
-      <div ref="journeySectionRef" class="pointer-events-auto">
-        <LandingJourneyTimeline class="py-16 sm:py-20 relative z-10" />
+      <div ref="journeySectionRef" class="relative z-20 pointer-events-none">
+        <LandingJourneyTimeline class="py-16 sm:py-20 relative z-20" />
       </div>
 
-      <div ref="pricingSectionRef" class="pointer-events-auto">
-        <LandingPricing class="py-20 sm:py-24 relative z-10" />
+      <div ref="pricingSectionRef" class="relative z-20 pointer-events-none">
+        <LandingPricing class="py-20 sm:py-24 relative z-20" />
       </div>
 
       <!-- The Final Waypoint Node -->
@@ -52,20 +52,22 @@
     <!-- Closing band (The Footer / Community Hook) -->
     <section
       ref="closingSectionRef"
-      class="bg-slate-900/80 backdrop-blur-md px-6 pt-12 pb-24 sm:pb-32 lg:px-8 transition-all duration-700 transform relative z-10"
+      class="px-6 pt-12 pb-24 sm:pb-32 lg:px-8 transition-all duration-700 transform relative z-20 pointer-events-none"
       :class="[isClosingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
     >
-      <div class="mx-auto flex max-w-352 flex-col items-center text-center gap-8 mt-12 sm:mt-16">
+      <div
+        class="mx-auto flex max-w-4xl flex-col items-center text-center gap-4 mt-12 sm:mt-16 bg-slate-950 p-6 sm:p-8 rounded-[3rem] border border-white/5 shadow-2xl relative z-20 pointer-events-auto"
+      >
         <h2
           class="font-athletic text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl"
         >
           The Journey is the Destination.
         </h2>
-        <p class="mt-4 max-w-2xl text-lg leading-8 text-cyan-100/70">
+        <p class="mt-2 max-w-2xl text-lg leading-8 text-cyan-100/70">
           Whether you're training for your first sprint triathlon or trying to shave 5 minutes off
           your Ironman PR, do it with the data on your side and the community at your back.
         </p>
-        <div class="mt-8 flex flex-wrap items-center gap-4">
+        <div class="mt-4 flex flex-wrap items-center gap-4">
           <UButton
             size="xl"
             to="/join"

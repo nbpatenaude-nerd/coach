@@ -33,12 +33,18 @@ export function resolveProviderProductTier(
   entitlementIds: string[] = [],
   config = useRuntimeConfig()
 ): SubscriptionTier {
-  if (entitlementIds.includes('pro')) return 'PRO'
-  if (entitlementIds.includes('supporter')) return 'SUPPORTER'
-  const supporter = csv(config.subscriptionSupporterProductIds)
-  const pro = csv(config.subscriptionProProductIds)
-  if (pro.includes(productId)) return 'PRO'
-  if (supporter.includes(productId)) return 'SUPPORTER'
+  if (entitlementIds.includes('unleash')) return 'UNLEASH'
+  if (entitlementIds.includes('unlock')) return 'UNLOCK'
+  if (entitlementIds.includes('uncover')) return 'UNCOVER'
+
+  const uncover = csv(config.subscriptionUncoverProductIds)
+  const unlock = csv(config.subscriptionUnlockProductIds)
+  const unleash = csv(config.subscriptionUnleashProductIds)
+
+  if (unleash.includes(productId)) return 'UNLEASH'
+  if (unlock.includes(productId)) return 'UNLOCK'
+  if (uncover.includes(productId)) return 'UNCOVER'
+
   throw createError({
     statusCode: 422,
     message: `Unknown subscription product '${productId}'; update ${PRODUCT_MAPPING_DOC}`
@@ -89,7 +95,7 @@ export async function recomputeCanonicalSubscription(userId: string) {
   const projection = projectProviderSubscriptions(subscriptions)
   if (user.subscriptionStatus !== 'CONTRIBUTOR') {
     const primary = projection.valid.sort((a, b) => {
-      const ranks = { FREE: 0, SUPPORTER: 1, PRO: 2 }
+      const ranks = { FREE: 0, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
       return ranks[b.tier] - ranks[a.tier]
     })[0]
     await prisma.user.update({
@@ -205,7 +211,7 @@ export async function subscriptionSummary(userId: string) {
     ...user,
     promotionalGrantTier: activePromotionalGrant?.tier ?? null
   }).tier
-  const ranks = { FREE: 0, SUPPORTER: 1, PRO: 2 }
+  const ranks = { FREE: 0, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
   const tier = ranks[legacyTier] > ranks[projection.tier] ? legacyTier : projection.tier
   return {
     tier,
