@@ -211,6 +211,12 @@ model User {
   workoutTemplateFolders             WorkoutTemplateFolder[]
   participatingEvents                Event[]                         @relation("EventParticipants")
 
+  // CRM Fields
+  pipelineStage                      String?                         @default("Lead")
+  driveFolderId                      String?
+  crmTags                            String[]                        @default([])
+  coachNotes                         CoachNote[]
+
   @@index([createdAt])
   @@index([deactivatedAt])
   @@index([subscriptionTier])
@@ -233,6 +239,18 @@ model Referral {
   @@index([referrerUserId])
   @@index([code])
   @@index([status])
+}
+
+model CoachNote {
+  id            String   @id @default(uuid())
+  userId        String
+  text          String
+  isAiSummary   Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model SportSettings {
@@ -2601,6 +2619,9 @@ enum Role {
   UNLOCK
   UNLEASH
   ADMIN
+  ONE_ON_ONE
+  GROUP
+  BASIC
 }
 
 enum ReferralStatus {

@@ -373,6 +373,22 @@
                   }
                 },
                 {
+                  label: 'CRM',
+                  icon: 'i-lucide-contact',
+                  to: '/coaching/crm',
+                  onSelect: () => {
+                    open.value = false
+                  }
+                },
+                {
+                  label: 'Check-In Analysis',
+                  icon: 'i-lucide-line-chart',
+                  to: '/coaching/check-in-analysis',
+                  onSelect: () => {
+                    open.value = false
+                  }
+                },
+                {
                   label: 'Analytics',
                   icon: 'i-lucide-bar-chart-3',
                   to: '/analytics',
@@ -688,6 +704,16 @@
                       label: label('navigation_coaching_athletes', 'Athletes'),
                       icon: 'i-lucide-users-round',
                       to: '/coaching/athletes'
+                    },
+                    {
+                      label: label('navigation_coaching_crm', 'CRM'),
+                      icon: 'i-lucide-contact',
+                      to: '/coaching/crm'
+                    },
+                    {
+                      label: label('navigation_coaching_checkin_analysis', 'Check-In Analysis'),
+                      icon: 'i-lucide-line-chart',
+                      to: '/coaching/check-in-analysis'
                     },
                     {
                       label: label('navigation_analytics', 'Analytics'),
