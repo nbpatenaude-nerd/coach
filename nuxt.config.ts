@@ -119,6 +119,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  fonts: {
+    provider: 'bunny'
+  },
+
   app: {
     head: {
       titleTemplate: '%s - Journey Endurance Coaching',
