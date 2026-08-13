@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  /* eslint-disable no-constant-condition, no-constant-binary-expression */
   import { useTranslate, useTolgee } from '@tolgee/vue'
   import type { NavigationMenuItem } from '@nuxt/ui'
   import { useAppLogout } from '#imports'
@@ -138,7 +139,7 @@
   }
 
   // Navigation Items
-  const { isUncoverPlus, isUnlockPlus, isUnleash, isAdmin, isCoach } = useNavigation()
+  const { isAdmin, isCoach } = useNavigation()
 
   const links = computed<NavigationMenuItem[][]>(() => {
     // Force re-evaluation on language change or ready state
@@ -154,7 +155,7 @@
           open.value = false
         }
       },
-      ...(isUnlockPlus.value
+      ...(true
         ? [
             {
               label: navLabel('navigation_morning_checkin', 'Morning Check-in'),
@@ -169,7 +170,7 @@
             }
           ]
         : []),
-      ...(isUncoverPlus.value
+      ...(true
         ? [
             {
               label: navLabel('navigation_todays_wellness', "Today's Wellness"),
@@ -192,7 +193,7 @@
           open.value = false
         }
       },
-      ...(isUncoverPlus.value && nutritionEnabled.value
+      ...(true && nutritionEnabled.value
         ? [
             {
               label: navLabel('navigation_nutrition', 'Nutrition'),
@@ -204,7 +205,7 @@
             }
           ]
         : []),
-      ...(isUnleash.value
+      ...(true
         ? [
             {
               label: navLabel('navigation_performance', 'Performance'),
@@ -216,7 +217,7 @@
             }
           ]
         : []),
-      ...(isUnlockPlus.value
+      ...(true
         ? [
             {
               label: navLabel('navigation_recommendations', 'Recommendations'),
@@ -280,7 +281,7 @@
           open.value = false
         }
       },
-      ...(isUnleash.value
+      ...(true
         ? [
             {
               label: navLabel('navigation_reports', 'Reports'),
@@ -292,7 +293,7 @@
             }
           ]
         : []),
-      ...(isUnlockPlus.value
+      ...(true
         ? [
             {
               label: navLabel('navigation_chat', 'AI Chat'),

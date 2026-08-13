@@ -492,7 +492,7 @@
                       {{ t('execution_balance_header') }}
                     </h3>
                   </template>
-                  <div class="h-[320px]">
+                  <div class="h-80">
                     <ClientOnly>
                       <RadarChart
                         :scores="{
@@ -649,7 +649,7 @@
                       {{ t('metabolic_balance_header') }}
                     </h3>
                   </template>
-                  <div class="h-[320px]">
+                  <div class="h-80">
                     <ClientOnly>
                       <RadarChart
                         :scores="{
@@ -692,20 +692,6 @@
 
 <script setup lang="ts">
   import { useTranslate } from '@tolgee/vue'
-  import ActivityHighlights from '~/components/ActivityHighlights.vue'
-  import PowerCurveChart from '~/components/PowerCurveChart.vue'
-  import EfficiencyTrendChart from '~/components/EfficiencyTrendChart.vue'
-  import ReadinessCorrelationChart from '~/components/ReadinessCorrelationChart.vue'
-  import ChartSettingsModal from '~/components/charts/ChartSettingsModal.vue'
-  import PerformanceSettingsModal from '~/components/performance/PerformanceSettingsModal.vue'
-  import PerformancePmcCard from '~/components/performance/PerformancePmcCard.vue'
-  import PerformancePowerCurveCard from '~/components/performance/PerformancePowerCurveCard.vue'
-  import PerformanceEfficiencyCard from '~/components/performance/PerformanceEfficiencyCard.vue'
-  import PerformanceFtpEvolutionCard from '~/components/performance/PerformanceFtpEvolutionCard.vue'
-  import PerformanceIntensityDistributionCard from '~/components/performance/PerformanceIntensityDistributionCard.vue'
-  import PerformanceScoreTrajectoryCard from '~/components/performance/PerformanceScoreTrajectoryCard.vue'
-  import PerformanceBestsSummary from '~/components/performance/PerformanceBestsSummary.vue'
-  import ChartDataLabels from 'chartjs-plugin-datalabels'
 
   const { t } = useTranslate('performance')
   const { t: tc } = useTranslate('common')

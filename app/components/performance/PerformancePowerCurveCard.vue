@@ -144,8 +144,6 @@
 </template>
 
 <script setup lang="ts">
-  import PowerCurveChart from '~/components/PowerCurveChart.vue'
-
   defineProps<{
     settings: any
     scopeOptions: any[]

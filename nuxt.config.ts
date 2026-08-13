@@ -492,15 +492,15 @@ export default defineNuxtConfig({
     }
   },
 
-  sentry: {
-    enabled: false,
-    org: process.env.SENTRY_ORG || 'watt-mind',
-    project: process.env.SENTRY_PROJECT || 'coach-watts-web',
-    sourceMapsUploadOptions: {
-      enabled: !!process.env.SENTRY_AUTH_TOKEN,
-      telemetry: false
-    }
-  },
+  // sentry: {
+  //   enabled: false,
+  //   org: process.env.SENTRY_ORG || 'watt-mind',
+  //   project: process.env.SENTRY_PROJECT || 'coach-watts-web',
+  //   sourceMapsUploadOptions: {
+  //     enabled: !!process.env.SENTRY_AUTH_TOKEN,
+  //     telemetry: false
+  //   }
+  // },
 
   sourcemap: {
     client: process.env.SOURCEMAP === 'false' ? false : 'hidden'

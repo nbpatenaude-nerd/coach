@@ -229,18 +229,12 @@
               </div>
 
               <!-- Row: Coach Interaction (Feedback) -->
-              <div
-                v-if="isUnlockPlus"
-                class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2"
-              >
+              <div class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2">
                 <!-- "Ask Coach" launcher -->
                 <DashboardCoachFeedback />
               </div>
 
-              <div
-                v-if="isUnlockPlus"
-                class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2"
-              >
+              <div class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2">
                 <UCard>
                   <h3 class="font-bold mb-1">Active Recovery Context</h3>
                   <p class="text-sm text-gray-500">
@@ -272,20 +266,18 @@
                   <DashboardMonthlyComparisonCard v-if="canUseDashboardActions" />
 
                   <!-- Performance Overview Card -->
-                  <template v-if="isUnleash">
-                    <DashboardPerformanceScoresCard
-                      ref="performanceScoresCard"
-                      @open-score="openScoreModal"
-                    />
-                    <UCard class="mt-4">
-                      <h3 class="font-bold mb-1">Telemetry Radar</h3>
-                      <p class="text-sm text-gray-500">ACWR, EF, Biomechanical Risk</p>
-                    </UCard>
-                    <UCard class="mt-4">
-                      <h3 class="font-bold mb-1">Live Energy Availability</h3>
-                      <p class="text-sm text-gray-500">Tracking calorie deficit.</p>
-                    </UCard>
-                  </template>
+                  <DashboardPerformanceScoresCard
+                    ref="performanceScoresCard"
+                    @open-score="openScoreModal"
+                  />
+                  <UCard class="mt-4">
+                    <h3 class="font-bold mb-1">Telemetry Radar</h3>
+                    <p class="text-sm text-gray-500">ACWR, EF, Biomechanical Risk</p>
+                  </UCard>
+                  <UCard class="mt-4">
+                    <h3 class="font-bold mb-1">Live Energy Availability</h3>
+                    <p class="text-sm text-gray-500">Tracking calorie deficit.</p>
+                  </UCard>
                 </div>
               </div>
 
@@ -535,11 +527,10 @@
   } from '~/utils/activity-types'
   import { getCalendarActivities } from '~/utils/calendar'
   import { showDashboardProgressToast } from '~/utils/dashboard-progress-toast'
-  import DashboardTrialEndedModal from '~/components/dashboard/TrialEndedModal.vue'
 
   const { t } = useTranslate('dashboard')
   const { trackWidgetClick } = useAnalytics()
-  const { isFree, isUncoverPlus, isUnlockPlus, isUnleash } = useNavigation()
+  const { isFree } = useNavigation()
 
   const { formatDate, formatDateUTC, getUserLocalDate } = useFormat()
 

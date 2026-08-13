@@ -2,29 +2,21 @@ export const useNavigation = () => {
   const { data } = useAuth()
 
   // Safe role access with a fallback to FREE
-  const role = computed(() => data.value?.user?.role || 'FREE')
+  const role = computed(() => (data.value?.user as any)?.role || 'FREE')
 
-  // Tier level checks
   const isFree = computed(() => role.value === 'FREE')
 
-  const isUncoverPlus = computed(() =>
-    ['UNCOVER', 'UNLOCK', 'UNLEASH', 'ADMIN'].includes(role.value)
+  const isAdmin = computed(
+    () => role.value === 'ADMIN' || (data.value?.user as any)?.isAdmin === true
   )
 
-  const isUnlockPlus = computed(() => ['UNLOCK', 'UNLEASH', 'ADMIN'].includes(role.value))
-
-  const isUnleash = computed(() => ['UNLEASH', 'ADMIN'].includes(role.value))
-
-  const isAdmin = computed(() => role.value === 'ADMIN' || data.value?.user?.isAdmin === true)
-
-  const isCoach = computed(() => role.value === 'ADMIN' || data.value?.user?.isCoach === true)
+  const isCoach = computed(
+    () => role.value === 'ADMIN' || (data.value?.user as any)?.isCoach === true
+  )
 
   return {
     role,
     isFree,
-    isUncoverPlus,
-    isUnlockPlus,
-    isUnleash,
     isAdmin,
     isCoach
   }

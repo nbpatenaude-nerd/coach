@@ -44,7 +44,7 @@
         recommendationStore.generating ||
         recommendationStore.generatingAdHoc
       "
-      class="text-sm text-muted py-4 text-center flex-grow"
+      class="text-sm text-muted py-4 text-center grow"
     >
       <UIcon name="i-heroicons-arrow-path" class="w-5 h-5 animate-spin inline" />
       <p class="mt-2">{{ getLoadingText() }}</p>
@@ -56,7 +56,7 @@
       </p>
     </div>
 
-    <div v-else class="flex-grow space-y-4">
+    <div v-else class="grow space-y-4">
       <!-- The Plan Section -->
       <div
         class="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg border border-gray-100 dark:border-gray-800"
@@ -106,7 +106,7 @@
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center gap-2">
                     <h4
-                      class="font-bold text-sm text-gray-900 dark:text-white group-hover:text-primary transition-colors break-words"
+                      class="font-bold text-sm text-gray-900 dark:text-white group-hover:text-primary transition-colors wrap-break-word"
                     >
                       {{ workout.title }}
                     </h4>
@@ -282,7 +282,7 @@
 
       <!-- The Insight Section -->
       <div v-if="recommendationStore.todayRecommendation" class="space-y-3">
-        <p class="text-sm break-words leading-relaxed">
+        <p class="text-sm wrap-break-word leading-relaxed">
           {{ recommendationStore.todayRecommendation.reasoning }}
         </p>
 
@@ -326,7 +326,7 @@
               <span>{{ t('training_recommendation_accepted') }}</span>
             </div>
           </div>
-          <p class="text-sm text-blue-800 dark:text-blue-200 break-words leading-snug">
+          <p class="text-sm text-blue-800 dark:text-blue-200 wrap-break-word leading-snug">
             {{
               recommendationStore.todayRecommendation.analysisJson.suggested_modifications
                 .description
@@ -478,10 +478,7 @@
 
 <script setup lang="ts">
   import { useTranslate } from '@tolgee/vue'
-  import DashboardCreateAdHocModal from '~/components/dashboard/DashboardCreateAdHocModal.vue'
-  import DashboardRefineRecommendationModal from '~/components/dashboard/DashboardRefineRecommendationModal.vue'
-  import RecoveryContextSlideover from '~/components/recovery/RecoveryContextSlideover.vue'
-  import MiniWorkoutChart from '~/components/workouts/MiniWorkoutChart.vue'
+  import { useDraggable } from '@vueuse/core'
   import { showDashboardProgressToast } from '~/utils/dashboard-progress-toast'
   import { getDefaultSportSettings, getSportSettingsForActivity } from '~/utils/sportSettings'
   import {

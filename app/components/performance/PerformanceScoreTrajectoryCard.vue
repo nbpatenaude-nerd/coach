@@ -32,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-  import TrendChart from '~/components/TrendChart.vue'
   import ChartDataLabels from 'chartjs-plugin-datalabels'
 
   defineProps<{
