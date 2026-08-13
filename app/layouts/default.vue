@@ -229,18 +229,14 @@
             }
           ]
         : []),
-      ...(isCoach.value
-        ? [
-            {
-              label: navLabel('navigation_training_plan', 'Training Plan'),
-              icon: 'i-lucide-calendar',
-              to: '/plan',
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
+      {
+        label: navLabel('navigation_training_plan', 'Training Plan'),
+        icon: 'i-lucide-calendar',
+        to: '/plan',
+        onSelect: () => {
+          open.value = false
+        }
+      },
       {
         label: navLabel('navigation_workouts', 'Workouts'),
         icon: 'i-lucide-activity',
