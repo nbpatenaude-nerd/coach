@@ -104,7 +104,7 @@
 
           <!-- Dashboard Grid -->
           <template v-else>
-            <div class="p-0 sm:p-6 !pt-0 space-y-4 sm:space-y-8">
+            <div class="p-0 sm:p-6 pt-0! space-y-4 sm:space-y-8">
               <DashboardSetupProgressCard
                 v-if="showCompactSetupCard && onboardingStatus"
                 :status="onboardingStatus"

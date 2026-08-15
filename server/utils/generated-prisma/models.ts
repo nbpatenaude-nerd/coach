@@ -9,6 +9,7 @@
  */
 export type * from './models/User.js'
 export type * from './models/Referral.js'
+export type * from './models/CoachNote.js'
 export type * from './models/SportSettings.js'
 export type * from './models/SystemMessage.js'
 export type * from './models/UserSystemMessageDismissal.js'

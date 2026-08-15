@@ -27,6 +27,11 @@ export type User = Prisma.UserModel
  */
 export type Referral = Prisma.ReferralModel
 /**
+ * Model CoachNote
+ *
+ */
+export type CoachNote = Prisma.CoachNoteModel
+/**
  * Model SportSettings
  *
  */

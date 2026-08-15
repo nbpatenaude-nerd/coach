@@ -164,6 +164,8 @@ export type UserMinAggregateOutputType = {
   role: $Enums.Role | null
   intervalsApiKey: string | null
   intervalsAthleteId: string | null
+  pipelineStage: string | null
+  driveFolderId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -271,6 +273,8 @@ export type UserMaxAggregateOutputType = {
   role: $Enums.Role | null
   intervalsApiKey: string | null
   intervalsAthleteId: string | null
+  pipelineStage: string | null
+  driveFolderId: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -390,6 +394,9 @@ export type UserCountAggregateOutputType = {
   role: number
   intervalsApiKey: number
   intervalsAthleteId: number
+  pipelineStage: number
+  driveFolderId: number
+  crmTags: number
   _all: number
 }
 
@@ -532,6 +539,8 @@ export type UserMinAggregateInputType = {
   role?: true
   intervalsApiKey?: true
   intervalsAthleteId?: true
+  pipelineStage?: true
+  driveFolderId?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -639,6 +648,8 @@ export type UserMaxAggregateInputType = {
   role?: true
   intervalsApiKey?: true
   intervalsAthleteId?: true
+  pipelineStage?: true
+  driveFolderId?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -758,6 +769,9 @@ export type UserCountAggregateInputType = {
   role?: true
   intervalsApiKey?: true
   intervalsAthleteId?: true
+  pipelineStage?: true
+  driveFolderId?: true
+  crmTags?: true
   _all?: true
 }
 
@@ -965,6 +979,9 @@ export type UserGroupByOutputType = {
   role: $Enums.Role
   intervalsApiKey: string | null
   intervalsAthleteId: string | null
+  pipelineStage: string | null
+  driveFolderId: string | null
+  crmTags: string[]
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -1105,6 +1122,9 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<'User'> | $Enums.Role
   intervalsApiKey?: Prisma.StringNullableFilter<'User'> | string | null
   intervalsAthleteId?: Prisma.StringNullableFilter<'User'> | string | null
+  pipelineStage?: Prisma.StringNullableFilter<'User'> | string | null
+  driveFolderId?: Prisma.StringNullableFilter<'User'> | string | null
+  crmTags?: Prisma.StringNullableListFilter<'User'>
   accounts?: Prisma.AccountListRelationFilter
   activityRecommendations?: Prisma.ActivityRecommendationListRelationFilter
   apiKeys?: Prisma.ApiKeyListRelationFilter
@@ -1196,6 +1216,7 @@ export type UserWhereInput = {
   workoutTemplates?: Prisma.WorkoutTemplateListRelationFilter
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderListRelationFilter
   participatingEvents?: Prisma.EventListRelationFilter
+  coachNotes?: Prisma.CoachNoteListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -1315,6 +1336,9 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   intervalsApiKey?: Prisma.SortOrderInput | Prisma.SortOrder
   intervalsAthleteId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pipelineStage?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  crmTags?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   activityRecommendations?: Prisma.ActivityRecommendationOrderByRelationAggregateInput
   apiKeys?: Prisma.ApiKeyOrderByRelationAggregateInput
@@ -1397,6 +1421,7 @@ export type UserOrderByWithRelationInput = {
   workoutTemplates?: Prisma.WorkoutTemplateOrderByRelationAggregateInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderOrderByRelationAggregateInput
   participatingEvents?: Prisma.EventOrderByRelationAggregateInput
+  coachNotes?: Prisma.CoachNoteOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -1521,6 +1546,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     role?: Prisma.EnumRoleFilter<'User'> | $Enums.Role
     intervalsApiKey?: Prisma.StringNullableFilter<'User'> | string | null
     intervalsAthleteId?: Prisma.StringNullableFilter<'User'> | string | null
+    pipelineStage?: Prisma.StringNullableFilter<'User'> | string | null
+    driveFolderId?: Prisma.StringNullableFilter<'User'> | string | null
+    crmTags?: Prisma.StringNullableListFilter<'User'>
     accounts?: Prisma.AccountListRelationFilter
     activityRecommendations?: Prisma.ActivityRecommendationListRelationFilter
     apiKeys?: Prisma.ApiKeyListRelationFilter
@@ -1612,6 +1640,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     workoutTemplates?: Prisma.WorkoutTemplateListRelationFilter
     workoutTemplateFolders?: Prisma.WorkoutTemplateFolderListRelationFilter
     participatingEvents?: Prisma.EventListRelationFilter
+    coachNotes?: Prisma.CoachNoteListRelationFilter
   },
   | 'id'
   | 'email'
@@ -1740,6 +1769,9 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   intervalsApiKey?: Prisma.SortOrderInput | Prisma.SortOrder
   intervalsAthleteId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pipelineStage?: Prisma.SortOrderInput | Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  crmTags?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -1874,6 +1906,9 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumRoleWithAggregatesFilter<'User'> | $Enums.Role
   intervalsApiKey?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
   intervalsAthleteId?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
+  pipelineStage?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
+  driveFolderId?: Prisma.StringNullableWithAggregatesFilter<'User'> | string | null
+  crmTags?: Prisma.StringNullableListFilter<'User'>
 }
 
 export type UserCreateInput = {
@@ -1992,6 +2027,9 @@ export type UserCreateInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -2074,6 +2112,7 @@ export type UserCreateInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -2193,6 +2232,9 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -2274,6 +2316,7 @@ export type UserUncheckedCreateInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -2397,6 +2440,9 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -2479,6 +2525,7 @@ export type UserUpdateInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -2603,6 +2650,9 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -2684,6 +2734,7 @@ export type UserUncheckedUpdateInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -2803,6 +2854,9 @@ export type UserCreateManyInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
 }
 
 export type UserUpdateManyMutationInput = {
@@ -2926,6 +2980,9 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -3050,6 +3107,17 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type UserNullableScalarRelationFilter = {
@@ -3184,6 +3252,9 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   intervalsApiKey?: Prisma.SortOrder
   intervalsAthleteId?: Prisma.SortOrder
+  pipelineStage?: Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrder
+  crmTags?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -3308,6 +3379,8 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   intervalsApiKey?: Prisma.SortOrder
   intervalsAthleteId?: Prisma.SortOrder
+  pipelineStage?: Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -3415,6 +3488,8 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   intervalsApiKey?: Prisma.SortOrder
   intervalsAthleteId?: Prisma.SortOrder
+  pipelineStage?: Prisma.SortOrder
+  driveFolderId?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -3437,6 +3512,10 @@ export type UserSumOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserCreatecrmTagsInput = {
+  set: string[]
 }
 
 export type UserCreateNestedOneWithoutReferralsGivenInput = {
@@ -3540,6 +3619,11 @@ export type NullableEnumTeamVisibilityFieldUpdateOperationsInput = {
 
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
+}
+
+export type UserUpdatecrmTagsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type UserUpdateOneWithoutReferralsGivenNestedInput = {
@@ -3666,6 +3750,32 @@ export type UserUpdateOneRequiredWithoutReferralsAsReferrerNestedInput = {
       Prisma.UserUpdateWithoutReferralsAsReferrerInput
     >,
     Prisma.UserUncheckedUpdateWithoutReferralsAsReferrerInput
+  >
+}
+
+export type UserCreateNestedOneWithoutCoachNotesInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutCoachNotesInput,
+    Prisma.UserUncheckedCreateWithoutCoachNotesInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCoachNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCoachNotesNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutCoachNotesInput,
+    Prisma.UserUncheckedCreateWithoutCoachNotesInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCoachNotesInput
+  upsert?: Prisma.UserUpsertWithoutCoachNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutCoachNotesInput,
+      Prisma.UserUpdateWithoutCoachNotesInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutCoachNotesInput
   >
 }
 
@@ -5881,6 +5991,9 @@ export type UserCreateWithoutReferralsGivenInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -5962,6 +6075,7 @@ export type UserCreateWithoutReferralsGivenInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralsGivenInput = {
@@ -6081,6 +6195,9 @@ export type UserUncheckedCreateWithoutReferralsGivenInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -6161,6 +6278,7 @@ export type UserUncheckedCreateWithoutReferralsGivenInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralsGivenInput = {
@@ -6287,6 +6405,9 @@ export type UserCreateWithoutReferredByInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -6368,6 +6489,7 @@ export type UserCreateWithoutReferredByInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferredByInput = {
@@ -6486,6 +6608,9 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -6567,6 +6692,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferredByInput = {
@@ -6723,6 +6849,9 @@ export type UserUpdateWithoutReferralsGivenInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -6804,6 +6933,7 @@ export type UserUpdateWithoutReferralsGivenInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsGivenInput = {
@@ -6928,6 +7058,9 @@ export type UserUncheckedUpdateWithoutReferralsGivenInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -7008,6 +7141,7 @@ export type UserUncheckedUpdateWithoutReferralsGivenInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutReferredByInput = {
@@ -7159,6 +7293,9 @@ export type UserScalarWhereInput = {
   role?: Prisma.EnumRoleFilter<'User'> | $Enums.Role
   intervalsApiKey?: Prisma.StringNullableFilter<'User'> | string | null
   intervalsAthleteId?: Prisma.StringNullableFilter<'User'> | string | null
+  pipelineStage?: Prisma.StringNullableFilter<'User'> | string | null
+  driveFolderId?: Prisma.StringNullableFilter<'User'> | string | null
+  crmTags?: Prisma.StringNullableListFilter<'User'>
 }
 
 export type UserCreateWithoutReferralAsRefereeInput = {
@@ -7277,6 +7414,9 @@ export type UserCreateWithoutReferralAsRefereeInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -7358,6 +7498,7 @@ export type UserCreateWithoutReferralAsRefereeInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
@@ -7477,6 +7618,9 @@ export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -7557,6 +7701,7 @@ export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralAsRefereeInput = {
@@ -7683,6 +7828,9 @@ export type UserCreateWithoutReferralsAsReferrerInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -7764,6 +7912,7 @@ export type UserCreateWithoutReferralsAsReferrerInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
@@ -7883,6 +8032,9 @@ export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -7963,6 +8115,7 @@ export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralsAsReferrerInput = {
@@ -8114,6 +8267,9 @@ export type UserUpdateWithoutReferralAsRefereeInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -8195,6 +8351,7 @@ export type UserUpdateWithoutReferralAsRefereeInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
@@ -8319,6 +8476,9 @@ export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -8399,6 +8559,7 @@ export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralsAsReferrerInput = {
@@ -8542,6 +8703,9 @@ export type UserUpdateWithoutReferralsAsReferrerInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -8623,6 +8787,7 @@ export type UserUpdateWithoutReferralsAsReferrerInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
@@ -8747,6 +8912,9 @@ export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -8799,6 +8967,857 @@ export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
   quotaDenials?: Prisma.QuotaDenialUncheckedUpdateManyWithoutUserNestedInput
   recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
   referralAsReferee?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUncheckedUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUncheckedUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUncheckedUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUncheckedUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedUpdateManyWithoutUserNestedInput
+  referralsGiven?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUncheckedUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUncheckedUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCoachNotesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  events?: Prisma.EventCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsGivenInput
+  referralsGiven?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
+  participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+}
+
+export type UserUncheckedCreateWithoutCoachNotesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  referredByUserId?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportUncheckedCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageUncheckedCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryUncheckedCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionUncheckedCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppUncheckedCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestUncheckedCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenUncheckedCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsUncheckedCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueUncheckedCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedCreateNestedManyWithoutUserInput
+  referralsGiven?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessUncheckedCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetUncheckedCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
+  participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+}
+
+export type UserCreateOrConnectWithoutCoachNotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutCoachNotesInput,
+    Prisma.UserUncheckedCreateWithoutCoachNotesInput
+  >
+}
+
+export type UserUpsertWithoutCoachNotesInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutCoachNotesInput,
+    Prisma.UserUncheckedUpdateWithoutCoachNotesInput
+  >
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutCoachNotesInput,
+    Prisma.UserUncheckedCreateWithoutCoachNotesInput
+  >
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCoachNotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutCoachNotesInput,
+    Prisma.UserUncheckedUpdateWithoutCoachNotesInput
+  >
+}
+
+export type UserUpdateWithoutCoachNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsGivenNestedInput
+  referralsGiven?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
+  participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCoachNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referredByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUncheckedUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUncheckedUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUncheckedUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUncheckedUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUncheckedUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   reportTemplates?: Prisma.ReportTemplateUncheckedUpdateManyWithoutUserNestedInput
   scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedUpdateManyWithoutUserNestedInput
@@ -8945,6 +9964,9 @@ export type UserCreateWithoutSportSettingsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -9026,6 +10048,7 @@ export type UserCreateWithoutSportSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSportSettingsInput = {
@@ -9145,6 +10168,9 @@ export type UserUncheckedCreateWithoutSportSettingsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -9225,6 +10251,7 @@ export type UserUncheckedCreateWithoutSportSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSportSettingsInput = {
@@ -9376,6 +10403,9 @@ export type UserUpdateWithoutSportSettingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -9457,6 +10487,7 @@ export type UserUpdateWithoutSportSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSportSettingsInput = {
@@ -9581,6 +10612,9 @@ export type UserUncheckedUpdateWithoutSportSettingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -9661,6 +10695,7 @@ export type UserUncheckedUpdateWithoutSportSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSystemMessageDismissalsInput = {
@@ -9779,6 +10814,9 @@ export type UserCreateWithoutSystemMessageDismissalsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -9860,6 +10898,7 @@ export type UserCreateWithoutSystemMessageDismissalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
@@ -9979,6 +11018,9 @@ export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -10059,6 +11101,7 @@ export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSystemMessageDismissalsInput = {
@@ -10210,6 +11253,9 @@ export type UserUpdateWithoutSystemMessageDismissalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -10291,6 +11337,7 @@ export type UserUpdateWithoutSystemMessageDismissalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
@@ -10415,6 +11462,9 @@ export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -10495,6 +11545,7 @@ export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthAppsInput = {
@@ -10613,6 +11664,9 @@ export type UserCreateWithoutOauthAppsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -10694,6 +11748,7 @@ export type UserCreateWithoutOauthAppsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthAppsInput = {
@@ -10813,6 +11868,9 @@ export type UserUncheckedCreateWithoutOauthAppsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -10893,6 +11951,7 @@ export type UserUncheckedCreateWithoutOauthAppsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthAppsInput = {
@@ -11044,6 +12103,9 @@ export type UserUpdateWithoutOauthAppsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -11125,6 +12187,7 @@ export type UserUpdateWithoutOauthAppsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthAppsInput = {
@@ -11249,6 +12312,9 @@ export type UserUncheckedUpdateWithoutOauthAppsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -11329,6 +12395,7 @@ export type UserUncheckedUpdateWithoutOauthAppsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthConsentsInput = {
@@ -11447,6 +12514,9 @@ export type UserCreateWithoutOauthConsentsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -11528,6 +12598,7 @@ export type UserCreateWithoutOauthConsentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthConsentsInput = {
@@ -11647,6 +12718,9 @@ export type UserUncheckedCreateWithoutOauthConsentsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -11727,6 +12801,7 @@ export type UserUncheckedCreateWithoutOauthConsentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthConsentsInput = {
@@ -11878,6 +12953,9 @@ export type UserUpdateWithoutOauthConsentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -11959,6 +13037,7 @@ export type UserUpdateWithoutOauthConsentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthConsentsInput = {
@@ -12083,6 +13162,9 @@ export type UserUncheckedUpdateWithoutOauthConsentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -12163,6 +13245,7 @@ export type UserUncheckedUpdateWithoutOauthConsentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthCodesInput = {
@@ -12281,6 +13364,9 @@ export type UserCreateWithoutOauthCodesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -12362,6 +13448,7 @@ export type UserCreateWithoutOauthCodesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthCodesInput = {
@@ -12481,6 +13568,9 @@ export type UserUncheckedCreateWithoutOauthCodesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -12561,6 +13651,7 @@ export type UserUncheckedCreateWithoutOauthCodesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthCodesInput = {
@@ -12712,6 +13803,9 @@ export type UserUpdateWithoutOauthCodesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -12793,6 +13887,7 @@ export type UserUpdateWithoutOauthCodesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthCodesInput = {
@@ -12917,6 +14012,9 @@ export type UserUncheckedUpdateWithoutOauthCodesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -12997,6 +14095,7 @@ export type UserUncheckedUpdateWithoutOauthCodesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthTokensInput = {
@@ -13115,6 +14214,9 @@ export type UserCreateWithoutOauthTokensInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -13196,6 +14298,7 @@ export type UserCreateWithoutOauthTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthTokensInput = {
@@ -13315,6 +14418,9 @@ export type UserUncheckedCreateWithoutOauthTokensInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -13395,6 +14501,7 @@ export type UserUncheckedCreateWithoutOauthTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthTokensInput = {
@@ -13546,6 +14653,9 @@ export type UserUpdateWithoutOauthTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -13627,6 +14737,7 @@ export type UserUpdateWithoutOauthTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthTokensInput = {
@@ -13751,6 +14862,9 @@ export type UserUncheckedUpdateWithoutOauthTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -13831,6 +14945,7 @@ export type UserUncheckedUpdateWithoutOauthTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMcpToolExecutionsInput = {
@@ -13949,6 +15064,9 @@ export type UserCreateWithoutMcpToolExecutionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -14030,6 +15148,7 @@ export type UserCreateWithoutMcpToolExecutionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
@@ -14149,6 +15268,9 @@ export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -14229,6 +15351,7 @@ export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMcpToolExecutionsInput = {
@@ -14380,6 +15503,9 @@ export type UserUpdateWithoutMcpToolExecutionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -14461,6 +15587,7 @@ export type UserUpdateWithoutMcpToolExecutionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
@@ -14585,6 +15712,9 @@ export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -14665,6 +15795,7 @@ export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -14783,6 +15914,9 @@ export type UserCreateWithoutAuditLogsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -14864,6 +15998,7 @@ export type UserCreateWithoutAuditLogsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -14983,6 +16118,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -15063,6 +16201,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -15214,6 +16353,9 @@ export type UserUpdateWithoutAuditLogsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -15295,6 +16437,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -15419,6 +16562,9 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -15499,6 +16645,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShareTokensInput = {
@@ -15617,6 +16764,9 @@ export type UserCreateWithoutShareTokensInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -15698,6 +16848,7 @@ export type UserCreateWithoutShareTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShareTokensInput = {
@@ -15817,6 +16968,9 @@ export type UserUncheckedCreateWithoutShareTokensInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -15897,6 +17051,7 @@ export type UserUncheckedCreateWithoutShareTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShareTokensInput = {
@@ -16048,6 +17203,9 @@ export type UserUpdateWithoutShareTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -16129,6 +17287,7 @@ export type UserUpdateWithoutShareTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShareTokensInput = {
@@ -16253,6 +17412,9 @@ export type UserUncheckedUpdateWithoutShareTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -16333,6 +17495,7 @@ export type UserUncheckedUpdateWithoutShareTokensInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApiKeysInput = {
@@ -16451,6 +17614,9 @@ export type UserCreateWithoutApiKeysInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
@@ -16532,6 +17698,7 @@ export type UserCreateWithoutApiKeysInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApiKeysInput = {
@@ -16651,6 +17818,9 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
@@ -16731,6 +17901,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApiKeysInput = {
@@ -16882,6 +18053,9 @@ export type UserUpdateWithoutApiKeysInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
@@ -16963,6 +18137,7 @@ export type UserUpdateWithoutApiKeysInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApiKeysInput = {
@@ -17087,6 +18262,9 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
@@ -17167,6 +18345,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoachesInput = {
@@ -17285,6 +18464,9 @@ export type UserCreateWithoutCoachesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -17366,6 +18548,7 @@ export type UserCreateWithoutCoachesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachesInput = {
@@ -17485,6 +18668,9 @@ export type UserUncheckedCreateWithoutCoachesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -17565,6 +18751,7 @@ export type UserUncheckedCreateWithoutCoachesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachesInput = {
@@ -17691,6 +18878,9 @@ export type UserCreateWithoutAthletesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -17772,6 +18962,7 @@ export type UserCreateWithoutAthletesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAthletesInput = {
@@ -17891,6 +19082,9 @@ export type UserUncheckedCreateWithoutAthletesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -17971,6 +19165,7 @@ export type UserUncheckedCreateWithoutAthletesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAthletesInput = {
@@ -18122,6 +19317,9 @@ export type UserUpdateWithoutCoachesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -18203,6 +19401,7 @@ export type UserUpdateWithoutCoachesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachesInput = {
@@ -18327,6 +19526,9 @@ export type UserUncheckedUpdateWithoutCoachesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -18407,6 +19609,7 @@ export type UserUncheckedUpdateWithoutCoachesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutAthletesInput = {
@@ -18550,6 +19753,9 @@ export type UserUpdateWithoutAthletesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -18631,6 +19837,7 @@ export type UserUpdateWithoutAthletesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAthletesInput = {
@@ -18755,6 +19962,9 @@ export type UserUncheckedUpdateWithoutAthletesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -18835,6 +20045,7 @@ export type UserUncheckedUpdateWithoutAthletesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInvitesInput = {
@@ -18953,6 +20164,9 @@ export type UserCreateWithoutInvitesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -19034,6 +20248,7 @@ export type UserCreateWithoutInvitesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInvitesInput = {
@@ -19153,6 +20368,9 @@ export type UserUncheckedCreateWithoutInvitesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -19233,6 +20451,7 @@ export type UserUncheckedCreateWithoutInvitesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInvitesInput = {
@@ -19384,6 +20603,9 @@ export type UserUpdateWithoutInvitesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -19465,6 +20687,7 @@ export type UserUpdateWithoutInvitesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitesInput = {
@@ -19589,6 +20812,9 @@ export type UserUncheckedUpdateWithoutInvitesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -19669,6 +20895,7 @@ export type UserUncheckedUpdateWithoutInvitesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoachAthleteInvitesSentInput = {
@@ -19787,6 +21014,9 @@ export type UserCreateWithoutCoachAthleteInvitesSentInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -19868,6 +21098,7 @@ export type UserCreateWithoutCoachAthleteInvitesSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
@@ -19987,6 +21218,9 @@ export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -20067,6 +21301,7 @@ export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachAthleteInvitesSentInput = {
@@ -20218,6 +21453,9 @@ export type UserUpdateWithoutCoachAthleteInvitesSentInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -20299,6 +21537,7 @@ export type UserUpdateWithoutCoachAthleteInvitesSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
@@ -20423,6 +21662,9 @@ export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -20503,6 +21745,7 @@ export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoachingRequestsSentInput = {
@@ -20621,6 +21864,9 @@ export type UserCreateWithoutCoachingRequestsSentInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -20702,6 +21948,7 @@ export type UserCreateWithoutCoachingRequestsSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
@@ -20821,6 +22068,9 @@ export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -20901,6 +22151,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachingRequestsSentInput = {
@@ -21027,6 +22278,9 @@ export type UserCreateWithoutCoachingRequestsReceivedInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -21108,6 +22362,7 @@ export type UserCreateWithoutCoachingRequestsReceivedInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
@@ -21227,6 +22482,9 @@ export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -21307,6 +22565,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachingRequestsReceivedInput = {
@@ -21458,6 +22717,9 @@ export type UserUpdateWithoutCoachingRequestsSentInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -21539,6 +22801,7 @@ export type UserUpdateWithoutCoachingRequestsSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
@@ -21663,6 +22926,9 @@ export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -21743,6 +23009,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutCoachingRequestsReceivedInput = {
@@ -21886,6 +23153,9 @@ export type UserUpdateWithoutCoachingRequestsReceivedInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -21967,6 +23237,7 @@ export type UserUpdateWithoutCoachingRequestsReceivedInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
@@ -22091,6 +23362,9 @@ export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -22171,6 +23445,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -22289,6 +23564,9 @@ export type UserCreateWithoutGoalsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -22370,6 +23648,7 @@ export type UserCreateWithoutGoalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -22489,6 +23768,9 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -22569,6 +23851,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -22717,6 +24000,9 @@ export type UserUpdateWithoutGoalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -22798,6 +24084,7 @@ export type UserUpdateWithoutGoalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -22922,6 +24209,9 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -23002,6 +24292,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventsInput = {
@@ -23120,6 +24411,9 @@ export type UserCreateWithoutEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -23201,6 +24495,7 @@ export type UserCreateWithoutEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventsInput = {
@@ -23320,6 +24615,9 @@ export type UserUncheckedCreateWithoutEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -23400,6 +24698,7 @@ export type UserUncheckedCreateWithoutEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventsInput = {
@@ -23526,6 +24825,9 @@ export type UserCreateWithoutParticipatingEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -23607,6 +24909,7 @@ export type UserCreateWithoutParticipatingEventsInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutParticipatingEventsInput = {
@@ -23726,6 +25029,9 @@ export type UserUncheckedCreateWithoutParticipatingEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -23806,6 +25112,7 @@ export type UserUncheckedCreateWithoutParticipatingEventsInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutParticipatingEventsInput = {
@@ -23957,6 +25264,9 @@ export type UserUpdateWithoutEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -24038,6 +25348,7 @@ export type UserUpdateWithoutEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventsInput = {
@@ -24162,6 +25473,9 @@ export type UserUncheckedUpdateWithoutEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -24242,6 +25556,7 @@ export type UserUncheckedUpdateWithoutEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutParticipatingEventsInput = {
@@ -24388,6 +25703,9 @@ export type UserCreateWithoutAccountsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
@@ -24469,6 +25787,7 @@ export type UserCreateWithoutAccountsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -24588,6 +25907,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
@@ -24668,6 +25990,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -24819,6 +26142,9 @@ export type UserUpdateWithoutAccountsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
@@ -24900,6 +26226,7 @@ export type UserUpdateWithoutAccountsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -25024,6 +26351,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
@@ -25104,6 +26434,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -25222,6 +26553,9 @@ export type UserCreateWithoutSessionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -25303,6 +26637,7 @@ export type UserCreateWithoutSessionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -25422,6 +26757,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -25502,6 +26840,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -25653,6 +26992,9 @@ export type UserUpdateWithoutSessionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -25734,6 +27076,7 @@ export type UserUpdateWithoutSessionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -25858,6 +27201,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -25938,6 +27284,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutIntegrationsInput = {
@@ -26056,6 +27403,9 @@ export type UserCreateWithoutIntegrationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -26137,6 +27487,7 @@ export type UserCreateWithoutIntegrationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutIntegrationsInput = {
@@ -26256,6 +27607,9 @@ export type UserUncheckedCreateWithoutIntegrationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -26336,6 +27690,7 @@ export type UserUncheckedCreateWithoutIntegrationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutIntegrationsInput = {
@@ -26487,6 +27842,9 @@ export type UserUpdateWithoutIntegrationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -26568,6 +27926,7 @@ export type UserUpdateWithoutIntegrationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIntegrationsInput = {
@@ -26692,6 +28051,9 @@ export type UserUncheckedUpdateWithoutIntegrationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -26772,6 +28134,7 @@ export type UserUncheckedUpdateWithoutIntegrationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutsInput = {
@@ -26890,6 +28253,9 @@ export type UserCreateWithoutWorkoutsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -26971,6 +28337,7 @@ export type UserCreateWithoutWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutsInput = {
@@ -27090,6 +28457,9 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -27170,6 +28540,7 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutsInput = {
@@ -27321,6 +28692,9 @@ export type UserUpdateWithoutWorkoutsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -27402,6 +28776,7 @@ export type UserUpdateWithoutWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutsInput = {
@@ -27526,6 +28901,9 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -27606,6 +28984,7 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutTemplatesInput = {
@@ -27724,6 +29103,9 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -27805,6 +29187,7 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
@@ -27924,6 +29307,9 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -28004,6 +29390,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutTemplatesInput = {
@@ -28155,6 +29542,9 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -28236,6 +29626,7 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
@@ -28360,6 +29751,9 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -28440,6 +29834,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutTemplateFoldersInput = {
@@ -28558,6 +29953,9 @@ export type UserCreateWithoutWorkoutTemplateFoldersInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -28639,6 +30037,7 @@ export type UserCreateWithoutWorkoutTemplateFoldersInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
@@ -28758,6 +30157,9 @@ export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -28838,6 +30240,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutTemplateFoldersInput = {
@@ -28989,6 +30392,9 @@ export type UserUpdateWithoutWorkoutTemplateFoldersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -29070,6 +30476,7 @@ export type UserUpdateWithoutWorkoutTemplateFoldersInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
@@ -29194,6 +30601,9 @@ export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -29274,6 +30684,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
@@ -29392,6 +30803,9 @@ export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -29473,6 +30887,7 @@ export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
@@ -29592,6 +31007,9 @@ export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -29672,6 +31090,7 @@ export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStrengthExerciseLibraryItemsInput = {
@@ -29823,6 +31242,9 @@ export type UserUpdateWithoutStrengthExerciseLibraryItemsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -29904,6 +31326,7 @@ export type UserUpdateWithoutStrengthExerciseLibraryItemsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
@@ -30028,6 +31451,9 @@ export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -30108,6 +31534,7 @@ export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFitFilesInput = {
@@ -30226,6 +31653,9 @@ export type UserCreateWithoutFitFilesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -30307,6 +31737,7 @@ export type UserCreateWithoutFitFilesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFitFilesInput = {
@@ -30426,6 +31857,9 @@ export type UserUncheckedCreateWithoutFitFilesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -30506,6 +31940,7 @@ export type UserUncheckedCreateWithoutFitFilesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFitFilesInput = {
@@ -30657,6 +32092,9 @@ export type UserUpdateWithoutFitFilesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -30738,6 +32176,7 @@ export type UserUpdateWithoutFitFilesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFitFilesInput = {
@@ -30862,6 +32301,9 @@ export type UserUncheckedUpdateWithoutFitFilesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -30942,6 +32384,7 @@ export type UserUncheckedUpdateWithoutFitFilesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPlannedWorkoutsInput = {
@@ -31060,6 +32503,9 @@ export type UserCreateWithoutPlannedWorkoutsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -31141,6 +32587,7 @@ export type UserCreateWithoutPlannedWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
@@ -31260,6 +32707,9 @@ export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -31340,6 +32790,7 @@ export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlannedWorkoutsInput = {
@@ -31491,6 +32942,9 @@ export type UserUpdateWithoutPlannedWorkoutsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -31572,6 +33026,7 @@ export type UserUpdateWithoutPlannedWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
@@ -31696,6 +33151,9 @@ export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -31776,6 +33234,7 @@ export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
@@ -31894,6 +33353,9 @@ export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -31975,6 +33437,7 @@ export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
@@ -32094,6 +33557,9 @@ export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -32174,6 +33640,7 @@ export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutStructureGenerationRunsInput = {
@@ -32325,6 +33792,9 @@ export type UserUpdateWithoutWorkoutStructureGenerationRunsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -32406,6 +33876,7 @@ export type UserUpdateWithoutWorkoutStructureGenerationRunsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
@@ -32530,6 +34001,9 @@ export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -32610,6 +34084,7 @@ export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCalendarNotesInput = {
@@ -32728,6 +34203,9 @@ export type UserCreateWithoutCalendarNotesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -32809,6 +34287,7 @@ export type UserCreateWithoutCalendarNotesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCalendarNotesInput = {
@@ -32928,6 +34407,9 @@ export type UserUncheckedCreateWithoutCalendarNotesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -33008,6 +34490,7 @@ export type UserUncheckedCreateWithoutCalendarNotesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCalendarNotesInput = {
@@ -33159,6 +34642,9 @@ export type UserUpdateWithoutCalendarNotesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -33240,6 +34726,7 @@ export type UserUpdateWithoutCalendarNotesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarNotesInput = {
@@ -33364,6 +34851,9 @@ export type UserUncheckedUpdateWithoutCalendarNotesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -33444,6 +34934,7 @@ export type UserUncheckedUpdateWithoutCalendarNotesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyMetricsInput = {
@@ -33562,6 +35053,9 @@ export type UserCreateWithoutDailyMetricsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -33643,6 +35137,7 @@ export type UserCreateWithoutDailyMetricsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyMetricsInput = {
@@ -33762,6 +35257,9 @@ export type UserUncheckedCreateWithoutDailyMetricsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -33842,6 +35340,7 @@ export type UserUncheckedCreateWithoutDailyMetricsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyMetricsInput = {
@@ -33993,6 +35492,9 @@ export type UserUpdateWithoutDailyMetricsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -34074,6 +35576,7 @@ export type UserUpdateWithoutDailyMetricsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyMetricsInput = {
@@ -34198,6 +35701,9 @@ export type UserUncheckedUpdateWithoutDailyMetricsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -34278,6 +35784,7 @@ export type UserUncheckedUpdateWithoutDailyMetricsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWellnessInput = {
@@ -34396,6 +35903,9 @@ export type UserCreateWithoutWellnessInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -34477,6 +35987,7 @@ export type UserCreateWithoutWellnessInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWellnessInput = {
@@ -34596,6 +36107,9 @@ export type UserUncheckedCreateWithoutWellnessInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -34676,6 +36190,7 @@ export type UserUncheckedCreateWithoutWellnessInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWellnessInput = {
@@ -34827,6 +36342,9 @@ export type UserUpdateWithoutWellnessInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -34908,6 +36426,7 @@ export type UserUpdateWithoutWellnessInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWellnessInput = {
@@ -35032,6 +36551,9 @@ export type UserUncheckedUpdateWithoutWellnessInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -35112,6 +36634,7 @@ export type UserUncheckedUpdateWithoutWellnessInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionInput = {
@@ -35230,6 +36753,9 @@ export type UserCreateWithoutNutritionInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -35311,6 +36837,7 @@ export type UserCreateWithoutNutritionInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionInput = {
@@ -35430,6 +36957,9 @@ export type UserUncheckedCreateWithoutNutritionInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -35510,6 +37040,7 @@ export type UserUncheckedCreateWithoutNutritionInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionInput = {
@@ -35661,6 +37192,9 @@ export type UserUpdateWithoutNutritionInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -35742,6 +37276,7 @@ export type UserUpdateWithoutNutritionInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionInput = {
@@ -35866,6 +37401,9 @@ export type UserUncheckedUpdateWithoutNutritionInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -35946,6 +37484,7 @@ export type UserUncheckedUpdateWithoutNutritionInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionSettingsInput = {
@@ -36064,6 +37603,9 @@ export type UserCreateWithoutNutritionSettingsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -36145,6 +37687,7 @@ export type UserCreateWithoutNutritionSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionSettingsInput = {
@@ -36264,6 +37807,9 @@ export type UserUncheckedCreateWithoutNutritionSettingsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -36344,6 +37890,7 @@ export type UserUncheckedCreateWithoutNutritionSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionSettingsInput = {
@@ -36495,6 +38042,9 @@ export type UserUpdateWithoutNutritionSettingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -36576,6 +38126,7 @@ export type UserUpdateWithoutNutritionSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
@@ -36700,6 +38251,9 @@ export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -36780,6 +38334,7 @@ export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportTemplatesInput = {
@@ -36898,6 +38453,9 @@ export type UserCreateWithoutReportTemplatesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -36979,6 +38537,7 @@ export type UserCreateWithoutReportTemplatesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportTemplatesInput = {
@@ -37098,6 +38657,9 @@ export type UserUncheckedCreateWithoutReportTemplatesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -37178,6 +38740,7 @@ export type UserUncheckedCreateWithoutReportTemplatesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportTemplatesInput = {
@@ -37329,6 +38892,9 @@ export type UserUpdateWithoutReportTemplatesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -37410,6 +38976,7 @@ export type UserUpdateWithoutReportTemplatesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportTemplatesInput = {
@@ -37534,6 +39101,9 @@ export type UserUncheckedUpdateWithoutReportTemplatesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -37614,6 +39184,7 @@ export type UserUncheckedUpdateWithoutReportTemplatesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportsInput = {
@@ -37732,6 +39303,9 @@ export type UserCreateWithoutReportsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -37813,6 +39387,7 @@ export type UserCreateWithoutReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportsInput = {
@@ -37932,6 +39507,9 @@ export type UserUncheckedCreateWithoutReportsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -38012,6 +39590,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportsInput = {
@@ -38163,6 +39742,9 @@ export type UserUpdateWithoutReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -38244,6 +39826,7 @@ export type UserUpdateWithoutReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsInput = {
@@ -38368,6 +39951,9 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -38448,6 +40034,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityRecommendationsInput = {
@@ -38566,6 +40153,9 @@ export type UserCreateWithoutActivityRecommendationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
   athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
@@ -38647,6 +40237,7 @@ export type UserCreateWithoutActivityRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
@@ -38766,6 +40357,9 @@ export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
   athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
@@ -38846,6 +40440,7 @@ export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityRecommendationsInput = {
@@ -38997,6 +40592,9 @@ export type UserUpdateWithoutActivityRecommendationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
   athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
@@ -39078,6 +40676,7 @@ export type UserUpdateWithoutActivityRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
@@ -39202,6 +40801,9 @@ export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
   athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
@@ -39282,6 +40884,7 @@ export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionRecommendationsInput = {
@@ -39400,6 +41003,9 @@ export type UserCreateWithoutNutritionRecommendationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -39481,6 +41087,7 @@ export type UserCreateWithoutNutritionRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
@@ -39600,6 +41207,9 @@ export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -39680,6 +41290,7 @@ export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionRecommendationsInput = {
@@ -39831,6 +41442,9 @@ export type UserUpdateWithoutNutritionRecommendationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -39912,6 +41526,7 @@ export type UserUpdateWithoutNutritionRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
@@ -40036,6 +41651,9 @@ export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -40116,6 +41734,7 @@ export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionPlansInput = {
@@ -40234,6 +41853,9 @@ export type UserCreateWithoutNutritionPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -40315,6 +41937,7 @@ export type UserCreateWithoutNutritionPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionPlansInput = {
@@ -40434,6 +42057,9 @@ export type UserUncheckedCreateWithoutNutritionPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -40514,6 +42140,7 @@ export type UserUncheckedCreateWithoutNutritionPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionPlansInput = {
@@ -40665,6 +42292,9 @@ export type UserUpdateWithoutNutritionPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -40746,6 +42376,7 @@ export type UserUpdateWithoutNutritionPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionPlansInput = {
@@ -40870,6 +42501,9 @@ export type UserUncheckedUpdateWithoutNutritionPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -40950,6 +42584,7 @@ export type UserUncheckedUpdateWithoutNutritionPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrainingPlansInput = {
@@ -41068,6 +42703,9 @@ export type UserCreateWithoutTrainingPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -41149,6 +42787,7 @@ export type UserCreateWithoutTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrainingPlansInput = {
@@ -41268,6 +42907,9 @@ export type UserUncheckedCreateWithoutTrainingPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -41348,6 +42990,7 @@ export type UserUncheckedCreateWithoutTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrainingPlansInput = {
@@ -41499,6 +43142,9 @@ export type UserUpdateWithoutTrainingPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -41580,6 +43226,7 @@ export type UserUpdateWithoutTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrainingPlansInput = {
@@ -41704,6 +43351,9 @@ export type UserUncheckedUpdateWithoutTrainingPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -41784,6 +43434,7 @@ export type UserUncheckedUpdateWithoutTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrainingAvailabilityInput = {
@@ -41902,6 +43553,9 @@ export type UserCreateWithoutTrainingAvailabilityInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -41983,6 +43637,7 @@ export type UserCreateWithoutTrainingAvailabilityInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
@@ -42102,6 +43757,9 @@ export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -42182,6 +43840,7 @@ export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrainingAvailabilityInput = {
@@ -42333,6 +43992,9 @@ export type UserUpdateWithoutTrainingAvailabilityInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -42414,6 +44076,7 @@ export type UserUpdateWithoutTrainingAvailabilityInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
@@ -42538,6 +44201,9 @@ export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -42618,6 +44284,7 @@ export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWeeklyTrainingPlansInput = {
@@ -42736,6 +44403,9 @@ export type UserCreateWithoutWeeklyTrainingPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -42817,6 +44487,7 @@ export type UserCreateWithoutWeeklyTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
@@ -42936,6 +44607,9 @@ export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -43016,6 +44690,7 @@ export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWeeklyTrainingPlansInput = {
@@ -43167,6 +44842,9 @@ export type UserUpdateWithoutWeeklyTrainingPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -43248,6 +44926,7 @@ export type UserUpdateWithoutWeeklyTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
@@ -43372,6 +45051,9 @@ export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -43452,6 +45134,7 @@ export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutScoreTrendExplanationsInput = {
@@ -43570,6 +45253,9 @@ export type UserCreateWithoutScoreTrendExplanationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -43651,6 +45337,7 @@ export type UserCreateWithoutScoreTrendExplanationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
@@ -43770,6 +45457,9 @@ export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -43850,6 +45540,7 @@ export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutScoreTrendExplanationsInput = {
@@ -44001,6 +45692,9 @@ export type UserUpdateWithoutScoreTrendExplanationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -44082,6 +45776,7 @@ export type UserUpdateWithoutScoreTrendExplanationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
@@ -44206,6 +45901,9 @@ export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -44286,6 +45984,7 @@ export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRecommendationsInput = {
@@ -44404,6 +46103,9 @@ export type UserCreateWithoutRecommendationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -44485,6 +46187,7 @@ export type UserCreateWithoutRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRecommendationsInput = {
@@ -44604,6 +46307,9 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -44684,6 +46390,7 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRecommendationsInput = {
@@ -44835,6 +46542,9 @@ export type UserUpdateWithoutRecommendationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -44916,6 +46626,7 @@ export type UserUpdateWithoutRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecommendationsInput = {
@@ -45040,6 +46751,9 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -45120,6 +46834,7 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyCheckinsInput = {
@@ -45238,6 +46953,9 @@ export type UserCreateWithoutDailyCheckinsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -45319,6 +47037,7 @@ export type UserCreateWithoutDailyCheckinsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyCheckinsInput = {
@@ -45438,6 +47157,9 @@ export type UserUncheckedCreateWithoutDailyCheckinsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -45518,6 +47240,7 @@ export type UserUncheckedCreateWithoutDailyCheckinsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyCheckinsInput = {
@@ -45669,6 +47392,9 @@ export type UserUpdateWithoutDailyCheckinsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -45750,6 +47476,7 @@ export type UserUpdateWithoutDailyCheckinsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
@@ -45874,6 +47601,9 @@ export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -45954,6 +47684,7 @@ export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMemoriesInput = {
@@ -46072,6 +47803,9 @@ export type UserCreateWithoutMemoriesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -46153,6 +47887,7 @@ export type UserCreateWithoutMemoriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMemoriesInput = {
@@ -46272,6 +48007,9 @@ export type UserUncheckedCreateWithoutMemoriesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -46352,6 +48090,7 @@ export type UserUncheckedCreateWithoutMemoriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMemoriesInput = {
@@ -46503,6 +48242,9 @@ export type UserUpdateWithoutMemoriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -46584,6 +48326,7 @@ export type UserUpdateWithoutMemoriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMemoriesInput = {
@@ -46708,6 +48451,9 @@ export type UserUncheckedUpdateWithoutMemoriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -46788,6 +48534,7 @@ export type UserUncheckedUpdateWithoutMemoriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatParticipationsInput = {
@@ -46906,6 +48653,9 @@ export type UserCreateWithoutChatParticipationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -46987,6 +48737,7 @@ export type UserCreateWithoutChatParticipationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatParticipationsInput = {
@@ -47106,6 +48857,9 @@ export type UserUncheckedCreateWithoutChatParticipationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -47186,6 +48940,7 @@ export type UserUncheckedCreateWithoutChatParticipationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatParticipationsInput = {
@@ -47337,6 +49092,9 @@ export type UserUpdateWithoutChatParticipationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -47418,6 +49176,7 @@ export type UserUpdateWithoutChatParticipationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatParticipationsInput = {
@@ -47542,6 +49301,9 @@ export type UserUncheckedUpdateWithoutChatParticipationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -47622,6 +49384,7 @@ export type UserUncheckedUpdateWithoutChatParticipationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatTurnsInput = {
@@ -47740,6 +49503,9 @@ export type UserCreateWithoutChatTurnsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -47821,6 +49587,7 @@ export type UserCreateWithoutChatTurnsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatTurnsInput = {
@@ -47940,6 +49707,9 @@ export type UserUncheckedCreateWithoutChatTurnsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -48020,6 +49790,7 @@ export type UserUncheckedCreateWithoutChatTurnsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatTurnsInput = {
@@ -48171,6 +49942,9 @@ export type UserUpdateWithoutChatTurnsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -48252,6 +50026,7 @@ export type UserUpdateWithoutChatTurnsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatTurnsInput = {
@@ -48376,6 +50151,9 @@ export type UserUncheckedUpdateWithoutChatTurnsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -48456,6 +50234,7 @@ export type UserUncheckedUpdateWithoutChatTurnsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSyncQueueInput = {
@@ -48574,6 +50353,9 @@ export type UserCreateWithoutSyncQueueInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -48655,6 +50437,7 @@ export type UserCreateWithoutSyncQueueInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSyncQueueInput = {
@@ -48774,6 +50557,9 @@ export type UserUncheckedCreateWithoutSyncQueueInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -48854,6 +50640,7 @@ export type UserUncheckedCreateWithoutSyncQueueInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSyncQueueInput = {
@@ -49005,6 +50792,9 @@ export type UserUpdateWithoutSyncQueueInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -49086,6 +50876,7 @@ export type UserUpdateWithoutSyncQueueInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSyncQueueInput = {
@@ -49210,6 +51001,9 @@ export type UserUncheckedUpdateWithoutSyncQueueInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -49290,6 +51084,7 @@ export type UserUncheckedUpdateWithoutSyncQueueInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuotaDenialsInput = {
@@ -49408,6 +51203,9 @@ export type UserCreateWithoutQuotaDenialsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -49489,6 +51287,7 @@ export type UserCreateWithoutQuotaDenialsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuotaDenialsInput = {
@@ -49608,6 +51407,9 @@ export type UserUncheckedCreateWithoutQuotaDenialsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -49688,6 +51490,7 @@ export type UserUncheckedCreateWithoutQuotaDenialsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuotaDenialsInput = {
@@ -49839,6 +51642,9 @@ export type UserUpdateWithoutQuotaDenialsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -49920,6 +51726,7 @@ export type UserUpdateWithoutQuotaDenialsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
@@ -50044,6 +51851,9 @@ export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -50124,6 +51934,7 @@ export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
@@ -50242,6 +52053,9 @@ export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -50323,6 +52137,7 @@ export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
@@ -50442,6 +52257,9 @@ export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -50522,6 +52340,7 @@ export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPartnerCampaignRedemptionsInput = {
@@ -50673,6 +52492,9 @@ export type UserUpdateWithoutPartnerCampaignRedemptionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -50754,6 +52576,7 @@ export type UserUpdateWithoutPartnerCampaignRedemptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
@@ -50878,6 +52701,9 @@ export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -50958,6 +52784,7 @@ export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLlmUsageInput = {
@@ -51076,6 +52903,9 @@ export type UserCreateWithoutLlmUsageInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -51157,6 +52987,7 @@ export type UserCreateWithoutLlmUsageInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLlmUsageInput = {
@@ -51276,6 +53107,9 @@ export type UserUncheckedCreateWithoutLlmUsageInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -51356,6 +53190,7 @@ export type UserUncheckedCreateWithoutLlmUsageInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLlmUsageInput = {
@@ -51507,6 +53342,9 @@ export type UserUpdateWithoutLlmUsageInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -51588,6 +53426,7 @@ export type UserUpdateWithoutLlmUsageInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLlmUsageInput = {
@@ -51712,6 +53551,9 @@ export type UserUncheckedUpdateWithoutLlmUsageInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -51792,6 +53634,7 @@ export type UserUncheckedUpdateWithoutLlmUsageInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSupportMessagesInput = {
@@ -51910,6 +53753,9 @@ export type UserCreateWithoutSupportMessagesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -51991,6 +53837,7 @@ export type UserCreateWithoutSupportMessagesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportMessagesInput = {
@@ -52110,6 +53957,9 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -52190,6 +54040,7 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportMessagesInput = {
@@ -52341,6 +54192,9 @@ export type UserUpdateWithoutSupportMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -52422,6 +54276,7 @@ export type UserUpdateWithoutSupportMessagesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportMessagesInput = {
@@ -52546,6 +54401,9 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -52626,6 +54484,7 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProviderSubscriptionsInput = {
@@ -52744,6 +54603,9 @@ export type UserCreateWithoutProviderSubscriptionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -52825,6 +54687,7 @@ export type UserCreateWithoutProviderSubscriptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
@@ -52944,6 +54807,9 @@ export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -53024,6 +54890,7 @@ export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProviderSubscriptionsInput = {
@@ -53175,6 +55042,9 @@ export type UserUpdateWithoutProviderSubscriptionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -53256,6 +55126,7 @@ export type UserUpdateWithoutProviderSubscriptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
@@ -53380,6 +55251,9 @@ export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -53460,6 +55334,7 @@ export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
@@ -53578,6 +55453,9 @@ export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -53659,6 +55537,7 @@ export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
@@ -53778,6 +55657,9 @@ export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -53858,6 +55740,7 @@ export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionLifecycleEventsInput = {
@@ -54009,6 +55892,9 @@ export type UserUpdateWithoutSubscriptionLifecycleEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -54090,6 +55976,7 @@ export type UserUpdateWithoutSubscriptionLifecycleEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
@@ -54214,6 +56101,9 @@ export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -54294,6 +56184,7 @@ export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBugReportsInput = {
@@ -54412,6 +56303,9 @@ export type UserCreateWithoutBugReportsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -54493,6 +56387,7 @@ export type UserCreateWithoutBugReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBugReportsInput = {
@@ -54612,6 +56507,9 @@ export type UserUncheckedCreateWithoutBugReportsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -54692,6 +56590,7 @@ export type UserUncheckedCreateWithoutBugReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBugReportsInput = {
@@ -54843,6 +56742,9 @@ export type UserUpdateWithoutBugReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -54924,6 +56826,7 @@ export type UserUpdateWithoutBugReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBugReportsInput = {
@@ -55048,6 +56951,9 @@ export type UserUncheckedUpdateWithoutBugReportsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -55128,6 +57034,7 @@ export type UserUncheckedUpdateWithoutBugReportsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBugReportCommentsInput = {
@@ -55246,6 +57153,9 @@ export type UserCreateWithoutBugReportCommentsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -55327,6 +57237,7 @@ export type UserCreateWithoutBugReportCommentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBugReportCommentsInput = {
@@ -55446,6 +57357,9 @@ export type UserUncheckedCreateWithoutBugReportCommentsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -55526,6 +57440,7 @@ export type UserUncheckedCreateWithoutBugReportCommentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBugReportCommentsInput = {
@@ -55677,6 +57592,9 @@ export type UserUpdateWithoutBugReportCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -55758,6 +57676,7 @@ export type UserUpdateWithoutBugReportCommentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
@@ -55882,6 +57801,9 @@ export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -55962,6 +57884,7 @@ export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -56080,6 +58003,9 @@ export type UserCreateWithoutNotificationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -56161,6 +58087,7 @@ export type UserCreateWithoutNotificationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -56280,6 +58207,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -56360,6 +58290,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -56511,6 +58442,9 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -56592,6 +58526,7 @@ export type UserUpdateWithoutNotificationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -56716,6 +58651,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -56796,6 +58734,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMobilePushDevicesInput = {
@@ -56914,6 +58853,9 @@ export type UserCreateWithoutMobilePushDevicesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -56995,6 +58937,7 @@ export type UserCreateWithoutMobilePushDevicesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
@@ -57114,6 +59057,9 @@ export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -57194,6 +59140,7 @@ export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMobilePushDevicesInput = {
@@ -57345,6 +59292,9 @@ export type UserUpdateWithoutMobilePushDevicesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -57426,6 +59376,7 @@ export type UserUpdateWithoutMobilePushDevicesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
@@ -57550,6 +59501,9 @@ export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -57630,6 +59584,7 @@ export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMobilePushPreferenceInput = {
@@ -57748,6 +59703,9 @@ export type UserCreateWithoutMobilePushPreferenceInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -57829,6 +59787,7 @@ export type UserCreateWithoutMobilePushPreferenceInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
@@ -57948,6 +59907,9 @@ export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -58028,6 +59990,7 @@ export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMobilePushPreferenceInput = {
@@ -58179,6 +60142,9 @@ export type UserUpdateWithoutMobilePushPreferenceInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -58260,6 +60226,7 @@ export type UserUpdateWithoutMobilePushPreferenceInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
@@ -58384,6 +60351,9 @@ export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -58464,6 +60434,7 @@ export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutJourneyEventsInput = {
@@ -58582,6 +60553,9 @@ export type UserCreateWithoutJourneyEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -58663,6 +60637,7 @@ export type UserCreateWithoutJourneyEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutJourneyEventsInput = {
@@ -58782,6 +60757,9 @@ export type UserUncheckedCreateWithoutJourneyEventsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -58862,6 +60840,7 @@ export type UserUncheckedCreateWithoutJourneyEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutJourneyEventsInput = {
@@ -59013,6 +60992,9 @@ export type UserUpdateWithoutJourneyEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -59094,6 +61076,7 @@ export type UserUpdateWithoutJourneyEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJourneyEventsInput = {
@@ -59218,6 +61201,9 @@ export type UserUncheckedUpdateWithoutJourneyEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -59298,6 +61284,7 @@ export type UserUncheckedUpdateWithoutJourneyEventsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailPreferencesInput = {
@@ -59416,6 +61403,9 @@ export type UserCreateWithoutEmailPreferencesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -59497,6 +61487,7 @@ export type UserCreateWithoutEmailPreferencesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailPreferencesInput = {
@@ -59616,6 +61607,9 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -59696,6 +61690,7 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailPreferencesInput = {
@@ -59847,6 +61842,9 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -59928,6 +61926,7 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
@@ -60052,6 +62051,9 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -60132,6 +62134,7 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailDeliveriesInput = {
@@ -60250,6 +62253,9 @@ export type UserCreateWithoutEmailDeliveriesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -60331,6 +62337,7 @@ export type UserCreateWithoutEmailDeliveriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
@@ -60450,6 +62457,9 @@ export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -60530,6 +62540,7 @@ export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailDeliveriesInput = {
@@ -60681,6 +62692,9 @@ export type UserUpdateWithoutEmailDeliveriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -60762,6 +62776,7 @@ export type UserUpdateWithoutEmailDeliveriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
@@ -60886,6 +62901,9 @@ export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -60966,6 +62984,7 @@ export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMetricHistoryInput = {
@@ -61084,6 +63103,9 @@ export type UserCreateWithoutMetricHistoryInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -61165,6 +63187,7 @@ export type UserCreateWithoutMetricHistoryInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMetricHistoryInput = {
@@ -61284,6 +63307,9 @@ export type UserUncheckedCreateWithoutMetricHistoryInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -61364,6 +63390,7 @@ export type UserUncheckedCreateWithoutMetricHistoryInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMetricHistoryInput = {
@@ -61515,6 +63542,9 @@ export type UserUpdateWithoutMetricHistoryInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -61596,6 +63626,7 @@ export type UserUpdateWithoutMetricHistoryInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMetricHistoryInput = {
@@ -61720,6 +63751,9 @@ export type UserUncheckedUpdateWithoutMetricHistoryInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -61800,6 +63834,7 @@ export type UserUncheckedUpdateWithoutMetricHistoryInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBodyMeasurementEntriesInput = {
@@ -61918,6 +63953,9 @@ export type UserCreateWithoutBodyMeasurementEntriesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -61999,6 +64037,7 @@ export type UserCreateWithoutBodyMeasurementEntriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
@@ -62118,6 +64157,9 @@ export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -62198,6 +64240,7 @@ export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBodyMeasurementEntriesInput = {
@@ -62349,6 +64392,9 @@ export type UserUpdateWithoutBodyMeasurementEntriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -62430,6 +64476,7 @@ export type UserUpdateWithoutBodyMeasurementEntriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
@@ -62554,6 +64601,9 @@ export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -62634,6 +64684,7 @@ export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPersonalBestsInput = {
@@ -62752,6 +64803,9 @@ export type UserCreateWithoutPersonalBestsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -62833,6 +64887,7 @@ export type UserCreateWithoutPersonalBestsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPersonalBestsInput = {
@@ -62952,6 +65007,9 @@ export type UserUncheckedCreateWithoutPersonalBestsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -63032,6 +65090,7 @@ export type UserUncheckedCreateWithoutPersonalBestsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPersonalBestsInput = {
@@ -63183,6 +65242,9 @@ export type UserUpdateWithoutPersonalBestsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -63264,6 +65326,7 @@ export type UserUpdateWithoutPersonalBestsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonalBestsInput = {
@@ -63388,6 +65451,9 @@ export type UserUncheckedUpdateWithoutPersonalBestsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -63468,6 +65534,7 @@ export type UserUncheckedUpdateWithoutPersonalBestsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedTeamsInput = {
@@ -63586,6 +65653,9 @@ export type UserCreateWithoutOwnedTeamsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -63667,6 +65737,7 @@ export type UserCreateWithoutOwnedTeamsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedTeamsInput = {
@@ -63786,6 +65857,9 @@ export type UserUncheckedCreateWithoutOwnedTeamsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -63866,6 +65940,7 @@ export type UserUncheckedCreateWithoutOwnedTeamsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedTeamsInput = {
@@ -64017,6 +66092,9 @@ export type UserUpdateWithoutOwnedTeamsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -64098,6 +66176,7 @@ export type UserUpdateWithoutOwnedTeamsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
@@ -64222,6 +66301,9 @@ export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -64302,6 +66384,7 @@ export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTeamMembershipsInput = {
@@ -64420,6 +66503,9 @@ export type UserCreateWithoutTeamMembershipsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -64501,6 +66587,7 @@ export type UserCreateWithoutTeamMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTeamMembershipsInput = {
@@ -64620,6 +66707,9 @@ export type UserUncheckedCreateWithoutTeamMembershipsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -64700,6 +66790,7 @@ export type UserUncheckedCreateWithoutTeamMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTeamMembershipsInput = {
@@ -64851,6 +66942,9 @@ export type UserUpdateWithoutTeamMembershipsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -64932,6 +67026,7 @@ export type UserUpdateWithoutTeamMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
@@ -65056,6 +67151,9 @@ export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -65136,6 +67234,7 @@ export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAthleteGroupsInput = {
@@ -65254,6 +67353,9 @@ export type UserCreateWithoutAthleteGroupsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -65335,6 +67437,7 @@ export type UserCreateWithoutAthleteGroupsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAthleteGroupsInput = {
@@ -65454,6 +67557,9 @@ export type UserUncheckedCreateWithoutAthleteGroupsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -65534,6 +67640,7 @@ export type UserUncheckedCreateWithoutAthleteGroupsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAthleteGroupsInput = {
@@ -65685,6 +67792,9 @@ export type UserUpdateWithoutAthleteGroupsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -65766,6 +67876,7 @@ export type UserUpdateWithoutAthleteGroupsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
@@ -65890,6 +68001,9 @@ export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -65970,6 +68084,7 @@ export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupMembershipsInput = {
@@ -66088,6 +68203,9 @@ export type UserCreateWithoutGroupMembershipsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -66169,6 +68287,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupMembershipsInput = {
@@ -66288,6 +68407,9 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -66368,6 +68490,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupMembershipsInput = {
@@ -66519,6 +68642,9 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -66600,6 +68726,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
@@ -66724,6 +68851,9 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -66804,6 +68934,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCustomFieldDefinitionsInput = {
@@ -66922,6 +69053,9 @@ export type UserCreateWithoutCustomFieldDefinitionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -67003,6 +69137,7 @@ export type UserCreateWithoutCustomFieldDefinitionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
@@ -67122,6 +69257,9 @@ export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -67202,6 +69340,7 @@ export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCustomFieldDefinitionsInput = {
@@ -67353,6 +69492,9 @@ export type UserUpdateWithoutCustomFieldDefinitionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -67434,6 +69576,7 @@ export type UserUpdateWithoutCustomFieldDefinitionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
@@ -67558,6 +69701,9 @@ export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -67638,6 +69784,7 @@ export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDashboardsInput = {
@@ -67756,6 +69903,9 @@ export type UserCreateWithoutDashboardsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -67837,6 +69987,7 @@ export type UserCreateWithoutDashboardsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDashboardsInput = {
@@ -67956,6 +70107,9 @@ export type UserUncheckedCreateWithoutDashboardsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -68036,6 +70190,7 @@ export type UserUncheckedCreateWithoutDashboardsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDashboardsInput = {
@@ -68187,6 +70342,9 @@ export type UserUpdateWithoutDashboardsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -68268,6 +70426,7 @@ export type UserUpdateWithoutDashboardsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDashboardsInput = {
@@ -68392,6 +70551,9 @@ export type UserUncheckedUpdateWithoutDashboardsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -68472,6 +70634,7 @@ export type UserUncheckedUpdateWithoutDashboardsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWidgetsInput = {
@@ -68590,6 +70753,9 @@ export type UserCreateWithoutWidgetsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -68671,6 +70837,7 @@ export type UserCreateWithoutWidgetsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWidgetsInput = {
@@ -68790,6 +70957,9 @@ export type UserUncheckedCreateWithoutWidgetsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -68870,6 +71040,7 @@ export type UserUncheckedCreateWithoutWidgetsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWidgetsInput = {
@@ -69021,6 +71192,9 @@ export type UserUpdateWithoutWidgetsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -69102,6 +71276,7 @@ export type UserUpdateWithoutWidgetsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWidgetsInput = {
@@ -69226,6 +71401,9 @@ export type UserUncheckedUpdateWithoutWidgetsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -69306,6 +71484,7 @@ export type UserUncheckedUpdateWithoutWidgetsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrainingPlanFoldersInput = {
@@ -69424,6 +71603,9 @@ export type UserCreateWithoutTrainingPlanFoldersInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -69505,6 +71687,7 @@ export type UserCreateWithoutTrainingPlanFoldersInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
@@ -69624,6 +71807,9 @@ export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -69704,6 +71890,7 @@ export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrainingPlanFoldersInput = {
@@ -69855,6 +72042,9 @@ export type UserUpdateWithoutTrainingPlanFoldersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -69936,6 +72126,7 @@ export type UserUpdateWithoutTrainingPlanFoldersInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
@@ -70060,6 +72251,9 @@ export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -70140,6 +72334,7 @@ export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFavoriteTrainingPlansInput = {
@@ -70258,6 +72453,9 @@ export type UserCreateWithoutFavoriteTrainingPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -70339,6 +72537,7 @@ export type UserCreateWithoutFavoriteTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
@@ -70458,6 +72657,9 @@ export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -70538,6 +72740,7 @@ export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFavoriteTrainingPlansInput = {
@@ -70689,6 +72892,9 @@ export type UserUpdateWithoutFavoriteTrainingPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -70770,6 +72976,7 @@ export type UserUpdateWithoutFavoriteTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
@@ -70894,6 +73101,9 @@ export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -70974,6 +73184,7 @@ export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCheckInsInput = {
@@ -71092,6 +73303,9 @@ export type UserCreateWithoutCheckInsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -71173,6 +73387,7 @@ export type UserCreateWithoutCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCheckInsInput = {
@@ -71292,6 +73507,9 @@ export type UserUncheckedCreateWithoutCheckInsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -71372,6 +73590,7 @@ export type UserUncheckedCreateWithoutCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCheckInsInput = {
@@ -71523,6 +73742,9 @@ export type UserUpdateWithoutCheckInsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -71604,6 +73826,7 @@ export type UserUpdateWithoutCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCheckInsInput = {
@@ -71728,6 +73951,9 @@ export type UserUncheckedUpdateWithoutCheckInsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -71808,6 +74034,7 @@ export type UserUncheckedUpdateWithoutCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFeedbacksInput = {
@@ -71926,6 +74153,9 @@ export type UserCreateWithoutFeedbacksInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -72007,6 +74237,7 @@ export type UserCreateWithoutFeedbacksInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFeedbacksInput = {
@@ -72126,6 +74357,9 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -72206,6 +74440,7 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFeedbacksInput = {
@@ -72357,6 +74592,9 @@ export type UserUpdateWithoutFeedbacksInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -72438,6 +74676,7 @@ export type UserUpdateWithoutFeedbacksInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFeedbacksInput = {
@@ -72562,6 +74801,9 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -72642,6 +74884,7 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWeeklyCheckInsInput = {
@@ -72760,6 +75003,9 @@ export type UserCreateWithoutWeeklyCheckInsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
@@ -72841,6 +75087,7 @@ export type UserCreateWithoutWeeklyCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWeeklyCheckInsInput = {
@@ -72960,6 +75207,9 @@ export type UserUncheckedCreateWithoutWeeklyCheckInsInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
   apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
@@ -73040,6 +75290,7 @@ export type UserUncheckedCreateWithoutWeeklyCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWeeklyCheckInsInput = {
@@ -73191,6 +75442,9 @@ export type UserUpdateWithoutWeeklyCheckInsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -73272,6 +75526,7 @@ export type UserUpdateWithoutWeeklyCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWeeklyCheckInsInput = {
@@ -73396,6 +75651,9 @@ export type UserUncheckedUpdateWithoutWeeklyCheckInsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -73476,6 +75734,7 @@ export type UserUncheckedUpdateWithoutWeeklyCheckInsInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyReferredByInput = {
@@ -73594,6 +75853,9 @@ export type UserCreateManyReferredByInput = {
   role?: $Enums.Role
   intervalsApiKey?: string | null
   intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
 }
 
 export type UserUpdateWithoutReferredByInput = {
@@ -73717,6 +75979,9 @@ export type UserUpdateWithoutReferredByInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -73798,6 +76063,7 @@ export type UserUpdateWithoutReferredByInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferredByInput = {
@@ -73921,6 +76187,9 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -74002,6 +76271,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutReferredByInput = {
@@ -74125,6 +76395,9 @@ export type UserUncheckedUpdateManyWithoutReferredByInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
 }
 
 export type UserUpdateWithoutParticipatingEventsInput = {
@@ -74248,6 +76521,9 @@ export type UserUpdateWithoutParticipatingEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
@@ -74329,6 +76605,7 @@ export type UserUpdateWithoutParticipatingEventsInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
   workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
@@ -74453,6 +76730,9 @@ export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
   apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
@@ -74533,6 +76813,7 @@ export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutParticipatingEventsInput = {
@@ -74657,6 +76938,9 @@ export type UserUncheckedUpdateManyWithoutParticipatingEventsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
 }
 
 /**
@@ -74742,6 +77026,7 @@ export type UserCountOutputType = {
   workoutTemplates: number
   workoutTemplateFolders: number
   participatingEvents: number
+  coachNotes: number
 }
 
 export type UserCountOutputTypeSelect<
@@ -74826,6 +77111,7 @@ export type UserCountOutputTypeSelect<
   workoutTemplates?: boolean | UserCountOutputTypeCountWorkoutTemplatesArgs
   workoutTemplateFolders?: boolean | UserCountOutputTypeCountWorkoutTemplateFoldersArgs
   participatingEvents?: boolean | UserCountOutputTypeCountParticipatingEventsArgs
+  coachNotes?: boolean | UserCountOutputTypeCountCoachNotesArgs
 }
 
 /**
@@ -75542,6 +77828,15 @@ export type UserCountOutputTypeCountParticipatingEventsArgs<
   where?: Prisma.EventWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCoachNotesArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  where?: Prisma.CoachNoteWhereInput
+}
+
 export type UserSelect<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
@@ -75662,6 +77957,9 @@ export type UserSelect<
     role?: boolean
     intervalsApiKey?: boolean
     intervalsAthleteId?: boolean
+    pipelineStage?: boolean
+    driveFolderId?: boolean
+    crmTags?: boolean
     accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
     activityRecommendations?: boolean | Prisma.User$activityRecommendationsArgs<ExtArgs>
     apiKeys?: boolean | Prisma.User$apiKeysArgs<ExtArgs>
@@ -75745,6 +78043,7 @@ export type UserSelect<
     workoutTemplates?: boolean | Prisma.User$workoutTemplatesArgs<ExtArgs>
     workoutTemplateFolders?: boolean | Prisma.User$workoutTemplateFoldersArgs<ExtArgs>
     participatingEvents?: boolean | Prisma.User$participatingEventsArgs<ExtArgs>
+    coachNotes?: boolean | Prisma.User$coachNotesArgs<ExtArgs>
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
   },
   ExtArgs['result']['user']
@@ -75870,6 +78169,9 @@ export type UserSelectCreateManyAndReturn<
     role?: boolean
     intervalsApiKey?: boolean
     intervalsAthleteId?: boolean
+    pipelineStage?: boolean
+    driveFolderId?: boolean
+    crmTags?: boolean
     referredBy?: boolean | Prisma.User$referredByArgs<ExtArgs>
   },
   ExtArgs['result']['user']
@@ -75995,6 +78297,9 @@ export type UserSelectUpdateManyAndReturn<
     role?: boolean
     intervalsApiKey?: boolean
     intervalsAthleteId?: boolean
+    pipelineStage?: boolean
+    driveFolderId?: boolean
+    crmTags?: boolean
     referredBy?: boolean | Prisma.User$referredByArgs<ExtArgs>
   },
   ExtArgs['result']['user']
@@ -76117,6 +78422,9 @@ export type UserSelectScalar = {
   role?: boolean
   intervalsApiKey?: boolean
   intervalsAthleteId?: boolean
+  pipelineStage?: boolean
+  driveFolderId?: boolean
+  crmTags?: boolean
 }
 
 export type UserOmit<
@@ -76237,7 +78545,10 @@ export type UserOmit<
   | 'referredByUserId'
   | 'role'
   | 'intervalsApiKey'
-  | 'intervalsAthleteId',
+  | 'intervalsAthleteId'
+  | 'pipelineStage'
+  | 'driveFolderId'
+  | 'crmTags',
   ExtArgs['result']['user']
 >
 export type UserInclude<
@@ -76325,6 +78636,7 @@ export type UserInclude<
   workoutTemplates?: boolean | Prisma.User$workoutTemplatesArgs<ExtArgs>
   workoutTemplateFolders?: boolean | Prisma.User$workoutTemplateFoldersArgs<ExtArgs>
   participatingEvents?: boolean | Prisma.User$participatingEventsArgs<ExtArgs>
+  coachNotes?: boolean | Prisma.User$coachNotesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<
@@ -76425,6 +78737,7 @@ export type $UserPayload<
     workoutTemplates: Prisma.$WorkoutTemplatePayload<ExtArgs>[]
     workoutTemplateFolders: Prisma.$WorkoutTemplateFolderPayload<ExtArgs>[]
     participatingEvents: Prisma.$EventPayload<ExtArgs>[]
+    coachNotes: Prisma.$CoachNotePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -76544,6 +78857,9 @@ export type $UserPayload<
       role: $Enums.Role
       intervalsApiKey: string | null
       intervalsAthleteId: string | null
+      pipelineStage: string | null
+      driveFolderId: string | null
+      crmTags: string[]
     },
     ExtArgs['result']['user']
   >
@@ -77953,6 +80269,17 @@ export interface Prisma__UserClient<
       >
     | Null
   >
+  coachNotes<T extends Prisma.User$coachNotesArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$coachNotesArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$CoachNotePayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -78100,6 +80427,9 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<'User', 'Role'>
   readonly intervalsApiKey: Prisma.FieldRef<'User', 'String'>
   readonly intervalsAthleteId: Prisma.FieldRef<'User', 'String'>
+  readonly pipelineStage: Prisma.FieldRef<'User', 'String'>
+  readonly driveFolderId: Prisma.FieldRef<'User', 'String'>
+  readonly crmTags: Prisma.FieldRef<'User', 'String[]'>
 }
 
 // Custom InputTypes
@@ -80739,6 +83069,32 @@ export type User$participatingEventsArgs<
   take?: number
   skip?: number
   distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[]
+}
+
+/**
+ * User.coachNotes
+ */
+export type User$coachNotesArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the CoachNote
+   */
+  select?: Prisma.CoachNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CoachNote
+   */
+  omit?: Prisma.CoachNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CoachNoteInclude<ExtArgs> | null
+  where?: Prisma.CoachNoteWhereInput
+  orderBy?: Prisma.CoachNoteOrderByWithRelationInput | Prisma.CoachNoteOrderByWithRelationInput[]
+  cursor?: Prisma.CoachNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CoachNoteScalarFieldEnum | Prisma.CoachNoteScalarFieldEnum[]
 }
 
 /**

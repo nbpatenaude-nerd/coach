@@ -376,6 +376,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Referral: 'Referral',
+  CoachNote: 'CoachNote',
   SportSettings: 'SportSettings',
   SystemMessage: 'SystemMessage',
   UserSystemMessageDismissal: 'UserSystemMessageDismissal',
@@ -505,6 +506,7 @@ export type TypeMap<
     modelProps:
       | 'user'
       | 'referral'
+      | 'coachNote'
       | 'sportSettings'
       | 'systemMessage'
       | 'userSystemMessageDismissal'
@@ -760,6 +762,80 @@ export type TypeMap<
         count: {
           args: Prisma.ReferralCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ReferralCountAggregateOutputType> | number
+        }
+      }
+    }
+    CoachNote: {
+      payload: Prisma.$CoachNotePayload<ExtArgs>
+      fields: Prisma.CoachNoteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CoachNoteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CoachNoteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>
+        }
+        findFirst: {
+          args: Prisma.CoachNoteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CoachNoteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>
+        }
+        findMany: {
+          args: Prisma.CoachNoteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>[]
+        }
+        create: {
+          args: Prisma.CoachNoteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>
+        }
+        createMany: {
+          args: Prisma.CoachNoteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CoachNoteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>[]
+        }
+        delete: {
+          args: Prisma.CoachNoteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>
+        }
+        update: {
+          args: Prisma.CoachNoteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>
+        }
+        deleteMany: {
+          args: Prisma.CoachNoteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CoachNoteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CoachNoteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>[]
+        }
+        upsert: {
+          args: Prisma.CoachNoteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachNotePayload>
+        }
+        aggregate: {
+          args: Prisma.CoachNoteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCoachNote>
+        }
+        groupBy: {
+          args: Prisma.CoachNoteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoachNoteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CoachNoteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoachNoteCountAggregateOutputType> | number
         }
       }
     }
@@ -8927,7 +9003,10 @@ export const UserScalarFieldEnum = {
   referredByUserId: 'referredByUserId',
   role: 'role',
   intervalsApiKey: 'intervalsApiKey',
-  intervalsAthleteId: 'intervalsAthleteId'
+  intervalsAthleteId: 'intervalsAthleteId',
+  pipelineStage: 'pipelineStage',
+  driveFolderId: 'driveFolderId',
+  crmTags: 'crmTags'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -8946,6 +9025,18 @@ export const ReferralScalarFieldEnum = {
 
 export type ReferralScalarFieldEnum =
   (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
+
+export const CoachNoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  text: 'text',
+  isAiSummary: 'isAiSummary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CoachNoteScalarFieldEnum =
+  (typeof CoachNoteScalarFieldEnum)[keyof typeof CoachNoteScalarFieldEnum]
 
 export const SportSettingsScalarFieldEnum = {
   id: 'id',
@@ -11672,6 +11763,7 @@ export type PrismaClientOptions = (
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   referral?: Prisma.ReferralOmit
+  coachNote?: Prisma.CoachNoteOmit
   sportSettings?: Prisma.SportSettingsOmit
   systemMessage?: Prisma.SystemMessageOmit
   userSystemMessageDismissal?: Prisma.UserSystemMessageDismissalOmit

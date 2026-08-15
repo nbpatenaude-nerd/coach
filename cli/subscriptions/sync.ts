@@ -44,16 +44,18 @@ const syncCommand = new Command('sync')
         : process.env[`STRIPE_${key}`]
 
     const tierConfig = {
-      stripeSupporterProductId: envPrice('SUPPORTER_PRODUCT_ID'),
-      stripeSupporterMonthlyPriceId: envPrice('SUPPORTER_MONTHLY_PRICE_ID'),
-      stripeSupporterAnnualPriceId: envPrice('SUPPORTER_ANNUAL_PRICE_ID'),
-      stripeSupporterMonthlyEurPriceId: envPrice('SUPPORTER_MONTHLY_EUR_PRICE_ID'),
-      stripeSupporterAnnualEurPriceId: envPrice('SUPPORTER_ANNUAL_EUR_PRICE_ID'),
-      stripeProProductId: envPrice('PRO_PRODUCT_ID'),
-      stripeProMonthlyPriceId: envPrice('PRO_MONTHLY_PRICE_ID'),
-      stripeProAnnualPriceId: envPrice('PRO_ANNUAL_PRICE_ID'),
-      stripeProMonthlyEurPriceId: envPrice('PRO_MONTHLY_EUR_PRICE_ID'),
-      stripeProAnnualEurPriceId: envPrice('PRO_ANNUAL_EUR_PRICE_ID')
+      stripeUncoverProductId: envPrice('UNCOVER_PRODUCT_ID'),
+      stripeUncover1PhasePriceId: envPrice('UNCOVER_1_PHASE_PRICE_ID'),
+      stripeUncover6PhasePriceId: envPrice('UNCOVER_6_PHASE_PRICE_ID'),
+      stripeUncover12PhasePriceId: envPrice('UNCOVER_12_PHASE_PRICE_ID'),
+      stripeUnlockProductId: envPrice('UNLOCK_PRODUCT_ID'),
+      stripeUnlock1PhasePriceId: envPrice('UNLOCK_1_PHASE_PRICE_ID'),
+      stripeUnlock6PhasePriceId: envPrice('UNLOCK_6_PHASE_PRICE_ID'),
+      stripeUnlock12PhasePriceId: envPrice('UNLOCK_12_PHASE_PRICE_ID'),
+      stripeUnleashProductId: envPrice('UNLEASH_PRODUCT_ID'),
+      stripeUnleash1PhasePriceId: envPrice('UNLEASH_1_PHASE_PRICE_ID'),
+      stripeUnleash6PhasePriceId: envPrice('UNLEASH_6_PHASE_PRICE_ID'),
+      stripeUnleash12PhasePriceId: envPrice('UNLEASH_12_PHASE_PRICE_ID')
     }
 
     const stripe = new Stripe(stripeSecretKey, {
@@ -114,7 +116,7 @@ const syncCommand = new Command('sync')
             ['active', 'trialing', 'past_due', 'unpaid'].includes(s.status)
           )
 
-          let stripeTier: 'FREE' | 'SUPPORTER' | 'PRO' = 'FREE'
+          let stripeTier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH' = 'FREE'
           let stripeStatus = 'NONE'
           let stripePeriodEnd: Date | null = null
           let stripeSubId: string | null = null

@@ -1,21 +1,18 @@
 import type Stripe from 'stripe'
-import type { SubscriptionTier } from '~/server/utils/generated-prisma/client'
+import type { SubscriptionTier } from '#server/utils/generated-prisma/client'
 type StripeTierConfig = {
   stripeUncoverProductId?: string
-  stripeUncoverMonthlyPriceId?: string
-  stripeUncoverAnnualPriceId?: string
-  stripeUncoverMonthlyEurPriceId?: string
-  stripeUncoverAnnualEurPriceId?: string
+  stripeUncover1PhasePriceId?: string
+  stripeUncover6PhasePriceId?: string
+  stripeUncover12PhasePriceId?: string
   stripeUnlockProductId?: string
-  stripeUnlockMonthlyPriceId?: string
-  stripeUnlockAnnualPriceId?: string
-  stripeUnlockMonthlyEurPriceId?: string
-  stripeUnlockAnnualEurPriceId?: string
+  stripeUnlock1PhasePriceId?: string
+  stripeUnlock6PhasePriceId?: string
+  stripeUnlock12PhasePriceId?: string
   stripeUnleashProductId?: string
-  stripeUnleashMonthlyPriceId?: string
-  stripeUnleashAnnualPriceId?: string
-  stripeUnleashMonthlyEurPriceId?: string
-  stripeUnleashAnnualEurPriceId?: string
+  stripeUnleash1PhasePriceId?: string
+  stripeUnleash6PhasePriceId?: string
+  stripeUnleash12PhasePriceId?: string
 }
 
 export function getPriceProductId(priceProduct: Stripe.Price['product']): string | null {
@@ -56,22 +53,19 @@ export async function resolveSubscriptionTier(
   const productId = getPriceProductId((price?.product as Stripe.Price['product']) ?? null)
 
   const uncoverPriceIds = [
-    config.stripeUncoverMonthlyPriceId,
-    config.stripeUncoverAnnualPriceId,
-    config.stripeUncoverMonthlyEurPriceId,
-    config.stripeUncoverAnnualEurPriceId
+    config.stripeUncover1PhasePriceId,
+    config.stripeUncover6PhasePriceId,
+    config.stripeUncover12PhasePriceId
   ].filter(Boolean)
   const unlockPriceIds = [
-    config.stripeUnlockMonthlyPriceId,
-    config.stripeUnlockAnnualPriceId,
-    config.stripeUnlockMonthlyEurPriceId,
-    config.stripeUnlockAnnualEurPriceId
+    config.stripeUnlock1PhasePriceId,
+    config.stripeUnlock6PhasePriceId,
+    config.stripeUnlock12PhasePriceId
   ].filter(Boolean)
   const unleashPriceIds = [
-    config.stripeUnleashMonthlyPriceId,
-    config.stripeUnleashAnnualPriceId,
-    config.stripeUnleashMonthlyEurPriceId,
-    config.stripeUnleashAnnualEurPriceId
+    config.stripeUnleash1PhasePriceId,
+    config.stripeUnleash6PhasePriceId,
+    config.stripeUnleash12PhasePriceId
   ].filter(Boolean)
 
   if (priceId && uncoverPriceIds.includes(priceId)) return 'UNCOVER'

@@ -13,7 +13,10 @@ export const Role = {
   UNCOVER: 'UNCOVER',
   UNLOCK: 'UNLOCK',
   UNLEASH: 'UNLEASH',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  ONE_ON_ONE: 'ONE_ON_ONE',
+  GROUP: 'GROUP',
+  BASIC: 'BASIC'
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]

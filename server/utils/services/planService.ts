@@ -27,7 +27,7 @@ export const planService = {
     // TrainingPlan does not persist the wizard's volumeHours, so recover the
     // athlete's loading volume from the weeks that already exist. (CW-318)
     const baseVolumeMinutes = deriveBaseVolumeMinutesFromWeeks(
-      plan.blocks.flatMap((b) => (b as any).weeks || [])
+      plan.blocks.flatMap((b: any) => (b as any).weeks || [])
     )
 
     return await prisma.$transaction(async (tx) => {
@@ -35,7 +35,7 @@ export const planService = {
       const newBlockIds = new Set(
         newBlockConfigs.map((b) => b.id).filter((id) => id && !id.startsWith('new-'))
       )
-      const blocksToDelete = plan.blocks.filter((b) => !newBlockIds.has(b.id))
+      const blocksToDelete = plan.blocks.filter((b: any) => !newBlockIds.has(b.id))
 
       for (const block of blocksToDelete) {
         const weekIds = (block as any).weeks.map((w: any) => w.id)
@@ -94,7 +94,7 @@ export const planService = {
         }
 
         // 3. Handle Weeks for this block
-        const existingBlock = plan.blocks.find((b) => b.id === blockId)
+        const existingBlock = plan.blocks.find((b: any) => b.id === blockId)
         const existingWeeks = isNew ? [] : (existingBlock as any)?.weeks || []
         const oldDuration = existingWeeks.length
         const newDuration = config.durationWeeks
@@ -141,7 +141,7 @@ export const planService = {
 
         // 4. Reflow Existing Weeks and Workouts Dates
         if (!isNew) {
-          const originalBlock = plan.blocks.find((b) => b.id === blockId)!
+          const originalBlock = plan.blocks.find((b: any) => b.id === blockId)!
           const interval = Math.round(
             (blockStartDate.getTime() - new Date(originalBlock.startDate).getTime()) /
               (1000 * 60 * 60 * 24)

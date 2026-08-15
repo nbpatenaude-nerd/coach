@@ -50,6 +50,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Referral: 'Referral',
+  CoachNote: 'CoachNote',
   SportSettings: 'SportSettings',
   SystemMessage: 'SystemMessage',
   UserSystemMessageDismissal: 'UserSystemMessageDismissal',
@@ -291,7 +292,10 @@ export const UserScalarFieldEnum = {
   referredByUserId: 'referredByUserId',
   role: 'role',
   intervalsApiKey: 'intervalsApiKey',
-  intervalsAthleteId: 'intervalsAthleteId'
+  intervalsAthleteId: 'intervalsAthleteId',
+  pipelineStage: 'pipelineStage',
+  driveFolderId: 'driveFolderId',
+  crmTags: 'crmTags'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -310,6 +314,18 @@ export const ReferralScalarFieldEnum = {
 
 export type ReferralScalarFieldEnum =
   (typeof ReferralScalarFieldEnum)[keyof typeof ReferralScalarFieldEnum]
+
+export const CoachNoteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  text: 'text',
+  isAiSummary: 'isAiSummary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CoachNoteScalarFieldEnum =
+  (typeof CoachNoteScalarFieldEnum)[keyof typeof CoachNoteScalarFieldEnum]
 
 export const SportSettingsScalarFieldEnum = {
   id: 'id',
