@@ -1,102 +1,223 @@
 <template>
-  <div class="flex h-[calc(100vh-4rem)]">
+  <div class="flex h-[calc(100vh-4rem)] bg-background">
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto">
-      <div class="p-6">
-        <h1 class="text-3xl font-bold tracking-tight text-foreground mb-6">CRM</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div class="bg-card border border-border rounded-xl p-6 shadow-sm">
-            <h3 class="text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wider">
-              Total Athletes
-            </h3>
-            <div class="flex items-end gap-3">
-              <span class="text-4xl font-black text-foreground">{{ athletes.length }}</span>
-            </div>
-          </div>
-          <!-- More metric cards can go here -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <!-- Header Area (Twenty CRM style) -->
+      <div
+        class="px-8 py-6 border-b border-border shrink-0 flex flex-col md:flex-row md:items-center justify-between gap-4"
+      >
+        <div>
+          <h1 class="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
+            CRM
+            <span class="text-muted-foreground text-lg font-normal ml-2"
+              >{{ athletes?.length || 0 }} Athletes</span
+            >
+          </h1>
         </div>
 
-        <div class="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-          <div class="p-4 border-b border-border bg-muted/20">
-            <h2 class="font-semibold text-lg text-foreground">Athletes List</h2>
+        <div class="flex items-center gap-2">
+          <!-- View Toggle -->
+          <div class="flex items-center p-1 bg-muted/50 rounded-lg border border-border/50">
+            <button
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
+              :class="
+                viewMode === 'kanban'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              "
+              @click="viewMode = 'kanban'"
+            >
+              <Icon name="lucide:kanban" class="w-4 h-4" /> Kanban
+            </button>
+            <button
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
+              :class="
+                viewMode === 'table'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              "
+              @click="viewMode = 'table'"
+            >
+              <Icon name="lucide:table-2" class="w-4 h-4" /> Table
+            </button>
           </div>
-          <div v-if="pending" class="p-8 text-center text-muted-foreground">
-            <Icon name="lucide:loader-2" class="w-6 h-6 animate-spin mx-auto mb-2" />
-            <p>Loading athletes...</p>
+        </div>
+      </div>
+
+      <div
+        v-if="pendingAthletes"
+        class="flex-1 flex items-center justify-center text-muted-foreground"
+      >
+        <div class="flex flex-col items-center gap-2">
+          <Icon name="lucide:loader-2" class="w-6 h-6 animate-spin" />
+          <p>Loading CRM...</p>
+        </div>
+      </div>
+
+      <div v-else-if="error" class="flex-1 p-8 text-center text-destructive">
+        <p>Error loading athletes: {{ error?.message || 'Unknown error' }}</p>
+      </div>
+
+      <!-- Kanban View -->
+      <div
+        v-else-if="viewMode === 'kanban'"
+        class="flex-1 overflow-x-auto overflow-y-hidden p-6 flex gap-6 bg-muted/10"
+      >
+        <div
+          v-for="stage in STAGES"
+          :key="stage"
+          class="flex flex-col min-w-[320px] max-w-[320px] bg-muted/20 rounded-xl border border-border/50 overflow-hidden"
+          @dragover.prevent
+          @dragenter.prevent
+          @drop="onDrop($event, stage)"
+        >
+          <div
+            class="px-4 py-3 border-b border-border/50 bg-background/50 flex items-center justify-between shrink-0"
+          >
+            <h3
+              class="font-semibold text-sm text-foreground flex items-center gap-2 uppercase tracking-wide"
+            >
+              {{ stage }}
+              <span
+                class="text-muted-foreground font-normal bg-muted px-2 py-0.5 rounded-full text-xs"
+              >
+                {{ athletesByStage[stage]?.length || 0 }}
+              </span>
+            </h3>
           </div>
-          <div v-else-if="error" class="p-8 text-center text-destructive">
-            <p>Error loading athletes: {{ error.message }}</p>
+
+          <div class="flex-1 overflow-y-auto p-3 space-y-3">
+            <div
+              v-for="athlete in athletesByStage[stage]"
+              :key="athlete.id"
+              draggable="true"
+              class="bg-background border border-border rounded-lg p-4 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer group flex flex-col gap-3"
+              @dragstart="onDragStart($event, athlete)"
+              @click="selectedAthlete = athlete"
+            >
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shrink-0"
+                  >
+                    {{ athlete.name ? athlete.name.charAt(0).toUpperCase() : 'U' }}
+                  </div>
+                  <div class="min-w-0">
+                    <p class="font-medium text-sm text-foreground truncate">
+                      {{ athlete.name || 'Unnamed Athlete' }}
+                    </p>
+                    <p class="text-xs text-muted-foreground truncate">{{ athlete.email }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-1 mt-1">
+                <span
+                  v-for="tag in (athlete.crmTags || []).slice(0, 3)"
+                  :key="tag"
+                  class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border"
+                >
+                  #{{ tag }}
+                </span>
+                <span
+                  v-if="(athlete.crmTags || []).length > 3"
+                  class="text-[10px] text-muted-foreground"
+                  >+{{ athlete.crmTags.length - 3 }}</span
+                >
+                <span
+                  v-if="!athlete.crmTags || athlete.crmTags.length === 0"
+                  class="text-[10px] text-muted-foreground italic"
+                  >No tags</span
+                >
+              </div>
+            </div>
+
+            <div
+              v-if="!athletesByStage[stage]?.length"
+              class="h-24 border-2 border-dashed border-border/50 rounded-lg flex items-center justify-center text-muted-foreground text-sm opacity-50"
+            >
+              Drop here
+            </div>
           </div>
-          <table v-else class="w-full text-sm text-left">
-            <thead class="text-xs text-muted-foreground uppercase bg-muted/40">
+        </div>
+      </div>
+
+      <!-- Table View -->
+      <div v-else class="flex-1 overflow-auto p-6">
+        <div class="bg-background border border-border rounded-xl overflow-hidden shadow-sm">
+          <table class="w-full text-sm text-left whitespace-nowrap">
+            <thead
+              class="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border"
+            >
               <tr>
-                <th class="px-6 py-4 font-semibold">Athlete</th>
-                <th class="px-6 py-4 font-semibold">Stage</th>
-                <th class="px-6 py-4 font-semibold">Tags</th>
-                <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                <th class="px-6 py-3.5 font-medium tracking-wider">Athlete</th>
+                <th class="px-6 py-3.5 font-medium tracking-wider">Stage</th>
+                <th class="px-6 py-3.5 font-medium tracking-wider">Tags</th>
+                <th class="px-6 py-3.5 font-medium tracking-wider text-right">Last Login</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-border">
               <tr
                 v-for="athlete in athletes"
                 :key="athlete.id"
-                class="border-b border-border hover:bg-muted/10 transition-colors cursor-pointer"
+                class="hover:bg-muted/30 transition-colors cursor-pointer group"
                 @click="selectedAthlete = athlete"
               >
-                <td class="px-6 py-4">
+                <td class="px-6 py-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shadow-inner"
+                      class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shadow-inner text-xs shrink-0"
                     >
                       {{ athlete.name ? athlete.name.charAt(0).toUpperCase() : 'U' }}
                     </div>
-                    <div>
-                      <div class="font-semibold text-foreground">
-                        {{ athlete.name || 'Unnamed Athlete' }}
-                      </div>
-                      <div class="text-xs text-muted-foreground">{{ athlete.email }}</div>
+                    <div class="flex flex-col">
+                      <span
+                        class="font-medium text-foreground group-hover:text-primary transition-colors"
+                        >{{ athlete.name || 'Unnamed Athlete' }}</span
+                      >
+                      <span class="text-xs text-muted-foreground">{{ athlete.email }}</span>
                     </div>
                   </div>
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-3">
                   <span
-                    class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary"
+                    class="inline-flex items-center rounded bg-muted px-2 py-1 text-xs font-medium text-foreground border border-border"
                   >
                     {{ athlete.pipelineStage || 'Lead' }}
                   </span>
                 </td>
-                <td class="px-6 py-4">
-                  <div class="flex flex-wrap gap-1">
+                <td class="px-6 py-3">
+                  <div class="flex flex-wrap gap-1 max-w-50">
                     <span
-                      v-for="tag in athlete.crmTags || []"
+                      v-for="tag in (athlete.crmTags || []).slice(0, 2)"
                       :key="tag"
-                      class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border"
+                      class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border"
                     >
                       #{{ tag }}
                     </span>
                     <span
+                      v-if="(athlete.crmTags || []).length > 2"
+                      class="text-[10px] text-muted-foreground"
+                      >+{{ athlete.crmTags.length - 2 }}</span
+                    >
+                    <span
                       v-if="!athlete.crmTags || athlete.crmTags.length === 0"
-                      class="text-xs text-muted-foreground italic"
+                      class="text-[10px] text-muted-foreground italic"
                       >None</span
                     >
                   </div>
                 </td>
-                <td class="px-6 py-4 text-right">
-                  <button
-                    class="text-primary hover:text-primary/80 font-medium text-sm transition-colors"
-                    @click.stop="selectedAthlete = athlete"
-                  >
-                    View Profile
-                  </button>
+                <td class="px-6 py-3 text-right text-muted-foreground text-xs">
+                  {{
+                    athlete.lastLoginAt
+                      ? new Date(athlete.lastLoginAt).toLocaleDateString()
+                      : 'Never'
+                  }}
                 </td>
               </tr>
-              <tr v-if="athletes.length === 0">
+              <tr v-if="(athletes?.length || 0) === 0">
                 <td colspan="4" class="px-6 py-12 text-center text-muted-foreground">
-                  <div class="flex flex-col items-center justify-center">
-                    <Icon name="lucide:users" class="w-12 h-12 mb-3 text-muted-foreground/50" />
-                    <p>No athletes found.</p>
-                  </div>
+                  No athletes found.
                 </td>
               </tr>
             </tbody>
@@ -116,17 +237,96 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
+
+  type CrmAthlete = {
+    id: string
+    name: string | null
+    email: string
+    pipelineStage: string
+    crmTags: string[]
+    lastLoginAt: string | null
+  }
 
   const {
     data: athletes,
     pending: pendingAthletes,
     error,
     refresh: refreshAthletes
-  } = await useFetch<any[]>('/api/coaching/crm/athletes')
-  const selectedAthlete = ref<any | null>(null)
+  } = await useFetch<CrmAthlete[]>('/api/coaching/crm/athletes', {
+    default: () => []
+  })
+
+  const selectedAthlete = ref<CrmAthlete | null>(null)
 
   definePageMeta({
     middleware: ['auth', 'coach'] as any
   })
+
+  // Kanban / Table Toggle
+  const viewMode = ref<'kanban' | 'table'>('kanban')
+
+  const STAGES = ['Lead', 'Prospect', 'Active', 'Alumni']
+
+  const athletesByStage = computed<Record<string, CrmAthlete[]>>(() => {
+    const grouped = STAGES.reduce(
+      (acc, stage) => {
+        acc[stage] = []
+        return acc
+      },
+      {} as Record<string, CrmAthlete[]>
+    )
+
+    if (athletes.value) {
+      athletes.value.forEach((a: CrmAthlete) => {
+        const stage = STAGES.includes(a.pipelineStage) ? a.pipelineStage : 'Lead'
+        if (!grouped[stage]) grouped[stage] = []
+        grouped[stage].push(a)
+      })
+    }
+    return grouped
+  })
+
+  const isUpdating = ref(false)
+
+  const onDragStart = (e: DragEvent, athlete: CrmAthlete) => {
+    if (e.dataTransfer) {
+      e.dataTransfer.setData('text/plain', athlete.id)
+      e.dataTransfer.effectAllowed = 'move'
+      // Optional: setting drag image or adding dragging class
+      if (e.target instanceof HTMLElement) {
+        e.target.style.opacity = '0.5'
+        // Reset opacity after drag starts
+        setTimeout(() => {
+          if (e.target instanceof HTMLElement) e.target.style.opacity = '1'
+        }, 0)
+      }
+    }
+  }
+
+  const onDrop = async (e: DragEvent, stage: string) => {
+    const athleteId = e.dataTransfer?.getData('text/plain')
+    if (!athleteId) return
+
+    const athlete = athletes.value.find((a: CrmAthlete) => a.id === athleteId)
+    if (!athlete || athlete.pipelineStage === stage) return
+
+    // Optimistic update
+    const oldStage = athlete.pipelineStage
+    athlete.pipelineStage = stage
+
+    isUpdating.value = true
+    try {
+      await $fetch('/api/coaching/crm/update-athlete', {
+        method: 'PATCH',
+        body: { athleteId, pipelineStage: stage }
+      })
+    } catch (err) {
+      // Revert on error
+      athlete.pipelineStage = oldStage
+      console.error('Failed to update stage:', err)
+    } finally {
+      isUpdating.value = false
+    }
+  }
 </script>

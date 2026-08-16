@@ -24,10 +24,22 @@
               {{ athlete.name ? athlete.name.charAt(0).toUpperCase() : 'U' }}
             </div>
             <div>
-              <h2 class="font-bold text-base text-foreground leading-tight">
+              <h2 class="font-bold text-base text-foreground leading-tight flex items-center gap-2">
                 {{ athlete.name || 'Unnamed Athlete' }}
               </h2>
-              <p class="text-xs text-muted-foreground">{{ athlete.email }}</p>
+              <div class="flex items-center gap-2 mt-1">
+                <select
+                  v-model="editStage"
+                  class="text-[10px] uppercase font-bold tracking-wider bg-primary/10 text-primary border border-primary/20 rounded px-1.5 py-0.5 outline-none cursor-pointer hover:bg-primary/20 transition-colors"
+                  @change="updateAthlete({ pipelineStage: editStage })"
+                >
+                  <option value="Lead">Lead</option>
+                  <option value="Prospect">Prospect</option>
+                  <option value="Active">Active</option>
+                  <option value="Alumni">Alumni</option>
+                </select>
+                <p class="text-xs text-muted-foreground">{{ athlete.email }}</p>
+              </div>
             </div>
           </div>
           <button
@@ -145,21 +157,6 @@
 
           <!-- CRM Tab -->
           <div v-if="activeTab === 'crm'" class="space-y-6">
-            <div>
-              <label
-                class="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider"
-                >Pipeline Stage</label
-              >
-              <select
-                v-model="editStage"
-                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                @change="updateAthlete({ pipelineStage: editStage })"
-              >
-                <option value="Lead">Lead</option>
-                <option value="Active">Active</option>
-                <option value="Alumni">Alumni</option>
-              </select>
-            </div>
             <div>
               <label
                 class="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider"
