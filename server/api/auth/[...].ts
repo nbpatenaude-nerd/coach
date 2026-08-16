@@ -25,7 +25,13 @@ export default NuxtAuthHandler({
         // Fetch fresh user data needed for global middleware checks
         const dbUser = await prisma.user.findUnique({
           where: { id: token.id as string },
-          select: { termsAcceptedAt: true, deactivatedAt: true, isAdmin: true, isCoach: true }
+          select: {
+            termsAcceptedAt: true,
+            deactivatedAt: true,
+            isAdmin: true,
+            isCoach: true,
+            role: true
+          }
         })
 
         if (dbUser) {
@@ -33,6 +39,7 @@ export default NuxtAuthHandler({
           ;(session.user as any).deactivatedAt = dbUser.deactivatedAt
           ;(session.user as any).isAdmin = dbUser.isAdmin
           ;(session.user as any).isCoach = dbUser.isCoach
+          ;(session.user as any).role = dbUser.role
         }
       }
       return session
