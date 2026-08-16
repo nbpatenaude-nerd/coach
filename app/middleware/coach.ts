@@ -1,9 +1,10 @@
+import { useNavigation } from '~/composables/useNavigation'
+
 export default defineNuxtRouteMiddleware((to) => {
-  const { data } = useAuth()
-  const user = data.value?.user
+  const { isCoach } = useNavigation()
 
   // Ensure only coaches (or admins) can access these routes
-  if (user && !((user as any).isCoach || (user as any).isAdmin)) {
+  if (!isCoach.value) {
     return navigateTo('/dashboard')
   }
 })

@@ -6,10 +6,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return
   }
 
-  const { data } = useAuth()
-
-  const user = data.value?.user as any
-  if (!user?.isAdmin) {
+  const { isAdmin } = useNavigation()
+  if (!isAdmin.value) {
     return navigateTo('/dashboard')
   }
 })

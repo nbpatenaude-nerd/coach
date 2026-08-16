@@ -6,7 +6,7 @@ import { prisma } from '../../utils/db'
 import bcrypt from 'bcrypt'
 
 export default NuxtAuthHandler({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma as any),
   secret: process.env.NUXT_AUTH_SECRET || process.env.AUTH_SECRET,
   session: {
     strategy: 'jwt'
