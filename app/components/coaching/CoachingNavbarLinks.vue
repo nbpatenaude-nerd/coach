@@ -1,32 +1,47 @@
 <script setup lang="ts">
-  const links = [
-    {
-      label: 'Overview',
-      icon: 'i-lucide-layout-dashboard',
-      to: '/coaching',
-      exact: true
-    },
-    {
-      label: 'Calendar',
-      icon: 'i-lucide-calendar-days',
-      to: '/coaching/calendar'
-    },
-    {
-      label: 'Athletes',
-      icon: 'i-lucide-users-round',
-      to: '/coaching/athletes'
-    },
-    {
-      label: 'Analytics',
-      icon: 'i-lucide-bar-chart-3',
-      to: '/analytics'
-    },
-    {
-      label: 'My Coaches',
-      icon: 'i-lucide-building-2',
-      to: '/coaching/team'
+  import { computed } from 'vue'
+  import { useNavigation } from '~/composables/useNavigation'
+
+  const { isCoach } = useNavigation()
+
+  const links = computed(() => {
+    const baseLinks = [
+      {
+        label: 'My Coaches',
+        icon: 'i-lucide-building-2',
+        to: '/coaching/team'
+      }
+    ]
+
+    if (isCoach.value) {
+      return [
+        {
+          label: 'Overview',
+          icon: 'i-lucide-layout-dashboard',
+          to: '/coaching',
+          exact: true
+        },
+        {
+          label: 'Calendar',
+          icon: 'i-lucide-calendar-days',
+          to: '/coaching/calendar'
+        },
+        {
+          label: 'Athletes',
+          icon: 'i-lucide-users-round',
+          to: '/coaching/athletes'
+        },
+        {
+          label: 'Analytics',
+          icon: 'i-lucide-bar-chart-3',
+          to: '/analytics'
+        },
+        ...baseLinks
+      ]
     }
-  ]
+
+    return baseLinks
+  })
 </script>
 
 <template>

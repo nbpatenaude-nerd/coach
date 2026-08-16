@@ -22,7 +22,7 @@
         <div
           role="button"
           tabindex="0"
-          class="rounded-xl border-2 p-4 transition-all duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+          class="rounded-xl border-2 p-4 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
           :class="
             acceptedTerms
               ? 'border-primary-500 bg-primary-50/50 dark:bg-primary-900/10'
@@ -65,7 +65,7 @@
         <div
           role="button"
           tabindex="0"
-          class="rounded-xl border-2 p-4 transition-all duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+          class="rounded-xl border-2 p-4 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
           :class="
             acceptedHealth
               ? 'border-primary-500 bg-primary-50/50 dark:bg-primary-900/10'
@@ -215,6 +215,7 @@
 
       await $fetch<any, string & {}>('/api/user/consent', {
         method: 'POST',
+        credentials: 'include',
         body: {
           termsVersion: TERMS_OF_SERVICE_VERSION,
           privacyPolicyVersion: PRIVACY_POLICY_VERSION,

@@ -10,9 +10,7 @@ export const useNavigation = () => {
     () => role.value === 'ADMIN' || (data.value?.user as any)?.isAdmin === true
   )
 
-  const isCoach = computed(
-    () => role.value === 'ADMIN' || (data.value?.user as any)?.isCoach === true
-  )
+  const isCoach = computed(() => isAdmin.value || (data.value?.user as any)?.isCoach === true)
 
   return {
     role,

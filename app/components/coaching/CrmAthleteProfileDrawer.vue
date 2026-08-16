@@ -294,8 +294,8 @@
     if (!props.athlete) return
     pendingNotes.value = true
     try {
-      const res = await $fetch(`/api/coaching/crm/athletes/${props.athlete.id}/notes` as string)
-      notes.value = res as any[]
+      const res = await ($fetch as any)(`/api/coaching/crm/athletes/${props.athlete.id}/notes`)
+      notes.value = res
     } catch (error) {
       console.error('Failed to fetch notes:', error)
     } finally {
@@ -307,7 +307,7 @@
     if (!props.athlete || !newNote.value.trim()) return
     isSavingNote.value = true
     try {
-      const res = await $fetch(`/api/coaching/crm/athletes/${props.athlete.id}/notes` as string, {
+      const res = await ($fetch as any)(`/api/coaching/crm/athletes/${props.athlete.id}/notes`, {
         method: 'POST',
         body: { text: newNote.value }
       })
@@ -323,7 +323,7 @@
   const deleteNote = async (noteId: string) => {
     if (!props.athlete || !confirm('Are you sure you want to delete this note?')) return
     try {
-      await $fetch(`/api/coaching/crm/athletes/${props.athlete.id}/notes/${noteId}`, {
+      await ($fetch as any)(`/api/coaching/crm/athletes/${props.athlete.id}/notes/${noteId}`, {
         method: 'DELETE'
       })
       notes.value = notes.value.filter((n) => n.id !== noteId)
@@ -336,7 +336,7 @@
     if (!props.athlete) return
     isUpdating.value = true
     try {
-      await $fetch(`/api/coaching/crm/athletes/${props.athlete.id}`, {
+      await ($fetch as any)(`/api/coaching/crm/athletes/${props.athlete.id}`, {
         method: 'PATCH',
         body: updates
       })
