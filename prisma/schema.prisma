@@ -10,14 +10,14 @@ datasource db {
 }
 
 model User {
-  id                                 String                          @id @default(uuid())
+  id                                 String             @id @default(uuid())
   name                               String?
-  email                              String                          @unique
+  email                              String             @unique
   emailVerified                      DateTime?
   image                              String?
   hashedPassword                     String?
-  createdAt                          DateTime                        @default(now())
-  updatedAt                          DateTime                        @updatedAt
+  createdAt                          DateTime           @default(now())
+  updatedAt                          DateTime           @updatedAt
   ftp                                Int?
   maxHr                              Int?
   weight                             Float?
@@ -35,29 +35,29 @@ model User {
   recoveryCapacityExplanationJson    Json?
   nutritionComplianceExplanationJson Json?
   trainingConsistencyExplanationJson Json?
-  aiAutoAnalyzeNutrition             Boolean                         @default(false)
-  aiAutoAnalyzeWorkouts              Boolean                         @default(false)
-  aiModelPreference                  String?                         @default("flash")
-  aiPersona                          String?                         @default("Supportive")
+  aiAutoAnalyzeNutrition             Boolean            @default(false)
+  aiAutoAnalyzeWorkouts              Boolean            @default(false)
+  aiModelPreference                  String?            @default("flash")
+  aiPersona                          String?            @default("Supportive")
   city                               String?
   country                            String?
-  distanceUnits                      String?                         @default("Kilometers")
-  form                               String?                         @default("Absolute value")
+  distanceUnits                      String?            @default("Kilometers")
+  form                               String?            @default("Absolute value")
   height                             Int?
-  heightUnits                        String?                         @default("cm")
+  heightUnits                        String?            @default("cm")
   hrZones                            Json?
-  language                           String?                         @default("English")
+  language                           String?            @default("English")
   powerZones                         Json?
   restingHr                          Int?
   sex                                String?
   state                              String?
-  temperatureUnits                   String?                         @default("Celsius")
+  temperatureUnits                   String?            @default("Celsius")
   timezone                           String?
-  visibility                         String?                         @default("Private")
-  weightUnits                        String?                         @default("Kilograms")
+  visibility                         String?            @default("Private")
+  weightUnits                        String?            @default("Kilograms")
   altitude                           Int?
-  isAdmin                            Boolean                         @default(false)
-  isCoach                            Boolean                         @default(false)
+  isAdmin                            Boolean            @default(false)
+  isCoach                            Boolean            @default(false)
   lthr                               Int?
   healthConsentAcceptedAt            DateTime?
   privacyPolicyVersion               String?
@@ -68,154 +68,160 @@ model User {
   hrPowerAlignmentScore              Int?
   aiContext                          String?
   nickname                           String?
-  nutritionTrackingEnabled           Boolean                         @default(true)
-  recoverySensitivity                String?                         @default("MEDIUM")
-  stripeCustomerId                   String?                         @unique
-  stripeSubscriptionId               String?                         @unique
+  nutritionTrackingEnabled           Boolean            @default(true)
+  recoverySensitivity                String?            @default("MEDIUM")
+  stripeCustomerId                   String?            @unique
+  stripeSubscriptionId               String?            @unique
   subscriptionPeriodEnd              DateTime?
-  subscriptionStatus                 SubscriptionStatus              @default(NONE)
-  subscriptionTier                   SubscriptionTier                @default(FREE)
-  aiDeepAnalysisEnabled              Boolean                         @default(false)
-  aiProactivityEnabled               Boolean                         @default(false)
-  aiAutoAnalyzeReadiness             Boolean                         @default(false)
+  subscriptionStatus                 SubscriptionStatus @default(NONE)
+  subscriptionTier                   SubscriptionTier   @default(FREE)
+  aiDeepAnalysisEnabled              Boolean            @default(false)
+  aiProactivityEnabled               Boolean            @default(false)
+  aiAutoAnalyzeReadiness             Boolean            @default(false)
   dashboardSettings                  Json?
   lastLoginAt                        DateTime?
   lastLoginIp                        String?
   registrationCountry                String?
   registrationIp                     String?
-  aiRequireToolApproval              Boolean                         @default(false)
+  aiRequireToolApproval              Boolean            @default(false)
   subscriptionStartedAt              DateTime?
-  updateWorkoutNotesEnabled          Boolean                         @default(true)
+  updateWorkoutNotesEnabled          Boolean            @default(true)
   trialEndsAt                        DateTime?
   pendingSubscriptionPeriodEnd       DateTime?
   pendingSubscriptionTier            SubscriptionTier?
-  aiConversationalEngagement         Boolean                         @default(true)
+  aiConversationalEngagement         Boolean            @default(true)
   shareRewardClaimedAt               DateTime?
-  shareRewardDaysGranted             Int?                            @default(0)
-  aiTtsStyle                         String?                         @default("coach")
-  aiTtsVoiceName                     String?                         @default("Kore")
-  aiTtsSpeed                         String?                         @default("normal")
-  aiTtsAutoReadMessages              Boolean                         @default(false)
+  shareRewardDaysGranted             Int?               @default(0)
+  aiTtsStyle                         String?            @default("coach")
+  aiTtsVoiceName                     String?            @default("Kore")
+  aiTtsSpeed                         String?            @default("normal")
+  aiTtsAutoReadMessages              Boolean            @default(false)
   emailError                         String?
-  emailStatus                        String                          @default("VALID")
+  emailStatus                        String             @default("VALID")
 
   // System Flags
-  hasDashboardAccess                 Boolean                         @default(true)
-  weightSourceMode                   String                          @default("AUTO")
-  uiLanguage                         String?                         @default("en")
-  aiMemoryEnabled                    Boolean                         @default(false)
-  aiWorkoutAutonomyLimit             Int                             @default(10)
-  publicAuthorSlug                   String?                         @unique
-  publicDisplayName                  String?
-  publicBio                          String?
-  publicLocation                     String?
-  publicWebsiteUrl                   String?
-  publicSocialLinks                  Json?
-  publicCoachingBrand                String?
-  personalBestsBackfilledAt          DateTime?
-  teamVisibility                     TeamVisibility?                 @default(COACHES_ONLY)
-  featureFlags                       Json?
-  coachProfileEnabled                Boolean                         @default(false)
-  coachProfileSlug                   String?                         @unique
-  coachPublicPage                    Json?
-  athleteProfileEnabled              Boolean                         @default(false)
-  athleteProfileSlug                 String?                         @unique
-  athletePublicPage                  Json?
-  deactivatedAt                      DateTime?
-  deactivationReason                 String?
-  referralCode                       String?                         @unique
-  referredByUserId                   String?
-  role                               Role                            @default(FREE)
-  intervalsApiKey                    String?
-  intervalsAthleteId                 String?
-  accounts                           Account[]
-  activityRecommendations            ActivityRecommendation[]
-  apiKeys                            ApiKey[]
-  athleteGroups                      AthleteGroup[]                  @relation("CoachGroups")
-  groupMemberships                   AthleteGroupMember[]            @relation("AthleteGroupMemberships")
-  journeyEvents                      AthleteJourneyEvent[]
-  auditLogs                          AuditLog[]
-  bodyMeasurementEntries             BodyMeasurementEntry[]
-  bugReports                         BugReport[]
-  bugReportComments                  BugReportComment[]
-  calendarNotes                      CalendarNote[]
-  chatParticipations                 ChatParticipant[]
-  chatTurns                          ChatTurn[]
-  checkIns                           CheckIn[]
-  weeklyCheckIns                     WeeklyCheckIn[]
-  coachAthleteInvitesSent            CoachAthleteInvite[]
-  feedbacks                          CoachFeedback[]
-  invites                            CoachingInvite[]
-  coaches                            CoachingRelationship[]          @relation("AthleteRelation")
-  athletes                           CoachingRelationship[]          @relation("CoachRelation")
-  coachingRequestsSent               CoachingRequest[]               @relation("AthleteRequestsSent")
-  coachingRequestsReceived           CoachingRequest[]               @relation("CoachRequestsReceived")
-  customFieldDefinitions             CustomFieldDefinition[]
-  dailyCheckins                      DailyCheckin[]
-  dailyMetrics                       DailyMetric[]
-  dashboards                         Dashboard[]
-  emailDeliveries                    EmailDelivery[]
-  emailPreferences                   EmailPreference[]
-  events                             Event[]
-  favoriteTrainingPlans              FavoriteTrainingPlan[]
-  fitFiles                           FitFile[]
-  goals                              Goal[]
-  integrations                       Integration[]
-  llmUsage                           LlmUsage[]
-  mcpToolExecutions                  McpToolExecution[]
-  metricHistory                      MetricHistory[]
-  mobilePushDevices                  MobilePushDevice[]
-  mobilePushPreference               MobilePushPreference?
-  nutrition                          Nutrition[]
-  nutritionPlans                     NutritionPlan[]
-  nutritionRecommendations           NutritionRecommendation[]
-  oauthApps                          OAuthApp[]
-  oauthCodes                         OAuthAuthCode[]
-  oauthConsents                      OAuthConsent[]
-  oauthTokens                        OAuthToken[]
-  partnerCampaignRedemptions         PartnerCampaignRedemption[]
-  personalBests                      PersonalBest[]
-  plannedWorkouts                    PlannedWorkout[]
-  providerSubscriptions              ProviderSubscription[]
-  quotaDenials                       QuotaDenial[]
-  recommendations                    Recommendation[]
-  referralAsReferee                  Referral?                       @relation("ReferralReferee")
-  referralsAsReferrer                Referral[]                      @relation("ReferralReferrer")
-  reports                            Report[]
-  reportTemplates                    ReportTemplate[]
-  scoreTrendExplanations             ScoreTrendExplanation[]
-  sessions                           Session[]
-  shareTokens                        ShareToken[]
-  sportSettings                      SportSettings[]
-  strengthExerciseLibraryItems       StrengthExerciseLibraryItem[]
-  subscriptionLifecycleEvents        SubscriptionLifecycleEvent[]
-  supportMessages                    SupportMessage[]
-  syncQueue                          SyncQueue[]
-  ownedTeams                         Team[]                          @relation("TeamOwner")
-  teamMemberships                    TeamMember[]
-  trainingAvailability               TrainingAvailability[]
-  trainingPlans                      TrainingPlan[]
-  trainingPlanFolders                TrainingPlanFolder[]
-  referredBy                         User?                           @relation("UserReferrals", fields: [referredByUserId], references: [id])
-  referralsGiven                     User[]                          @relation("UserReferrals")
-  memories                           UserMemory[]
-  notifications                      UserNotification[]
-  nutritionSettings                  UserNutritionSettings?
-  systemMessageDismissals            UserSystemMessageDismissal[]
-  weeklyTrainingPlans                WeeklyTrainingPlan[]
-  wellness                           Wellness[]
-  widgets                            Widget[]
-  workouts                           Workout[]
-  workoutStructureGenerationRuns     WorkoutStructureGenerationRun[]
-  workoutTemplates                   WorkoutTemplate[]
-  workoutTemplateFolders             WorkoutTemplateFolder[]
-  participatingEvents                Event[]                         @relation("EventParticipants")
+  hasDashboardAccess             Boolean                         @default(true)
+  weightSourceMode               String                          @default("AUTO")
+  uiLanguage                     String?                         @default("en")
+  aiMemoryEnabled                Boolean                         @default(false)
+  aiWorkoutAutonomyLimit         Int                             @default(10)
+  publicAuthorSlug               String?                         @unique
+  publicDisplayName              String?
+  publicBio                      String?
+  publicLocation                 String?
+  publicWebsiteUrl               String?
+  publicSocialLinks              Json?
+  publicCoachingBrand            String?
+  personalBestsBackfilledAt      DateTime?
+  teamVisibility                 TeamVisibility?                 @default(COACHES_ONLY)
+  featureFlags                   Json?
+  coachProfileEnabled            Boolean                         @default(false)
+  coachProfileSlug               String?                         @unique
+  coachPublicPage                Json?
+  athleteProfileEnabled          Boolean                         @default(false)
+  athleteProfileSlug             String?                         @unique
+  athletePublicPage              Json?
+  deactivatedAt                  DateTime?
+  deactivationReason             String?
+  referralCode                   String?                         @unique
+  referredByUserId               String?
+  role                           Role                            @default(FREE)
+  intervalsApiKey                String?
+  intervalsAthleteId             String?
+  accounts                       Account[]
+  activityRecommendations        ActivityRecommendation[]
+  apiKeys                        ApiKey[]
+  athleteGroups                  AthleteGroup[]                  @relation("CoachGroups")
+  groupMemberships               AthleteGroupMember[]            @relation("AthleteGroupMemberships")
+  journeyEvents                  AthleteJourneyEvent[]
+  auditLogs                      AuditLog[]
+  bodyMeasurementEntries         BodyMeasurementEntry[]
+  bugReports                     BugReport[]
+  bugReportComments              BugReportComment[]
+  calendarNotes                  CalendarNote[]
+  chatParticipations             ChatParticipant[]
+  chatTurns                      ChatTurn[]
+  checkIns                       CheckIn[]
+  weeklyCheckIns                 WeeklyCheckIn[]
+  coachAthleteInvitesSent        CoachAthleteInvite[]
+  feedbacks                      CoachFeedback[]
+  invites                        CoachingInvite[]
+  coaches                        CoachingRelationship[]          @relation("AthleteRelation")
+  athletes                       CoachingRelationship[]          @relation("CoachRelation")
+  coachingRequestsSent           CoachingRequest[]               @relation("AthleteRequestsSent")
+  coachingRequestsReceived       CoachingRequest[]               @relation("CoachRequestsReceived")
+  customFieldDefinitions         CustomFieldDefinition[]
+  dailyCheckins                  DailyCheckin[]
+  dailyMetrics                   DailyMetric[]
+  dashboards                     Dashboard[]
+  emailDeliveries                EmailDelivery[]
+  emailPreferences               EmailPreference[]
+  events                         Event[]
+  favoriteTrainingPlans          FavoriteTrainingPlan[]
+  fitFiles                       FitFile[]
+  goals                          Goal[]
+  integrations                   Integration[]
+  llmUsage                       LlmUsage[]
+  mcpToolExecutions              McpToolExecution[]
+  metricHistory                  MetricHistory[]
+  mobilePushDevices              MobilePushDevice[]
+  mobilePushPreference           MobilePushPreference?
+  nutrition                      Nutrition[]
+  nutritionPlans                 NutritionPlan[]
+  nutritionRecommendations       NutritionRecommendation[]
+  oauthApps                      OAuthApp[]
+  oauthCodes                     OAuthAuthCode[]
+  oauthConsents                  OAuthConsent[]
+  oauthTokens                    OAuthToken[]
+  partnerCampaignRedemptions     PartnerCampaignRedemption[]
+  personalBests                  PersonalBest[]
+  plannedWorkouts                PlannedWorkout[]
+  providerSubscriptions          ProviderSubscription[]
+  quotaDenials                   QuotaDenial[]
+  recommendations                Recommendation[]
+  referralAsReferee              Referral?                       @relation("ReferralReferee")
+  referralsAsReferrer            Referral[]                      @relation("ReferralReferrer")
+  reports                        Report[]
+  reportTemplates                ReportTemplate[]
+  scoreTrendExplanations         ScoreTrendExplanation[]
+  sessions                       Session[]
+  shareTokens                    ShareToken[]
+  sportSettings                  SportSettings[]
+  strengthExerciseLibraryItems   StrengthExerciseLibraryItem[]
+  subscriptionLifecycleEvents    SubscriptionLifecycleEvent[]
+  supportMessages                SupportMessage[]
+  syncQueue                      SyncQueue[]
+  ownedTeams                     Team[]                          @relation("TeamOwner")
+  teamMemberships                TeamMember[]
+  trainingAvailability           TrainingAvailability[]
+  trainingPlans                  TrainingPlan[]
+  trainingPlanFolders            TrainingPlanFolder[]
+  referredBy                     User?                           @relation("UserReferrals", fields: [referredByUserId], references: [id])
+  referralsGiven                 User[]                          @relation("UserReferrals")
+  memories                       UserMemory[]
+  notifications                  UserNotification[]
+  nutritionSettings              UserNutritionSettings?
+  systemMessageDismissals        UserSystemMessageDismissal[]
+  weeklyTrainingPlans            WeeklyTrainingPlan[]
+  wellness                       Wellness[]
+  widgets                        Widget[]
+  workouts                       Workout[]
+  workoutStructureGenerationRuns WorkoutStructureGenerationRun[]
+  workoutTemplates               WorkoutTemplate[]
+  workoutTemplateFolders         WorkoutTemplateFolder[]
+  participatingEvents            Event[]                         @relation("EventParticipants")
 
   // CRM Fields
-  pipelineStage                      String?                         @default("Lead")
-  driveFolderId                      String?
-  crmTags                            String[]                        @default([])
-  coachNotes                         CoachNote[]
+  pipelineStage String?     @default("Lead") // Deprecated: Migrating to CrmDeal
+  driveFolderId String?
+  crmTags       String[]    @default([])
+  coachNotes    CoachNote[]
+  crmDeals      CrmDeal[]   @relation("UserDeals")
+  crmTasks      CrmTask[]   @relation("UserTasks")
+  crmEmailDrafts CrmEmailDraft[] @relation("UserEmailDrafts")
+  leadSource    String?
+  churnRisk     String?     @default("LOW")
+  lifetimeValue Float?      @default(0)
 
   @@index([createdAt])
   @@index([deactivatedAt])
@@ -242,13 +248,89 @@ model Referral {
 }
 
 model CoachNote {
-  id            String   @id @default(uuid())
-  userId        String
-  text          String
-  isAiSummary   Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String   @id @default(uuid())
+  userId      String
+  text        String
+  isAiSummary Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CrmPipeline {
+  id          String             @id @default(uuid())
+  name        String
+  description String?
+  isActive    Boolean            @default(true)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  stages      CrmPipelineStage[]
+  deals       CrmDeal[]
+}
+
+model CrmPipelineStage {
+  id         String      @id @default(uuid())
+  pipelineId String
+  name       String
+  order      Int
+  color      String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  pipeline   CrmPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  deals      CrmDeal[]
+
+  @@index([pipelineId])
+}
+
+model CrmDeal {
+  id         String           @id @default(uuid())
+  userId     String
+  pipelineId String
+  stageId    String
+  name       String?
+  value      Float?
+  status     String           @default("OPEN")
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  user       User             @relation("UserDeals", fields: [userId], references: [id], onDelete: Cascade)
+  pipeline   CrmPipeline      @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  stage      CrmPipelineStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  tasks      CrmTask[]
+
+  @@index([userId])
+  @@index([pipelineId])
+  @@index([stageId])
+}
+
+model CrmTask {
+  id          String    @id @default(uuid())
+  dealId      String?
+  userId      String?
+  title       String
+  description String?
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deal        CrmDeal?  @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  user        User?     @relation("UserTasks", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([dealId])
+  @@index([userId])
+}
+
+model CrmEmailDraft {
+  id          String    @id @default(uuid())
+  userId      String
+  subject     String
+  body        String    @db.Text
+  status      String    @default("PENDING") // PENDING, APPROVED, REJECTED, SENT
+  promptId    String?   // Optional reference to which prompt generated this
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation("UserEmailDrafts", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -621,18 +703,18 @@ model Event {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -2779,23 +2861,23 @@ model PasswordResetToken {
 }
 
 model WeeklyCheckIn {
-  id               String   @id @default(cuid())
-  athleteId        String
-  coachId          String?
-  weekStartDate    DateTime // The Sunday that starts this week
-  submittedAt      DateTime @default(now())
-  
-  // Basic check-in data
-  feelingScore     Int?     // 1-10
-  fatigueScore     Int?     // 1-10
-  stressScore      Int?     // 1-10
-  sleepQuality     Int?     // 1-10
-  
-  notes            String?  @db.Text
-  coachFeedback    String?  @db.Text
-  coachReviewedAt  DateTime?
+  id            String   @id @default(cuid())
+  athleteId     String
+  coachId       String?
+  weekStartDate DateTime // The Sunday that starts this week
+  submittedAt   DateTime @default(now())
 
-  athlete          User     @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+  // Basic check-in data
+  feelingScore Int? // 1-10
+  fatigueScore Int? // 1-10
+  stressScore  Int? // 1-10
+  sleepQuality Int? // 1-10
+
+  notes           String?   @db.Text
+  coachFeedback   String?   @db.Text
+  coachReviewedAt DateTime?
+
+  athlete User @relation(fields: [athleteId], references: [id], onDelete: Cascade)
 
   @@unique([athleteId, weekStartDate])
   @@index([athleteId])

@@ -12,7 +12,7 @@
       class="fixed top-0 right-0 h-full w-full max-w-md bg-background border-l border-border shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col"
       :class="isOpen && athlete ? 'translate-x-0' : 'translate-x-full'"
     >
-      <div v-if="athlete" class="h-full flex flex-col">
+      <div v-if="athlete && pipeline" class="h-full flex flex-col">
         <!-- Header -->
         <div
           class="flex items-center justify-between p-4 border-b border-border bg-muted/30 shrink-0"
@@ -29,14 +29,13 @@
               </h2>
               <div class="flex items-center gap-2 mt-1">
                 <select
-                  v-model="editStage"
+                  v-model="editStageId"
                   class="text-[10px] uppercase font-bold tracking-wider bg-primary/10 text-primary border border-primary/20 rounded px-1.5 py-0.5 outline-none cursor-pointer hover:bg-primary/20 transition-colors"
-                  @change="updateAthlete({ pipelineStage: editStage })"
+                  @change="updateAthleteStage"
                 >
-                  <option value="Lead">Lead</option>
-                  <option value="Prospect">Prospect</option>
-                  <option value="Active">Active</option>
-                  <option value="Alumni">Alumni</option>
+                  <option v-for="stage in pipeline.stages" :key="stage.id" :value="stage.id">
+                    {{ stage.name }}
+                  </option>
                 </select>
                 <p class="text-xs text-muted-foreground">{{ athlete.email }}</p>
               </div>
@@ -77,13 +76,24 @@
           <button
             class="flex-1 flex items-center justify-center gap-2 px-3 py-3 text-sm font-medium border-b-2 transition-colors"
             :class="
+              activeTab === 'automations'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            "
+            @click="activeTab = 'automations'"
+          >
+            <Icon name="lucide:sparkles" class="w-4 h-4" /> AI Drafts
+          </button>
+          <button
+            class="flex-1 flex items-center justify-center gap-2 px-3 py-3 text-sm font-medium border-b-2 transition-colors"
+            :class="
               activeTab === 'settings'
                 ? 'border-primary text-primary'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             "
             @click="activeTab = 'settings'"
           >
-            <Icon name="lucide:settings" class="w-4 h-4" /> Settings
+            <Icon name="lucide:settings" class="w-4 h-4" />
           </button>
         </div>
 
@@ -179,6 +189,43 @@
                 </button>
               </div>
             </div>
+
+            <!-- New Tracking Fields -->
+            <div>
+              <label
+                class="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider"
+                >Lead Source</label
+              >
+              <select
+                v-model="editLeadSource"
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                @change="updateAthlete({ leadSource: editLeadSource })"
+              >
+                <option :value="null">Unknown</option>
+                <option value="Organic">Organic Search</option>
+                <option value="Social">Social Media</option>
+                <option value="Referral">Referral</option>
+                <option value="Ads">Paid Ads</option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                class="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider"
+                >Churn Risk</label
+              >
+              <select
+                v-model="editChurnRisk"
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                @change="updateAthlete({ churnRisk: editChurnRisk })"
+              >
+                <option :value="null">Normal</option>
+                <option value="LOW">Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+              </select>
+            </div>
+
             <div>
               <label
                 class="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider"
@@ -222,6 +269,92 @@
             </div>
           </div>
 
+          <!-- Automations Tab -->
+          <div v-if="activeTab === 'automations'" class="space-y-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-bold text-foreground">AI Email Drafts</h3>
+              <button class="text-xs text-primary hover:underline" @click="fetchDrafts">
+                Refresh
+              </button>
+            </div>
+
+            <div v-if="pendingDrafts" class="text-sm text-muted-foreground italic text-center py-6">
+              Loading drafts...
+            </div>
+            <div
+              v-else-if="drafts.length === 0"
+              class="text-sm text-muted-foreground italic text-center py-6"
+            >
+              No email drafts available.
+            </div>
+            <div v-else class="space-y-4">
+              <div
+                v-for="draft in drafts"
+                :key="draft.id"
+                class="bg-card border border-border rounded-xl p-4 shadow-sm"
+              >
+                <div class="flex justify-between items-start mb-2">
+                  <span
+                    class="text-xs font-bold uppercase px-2 py-0.5 rounded-full"
+                    :class="{
+                      'bg-amber-500/10 text-amber-500': draft.status === 'PENDING',
+                      'bg-green-500/10 text-green-500':
+                        draft.status === 'APPROVED' || draft.status === 'SENT',
+                      'bg-red-500/10 text-red-500': draft.status === 'REJECTED'
+                    }"
+                  >
+                    {{ draft.status }}
+                  </span>
+                  <span class="text-xs text-muted-foreground">{{
+                    new Date(draft.createdAt).toLocaleDateString()
+                  }}</span>
+                </div>
+
+                <div v-if="draft.status === 'PENDING'">
+                  <div class="mb-3">
+                    <label class="block text-xs font-bold text-muted-foreground mb-1"
+                      >Subject</label
+                    >
+                    <input
+                      v-model="draft.subject"
+                      type="text"
+                      class="w-full rounded-md border border-input bg-background px-3 py-1.5 text-sm"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="block text-xs font-bold text-muted-foreground mb-1">Body</label>
+                    <textarea
+                      v-model="draft.body"
+                      rows="6"
+                      class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    ></textarea>
+                  </div>
+
+                  <div class="flex gap-2 justify-end mt-4">
+                    <button
+                      class="bg-destructive/10 text-destructive hover:bg-destructive/20 rounded-md px-3 py-1.5 text-sm font-medium transition-colors"
+                      :disabled="isUpdatingDraft === draft.id"
+                      @click="updateDraft(draft.id, 'REJECTED')"
+                    >
+                      Reject
+                    </button>
+                    <button
+                      class="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-3 py-1.5 text-sm font-medium transition-colors"
+                      :disabled="isUpdatingDraft === draft.id"
+                      @click="updateDraft(draft.id, 'APPROVED', draft.subject, draft.body)"
+                    >
+                      Approve & Send
+                    </button>
+                  </div>
+                </div>
+                <div v-else>
+                  <p class="font-bold text-sm mb-1">{{ draft.subject }}</p>
+                  <p class="text-sm text-muted-foreground whitespace-pre-wrap">{{ draft.body }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Settings Tab -->
           <div v-if="activeTab === 'settings'" class="space-y-6">
             <!-- Simplified Settings -->
@@ -235,13 +368,13 @@
                   <Icon name="lucide:list" class="w-4 h-4" /> Archive Account
                 </h4>
                 <p class="text-xs text-muted-foreground mb-3">
-                  Move this athlete to the Alumni stage.
+                  Move this athlete to an inactive stage.
                 </p>
                 <button
                   class="bg-amber-500/10 text-amber-500 border border-amber-500/20 hover:bg-amber-500/20 rounded-md px-4 py-2 text-sm font-medium transition-colors w-full"
-                  @click="updateAthlete({ pipelineStage: 'Alumni' })"
+                  @click="archiveAthlete"
                 >
-                  Archive to Alumni
+                  Archive Athlete
                 </button>
               </div>
             </div>
@@ -258,6 +391,7 @@
   const props = defineProps<{
     isOpen: boolean
     athlete: any | null
+    pipeline: any | null
   }>()
 
   const emit = defineEmits(['close', 'refresh'])
@@ -268,8 +402,14 @@
   const notes = ref<any[]>([])
   const pendingNotes = ref(false)
 
-  const editStage = ref('Lead')
+  const drafts = ref<any[]>([])
+  const pendingDrafts = ref(false)
+  const isUpdatingDraft = ref<string | null>(null)
+
+  const editStageId = ref('')
   const editDriveFolderId = ref('')
+  const editLeadSource = ref<string | null>(null)
+  const editChurnRisk = ref<string | null>(null)
   const editTags = ref<string[]>([])
   const newTag = ref('')
   const isUpdating = ref(false)
@@ -277,15 +417,47 @@
   watch(
     () => props.athlete,
     (newAthlete) => {
-      if (newAthlete) {
+      if (newAthlete && props.pipeline) {
         activeTab.value = 'overview'
-        editStage.value = newAthlete.pipelineStage || 'Lead'
+        const deal = newAthlete.crmDeals?.find((d: any) => d.pipelineId === props.pipeline.id)
+        editStageId.value = deal ? deal.stageId : props.pipeline.stages[0]?.id || ''
         editDriveFolderId.value = newAthlete.driveFolderId || ''
+        editLeadSource.value = newAthlete.leadSource || null
+        editChurnRisk.value = newAthlete.churnRisk || null
         editTags.value = [...(newAthlete.crmTags || [])]
         fetchNotes()
+        fetchDrafts()
       }
     }
   )
+
+  const fetchDrafts = async () => {
+    if (!props.athlete) return
+    pendingDrafts.value = true
+    try {
+      const res = await ($fetch as any)(`/api/coaching/crm/athletes/${props.athlete.id}/drafts`)
+      drafts.value = res
+    } catch (error) {
+      console.error('Failed to fetch drafts:', error)
+    } finally {
+      pendingDrafts.value = false
+    }
+  }
+
+  const updateDraft = async (draftId: string, status: string, subject?: string, body?: string) => {
+    isUpdatingDraft.value = draftId
+    try {
+      await ($fetch as any)(`/api/coaching/crm/drafts/${draftId}`, {
+        method: 'PATCH',
+        body: { status, subject, body }
+      })
+      await fetchDrafts()
+    } catch (error) {
+      console.error('Failed to update draft:', error)
+    } finally {
+      isUpdatingDraft.value = null
+    }
+  }
 
   const fetchNotes = async () => {
     if (!props.athlete) return
@@ -342,6 +514,34 @@
       console.error('Failed to update athlete:', error)
     } finally {
       isUpdating.value = false
+    }
+  }
+
+  const updateAthleteStage = async () => {
+    if (!props.athlete || !props.pipeline || !editStageId.value) return
+    isUpdating.value = true
+    try {
+      await ($fetch as any)(`/api/coaching/crm/athletes/${props.athlete.id}`, {
+        method: 'PATCH',
+        body: {
+          pipelineId: props.pipeline.id,
+          stageId: editStageId.value
+        }
+      })
+      emit('refresh')
+    } catch (error) {
+      console.error('Failed to update athlete stage:', error)
+    } finally {
+      isUpdating.value = false
+    }
+  }
+
+  const archiveAthlete = async () => {
+    if (!props.pipeline) return
+    const lastStage = props.pipeline.stages[props.pipeline.stages.length - 1]
+    if (lastStage) {
+      editStageId.value = lastStage.id
+      await updateAthleteStage()
     }
   }
 

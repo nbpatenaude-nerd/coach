@@ -32,6 +32,26 @@ export type Referral = Prisma.ReferralModel
  */
 export type CoachNote = Prisma.CoachNoteModel
 /**
+ * Model CrmPipeline
+ *
+ */
+export type CrmPipeline = Prisma.CrmPipelineModel
+/**
+ * Model CrmPipelineStage
+ *
+ */
+export type CrmPipelineStage = Prisma.CrmPipelineStageModel
+/**
+ * Model CrmDeal
+ *
+ */
+export type CrmDeal = Prisma.CrmDealModel
+/**
+ * Model CrmTask
+ *
+ */
+export type CrmTask = Prisma.CrmTaskModel
+/**
  * Model SportSettings
  *
  */

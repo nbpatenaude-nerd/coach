@@ -2,20 +2,26 @@ import { z } from 'zod'
 
 const schema = z.object({
   athleteId: z.string().min(1),
-  pipelineStage: z.string().optional(),
-  crmTags: z.array(z.string()).optional()
+  pipelineId: z.string().optional(),
+  stageId: z.string().optional(),
+  crmTags: z.array(z.string()).optional(),
+  leadSource: z.string().optional().nullable(),
+  churnRisk: z.string().optional()
 })
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  if (!(user as any).isCoach && !(user as any).isAdmin) {
+  const session = await requireAuth(event)
+  if (!session.user) throw createError({ statusCode: 401, message: 'Unauthorized' })
+
+  const { isCoach, isAdmin } = await coachingRepository.getCoachStatus(session.user.id)
+  if (!isCoach && !isAdmin) {
     throw createError({ statusCode: 403, message: 'Unauthorized' })
   }
 
   const body = await readValidatedBody(event, (b) => schema.parse(b))
 
-  if (!(user as any).isAdmin) {
-    const isCoaching = await coachingRepository.checkRelationship(user.id, body.athleteId)
+  if (!isAdmin) {
+    const isCoaching = await coachingRepository.checkRelationship(session.user.id, body.athleteId)
     if (!isCoaching) {
       throw createError({
         statusCode: 403,
@@ -24,15 +30,47 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const updateData: any = {}
-  if (body.pipelineStage !== undefined) updateData.pipelineStage = body.pipelineStage
-  if (body.crmTags !== undefined) updateData.crmTags = body.crmTags
+  // Update user fields
+  const userUpdateData: any = {}
+  if (body.crmTags !== undefined) userUpdateData.crmTags = body.crmTags
+  if (body.leadSource !== undefined) userUpdateData.leadSource = body.leadSource
+  if (body.churnRisk !== undefined) userUpdateData.churnRisk = body.churnRisk
 
-  const updatedAthlete = await prisma.user.update({
-    where: { id: body.athleteId },
-    data: updateData,
-    select: { id: true, pipelineStage: true, crmTags: true }
-  })
+  let updatedAthlete: any = null
+  if (Object.keys(userUpdateData).length > 0) {
+    updatedAthlete = await prisma.user.update({
+      where: { id: body.athleteId },
+      data: userUpdateData,
+      select: { id: true, crmTags: true, leadSource: true, churnRisk: true }
+    })
+  }
+
+  // Update Deal if pipelineId and stageId are provided
+  if (body.pipelineId && body.stageId) {
+    // Find existing deal for this pipeline and athlete
+    const existingDeal = await prisma.crmDeal.findFirst({
+      where: {
+        userId: body.athleteId,
+        pipelineId: body.pipelineId
+      }
+    })
+
+    if (existingDeal) {
+      await prisma.crmDeal.update({
+        where: { id: existingDeal.id },
+        data: { stageId: body.stageId }
+      })
+    } else {
+      await prisma.crmDeal.create({
+        data: {
+          userId: body.athleteId,
+          pipelineId: body.pipelineId,
+          stageId: body.stageId,
+          name: 'Deal'
+        }
+      })
+    }
+  }
 
   return { success: true, data: updatedAthlete }
 })

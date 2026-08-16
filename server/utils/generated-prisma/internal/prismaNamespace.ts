@@ -377,6 +377,10 @@ export const ModelName = {
   User: 'User',
   Referral: 'Referral',
   CoachNote: 'CoachNote',
+  CrmPipeline: 'CrmPipeline',
+  CrmPipelineStage: 'CrmPipelineStage',
+  CrmDeal: 'CrmDeal',
+  CrmTask: 'CrmTask',
   SportSettings: 'SportSettings',
   SystemMessage: 'SystemMessage',
   UserSystemMessageDismissal: 'UserSystemMessageDismissal',
@@ -507,6 +511,10 @@ export type TypeMap<
       | 'user'
       | 'referral'
       | 'coachNote'
+      | 'crmPipeline'
+      | 'crmPipelineStage'
+      | 'crmDeal'
+      | 'crmTask'
       | 'sportSettings'
       | 'systemMessage'
       | 'userSystemMessageDismissal'
@@ -836,6 +844,303 @@ export type TypeMap<
         count: {
           args: Prisma.CoachNoteCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CoachNoteCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmPipeline: {
+      payload: Prisma.$CrmPipelinePayload<ExtArgs>
+      fields: Prisma.CrmPipelineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmPipelineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmPipelineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        findFirst: {
+          args: Prisma.CrmPipelineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmPipelineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        findMany: {
+          args: Prisma.CrmPipelineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>[]
+        }
+        create: {
+          args: Prisma.CrmPipelineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        createMany: {
+          args: Prisma.CrmPipelineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmPipelineCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>[]
+        }
+        delete: {
+          args: Prisma.CrmPipelineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        update: {
+          args: Prisma.CrmPipelineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmPipelineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmPipelineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmPipelineUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmPipelineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelinePayload>
+        }
+        aggregate: {
+          args: Prisma.CrmPipelineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmPipeline>
+        }
+        groupBy: {
+          args: Prisma.CrmPipelineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmPipelineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmPipelineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmPipelineCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmPipelineStage: {
+      payload: Prisma.$CrmPipelineStagePayload<ExtArgs>
+      fields: Prisma.CrmPipelineStageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmPipelineStageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmPipelineStageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        findFirst: {
+          args: Prisma.CrmPipelineStageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmPipelineStageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        findMany: {
+          args: Prisma.CrmPipelineStageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>[]
+        }
+        create: {
+          args: Prisma.CrmPipelineStageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        createMany: {
+          args: Prisma.CrmPipelineStageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmPipelineStageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>[]
+        }
+        delete: {
+          args: Prisma.CrmPipelineStageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        update: {
+          args: Prisma.CrmPipelineStageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmPipelineStageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmPipelineStageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmPipelineStageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmPipelineStageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmPipelineStagePayload>
+        }
+        aggregate: {
+          args: Prisma.CrmPipelineStageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmPipelineStage>
+        }
+        groupBy: {
+          args: Prisma.CrmPipelineStageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmPipelineStageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmPipelineStageCountArgs<ExtArgs>
+          result:
+            runtime.Types.Utils.Optional<Prisma.CrmPipelineStageCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmDeal: {
+      payload: Prisma.$CrmDealPayload<ExtArgs>
+      fields: Prisma.CrmDealFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmDealFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmDealFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        findFirst: {
+          args: Prisma.CrmDealFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmDealFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        findMany: {
+          args: Prisma.CrmDealFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>[]
+        }
+        create: {
+          args: Prisma.CrmDealCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        createMany: {
+          args: Prisma.CrmDealCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmDealCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>[]
+        }
+        delete: {
+          args: Prisma.CrmDealDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        update: {
+          args: Prisma.CrmDealUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmDealDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmDealUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmDealUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmDealUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmDealPayload>
+        }
+        aggregate: {
+          args: Prisma.CrmDealAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmDeal>
+        }
+        groupBy: {
+          args: Prisma.CrmDealGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmDealGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmDealCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmDealCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmTask: {
+      payload: Prisma.$CrmTaskPayload<ExtArgs>
+      fields: Prisma.CrmTaskFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmTaskFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmTaskFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>
+        }
+        findFirst: {
+          args: Prisma.CrmTaskFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmTaskFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>
+        }
+        findMany: {
+          args: Prisma.CrmTaskFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>[]
+        }
+        create: {
+          args: Prisma.CrmTaskCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>
+        }
+        createMany: {
+          args: Prisma.CrmTaskCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmTaskCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>[]
+        }
+        delete: {
+          args: Prisma.CrmTaskDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>
+        }
+        update: {
+          args: Prisma.CrmTaskUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmTaskDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmTaskUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmTaskUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmTaskUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmTaskPayload>
+        }
+        aggregate: {
+          args: Prisma.CrmTaskAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmTask>
+        }
+        groupBy: {
+          args: Prisma.CrmTaskGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmTaskGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmTaskCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmTaskCountAggregateOutputType> | number
         }
       }
     }
@@ -9006,7 +9311,10 @@ export const UserScalarFieldEnum = {
   intervalsAthleteId: 'intervalsAthleteId',
   pipelineStage: 'pipelineStage',
   driveFolderId: 'driveFolderId',
-  crmTags: 'crmTags'
+  crmTags: 'crmTags',
+  leadSource: 'leadSource',
+  churnRisk: 'churnRisk',
+  lifetimeValue: 'lifetimeValue'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -9037,6 +9345,61 @@ export const CoachNoteScalarFieldEnum = {
 
 export type CoachNoteScalarFieldEnum =
   (typeof CoachNoteScalarFieldEnum)[keyof typeof CoachNoteScalarFieldEnum]
+
+export const CrmPipelineScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmPipelineScalarFieldEnum =
+  (typeof CrmPipelineScalarFieldEnum)[keyof typeof CrmPipelineScalarFieldEnum]
+
+export const CrmPipelineStageScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  name: 'name',
+  order: 'order',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmPipelineStageScalarFieldEnum =
+  (typeof CrmPipelineStageScalarFieldEnum)[keyof typeof CrmPipelineStageScalarFieldEnum]
+
+export const CrmDealScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId',
+  name: 'name',
+  value: 'value',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmDealScalarFieldEnum =
+  (typeof CrmDealScalarFieldEnum)[keyof typeof CrmDealScalarFieldEnum]
+
+export const CrmTaskScalarFieldEnum = {
+  id: 'id',
+  dealId: 'dealId',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  dueDate: 'dueDate',
+  isCompleted: 'isCompleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmTaskScalarFieldEnum =
+  (typeof CrmTaskScalarFieldEnum)[keyof typeof CrmTaskScalarFieldEnum]
 
 export const SportSettingsScalarFieldEnum = {
   id: 'id',
@@ -11764,6 +12127,10 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   referral?: Prisma.ReferralOmit
   coachNote?: Prisma.CoachNoteOmit
+  crmPipeline?: Prisma.CrmPipelineOmit
+  crmPipelineStage?: Prisma.CrmPipelineStageOmit
+  crmDeal?: Prisma.CrmDealOmit
+  crmTask?: Prisma.CrmTaskOmit
   sportSettings?: Prisma.SportSettingsOmit
   systemMessage?: Prisma.SystemMessageOmit
   userSystemMessageDismissal?: Prisma.UserSystemMessageDismissalOmit

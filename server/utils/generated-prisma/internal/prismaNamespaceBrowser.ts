@@ -51,6 +51,10 @@ export const ModelName = {
   User: 'User',
   Referral: 'Referral',
   CoachNote: 'CoachNote',
+  CrmPipeline: 'CrmPipeline',
+  CrmPipelineStage: 'CrmPipelineStage',
+  CrmDeal: 'CrmDeal',
+  CrmTask: 'CrmTask',
   SportSettings: 'SportSettings',
   SystemMessage: 'SystemMessage',
   UserSystemMessageDismissal: 'UserSystemMessageDismissal',
@@ -295,7 +299,10 @@ export const UserScalarFieldEnum = {
   intervalsAthleteId: 'intervalsAthleteId',
   pipelineStage: 'pipelineStage',
   driveFolderId: 'driveFolderId',
-  crmTags: 'crmTags'
+  crmTags: 'crmTags',
+  leadSource: 'leadSource',
+  churnRisk: 'churnRisk',
+  lifetimeValue: 'lifetimeValue'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -326,6 +333,61 @@ export const CoachNoteScalarFieldEnum = {
 
 export type CoachNoteScalarFieldEnum =
   (typeof CoachNoteScalarFieldEnum)[keyof typeof CoachNoteScalarFieldEnum]
+
+export const CrmPipelineScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmPipelineScalarFieldEnum =
+  (typeof CrmPipelineScalarFieldEnum)[keyof typeof CrmPipelineScalarFieldEnum]
+
+export const CrmPipelineStageScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  name: 'name',
+  order: 'order',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmPipelineStageScalarFieldEnum =
+  (typeof CrmPipelineStageScalarFieldEnum)[keyof typeof CrmPipelineStageScalarFieldEnum]
+
+export const CrmDealScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId',
+  name: 'name',
+  value: 'value',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmDealScalarFieldEnum =
+  (typeof CrmDealScalarFieldEnum)[keyof typeof CrmDealScalarFieldEnum]
+
+export const CrmTaskScalarFieldEnum = {
+  id: 'id',
+  dealId: 'dealId',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  dueDate: 'dueDate',
+  isCompleted: 'isCompleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmTaskScalarFieldEnum =
+  (typeof CrmTaskScalarFieldEnum)[keyof typeof CrmTaskScalarFieldEnum]
 
 export const SportSettingsScalarFieldEnum = {
   id: 'id',
