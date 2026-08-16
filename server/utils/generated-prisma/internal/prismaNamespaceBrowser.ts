@@ -55,6 +55,7 @@ export const ModelName = {
   CrmPipelineStage: 'CrmPipelineStage',
   CrmDeal: 'CrmDeal',
   CrmTask: 'CrmTask',
+  CrmEmailDraft: 'CrmEmailDraft',
   SportSettings: 'SportSettings',
   SystemMessage: 'SystemMessage',
   UserSystemMessageDismissal: 'UserSystemMessageDismissal',
@@ -388,6 +389,20 @@ export const CrmTaskScalarFieldEnum = {
 
 export type CrmTaskScalarFieldEnum =
   (typeof CrmTaskScalarFieldEnum)[keyof typeof CrmTaskScalarFieldEnum]
+
+export const CrmEmailDraftScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subject: 'subject',
+  body: 'body',
+  status: 'status',
+  promptId: 'promptId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmEmailDraftScalarFieldEnum =
+  (typeof CrmEmailDraftScalarFieldEnum)[keyof typeof CrmEmailDraftScalarFieldEnum]
 
 export const SportSettingsScalarFieldEnum = {
   id: 'id',

@@ -10,18 +10,16 @@ const schema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAuth(event)
-  if (!session.user) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  const user = await requireAuth(event)
 
-  const { isCoach, isAdmin } = await coachingRepository.getCoachStatus(session.user.id)
-  if (!isCoach && !isAdmin) {
+  if (!user.isCoach && !user.isAdmin) {
     throw createError({ statusCode: 403, message: 'Unauthorized' })
   }
 
   const body = await readValidatedBody(event, (b) => schema.parse(b))
 
-  if (!isAdmin) {
-    const isCoaching = await coachingRepository.checkRelationship(session.user.id, body.athleteId)
+  if (!user.isAdmin) {
+    const isCoaching = await coachingRepository.checkRelationship(user.id, body.athleteId)
     if (!isCoaching) {
       throw createError({
         statusCode: 403,

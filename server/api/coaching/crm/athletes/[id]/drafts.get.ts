@@ -1,14 +1,12 @@
 export default defineEventHandler(async (event) => {
-  const session = await requireAuth(event)
-  if (!session.user) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  const user = await requireAuth(event)
 
   const athleteId = event.context.params?.id
   if (!athleteId) {
     throw createError({ statusCode: 400, message: 'Athlete ID is required' })
   }
 
-  const { isCoach, isAdmin } = await coachingRepository.getCoachStatus(session.user.id)
-  if (!isCoach && !isAdmin) {
+  if (!user.isCoach && !user.isAdmin) {
     throw createError({ statusCode: 403, message: 'Unauthorized' })
   }
 

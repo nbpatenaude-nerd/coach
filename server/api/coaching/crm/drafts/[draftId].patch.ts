@@ -1,16 +1,14 @@
-import { getResend } from '../../../utils/email'
+import { getResend } from '../../../../utils/email'
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAuth(event)
-  if (!session.user) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  const user = await requireAuth(event)
 
   const draftId = event.context.params?.draftId
   if (!draftId) {
     throw createError({ statusCode: 400, message: 'Draft ID is required' })
   }
 
-  const { isCoach, isAdmin } = await coachingRepository.getCoachStatus(session.user.id)
-  if (!isCoach && !isAdmin) {
+  if (!user.isCoach && !user.isAdmin) {
     throw createError({ statusCode: 403, message: 'Unauthorized' })
   }
 

@@ -1,12 +1,11 @@
 import { z } from 'zod'
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAuth(event)
-  if (!session.user) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  const user = await requireAuth(event)
 
   // Ensure they are a coach or admin
-  const { isCoach, isAdmin } = await coachingRepository.getCoachStatus(session.user.id)
-  if (!isCoach && !isAdmin) throw createError({ statusCode: 403, message: 'Forbidden' })
+
+  if (!user.isCoach && !user.isAdmin) throw createError({ statusCode: 403, message: 'Forbidden' })
 
   const query = getQuery(event)
   const pipelineId = query.pipelineId ? String(query.pipelineId) : undefined
@@ -37,7 +36,7 @@ export default defineEventHandler(async (event) => {
   } else {
     // If coach, fetch coaching relationships
     const coachAthletes = await prisma.coachingRelationship.findMany({
-      where: { coachId: session.user.id },
+      where: { coachId: user.id },
       include: {
         athlete: {
           include

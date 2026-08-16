@@ -52,6 +52,11 @@ export type CrmDeal = Prisma.CrmDealModel
  */
 export type CrmTask = Prisma.CrmTaskModel
 /**
+ * Model CrmEmailDraft
+ *
+ */
+export type CrmEmailDraft = Prisma.CrmEmailDraftModel
+/**
  * Model SportSettings
  *
  */

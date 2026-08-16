@@ -1247,6 +1247,7 @@ export type UserWhereInput = {
   coachNotes?: Prisma.CoachNoteListRelationFilter
   crmDeals?: Prisma.CrmDealListRelationFilter
   crmTasks?: Prisma.CrmTaskListRelationFilter
+  crmEmailDrafts?: Prisma.CrmEmailDraftListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -1457,6 +1458,7 @@ export type UserOrderByWithRelationInput = {
   coachNotes?: Prisma.CoachNoteOrderByRelationAggregateInput
   crmDeals?: Prisma.CrmDealOrderByRelationAggregateInput
   crmTasks?: Prisma.CrmTaskOrderByRelationAggregateInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -1681,6 +1683,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     coachNotes?: Prisma.CoachNoteListRelationFilter
     crmDeals?: Prisma.CrmDealListRelationFilter
     crmTasks?: Prisma.CrmTaskListRelationFilter
+    crmEmailDrafts?: Prisma.CrmEmailDraftListRelationFilter
   },
   | 'id'
   | 'email'
@@ -2164,6 +2167,7 @@ export type UserCreateInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -2373,6 +2377,7 @@ export type UserUncheckedCreateInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -2587,6 +2592,7 @@ export type UserUpdateInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -2801,6 +2807,7 @@ export type UserUncheckedUpdateInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -3916,6 +3923,32 @@ export type UserUpdateOneWithoutCrmTasksNestedInput = {
       Prisma.UserUpdateWithoutCrmTasksInput
     >,
     Prisma.UserUncheckedUpdateWithoutCrmTasksInput
+  >
+}
+
+export type UserCreateNestedOneWithoutCrmEmailDraftsInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutCrmEmailDraftsInput,
+    Prisma.UserUncheckedCreateWithoutCrmEmailDraftsInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrmEmailDraftsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCrmEmailDraftsNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutCrmEmailDraftsInput,
+    Prisma.UserUncheckedCreateWithoutCrmEmailDraftsInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrmEmailDraftsInput
+  upsert?: Prisma.UserUpsertWithoutCrmEmailDraftsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutCrmEmailDraftsInput,
+      Prisma.UserUpdateWithoutCrmEmailDraftsInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutCrmEmailDraftsInput
   >
 }
 
@@ -6221,6 +6254,7 @@ export type UserCreateWithoutReferralsGivenInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralsGivenInput = {
@@ -6429,6 +6463,7 @@ export type UserUncheckedCreateWithoutReferralsGivenInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralsGivenInput = {
@@ -6645,6 +6680,7 @@ export type UserCreateWithoutReferredByInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferredByInput = {
@@ -6853,6 +6889,7 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferredByInput = {
@@ -7099,6 +7136,7 @@ export type UserUpdateWithoutReferralsGivenInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsGivenInput = {
@@ -7312,6 +7350,7 @@ export type UserUncheckedUpdateWithoutReferralsGivenInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutReferredByInput = {
@@ -7677,6 +7716,7 @@ export type UserCreateWithoutReferralAsRefereeInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
@@ -7885,6 +7925,7 @@ export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralAsRefereeInput = {
@@ -8101,6 +8142,7 @@ export type UserCreateWithoutReferralsAsReferrerInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
@@ -8309,6 +8351,7 @@ export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReferralsAsReferrerInput = {
@@ -8550,6 +8593,7 @@ export type UserUpdateWithoutReferralAsRefereeInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
@@ -8763,6 +8807,7 @@ export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReferralsAsReferrerInput = {
@@ -8996,6 +9041,7 @@ export type UserUpdateWithoutReferralsAsReferrerInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
@@ -9209,6 +9255,7 @@ export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoachNotesInput = {
@@ -9417,6 +9464,7 @@ export type UserCreateWithoutCoachNotesInput = {
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachNotesInput = {
@@ -9625,6 +9673,7 @@ export type UserUncheckedCreateWithoutCoachNotesInput = {
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachNotesInput = {
@@ -9866,6 +9915,7 @@ export type UserUpdateWithoutCoachNotesInput = {
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachNotesInput = {
@@ -10079,6 +10129,7 @@ export type UserUncheckedUpdateWithoutCoachNotesInput = {
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCrmDealsInput = {
@@ -10287,6 +10338,7 @@ export type UserCreateWithoutCrmDealsInput = {
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCrmDealsInput = {
@@ -10495,6 +10547,7 @@ export type UserUncheckedCreateWithoutCrmDealsInput = {
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCrmDealsInput = {
@@ -10736,6 +10789,7 @@ export type UserUpdateWithoutCrmDealsInput = {
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCrmDealsInput = {
@@ -10949,6 +11003,7 @@ export type UserUncheckedUpdateWithoutCrmDealsInput = {
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCrmTasksInput = {
@@ -11157,6 +11212,7 @@ export type UserCreateWithoutCrmTasksInput = {
   participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCrmTasksInput = {
@@ -11365,6 +11421,7 @@ export type UserUncheckedCreateWithoutCrmTasksInput = {
   participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCrmTasksInput = {
@@ -11606,6 +11663,7 @@ export type UserUpdateWithoutCrmTasksInput = {
   participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCrmTasksInput = {
@@ -11819,6 +11877,881 @@ export type UserUncheckedUpdateWithoutCrmTasksInput = {
   participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCrmEmailDraftsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  events?: Prisma.EventCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsGivenInput
+  referralsGiven?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
+  participatingEvents?: Prisma.EventCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCrmEmailDraftsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  referredByUserId?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportUncheckedCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageUncheckedCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryUncheckedCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionUncheckedCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppUncheckedCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestUncheckedCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenUncheckedCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsUncheckedCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueUncheckedCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedCreateNestedManyWithoutUserInput
+  referralsGiven?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessUncheckedCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetUncheckedCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
+  participatingEvents?: Prisma.EventUncheckedCreateNestedManyWithoutParticipantsInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCrmEmailDraftsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutCrmEmailDraftsInput,
+    Prisma.UserUncheckedCreateWithoutCrmEmailDraftsInput
+  >
+}
+
+export type UserUpsertWithoutCrmEmailDraftsInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutCrmEmailDraftsInput,
+    Prisma.UserUncheckedUpdateWithoutCrmEmailDraftsInput
+  >
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutCrmEmailDraftsInput,
+    Prisma.UserUncheckedCreateWithoutCrmEmailDraftsInput
+  >
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCrmEmailDraftsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutCrmEmailDraftsInput,
+    Prisma.UserUncheckedUpdateWithoutCrmEmailDraftsInput
+  >
+}
+
+export type UserUpdateWithoutCrmEmailDraftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsGivenNestedInput
+  referralsGiven?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
+  participatingEvents?: Prisma.EventUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCrmEmailDraftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referredByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUncheckedUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUncheckedUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUncheckedUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUncheckedUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUncheckedUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUncheckedUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUncheckedUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUncheckedUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUncheckedUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedUpdateManyWithoutUserNestedInput
+  referralsGiven?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUncheckedUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUncheckedUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  participatingEvents?: Prisma.EventUncheckedUpdateManyWithoutParticipantsNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSportSettingsInput = {
@@ -12027,6 +12960,7 @@ export type UserCreateWithoutSportSettingsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSportSettingsInput = {
@@ -12235,6 +13169,7 @@ export type UserUncheckedCreateWithoutSportSettingsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSportSettingsInput = {
@@ -12476,6 +13411,7 @@ export type UserUpdateWithoutSportSettingsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSportSettingsInput = {
@@ -12689,6 +13625,7 @@ export type UserUncheckedUpdateWithoutSportSettingsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSystemMessageDismissalsInput = {
@@ -12897,6 +13834,7 @@ export type UserCreateWithoutSystemMessageDismissalsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
@@ -13105,6 +14043,7 @@ export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSystemMessageDismissalsInput = {
@@ -13346,6 +14285,7 @@ export type UserUpdateWithoutSystemMessageDismissalsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
@@ -13559,6 +14499,7 @@ export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthAppsInput = {
@@ -13767,6 +14708,7 @@ export type UserCreateWithoutOauthAppsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthAppsInput = {
@@ -13975,6 +14917,7 @@ export type UserUncheckedCreateWithoutOauthAppsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthAppsInput = {
@@ -14216,6 +15159,7 @@ export type UserUpdateWithoutOauthAppsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthAppsInput = {
@@ -14429,6 +15373,7 @@ export type UserUncheckedUpdateWithoutOauthAppsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthConsentsInput = {
@@ -14637,6 +15582,7 @@ export type UserCreateWithoutOauthConsentsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthConsentsInput = {
@@ -14845,6 +15791,7 @@ export type UserUncheckedCreateWithoutOauthConsentsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthConsentsInput = {
@@ -15086,6 +16033,7 @@ export type UserUpdateWithoutOauthConsentsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthConsentsInput = {
@@ -15299,6 +16247,7 @@ export type UserUncheckedUpdateWithoutOauthConsentsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthCodesInput = {
@@ -15507,6 +16456,7 @@ export type UserCreateWithoutOauthCodesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthCodesInput = {
@@ -15715,6 +16665,7 @@ export type UserUncheckedCreateWithoutOauthCodesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthCodesInput = {
@@ -15956,6 +16907,7 @@ export type UserUpdateWithoutOauthCodesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthCodesInput = {
@@ -16169,6 +17121,7 @@ export type UserUncheckedUpdateWithoutOauthCodesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthTokensInput = {
@@ -16377,6 +17330,7 @@ export type UserCreateWithoutOauthTokensInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthTokensInput = {
@@ -16585,6 +17539,7 @@ export type UserUncheckedCreateWithoutOauthTokensInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthTokensInput = {
@@ -16826,6 +17781,7 @@ export type UserUpdateWithoutOauthTokensInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthTokensInput = {
@@ -17039,6 +17995,7 @@ export type UserUncheckedUpdateWithoutOauthTokensInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMcpToolExecutionsInput = {
@@ -17247,6 +18204,7 @@ export type UserCreateWithoutMcpToolExecutionsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
@@ -17455,6 +18413,7 @@ export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMcpToolExecutionsInput = {
@@ -17696,6 +18655,7 @@ export type UserUpdateWithoutMcpToolExecutionsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
@@ -17909,6 +18869,7 @@ export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -18117,6 +19078,7 @@ export type UserCreateWithoutAuditLogsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -18325,6 +19287,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -18566,6 +19529,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -18779,6 +19743,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutShareTokensInput = {
@@ -18987,6 +19952,7 @@ export type UserCreateWithoutShareTokensInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutShareTokensInput = {
@@ -19195,6 +20161,7 @@ export type UserUncheckedCreateWithoutShareTokensInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutShareTokensInput = {
@@ -19436,6 +20403,7 @@ export type UserUpdateWithoutShareTokensInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutShareTokensInput = {
@@ -19649,6 +20617,7 @@ export type UserUncheckedUpdateWithoutShareTokensInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApiKeysInput = {
@@ -19857,6 +20826,7 @@ export type UserCreateWithoutApiKeysInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApiKeysInput = {
@@ -20065,6 +21035,7 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApiKeysInput = {
@@ -20306,6 +21277,7 @@ export type UserUpdateWithoutApiKeysInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApiKeysInput = {
@@ -20519,6 +21491,7 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoachesInput = {
@@ -20727,6 +21700,7 @@ export type UserCreateWithoutCoachesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachesInput = {
@@ -20935,6 +21909,7 @@ export type UserUncheckedCreateWithoutCoachesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachesInput = {
@@ -21151,6 +22126,7 @@ export type UserCreateWithoutAthletesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAthletesInput = {
@@ -21359,6 +22335,7 @@ export type UserUncheckedCreateWithoutAthletesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAthletesInput = {
@@ -21600,6 +22577,7 @@ export type UserUpdateWithoutCoachesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachesInput = {
@@ -21813,6 +22791,7 @@ export type UserUncheckedUpdateWithoutCoachesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutAthletesInput = {
@@ -22046,6 +23025,7 @@ export type UserUpdateWithoutAthletesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAthletesInput = {
@@ -22259,6 +23239,7 @@ export type UserUncheckedUpdateWithoutAthletesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInvitesInput = {
@@ -22467,6 +23448,7 @@ export type UserCreateWithoutInvitesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInvitesInput = {
@@ -22675,6 +23657,7 @@ export type UserUncheckedCreateWithoutInvitesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInvitesInput = {
@@ -22916,6 +23899,7 @@ export type UserUpdateWithoutInvitesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitesInput = {
@@ -23129,6 +24113,7 @@ export type UserUncheckedUpdateWithoutInvitesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoachAthleteInvitesSentInput = {
@@ -23337,6 +24322,7 @@ export type UserCreateWithoutCoachAthleteInvitesSentInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
@@ -23545,6 +24531,7 @@ export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachAthleteInvitesSentInput = {
@@ -23786,6 +24773,7 @@ export type UserUpdateWithoutCoachAthleteInvitesSentInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
@@ -23999,6 +24987,7 @@ export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoachingRequestsSentInput = {
@@ -24207,6 +25196,7 @@ export type UserCreateWithoutCoachingRequestsSentInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
@@ -24415,6 +25405,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachingRequestsSentInput = {
@@ -24631,6 +25622,7 @@ export type UserCreateWithoutCoachingRequestsReceivedInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
@@ -24839,6 +25831,7 @@ export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoachingRequestsReceivedInput = {
@@ -25080,6 +26073,7 @@ export type UserUpdateWithoutCoachingRequestsSentInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
@@ -25293,6 +26287,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutCoachingRequestsReceivedInput = {
@@ -25526,6 +26521,7 @@ export type UserUpdateWithoutCoachingRequestsReceivedInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
@@ -25739,6 +26735,7 @@ export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -25947,6 +26944,7 @@ export type UserCreateWithoutGoalsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -26155,6 +27153,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -26393,6 +27392,7 @@ export type UserUpdateWithoutGoalsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -26606,6 +27606,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventsInput = {
@@ -26814,6 +27815,7 @@ export type UserCreateWithoutEventsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventsInput = {
@@ -27022,6 +28024,7 @@ export type UserUncheckedCreateWithoutEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventsInput = {
@@ -27238,6 +28241,7 @@ export type UserCreateWithoutParticipatingEventsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutParticipatingEventsInput = {
@@ -27446,6 +28450,7 @@ export type UserUncheckedCreateWithoutParticipatingEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutParticipatingEventsInput = {
@@ -27687,6 +28692,7 @@ export type UserUpdateWithoutEventsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventsInput = {
@@ -27900,6 +28906,7 @@ export type UserUncheckedUpdateWithoutEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutParticipatingEventsInput = {
@@ -28136,6 +29143,7 @@ export type UserCreateWithoutAccountsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -28344,6 +29352,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -28585,6 +29594,7 @@ export type UserUpdateWithoutAccountsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -28798,6 +29808,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -29006,6 +30017,7 @@ export type UserCreateWithoutSessionsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -29214,6 +30226,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -29455,6 +30468,7 @@ export type UserUpdateWithoutSessionsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -29668,6 +30682,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutIntegrationsInput = {
@@ -29876,6 +30891,7 @@ export type UserCreateWithoutIntegrationsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutIntegrationsInput = {
@@ -30084,6 +31100,7 @@ export type UserUncheckedCreateWithoutIntegrationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutIntegrationsInput = {
@@ -30325,6 +31342,7 @@ export type UserUpdateWithoutIntegrationsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIntegrationsInput = {
@@ -30538,6 +31556,7 @@ export type UserUncheckedUpdateWithoutIntegrationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutsInput = {
@@ -30746,6 +31765,7 @@ export type UserCreateWithoutWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutsInput = {
@@ -30954,6 +31974,7 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutsInput = {
@@ -31195,6 +32216,7 @@ export type UserUpdateWithoutWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutsInput = {
@@ -31408,6 +32430,7 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutTemplatesInput = {
@@ -31616,6 +32639,7 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
@@ -31824,6 +32848,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutTemplatesInput = {
@@ -32065,6 +33090,7 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
@@ -32278,6 +33304,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutTemplateFoldersInput = {
@@ -32486,6 +33513,7 @@ export type UserCreateWithoutWorkoutTemplateFoldersInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
@@ -32694,6 +33722,7 @@ export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutTemplateFoldersInput = {
@@ -32935,6 +33964,7 @@ export type UserUpdateWithoutWorkoutTemplateFoldersInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
@@ -33148,6 +34178,7 @@ export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
@@ -33356,6 +34387,7 @@ export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
@@ -33564,6 +34596,7 @@ export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStrengthExerciseLibraryItemsInput = {
@@ -33805,6 +34838,7 @@ export type UserUpdateWithoutStrengthExerciseLibraryItemsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
@@ -34018,6 +35052,7 @@ export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFitFilesInput = {
@@ -34226,6 +35261,7 @@ export type UserCreateWithoutFitFilesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFitFilesInput = {
@@ -34434,6 +35470,7 @@ export type UserUncheckedCreateWithoutFitFilesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFitFilesInput = {
@@ -34675,6 +35712,7 @@ export type UserUpdateWithoutFitFilesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFitFilesInput = {
@@ -34888,6 +35926,7 @@ export type UserUncheckedUpdateWithoutFitFilesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPlannedWorkoutsInput = {
@@ -35096,6 +36135,7 @@ export type UserCreateWithoutPlannedWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
@@ -35304,6 +36344,7 @@ export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlannedWorkoutsInput = {
@@ -35545,6 +36586,7 @@ export type UserUpdateWithoutPlannedWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
@@ -35758,6 +36800,7 @@ export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
@@ -35966,6 +37009,7 @@ export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
@@ -36174,6 +37218,7 @@ export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkoutStructureGenerationRunsInput = {
@@ -36415,6 +37460,7 @@ export type UserUpdateWithoutWorkoutStructureGenerationRunsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
@@ -36628,6 +37674,7 @@ export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCalendarNotesInput = {
@@ -36836,6 +37883,7 @@ export type UserCreateWithoutCalendarNotesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCalendarNotesInput = {
@@ -37044,6 +38092,7 @@ export type UserUncheckedCreateWithoutCalendarNotesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCalendarNotesInput = {
@@ -37285,6 +38334,7 @@ export type UserUpdateWithoutCalendarNotesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCalendarNotesInput = {
@@ -37498,6 +38548,7 @@ export type UserUncheckedUpdateWithoutCalendarNotesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyMetricsInput = {
@@ -37706,6 +38757,7 @@ export type UserCreateWithoutDailyMetricsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyMetricsInput = {
@@ -37914,6 +38966,7 @@ export type UserUncheckedCreateWithoutDailyMetricsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyMetricsInput = {
@@ -38155,6 +39208,7 @@ export type UserUpdateWithoutDailyMetricsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyMetricsInput = {
@@ -38368,6 +39422,7 @@ export type UserUncheckedUpdateWithoutDailyMetricsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWellnessInput = {
@@ -38576,6 +39631,7 @@ export type UserCreateWithoutWellnessInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWellnessInput = {
@@ -38784,6 +39840,7 @@ export type UserUncheckedCreateWithoutWellnessInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWellnessInput = {
@@ -39025,6 +40082,7 @@ export type UserUpdateWithoutWellnessInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWellnessInput = {
@@ -39238,6 +40296,7 @@ export type UserUncheckedUpdateWithoutWellnessInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionInput = {
@@ -39446,6 +40505,7 @@ export type UserCreateWithoutNutritionInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionInput = {
@@ -39654,6 +40714,7 @@ export type UserUncheckedCreateWithoutNutritionInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionInput = {
@@ -39895,6 +40956,7 @@ export type UserUpdateWithoutNutritionInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionInput = {
@@ -40108,6 +41170,7 @@ export type UserUncheckedUpdateWithoutNutritionInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionSettingsInput = {
@@ -40316,6 +41379,7 @@ export type UserCreateWithoutNutritionSettingsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionSettingsInput = {
@@ -40524,6 +41588,7 @@ export type UserUncheckedCreateWithoutNutritionSettingsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionSettingsInput = {
@@ -40765,6 +41830,7 @@ export type UserUpdateWithoutNutritionSettingsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
@@ -40978,6 +42044,7 @@ export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportTemplatesInput = {
@@ -41186,6 +42253,7 @@ export type UserCreateWithoutReportTemplatesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportTemplatesInput = {
@@ -41394,6 +42462,7 @@ export type UserUncheckedCreateWithoutReportTemplatesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportTemplatesInput = {
@@ -41635,6 +42704,7 @@ export type UserUpdateWithoutReportTemplatesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportTemplatesInput = {
@@ -41848,6 +42918,7 @@ export type UserUncheckedUpdateWithoutReportTemplatesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReportsInput = {
@@ -42056,6 +43127,7 @@ export type UserCreateWithoutReportsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReportsInput = {
@@ -42264,6 +43336,7 @@ export type UserUncheckedCreateWithoutReportsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReportsInput = {
@@ -42505,6 +43578,7 @@ export type UserUpdateWithoutReportsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsInput = {
@@ -42718,6 +43792,7 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityRecommendationsInput = {
@@ -42926,6 +44001,7 @@ export type UserCreateWithoutActivityRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
@@ -43134,6 +44210,7 @@ export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityRecommendationsInput = {
@@ -43375,6 +44452,7 @@ export type UserUpdateWithoutActivityRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
@@ -43588,6 +44666,7 @@ export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionRecommendationsInput = {
@@ -43796,6 +44875,7 @@ export type UserCreateWithoutNutritionRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
@@ -44004,6 +45084,7 @@ export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionRecommendationsInput = {
@@ -44245,6 +45326,7 @@ export type UserUpdateWithoutNutritionRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
@@ -44458,6 +45540,7 @@ export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNutritionPlansInput = {
@@ -44666,6 +45749,7 @@ export type UserCreateWithoutNutritionPlansInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNutritionPlansInput = {
@@ -44874,6 +45958,7 @@ export type UserUncheckedCreateWithoutNutritionPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNutritionPlansInput = {
@@ -45115,6 +46200,7 @@ export type UserUpdateWithoutNutritionPlansInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNutritionPlansInput = {
@@ -45328,6 +46414,7 @@ export type UserUncheckedUpdateWithoutNutritionPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrainingPlansInput = {
@@ -45536,6 +46623,7 @@ export type UserCreateWithoutTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrainingPlansInput = {
@@ -45744,6 +46832,7 @@ export type UserUncheckedCreateWithoutTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrainingPlansInput = {
@@ -45985,6 +47074,7 @@ export type UserUpdateWithoutTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrainingPlansInput = {
@@ -46198,6 +47288,7 @@ export type UserUncheckedUpdateWithoutTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrainingAvailabilityInput = {
@@ -46406,6 +47497,7 @@ export type UserCreateWithoutTrainingAvailabilityInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
@@ -46614,6 +47706,7 @@ export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrainingAvailabilityInput = {
@@ -46855,6 +47948,7 @@ export type UserUpdateWithoutTrainingAvailabilityInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
@@ -47068,6 +48162,7 @@ export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWeeklyTrainingPlansInput = {
@@ -47276,6 +48371,7 @@ export type UserCreateWithoutWeeklyTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
@@ -47484,6 +48580,7 @@ export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWeeklyTrainingPlansInput = {
@@ -47725,6 +48822,7 @@ export type UserUpdateWithoutWeeklyTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
@@ -47938,6 +49036,7 @@ export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutScoreTrendExplanationsInput = {
@@ -48146,6 +49245,7 @@ export type UserCreateWithoutScoreTrendExplanationsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
@@ -48354,6 +49454,7 @@ export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutScoreTrendExplanationsInput = {
@@ -48595,6 +49696,7 @@ export type UserUpdateWithoutScoreTrendExplanationsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
@@ -48808,6 +49910,7 @@ export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRecommendationsInput = {
@@ -49016,6 +50119,7 @@ export type UserCreateWithoutRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRecommendationsInput = {
@@ -49224,6 +50328,7 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRecommendationsInput = {
@@ -49465,6 +50570,7 @@ export type UserUpdateWithoutRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecommendationsInput = {
@@ -49678,6 +50784,7 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDailyCheckinsInput = {
@@ -49886,6 +50993,7 @@ export type UserCreateWithoutDailyCheckinsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDailyCheckinsInput = {
@@ -50094,6 +51202,7 @@ export type UserUncheckedCreateWithoutDailyCheckinsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDailyCheckinsInput = {
@@ -50335,6 +51444,7 @@ export type UserUpdateWithoutDailyCheckinsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
@@ -50548,6 +51658,7 @@ export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMemoriesInput = {
@@ -50756,6 +51867,7 @@ export type UserCreateWithoutMemoriesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMemoriesInput = {
@@ -50964,6 +52076,7 @@ export type UserUncheckedCreateWithoutMemoriesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMemoriesInput = {
@@ -51205,6 +52318,7 @@ export type UserUpdateWithoutMemoriesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMemoriesInput = {
@@ -51418,6 +52532,7 @@ export type UserUncheckedUpdateWithoutMemoriesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatParticipationsInput = {
@@ -51626,6 +52741,7 @@ export type UserCreateWithoutChatParticipationsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatParticipationsInput = {
@@ -51834,6 +52950,7 @@ export type UserUncheckedCreateWithoutChatParticipationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatParticipationsInput = {
@@ -52075,6 +53192,7 @@ export type UserUpdateWithoutChatParticipationsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatParticipationsInput = {
@@ -52288,6 +53406,7 @@ export type UserUncheckedUpdateWithoutChatParticipationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatTurnsInput = {
@@ -52496,6 +53615,7 @@ export type UserCreateWithoutChatTurnsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatTurnsInput = {
@@ -52704,6 +53824,7 @@ export type UserUncheckedCreateWithoutChatTurnsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatTurnsInput = {
@@ -52945,6 +54066,7 @@ export type UserUpdateWithoutChatTurnsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatTurnsInput = {
@@ -53158,6 +54280,7 @@ export type UserUncheckedUpdateWithoutChatTurnsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSyncQueueInput = {
@@ -53366,6 +54489,7 @@ export type UserCreateWithoutSyncQueueInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSyncQueueInput = {
@@ -53574,6 +54698,7 @@ export type UserUncheckedCreateWithoutSyncQueueInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSyncQueueInput = {
@@ -53815,6 +54940,7 @@ export type UserUpdateWithoutSyncQueueInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSyncQueueInput = {
@@ -54028,6 +55154,7 @@ export type UserUncheckedUpdateWithoutSyncQueueInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuotaDenialsInput = {
@@ -54236,6 +55363,7 @@ export type UserCreateWithoutQuotaDenialsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuotaDenialsInput = {
@@ -54444,6 +55572,7 @@ export type UserUncheckedCreateWithoutQuotaDenialsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuotaDenialsInput = {
@@ -54685,6 +55814,7 @@ export type UserUpdateWithoutQuotaDenialsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
@@ -54898,6 +56028,7 @@ export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
@@ -55106,6 +56237,7 @@ export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
@@ -55314,6 +56446,7 @@ export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPartnerCampaignRedemptionsInput = {
@@ -55555,6 +56688,7 @@ export type UserUpdateWithoutPartnerCampaignRedemptionsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
@@ -55768,6 +56902,7 @@ export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLlmUsageInput = {
@@ -55976,6 +57111,7 @@ export type UserCreateWithoutLlmUsageInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLlmUsageInput = {
@@ -56184,6 +57320,7 @@ export type UserUncheckedCreateWithoutLlmUsageInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLlmUsageInput = {
@@ -56425,6 +57562,7 @@ export type UserUpdateWithoutLlmUsageInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLlmUsageInput = {
@@ -56638,6 +57776,7 @@ export type UserUncheckedUpdateWithoutLlmUsageInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSupportMessagesInput = {
@@ -56846,6 +57985,7 @@ export type UserCreateWithoutSupportMessagesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSupportMessagesInput = {
@@ -57054,6 +58194,7 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSupportMessagesInput = {
@@ -57295,6 +58436,7 @@ export type UserUpdateWithoutSupportMessagesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupportMessagesInput = {
@@ -57508,6 +58650,7 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProviderSubscriptionsInput = {
@@ -57716,6 +58859,7 @@ export type UserCreateWithoutProviderSubscriptionsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
@@ -57924,6 +59068,7 @@ export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProviderSubscriptionsInput = {
@@ -58165,6 +59310,7 @@ export type UserUpdateWithoutProviderSubscriptionsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
@@ -58378,6 +59524,7 @@ export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
@@ -58586,6 +59733,7 @@ export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
@@ -58794,6 +59942,7 @@ export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionLifecycleEventsInput = {
@@ -59035,6 +60184,7 @@ export type UserUpdateWithoutSubscriptionLifecycleEventsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
@@ -59248,6 +60398,7 @@ export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBugReportsInput = {
@@ -59456,6 +60607,7 @@ export type UserCreateWithoutBugReportsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBugReportsInput = {
@@ -59664,6 +60816,7 @@ export type UserUncheckedCreateWithoutBugReportsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBugReportsInput = {
@@ -59905,6 +61058,7 @@ export type UserUpdateWithoutBugReportsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBugReportsInput = {
@@ -60118,6 +61272,7 @@ export type UserUncheckedUpdateWithoutBugReportsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBugReportCommentsInput = {
@@ -60326,6 +61481,7 @@ export type UserCreateWithoutBugReportCommentsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBugReportCommentsInput = {
@@ -60534,6 +61690,7 @@ export type UserUncheckedCreateWithoutBugReportCommentsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBugReportCommentsInput = {
@@ -60775,6 +61932,7 @@ export type UserUpdateWithoutBugReportCommentsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
@@ -60988,6 +62146,7 @@ export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -61196,6 +62355,7 @@ export type UserCreateWithoutNotificationsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -61404,6 +62564,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -61645,6 +62806,7 @@ export type UserUpdateWithoutNotificationsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -61858,6 +63020,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMobilePushDevicesInput = {
@@ -62066,6 +63229,7 @@ export type UserCreateWithoutMobilePushDevicesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
@@ -62274,6 +63438,7 @@ export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMobilePushDevicesInput = {
@@ -62515,6 +63680,7 @@ export type UserUpdateWithoutMobilePushDevicesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
@@ -62728,6 +63894,7 @@ export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMobilePushPreferenceInput = {
@@ -62936,6 +64103,7 @@ export type UserCreateWithoutMobilePushPreferenceInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
@@ -63144,6 +64312,7 @@ export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMobilePushPreferenceInput = {
@@ -63385,6 +64554,7 @@ export type UserUpdateWithoutMobilePushPreferenceInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
@@ -63598,6 +64768,7 @@ export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutJourneyEventsInput = {
@@ -63806,6 +64977,7 @@ export type UserCreateWithoutJourneyEventsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutJourneyEventsInput = {
@@ -64014,6 +65186,7 @@ export type UserUncheckedCreateWithoutJourneyEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutJourneyEventsInput = {
@@ -64255,6 +65428,7 @@ export type UserUpdateWithoutJourneyEventsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJourneyEventsInput = {
@@ -64468,6 +65642,7 @@ export type UserUncheckedUpdateWithoutJourneyEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailPreferencesInput = {
@@ -64676,6 +65851,7 @@ export type UserCreateWithoutEmailPreferencesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailPreferencesInput = {
@@ -64884,6 +66060,7 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailPreferencesInput = {
@@ -65125,6 +66302,7 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
@@ -65338,6 +66516,7 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailDeliveriesInput = {
@@ -65546,6 +66725,7 @@ export type UserCreateWithoutEmailDeliveriesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
@@ -65754,6 +66934,7 @@ export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailDeliveriesInput = {
@@ -65995,6 +67176,7 @@ export type UserUpdateWithoutEmailDeliveriesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
@@ -66208,6 +67390,7 @@ export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMetricHistoryInput = {
@@ -66416,6 +67599,7 @@ export type UserCreateWithoutMetricHistoryInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMetricHistoryInput = {
@@ -66624,6 +67808,7 @@ export type UserUncheckedCreateWithoutMetricHistoryInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMetricHistoryInput = {
@@ -66865,6 +68050,7 @@ export type UserUpdateWithoutMetricHistoryInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMetricHistoryInput = {
@@ -67078,6 +68264,7 @@ export type UserUncheckedUpdateWithoutMetricHistoryInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBodyMeasurementEntriesInput = {
@@ -67286,6 +68473,7 @@ export type UserCreateWithoutBodyMeasurementEntriesInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
@@ -67494,6 +68682,7 @@ export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBodyMeasurementEntriesInput = {
@@ -67735,6 +68924,7 @@ export type UserUpdateWithoutBodyMeasurementEntriesInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
@@ -67948,6 +69138,7 @@ export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPersonalBestsInput = {
@@ -68156,6 +69347,7 @@ export type UserCreateWithoutPersonalBestsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPersonalBestsInput = {
@@ -68364,6 +69556,7 @@ export type UserUncheckedCreateWithoutPersonalBestsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPersonalBestsInput = {
@@ -68605,6 +69798,7 @@ export type UserUpdateWithoutPersonalBestsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPersonalBestsInput = {
@@ -68818,6 +70012,7 @@ export type UserUncheckedUpdateWithoutPersonalBestsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedTeamsInput = {
@@ -69026,6 +70221,7 @@ export type UserCreateWithoutOwnedTeamsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedTeamsInput = {
@@ -69234,6 +70430,7 @@ export type UserUncheckedCreateWithoutOwnedTeamsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedTeamsInput = {
@@ -69475,6 +70672,7 @@ export type UserUpdateWithoutOwnedTeamsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
@@ -69688,6 +70886,7 @@ export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTeamMembershipsInput = {
@@ -69896,6 +71095,7 @@ export type UserCreateWithoutTeamMembershipsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTeamMembershipsInput = {
@@ -70104,6 +71304,7 @@ export type UserUncheckedCreateWithoutTeamMembershipsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTeamMembershipsInput = {
@@ -70345,6 +71546,7 @@ export type UserUpdateWithoutTeamMembershipsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
@@ -70558,6 +71760,7 @@ export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAthleteGroupsInput = {
@@ -70766,6 +71969,7 @@ export type UserCreateWithoutAthleteGroupsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAthleteGroupsInput = {
@@ -70974,6 +72178,7 @@ export type UserUncheckedCreateWithoutAthleteGroupsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAthleteGroupsInput = {
@@ -71215,6 +72420,7 @@ export type UserUpdateWithoutAthleteGroupsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
@@ -71428,6 +72634,7 @@ export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGroupMembershipsInput = {
@@ -71636,6 +72843,7 @@ export type UserCreateWithoutGroupMembershipsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGroupMembershipsInput = {
@@ -71844,6 +73052,7 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGroupMembershipsInput = {
@@ -72085,6 +73294,7 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
@@ -72298,6 +73508,7 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCustomFieldDefinitionsInput = {
@@ -72506,6 +73717,7 @@ export type UserCreateWithoutCustomFieldDefinitionsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
@@ -72714,6 +73926,7 @@ export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCustomFieldDefinitionsInput = {
@@ -72955,6 +74168,7 @@ export type UserUpdateWithoutCustomFieldDefinitionsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
@@ -73168,6 +74382,7 @@ export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDashboardsInput = {
@@ -73376,6 +74591,7 @@ export type UserCreateWithoutDashboardsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDashboardsInput = {
@@ -73584,6 +74800,7 @@ export type UserUncheckedCreateWithoutDashboardsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDashboardsInput = {
@@ -73825,6 +75042,7 @@ export type UserUpdateWithoutDashboardsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDashboardsInput = {
@@ -74038,6 +75256,7 @@ export type UserUncheckedUpdateWithoutDashboardsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWidgetsInput = {
@@ -74246,6 +75465,7 @@ export type UserCreateWithoutWidgetsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWidgetsInput = {
@@ -74454,6 +75674,7 @@ export type UserUncheckedCreateWithoutWidgetsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWidgetsInput = {
@@ -74695,6 +75916,7 @@ export type UserUpdateWithoutWidgetsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWidgetsInput = {
@@ -74908,6 +76130,7 @@ export type UserUncheckedUpdateWithoutWidgetsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTrainingPlanFoldersInput = {
@@ -75116,6 +76339,7 @@ export type UserCreateWithoutTrainingPlanFoldersInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
@@ -75324,6 +76548,7 @@ export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTrainingPlanFoldersInput = {
@@ -75565,6 +76790,7 @@ export type UserUpdateWithoutTrainingPlanFoldersInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
@@ -75778,6 +77004,7 @@ export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFavoriteTrainingPlansInput = {
@@ -75986,6 +77213,7 @@ export type UserCreateWithoutFavoriteTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
@@ -76194,6 +77422,7 @@ export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFavoriteTrainingPlansInput = {
@@ -76435,6 +77664,7 @@ export type UserUpdateWithoutFavoriteTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
@@ -76648,6 +77878,7 @@ export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCheckInsInput = {
@@ -76856,6 +78087,7 @@ export type UserCreateWithoutCheckInsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCheckInsInput = {
@@ -77064,6 +78296,7 @@ export type UserUncheckedCreateWithoutCheckInsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCheckInsInput = {
@@ -77305,6 +78538,7 @@ export type UserUpdateWithoutCheckInsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCheckInsInput = {
@@ -77518,6 +78752,7 @@ export type UserUncheckedUpdateWithoutCheckInsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFeedbacksInput = {
@@ -77726,6 +78961,7 @@ export type UserCreateWithoutFeedbacksInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFeedbacksInput = {
@@ -77934,6 +79170,7 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFeedbacksInput = {
@@ -78175,6 +79412,7 @@ export type UserUpdateWithoutFeedbacksInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFeedbacksInput = {
@@ -78388,6 +79626,7 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWeeklyCheckInsInput = {
@@ -78596,6 +79835,7 @@ export type UserCreateWithoutWeeklyCheckInsInput = {
   coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWeeklyCheckInsInput = {
@@ -78804,6 +80044,7 @@ export type UserUncheckedCreateWithoutWeeklyCheckInsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
   crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
   crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWeeklyCheckInsInput = {
@@ -79045,6 +80286,7 @@ export type UserUpdateWithoutWeeklyCheckInsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWeeklyCheckInsInput = {
@@ -79258,6 +80500,7 @@ export type UserUncheckedUpdateWithoutWeeklyCheckInsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyReferredByInput = {
@@ -79595,6 +80838,7 @@ export type UserUpdateWithoutReferredByInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReferredByInput = {
@@ -79808,6 +81052,7 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutReferredByInput = {
@@ -80150,6 +81395,7 @@ export type UserUpdateWithoutParticipatingEventsInput = {
   coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
@@ -80363,6 +81609,7 @@ export type UserUncheckedUpdateWithoutParticipatingEventsInput = {
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutParticipatingEventsInput = {
@@ -80581,6 +81828,7 @@ export type UserCountOutputType = {
   coachNotes: number
   crmDeals: number
   crmTasks: number
+  crmEmailDrafts: number
 }
 
 export type UserCountOutputTypeSelect<
@@ -80668,6 +81916,7 @@ export type UserCountOutputTypeSelect<
   coachNotes?: boolean | UserCountOutputTypeCountCoachNotesArgs
   crmDeals?: boolean | UserCountOutputTypeCountCrmDealsArgs
   crmTasks?: boolean | UserCountOutputTypeCountCrmTasksArgs
+  crmEmailDrafts?: boolean | UserCountOutputTypeCountCrmEmailDraftsArgs
 }
 
 /**
@@ -81411,6 +82660,15 @@ export type UserCountOutputTypeCountCrmTasksArgs<
   where?: Prisma.CrmTaskWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCrmEmailDraftsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  where?: Prisma.CrmEmailDraftWhereInput
+}
+
 export type UserSelect<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = runtime.Types.Extensions.GetSelect<
@@ -81623,6 +82881,7 @@ export type UserSelect<
     coachNotes?: boolean | Prisma.User$coachNotesArgs<ExtArgs>
     crmDeals?: boolean | Prisma.User$crmDealsArgs<ExtArgs>
     crmTasks?: boolean | Prisma.User$crmTasksArgs<ExtArgs>
+    crmEmailDrafts?: boolean | Prisma.User$crmEmailDraftsArgs<ExtArgs>
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
   },
   ExtArgs['result']['user']
@@ -82230,6 +83489,7 @@ export type UserInclude<
   coachNotes?: boolean | Prisma.User$coachNotesArgs<ExtArgs>
   crmDeals?: boolean | Prisma.User$crmDealsArgs<ExtArgs>
   crmTasks?: boolean | Prisma.User$crmTasksArgs<ExtArgs>
+  crmEmailDrafts?: boolean | Prisma.User$crmEmailDraftsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<
@@ -82333,6 +83593,7 @@ export type $UserPayload<
     coachNotes: Prisma.$CoachNotePayload<ExtArgs>[]
     crmDeals: Prisma.$CrmDealPayload<ExtArgs>[]
     crmTasks: Prisma.$CrmTaskPayload<ExtArgs>[]
+    crmEmailDrafts: Prisma.$CrmEmailDraftPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -83894,6 +85155,17 @@ export interface Prisma__UserClient<
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$CrmTaskPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >
+  crmEmailDrafts<T extends Prisma.User$crmEmailDraftsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$crmEmailDraftsArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$CrmEmailDraftPayload<ExtArgs>,
         T,
         'findMany',
         GlobalOmitOptions
@@ -86770,6 +88042,33 @@ export type User$crmTasksArgs<
   take?: number
   skip?: number
   distinct?: Prisma.CrmTaskScalarFieldEnum | Prisma.CrmTaskScalarFieldEnum[]
+}
+
+/**
+ * User.crmEmailDrafts
+ */
+export type User$crmEmailDraftsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the CrmEmailDraft
+   */
+  select?: Prisma.CrmEmailDraftSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrmEmailDraft
+   */
+  omit?: Prisma.CrmEmailDraftOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrmEmailDraftInclude<ExtArgs> | null
+  where?: Prisma.CrmEmailDraftWhereInput
+  orderBy?:
+    Prisma.CrmEmailDraftOrderByWithRelationInput | Prisma.CrmEmailDraftOrderByWithRelationInput[]
+  cursor?: Prisma.CrmEmailDraftWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CrmEmailDraftScalarFieldEnum | Prisma.CrmEmailDraftScalarFieldEnum[]
 }
 
 /**

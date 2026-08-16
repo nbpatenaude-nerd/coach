@@ -381,6 +381,7 @@ export const ModelName = {
   CrmPipelineStage: 'CrmPipelineStage',
   CrmDeal: 'CrmDeal',
   CrmTask: 'CrmTask',
+  CrmEmailDraft: 'CrmEmailDraft',
   SportSettings: 'SportSettings',
   SystemMessage: 'SystemMessage',
   UserSystemMessageDismissal: 'UserSystemMessageDismissal',
@@ -515,6 +516,7 @@ export type TypeMap<
       | 'crmPipelineStage'
       | 'crmDeal'
       | 'crmTask'
+      | 'crmEmailDraft'
       | 'sportSettings'
       | 'systemMessage'
       | 'userSystemMessageDismissal'
@@ -1141,6 +1143,81 @@ export type TypeMap<
         count: {
           args: Prisma.CrmTaskCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CrmTaskCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrmEmailDraft: {
+      payload: Prisma.$CrmEmailDraftPayload<ExtArgs>
+      fields: Prisma.CrmEmailDraftFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrmEmailDraftFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrmEmailDraftFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>
+        }
+        findFirst: {
+          args: Prisma.CrmEmailDraftFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrmEmailDraftFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>
+        }
+        findMany: {
+          args: Prisma.CrmEmailDraftFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>[]
+        }
+        create: {
+          args: Prisma.CrmEmailDraftCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>
+        }
+        createMany: {
+          args: Prisma.CrmEmailDraftCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrmEmailDraftCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>[]
+        }
+        delete: {
+          args: Prisma.CrmEmailDraftDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>
+        }
+        update: {
+          args: Prisma.CrmEmailDraftUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrmEmailDraftDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrmEmailDraftUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrmEmailDraftUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrmEmailDraftUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrmEmailDraftPayload>
+        }
+        aggregate: {
+          args: Prisma.CrmEmailDraftAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrmEmailDraft>
+        }
+        groupBy: {
+          args: Prisma.CrmEmailDraftGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrmEmailDraftGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrmEmailDraftCountArgs<ExtArgs>
+          result:
+            runtime.Types.Utils.Optional<Prisma.CrmEmailDraftCountAggregateOutputType> | number
         }
       }
     }
@@ -9401,6 +9478,20 @@ export const CrmTaskScalarFieldEnum = {
 export type CrmTaskScalarFieldEnum =
   (typeof CrmTaskScalarFieldEnum)[keyof typeof CrmTaskScalarFieldEnum]
 
+export const CrmEmailDraftScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subject: 'subject',
+  body: 'body',
+  status: 'status',
+  promptId: 'promptId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrmEmailDraftScalarFieldEnum =
+  (typeof CrmEmailDraftScalarFieldEnum)[keyof typeof CrmEmailDraftScalarFieldEnum]
+
 export const SportSettingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -12131,6 +12222,7 @@ export type GlobalOmitConfig = {
   crmPipelineStage?: Prisma.CrmPipelineStageOmit
   crmDeal?: Prisma.CrmDealOmit
   crmTask?: Prisma.CrmTaskOmit
+  crmEmailDraft?: Prisma.CrmEmailDraftOmit
   sportSettings?: Prisma.SportSettingsOmit
   systemMessage?: Prisma.SystemMessageOmit
   userSystemMessageDismissal?: Prisma.UserSystemMessageDismissalOmit
