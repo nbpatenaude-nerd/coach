@@ -72,25 +72,21 @@
       <!-- Kanban View -->
       <div
         v-else-if="viewMode === 'kanban'"
-        class="flex-1 overflow-x-auto overflow-y-hidden p-6 flex gap-6 bg-muted/10"
+        class="flex-1 overflow-x-auto overflow-y-hidden p-6 flex gap-4 bg-background"
       >
         <div
           v-for="stage in activePipeline.stages"
           :key="stage.id"
-          class="flex flex-col min-w-[320px] max-w-[320px] bg-muted/20 rounded-xl border border-border/50 overflow-hidden"
+          class="flex flex-col min-w-[320px] max-w-[320px] bg-transparent overflow-hidden"
           @dragover.prevent
           @dragenter.prevent
           @drop="onDrop($event, stage.id)"
         >
-          <div
-            class="px-4 py-3 border-b border-border/50 bg-background/50 flex items-center justify-between shrink-0"
-          >
-            <h3
-              class="font-semibold text-sm text-foreground flex items-center gap-2 uppercase tracking-wide"
-            >
+          <div class="px-2 py-3 flex items-center justify-between shrink-0">
+            <h3 class="font-medium text-[13px] text-foreground flex items-center gap-2">
               {{ stage.name }}
               <span
-                class="text-muted-foreground font-normal bg-muted px-2 py-0.5 rounded-full text-xs"
+                class="text-muted-foreground font-medium bg-muted/50 px-2 py-0.5 rounded-full text-[11px] leading-none"
               >
                 {{ athletesByStage[stage.id]?.length || 0 }}
               </span>
@@ -102,22 +98,22 @@
               v-for="athlete in athletesByStage[stage.id]"
               :key="athlete.id"
               draggable="true"
-              class="bg-background border border-border rounded-lg p-4 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer group flex flex-col gap-3"
+              class="bg-card border border-border/40 rounded-lg p-3 shadow-sm hover:shadow-md hover:border-border/80 transition-all cursor-pointer group flex flex-col gap-3"
               @dragstart="onDragStart($event, athlete)"
               @click="selectedAthlete = athlete"
             >
               <div class="flex items-start justify-between gap-2">
                 <div class="flex items-center gap-3">
                   <div
-                    class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shrink-0"
+                    class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium text-xs shrink-0"
                   >
                     {{ athlete.name ? athlete.name.charAt(0).toUpperCase() : 'U' }}
                   </div>
                   <div class="min-w-0">
-                    <p class="font-medium text-sm text-foreground truncate">
+                    <p class="font-medium text-[13px] leading-tight text-foreground truncate">
                       {{ athlete.name || 'Unnamed Athlete' }}
                     </p>
-                    <p class="text-xs text-muted-foreground truncate">{{ athlete.email }}</p>
+                    <p class="text-[11px] text-muted-foreground truncate">{{ athlete.email }}</p>
                   </div>
                 </div>
               </div>
@@ -125,14 +121,14 @@
               <div class="flex flex-wrap gap-1 mt-1">
                 <span
                   v-if="athlete.churnRisk === 'HIGH'"
-                  class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-red-500/10 text-red-500 border border-red-500/20"
+                  class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-medium bg-red-500/10 text-red-500"
                 >
                   High Churn Risk
                 </span>
                 <span
                   v-for="tag in (athlete.crmTags || []).slice(0, 3)"
                   :key="tag"
-                  class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border"
+                  class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-medium bg-muted/60 text-muted-foreground"
                 >
                   #{{ tag }}
                 </span>
@@ -151,7 +147,7 @@
 
             <div
               v-if="!athletesByStage[stage.id]?.length"
-              class="h-24 border-2 border-dashed border-border/50 rounded-lg flex items-center justify-center text-muted-foreground text-sm opacity-50"
+              class="h-16 flex items-center justify-center text-muted-foreground text-[11px] opacity-40"
             >
               Drop here
             </div>
@@ -248,7 +244,7 @@
     </main>
 
     <!-- Slide-over panel for athlete profile -->
-    <CrmAthleteProfileDrawer
+    <CoachingCrmAthleteProfileDrawer
       :is-open="!!selectedAthlete"
       :athlete="selectedAthlete"
       :pipeline="activePipeline"

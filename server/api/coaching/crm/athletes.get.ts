@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  if (isAdmin) {
+  if (user.isAdmin) {
     athletes = await prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
       include
