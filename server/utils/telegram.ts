@@ -16,7 +16,7 @@ function getTelegramConfig() {
   }
 }
 
-export async function sendTelegramAction(chatId: string | number, action: string) {
+export async function sendTelegramAction(chatId: string | number, action: string): Promise<any> {
   const config = getTelegramConfig()
   const token = config.telegramBotToken
   if (!token) return false
@@ -40,7 +40,7 @@ export async function sendTelegramMessage(
   textOrChatId: string | number,
   chatIdOrText?: string | number,
   optionsOrParseMode?: TelegramMessageOptions | 'Markdown' | 'HTML'
-) {
+): Promise<any> {
   const config = getTelegramConfig()
   const token = config.telegramBotToken
   if (!token) {

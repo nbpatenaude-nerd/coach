@@ -95,14 +95,16 @@
     bp: { type: 'line', visible: true }
   }
 
-  const { data: customFields } = useFetch('/api/analytics/fields/definitions')
+  // Cast URL to string to prevent Nuxt from attempting deep type inference on the API route
+  const fetchUrl = '/api/analytics/fields/definitions' as string
+  const { data: customFields } = useFetch<any[]>(fetchUrl)
 
   // Local state for the form, initialized from store with defaults for each key
   const settings = ref<Record<string, any>>({})
 
   function initSettings() {
     const dynamicDefaults = { ...defaultSettings }
-    if (customFields.value) {
+    if (customFields.value && Array.isArray(customFields.value)) {
       for (const field of customFields.value) {
         if (field.dataType === 'NUMBER') {
           dynamicDefaults[`custom_${field.fieldKey}`] = { type: 'line', visible: true }
