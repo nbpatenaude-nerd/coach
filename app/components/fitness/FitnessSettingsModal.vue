@@ -95,9 +95,9 @@
     bp: { type: 'line', visible: true }
   }
 
-  // Cast URL to string to prevent Nuxt from attempting deep type inference on the API route
-  const fetchUrl = '/api/analytics/fields/definitions' as string
-  const { data: customFields } = useFetch<any[]>(fetchUrl)
+  // Use (useFetch as any) to completely bypass TypeScript's deep inference of the API route payload
+  const fetchUrl = '/api/analytics/fields/definitions'
+  const { data: customFields } = (useFetch as any)(fetchUrl)
 
   // Local state for the form, initialized from store with defaults for each key
   const settings = ref<Record<string, any>>({})
@@ -187,7 +187,7 @@
 
   const chartOptions = computed(() => {
     const opts = [...baseChartOptions]
-    if (customFields.value) {
+    if (customFields.value && Array.isArray(customFields.value)) {
       for (const field of customFields.value) {
         if (field.dataType === 'NUMBER') {
           opts.push({ key: `custom_${field.fieldKey}`, label: `Tracker: ${field.label}` })

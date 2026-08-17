@@ -22,7 +22,7 @@ export async function sendTelegramAction(chatId: string | number, action: string
   if (!token) return false
 
   try {
-    const response = await $fetch(`https://api.telegram.org/bot${token}/sendChatAction`, {
+    const response = await ($fetch as any)(`https://api.telegram.org/bot${token}/sendChatAction`, {
       method: 'POST',
       body: {
         chat_id: chatId,
@@ -90,7 +90,7 @@ export async function sendTelegramMessage(
   }
 
   try {
-    const response = await $fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const response = await ($fetch as any)(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
       body: {
         chat_id: actualChatId,
