@@ -5,7 +5,7 @@ import { generateUnsubscribeToken } from '../unsubscribe-token'
 import { EMAIL_TEMPLATE_REGISTRY, getEmailTemplateDefinition } from '../email-template-registry'
 import { getInternalApiToken } from '../internal-api-token'
 import { resolveEmailSubject } from '../email-i18n'
-import type { EmailAudience, EmailDeliveryStatus } from '~/server/utils/generated-prisma/client' /**
+import type { EmailAudience, EmailDeliveryStatus } from '../generated-prisma/client' /**
  * Statuses that mean Resend already accepted/processed the send. A delivery
  * in one of these states must never be re-dispatched, even if the caller
  * retries (e.g. via a Trigger.dev retry hitting the same idempotency key).
@@ -159,6 +159,7 @@ export const EmailDeliveryService = {
         {
           from,
           to: delivery.toEmail,
+          cc: delivery.ccEmail || undefined,
           subject: delivery.subject,
           html: delivery.htmlBody,
           text: delivery.textBody || undefined,
@@ -204,6 +205,7 @@ export const EmailDeliveryService = {
     payload: {
       userId?: string
       toEmail?: string
+      ccEmail?: string
       templateKey: string
       eventKey: string
       audience: EmailAudience
@@ -216,6 +218,7 @@ export const EmailDeliveryService = {
     const {
       userId,
       toEmail,
+      ccEmail,
       templateKey,
       eventKey,
       audience,
@@ -363,6 +366,7 @@ export const EmailDeliveryService = {
         data: {
           userId: user?.id || null,
           toEmail: recipientEmail,
+          ccEmail,
           templateKey,
           eventKey,
           audience,

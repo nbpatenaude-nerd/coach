@@ -1,4 +1,4 @@
-import type { EmailAudience } from '~/server/utils/generated-prisma/client'
+import type { EmailAudience } from './generated-prisma/client'
 export type EmailPreferenceKey =
   | 'onboarding'
   | 'workoutAnalysis'
@@ -102,6 +102,22 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
     requiredProps: ['trialEndsAt', 'pricingUrl'],
     utmCampaign: 'trial_ending_soon',
     utmMedium: 'lifecycle'
+  },
+  ManualReviewRequired: {
+    templateKey: 'ManualReviewRequired',
+    defaultSubject: 'Manual Review Required: Athlete Morning Check-In',
+    audience: 'TRANSACTIONAL',
+    preferenceKey: null,
+    requiredProps: [
+      'coachEmail',
+      'coachName',
+      'athleteEmail',
+      'reasoning',
+      'adjustmentPercentage',
+      'checkinDate'
+    ],
+    utmCampaign: 'manual_review_required',
+    utmMedium: 'transactional'
   }
 }
 

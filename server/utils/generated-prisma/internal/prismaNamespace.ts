@@ -11437,6 +11437,7 @@ export const EmailDeliveryScalarFieldEnum = {
   audience: 'audience',
   status: 'status',
   toEmail: 'toEmail',
+  ccEmail: 'ccEmail',
   subject: 'subject',
   fromEmail: 'fromEmail',
   replyToEmail: 'replyToEmail',

@@ -127,7 +127,7 @@
             </p>
             <USelect
               v-model="selectedPriority"
-              :options="[
+              :items="[
                 { label: 'A - Peak Race (Highest Priority)', value: 'A' },
                 { label: 'B - Important but not peaked', value: 'B' },
                 { label: 'C - Fun/Training race', value: 'C' }
@@ -168,7 +168,7 @@
 
   definePageMeta({
     middleware: 'auth',
-    layout: 'dashboard' as any
+    layout: 'default'
   })
 
   const { data: session } = useAuth()
@@ -177,7 +177,7 @@
     pending,
     error,
     refresh
-  } = useFetch<any[]>('/api/events/community' as string, {
+  } = useFetch<any[]>('/api/events/community' as any, {
     default: () => []
   })
 
@@ -213,7 +213,7 @@
   const toggleRSVP = async (eventId: string, priority?: string) => {
     loadingEventId.value = eventId
     try {
-      await $fetch('/api/events/rsvp' as string, {
+      await $fetch('/api/events/rsvp' as any, {
         method: 'POST',
         body: { eventId, priority }
       })

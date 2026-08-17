@@ -2392,6 +2392,7 @@ model EmailDelivery {
   audience          EmailAudience
   status            EmailDeliveryStatus @default(QUEUED)
   toEmail           String
+  ccEmail           String?
   subject           String
   fromEmail         String?
   replyToEmail      String?
