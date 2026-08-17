@@ -1,6 +1,28 @@
 import Stripe from 'stripe'
 
-const config = useRuntimeConfig()
+function getStripeConfig() {
+  try {
+    return useRuntimeConfig()
+  } catch {
+    return {
+      stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+      stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID,
+      stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID,
+      stripeUncover12PhasePriceId: process.env.STRIPE_UNCOVER_12_PHASE_PRICE_ID,
+      stripeUnlock1PhasePriceId: process.env.STRIPE_UNLOCK_1_PHASE_PRICE_ID,
+      stripeUnlock6PhasePriceId: process.env.STRIPE_UNLOCK_6_PHASE_PRICE_ID,
+      stripeUnlock12PhasePriceId: process.env.STRIPE_UNLOCK_12_PHASE_PRICE_ID,
+      stripeUnleash1PhasePriceId: process.env.STRIPE_UNLEASH_1_PHASE_PRICE_ID,
+      stripeUnleash6PhasePriceId: process.env.STRIPE_UNLEASH_6_PHASE_PRICE_ID,
+      stripeUnleash12PhasePriceId: process.env.STRIPE_UNLEASH_12_PHASE_PRICE_ID,
+      stripeUncoverProductId: process.env.STRIPE_UNCOVER_PRODUCT_ID,
+      stripeUnlockProductId: process.env.STRIPE_UNLOCK_PRODUCT_ID,
+      stripeUnleashProductId: process.env.STRIPE_UNLEASH_PRODUCT_ID
+    } as any
+  }
+}
+
+const config = getStripeConfig()
 
 // Check if Stripe is configured to avoid startup crashes in self-hosted environments
 export const stripe = config.stripeSecretKey

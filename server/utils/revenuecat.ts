@@ -40,15 +40,27 @@ function revenueCatFetch<T = unknown>(url: string, options: RevenueCatRequestOpt
   return ($fetch as any)(url, options)
 }
 
+function getRevenueCatConfig() {
+  try {
+    return useRuntimeConfig()
+  } catch {
+    return {
+      revenueCatSecretApiKey: process.env.REVENUECAT_SECRET_API_KEY,
+      revenueCatApiBaseUrl: process.env.REVENUECAT_API_BASE_URL,
+      revenueCatStripePublicApiKey: process.env.REVENUECAT_STRIPE_PUBLIC_API_KEY
+    } as any
+  }
+}
+
 function requiredRevenueCatKey(): string {
-  const key = useRuntimeConfig().revenueCatSecretApiKey
+  const key = getRevenueCatConfig().revenueCatSecretApiKey
   if (!key)
     throw createError({ statusCode: 503, message: 'RevenueCat reconciliation is not configured' })
   return key
 }
 
 export async function fetchRevenueCatSubscriber(userId: string) {
-  const config = useRuntimeConfig()
+  const config = getRevenueCatConfig()
   return await revenueCatFetch<RevenueCatSubscriberResponse>(
     `${config.revenueCatApiBaseUrl || 'https://api.revenuecat.com/v1'}/subscribers/${encodeURIComponent(userId)}`,
     { headers: { Authorization: `Bearer ${requiredRevenueCatKey()}`, Accept: 'application/json' } }
@@ -159,7 +171,7 @@ export async function reconcileRevenueCatSubscriber(userId: string) {
 }
 
 export async function trackStripeInRevenueCat(userId: string, subscriptionId: string) {
-  const config = useRuntimeConfig()
+  const config = getRevenueCatConfig()
   if (!config.revenueCatStripePublicApiKey) return
   try {
     await revenueCatFetch(

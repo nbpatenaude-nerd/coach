@@ -5,8 +5,19 @@ export interface TelegramMessageOptions {
   reply_to_message_id?: number
 }
 
+function getTelegramConfig() {
+  try {
+    return useRuntimeConfig()
+  } catch {
+    return {
+      telegramBotToken: process.env.TELEGRAM_BOT_TOKEN,
+      telegramAdminChatId: process.env.TELEGRAM_ADMIN_CHAT_ID
+    } as any
+  }
+}
+
 export async function sendTelegramAction(chatId: string | number, action: string) {
-  const config = useRuntimeConfig()
+  const config = getTelegramConfig()
   const token = config.telegramBotToken
   if (!token) return false
 
@@ -30,7 +41,7 @@ export async function sendTelegramMessage(
   chatIdOrText?: string | number,
   optionsOrParseMode?: TelegramMessageOptions | 'Markdown' | 'HTML'
 ) {
-  const config = useRuntimeConfig()
+  const config = getTelegramConfig()
   const token = config.telegramBotToken
   if (!token) {
     console.warn('[Telegram] Skipping message send: TELEGRAM_BOT_TOKEN is not configured.')

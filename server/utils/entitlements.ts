@@ -40,10 +40,8 @@ function entitlementsFromTier(effectiveTier: SubscriptionTier): UserEntitlements
  * 2. Status is CANCELED/PAST_DUE/NONE but current time is before periodEnd
  */
 export function getUserEntitlements(user: EntitlementUser): UserEntitlements {
-  const config = useRuntimeConfig()
-
   // If Stripe is not configured (self-hosted mode), everyone is UNLEASH
-  if (!config.stripeSecretKey) {
+  if (!process.env.STRIPE_SECRET_KEY) {
     return {
       tier: 'UNLEASH',
       autoSync: true,
