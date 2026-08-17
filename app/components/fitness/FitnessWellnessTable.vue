@@ -49,6 +49,11 @@
             <th
               class="px-6 py-3 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest"
             >
+              Glucose
+            </th>
+            <th
+              class="px-6 py-3 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest"
+            >
               Feel
             </th>
           </tr>
@@ -58,7 +63,7 @@
           class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800"
         >
           <tr v-for="i in 10" :key="i">
-            <td v-for="j in 9" :key="j" class="px-6 py-4">
+            <td v-for="j in 10" :key="j" class="px-6 py-4">
               <USkeleton class="h-4 w-full" />
             </td>
           </tr>
@@ -66,7 +71,7 @@
         <tbody v-else-if="wellness.length === 0" class="bg-white dark:bg-gray-900">
           <tr>
             <td
-              colspan="9"
+              colspan="10"
               class="p-8 text-center text-gray-600 dark:text-gray-400 font-bold uppercase tracking-widest text-xs"
             >
               No biometric data recorded
@@ -137,6 +142,11 @@
               class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-bold tabular-nums"
             >
               {{ item.systolic && item.diastolic ? `${item.systolic}/${item.diastolic}` : '-' }}
+            </td>
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-bold tabular-nums"
+            >
+              {{ item.bloodGlucose ? item.bloodGlucose : '-' }}
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm">
               <span

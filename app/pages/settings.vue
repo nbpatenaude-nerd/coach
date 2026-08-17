@@ -33,6 +33,11 @@
   const settingsTabs = [
     { id: '/settings/apps', label: 'Connected Apps', icon: 'i-lucide-plug' },
     { id: '/settings/ai', label: 'AI Coach', icon: 'i-heroicons-sparkles' },
+    {
+      id: '/settings/custom-fields',
+      label: 'Custom Trackers',
+      icon: 'i-heroicons-adjustments-horizontal'
+    },
     { id: '/settings/billing', label: 'Billing', icon: 'i-heroicons-credit-card' },
     { id: '/settings/developer', label: 'Developer', icon: 'i-heroicons-code-bracket' },
     { id: '/settings/danger', label: 'Danger Zone', icon: 'i-lucide-alert-triangle' }

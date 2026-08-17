@@ -84,7 +84,7 @@
   const isOpen = defineModel<boolean>('open', { default: false })
   const userStore = useUserStore()
 
-  const defaultSettings = {
+  const defaultSettings: Record<string, any> = {
     hrvRhrDual: { type: 'line', visible: true },
     recovery: { type: 'line', visible: true },
     readinessEstimate: { type: 'line', visible: true },
@@ -95,20 +95,43 @@
     bp: { type: 'line', visible: true }
   }
 
+  const { data: customFields } = useFetch('/api/analytics/fields/definitions')
+
   // Local state for the form, initialized from store with defaults for each key
-  const settings = ref(
-    Object.keys(defaultSettings).reduce((acc, key) => {
+  const settings = ref<Record<string, any>>({})
+
+  function initSettings() {
+    const dynamicDefaults = { ...defaultSettings }
+    if (customFields.value) {
+      for (const field of customFields.value) {
+        if (field.dataType === 'NUMBER') {
+          dynamicDefaults[`custom_${field.fieldKey}`] = { type: 'line', visible: true }
+        }
+      }
+    }
+
+    settings.value = Object.keys(dynamicDefaults).reduce((acc, key) => {
       acc[key] = {
-        ...defaultSettings[key as keyof typeof defaultSettings],
+        ...dynamicDefaults[key],
         ...(userStore.user?.dashboardSettings?.fitnessCharts?.[key] || {})
       }
       return acc
     }, {} as any)
-  )
+  }
+
   const defaultTrainingLoadDisplayMode = 'adjusted'
   const trainingLoadDisplayMode = ref<'adjusted' | 'intervals'>(
     (userStore.user?.dashboardSettings?.trainingLoad?.displayMode as 'adjusted' | 'intervals') ||
       defaultTrainingLoadDisplayMode
+  )
+
+  // Wait for customFields to load before initializing
+  watch(
+    customFields,
+    () => {
+      initSettings()
+    },
+    { immediate: true }
   )
 
   // Update local state when modal opens or user store changes
@@ -116,13 +139,7 @@
     () => isOpen.value,
     (open) => {
       if (open) {
-        settings.value = Object.keys(defaultSettings).reduce((acc, key) => {
-          acc[key] = {
-            ...defaultSettings[key as keyof typeof defaultSettings],
-            ...(userStore.user?.dashboardSettings?.fitnessCharts?.[key] || {})
-          }
-          return acc
-        }, {} as any)
+        initSettings()
         trainingLoadDisplayMode.value =
           (userStore.user?.dashboardSettings?.trainingLoad?.displayMode as
             'adjusted' | 'intervals') || defaultTrainingLoadDisplayMode
@@ -155,7 +172,7 @@
     saveSettings()
   })
 
-  const chartOptions = [
+  const baseChartOptions = [
     { key: 'hrvRhrDual', label: 'HRV & RHR Correlation' },
     { key: 'recovery', label: 'Recovery Trajectory' },
     { key: 'readinessEstimate', label: 'Readiness Estimate (HRV + RHR)' },
@@ -164,14 +181,27 @@
     { key: 'restingHr', label: 'Resting Heart Rate' },
     { key: 'weight', label: 'Mass Progression' },
     { key: 'bp', label: 'Blood Pressure' }
-  ] as const
+  ]
+
+  const chartOptions = computed(() => {
+    const opts = [...baseChartOptions]
+    if (customFields.value) {
+      for (const field of customFields.value) {
+        if (field.dataType === 'NUMBER') {
+          opts.push({ key: `custom_${field.fieldKey}`, label: `Tracker: ${field.label}` })
+        }
+      }
+    }
+    return opts
+  })
+
   const trainingLoadDisplayOptions = [
     { label: 'Readiness adjusted', value: 'adjusted' },
     { label: 'Intervals exact', value: 'intervals' }
   ]
 
   function resetDefaults() {
-    settings.value = JSON.parse(JSON.stringify(defaultSettings))
+    initSettings()
     trainingLoadDisplayMode.value = defaultTrainingLoadDisplayMode
   }
 </script>

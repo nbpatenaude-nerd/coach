@@ -446,6 +446,52 @@
           </section>
         </div>
 
+        <div v-if="customFields?.length" class="p-6 border-t border-gray-100 dark:border-gray-800">
+          <section class="space-y-4">
+            <div
+              class="flex items-center gap-2 mb-4 border-b border-gray-100 dark:border-gray-800 pb-2"
+            >
+              <UIcon name="i-heroicons-adjustments-horizontal" class="w-4 h-4 text-primary" />
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-tight">
+                Custom Trackers
+              </h4>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <UFormField
+                v-for="field in customFields"
+                :key="field.id"
+                :label="field.label"
+                :name="`custom_${field.fieldKey}`"
+              >
+                <!-- Number Input -->
+                <UInput
+                  v-if="field.dataType === 'NUMBER'"
+                  v-model="state.customMetrics[field.fieldKey]"
+                  type="number"
+                  step="any"
+                  class="w-full"
+                >
+                  <template v-if="field.unit" #trailing>
+                    <span class="text-xs text-gray-500 pr-2">{{ field.unit }}</span>
+                  </template>
+                </UInput>
+                <!-- Boolean Input -->
+                <UToggle
+                  v-else-if="field.dataType === 'BOOLEAN'"
+                  v-model="state.customMetrics[field.fieldKey]"
+                />
+                <!-- Text Input -->
+                <UInput v-else v-model="state.customMetrics[field.fieldKey]" class="w-full">
+                  <template v-if="field.unit" #trailing>
+                    <span class="text-xs text-gray-500 pr-2">{{ field.unit }}</span>
+                  </template>
+                </UInput>
+              </UFormField>
+            </div>
+          </section>
+        </div>
+
         <div
           class="flex items-center justify-end gap-3 p-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50"
         >
@@ -488,6 +534,8 @@
   const { formatDateUTC } = useFormat()
   const saving = ref(false)
 
+  const { data: customFields } = useFetch('/api/analytics/fields/definitions')
+
   const schema = z.object({
     date: z.string().min(1, 'Date is required')
   })
@@ -527,7 +575,8 @@
     respiration: '',
     skinTemp: '',
     systolic: '',
-    vo2max: ''
+    vo2max: '',
+    customMetrics: {} as Record<string, any>
   })
 
   watch(
@@ -570,6 +619,7 @@
       state.skinTemp = numberOrEmpty(props.wellness.skinTemp)
       state.systolic = numberOrEmpty(props.wellness.systolic)
       state.vo2max = numberOrEmpty(props.wellness.vo2max)
+      state.customMetrics = { ...(props.wellness.customMetrics || {}) }
     },
     { immediate: true }
   )
@@ -648,7 +698,9 @@
           respiration: parseFloatOrNull(state.respiration),
           skinTemp: parseFloatOrNull(state.skinTemp),
           systolic: parseIntOrNull(state.systolic),
-          vo2max: parseFloatOrNull(state.vo2max)
+          vo2max: parseFloatOrNull(state.vo2max),
+          customMetrics:
+            Object.keys(state.customMetrics).length > 0 ? state.customMetrics : undefined
         }
       })
 

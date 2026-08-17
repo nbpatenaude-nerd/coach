@@ -243,6 +243,20 @@
               :plugins="[ChartDataLabels]"
               @settings="openChartSettings('bp', 'Blood Pressure')"
             />
+
+            <FitnessTrendChart
+              v-for="field in customFields?.filter((f) => f.dataType === 'NUMBER') || []"
+              v-show="chartSettings[`custom_${field.fieldKey}`]?.visible !== false"
+              :key="`custom-chart-${field.fieldKey}`"
+              :metric-key="`custom_${field.fieldKey}`"
+              :title="field.label"
+              :loading="loading"
+              :data="customTrendDataMap[`custom_${field.fieldKey}`]"
+              :options="getChartOptions(`custom_${field.fieldKey}`)"
+              :settings="chartSettings[`custom_${field.fieldKey}`] || {}"
+              :plugins="[ChartDataLabels]"
+              @settings="openChartSettings(`custom_${field.fieldKey}`, field.label)"
+            />
           </div>
 
           <RecoveryContextTimeline :items="recoveryContextItems" @select="openRecoveryItem" />
@@ -602,6 +616,8 @@
     { label: 'Poor (<6h)', value: 'poor' }
   ]
 
+  const { data: customFields } = useFetch('/api/analytics/fields/definitions')
+
   const { formatDateUTC, getUserLocalDate } = useFormat()
 
   function getSelectedPeriodRange() {
@@ -925,6 +941,44 @@
         'Readiness Estimate'
       )
     }
+  })
+
+  const customTrendDataMap = computed(() => {
+    if (!customFields.value) return {}
+
+    const numberFields = customFields.value.filter((f) => f.dataType === 'NUMBER')
+    const result: Record<string, any> = {}
+
+    for (const field of numberFields) {
+      const fieldKey = `custom_${field.fieldKey}`
+
+      const recentWellness = [...filteredWellness.value]
+        .filter(
+          (w) =>
+            w.customMetrics?.[field.fieldKey] !== undefined &&
+            w.customMetrics?.[field.fieldKey] !== null
+        )
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+      if (recentWellness.length === 0) {
+        result[fieldKey] = { labels: [], dates: [], datasets: [] }
+        continue
+      }
+
+      const labels = recentWellness.map((w) =>
+        new Date(w.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      )
+
+      const data = recentWellness.map((w) => Number(w.customMetrics[field.fieldKey]))
+
+      result[fieldKey] = {
+        labels,
+        dates: recentWellness.map((w) => w.date),
+        datasets: getChartDataset(fieldKey, data, 'rgb(99, 102, 241)', field.label) // Indigo as default color
+      }
+    }
+
+    return result
   })
 
   // Helper to build datasets based on per-chart settings
