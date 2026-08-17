@@ -74,6 +74,7 @@ export const ModelName = {
   CoachingRequest: 'CoachingRequest',
   Goal: 'Goal',
   Event: 'Event',
+  EventParticipant: 'EventParticipant',
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
@@ -732,6 +733,17 @@ export const EventScalarFieldEnum = {
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+export const EventParticipantScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  userId: 'userId',
+  priority: 'priority',
+  createdAt: 'createdAt'
+} as const
+
+export type EventParticipantScalarFieldEnum =
+  (typeof EventParticipantScalarFieldEnum)[keyof typeof EventParticipantScalarFieldEnum]
 
 export const AccountScalarFieldEnum = {
   id: 'id',

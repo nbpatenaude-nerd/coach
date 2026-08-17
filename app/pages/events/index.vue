@@ -85,8 +85,13 @@
       >
         <template #body>
           <div class="space-y-4">
-            <p>
+            <p v-if="isOwner(eventToDelete)">
               Are you sure you want to delete <strong>{{ eventToDelete?.title }}</strong
+              >?
+            </p>
+            <p v-else>
+              Are you sure you want to remove your RSVP for
+              <strong>{{ eventToDelete?.title }}</strong
               >?
             </p>
             <div class="flex justify-end gap-2">
@@ -109,8 +114,9 @@
                     void deleteEvent()
                   }
                 "
-                >Delete</UButton
               >
+                {{ isOwner(eventToDelete) ? 'Delete' : 'Leave' }}
+              </UButton>
             </div>
           </div>
         </template>
@@ -141,6 +147,7 @@
     meta: [{ name: 'description', content: 'Manage your racing calendar and training milestones.' }]
   })
 
+  const { data: session } = useAuth()
   const toast = useToast()
   const loading = ref(true)
   const events = ref<any[]>([])
@@ -197,6 +204,11 @@
     })
   }
 
+  function isOwner(event: any) {
+    if (!event || !session.value?.user) return false
+    return event.userId === session.value.user.id
+  }
+
   function confirmDeleteEvent(event: any) {
     eventToDelete.value = event
     isDeleteModalOpen.value = true
@@ -207,21 +219,32 @@
 
     deleting.value = true
     try {
-      await $fetch<any, string & {}>(`/api/events/${eventToDelete.value.id}`, {
-        method: 'DELETE'
-      })
-
-      toast.add({
-        title: 'Success',
-        description: 'Event deleted successfully',
-        color: 'success'
-      })
+      if (isOwner(eventToDelete.value)) {
+        await $fetch<any, string & {}>(`/api/events/${eventToDelete.value.id}`, {
+          method: 'DELETE'
+        })
+        toast.add({
+          title: 'Success',
+          description: 'Event deleted successfully',
+          color: 'success'
+        })
+      } else {
+        await $fetch('/api/events/rsvp', {
+          method: 'POST',
+          body: { eventId: eventToDelete.value.id }
+        })
+        toast.add({
+          title: 'Success',
+          description: 'Removed RSVP successfully',
+          color: 'success'
+        })
+      }
       fetchEvents()
     } catch (error) {
-      console.error('Error deleting event:', error)
+      console.error('Error handling event action:', error)
       toast.add({
         title: 'Error',
-        description: 'Failed to delete event',
+        description: 'Failed to complete action',
         color: 'error'
       })
     } finally {

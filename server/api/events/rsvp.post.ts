@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   const userId = (session.user as any).id as string
   const body = await readBody(event)
-  const { eventId } = body
+  const { eventId, priority } = body
 
   if (!eventId) {
     throw createError({
@@ -28,8 +28,8 @@ export default defineEventHandler(async (event) => {
       where: { id: eventId },
       include: {
         participants: {
-          where: { id: userId },
-          select: { id: true }
+          where: { userId: userId },
+          select: { id: true, userId: true }
         }
       }
     })
@@ -43,20 +43,35 @@ export default defineEventHandler(async (event) => {
 
     const isParticipating = targetEvent.participants.length > 0
 
-    // Toggle participation
-    const updatedEvent = await prisma.event.update({
-      where: { id: eventId },
-      data: {
-        participants: {
-          [isParticipating ? 'disconnect' : 'connect']: { id: userId }
+    if (isParticipating) {
+      // Remove participation
+      await prisma.eventParticipant.delete({
+        where: { eventId_userId: { eventId, userId } }
+      })
+    } else {
+      // Add participation
+      await prisma.eventParticipant.create({
+        data: {
+          eventId,
+          userId,
+          priority: priority || targetEvent.priority || 'B'
         }
-      },
+      })
+    }
+
+    const updatedEvent = await prisma.event.findUnique({
+      where: { id: eventId },
       include: {
         participants: {
           select: {
-            id: true,
-            name: true,
-            image: true
+            priority: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                image: true
+              }
+            }
           }
         }
       }

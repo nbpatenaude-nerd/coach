@@ -63,6 +63,67 @@ export default defineEventHandler(async (event) => {
   const userId = user.id
 
   try {
+    // Deduplication Logic
+    let existingEvent = null
+    if (result.data.isPublic) {
+      if (result.data.websiteUrl) {
+        existingEvent = await prisma.event.findFirst({
+          where: { isPublic: true, websiteUrl: result.data.websiteUrl }
+        })
+      } else {
+        // Fallback to title and date match
+        const eventDate = new Date(result.data.date)
+        const startOfDay = new Date(eventDate)
+        startOfDay.setHours(0, 0, 0, 0)
+        const endOfDay = new Date(eventDate)
+        endOfDay.setHours(23, 59, 59, 999)
+
+        existingEvent = await prisma.event.findFirst({
+          where: {
+            isPublic: true,
+            title: { equals: result.data.title, mode: 'insensitive' },
+            date: { gte: startOfDay, lte: endOfDay }
+          }
+        })
+      }
+    }
+
+    if (existingEvent) {
+      // Connect to existing event instead of creating a new one
+      const priority = result.data.priority || existingEvent.priority || 'B'
+      await prisma.eventParticipant.upsert({
+        where: { eventId_userId: { eventId: existingEvent.id, userId } },
+        create: { eventId: existingEvent.id, userId, priority },
+        update: { priority }
+      })
+
+      // Fetch the full event to return
+      const finalEvent = await prisma.event.findUnique({
+        where: { id: existingEvent.id },
+        include: {
+          participants: {
+            include: { user: { select: { id: true, name: true, image: true } } }
+          }
+        }
+      })
+
+      if (finalEvent) {
+        const mappedEvent = {
+          ...finalEvent,
+          priority:
+            finalEvent.participants.find((p) => p.userId === userId)?.priority ||
+            finalEvent.priority,
+          participants: finalEvent.participants.map((p) => ({
+            id: p.user.id,
+            name: p.user.name,
+            image: p.user.image,
+            priority: p.priority
+          }))
+        }
+        return { success: true, event: mappedEvent }
+      }
+    }
+
     // 1. Determine initial sync status
     const integration = await prisma.integration.findFirst({
       where: { userId, provider: 'intervals' }
@@ -76,6 +137,15 @@ export default defineEventHandler(async (event) => {
       priority: result.data.priority || null,
       date: new Date(result.data.date),
       syncStatus: initialSyncStatus
+    })
+
+    // Also add the creator as an EventParticipant
+    await prisma.eventParticipant.create({
+      data: {
+        eventId: newEvent.id,
+        userId: userId,
+        priority: result.data.priority || 'B'
+      }
     })
 
     let finalEvent = newEvent

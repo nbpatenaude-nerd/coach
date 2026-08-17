@@ -182,6 +182,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <div class="flex items-center justify-end gap-2" @click.stop>
                   <UButton
+                    v-if="canEdit(event)"
                     icon="i-heroicons-pencil-square"
                     color="neutral"
                     variant="ghost"
@@ -195,12 +196,14 @@
                     "
                   />
                   <UButton
-                    icon="i-heroicons-trash"
-                    color="error"
+                    :icon="
+                      canEdit(event) ? 'i-heroicons-trash' : 'i-heroicons-arrow-right-on-rectangle'
+                    "
+                    :color="canEdit(event) ? 'error' : 'neutral'"
                     variant="ghost"
                     size="sm"
                     class="size-11 min-h-11 min-w-11"
-                    aria-label="Delete event"
+                    :aria-label="canEdit(event) ? 'Delete event' : 'Leave event'"
                     @click="
                       () => {
                         void $emit('delete', event)
@@ -252,6 +255,7 @@
           </div>
           <div class="flex items-center justify-end gap-2" @click.stop>
             <UButton
+              v-if="canEdit(event)"
               icon="i-heroicons-pencil-square"
               color="neutral"
               variant="outline"
@@ -267,19 +271,19 @@
               Edit
             </UButton>
             <UButton
-              icon="i-heroicons-trash"
-              color="error"
+              :icon="canEdit(event) ? 'i-heroicons-trash' : 'i-heroicons-arrow-right-on-rectangle'"
+              :color="canEdit(event) ? 'error' : 'neutral'"
               variant="outline"
               size="sm"
               class="min-h-11"
-              aria-label="Delete event"
+              :aria-label="canEdit(event) ? 'Delete event' : 'Leave event'"
               @click="
                 () => {
                   void $emit('delete', event)
                 }
               "
             >
-              Delete
+              {{ canEdit(event) ? 'Delete' : 'Leave' }}
             </UButton>
           </div>
         </UCard>
@@ -321,9 +325,18 @@
 
   defineEmits(['update:currentPage', 'navigate', 'create', 'edit', 'delete'])
 
+  const { data: session } = useAuth()
   const { formatDate: baseFormatDate, getUserLocalDate } = useFormat()
 
   const itemsPerPage = 20
+
+  function canEdit(event: any) {
+    if (!session.value?.user) return false
+    const userRole = (session.value.user as any).role || 'ATHLETE'
+    const isOwner = event.userId === session.value.user.id
+    const isAdminOrCoach = userRole === 'ADMIN' || userRole === 'COACH'
+    return isOwner || isAdminOrCoach
+  }
 
   function formatDayName(date: string) {
     return baseFormatDate(date, 'EEEE')

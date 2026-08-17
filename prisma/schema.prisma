@@ -209,7 +209,7 @@ model User {
   workoutStructureGenerationRuns WorkoutStructureGenerationRun[]
   workoutTemplates               WorkoutTemplate[]
   workoutTemplateFolders         WorkoutTemplateFolder[]
-  participatingEvents            Event[]                         @relation("EventParticipants")
+  eventParticipants              EventParticipant[]
 
   // CRM Fields
   pipelineStage String?     @default("Lead") // Deprecated: Migrating to CrmDeal
@@ -694,12 +694,26 @@ model Event {
   syncError        String?
   syncStatus       String?  @default("SYNCED")
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  participants     User[]   @relation("EventParticipants")
+  participants     EventParticipant[]
   goals            Goal[]   @relation("EventToGoal")
 
   @@unique([userId, source, externalId])
   @@index([userId])
   @@index([date])
+}
+
+model EventParticipant {
+  id        String   @id @default(uuid())
+  eventId   String
+  userId    String
+  priority  String?  @default("B")
+  createdAt DateTime @default(now())
+
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([userId])
 }
 
 model Account {

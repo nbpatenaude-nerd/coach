@@ -175,6 +175,11 @@ export type Goal = Prisma.GoalModel
  */
 export type Event = Prisma.EventModel
 /**
+ * Model EventParticipant
+ *
+ */
+export type EventParticipant = Prisma.EventParticipantModel
+/**
  * Model Account
  *
  */

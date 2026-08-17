@@ -83,9 +83,11 @@ export function useQuotaPaywall() {
     const recommendedTier =
       input.recommendedTier ?? quotaNextTier ?? resolveRecommendedUpgradeTier(effectiveTier)
     const nextTierName = recommendedTier
-      ? recommendedTier === 'pro'
-        ? 'Pro'
-        : 'Supporter'
+      ? recommendedTier === 'unleash'
+        ? 'Unleash'
+        : recommendedTier === 'unlock'
+          ? 'Unlock'
+          : 'Uncover'
       : undefined
 
     return {
@@ -104,7 +106,12 @@ export function useQuotaPaywall() {
         (input.operation
           ? buildQuotaUpgradeBullets(
               input.operation,
-              quota?.nextTier || (recommendedTier === 'pro' ? 'PRO' : 'SUPPORTER'),
+              quota?.nextTier ||
+                (recommendedTier === 'unleash'
+                  ? 'UNLEASH'
+                  : recommendedTier === 'unlock'
+                    ? 'UNLOCK'
+                    : 'UNCOVER'),
               quota?.nextTierLimit,
               quota?.window
             )
@@ -171,14 +178,21 @@ export function useQuotaPaywall() {
 
     const lockedTierLabel = computed(() => {
       const quota = getQuotaForOperation(operation)
-      if (quota?.nextTier === 'PRO') return 'Pro'
-      if (quota?.nextTier === 'SUPPORTER') return 'Supporter'
+      if (quota?.nextTier === 'UNLEASH') return 'Unleash'
+      if (quota?.nextTier === 'UNLOCK') return 'Unlock'
+      if (quota?.nextTier === 'UNCOVER') return 'Uncover'
 
       const subscriptionTier =
         quotasState.value?.effectiveTier ||
         ((userStore.user?.subscriptionTier || 'FREE') as SubscriptionTier)
       const recommendedTier = resolveRecommendedUpgradeTier(subscriptionTier)
-      return recommendedTier === 'pro' ? 'Pro' : recommendedTier === 'supporter' ? 'Supporter' : ''
+      return recommendedTier === 'unleash'
+        ? 'Unleash'
+        : recommendedTier === 'unlock'
+          ? 'Unlock'
+          : recommendedTier === 'uncover'
+            ? 'Uncover'
+            : ''
     })
 
     const remaining = computed(() => {

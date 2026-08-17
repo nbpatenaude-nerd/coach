@@ -43,21 +43,40 @@ export default defineEventHandler(async (event) => {
 
   try {
     const events = await prisma.event.findMany({
-      where: { userId: user.id },
+      where: {
+        OR: [{ userId: user.id }, { participants: { some: { userId: user.id } } }]
+      },
       orderBy: { date: 'asc' },
       include: {
         goals: true,
         participants: {
-          select: {
-            id: true,
-            name: true,
-            image: true
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                image: true
+              }
+            }
           }
         }
       }
     })
 
-    return events
+    // Map to preserve frontend compatibility and inject personal priority
+    return events.map((event) => {
+      const userParticipant = event.participants.find((p) => p.userId === user.id)
+      return {
+        ...event,
+        priority: userParticipant?.priority || event.priority,
+        participants: event.participants.map((p) => ({
+          id: p.user.id,
+          name: p.user.name,
+          image: p.user.image,
+          priority: p.priority
+        }))
+      }
+    })
   } catch (error) {
     console.error('Error fetching events:', error)
     throw createError({

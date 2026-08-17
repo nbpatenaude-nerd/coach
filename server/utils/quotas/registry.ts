@@ -45,7 +45,12 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 3, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 4, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: {
+      limit: 3,
+      window: '1 day',
+      enforcement: 'STRICT',
+      resetType: 'CALENDAR'
+    },
     wellness_analysis: { limit: 3, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 2, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 1, window: '7 days', enforcement: 'STRICT' }
@@ -66,7 +71,12 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 8, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: {
+      limit: 6,
+      window: '1 day',
+      enforcement: 'STRICT',
+      resetType: 'CALENDAR'
+    },
     wellness_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
@@ -87,7 +97,12 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 10, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: {
+      limit: 9,
+      window: '1 day',
+      enforcement: 'STRICT',
+      resetType: 'CALENDAR'
+    },
     wellness_analysis: { limit: 10, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 6, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 3, window: '7 days', enforcement: 'STRICT' }
@@ -108,7 +123,12 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 10, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 12, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: {
+      limit: 12,
+      window: '1 day',
+      enforcement: 'STRICT',
+      resetType: 'CALENDAR'
+    },
     wellness_analysis: { limit: 14, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 8, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 4, window: '7 days', enforcement: 'STRICT' }

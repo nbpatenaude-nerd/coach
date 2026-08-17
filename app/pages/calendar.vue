@@ -9,12 +9,15 @@
     </template>
 
     <template #body>
-      <div class="p-4 sm:p-6 w-full max-w-7xl mx-auto">
-        <div class="mb-8">
-          <h2 class="text-3xl font-bold font-athletic uppercase text-white tracking-tight">
+      <div class="p-0 sm:p-6 space-y-4 sm:space-y-6">
+        <!-- Page Header -->
+        <div class="px-4 sm:px-0">
+          <h1 class="text-4xl font-black text-gray-900 dark:text-white uppercase tracking-tight">
             Town Hall
-          </h2>
-          <p class="text-gray-400 mt-2 text-lg">
+          </h1>
+          <p
+            class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em] mt-1 italic"
+          >
             See who is racing what and RSVP to join the crew.
           </p>
         </div>
@@ -67,11 +70,11 @@
             </h3>
 
             <div class="flex items-center gap-2 text-gray-400 text-sm mb-4">
-              <UIcon name="i-heroicons-map-pin" class="w-4 h-4 flex-shrink-0" />
+              <UIcon name="i-heroicons-map-pin" class="w-4 h-4 shrink-0" />
               <span class="truncate">{{ event.location || 'TBD' }}</span>
             </div>
 
-            <p class="text-sm text-gray-400 mb-6 line-clamp-2 min-h-[40px]">
+            <p class="text-sm text-gray-400 mb-6 line-clamp-2 min-h-10">
               {{ event.description }}
             </p>
 
@@ -105,7 +108,7 @@
                 :icon="isParticipating(event) ? 'i-heroicons-check' : 'i-heroicons-plus'"
                 size="sm"
                 :loading="loadingEventId === event.id"
-                @click="toggleRSVP(event.id)"
+                @click="openRSVPModal(event)"
               >
                 {{ isParticipating(event) ? "You're Racing!" : "I'm Racing This!" }}
               </UButton>
@@ -113,6 +116,48 @@
           </UCard>
         </div>
       </div>
+
+      <!-- RSVP Priority Modal -->
+      <UModal v-model:open="isRSVPModalOpen" title="Select Priority">
+        <template #body>
+          <div class="space-y-4">
+            <p class="text-sm text-gray-400">
+              How important is this event to your overall training goals? This helps personalize
+              your training plan.
+            </p>
+            <USelect
+              v-model="selectedPriority"
+              :options="[
+                { label: 'A - Peak Race (Highest Priority)', value: 'A' },
+                { label: 'B - Important but not peaked', value: 'B' },
+                { label: 'C - Fun/Training race', value: 'C' }
+              ]"
+              placeholder="Select priority"
+            />
+            <div class="flex justify-end gap-2 mt-4">
+              <UButton
+                color="neutral"
+                variant="ghost"
+                @click="
+                  () => {
+                    isRSVPModalOpen = false
+                  }
+                "
+                >Cancel</UButton
+              >
+              <UButton
+                color="primary"
+                variant="solid"
+                :loading="loadingEventId === selectedEventForRSVP?.id"
+                :disabled="!selectedPriority"
+                @click="confirmRSVP"
+              >
+                Confirm RSVP
+              </UButton>
+            </div>
+          </div>
+        </template>
+      </UModal>
     </template>
   </UDashboardPanel>
 </template>
@@ -132,11 +177,14 @@
     pending,
     error,
     refresh
-  } = useFetch('/api/events', {
+  } = useFetch<any[]>('/api/events/community' as string, {
     default: () => []
   })
 
   const loadingEventId = ref<string | null>(null)
+  const isRSVPModalOpen = ref(false)
+  const selectedEventForRSVP = ref<any>(null)
+  const selectedPriority = ref('B')
   const toast = useToast()
 
   const isParticipating = (event: any) => {
@@ -144,12 +192,30 @@
     return event.participants.some((p: any) => p.id === session.value?.user?.id)
   }
 
-  const toggleRSVP = async (eventId: string) => {
+  const openRSVPModal = (event: any) => {
+    if (isParticipating(event)) {
+      // If already participating, just toggle (remove) immediately
+      toggleRSVP(event.id)
+    } else {
+      selectedEventForRSVP.value = event
+      selectedPriority.value = 'B'
+      isRSVPModalOpen.value = true
+    }
+  }
+
+  const confirmRSVP = () => {
+    if (selectedEventForRSVP.value) {
+      toggleRSVP(selectedEventForRSVP.value.id, selectedPriority.value)
+      isRSVPModalOpen.value = false
+    }
+  }
+
+  const toggleRSVP = async (eventId: string, priority?: string) => {
     loadingEventId.value = eventId
     try {
-      await $fetch('/api/events/rsvp', {
+      await $fetch('/api/events/rsvp' as string, {
         method: 'POST',
-        body: { eventId }
+        body: { eventId, priority }
       })
 
       // Refresh the local data to reflect new RSVP status

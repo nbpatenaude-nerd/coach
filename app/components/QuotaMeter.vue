@@ -91,9 +91,13 @@
     const windowLabel =
       quota.value.window === 'calendar day' ? 'day' : quota.value.window.replace('calendar ', '')
     const params = { limit: quota.value.nextTierLimit, window: windowLabel }
-    return quota.value.nextTier === 'SUPPORTER'
-      ? t.value('meter_next_tier_supporter', params)
-      : t.value('meter_next_tier_pro', params)
+    if (quota.value.nextTier === 'UNLEASH') {
+      return t.value('meter_next_tier_unleash', params)
+    }
+    if (quota.value.nextTier === 'UNLOCK') {
+      return t.value('meter_next_tier_unlock', params)
+    }
+    return t.value('meter_next_tier_uncover', params)
   })
 
   async function openUpgrade() {
