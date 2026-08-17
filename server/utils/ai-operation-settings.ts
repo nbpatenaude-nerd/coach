@@ -1,6 +1,7 @@
 import { prisma } from './db'
 import { resolveModelId, type GeminiModel } from './ai-config'
 import { getUserEntitlements } from './entitlements'
+import { getActivePromotionalGrant } from './partner-campaigns'
 
 export interface LlmOperationSettings {
   model: GeminiModel
@@ -49,13 +50,17 @@ export async function getLlmOperationSettings(
         subscriptionTier: true,
         subscriptionStatus: true,
         subscriptionPeriodEnd: true,
-        trialEndsAt: true,
-        promotionalGrantTier: true
+        trialEndsAt: true
       }
     })
 
     if (user) {
-      const entitlements = getUserEntitlements(user as any)
+      const grant = await getActivePromotionalGrant(userId)
+      const entitlementsUser = {
+        ...user,
+        promotionalGrantTier: grant?.tier ?? null
+      }
+      const entitlements = getUserEntitlements(entitlementsUser as any)
 
       // If the user has a preference, try to honor it, otherwise default to their entitlement
       level = user.aiModelPreference || entitlements.aiModel
