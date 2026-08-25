@@ -1120,6 +1120,61 @@
     }
   }
 
+  // Quick Add State
+  const showQuickAddModal = ref(false)
+  const showCreateAdHocModal = ref(false)
+  const quickAddDate = ref<Date | null>(null)
+  const quickAddAthleteId = ref<string | null>(null)
+
+  function handleQuickAdd(athleteId: string, date: Date) {
+    quickAddAthleteId.value = athleteId
+    quickAddDate.value = date
+    showQuickAddModal.value = true
+  }
+
+  function handleQuickAddManual(date: Date) {
+    showQuickAddModal.value = false
+    isWorkoutDrawerOpen.value = true
+    isWorkoutDrawerVisible.value = true
+    if (isDesktopCalendar.value) {
+      leftRailTab.value = 'library'
+      railCollapsed.value = false
+    }
+  }
+
+  function handleQuickAddAI(date: Date) {
+    showQuickAddModal.value = false
+    showCreateAdHocModal.value = true
+  }
+
+  async function handleQuickAddSubmitAI(form: any) {
+    try {
+      showCreateAdHocModal.value = false
+      await $fetch('/api/workouts/generate', {
+        method: 'POST',
+        body: {
+          ...form,
+          date: quickAddDate.value,
+          athleteId: quickAddAthleteId.value
+        }
+      })
+      toast.add({
+        title: 'Generating workout',
+        description: 'AI is generating a workout for the athlete.',
+        color: 'success'
+      })
+      if (quickAddAthleteId.value) {
+        setTimeout(() => refreshAffectedPanel(quickAddAthleteId.value!), 3000)
+      }
+    } catch (e: any) {
+      toast.add({
+        title: 'Failed to generate',
+        description: e.data?.message || 'Could not generate workout',
+        color: 'error'
+      })
+    }
+  }
+
   async function onDuplicatePlannedWorkout({
     sourceAthleteId,
     targetAthleteId,
@@ -1131,60 +1186,6 @@
     workoutId: string
     date: Date
   }) {
-    // Quick Add State
-    const showQuickAddModal = ref(false)
-    const showCreateAdHocModal = ref(false)
-    const quickAddDate = ref<Date | null>(null)
-    const quickAddAthleteId = ref<string | null>(null)
-
-    function handleQuickAdd(athleteId: string, date: Date) {
-      quickAddAthleteId.value = athleteId
-      quickAddDate.value = date
-      showQuickAddModal.value = true
-    }
-
-    function handleQuickAddManual(date: Date) {
-      showQuickAddModal.value = false
-      isWorkoutDrawerOpen.value = true
-      isWorkoutDrawerVisible.value = true
-      if (isDesktopCalendar.value) {
-        leftRailTab.value = 'library'
-        railCollapsed.value = false
-      }
-    }
-
-    function handleQuickAddAI(date: Date) {
-      showQuickAddModal.value = false
-      showCreateAdHocModal.value = true
-    }
-
-    async function handleQuickAddSubmitAI(form: any) {
-      try {
-        showCreateAdHocModal.value = false
-        await $fetch('/api/workouts/generate', {
-          method: 'POST',
-          body: {
-            ...form,
-            date: quickAddDate.value,
-            athleteId: quickAddAthleteId.value
-          }
-        })
-        toast.add({
-          title: 'Generating workout',
-          description: 'AI is generating a workout for the athlete.',
-          color: 'success'
-        })
-        if (quickAddAthleteId.value) {
-          setTimeout(() => refreshAffectedPanel(quickAddAthleteId.value!), 3000)
-        }
-      } catch (e: any) {
-        toast.add({
-          title: 'Failed to generate',
-          description: e.data?.message || 'Could not generate workout',
-          color: 'error'
-        })
-      }
-    }
     try {
       const sourceWorkout = await $fetch<any, string & {}>(
         `/api/coaching/athletes/${sourceAthleteId}/planned-workouts/${workoutId}`
