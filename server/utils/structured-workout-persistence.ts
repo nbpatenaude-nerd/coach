@@ -479,7 +479,7 @@ export function normalizeStructuredWorkoutForPersistence(
     if (primaryTarget) step.primaryTarget = primaryTarget
 
     if (isRun) {
-      applyRunTargetPolicyToStep(step, context.targetPolicy)
+      applyTargetPolicyToStep(step, context.targetPolicy)
     }
 
     applyTargetFormatPolicyToStep(step, context.targetFormatPolicy, {

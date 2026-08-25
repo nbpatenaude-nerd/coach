@@ -17,7 +17,7 @@
     @drop="onDayDrop"
   >
     <!-- Date Number & Wellness Metrics -->
-    <div class="flex items-center justify-between mb-2">
+    <div class="flex items-center justify-between mb-2 group/header">
       <div class="flex items-center gap-2">
         <div class="relative">
           <span
@@ -74,6 +74,15 @@
           </span>
         </button>
       </div>
+
+      <!-- Quick Add Button -->
+      <button
+        class="opacity-0 group-hover/header:opacity-100 transition-opacity ml-auto text-gray-400 hover:text-primary-500 rounded p-0.5 cursor-pointer"
+        title="Quick add workout"
+        @click.stop="$emit('add-click', date)"
+      >
+        <UIcon name="i-heroicons-plus" class="w-4 h-4" />
+      </button>
     </div>
 
     <!-- Activities (flex-1 to push nutrition to bottom) -->
@@ -490,6 +499,7 @@
   }>()
 
   const emit = defineEmits<{
+    'add-click': [date: Date]
     'activity-click': [activity: CalendarActivity]
     'wellness-click': [date: Date]
     'nutrition-click': [date: Date]

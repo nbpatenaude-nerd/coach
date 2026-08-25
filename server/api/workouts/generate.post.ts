@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
   const userId = user.id
 
   const body = await readBody(event)
-  const { type, durationMinutes, intensity, notes } = body ?? {}
+  const { type, durationMinutes, intensity, notes, date } = body ?? {}
 
   // 0. Quota Check
   try {
@@ -50,13 +50,13 @@ export default defineEventHandler(async (event) => {
     throw error
   }
 
-  const now = new Date()
+  const targetDate = date ? new Date(date) : new Date()
 
   const handle = await dispatchTask(
     'generate-ad-hoc-workout',
     {
       userId,
-      date: now,
+      date: targetDate,
       preferences: {
         type,
         durationMinutes,

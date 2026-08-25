@@ -745,6 +745,12 @@
     :template-owner-scope="activePreviewTemplate?.ownerScope"
     @view="openPreviewDetails"
   />
+
+  <LibraryApplyWorkoutModal
+    v-model:open="showApplyModal"
+    :template="applyTemplateTarget"
+    @applied="showApplyModal = false"
+  />
 </template>
 
 <script setup lang="ts">
@@ -955,8 +961,12 @@
     refreshFolders()
   }
 
+  const showApplyModal = ref(false)
+  const applyTemplateTarget = ref<any>(null)
+
   function useTemplate(template: any) {
-    toast.add({ title: 'Schedule to calendar coming soon', color: 'info' })
+    applyTemplateTarget.value = template
+    showApplyModal.value = true
   }
 
   function confirmDelete(template: any) {

@@ -448,6 +448,7 @@
                     :settings="calendarSettings"
                     :saving-activity-id="savingToLibraryId"
                     @activity-click="openActivity"
+                    @add-click="handleQuickAdd"
                     @wellness-click="openWellnessModal"
                     @nutrition-click="openNutrition"
                     @merge-activity="onMergeActivity"
@@ -988,6 +989,15 @@
 
   <BulkDeleteModal v-model="showBulkDeleteModal" @deleted="refresh" />
 
+  <CalendarQuickAddModal
+    v-model:open="showQuickAddModal"
+    :date="quickAddDate"
+    @manual="handleQuickAddManual"
+    @ai="handleQuickAddAI"
+  />
+
+  <DashboardCreateAdHocModal v-model:open="showCreateAdHocModal" @submit="handleQuickAddSubmitAI" />
+
   <WellnessModal
     v-if="showWellnessModal"
     v-model:open="showWellnessModal"
@@ -1201,6 +1211,8 @@
   import CalendarMetabolicWave from '~/components/activities/CalendarMetabolicWave.vue'
   import CalendarSettingsModal from '~/components/activities/CalendarSettingsModal.vue'
   import MilestoneModal from '~/components/activities/MilestoneModal.vue'
+  import CalendarQuickAddModal from '~/components/activities/CalendarQuickAddModal.vue'
+  import DashboardCreateAdHocModal from '~/components/dashboard/DashboardCreateAdHocModal.vue'
   import PlanArchitectWorkoutDrawer from '~/components/plans/PlanArchitectWorkoutDrawer.vue'
   import { getDefaultSportSettings, getSportSettingsForActivity } from '~/utils/sportSettings'
   import { getWorkoutChartPreference } from '~/utils/workoutChartContext'
@@ -1222,6 +1234,7 @@
   const integrationStore = useIntegrationStore()
   const comparisonStore = useWorkoutComparisonStore()
   const userStore = useUserStore()
+  const recommendationStore = useRecommendationStore()
   const route = useRoute()
   const router = useRouter()
   const toast = useToast()
@@ -1285,6 +1298,10 @@
   ]
 
   // Modal state
+  const showQuickAddModal = ref(false)
+  const quickAddDate = ref<Date | null>(null)
+  const showCreateAdHocModal = ref(false)
+
   const showDeduplicateModal = ref(false)
   const showBulkDeleteModal = ref(false)
   const showPlannedWorkoutModal = ref(false)
@@ -2008,6 +2025,30 @@
         color: 'error'
       })
     }
+  }
+
+  function handleQuickAdd(date: Date) {
+    quickAddDate.value = date
+    showQuickAddModal.value = true
+  }
+
+  function handleQuickAddManual(date: Date) {
+    isWorkoutDrawerVisible.value = true
+    isWorkoutDrawerOpen.value = true
+    // the user can drag and drop from the drawer to the date
+  }
+
+  function handleQuickAddAI(date: Date) {
+    quickAddDate.value = date
+    showCreateAdHocModal.value = true
+  }
+
+  async function handleQuickAddSubmitAI(data: any) {
+    showCreateAdHocModal.value = false
+    await recommendationStore.generateAdHocWorkout({
+      ...data,
+      date: quickAddDate.value
+    })
   }
 
   async function openPlannedWorkoutModal(plannedWorkoutId: string) {

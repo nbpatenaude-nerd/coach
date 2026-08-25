@@ -3,17 +3,14 @@
     <template #header>
       <UDashboardNavbar title="Plans">
         <template #right>
-          <UButton
-            color="primary"
-            icon="i-heroicons-plus"
-            label="New Plan"
-            :loading="isCreating"
-            @click="
-              () => {
-                void createNewPlanTemplate()
-              }
-            "
-          />
+          <UDropdownMenu :items="newPlanMenuItems">
+            <UButton
+              color="primary"
+              icon="i-heroicons-plus"
+              label="New Plan"
+              :loading="isCreating"
+            />
+          </UDropdownMenu>
         </template>
       </UDashboardNavbar>
     </template>
@@ -526,10 +523,18 @@
   </UModal>
 
   <PlanShareModal v-model:open="isShareModalOpen" :plan="activePlan" @updated="refresh" />
+  <LibraryGeneratePlanAdHocModal v-model:open="showAIGenerateModal" @generated="refresh" />
+  <LibraryApplyPlanModal
+    v-model:open="showApplyPlanModal"
+    :plan="applyPlanTarget"
+    @applied="refresh"
+  />
 </template>
 
 <script setup lang="ts">
   import TrainingPlanFolderSelector from '~/components/plans/library/TrainingPlanFolderSelector.vue'
+  import LibraryGeneratePlanAdHocModal from '~/components/library/GeneratePlanAdHocModal.vue'
+  import LibraryApplyPlanModal from '~/components/library/ApplyPlanModal.vue'
   import PlanShareModal from '~/components/plans/library/PlanShareModal.vue'
   import { mobileListCardUi } from '~/utils/mobile-surface-ui'
 
@@ -545,8 +550,27 @@
   )
 
   const selectedTab = ref<'my' | 'team' | 'public' | 'favorites'>('my')
-  const searchQuery = ref('')
+  const { data: plans, refresh, status } = useLibraryPlans(librarySource)
   const isCreating = ref(false)
+
+  const showAIGenerateModal = ref(false)
+  const showApplyPlanModal = ref(false)
+  const applyPlanTarget = ref<any>(null)
+
+  const newPlanMenuItems = computed(() => [
+    {
+      label: 'Create from Scratch',
+      icon: 'i-heroicons-document-plus',
+      onSelect: () => createNewPlanTemplate()
+    },
+    {
+      label: 'Generate with AI',
+      icon: 'i-heroicons-sparkles',
+      onSelect: () => {
+        showAIGenerateModal.value = true
+      }
+    }
+  ])
   const selectedPlanIds = ref<string[]>([])
   const showContextModal = ref(false)
   const draggedItem = ref<{ type: 'folder' | 'plans'; ids: string[] } | null>(null)
@@ -801,6 +825,14 @@
 
     return [
       [
+        {
+          label: 'Apply to athlete(s)',
+          icon: 'i-heroicons-user-group',
+          onSelect: () => {
+            applyPlanTarget.value = plan
+            showApplyPlanModal.value = true
+          }
+        },
         {
           label: 'Copy private link',
           icon: 'i-heroicons-link',
