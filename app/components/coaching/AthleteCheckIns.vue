@@ -22,36 +22,46 @@
         <template #header>
           <div class="flex items-center justify-between">
             <h3 class="font-bold text-gray-900 dark:text-white">
-              Week of {{ formatFullDate(checkIn.weekStartDate) }}
+              Submitted {{ formatFullDate(checkIn.createdAt) }}
             </h3>
-            <span class="text-xs text-neutral-500">
-              Submitted {{ formatFullDate(checkIn.submittedAt) }}
-            </span>
           </div>
         </template>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
           <div>
-            <p class="text-xs text-neutral-500 uppercase font-bold">Feeling</p>
-            <p class="text-xl font-bold">{{ checkIn.feelingScore || '--' }}/10</p>
-          </div>
-          <div>
             <p class="text-xs text-neutral-500 uppercase font-bold">Fatigue</p>
-            <p class="text-xl font-bold">{{ checkIn.fatigueScore || '--' }}/10</p>
+            <p class="text-xl font-bold">{{ checkIn.personalFatigue || '--' }}/10</p>
           </div>
           <div>
             <p class="text-xs text-neutral-500 uppercase font-bold">Stress</p>
-            <p class="text-xl font-bold">{{ checkIn.stressScore || '--' }}/10</p>
+            <p class="text-xl font-bold">{{ checkIn.wellnessStress || '--' }}/10</p>
           </div>
           <div>
             <p class="text-xs text-neutral-500 uppercase font-bold">Sleep</p>
-            <p class="text-xl font-bold">{{ checkIn.sleepQuality || '--' }}/10</p>
+            <p class="text-xl font-bold">{{ checkIn.wellnessSleep || '--' }}/10</p>
+          </div>
+          <div>
+            <p class="text-xs text-neutral-500 uppercase font-bold">Recovery</p>
+            <p class="text-xl font-bold">{{ checkIn.trainingRecovery || '--' }}/10</p>
           </div>
         </div>
 
-        <div v-if="checkIn.notes" class="bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg">
-          <p class="text-xs text-neutral-500 uppercase font-bold mb-1">Notes</p>
-          <p class="text-sm">{{ checkIn.notes }}</p>
+        <div
+          v-if="checkIn.personalNotes || checkIn.personalChallenges || checkIn.personalHighlights"
+          class="bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg space-y-3"
+        >
+          <div v-if="checkIn.personalNotes">
+            <p class="text-xs text-neutral-500 uppercase font-bold mb-1">Notes</p>
+            <p class="text-sm">{{ checkIn.personalNotes }}</p>
+          </div>
+          <div v-if="checkIn.personalChallenges">
+            <p class="text-xs text-neutral-500 uppercase font-bold mb-1">Challenges</p>
+            <p class="text-sm">{{ checkIn.personalChallenges }}</p>
+          </div>
+          <div v-if="checkIn.personalHighlights">
+            <p class="text-xs text-neutral-500 uppercase font-bold mb-1">Highlights</p>
+            <p class="text-sm">{{ checkIn.personalHighlights }}</p>
+          </div>
         </div>
       </UCard>
     </div>

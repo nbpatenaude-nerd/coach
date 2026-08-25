@@ -93,8 +93,7 @@
               <div v-for="checkin in checkins" :key="checkin.id" class="p-4">
                 <div class="flex justify-between items-center mb-3">
                   <span class="font-medium text-foreground"
-                    >{{ new Date(checkin.weekStartDate).toLocaleDateString() }} -
-                    {{ new Date(checkin.weekEndDate).toLocaleDateString() }}</span
+                    >Submitted {{ new Date(checkin.createdAt).toLocaleDateString() }}</span
                   >
                   <span
                     class="text-xs font-semibold text-muted-foreground bg-muted px-2 py-1 rounded-full uppercase tracking-wider"
@@ -106,32 +105,64 @@
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                   <div class="bg-background rounded-lg p-3 border border-border">
                     <p class="text-xs text-muted-foreground mb-1">Fatigue</p>
-                    <p class="font-bold text-foreground">{{ checkin.fatigueRating }}/10</p>
+                    <p class="font-bold text-foreground">
+                      {{ checkin.personalFatigue || '--' }}/10
+                    </p>
                   </div>
                   <div class="bg-background rounded-lg p-3 border border-border">
                     <p class="text-xs text-muted-foreground mb-1">Stress</p>
-                    <p class="font-bold text-foreground">{{ checkin.stressRating }}/10</p>
+                    <p class="font-bold text-foreground">{{ checkin.wellnessStress || '--' }}/10</p>
                   </div>
                   <div class="bg-background rounded-lg p-3 border border-border">
                     <p class="text-xs text-muted-foreground mb-1">Sleep Quality</p>
-                    <p class="font-bold text-foreground">{{ checkin.sleepQualityRating }}/10</p>
+                    <p class="font-bold text-foreground">{{ checkin.wellnessSleep || '--' }}/10</p>
                   </div>
                   <div class="bg-background rounded-lg p-3 border border-border">
                     <p class="text-xs text-muted-foreground mb-1">Nutrition</p>
-                    <p class="font-bold text-foreground">{{ checkin.nutritionRating }}/10</p>
+                    <p class="font-bold text-foreground">
+                      {{ checkin.trainingNutrition || '--' }}/10
+                    </p>
                   </div>
                 </div>
 
                 <div
-                  v-if="checkin.notes"
-                  class="mt-4 bg-muted/30 p-3 rounded-lg text-sm text-foreground border border-border/50"
+                  v-if="
+                    checkin.personalNotes ||
+                    checkin.personalChallenges ||
+                    checkin.personalHighlights
+                  "
+                  class="mt-4 bg-muted/30 p-4 rounded-lg space-y-3 border border-border/50"
                 >
-                  <p
-                    class="font-semibold text-xs text-muted-foreground mb-1 uppercase tracking-wider"
-                  >
-                    Athlete Notes
-                  </p>
-                  <p class="whitespace-pre-wrap">{{ checkin.notes }}</p>
+                  <div v-if="checkin.personalNotes">
+                    <p
+                      class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider"
+                    >
+                      Notes
+                    </p>
+                    <p class="text-sm text-foreground whitespace-pre-wrap">
+                      {{ checkin.personalNotes }}
+                    </p>
+                  </div>
+                  <div v-if="checkin.personalChallenges">
+                    <p
+                      class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider"
+                    >
+                      Challenges
+                    </p>
+                    <p class="text-sm text-foreground whitespace-pre-wrap">
+                      {{ checkin.personalChallenges }}
+                    </p>
+                  </div>
+                  <div v-if="checkin.personalHighlights">
+                    <p
+                      class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider"
+                    >
+                      Highlights
+                    </p>
+                    <p class="text-sm text-foreground whitespace-pre-wrap">
+                      {{ checkin.personalHighlights }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -183,40 +214,40 @@
 
     // Sort ascending for chart (oldest first)
     const sorted = [...checkins.value].sort(
-      (a, b) => new Date(a.weekStartDate).getTime() - new Date(b.weekStartDate).getTime()
+      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     )
 
     return {
       labels: sorted.map((c) =>
-        new Date(c.weekEndDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+        new Date(c.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
       ),
       datasets: [
         {
           label: 'Fatigue',
           backgroundColor: 'rgba(239, 68, 68, 0.2)',
           borderColor: 'rgb(239, 68, 68)',
-          data: sorted.map((c) => c.fatigueRating),
+          data: sorted.map((c) => c.personalFatigue),
           tension: 0.3
         },
         {
           label: 'Stress',
           backgroundColor: 'rgba(249, 115, 22, 0.2)',
           borderColor: 'rgb(249, 115, 22)',
-          data: sorted.map((c) => c.stressRating),
+          data: sorted.map((c) => c.wellnessStress),
           tension: 0.3
         },
         {
           label: 'Sleep Quality',
           backgroundColor: 'rgba(59, 130, 246, 0.2)',
           borderColor: 'rgb(59, 130, 246)',
-          data: sorted.map((c) => c.sleepQualityRating),
+          data: sorted.map((c) => c.wellnessSleep),
           tension: 0.3
         },
         {
           label: 'Nutrition',
           backgroundColor: 'rgba(34, 197, 94, 0.2)',
           borderColor: 'rgb(34, 197, 94)',
-          data: sorted.map((c) => c.nutritionRating),
+          data: sorted.map((c) => c.trainingNutrition),
           tension: 0.3
         }
       ]

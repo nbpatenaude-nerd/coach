@@ -25,9 +25,9 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const checkIns = await prisma.weeklyCheckIn.findMany({
-    where: { athleteId },
-    orderBy: { weekStartDate: 'desc' },
+  const checkIns = await prisma.checkIn.findMany({
+    where: { userId: athleteId },
+    orderBy: { createdAt: 'desc' },
     take: 52 // Last year of check-ins
   })
 
