@@ -819,12 +819,6 @@
   const selectedType = ref('all')
   const selectedDuration = ref('all')
   const sortBy = ref('updated')
-  const toast = useToast()
-
-  const isEditorOpen = ref(false)
-  const isDeleteModalOpen = ref(false)
-  const editingTemplate = ref<any>(null)
-  const deleting = ref(false)
   const selectedTemplateIds = ref<string[]>([])
   const showFolderSlideover = ref(false)
   const draggedItem = ref<{ type: 'folder' | 'templates'; ids: string[] } | null>(null)
