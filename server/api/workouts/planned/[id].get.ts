@@ -1,6 +1,7 @@
 import { getServerSession } from '../../../utils/session'
 import { prisma } from '../../../utils/db'
 import { sportSettingsRepository } from '../../../utils/repositories/sportSettingsRepository'
+import { coachingRepository } from '../../../utils/repositories/coachingRepository'
 import { assessWorkoutSettingsStaleness } from '../../../../shared/workout-settings-staleness'
 import { hasActiveStructureGenerationRun } from '../../../utils/structure-generation-run'
 import { hasRenderableStructure } from '../../../utils/structured-workout-persistence'
@@ -76,9 +77,12 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Planned workout not found' })
   }
 
-  // Verify ownership
+  // Verify ownership or coaching relationship
   if (workout.userId !== user.id) {
-    throw createError({ statusCode: 403, message: 'Access denied' })
+    const isCoaching = await coachingRepository.checkRelationship(user.id, workout.userId)
+    if (!isCoaching) {
+      throw createError({ statusCode: 403, message: 'Access denied' })
+    }
   }
 
   // Fetch most recent LLM usage for feedback
