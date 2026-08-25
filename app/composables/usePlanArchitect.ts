@@ -607,7 +607,8 @@ export function usePlanArchitect(planId: string) {
         type: editingWorkout.value.type,
         category: editingWorkout.value.category,
         durationSec: isNote ? 0 : (Number(editingWorkout.value.durationMinutes) || 0) * 60,
-        tss: isNote ? 0 : Number(editingWorkout.value.tss) || 0
+        tss: isNote ? 0 : Number(editingWorkout.value.tss) || 0,
+        structuredWorkout: isNote ? null : (editingWorkout.value.structuredWorkout ?? null)
       })
       closeWorkoutEditor()
       toast.add({ title: isNote ? 'Note added' : 'Workout added', color: 'success' })
@@ -630,7 +631,9 @@ export function usePlanArchitect(planId: string) {
       editingWorkout.value.type === 'Note'
     workout.durationSec = isNote ? 0 : (Number(editingWorkout.value.durationMinutes) || 0) * 60
     workout.tss = isNote ? 0 : Number(editingWorkout.value.tss) || 0
-    workout.structuredWorkout = isNote ? null : (workout.structuredWorkout ?? null)
+    workout.structuredWorkout = isNote
+      ? null
+      : (editingWorkout.value.structuredWorkout ?? workout.structuredWorkout ?? null)
     closeWorkoutEditor()
     toast.add({ title: isNote ? 'Note updated' : 'Workout updated', color: 'success' })
   }

@@ -15,6 +15,13 @@
             autofocus
           />
         </UFormField>
+        <UFormGroup class="pt-2">
+          <UCheckbox
+            v-model="saveToLibrary"
+            label="Save to workout library"
+            help="If checked, this generated workout will be permanently added to your templates library."
+          />
+        </UFormGroup>
       </div>
     </template>
 
@@ -50,6 +57,7 @@
   })
 
   const prompt = ref('')
+  const saveToLibrary = ref(false)
   const generating = ref(false)
 
   async function generateWorkout() {
@@ -58,7 +66,10 @@
     try {
       const response = await $fetch('/api/library/workouts/generate-ai', {
         method: 'POST',
-        body: { prompt: prompt.value }
+        body: {
+          prompt: prompt.value,
+          saveToLibrary: saveToLibrary.value
+        }
       })
       if (response && response.template) {
         toast.add({

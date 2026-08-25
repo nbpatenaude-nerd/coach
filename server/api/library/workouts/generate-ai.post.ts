@@ -7,7 +7,8 @@ import { computeStructuredWorkoutDurationSec } from '../../../utils/structured-w
 
 const requestSchema = z.object({
   prompt: z.string().min(3),
-  ownerScope: z.enum(['athlete', 'coach']).optional().default('athlete')
+  ownerScope: z.enum(['athlete', 'coach']).optional().default('athlete'),
+  saveToLibrary: z.boolean().optional().default(false)
 })
 
 const generatedWorkoutSchema = {
@@ -95,9 +96,31 @@ export default defineEventHandler(async (event) => {
   const computedDuration = computeStructuredWorkoutDurationSec(workoutData.structuredWorkout)
   const finalDuration = computedDuration > 0 ? computedDuration : workoutData.durationSec || 3600
 
-  const template = await (prisma as any).workoutTemplate.create({
-    data: {
-      userId: ownerId,
+  if (validation.data.saveToLibrary) {
+    const template = await (prisma as any).workoutTemplate.create({
+      data: {
+        userId: ownerId,
+        title: workoutData.title,
+        description: workoutData.description,
+        type: workoutData.type,
+        sport: workoutData.sport,
+        category: workoutData.category,
+        durationSec: finalDuration,
+        tss: workoutData.tss || 50,
+        workIntensity: workoutData.workIntensity || 0.7,
+        structuredWorkout: workoutData.structuredWorkout,
+        source: 'MANUAL',
+        isTemplate: true
+      }
+    })
+
+    return { success: true, template }
+  }
+
+  // Otherwise just return the generated data without saving
+  return {
+    success: true,
+    template: {
       title: workoutData.title,
       description: workoutData.description,
       type: workoutData.type,
@@ -107,10 +130,7 @@ export default defineEventHandler(async (event) => {
       tss: workoutData.tss || 50,
       workIntensity: workoutData.workIntensity || 0.7,
       structuredWorkout: workoutData.structuredWorkout,
-      source: 'MANUAL',
       isTemplate: true
     }
-  })
-
-  return { success: true, template }
+  }
 })

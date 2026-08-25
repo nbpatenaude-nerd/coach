@@ -636,6 +636,20 @@
         </div>
 
         <div v-else class="space-y-5">
+          <div
+            class="flex justify-between items-center bg-primary/5 rounded-xl p-3 border border-primary/20"
+          >
+            <div class="text-sm font-medium">Generate a structured workout</div>
+            <UButton
+              icon="i-heroicons-sparkles"
+              color="primary"
+              variant="soft"
+              size="sm"
+              @click="isAiModalOpen = true"
+            >
+              Generate with AI
+            </UButton>
+          </div>
           <section
             class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
           >
@@ -771,6 +785,8 @@
     </template>
   </USlideover>
 
+  <AiWorkoutGeneratorModal v-model:open="isAiModalOpen" @created="handleAiGenerated" />
+
   <ClientOnly>
     <PlanArchitectWorkoutDrawer
       :open="isWorkoutDrawerOpen"
@@ -793,6 +809,7 @@
   import PlanArchitectBoard from '~/components/plans/PlanArchitectBoard.vue'
   import PlanPublicationSettings from '~/components/plans/PlanPublicationSettings.vue'
   import PlanArchitectUtilityPanel from '~/components/plans/PlanArchitectUtilityPanel.vue'
+  import AiWorkoutGeneratorModal from '~/components/activities/AiWorkoutGeneratorModal.vue'
   import { usePlanArchitect } from '~/composables/usePlanArchitect'
   import { useLibrarySource } from '~/composables/useLibrarySource'
 
@@ -1116,6 +1133,20 @@
     kind: 'workout' | 'note' = 'workout'
   ) {
     beginWorkoutDraft(weekId, dayIndex, kind)
+  }
+
+  const isAiModalOpen = ref(false)
+
+  function handleAiGenerated(template: any) {
+    if (editingWorkout.value) {
+      editingWorkout.value.title = template.title || ''
+      editingWorkout.value.description = template.description || ''
+      editingWorkout.value.type = template.type || 'Ride'
+      editingWorkout.value.category = template.category || 'Workout'
+      editingWorkout.value.durationMinutes = Math.round((template.durationSec || 3600) / 60)
+      editingWorkout.value.tss = template.tss || 50
+      editingWorkout.value.structuredWorkout = template.structuredWorkout || null
+    }
   }
 
   function handleRemoveWorkout() {

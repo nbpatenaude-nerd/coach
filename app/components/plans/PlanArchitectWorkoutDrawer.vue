@@ -563,6 +563,22 @@
   >
     <template #body>
       <div class="space-y-4 p-4">
+        <div
+          v-if="createMode !== 'note'"
+          class="flex justify-between items-center bg-primary/5 rounded-xl p-3 border border-primary/20"
+        >
+          <div class="text-sm font-medium">Generate a structured workout</div>
+          <UButton
+            icon="i-heroicons-sparkles"
+            color="primary"
+            variant="soft"
+            size="sm"
+            @click="isAiModalOpen = true"
+          >
+            Generate with AI
+          </UButton>
+        </div>
+
         <UFormField :label="createMode === 'note' ? 'Note title' : 'Workout title'">
           <UInput v-model="draftTemplate.title" />
         </UFormField>
@@ -591,7 +607,7 @@
       </div>
     </template>
     <template #footer>
-      <div class="flex justify-end gap-2 p-4 pt-0">
+      <div class="flex justify-end gap-2 w-full">
         <UButton
           color="neutral"
           variant="ghost"
@@ -615,6 +631,8 @@
       </div>
     </template>
   </UModal>
+
+  <AiWorkoutGeneratorModal v-model:open="isAiModalOpen" @created="handleAiGenerated" />
 </template>
 
 <script setup lang="ts">
@@ -625,6 +643,7 @@
   import WorkoutFolderSelector from '~/components/workouts/library/WorkoutFolderSelector.vue'
   import WorkoutTemplatePreviewModal from '~/components/workouts/WorkoutTemplatePreviewModal.vue'
   import WorkoutTechnicalViewModal from '~/components/workouts/WorkoutTechnicalViewModal.vue'
+  import AiWorkoutGeneratorModal from '~/components/activities/AiWorkoutGeneratorModal.vue'
   import { getWorkoutIcon } from '~/utils/activity-types'
 
   defineOptions({
@@ -697,6 +716,7 @@
   const selectedDuration = ref('all')
   const previewTemplateId = ref<string | null>(null)
   const isCreateModalOpen = ref(false)
+  const isAiModalOpen = ref(false)
   const createMode = ref<'workout' | 'note'>('workout')
   const creatingTemplate = ref(false)
   const drawerHeight = ref(420)
@@ -744,7 +764,8 @@
     type: 'Ride',
     category: 'Workout',
     durationMinutes: 60,
-    tss: 50
+    tss: 50,
+    structuredWorkout: null as any
   })
 
   const minDrawerHeight = 240
@@ -1094,6 +1115,16 @@
     isCreateModalOpen.value = true
   }
 
+  function handleAiGenerated(template: any) {
+    draftTemplate.value.title = template.title || ''
+    draftTemplate.value.description = template.description || ''
+    draftTemplate.value.type = template.type || 'Ride'
+    draftTemplate.value.category = template.category || 'Workout'
+    draftTemplate.value.durationMinutes = Math.round((template.durationSec || 3600) / 60)
+    draftTemplate.value.tss = template.tss || 50
+    draftTemplate.value.structuredWorkout = template.structuredWorkout || null
+  }
+
   async function createLibraryTemplate() {
     if (!draftTemplate.value.title.trim()) {
       toast.add({ title: 'Title required', color: 'warning' })
@@ -1114,7 +1145,8 @@
               ? 0
               : Math.max(0, Number(draftTemplate.value.durationMinutes) || 0) * 60,
           tss: createMode.value === 'note' ? 0 : Math.max(0, Number(draftTemplate.value.tss) || 0),
-          structuredWorkout: null,
+          structuredWorkout:
+            createMode.value === 'note' ? null : draftTemplate.value.structuredWorkout,
           ownerScope: props.librarySource === 'athlete' ? 'athlete' : 'coach'
         }
       })
