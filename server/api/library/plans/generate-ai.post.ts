@@ -49,14 +49,15 @@ export default defineEventHandler(async (event) => {
 
   const { prompt } = validation.data
 
-  const aiResult = await generateStructuredAnalysis({
-    systemInstruction:
-      'You are an elite endurance sports coach. Given a user request for a training plan template, design a comprehensive macrocycle training plan consisting of blocks and weeks. Provide realistic volume and TSS targets.',
-    prompt: `Create a training plan template based on this request: ${prompt}`,
-    schema: generatedPlanSchema
-  })
+  const systemInstruction =
+    'You are an elite endurance sports coach. Given a user request for a training plan template, design a comprehensive macrocycle training plan consisting of blocks and weeks. Provide realistic volume and TSS targets.'
 
-  const planData = aiResult.result
+  const planData = await generateStructuredAnalysis<any>(
+    `${systemInstruction}\n\nCreate a training plan template based on this request: ${prompt}`,
+    generatedPlanSchema,
+    'flash',
+    { operation: 'generate_plan_template', userId: authUser.id }
+  )
 
   // Create the plan template in the DB
   const plan = await (prisma as any).trainingPlan.create({
