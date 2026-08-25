@@ -1,6 +1,7 @@
 import { requireAuth } from '../../utils/auth-guard'
 import { sportSettingsRepository } from '../../utils/repositories/sportSettingsRepository'
 import { workoutStreamRepository } from '../../utils/repositories/workoutStreamRepository'
+import { coachingRepository } from '../../utils/repositories/coachingRepository'
 import {
   buildWorkoutAnalysisFacts,
   buildWorkoutAnalysisFactsV2
@@ -123,7 +124,8 @@ export default defineEventHandler(async (event) => {
 
   // Fallback to searching by UUID if not found by date or if not a date string
   if (!workout) {
-    workout = await workoutRepository.getById(id, user.id, {
+    workout = await prisma.workout.findUnique({
+      where: { id },
       include: {
         oauthApp: {
           select: {
@@ -185,6 +187,13 @@ export default defineEventHandler(async (event) => {
       statusCode: 404,
       message: 'Workout not found'
     })
+  }
+
+  if (workout.userId !== user.id) {
+    const hasAccess = await coachingRepository.checkRelationship(user.id, workout.userId)
+    if (!hasAccess) {
+      throw createError({ statusCode: 403, message: 'Not authorized to view this workout' })
+    }
   }
 
   // Find associated LLM usage

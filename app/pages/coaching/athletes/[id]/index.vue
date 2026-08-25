@@ -626,6 +626,19 @@
         </div>
       </div>
     </template>
+    <template #footer>
+      <div class="flex justify-end gap-2 w-full">
+        <UButton
+          color="primary"
+          variant="solid"
+          :to="`/workouts/${selectedWorkout?.id}`"
+          icon="i-heroicons-arrow-right"
+          trailing
+        >
+          View Detailed Analysis
+        </UButton>
+      </div>
+    </template>
   </UModal>
 </template>
 
