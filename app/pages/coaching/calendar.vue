@@ -210,6 +210,7 @@
                 @update:library-source="workoutLibraryScope = $event"
                 @open-calendar-picker="openTemplateCalendarPicker"
                 @schedule-template="onQuickScheduleTemplate"
+                @generate-ai="handleQuickAddAI"
               />
             </div>
 
@@ -384,6 +385,7 @@
                 @duplicate-planned-workout="onDuplicatePlannedWorkout"
                 @activity-click="onActivityClick"
                 @compare-activity="addWorkoutToComparison"
+                @quick-add="handleQuickAdd"
               />
 
               <CoachCalendarPanel
@@ -403,6 +405,7 @@
                 @duplicate-planned-workout="onDuplicatePlannedWorkout"
                 @activity-click="onActivityClick"
                 @compare-activity="addWorkoutToComparison"
+                @quick-add="handleQuickAdd"
               />
             </div>
 
@@ -442,6 +445,7 @@
           @update:library-source="workoutLibraryScope = $event"
           @open-calendar-picker="openTemplateCalendarPicker"
           @schedule-template="onQuickScheduleTemplate"
+          @generate-ai="handleQuickAddAI"
         />
       </ClientOnly>
 
@@ -656,6 +660,7 @@
                 @update:library-source="workoutLibraryScope = $event"
                 @open-calendar-picker="openTemplateCalendarPicker"
                 @schedule-template="onQuickScheduleTemplate"
+                @generate-ai="handleQuickAddAI"
               />
             </div>
 
