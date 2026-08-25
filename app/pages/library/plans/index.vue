@@ -550,7 +550,7 @@
   )
 
   const selectedTab = ref<'my' | 'team' | 'public' | 'favorites'>('my')
-  const { data: plans, refresh, status } = useLibraryPlans(librarySource)
+  const searchQuery = ref('')
   const isCreating = ref(false)
 
   const showAIGenerateModal = ref(false)
