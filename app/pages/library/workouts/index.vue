@@ -960,11 +960,6 @@
     ].filter((group) => group.items.length > 0)
   })
 
-  function createNewTemplate() {
-    editingTemplate.value = null
-    isEditorOpen.value = true
-  }
-
   function editTemplate(template: any) {
     editingTemplate.value = template
     isEditorOpen.value = true
