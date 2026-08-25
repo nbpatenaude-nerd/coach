@@ -1,12 +1,12 @@
 <template>
   <div class="flex h-[calc(100vh-4rem)]">
     <!-- Sidebar / Athlete Selector -->
-    <div class="w-64 border-r border-border bg-muted/10 p-4 flex flex-col gap-4">
+    <div class="w-64 border-r border-border bg-muted/10 p-4 flex flex-col gap-4 overflow-y-auto">
       <h2 class="font-semibold text-foreground uppercase tracking-wider text-sm mb-2">
         Select Athlete
       </h2>
       <div v-if="pendingAthletes" class="text-sm text-muted-foreground text-center">Loading...</div>
-      <div v-else-if="athletes.length === 0" class="text-sm text-muted-foreground">
+      <div v-else-if="athletes?.length === 0" class="text-sm text-muted-foreground">
         No athletes found.
       </div>
       <div v-else class="flex flex-col gap-2">
@@ -63,7 +63,7 @@
         </div>
 
         <div
-          v-else-if="checkins.length === 0"
+          v-else-if="!checkins || checkins.length === 0"
           class="bg-card border border-border rounded-xl p-8 text-center text-muted-foreground shadow-sm"
         >
           <Icon name="lucide:inbox" class="w-12 h-12 mb-3 mx-auto opacity-50" />

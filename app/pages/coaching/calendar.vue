@@ -680,19 +680,20 @@
       </USlideover>
     </template>
 
-    <!-- Modals -->
-    <CalendarQuickAddModal
-      v-model:open="showQuickAddModal"
-      :date="quickAddDate"
-      @manual="handleQuickAddManual"
-      @ai="handleQuickAddAI"
-    />
-    <DashboardCreateAdHocModal
-      v-model:open="showCreateAdHocModal"
-      :is-coaching-mode="true"
-      @submit="handleQuickAddSubmitAI"
-    />
   </UDashboardPanel>
+
+  <!-- Modals -->
+  <CalendarQuickAddModal
+    v-model:open="showQuickAddModal"
+    :date="quickAddDate"
+    @manual="handleQuickAddManual"
+    @ai="handleQuickAddAI"
+  />
+  <DashboardCreateAdHocModal
+    v-model:open="showCreateAdHocModal"
+    :is-coaching-mode="true"
+    @submit="handleQuickAddSubmitAI"
+  />
 </template>
 
 <script setup lang="ts">

@@ -3,16 +3,9 @@
     <template #header>
       <UDashboardNavbar title="Workouts">
         <template #right>
-          <UButton
-            color="primary"
-            icon="i-heroicons-plus"
-            label="New Workout"
-            @click="
-              () => {
-                void createNewTemplate()
-              }
-            "
-          />
+          <UDropdownMenu :items="newWorkoutDropdownItems" :content="{ align: 'end' }">
+            <UButton color="primary" icon="i-heroicons-plus" label="New Workout" />
+          </UDropdownMenu>
         </template>
       </UDashboardNavbar>
     </template>
@@ -257,17 +250,11 @@
                     : 'Save any workout from your calendar or create a new session to start building your library.'
                 }}
               </p>
-              <UButton
-                color="primary"
-                variant="soft"
-                @click="
-                  () => {
-                    void createNewTemplate()
-                  }
-                "
-              >
-                Create First Template
-              </UButton>
+              <UDropdownMenu :items="newWorkoutDropdownItems" :content="{ align: 'center' }">
+                <UButton color="primary" icon="i-heroicons-plus" variant="soft">
+                  Create First Template
+                </UButton>
+              </UDropdownMenu>
             </div>
 
             <div
@@ -751,15 +738,56 @@
     :template="applyTemplateTarget"
     @applied="showApplyModal = false"
   />
+
+  <AiWorkoutGeneratorModal v-model:open="isAiModalOpen" @created="handleAiGenerated" />
 </template>
 
 <script setup lang="ts">
   import WorkoutFolderSelector from '~/components/workouts/library/WorkoutFolderSelector.vue'
   import MiniWorkoutChart from '~/components/workouts/MiniWorkoutChart.vue'
   import WorkoutTemplateEditor from '~/components/workouts/WorkoutTemplateEditor.vue'
+  import AiWorkoutGeneratorModal from '~/components/activities/AiWorkoutGeneratorModal.vue'
   import WorkoutTemplatePreviewModal from '~/components/workouts/WorkoutTemplatePreviewModal.vue'
   import { getWorkoutIcon } from '~/utils/activity-types'
   import { mobileListCardUi } from '~/utils/mobile-surface-ui'
+
+  const userSettings = useUserSettings()
+  const { isCoach } = useAuth()
+  const route = useRoute()
+  const toast = useToast()
+
+  const isEditorOpen = ref(false)
+  const isAiModalOpen = ref(false)
+  const isDeleteModalOpen = ref(false)
+  const editingTemplate = ref<any>(null)
+  const deleting = ref(false)
+
+  const newWorkoutDropdownItems = computed(() => [
+    [
+      {
+        label: 'Manual Create',
+        icon: 'i-heroicons-pencil-square',
+        onSelect: () => createNewTemplate()
+      },
+      {
+        label: 'AI Generate',
+        icon: 'i-heroicons-sparkles',
+        onSelect: () => {
+          isAiModalOpen.value = true
+        }
+      }
+    ]
+  ])
+
+  function createNewTemplate() {
+    editingTemplate.value = null
+    isEditorOpen.value = true
+  }
+
+  function handleAiGenerated(template: any) {
+    refresh()
+    refreshFolders()
+  }
 
   useHead({
     title: 'Workouts'
