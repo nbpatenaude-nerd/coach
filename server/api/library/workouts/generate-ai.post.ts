@@ -11,6 +11,24 @@ const requestSchema = z.object({
   saveToLibrary: z.boolean().optional().default(false)
 })
 
+const stepBaseSchema = z.object({
+  type: z.enum(['Warmup', 'Active', 'Recovery', 'Cooldown']),
+  duration: z
+    .object({
+      type: z.enum(['Time', 'Distance']),
+      value: z.number()
+    })
+    .optional(),
+  target: z
+    .object({
+      type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
+      value: z.number().describe('Target value (e.g. Watts, BPM, min/km)'),
+      min: z.number().optional(),
+      max: z.number().optional()
+    })
+    .optional()
+})
+
 const generatedWorkoutSchema = z.object({
   title: z.string(),
   description: z.string(),
@@ -22,22 +40,12 @@ const generatedWorkoutSchema = z.object({
   workIntensity: z.number().optional(),
   structuredWorkout: z.object({
     steps: z.array(
-      z.object({
-        type: z.enum(['Warmup', 'Active', 'Recovery', 'Cooldown']),
-        duration: z
-          .object({
-            type: z.enum(['Time', 'Distance']),
-            value: z.number()
-          })
-          .optional(),
-        target: z
-          .object({
-            type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
-            value: z.number().describe('Target value (e.g. Watts, BPM)'),
-            min: z.number().optional(),
-            max: z.number().optional()
-          })
+      stepBaseSchema.extend({
+        reps: z.number().optional().describe('Number of times to repeat the nested steps, if any.'),
+        steps: z
+          .array(stepBaseSchema)
           .optional()
+          .describe('Nested steps to repeat (e.g., for intervals).')
       })
     )
   })
@@ -67,6 +75,8 @@ Given a user request, design a comprehensive, realistic single structured workou
 Follow these principles:
 - **Warmup & Cooldown:** Always include an appropriate Warmup (10-20m) and Cooldown (5-15m).
 - **Specificity:** Match the workout structure to the requested energy system (e.g., VO2 Max intervals should be 2-5m with 1:1 or 1:0.5 recovery).
+- **Target Type:** STRICTLY respect the user's requested target type (Power, HeartRate, Pace). If they ask for Pace, use Pace.
+- **Intervals/Repeats:** For repeated intervals (e.g. "8x 400m" or "3x 5min"), you MUST use nested steps. Set \`reps\` on the parent step to the number of repeats (e.g. 8), and place the active interval step and the recovery step inside the parent's \`steps\` array.
 - **Targets:** Provide realistic target values if the user did not specify them (e.g., sweet spot at 88-93% FTP). For target ranges, use min and max.
 - **TSS & Duration:** Ensure the total TSS and duration accurately reflect the cumulative intensity and time of the steps.
 - **Valid Enums:** Strictly adhere to the allowed schema enums for step types (Warmup, Active, Recovery, Cooldown), duration (Time, Distance), and targets (Power, HeartRate, Pace, None).`
@@ -79,8 +89,8 @@ Follow these principles:
   )
 
   // Map AI's duration format to the app's expected properties
-  if (Array.isArray(workoutData.structuredWorkout?.steps)) {
-    workoutData.structuredWorkout.steps = workoutData.structuredWorkout.steps.map((step: any) => {
+  function mapSteps(steps: any[]): any[] {
+    return steps.map((step) => {
       if (step.duration?.type === 'Distance') {
         step.distance = step.duration.value
         step.durationSeconds = 0 // Will be computed dynamically by pace
@@ -88,8 +98,15 @@ Follow these principles:
         step.durationSeconds = step.duration.value
         step.distance = 0
       }
+      if (Array.isArray(step.steps)) {
+        step.steps = mapSteps(step.steps)
+      }
       return step
     })
+  }
+
+  if (Array.isArray(workoutData.structuredWorkout?.steps)) {
+    workoutData.structuredWorkout.steps = mapSteps(workoutData.structuredWorkout.steps)
   }
 
   const computedDuration = computeStructuredWorkoutDurationSec(workoutData.structuredWorkout)

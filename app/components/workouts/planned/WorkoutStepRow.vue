@@ -104,7 +104,15 @@
               class="text-[8px] font-bold p-0 text-gray-400 uppercase hover:text-primary-500 transition-colors"
               @click="toggleDurationType"
             >
-              {{ localDurationType === 'time' ? 'MIN' : 'M' }}
+              {{
+                localDurationType === 'time'
+                  ? 'MIN'
+                  : localDurationType === 'km'
+                    ? 'KM'
+                    : localDurationType === 'mi'
+                      ? 'MI'
+                      : 'M'
+              }}
             </UButton>
           </div>
         </div>
@@ -240,7 +248,15 @@
               class="text-[9px] font-bold p-0 text-gray-400 uppercase hover:text-primary-500 transition-colors"
               @click="toggleDurationType"
             >
-              {{ localDurationType === 'time' ? 'MIN' : 'M' }}
+              {{
+                localDurationType === 'time'
+                  ? 'MIN'
+                  : localDurationType === 'km'
+                    ? 'KM'
+                    : localDurationType === 'mi'
+                      ? 'MI'
+                      : 'M'
+              }}
             </UButton>
             <UButton
               color="neutral"
@@ -391,8 +407,14 @@
   // Local state
   const localName = ref(props.step.name || '')
   const localType = ref(props.step.type || 'Active')
-  const localDurationType = ref<'time' | 'distance'>(props.step.distance && props.step.distance > 0 ? 'distance' : 'time')
-  const localDurationValue = ref(props.step.distance && props.step.distance > 0 ? props.step.distance : (props.step._durationMin || 0))
+  const localDurationType = ref<'time' | 'm' | 'km' | 'mi'>(
+    props.step.distance && props.step.distance > 0 ? 'm' : 'time'
+  )
+  const localDurationValue = ref(
+    props.step.distance && props.step.distance > 0
+      ? props.step.distance
+      : props.step._durationMin || 0
+  )
   const localIntensityStart = ref(props.step._intensityStartPct || 0)
   const localIntensityEnd = ref(props.step._intensityEndPct || 0)
   const localIsRamp = ref(!!props.step._isRamp)
@@ -405,8 +427,9 @@
     (newStep) => {
       localName.value = newStep.name || ''
       localType.value = newStep.type || 'Active'
-      localDurationType.value = newStep.distance && newStep.distance > 0 ? 'distance' : 'time'
-      localDurationValue.value = newStep.distance && newStep.distance > 0 ? newStep.distance : (newStep._durationMin || 0)
+      localDurationType.value = newStep.distance && newStep.distance > 0 ? 'm' : 'time'
+      localDurationValue.value =
+        newStep.distance && newStep.distance > 0 ? newStep.distance : newStep._durationMin || 0
       localIntensityStart.value = newStep._intensityStartPct || 0
       localIntensityEnd.value = newStep._intensityEndPct || 0
       localIsRamp.value = !!newStep._isRamp
@@ -528,14 +551,20 @@
     updatedStep.type = localType.value
     updatedStep.reps = localReps.value
     updatedStep.cadence = localCadence.value
-    
+
     if (localDurationType.value === 'time') {
       updatedStep.durationSeconds = localDurationValue.value * 60
       updatedStep.duration = updatedStep.durationSeconds
       updatedStep.distance = 0
       updatedStep._durationMin = localDurationValue.value
     } else {
-      updatedStep.distance = localDurationValue.value
+      if (localDurationType.value === 'km') {
+        updatedStep.distance = localDurationValue.value * 1000
+      } else if (localDurationType.value === 'mi') {
+        updatedStep.distance = localDurationValue.value * 1609.34
+      } else {
+        updatedStep.distance = localDurationValue.value
+      }
       updatedStep.durationSeconds = 0
       updatedStep.duration = 0
       updatedStep._durationMin = 0
@@ -605,13 +634,21 @@
   }
 
   function toggleDurationType() {
+    const modes: ('time' | 'm' | 'km' | 'mi')[] = ['time', 'm', 'km', 'mi']
+    const currentIndex = modes.indexOf(localDurationType.value)
+    localDurationType.value = modes[(currentIndex + 1) % modes.length]
+
+    // Set sensible defaults when toggling
     if (localDurationType.value === 'time') {
-      localDurationType.value = 'distance'
-      localDurationValue.value = 400 // Default to 400m
-    } else {
-      localDurationType.value = 'time'
-      localDurationValue.value = 5 // Default to 5m
+      localDurationValue.value = 5 // 5 min
+    } else if (localDurationType.value === 'm') {
+      localDurationValue.value = 400 // 400m
+    } else if (localDurationType.value === 'km') {
+      localDurationValue.value = 1 // 1km
+    } else if (localDurationType.value === 'mi') {
+      localDurationValue.value = 1 // 1mi
     }
+
     emitUpdate()
   }
 
