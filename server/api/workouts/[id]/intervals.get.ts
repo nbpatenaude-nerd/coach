@@ -108,11 +108,17 @@ export default defineEventHandler(async (event) => {
 
   const workoutRecord = await prisma.workout.findFirst({
     where: {
-      id: workoutId,
-      userId: user.id
+      id: workoutId
     },
     include: {
-      plannedWorkout: true
+      plannedWorkout: true,
+      user: {
+        select: {
+          id: true,
+          ftp: true,
+          maxHr: true
+        }
+      }
     }
   })
 
@@ -122,6 +128,20 @@ export default defineEventHandler(async (event) => {
       message: 'Workout not found'
     })
   }
+
+  // If the user doesn't own it, check if they are the coach
+  if (workoutRecord.userId !== user.id) {
+    const coachingRepository = await import('../../../utils/repositories/coachingRepository').then(
+      (m) => m.coachingRepository
+    )
+    const isCoach = await coachingRepository.checkRelationship(user.id, workoutRecord.userId)
+    if (!isCoach) {
+      throw createError({ statusCode: 403, message: 'Access denied' })
+    }
+  }
+
+  // Map user settings from the workout owner, not the accessing user
+  const workoutOwner = workoutRecord.user || user
 
   const workout = await attachStreamToWorkout(workoutRecord)
 
@@ -170,7 +190,7 @@ export default defineEventHandler(async (event) => {
   const hasHr = !!(hrStream && hrStream.length > 0)
   const hasCadence = !!(cadenceStream && cadenceStream.length > 0)
 
-  const calculationFtp = workout.ftp || user?.ftp || 250
+  const calculationFtp = workout.ftp || workoutOwner?.ftp || 250
 
   // 1. INTERVAL DETECTION LOGIC
 
@@ -235,7 +255,7 @@ export default defineEventHandler(async (event) => {
     )
   } else if (hasHr) {
     autoDetectionMetric = 'heartrate'
-    const maxHr = workout.maxHr || user.maxHr
+    const maxHr = workout.maxHr || workoutOwner?.maxHr
     const threshold = maxHr ? maxHr * 0.7 : undefined
     detectedEngineIntervals = detectIntervals(
       time,

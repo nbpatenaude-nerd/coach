@@ -56,13 +56,27 @@ export default defineEventHandler(async (event) => {
   await assertQuotaAllowed(userId, 'workout_analysis', undefined, event)
 
   // Fetch the workout
-  const workout = await workoutRepository.getById(id, userId)
+  const workout = await prisma.workout.findFirst({
+    where: {
+      id
+    }
+  })
 
   if (!workout) {
     throw createError({
       statusCode: 404,
       message: 'Workout not found'
     })
+  }
+
+  if (workout.userId !== userId) {
+    const coachingRepository = await import('../../../utils/repositories/coachingRepository').then(
+      (m) => m.coachingRepository
+    )
+    const isCoach = await coachingRepository.checkRelationship(userId, workout.userId)
+    if (!isCoach) {
+      throw createError({ statusCode: 403, message: 'Access denied' })
+    }
   }
 
   // Check if already processing (prevent duplicate concurrent analyses)

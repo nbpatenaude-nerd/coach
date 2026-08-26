@@ -70,8 +70,7 @@ export default defineEventHandler(async (event) => {
 
   const workoutRecord = await prisma.workout.findFirst({
     where: {
-      id: workoutId,
-      userId: user.id
+      id: workoutId
     }
   })
 
@@ -80,6 +79,17 @@ export default defineEventHandler(async (event) => {
       statusCode: 404,
       message: 'Workout not found'
     })
+  }
+
+  // If the user doesn't own it, check if they are the coach
+  if (workoutRecord.userId !== user.id) {
+    const coachingRepository = await import('../../../utils/repositories/coachingRepository').then(
+      (m) => m.coachingRepository
+    )
+    const isCoach = await coachingRepository.checkRelationship(user.id, workoutRecord.userId)
+    if (!isCoach) {
+      throw createError({ statusCode: 403, message: 'Access denied' })
+    }
   }
 
   const workout = await attachStreamToWorkout(workoutRecord)
