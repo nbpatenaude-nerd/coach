@@ -57,6 +57,10 @@ defineRouteMeta({
               days: {
                 type: 'number',
                 description: 'Number of days to sync.'
+              },
+              athleteId: {
+                type: 'string',
+                description: 'Optional ID of the athlete to sync, if the caller is their active coach.'
               }
             }
           }
@@ -104,11 +108,32 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const userId = (session.user as any).id
+  let userId = (session.user as any).id
 
   const body = await readBody(event)
-  const { provider } = body
+  const { provider, athleteId } = body
   let { days } = body
+
+  // If athleteId is provided, verify the current user is their coach
+  if (athleteId && athleteId !== userId) {
+    const coachClient = await (prisma as any).coachClient.findFirst({
+      where: {
+        coachId: userId,
+        athleteId: athleteId,
+        status: 'ACTIVE'
+      }
+    })
+    
+    if (!coachClient) {
+      throw createError({
+        statusCode: 403,
+        message: 'You do not have permission to sync this athlete.'
+      })
+    }
+    
+    // Override the userId for the sync operations
+    userId = athleteId
+  }
 
   // Defensive check for 'days' - if it's an object (common from USelectMenu), extract the value
   if (days && typeof days === 'object' && 'value' in days) {

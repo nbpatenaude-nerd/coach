@@ -393,7 +393,16 @@
             </div>
 
             <div v-else-if="item.value === 'calendar'" class="space-y-6 pt-4">
-              <div class="flex justify-end">
+              <div class="flex justify-end gap-2">
+                <UButton
+                  color="neutral"
+                  icon="i-heroicons-arrow-path"
+                  variant="outline"
+                  :loading="isSyncing"
+                  @click="syncAthleteData"
+                >
+                  Sync
+                </UButton>
                 <UButton
                   color="primary"
                   icon="i-heroicons-calendar-days"
@@ -681,6 +690,32 @@
   const toast = useToast()
   const athleteId = route.params.id as string
   const removingAthlete = ref(false)
+  const isSyncing = ref(false)
+
+  async function syncAthleteData() {
+    isSyncing.value = true
+    try {
+      await $fetch('/api/integrations/sync', {
+        method: 'POST',
+        body: { provider: 'all', athleteId }
+      })
+      toast.add({
+        title: 'Sync Triggered',
+        description: "A background sync has been triggered for this athlete's connected services.",
+        color: 'success'
+      })
+      // Refresh the page data after a short delay
+      setTimeout(() => refresh(), 3000)
+    } catch (error: any) {
+      toast.add({
+        title: 'Sync Failed',
+        description: error.data?.message || 'Failed to trigger sync.',
+        color: 'error'
+      })
+    } finally {
+      isSyncing.value = false
+    }
+  }
 
   interface AthleteProfile {
     id: string
