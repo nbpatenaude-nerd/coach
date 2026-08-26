@@ -96,7 +96,7 @@ Follow these principles:
   const finalDuration = computedDuration > 0 ? computedDuration : workoutData.durationSec || 3600
 
   if (validation.data.saveToLibrary) {
-    const template = await (prisma as any).workoutTemplate.create({
+    const template = await prisma.workoutTemplate.create({
       data: {
         userId: ownerId,
         title: workoutData.title,
@@ -107,9 +107,7 @@ Follow these principles:
         durationSec: finalDuration,
         tss: workoutData.tss || 50,
         workIntensity: workoutData.workIntensity || 0.7,
-        structuredWorkout: workoutData.structuredWorkout,
-        source: 'MANUAL',
-        isTemplate: true
+        structuredWorkout: workoutData.structuredWorkout
       }
     })
 
