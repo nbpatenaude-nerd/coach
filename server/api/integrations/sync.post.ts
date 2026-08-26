@@ -60,7 +60,8 @@ defineRouteMeta({
               },
               athleteId: {
                 type: 'string',
-                description: 'Optional ID of the athlete to sync, if the caller is their active coach.'
+                description:
+                  'Optional ID of the athlete to sync, if the caller is their active coach.'
               }
             }
           }
@@ -116,21 +117,21 @@ export default defineEventHandler(async (event) => {
 
   // If athleteId is provided, verify the current user is their coach
   if (athleteId && athleteId !== userId) {
-    const coachClient = await (prisma as any).coachClient.findFirst({
+    const coachingRelationship = await prisma.coachingRelationship.findFirst({
       where: {
         coachId: userId,
         athleteId: athleteId,
         status: 'ACTIVE'
       }
     })
-    
-    if (!coachClient) {
+
+    if (!coachingRelationship) {
       throw createError({
         statusCode: 403,
         message: 'You do not have permission to sync this athlete.'
       })
     }
-    
+
     // Override the userId for the sync operations
     userId = athleteId
   }

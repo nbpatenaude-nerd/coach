@@ -24,16 +24,20 @@ const generatedWorkoutSchema = z.object({
     steps: z.array(
       z.object({
         type: z.enum(['Warmup', 'Active', 'Recovery', 'Cooldown']),
-        duration: z.object({
-          type: z.enum(['Time', 'Distance']),
-          value: z.number()
-        }).optional(),
-        target: z.object({
-          type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
-          value: z.number().describe('Target value (e.g. Watts, BPM)'),
-          min: z.number().optional(),
-          max: z.number().optional()
-        }).optional()
+        duration: z
+          .object({
+            type: z.enum(['Time', 'Distance']),
+            value: z.number()
+          })
+          .optional(),
+        target: z
+          .object({
+            type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
+            value: z.number().describe('Target value (e.g. Watts, BPM)'),
+            min: z.number().optional(),
+            max: z.number().optional()
+          })
+          .optional()
       })
     )
   })
@@ -49,14 +53,14 @@ export default defineEventHandler(async (event) => {
   }
 
   const { prompt, ownerScope } = validation.data
-  const { isCoach } = await getLibraryAccessContext(authUser.id)
-  if (ownerScope === 'coach' && !isCoach) {
+  const libraryContext = getLibraryAccessContext(authUser)
+  if (ownerScope === 'coach' && !libraryContext.isCoaching) {
     throw createError({
       statusCode: 403,
       message: 'Only coaches can create coach-owned templates.'
     })
   }
-  const ownerId = getWritableLibraryOwnerId(authUser.id, ownerScope)
+  const ownerId = getWritableLibraryOwnerId(libraryContext, ownerScope)
 
   const systemInstruction = `You are an elite endurance sports coach with expertise in exercise physiology. 
 Given a user request, design a comprehensive, realistic single structured workout. 

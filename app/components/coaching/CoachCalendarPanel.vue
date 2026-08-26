@@ -68,6 +68,7 @@
               :is-drag-target="dragTargetDateKey === day.key"
               @activity-click="$emit('activity-click', athlete.id, $event)"
               @compare-activity="$emit('compare-activity', athlete.id, $event)"
+              @quick-add="$emit('quick-add', athlete.id, day.date)"
               @dragover="dragTargetDateKey = day.key"
               @drop="onDrop(day.date, $event)"
             />
@@ -93,6 +94,7 @@
               :is-drag-target="dragTargetDateKey === cell.key"
               @activity-click="$emit('activity-click', athlete.id, $event)"
               @compare-activity="$emit('compare-activity', athlete.id, $event)"
+              @quick-add="$emit('quick-add', athlete.id, cell.date)"
               @dragover="dragTargetDateKey = cell.key"
               @drop="onDrop(cell.date, $event)"
             />
@@ -125,6 +127,9 @@
 
   const emit = defineEmits<{
     'select-athlete': [athleteId: string | null]
+    'activity-click': [athleteId: string, activity: any]
+    'compare-activity': [athleteId: string, activity: any]
+    'quick-add': [athleteId: string, date: Date]
     scheduleTemplate: [payload: { athleteId: string; template: any; date: Date }]
     movePlannedWorkout: [payload: { athleteId: string; workoutId: string; date: Date }]
     duplicatePlannedWorkout: [

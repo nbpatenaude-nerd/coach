@@ -1,11 +1,12 @@
 <template>
   <div
-    class="min-h-[132px] rounded-2xl border border-default/70 bg-default p-3 transition"
+    class="min-h-[132px] rounded-2xl border border-default/70 bg-default p-3 transition hover:border-primary-300 cursor-pointer"
     :class="[
       compact ? 'min-h-[100px] p-2.5' : '',
       isToday ? 'ring-2 ring-primary/50' : '',
       isDragTarget ? 'ring-2 ring-primary ring-inset' : ''
     ]"
+    @click="$emit('quick-add')"
     @dragover.prevent="$emit('dragover')"
     @drop.prevent="$emit('drop', $event)"
   >
@@ -45,7 +46,7 @@
         class="group relative w-full rounded-xl border px-2 py-1.5 text-left text-xs transition hover:bg-default/80"
         :class="activityClass(activity)"
         :draggable="activity.source === 'planned'"
-        @click="
+        @click.stop="
           () => {
             void $emit('activity-click', activity)
           }
@@ -141,6 +142,7 @@
     drop: [event: DragEvent]
     'activity-click': [activity: CalendarActivity]
     'compare-activity': [activity: CalendarActivity]
+    'quick-add': []
   }>()
 
   const { formatDateUTC } = useFormat()
