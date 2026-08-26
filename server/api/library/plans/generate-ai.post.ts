@@ -37,8 +37,13 @@ export default defineEventHandler(async (event) => {
 
   const { prompt } = validation.data
 
-  const systemInstruction =
-    'You are an elite endurance sports coach. Given a user request for a training plan template, design a comprehensive macrocycle training plan consisting of blocks and weeks. Provide realistic volume and TSS targets.'
+  const systemInstruction = `You are an elite endurance sports coach with expertise in periodization and training methodology.
+Given a user request for a training plan template, design a comprehensive macrocycle training plan consisting of blocks and weeks.
+Follow these principles:
+- **Periodization:** Structure the blocks logically (e.g., Base -> Build -> Peak/Taper).
+- **Progression:** Ensure progressive overload across weeks, typically building volume/TSS for 2-3 weeks followed by a recovery week.
+- **Realistic Loads:** Provide realistic volume and TSS targets suitable for the athlete level or distance requested.
+- **Valid Enums:** Strictly adhere to the allowed schema enums for block types (BASE, BUILD, PEAK, RECOVERY) and plan strategy (LINEAR, UNDULATING, BLOCK, POLARIZED).`
 
   const planData = await generateStructuredAnalysis<any>(
     `${systemInstruction}\n\nCreate a training plan template based on this request: ${prompt}`,

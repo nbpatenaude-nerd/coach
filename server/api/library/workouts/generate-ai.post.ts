@@ -58,8 +58,14 @@ export default defineEventHandler(async (event) => {
   }
   const ownerId = getWritableLibraryOwnerId(authUser.id, ownerScope)
 
-  const systemInstruction =
-    'You are an elite endurance sports coach. Given a user request, design a comprehensive single structured workout. Provide realistic duration and TSS targets. Ensure the steps have valid types (Warmup, Active, Recovery, Cooldown), durations (Time in seconds, Distance in meters), and targets.'
+  const systemInstruction = `You are an elite endurance sports coach with expertise in exercise physiology. 
+Given a user request, design a comprehensive, realistic single structured workout. 
+Follow these principles:
+- **Warmup & Cooldown:** Always include an appropriate Warmup (10-20m) and Cooldown (5-15m).
+- **Specificity:** Match the workout structure to the requested energy system (e.g., VO2 Max intervals should be 2-5m with 1:1 or 1:0.5 recovery).
+- **Targets:** Provide realistic target values if the user did not specify them (e.g., sweet spot at 88-93% FTP). For target ranges, use min and max.
+- **TSS & Duration:** Ensure the total TSS and duration accurately reflect the cumulative intensity and time of the steps.
+- **Valid Enums:** Strictly adhere to the allowed schema enums for step types (Warmup, Active, Recovery, Cooldown), duration (Time, Distance), and targets (Power, HeartRate, Pace, None).`
 
   const workoutData = await generateStructuredAnalysis<any>(
     `${systemInstruction}\n\nCreate a structured workout based on this request: ${prompt}`,
