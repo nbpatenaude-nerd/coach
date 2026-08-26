@@ -15,11 +15,11 @@ const generatedPlanSchema = z.object({
     z.object({
       name: z.string(),
       type: z.enum(['BASE', 'BUILD', 'PEAK', 'RECOVERY']),
-      durationWeeks: z.number().int(),
+      durationWeeks: z.number(),
       weeks: z.array(
         z.object({
-          volumeTargetMinutes: z.number().int(),
-          tssTarget: z.number().int()
+          volumeTargetMinutes: z.number(),
+          tssTarget: z.number()
         })
       )
     })

@@ -751,7 +751,6 @@
   import { getWorkoutIcon } from '~/utils/activity-types'
   import { mobileListCardUi } from '~/utils/mobile-surface-ui'
 
-  const userSettings = useUserSettings()
   const { isCoach } = useAuth()
   const route = useRoute()
   const toast = useToast()

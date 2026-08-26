@@ -17,8 +17,8 @@ const generatedWorkoutSchema = z.object({
   type: z.enum(['Ride', 'Run', 'Swim', 'Row', 'Strength']),
   sport: z.enum(['Cycling', 'Running', 'Swimming', 'Rowing', 'Strength']),
   category: z.enum(['Workout', 'ActiveRecovery', 'Race', 'Long', 'Intervals']),
-  durationSec: z.number().int().describe('Total duration in seconds'),
-  tss: z.number().int().optional(),
+  durationSec: z.number().describe('Total duration in seconds'),
+  tss: z.number().optional(),
   workIntensity: z.number().optional(),
   structuredWorkout: z.object({
     steps: z.array(
@@ -26,13 +26,13 @@ const generatedWorkoutSchema = z.object({
         type: z.enum(['Warmup', 'Active', 'Recovery', 'Cooldown']),
         duration: z.object({
           type: z.enum(['Time', 'Distance']),
-          value: z.number().int()
+          value: z.number()
         }).optional(),
         target: z.object({
           type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
-          value: z.number().int().describe('Target value (e.g. Watts, BPM)'),
-          min: z.number().int().optional(),
-          max: z.number().int().optional()
+          value: z.number().describe('Target value (e.g. Watts, BPM)'),
+          min: z.number().optional(),
+          max: z.number().optional()
         }).optional()
       })
     )
