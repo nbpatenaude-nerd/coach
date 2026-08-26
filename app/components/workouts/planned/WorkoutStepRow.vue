@@ -89,7 +89,7 @@
         <div class="text-right pt-0.5">
           <div v-if="!hasNestedSteps" class="flex items-center justify-end gap-1">
             <UInput
-              v-model.number="localDurationMin"
+              v-model.number="localDurationValue"
               type="number"
               size="xs"
               variant="none"
@@ -97,7 +97,15 @@
               :ui="{ base: 'px-0 py-0' }"
               @update:model-value="emitUpdate"
             />
-            <span class="text-[8px] text-gray-400 uppercase font-bold">MIN</span>
+            <UButton
+              color="gray"
+              variant="ghost"
+              size="2xs"
+              class="text-[8px] font-bold p-0 text-gray-400 uppercase hover:text-primary-500 transition-colors"
+              @click="toggleDurationType"
+            >
+              {{ localDurationType === 'time' ? 'MIN' : 'M' }}
+            </UButton>
           </div>
         </div>
 
@@ -216,7 +224,7 @@
           <div class="flex items-center gap-2">
             <UInput
               v-if="!hasNestedSteps"
-              v-model.number="localDurationMin"
+              v-model.number="localDurationValue"
               type="number"
               size="xs"
               variant="none"
@@ -224,7 +232,16 @@
               :ui="{ base: 'px-0 py-0' }"
               @update:model-value="emitUpdate"
             />
-            <span v-if="!hasNestedSteps" class="text-[9px] text-gray-400 font-bold">MIN</span>
+            <UButton
+              v-if="!hasNestedSteps"
+              color="gray"
+              variant="ghost"
+              size="2xs"
+              class="text-[9px] font-bold p-0 text-gray-400 uppercase hover:text-primary-500 transition-colors"
+              @click="toggleDurationType"
+            >
+              {{ localDurationType === 'time' ? 'MIN' : 'M' }}
+            </UButton>
             <UButton
               color="neutral"
               variant="ghost"
@@ -374,7 +391,8 @@
   // Local state
   const localName = ref(props.step.name || '')
   const localType = ref(props.step.type || 'Active')
-  const localDurationMin = ref(props.step._durationMin || 0)
+  const localDurationType = ref<'time' | 'distance'>(props.step.distance && props.step.distance > 0 ? 'distance' : 'time')
+  const localDurationValue = ref(props.step.distance && props.step.distance > 0 ? props.step.distance : (props.step._durationMin || 0))
   const localIntensityStart = ref(props.step._intensityStartPct || 0)
   const localIntensityEnd = ref(props.step._intensityEndPct || 0)
   const localIsRamp = ref(!!props.step._isRamp)
@@ -387,7 +405,8 @@
     (newStep) => {
       localName.value = newStep.name || ''
       localType.value = newStep.type || 'Active'
-      localDurationMin.value = newStep._durationMin || 0
+      localDurationType.value = newStep.distance && newStep.distance > 0 ? 'distance' : 'time'
+      localDurationValue.value = newStep.distance && newStep.distance > 0 ? newStep.distance : (newStep._durationMin || 0)
       localIntensityStart.value = newStep._intensityStartPct || 0
       localIntensityEnd.value = newStep._intensityEndPct || 0
       localIsRamp.value = !!newStep._isRamp
@@ -509,11 +528,20 @@
     updatedStep.type = localType.value
     updatedStep.reps = localReps.value
     updatedStep.cadence = localCadence.value
-    updatedStep.durationSeconds = localDurationMin.value * 60
-    updatedStep.duration = updatedStep.durationSeconds
+    
+    if (localDurationType.value === 'time') {
+      updatedStep.durationSeconds = localDurationValue.value * 60
+      updatedStep.duration = updatedStep.durationSeconds
+      updatedStep.distance = 0
+      updatedStep._durationMin = localDurationValue.value
+    } else {
+      updatedStep.distance = localDurationValue.value
+      updatedStep.durationSeconds = 0
+      updatedStep.duration = 0
+      updatedStep._durationMin = 0
+    }
 
     // Internal state for editor
-    updatedStep._durationMin = localDurationMin.value
     updatedStep._intensityStartPct = localIntensityStart.value
     updatedStep._intensityEndPct = localIntensityEnd.value
     updatedStep._isRamp = localIsRamp.value
@@ -572,6 +600,17 @@
     localIsRamp.value = !localIsRamp.value
     if (!localIsRamp.value) {
       localIntensityEnd.value = localIntensityStart.value
+    }
+    emitUpdate()
+  }
+
+  function toggleDurationType() {
+    if (localDurationType.value === 'time') {
+      localDurationType.value = 'distance'
+      localDurationValue.value = 400 // Default to 400m
+    } else {
+      localDurationType.value = 'time'
+      localDurationValue.value = 5 // Default to 5m
     }
     emitUpdate()
   }

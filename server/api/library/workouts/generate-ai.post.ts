@@ -74,6 +74,20 @@ Follow these principles:
     { operation: 'generate_workout_template', userId: authUser.id }
   )
 
+  // Map AI's duration format to the app's expected properties
+  if (Array.isArray(workoutData.structuredWorkout?.steps)) {
+    workoutData.structuredWorkout.steps = workoutData.structuredWorkout.steps.map((step: any) => {
+      if (step.duration?.type === 'Distance') {
+        step.distance = step.duration.value
+        step.durationSeconds = 0 // Will be computed dynamically by pace
+      } else if (step.duration?.type === 'Time') {
+        step.durationSeconds = step.duration.value
+        step.distance = 0
+      }
+      return step
+    })
+  }
+
   const computedDuration = computeStructuredWorkoutDurationSec(workoutData.structuredWorkout)
   const finalDuration = computedDuration > 0 ? computedDuration : workoutData.durationSec || 3600
 
