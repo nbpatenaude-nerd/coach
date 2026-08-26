@@ -12,8 +12,8 @@ export function resolveModelId(modelId: string): string {
 }
 
 export const MODEL_NAMES = {
-  flash: 'gemini-3.1-flash-lite-preview',
-  pro: 'gemini-3-flash-preview'
+  flash: 'gemini-flash-latest',
+  pro: 'gemini-pro-latest'
 } as const
 
 export const MODEL_LIST = [
