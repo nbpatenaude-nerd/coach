@@ -7,36 +7,24 @@ const aiGeneratePlanSchema = z.object({
   prompt: z.string().min(3)
 })
 
-const generatedPlanSchema = {
-  type: 'object',
-  properties: {
-    name: { type: 'string', description: 'Name of the training plan' },
-    description: { type: 'string', description: 'Description of the plan and its goals' },
-    strategy: { type: 'string', enum: ['LINEAR', 'UNDULATING', 'BLOCK', 'POLARIZED'] },
-    blocks: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          name: { type: 'string' },
-          type: { type: 'string', enum: ['BASE', 'BUILD', 'PEAK', 'RECOVERY'] },
-          durationWeeks: { type: 'integer' },
-          weeks: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                volumeTargetMinutes: { type: 'integer' },
-                tssTarget: { type: 'integer' }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  required: ['name', 'description', 'strategy', 'blocks']
-}
+const generatedPlanSchema = z.object({
+  name: z.string().describe('Name of the training plan'),
+  description: z.string().describe('Description of the plan and its goals'),
+  strategy: z.enum(['LINEAR', 'UNDULATING', 'BLOCK', 'POLARIZED']),
+  blocks: z.array(
+    z.object({
+      name: z.string(),
+      type: z.enum(['BASE', 'BUILD', 'PEAK', 'RECOVERY']),
+      durationWeeks: z.number().int(),
+      weeks: z.array(
+        z.object({
+          volumeTargetMinutes: z.number().int(),
+          tssTarget: z.number().int()
+        })
+      )
+    })
+  )
+})
 
 export default defineEventHandler(async (event) => {
   const authUser = await requireAuth(event, ['plan:write'])

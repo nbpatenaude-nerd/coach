@@ -602,10 +602,11 @@ export async function generateStructuredAnalysis<T>(
     : buildGoogleProviderOptions(modelName, thinkingLevel, thinkingBudget)
 
   try {
+    const isZod = typeof schema?.parse === 'function'
     const { object, usage } = await generateObject({
       model: google(modelName),
       prompt: prompt,
-      schema: jsonSchema(schema),
+      schema: isZod ? schema : jsonSchema(schema),
       maxRetries: trackingContext?.maxRetries ?? 3,
       ...(trackingContext?.timeoutMs ? { timeout: { totalMs: trackingContext.timeoutMs } } : {}),
       providerOptions

@@ -11,58 +11,33 @@ const requestSchema = z.object({
   saveToLibrary: z.boolean().optional().default(false)
 })
 
-const generatedWorkoutSchema = {
-  type: 'object',
-  properties: {
-    title: { type: 'string' },
-    description: { type: 'string' },
-    type: { type: 'string', enum: ['Ride', 'Run', 'Swim', 'Row', 'Strength'] },
-    sport: { type: 'string', enum: ['Cycling', 'Running', 'Swimming', 'Rowing', 'Strength'] },
-    category: { type: 'string', enum: ['Workout', 'ActiveRecovery', 'Race', 'Long', 'Intervals'] },
-    durationSec: { type: 'integer', description: 'Total duration in seconds' },
-    tss: { type: 'integer' },
-    workIntensity: { type: 'number' },
-    structuredWorkout: {
-      type: 'object',
-      properties: {
-        steps: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              type: { type: 'string', enum: ['Warmup', 'Active', 'Recovery', 'Cooldown'] },
-              duration: {
-                type: 'object',
-                properties: {
-                  type: { type: 'string', enum: ['Time', 'Distance'] },
-                  value: { type: 'integer' }
-                }
-              },
-              target: {
-                type: 'object',
-                properties: {
-                  type: { type: 'string', enum: ['Power', 'HeartRate', 'Pace', 'None'] },
-                  value: { type: 'integer', description: 'Target value (e.g. Watts, BPM)' },
-                  min: { type: 'integer' },
-                  max: { type: 'integer' }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  required: [
-    'title',
-    'description',
-    'type',
-    'sport',
-    'category',
-    'durationSec',
-    'structuredWorkout'
-  ]
-}
+const generatedWorkoutSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  type: z.enum(['Ride', 'Run', 'Swim', 'Row', 'Strength']),
+  sport: z.enum(['Cycling', 'Running', 'Swimming', 'Rowing', 'Strength']),
+  category: z.enum(['Workout', 'ActiveRecovery', 'Race', 'Long', 'Intervals']),
+  durationSec: z.number().int().describe('Total duration in seconds'),
+  tss: z.number().int().optional(),
+  workIntensity: z.number().optional(),
+  structuredWorkout: z.object({
+    steps: z.array(
+      z.object({
+        type: z.enum(['Warmup', 'Active', 'Recovery', 'Cooldown']),
+        duration: z.object({
+          type: z.enum(['Time', 'Distance']),
+          value: z.number().int()
+        }).optional(),
+        target: z.object({
+          type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
+          value: z.number().int().describe('Target value (e.g. Watts, BPM)'),
+          min: z.number().int().optional(),
+          max: z.number().int().optional()
+        }).optional()
+      })
+    )
+  })
+})
 
 export default defineEventHandler(async (event) => {
   const authUser = await requireAuth(event, ['workout:write'])
