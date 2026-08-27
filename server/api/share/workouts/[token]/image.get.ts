@@ -52,6 +52,7 @@ export default defineEventHandler(async (event) => {
   )
   const style = normalizeWorkoutImageStyle(typeof query.style === 'string' ? query.style : null)
   const ratio = normalizeWorkoutImageRatio(typeof query.ratio === 'string' ? query.ratio : null)
+  const chart = typeof query.chart === 'string' ? (query.chart as any) : undefined
 
   const shareToken = await prisma.shareToken.findUnique({
     where: { token }
@@ -79,7 +80,8 @@ export default defineEventHandler(async (event) => {
       workout: workout as any,
       style,
       variant,
-      ratio
+      ratio,
+      chart
     })
     const cachedPngBuffer = await getCachedWorkoutImage(cacheKey)
 
@@ -93,7 +95,8 @@ export default defineEventHandler(async (event) => {
     const pngBuffer = await imageGenerator.generateWorkoutImage(workout as any, {
       variant,
       style,
-      ratio
+      ratio,
+      chart
     })
     await setCachedWorkoutImage(cacheKey, pngBuffer)
 

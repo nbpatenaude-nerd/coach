@@ -1,9 +1,14 @@
 import { createHash } from 'node:crypto'
 import IORedis from 'ioredis'
-import type { WorkoutImageRatio, WorkoutImageStyle, WorkoutImageVariant } from './image-generator'
+import type {
+  WorkoutImageRatio,
+  WorkoutImageStyle,
+  WorkoutImageVariant,
+  WorkoutImageChart
+} from './image-generator'
 
 const REDIS_URL = process.env.REDIS_URL
-const CACHE_VERSION = 'share-image-v1'
+const CACHE_VERSION = 'share-image-v2'
 const DEFAULT_TTL_SECONDS = 60 * 60 * 6
 
 let client: IORedis | null = null
@@ -14,6 +19,7 @@ interface CacheKeyInput {
   style: WorkoutImageStyle
   variant: WorkoutImageVariant
   ratio: WorkoutImageRatio
+  chart?: WorkoutImageChart
 }
 
 export function isWorkoutImageCacheEnabled() {
@@ -34,15 +40,19 @@ export function buildWorkoutImageCacheKey(input: CacheKeyInput) {
     averageSpeed: input.workout.averageSpeed ?? null,
     streams: {
       latlng: input.workout.streams?.latlng ?? null,
-      heartrate: input.workout.streams?.heartrate ?? null
+      heartrate: input.workout.streams?.heartrate ?? null,
+      watts: input.workout.streams?.watts ?? null,
+      velocity_smooth: input.workout.streams?.velocity_smooth ?? null,
+      altitude: input.workout.streams?.altitude ?? null
     },
     style: input.style,
     variant: input.variant,
-    ratio: input.ratio
+    ratio: input.ratio,
+    chart: input.chart
   }
 
   const hash = createHash('sha256').update(JSON.stringify(payload)).digest('hex')
-  return `share:image:${CACHE_VERSION}:${input.workout.id ?? 'unknown'}:${input.style}:${input.variant}:${input.ratio}:${hash}`
+  return `share:image:${CACHE_VERSION}:${input.workout.id ?? 'unknown'}:${input.style}:${input.variant}:${input.ratio}:${input.chart ?? 'none'}:${hash}`
 }
 
 export async function getCachedWorkoutImage(cacheKey: string) {

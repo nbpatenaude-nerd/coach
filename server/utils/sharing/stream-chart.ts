@@ -1,4 +1,4 @@
-export interface HeartRateChartOptions {
+export interface StreamChartOptions {
   width: number
   height: number
   padding?: number
@@ -10,11 +10,11 @@ export interface HeartRateChartOptions {
 
 const DEFAULT_PADDING = 32
 
-export function buildHeartRateChartSvg(
-  heartrate: Array<number | null | undefined>,
-  options: HeartRateChartOptions
+export function buildStreamChartSvg(
+  stream: Array<number | null | undefined>,
+  options: StreamChartOptions
 ): string | null {
-  const points = normalizeHeartRate(heartrate)
+  const points = normalizeStream(stream)
   if (points.length < 4) return null
 
   const width = options.width
@@ -77,7 +77,7 @@ export function buildHeartRateChartSvg(
   ].join('')
 }
 
-function normalizeHeartRate(values: Array<number | null | undefined>) {
+function normalizeStream(values: Array<number | null | undefined>) {
   const valid = values
     .map((value) => (typeof value === 'number' && Number.isFinite(value) ? value : null))
     .filter((value): value is number => value != null && value > 0)

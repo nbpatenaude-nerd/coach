@@ -155,6 +155,30 @@
                     </UButton>
                   </div>
                 </div>
+
+                <div class="space-y-2">
+                  <p
+                    class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500"
+                  >
+                    Chart Data
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    <UButton
+                      v-for="option in chartOptions"
+                      :key="option.value"
+                      :color="selectedChart === option.value ? 'primary' : 'neutral'"
+                      :variant="selectedChart === option.value ? 'solid' : 'outline'"
+                      size="sm"
+                      @click="
+                        () => {
+                          selectedChart = option.value
+                        }
+                      "
+                    >
+                      {{ option.label }}
+                    </UButton>
+                  </div>
+                </div>
               </div>
             </div>
           </UCard>
@@ -279,12 +303,20 @@
   const loading = ref(true)
   const error = ref<string | null>(null)
   const selectedRatio = ref<ShareRatio>('story')
-  const imageRenderVersion = '2026-03-08c'
+  const selectedChart = ref<'heartrate' | 'watts' | 'pace' | 'elevation'>('heartrate')
+  const imageRenderVersion = '2026-08-26'
 
   const ratioOptions = [
     { label: 'Story 9:16', value: 'story' },
     { label: 'Square 1:1', value: 'square' },
     { label: 'Post 4:5', value: 'post' }
+  ] as const
+
+  const chartOptions = [
+    { label: 'Heart Rate', value: 'heartrate' },
+    { label: 'Power', value: 'watts' },
+    { label: 'Pace', value: 'pace' },
+    { label: 'Elevation', value: 'elevation' }
   ] as const
 
   const previewVariants: PreviewVariant[] = [
@@ -320,6 +352,14 @@
       style: 'pulse',
       variant: 'transparent',
       transparent: true
+    },
+    { id: 'journey', label: 'Journey', style: 'journey', variant: 'default', transparent: false },
+    {
+      id: 'journey-transparent',
+      label: 'Journey Clear',
+      style: 'journey',
+      variant: 'transparent',
+      transparent: true
     }
   ]
 
@@ -346,9 +386,9 @@
 
     return previewVariants.map((item) => ({
       ...item,
-      meta: `${selectedRatio.value.toUpperCase()} • style=${item.style} • variant=${item.variant}`,
-      url: buildImageUrl(item.style, item.variant, selectedRatio.value),
-      storyPreviewUrl: buildImageUrl(item.style, item.variant, 'story'),
+      meta: `${selectedRatio.value.toUpperCase()} • style=${item.style} • chart=${selectedChart.value}`,
+      url: buildImageUrl(item.style, item.variant, selectedRatio.value, selectedChart.value),
+      storyPreviewUrl: buildImageUrl(item.style, item.variant, 'story', selectedChart.value),
       previewClass: item.transparent ? checkerboardClass : '',
       previewImageClass:
         selectedRatio.value === 'story'
@@ -359,11 +399,17 @@
     }))
   })
 
-  function buildImageUrl(style: ShareStyle, variant: ShareVariant, ratio: ShareRatio) {
+  function buildImageUrl(
+    style: ShareStyle,
+    variant: ShareVariant,
+    ratio: ShareRatio,
+    chart: string
+  ) {
     const params = new URLSearchParams()
     if (style !== 'map') params.set('style', style)
     if (variant !== 'default') params.set('variant', variant)
     if (ratio !== 'story') params.set('ratio', ratio)
+    if (chart !== 'heartrate') params.set('chart', chart)
     params.set('v', imageRenderVersion)
     const query = params.toString()
     return `/api/share/workouts/${shareToken.value}/image${query ? `?${query}` : ''}`

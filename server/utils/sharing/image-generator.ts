@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { Resvg } from '@resvg/resvg-js'
 import { formatPace } from '../pacing'
-import { buildHeartRateChartSvg } from './hr-chart'
+import { buildStreamChartSvg } from './stream-chart'
 import { buildStaticMapSvg } from './static-map'
 
 interface WorkoutData {
@@ -16,18 +16,23 @@ interface WorkoutData {
   streams?: {
     latlng?: Array<[number, number] | { lat: number; lng: number } | null> | null
     heartrate?: Array<number | null | undefined> | null
+    watts?: Array<number | null | undefined> | null
+    velocity_smooth?: Array<number | null | undefined> | null
+    altitude?: Array<number | null | undefined> | null
   } | null
 }
 
 export type WorkoutImageVariant = 'default' | 'flat' | 'transparent'
-export type WorkoutImageStyle = 'map' | 'poster' | 'crest' | 'pulse'
+export type WorkoutImageStyle = 'map' | 'poster' | 'crest' | 'pulse' | 'journey'
 export type WorkoutImageRatio = 'story' | 'square' | 'post'
+export type WorkoutImageChart = 'heartrate' | 'watts' | 'pace' | 'elevation'
 
 interface GenerateWorkoutImageOptions {
   templateName?: string
   variant?: WorkoutImageVariant
   style?: WorkoutImageStyle
   ratio?: WorkoutImageRatio
+  chart?: WorkoutImageChart
 }
 
 interface WorkoutImageTextData {
@@ -124,6 +129,14 @@ const THEMES: Record<WorkoutImageStyle, ThemeSpec> = {
     accentGlow: 'rgba(239,68,68,0.24)',
     textSoft: '#A1A1AA',
     watermark: '#FCA5A5'
+  },
+  journey: {
+    accent: '#F59E0B',
+    accentSoft: '#FDE68A',
+    accentStrong: '#FBBF24',
+    accentGlow: 'rgba(245,158,11,0.24)',
+    textSoft: '#D1D5DB',
+    watermark: '#FDE68A'
   }
 }
 
@@ -151,6 +164,7 @@ export function normalizeWorkoutImageStyle(value?: string | null): WorkoutImageS
   if (value === 'poster') return 'poster'
   if (value === 'crest') return 'crest'
   if (value === 'pulse') return 'pulse'
+  if (value === 'journey') return 'journey'
   return 'map'
 }
 
@@ -168,12 +182,13 @@ export const imageGenerator = {
     const style = normalizeWorkoutImageStyle(options.style)
     const variant = normalizeWorkoutImageVariant(options.variant)
     const ratio = normalizeWorkoutImageRatio(options.ratio)
+    const chartType = options.chart || 'heartrate'
     const spec = RATIO_SPECS[ratio]
     const renderStyle = style === 'map' && !hasWorkoutMap(workout) ? 'map-fallback' : style
     const data = this.prepareImageData(workout, ratio)
     const theme = THEMES[style]
     const mapSvg = getWorkoutMapMarkup(workout, variant, style, ratio)
-    const hrChartSvg = getHeartRateChartMarkup(workout, variant, style, ratio)
+    const hrChartSvg = getStreamChartMarkup(workout, variant, style, ratio, chartType, theme)
     const svgContent = renderWorkoutSvg({
       ratio: spec,
       variant,
@@ -276,7 +291,7 @@ function renderWorkoutSvg(input: {
       ? renderPosterCard(ratio, theme, variant, data, mapSvg, watermark)
       : renderStyle === 'crest'
         ? renderCrestCard(ratio, theme, variant, data, mapSvg, watermark)
-        : renderStyle === 'pulse'
+        : renderStyle === 'pulse' || renderStyle === 'journey'
           ? renderPulseCard(ratio, theme, variant, data, mapSvg, hrChartSvg, watermark)
           : renderStyle === 'map-fallback'
             ? renderModernCard(ratio, theme, variant, data, watermark)
@@ -944,23 +959,36 @@ function getWorkoutMapMarkup(
   })
 }
 
-function getHeartRateChartMarkup(
+function getStreamChartMarkup(
   workout: WorkoutData,
   variant: WorkoutImageVariant,
   style: WorkoutImageStyle,
-  ratio: WorkoutImageRatio
+  ratio: WorkoutImageRatio,
+  chartType: WorkoutImageChart,
+  theme: ThemeSpec
 ) {
-  const heartrate = workout.streams?.heartrate
-  if (!Array.isArray(heartrate) || heartrate.length < 4) return null
+  const streamKey =
+    chartType === 'pace' ? 'velocity_smooth' : chartType === 'elevation' ? 'altitude' : chartType
+  const stream = workout.streams?.[streamKey]
+  if (!Array.isArray(stream) || stream.length < 4) return null
 
   const size = getHeartRateChartSize(ratio, style)
 
-  return buildHeartRateChartSvg(heartrate, {
+  const isPulse = style === 'pulse'
+  const isJourney = style === 'journey'
+  const defaultLine = isPulse ? '#FB7185' : isJourney ? '#FBBF24' : '#EF4444'
+  const defaultGlow = isPulse
+    ? 'rgba(251,113,133,0.36)'
+    : isJourney
+      ? 'rgba(251,191,36,0.36)'
+      : 'rgba(239,68,68,0.34)'
+
+  return buildStreamChartSvg(stream, {
     ...size,
     transparent: variant === 'transparent',
     framed: false,
-    lineColor: style === 'pulse' ? '#FB7185' : '#EF4444',
-    glowColor: style === 'pulse' ? 'rgba(251,113,133,0.36)' : 'rgba(239,68,68,0.34)'
+    lineColor: defaultLine,
+    glowColor: defaultGlow
   })
 }
 
@@ -971,7 +999,7 @@ function getMapSize(ratio: WorkoutImageRatio, style: WorkoutImageStyle): VisualS
     return { width: 720, height: 720, padding: 18 }
   }
 
-  if (style === 'pulse') {
+  if (style === 'pulse' || style === 'journey') {
     if (ratio === 'square') return { width: 960, height: 520, padding: 20 }
     if (ratio === 'post') return { width: 960, height: 620, padding: 24 }
     return { width: 980, height: 760, padding: 28 }
@@ -983,7 +1011,7 @@ function getMapSize(ratio: WorkoutImageRatio, style: WorkoutImageStyle): VisualS
 }
 
 function getHeartRateChartSize(ratio: WorkoutImageRatio, style: WorkoutImageStyle): VisualSizeSpec {
-  if (style === 'pulse') {
+  if (style === 'pulse' || style === 'journey') {
     if (ratio === 'square') return { width: 996, height: 232, padding: 8 }
     if (ratio === 'post') return { width: 1000, height: 268, padding: 10 }
     return { width: 1008, height: 304, padding: 12 }
