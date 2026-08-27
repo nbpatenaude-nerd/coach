@@ -12,7 +12,7 @@
               <NotificationDropdown />
             </ClientOnly>
             <DashboardReleaseNotification />
-            
+
             <UButton
               to="/workouts/upload"
               icon="i-heroicons-cloud-arrow-up"
@@ -493,9 +493,6 @@
       </div>
     </template>
   </UDashboardPanel>
-
-  <!-- Wellness Modal -->
-  <
 
   <!-- Recommendation Modal -->
   <DashboardRecommendationDetailModal
@@ -985,4 +982,3 @@
     ]
   })
 </script>
-
