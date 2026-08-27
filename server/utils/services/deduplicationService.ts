@@ -382,10 +382,10 @@ export const deduplicationService = {
         
         for (let i = 0; i < pTime.length; i++) {
           const pt = pTime[i]
-          while (sIdx < sTime.length - 1 && Math.abs(sTime[sIdx + 1] - pt) <= Math.abs(sTime[sIdx] - pt)) {
+          while (sIdx < sTime.length - 1 && Math.abs(sTime[sIdx + 1]! - pt!) <= Math.abs(sTime[sIdx]! - pt!)) {
             sIdx++
           }
-          if (Math.abs(sTime[sIdx] - pt) <= 15) {
+          if (Math.abs(sTime[sIdx]! - pt!) <= 15) {
             interpolated.push(sArr[sIdx])
           } else {
             interpolated.push(null)
