@@ -557,15 +557,7 @@ export const deduplicationService = {
           where: { workoutId: bestWorkout.id },
           data: streamData
         })
-      }`
-          )
-          await tx.workoutStream.update({
-            where: { workoutId: donorWithStreams.id },
-            data: { workoutId: bestWorkout.id }
-          })
-        }
       }
-
       // 3. Exercise Transfer Logic
       // Move exercise records if primary has none
       const existingBestExercises = await tx.workoutExercise.count({
