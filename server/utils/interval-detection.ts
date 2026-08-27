@@ -355,15 +355,21 @@ function flattenPlannedStepsForDetection(
       continue
     }
     if (!Number.isFinite(durationSeconds) || durationSeconds <= 0) continue
+    
+    const resolvedType =
+      normalizePlannedStepType({
+        type: step.type,
+        name: step.type ? undefined : step.name
+      }) ?? 'WORK'
     flattened.push({
       id: `${path}-${index}`,
       name: step.name,
       durationSeconds,
-      type: normalizePlannedStepType(step.type, step.name),
+      type: resolvedType,
       metricTarget: getPlannedTargetForMetric(step, metricType),
       cadence:
         typeof step.cadence === 'number' && Number.isFinite(step.cadence) ? step.cadence : null,
-      ramp: Boolean((step as any).ramp || normalizePlannedStepType(step.type) === 'COOLDOWN')
+      ramp: Boolean((step as any).ramp || resolvedType === 'COOLDOWN')
     })
   }
   return flattened
