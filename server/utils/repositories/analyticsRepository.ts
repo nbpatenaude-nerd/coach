@@ -485,6 +485,12 @@ export const analyticsRepository = {
     })
     const allowedCustomFields = new Set(customFields.map((field) => field.fieldKey))
 
+    if (options.source === 'wellness') {
+      ;['bloodGlucose', 'weight', 'skinTemp', 'hydrationVolume'].forEach((key) =>
+        allowedCustomFields.add(key)
+      )
+    }
+
     const metricClauses = options.metrics.map((metric, index) => {
       const aggregationMap: Record<
         AnalyticsQueryOptions['metrics'][number]['aggregation'],

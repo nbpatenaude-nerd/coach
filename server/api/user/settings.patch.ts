@@ -3,8 +3,8 @@ import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'
 
 const updateSettingsSchema = z.object({
-  dashboardSettings: z.object({}).passthrough().optional()
-  // Can add other settings here later
+  dashboardSettings: z.object({}).passthrough().optional(),
+  trackedCheckinMetrics: z.array(z.string()).optional()
 })
 
 export default defineEventHandler(async (event) => {
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
   // Fetch current user to merge JSON settings
   const currentUser = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { dashboardSettings: true }
+    select: { dashboardSettings: true, trackedCheckinMetrics: true }
   })
 
   const currentSettings = (currentUser?.dashboardSettings as any) || {}
@@ -47,16 +47,22 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  if (validBody.trackedCheckinMetrics) {
+    updateData.trackedCheckinMetrics = validBody.trackedCheckinMetrics
+  }
+
   const updatedUser = await prisma.user.update({
     where: { id: session.user.id },
     data: updateData,
     select: {
-      dashboardSettings: true
+      dashboardSettings: true,
+      trackedCheckinMetrics: true
     }
   })
 
   return {
     success: true,
-    settings: updatedUser.dashboardSettings
+    settings: updatedUser.dashboardSettings,
+    trackedCheckinMetrics: updatedUser.trackedCheckinMetrics
   }
 })

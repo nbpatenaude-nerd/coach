@@ -196,6 +196,56 @@
             </div>
           </UCard>
 
+          <!-- AI Adjustment Prompt -->
+          <UCard
+            v-if="checkin?.adjustmentStatus === 'PENDING' && checkin?.proposedAdjustmentPercentage"
+            class="ring-2 ring-primary-500"
+          >
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <UIcon name="i-heroicons-sparkles" class="w-6 h-6 text-primary-500 mt-1 shrink-0" />
+                <div>
+                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                    AI Coach Recommendation
+                  </h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Based on your check-in, I recommend reducing today's workout intensity by
+                    <span class="font-bold text-primary-600 dark:text-primary-400"
+                      >{{ checkin.proposedAdjustmentPercentage }}%</span
+                    >.
+                  </p>
+                  <div
+                    class="mt-2 text-sm italic text-gray-500 dark:text-gray-500 border-l-2 border-primary-200 pl-3"
+                  >
+                    {{ checkin.proposedAdjustmentReasoning }}
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end gap-2 mt-4">
+                <UButton
+                  color="neutral"
+                  variant="ghost"
+                  :loading="adjusting"
+                  @click="handleAdjustment('REJECTED')"
+                  >Decline</UButton
+                >
+                <UButton color="primary" :loading="adjusting" @click="handleAdjustment('ACCEPTED')"
+                  >Accept Reduction</UButton
+                >
+              </div>
+            </div>
+          </UCard>
+
+          <UCard
+            v-else-if="checkin?.adjustmentStatus === 'APPLIED'"
+            class="bg-green-50/50 dark:bg-green-900/10 border-green-200 dark:border-green-900/30"
+          >
+            <div class="flex items-center gap-2 text-green-700 dark:text-green-400 text-sm">
+              <UIcon name="i-heroicons-check-circle" class="w-5 h-5" />
+              <span>Workout intensity reduced by {{ checkin?.proposedAdjustmentPercentage }}%</span>
+            </div>
+          </UCard>
+
           <!-- User Notes -->
           <UCard :ui="{ body: 'p-3 sm:p-6' }">
             <div class="space-y-3">
@@ -216,15 +266,58 @@
               />
 
               <div class="border-t border-gray-100 dark:border-gray-800 pt-4 mt-4">
-                <label class="text-sm font-medium text-gray-900 dark:text-white block mb-2">
-                  {{ tr('daily_checkin_blood_glucose', 'Blood Glucose (mg/dL)') }}
-                </label>
-                <UInput
-                  v-model.number="bloodGlucose"
-                  type="number"
-                  placeholder="e.g. 95"
-                  class="w-full max-w-50"
-                />
+                <div class="flex items-center justify-between mb-4">
+                  <label class="text-sm font-medium text-gray-900 dark:text-white block">
+                    {{ tr('daily_checkin_tracked_metrics', 'Tracked Metrics') }}
+                  </label>
+                  <UButton
+                    size="xs"
+                    color="neutral"
+                    variant="ghost"
+                    icon="i-heroicons-cog-6-tooth"
+                    @click="isSettingsOpen = true"
+                  >
+                    Customize
+                  </UButton>
+                </div>
+
+                <div v-if="activeMetrics.length === 0" class="text-sm text-gray-500 italic">
+                  No metrics selected. Click customize to add metrics to track daily.
+                </div>
+
+                <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div v-for="metric in activeMetrics" :key="metric.key" class="space-y-1">
+                    <label class="text-xs font-medium text-gray-700 dark:text-gray-300">{{
+                      metric.label
+                    }}</label>
+
+                    <UInput
+                      v-if="metric.type === 'number'"
+                      v-model.number="wellnessUpdates[metric.key]"
+                      type="number"
+                      step="any"
+                      :placeholder="metric.unit ? `e.g. 10 ${metric.unit}` : 'Enter value'"
+                    >
+                      <template v-if="metric.unit" #trailing>
+                        <span class="text-xs text-gray-500 pr-1">{{ metric.unit }}</span>
+                      </template>
+                    </UInput>
+
+                    <USelect
+                      v-else-if="metric.options"
+                      v-model="wellnessUpdates[metric.key]"
+                      :options="metric.options"
+                      placeholder="Select..."
+                    />
+
+                    <UInput
+                      v-else
+                      v-model="wellnessUpdates[metric.key]"
+                      type="text"
+                      placeholder="Enter value"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </UCard>
@@ -396,6 +489,27 @@
       </div>
     </template>
   </UModal>
+
+  <USlideover v-model="isSettingsOpen" title="Customize Check-In Metrics">
+    <div class="p-4 space-y-6 flex-1 overflow-y-auto">
+      <div class="space-y-1">
+        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Tracked Metrics</h3>
+        <p class="text-sm text-gray-500">
+          Select which metrics you want to track during your daily check-in.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <UCheckbox
+          v-for="metric in availableMetrics"
+          :key="metric.key"
+          :model-value="userStore.user?.trackedCheckinMetrics?.includes(metric.key)"
+          :label="metric.label"
+          @update:model-value="(val) => toggleMetricTracking(metric.key, val)"
+        />
+      </div>
+    </div>
+  </USlideover>
 </template>
 
 <script setup lang="ts">
@@ -427,7 +541,102 @@
   const checkin = ref<any>(null)
   const answers = ref<Record<string, string>>({})
   const userNotes = ref('')
-  const bloodGlucose = ref<number | undefined>(undefined)
+  const wellnessUpdates = ref<Record<string, any>>({})
+  const isSettingsOpen = ref(false)
+  const adjusting = ref(false)
+  const userStore = useUserStore()
+
+  const { data: customFields } = useFetch<any[]>('/api/analytics/fields/definitions')
+
+  const availableMetrics = computed(() => {
+    const base = [
+      { key: 'bloodGlucose', label: 'Blood Glucose', type: 'number', unit: 'mg/dL' },
+      { key: 'weight', label: 'Weight', type: 'number', unit: 'kg' },
+      { key: 'skinTemp', label: 'Skin Temperature', type: 'number', unit: '°C' },
+      { key: 'hydrationVolume', label: 'Hydration', type: 'number', unit: 'L' },
+      { key: 'injury', label: 'Injury Status', type: 'text' },
+      {
+        key: 'menstrualPhase',
+        label: 'Menstrual Phase',
+        type: 'select',
+        options: [
+          { label: 'Menstruation', value: 'MENSTRUATION' },
+          { label: 'Follicular', value: 'FOLLICULAR' },
+          { label: 'Ovulation', value: 'OVULATION' },
+          { label: 'Luteal', value: 'LUTEAL' }
+        ]
+      }
+    ]
+
+    if (customFields.value) {
+      customFields.value.forEach((f) => {
+        base.push({
+          key: `customMetrics.${f.fieldKey}`,
+          label: f.label,
+          type: f.dataType === 'NUMBER' ? 'number' : f.dataType === 'BOOLEAN' ? 'select' : 'text',
+          unit: f.unit || undefined,
+          ...(f.dataType === 'BOOLEAN'
+            ? {
+                options: [
+                  { label: 'Yes', value: true },
+                  { label: 'No', value: false }
+                ]
+              }
+            : {})
+        } as any)
+      })
+    }
+    return base
+  })
+
+  const activeMetrics = computed(() => {
+    const trackedKeys = userStore.user?.trackedCheckinMetrics || ['bloodGlucose']
+    return availableMetrics.value.filter((m) => trackedKeys.includes(m.key))
+  })
+
+  async function handleAdjustment(status: 'ACCEPTED' | 'REJECTED') {
+    if (!checkin.value?.id) return
+    adjusting.value = true
+    try {
+      const updated = await $fetch(`/api/checkin/adjust`, {
+        method: 'POST',
+        body: { checkinId: checkin.value.id, status }
+      })
+      checkin.value = updated
+      toast.add({
+        title: status === 'ACCEPTED' ? 'Workout Adjusted' : 'Adjustment Declined',
+        color: 'success'
+      })
+    } catch (e: any) {
+      toast.add({ title: 'Error', description: e.message, color: 'error' })
+    } finally {
+      adjusting.value = false
+    }
+  }
+
+  async function toggleMetricTracking(key: string, enabled: boolean) {
+    if (!userStore.user) return
+    let current = [...(userStore.user.trackedCheckinMetrics || ['bloodGlucose'])]
+    if (enabled) {
+      if (!current.includes(key)) current.push(key)
+    } else {
+      current = current.filter((k) => k !== key)
+    }
+
+    // Optimistic update
+    userStore.user.trackedCheckinMetrics = current
+
+    try {
+      await $fetch('/api/user/settings', {
+        method: 'PATCH',
+        body: { trackedCheckinMetrics: current }
+      })
+    } catch (e) {
+      // Revert on error
+      userStore.fetchUser()
+    }
+  }
+
   const localQuestions = ref<any[]>([])
   const expandedQuestions = ref<Set<string>>(new Set())
   const recentCheckins = ref<any[]>([])
@@ -620,6 +829,7 @@
         if (force) {
           localQuestions.value = []
           answers.value = {}
+          wellnessUpdates.value = {}
         }
       }
       userNotes.value = ''
@@ -659,13 +869,25 @@
         }
       })
 
+      const processedUpdates: Record<string, any> = {}
+      for (const [key, val] of Object.entries(wellnessUpdates.value)) {
+        if (val === undefined || val === null || val === '') continue
+        if (key.startsWith('customMetrics.')) {
+          const customKey = key.split('.')[1]
+          if (!processedUpdates.customMetrics) processedUpdates.customMetrics = {}
+          processedUpdates.customMetrics[customKey] = val
+        } else {
+          processedUpdates[key] = val
+        }
+      }
+
       await ($fetch as any)('/api/checkin/answer', {
         method: 'POST',
         body: {
           checkinId: checkin.value.id,
           answers: filteredAnswers,
           userNotes: userNotes.value,
-          bloodGlucose: bloodGlucose.value
+          wellnessUpdates: processedUpdates
         }
       })
       await useCheckinStore().fetchToday()
@@ -705,6 +927,7 @@
     checkin.value = entry
     localQuestions.value = entry.questions || []
     userNotes.value = entry.userNotes || ''
+    wellnessUpdates.value = {}
     answers.value = {}
     for (const question of entry.questions || []) {
       if (question.answer) {
@@ -725,6 +948,7 @@
       checkin.value = null
       localQuestions.value = []
       answers.value = {}
+      wellnessUpdates.value = {}
       userNotes.value = ''
       await Promise.all([useCheckinStore().fetchToday(), fetchHistory()])
       toast.add({

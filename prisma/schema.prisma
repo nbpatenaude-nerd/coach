@@ -35,6 +35,7 @@ model User {
   recoveryCapacityExplanationJson    Json?
   nutritionComplianceExplanationJson Json?
   trainingConsistencyExplanationJson Json?
+  trackedCheckinMetrics              String[]           @default(["bloodGlucose"])
   aiAutoAnalyzeNutrition             Boolean            @default(false)
   aiAutoAnalyzeWorkouts              Boolean            @default(false)
   aiModelPreference                  String?            @default("flash")
@@ -1808,10 +1809,13 @@ model DailyCheckin {
   updatedAt     DateTime @updatedAt
   llmUsageId    String?
   feedback      String?
-  feedbackText  String?
-  userNotes     String?
-  openingRemark String?
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedbackText                 String?
+  userNotes                    String?
+  openingRemark                String?
+  proposedAdjustmentPercentage Int?
+  proposedAdjustmentReasoning  String?
+  adjustmentStatus             String?  @default("PENDING")
+  user                         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, date])
   @@index([userId, date])

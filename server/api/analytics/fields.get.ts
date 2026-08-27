@@ -103,9 +103,34 @@ export default defineEventHandler(async (event) => {
       isCustom: true
     }))
 
+  const builtinCheckinFields = [
+    {
+      key: 'custom.bloodGlucose',
+      label: 'Blood Glucose',
+      type: 'NUMBER',
+      unit: 'mg/dL',
+      isCustom: true
+    },
+    {
+      key: 'custom.weight',
+      label: 'Weight (Check-in)',
+      type: 'NUMBER',
+      unit: 'kg',
+      isCustom: true
+    },
+    {
+      key: 'custom.skinTemp',
+      label: 'Skin Temperature',
+      type: 'NUMBER',
+      unit: '°C',
+      isCustom: true
+    },
+    { key: 'custom.hydrationVolume', label: 'Hydration', type: 'NUMBER', unit: 'L', isCustom: true }
+  ]
+
   return {
     workouts: [...workoutFields, ...customWorkoutFields],
-    wellness: [...wellnessFields, ...customWellnessFields],
+    wellness: [...wellnessFields, ...customWellnessFields, ...builtinCheckinFields],
     nutrition: [...nutritionFields, ...customNutritionFields]
   }
 })

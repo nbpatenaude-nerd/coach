@@ -90,6 +90,10 @@ export default defineEventHandler(async (event) => {
 
   await assertAnalyticsScopeAccess(user.id, options.scope)
 
+  if (options.source !== 'workouts' && options.comparison) {
+    delete options.comparison
+  }
+
   if (options.comparison?.type === 'workouts') {
     options.comparison.workoutIds = await assertWorkoutComparisonAccess(
       user.id,

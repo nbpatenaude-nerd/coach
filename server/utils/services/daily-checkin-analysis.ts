@@ -93,24 +93,16 @@ Max reduction for automated adjustment is 20%. If they are doing very poorly, re
 
   if (analysis.needsAdjustment && analysis.adjustmentPercentage > 0) {
     if (analysis.adjustmentPercentage <= 20) {
-      // Apply reduction
-      for (const workout of plannedWorkouts) {
-        const factor = 1 - analysis.adjustmentPercentage / 100
-        await prisma.plannedWorkout.update({
-          where: { id: workout.id },
-          data: {
-            durationSec: workout.durationSec
-              ? Math.round(workout.durationSec * factor)
-              : workout.durationSec,
-            tss: workout.tss ? Number((workout.tss * factor).toFixed(1)) : workout.tss,
-            workIntensity: workout.workIntensity
-              ? Number((workout.workIntensity * factor).toFixed(2))
-              : workout.workIntensity,
-            description: `[AI Adjusted by -${analysis.adjustmentPercentage}%]\nReasoning: ${analysis.reasoning}\n\n${workout.description || ''}`
-          }
-        })
-      }
-      return { success: true, adapted: true, analysis }
+      // Save proposed adjustment for user confirmation
+      await prisma.dailyCheckin.update({
+        where: { id: checkinId },
+        data: {
+          proposedAdjustmentPercentage: analysis.adjustmentPercentage,
+          proposedAdjustmentReasoning: analysis.reasoning,
+          adjustmentStatus: 'PENDING'
+        }
+      })
+      return { success: true, proposed: true, analysis }
     } else {
       // Need manual review - notify coach
       const coachRel = await prisma.coachingRelationship.findFirst({

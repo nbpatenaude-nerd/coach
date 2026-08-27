@@ -8,8 +8,9 @@ export default defineEventHandler(async (event) => {
   const user = await requireAuth(event, ['health:write'])
 
   const body = await readBody(event)
-  const { checkinId, answers, userNotes, bloodGlucose } = body
+  const { checkinId, answers, userNotes, wellnessUpdates } = body
   // answers: Record<string, "YES" | "NO">
+  // wellnessUpdates: Record<string, any>
 
   if (!checkinId || !answers) {
     throw createError({ statusCode: 400, message: 'Missing checkinId or answers' })
@@ -39,14 +40,14 @@ export default defineEventHandler(async (event) => {
     userNotes: userNotes || undefined
   })
 
-  // Update Wellness if bloodGlucose is provided
-  if (bloodGlucose !== undefined && bloodGlucose !== null) {
+  // Update Wellness if wellnessUpdates is provided
+  if (wellnessUpdates && Object.keys(wellnessUpdates).length > 0) {
     const checkinDate = new Date(checkin.date)
     await wellnessRepository.upsert(
       user.id,
       checkinDate,
-      { bloodGlucose }, // createData
-      { bloodGlucose }, // updateData
+      wellnessUpdates, // createData
+      wellnessUpdates, // updateData
       'daily_checkin' // source
     )
   }
