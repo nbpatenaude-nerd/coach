@@ -780,8 +780,9 @@
         <UIcon name="i-heroicons-calendar-days" class="w-12 h-12 text-gray-300 mx-auto mb-4" />
         <p class="text-gray-500 font-medium font-sans">No wellness data available for this date</p>
       </div>
-    </template>
-
+  </div>
+</div>
+</template>
 <script setup lang="ts">
   import { subDays, format as formatDateFns } from 'date-fns'
   import { getMoodLabel, getStressLabel, normalizeStressScore } from '~/utils/wellness'
@@ -1107,6 +1108,7 @@
     return 'Listen to your body and adjust training intensity based on how you feel throughout your session.'
   }
 </script>
+
 
 
 

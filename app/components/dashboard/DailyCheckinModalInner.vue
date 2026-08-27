@@ -470,8 +470,9 @@
           </div>
         </div>
       </div>
-    </template>
-
+  </div>
+</div>
+</template>
 <script setup lang="ts">
   import { useIntervalFn } from '@vueuse/core'
   import { useTranslate } from '@tolgee/vue'
@@ -911,6 +912,7 @@
     }
   }
 </script>
+
 
 
 
