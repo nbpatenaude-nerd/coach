@@ -275,7 +275,8 @@
                     color="neutral"
                     variant="ghost"
                     icon="i-heroicons-cog-6-tooth"
-                    @click="isSettingsOpen = true"
+                    to="/profile/settings?tab=measurements"
+                    @click="isOpen = false"
                   >
                     Customize
                   </UButton>
@@ -489,27 +490,6 @@
       </div>
     </template>
   </UModal>
-
-  <USlideover v-model="isSettingsOpen" title="Customize Check-In Metrics">
-    <div class="p-4 space-y-6 flex-1 overflow-y-auto">
-      <div class="space-y-1">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Tracked Metrics</h3>
-        <p class="text-sm text-gray-500">
-          Select which metrics you want to track during your daily check-in.
-        </p>
-      </div>
-
-      <div class="space-y-4">
-        <UCheckbox
-          v-for="metric in availableMetrics"
-          :key="metric.key"
-          :model-value="userStore.user?.trackedCheckinMetrics?.includes(metric.key)"
-          :label="metric.label"
-          @update:model-value="(val) => toggleMetricTracking(metric.key, val)"
-        />
-      </div>
-    </div>
-  </USlideover>
 </template>
 
 <script setup lang="ts">
@@ -542,7 +522,6 @@
   const answers = ref<Record<string, string>>({})
   const userNotes = ref('')
   const wellnessUpdates = ref<Record<string, any>>({})
-  const isSettingsOpen = ref(false)
   const adjusting = ref(false)
   const userStore = useUserStore()
 
@@ -611,29 +590,6 @@
       toast.add({ title: 'Error', description: e.message, color: 'error' })
     } finally {
       adjusting.value = false
-    }
-  }
-
-  async function toggleMetricTracking(key: string, enabled: boolean) {
-    if (!userStore.user) return
-    let current = [...(userStore.user.trackedCheckinMetrics || ['bloodGlucose'])]
-    if (enabled) {
-      if (!current.includes(key)) current.push(key)
-    } else {
-      current = current.filter((k) => k !== key)
-    }
-
-    // Optimistic update
-    userStore.user.trackedCheckinMetrics = current
-
-    try {
-      await $fetch('/api/user/settings', {
-        method: 'PATCH',
-        body: { trackedCheckinMetrics: current }
-      })
-    } catch (e) {
-      // Revert on error
-      userStore.fetchUser()
     }
   }
 

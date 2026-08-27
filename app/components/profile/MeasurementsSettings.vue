@@ -4,6 +4,29 @@
       <template #header>
         <div>
           <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+            Tracked Metrics
+          </h3>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            Select which metrics you want to track during your daily check-in.
+          </p>
+        </div>
+      </template>
+
+      <div class="space-y-4">
+        <UCheckbox
+          v-for="metric in availableMetrics"
+          :key="metric.key"
+          :model-value="userStore.user?.trackedCheckinMetrics?.includes(metric.key)"
+          :label="metric.label"
+          @update:model-value="(val) => toggleMetricTracking(metric.key, val)"
+        />
+      </div>
+    </UCard>
+
+    <UCard :ui="profileSettingsCardUi">
+      <template #header>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
             {{ t('measurements_title') }}
           </h3>
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -420,6 +443,72 @@
   const { formatDateUTC } = useFormat()
   const userStore = useUserStore()
   const PAGE_SIZE = 250
+
+  const { data: customFields } = useFetch<any[]>('/api/analytics/fields/definitions')
+
+  const availableMetrics = computed(() => {
+    const base = [
+      { key: 'bloodGlucose', label: 'Blood Glucose', type: 'number', unit: 'mg/dL' },
+      { key: 'weight', label: 'Weight', type: 'number', unit: 'kg' },
+      { key: 'skinTemp', label: 'Skin Temperature', type: 'number', unit: '°C' },
+      { key: 'hydrationVolume', label: 'Hydration', type: 'number', unit: 'L' },
+      { key: 'injury', label: 'Injury Status', type: 'text' },
+      {
+        key: 'menstrualPhase',
+        label: 'Menstrual Phase',
+        type: 'select',
+        options: [
+          { label: 'Menstruation', value: 'MENSTRUATION' },
+          { label: 'Follicular', value: 'FOLLICULAR' },
+          { label: 'Ovulation', value: 'OVULATION' },
+          { label: 'Luteal', value: 'LUTEAL' }
+        ]
+      }
+    ]
+
+    if (customFields.value) {
+      customFields.value.forEach((f) => {
+        base.push({
+          key: `customMetrics.${f.fieldKey}`,
+          label: f.label,
+          type: f.dataType === 'NUMBER' ? 'number' : f.dataType === 'BOOLEAN' ? 'select' : 'text',
+          unit: f.unit || undefined,
+          options:
+            f.dataType === 'BOOLEAN'
+              ? [
+                  { label: 'Yes', value: 'true' },
+                  { label: 'No', value: 'false' }
+                ]
+              : undefined
+        })
+      })
+    }
+
+    return base
+  })
+
+  async function toggleMetricTracking(key: string, enabled: boolean) {
+    if (!userStore.user) return
+    let current = [...(userStore.user.trackedCheckinMetrics || ['bloodGlucose'])]
+    if (enabled) {
+      if (!current.includes(key)) current.push(key)
+    } else {
+      current = current.filter((k) => k !== key)
+    }
+
+    // Optimistic update
+    userStore.user.trackedCheckinMetrics = current
+
+    try {
+      await $fetch('/api/user/settings', {
+        method: 'PATCH',
+        body: { trackedCheckinMetrics: current }
+      })
+    } catch (e) {
+      // Revert on error
+      userStore.fetchUser()
+    }
+  }
 
   const metricOptions = computed(() => [
     { label: tr('measurements_metric_weight', 'Weight'), value: 'weight', unit: 'kg' },
