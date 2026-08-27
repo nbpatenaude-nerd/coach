@@ -1,7 +1,7 @@
 <template>
   <UDashboardPanel id="check-in">
     <template #header>
-      <UDashboardNavbar title="Weekly Check-In">
+      <UDashboardNavbar title="Check-Ins">
         <template #leading>
           <UDashboardSidebarCollapse />
         </template>
@@ -32,6 +32,12 @@
               </UCard>
             </div>
           </template>
+
+          <template #daily>
+            <div class="mt-4">
+              <DailyCheckinHistory />
+            </div>
+          </template>
         </UTabs>
       </div>
     </template>
@@ -41,7 +47,8 @@
 <script setup lang="ts">
   const tabs = [
     { label: 'My Progress', slot: 'progress', icon: 'i-heroicons-chart-bar' },
-    { label: 'Submit Check-In', slot: 'submit', icon: 'i-heroicons-clipboard-document-check' }
+    { label: 'Submit Check-In', slot: 'submit', icon: 'i-heroicons-clipboard-document-check' },
+    { label: 'Daily History', slot: 'daily', icon: 'i-heroicons-clock' }
   ]
 
   definePageMeta({

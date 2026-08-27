@@ -459,6 +459,13 @@
           <ClientOnly>
             <div class="flex items-center gap-2">
               <UButton
+                color="primary"
+                variant="solid"
+                icon="i-lucide-gavel"
+                to="/analytics/builder"
+                label="Build Custom Chart"
+              />
+              <UButton
                 v-if="selectedWidget"
                 color="neutral"
                 variant="outline"
