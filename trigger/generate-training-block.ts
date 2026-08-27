@@ -360,14 +360,6 @@ CURRENT FITNESS STATUS (Source of Truth):
 - TSB (Form): ${currentFitness.tsb.toFixed(1)}
 - Status: ${currentFitness.formStatus.description}
 
-${
-  customInstructions
-    ? `ATHLETE CUSTOM INSTRUCTIONS & CONSTRAINTS (IMPORTANT):
-${customInstructions}
-NOTE: These instructions take precedence over "Allowed Workout Types" or standard scheduling rules. If the athlete asks for a specific workout type not listed above, include it.
-`
-    : ''
-}
 TRAINING GOAL:
 - Goal Title: ${goal.title}
 - Events:
@@ -412,10 +404,18 @@ ${
         .join('\n')
     : 'None'
 }
+  
+  USER INSTRUCTIONS (HIGHEST PRIORITY):
+  ${
+    customInstructions
+      ? `"${customInstructions}"\n\nFollow these instructions above everything else. They override standard progression and availability constraints.`
+      : 'No special instructions.'
+  }
 
-INSTRUCTIONS:
-Generate a detailed daily training plan for each week in this block (${block.durationWeeks} weeks).
-- **TRAINING RHYTHM**: The athlete is on a ${block.plan.recoveryRhythm === 3 ? '2:1' : '3:1'} rhythm. 
+  INSTRUCTIONS:
+  1. **PRIORITIZE USER INSTRUCTIONS**: If the athlete asks for specific changes (e.g., "no rides this week", "Tuesday and Thursday runs"), STRICTLY follow them, even if it contradicts standard training principles or availability.
+  Generate a detailed daily training plan for each week in this block (${block.durationWeeks} weeks).
+  - **TRAINING RHYTHM**: The athlete is on a ${block.plan.recoveryRhythm === 3 ? '2:1' : '3:1'} rhythm. 
   - For LOADING weeks: Focus on progressive overload, increasing difficulty slightly each week.
   - For RECOVERY weeks: Focus on shedding fatigue with significantly reduced volume and low intensity.
 - **LOAD PROGRESSION CAPS**:
