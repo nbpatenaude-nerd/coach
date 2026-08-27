@@ -534,7 +534,7 @@ export const deduplicationService = {
       if (currentBestStreamV2) {
         for (const duplicate of duplicatesToDelete) {
           if (duplicate.streamsV2) {
-             logger.log(Interpolating StreamV2 from \${duplicate.id}\ into best workout \${bestWorkout.id}\`)
+             logger.log(`Interpolating StreamV2 from ${duplicate.id} into best workout ${bestWorkout.id}`)
              currentBestStreamV2 = this.mergeStreamsV2(currentBestStreamV2, duplicate.streamsV2) as any
              v2Modified = true
           }
@@ -542,7 +542,7 @@ export const deduplicationService = {
       } else {
         const donorWithStreamsV2 = duplicatesToDelete.find((w) => w.streamsV2)
         if (donorWithStreamsV2) {
-          logger.log(Transferring StreamV2 from duplicate \${donorWithStreamsV2.id}\ to best workout \${bestWorkout.id}\`)
+          logger.log(`Transferring StreamV2 from duplicate ${donorWithStreamsV2.id} to best workout ${bestWorkout.id}`)
           await tx.workoutStreamV2.update({
             where: { workoutId: donorWithStreamsV2.id },
             data: { workoutId: bestWorkout.id }
