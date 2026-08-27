@@ -39,46 +39,48 @@ export const PRICING_PLANS: PricingPlan[] = [
   {
     key: 'uncover',
     name: 'Uncover',
-    phase1Price: 8.99,
+    phase1Price: 200,
     phase6Price: null,
-    phase12Price: 89.99,
+    phase12Price: 2000,
     description: 'Automated insights for the self-coached athlete.',
     mobileDescription: 'Automated insights and reliable sync.',
     features: [
-      'Automatic sync for workouts and health metrics',
-      'Always-on AI analysis after new activities',
-      'Priority processing during peak usage',
-      'Reliable trend tracking and weekly summaries'
+      'Team Program & Dashboard',
+      'Weekly Check-In Form',
+      'Group Q&A',
+      'Physiology Baselines',
+      'Automatic sync for workouts and health metrics'
     ],
     popular: false
   },
   {
     key: 'unlock',
     name: 'Unlock',
-    phase1Price: 14.99,
+    phase1Price: 350,
     phase6Price: null,
-    phase12Price: 119.0,
+    phase12Price: 3500,
     description: 'Unlock your true potential with detailed planning.',
     mobileDescription: 'Adaptive planning and AI-assisted coaching.',
     features: [
-      'Adaptive race strategy and periodized planning',
-      'Thoughtful AI-assisted coaching with scenario analysis',
-      'Advanced trend intelligence with forecasting'
+      'Custom 1:1 Coaching',
+      'Daily Digital Twin AI & Chat',
+      'Daily Check-In & Glycogen Fuel Tank',
+      'Full Intervals.icu Sync & Garmin Pushes'
     ],
     popular: true
   },
   {
     key: 'unleash',
     name: 'Unleash',
-    phase1Price: 24.99,
+    phase1Price: 500,
     phase6Price: null,
-    phase12Price: 199.0,
+    phase12Price: 5000,
     description: 'Your full-service Digital Twin and Coach.',
     mobileDescription: 'Elite AI-assisted coaching.',
     features: [
-      'Proactive alerts for readiness and overreaching risk',
-      'Fast-lane priority processing and response',
-      'Premium access to new models'
+      'Waitlist / Elite Access',
+      'Elite Telemetry & Live Energy Availability',
+      'Performance Scores & Executive AI Reports'
     ],
     popular: false
   }

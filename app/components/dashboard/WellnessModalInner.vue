@@ -1,7 +1,5 @@
 <template>
   <div class="p-4">
-    
-
     <div>
       <div v-if="loading" class="flex items-center justify-center py-12">
         <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-primary-500" />
@@ -780,8 +778,8 @@
         <UIcon name="i-heroicons-calendar-days" class="w-12 h-12 text-gray-300 mx-auto mb-4" />
         <p class="text-gray-500 font-medium font-sans">No wellness data available for this date</p>
       </div>
+    </div>
   </div>
-</div>
 </template>
 <script setup lang="ts">
   import { subDays, format as formatDateFns } from 'date-fns'
@@ -938,9 +936,26 @@
       customFieldDefinitions.value = fieldsData.filter((f) => f.entityType === 'WELLNESS')
     } catch (error: any) {
       console.error('Error fetching wellness data:', error)
-      fetchError.value =
-        error?.data?.message || error?.message || 'Failed to load wellness data for this date.'
-      wellnessData.value = null
+      if (
+        error?.response?.status === 404 ||
+        error?.statusCode === 404 ||
+        error?.data?.statusCode === 404
+      ) {
+        fetchError.value = null
+        wellnessData.value = { isNew: true, date: dateStr }
+        localWellness.value = {
+          mood: 5,
+          stress: 5,
+          fatigue: 5,
+          soreness: 5,
+          comments: '',
+          customMetrics: {}
+        }
+      } else {
+        fetchError.value =
+          error?.data?.message || error?.message || 'Failed to load wellness data for this date.'
+        wellnessData.value = null
+      }
       trendData.value = []
     } finally {
       loading.value = false
@@ -948,13 +963,20 @@
   }
 
   async function saveWellness() {
-    if (!wellnessData.value?.id) return
     savingWellness.value = true
     try {
-      const response = await $fetch<any, string & {}>(`/api/wellness/${wellnessData.value.id}`, {
-        method: 'PATCH',
-        body: localWellness.value
-      })
+      let response
+      if (wellnessData.value?.isNew) {
+        response = await $fetch<any, string & {}>('/api/wellness', {
+          method: 'POST',
+          body: { date: formatDateUTC(props.date, 'yyyy-MM-dd'), ...localWellness.value }
+        })
+      } else if (wellnessData.value?.id) {
+        response = await $fetch<any, string & {}>(`/api/wellness/${wellnessData.value.id}`, {
+          method: 'PATCH',
+          body: localWellness.value
+        })
+      }
       wellnessData.value = response
       toast.add({ title: 'Logs saved', color: 'success' })
     } catch (e) {
@@ -1108,7 +1130,3 @@
     return 'Listen to your body and adjust training intensity based on how you feel throughout your session.'
   }
 </script>
-
-
-
-
