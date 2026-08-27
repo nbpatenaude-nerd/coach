@@ -1,0 +1,1111 @@
+<template>
+  <div class="p-4">
+    
+
+    <div>
+      <div v-if="loading" class="flex items-center justify-center py-12">
+        <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-primary-500" />
+      </div>
+
+      <div v-else-if="wellnessData" class="space-y-8">
+        <!-- Key Metrics Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- HRV -->
+          <div
+            v-if="wellnessData.hrv != null"
+            class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl ring-1 ring-inset ring-blue-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon name="i-heroicons-heart" class="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span
+                class="text-xs font-bold text-blue-900 dark:text-blue-100 uppercase tracking-tight"
+                >HRV (rMSSD)</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-blue-900 dark:text-blue-50">
+              {{ Math.round(wellnessData.hrv) }}
+              <span class="text-xs font-medium opacity-70">ms</span>
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.hrv ?? 0"
+                :previous="trendData.map((d) => d.hrv).filter((v) => v != null)"
+                type="higher-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Sleep -->
+          <div
+            v-if="wellnessData.hoursSlept != null"
+            class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl ring-1 ring-inset ring-purple-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon name="i-heroicons-moon" class="w-4 h-4 text-purple-600 dark:text-purple-400" />
+              <span
+                class="text-xs font-bold text-purple-900 dark:text-purple-100 uppercase tracking-tight"
+                >Sleep</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-purple-900 dark:text-purple-50">
+              {{ wellnessData.hoursSlept.toFixed(1) }}
+              <span class="text-xs font-medium opacity-70">hrs</span>
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.hoursSlept ?? 0"
+                :previous="trendData.map((d) => d.hoursSlept).filter((v) => v != null)"
+                type="higher-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Resting HR -->
+          <div
+            v-if="wellnessData.restingHr != null"
+            class="p-4 bg-rose-50 dark:bg-rose-900/20 rounded-xl ring-1 ring-inset ring-rose-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon
+                name="i-heroicons-heart-20-solid"
+                class="w-4 h-4 text-rose-600 dark:text-rose-400"
+              />
+              <span
+                class="text-xs font-bold text-rose-900 dark:text-rose-100 uppercase tracking-tight"
+                >RHR</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-rose-900 dark:text-rose-50">
+              {{ wellnessData.restingHr }} <span class="text-xs font-medium opacity-70">bpm</span>
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.restingHr ?? 0"
+                :previous="trendData.map((d) => d.restingHr).filter((v) => v != null)"
+                type="lower-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Recovery Score -->
+          <div
+            v-if="wellnessData.recoveryScore != null"
+            class="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl ring-1 ring-inset ring-emerald-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon
+                name="i-heroicons-bolt"
+                class="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+              />
+              <span
+                class="text-xs font-bold text-emerald-900 dark:text-emerald-100 uppercase tracking-tight"
+                >Recovery</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-emerald-900 dark:text-blue-50">
+              {{ wellnessData.recoveryScore }}%
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.recoveryScore ?? 0"
+                :previous="trendData.map((d) => d.recoveryScore).filter((v) => v != null)"
+                type="higher-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Readiness -->
+          <div
+            v-if="wellnessData.readiness != null"
+            class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl ring-1 ring-inset ring-blue-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon name="i-heroicons-bolt" class="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span
+                class="text-xs font-bold text-blue-900 dark:text-blue-100 uppercase tracking-tight"
+                >Readiness</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-blue-900 dark:text-blue-50">
+              {{ wellnessData.readiness }}{{ wellnessData.readiness > 10 ? '%' : '/10' }}
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.readiness ?? 0"
+                :previous="trendData.map((d) => d.readiness).filter((v) => v != null)"
+                type="higher-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div
+            v-if="wellnessData.weight != null"
+            class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl ring-1 ring-inset ring-gray-200 dark:ring-gray-700"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon name="i-heroicons-scale" class="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <span
+                class="text-xs font-bold text-gray-900 dark:text-gray-100 uppercase tracking-tight"
+                >Weight</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-50">
+              {{ formatWeight(wellnessData.weight) }}
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.weight ?? 0"
+                :previous="trendData.map((d) => d.weight).filter((v) => v != null)"
+                type="neutral"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- SpO2 -->
+          <div
+            v-if="wellnessData.spO2 != null"
+            class="p-4 bg-cyan-50 dark:bg-cyan-900/20 rounded-xl ring-1 ring-inset ring-cyan-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon name="i-heroicons-cloud" class="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+              <span
+                class="text-xs font-bold text-cyan-900 dark:text-cyan-100 uppercase tracking-tight"
+                >SpO2</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-cyan-900 dark:text-cyan-50">
+              {{ wellnessData.spO2.toFixed(0) }}
+              <span class="text-xs font-medium opacity-70">%</span>
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.spO2 ?? 0"
+                :previous="trendData.map((d) => d.spO2).filter((v) => v != null)"
+                type="higher-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Blood Pressure -->
+          <div
+            v-if="wellnessData.systolic != null && wellnessData.diastolic != null"
+            class="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl ring-1 ring-inset ring-red-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon name="i-heroicons-activity" class="w-4 h-4 text-red-600 dark:text-red-400" />
+              <span
+                class="text-xs font-bold text-red-900 dark:text-red-100 uppercase tracking-tight"
+                >BP</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-red-900 dark:text-red-50">
+              {{ wellnessData.systolic }}/{{ wellnessData.diastolic }}
+              <span class="text-xs font-medium opacity-70">mmHg</span>
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.systolic ?? 0"
+                :previous="trendData.map((d) => d.systolic).filter((v) => v != null)"
+                type="lower-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Stress -->
+          <div
+            v-if="wellnessData.stress != null"
+            class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl ring-1 ring-inset ring-orange-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon name="i-heroicons-fire" class="w-4 h-4 text-orange-600 dark:text-orange-400" />
+              <span
+                class="text-xs font-bold text-orange-900 dark:text-orange-100 uppercase tracking-tight"
+                >Stress</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-orange-900 dark:text-orange-50">
+              {{ normalizedStress }}/10
+              <span class="text-xs font-medium opacity-70 block mt-0.5">{{
+                getStressLabel(normalizedStress ?? 0)
+              }}</span>
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="normalizedStress ?? 0"
+                :previous="normalizedStressTrend"
+                type="lower-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+
+          <!-- Mood -->
+          <div
+            v-if="wellnessData.mood != null"
+            class="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl ring-1 ring-inset ring-yellow-500/10"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <UIcon
+                name="i-heroicons-face-smile"
+                class="w-4 h-4 text-yellow-600 dark:text-yellow-400"
+              />
+              <span
+                class="text-xs font-bold text-yellow-900 dark:text-yellow-100 uppercase tracking-tight"
+                >Mood</span
+              >
+            </div>
+            <div class="text-2xl font-bold text-yellow-900 dark:text-yellow-50">
+              {{ wellnessData.mood }}/10
+              <span class="text-xs font-medium opacity-70 block mt-0.5">{{
+                getMoodLabel(wellnessData.mood)
+              }}</span>
+            </div>
+            <div v-if="trendData.length > 0" class="mt-2">
+              <TrendIndicator
+                :current="wellnessData.mood ?? 0"
+                :previous="trendData.map((d) => d.mood).filter((v) => v != null)"
+                type="higher-is-better"
+                compact
+                show-value
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Explanations -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between px-1">
+            <h4
+              class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest"
+            >
+              Insights
+            </h4>
+            <!-- AI Analyze Button (Only if NOT already analyzed) -->
+            <UButton
+              v-if="wellnessData.aiAnalysisJson && wellnessData.aiAnalysisStatus !== 'PROCESSING'"
+              color="neutral"
+              variant="link"
+              size="xs"
+              class="p-0 text-gray-400 hover:text-primary-500 dark:text-gray-500 dark:hover:text-primary-400 transition-colors font-medium"
+              :loading="analyzingWellness"
+              :disabled="analyzingWellness"
+              @click="
+                () => {
+                  void analyzeWellness()
+                }
+              "
+            >
+              Regenerate
+            </UButton>
+            <UButton
+              v-else-if="wellnessData.aiAnalysisStatus === 'PROCESSING'"
+              icon="i-heroicons-arrow-path"
+              color="primary"
+              variant="ghost"
+              size="xs"
+              loading
+              disabled
+            >
+              Analyzing...
+            </UButton>
+          </div>
+
+          <!-- AI Analysis Content -->
+          <div
+            v-if="wellnessData.aiAnalysisJson"
+            class="p-4 bg-indigo-50 dark:bg-indigo-900/10 rounded-xl ring-1 ring-inset ring-indigo-200 dark:ring-indigo-800/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/20 transition-colors group/ai-card cursor-pointer relative"
+            @click="
+              () => {
+                void navigateTo(`/fitness/${wellnessData.id}`)
+              }
+            "
+          >
+            <div class="flex items-start gap-3">
+              <UIcon name="i-heroicons-sparkles" class="w-5 h-5 text-indigo-500 flex-shrink-0" />
+              <div class="space-y-3 w-full">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-indigo-900 dark:text-indigo-100"
+                      >AI Coach Analysis</span
+                    >
+                    <div class="flex items-center gap-2" @click.stop>
+                      <AiFeedback
+                        v-if="wellnessData.llmUsageId"
+                        :llm-usage-id="wellnessData.llmUsageId"
+                        :initial-feedback="wellnessData.feedback"
+                        :initial-feedback-text="wellnessData.feedbackText"
+                        hide-usage-link
+                      />
+                      <span
+                        v-if="wellnessData.aiAnalysisJson.status"
+                        class="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-white/50 dark:bg-indigo-900/40"
+                      >
+                        {{ formatStatus(wellnessData.aiAnalysisJson.status) }}
+                      </span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-indigo-800 dark:text-indigo-200 mt-1 leading-relaxed">
+                    {{ wellnessData.aiAnalysisJson.executive_summary }}
+                  </p>
+                  <div class="flex justify-end mt-2">
+                    <span
+                      class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 group-hover/ai-card:underline uppercase tracking-tight"
+                    >
+                      View Full Details
+                      <UIcon name="i-heroicons-arrow-right" class="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analyze Action (Empty State) -->
+          <button
+            v-else
+            class="w-full text-left p-4 bg-gray-50 dark:bg-gray-800/40 rounded-xl ring-1 ring-inset ring-gray-200 dark:ring-gray-700 hover:ring-primary-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all group flex items-start gap-3"
+            :disabled="analyzingWellness"
+            @click="
+              () => {
+                void analyzeWellness()
+              }
+            "
+          >
+            <UIcon name="i-heroicons-sparkles" class="w-5 h-5 text-primary-500 flex-shrink-0" />
+            <div>
+              <span class="font-bold text-gray-900 dark:text-white block">Analyze with AI</span>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                Get personalized insights on your recovery and readiness.
+              </p>
+            </div>
+            <UIcon
+              name="i-heroicons-arrow-right"
+              class="w-4 h-4 text-gray-400 group-hover:text-primary-500 ml-auto mt-1"
+            />
+          </button>
+        </div>
+
+        <!-- 7-Day Trends -->
+        <div v-if="trendData && trendData.length > 1" class="space-y-4">
+          <h4
+            class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest px-1"
+          >
+            7-Day Trends
+          </h4>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- HRV Trend Chart -->
+            <div v-if="trendData.some((d) => d.hrv != null)" class="space-y-3">
+              <div class="flex items-center justify-between px-1">
+                <span
+                  class="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-tight"
+                  >HRV History</span
+                >
+              </div>
+              <div class="space-y-2">
+                <div
+                  class="h-32 flex items-end justify-between gap-1.5 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl ring-1 ring-inset ring-gray-200 dark:ring-gray-700"
+                >
+                  <div
+                    v-for="(day, idx) in trendData"
+                    :key="idx"
+                    class="flex-1 bg-blue-400/30 dark:bg-blue-500/20 rounded-lg hover:bg-blue-400 dark:hover:bg-blue-500 transition-all duration-300 relative group"
+                    :style="{
+                      height: day.hrv ? `${Math.max((day.hrv / maxHRV) * 100, 10)}%` : '4px'
+                    }"
+                  >
+                    <span
+                      class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-600 dark:text-gray-300 whitespace-nowrap"
+                    >
+                      {{ day.hrv ? Math.round(day.hrv) + 'ms' : '—' }}
+                    </span>
+                    <div
+                      class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-xl whitespace-nowrap pointer-events-none z-10"
+                    >
+                      {{ formatDateUTC(day.date, 'MMM d') }}:
+                      {{ day.hrv ? Math.round(day.hrv) + 'ms' : 'N/A' }}
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between gap-1.5 px-4">
+                  <div
+                    v-for="(day, idx) in trendData"
+                    :key="`hrv-date-${idx}`"
+                    class="flex-1 text-center text-[10px] font-medium text-gray-500 dark:text-gray-400"
+                  >
+                    {{ formatDateUTC(day.date, 'MMM d') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sleep Trend Chart -->
+            <div v-if="trendData.some((d) => d.hoursSlept != null)" class="space-y-3">
+              <div class="flex items-center justify-between px-1">
+                <span
+                  class="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-tight"
+                  >Sleep Duration</span
+                >
+              </div>
+              <div class="space-y-2">
+                <div
+                  class="h-32 flex items-end justify-between gap-1.5 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl ring-1 ring-inset ring-gray-200 dark:ring-gray-700"
+                >
+                  <div
+                    v-for="(day, idx) in trendData"
+                    :key="idx"
+                    class="flex-1 bg-purple-400/30 dark:bg-purple-500/20 rounded-lg hover:bg-purple-400 dark:hover:bg-purple-500 transition-all duration-300 relative group"
+                    :style="{
+                      height: day.hoursSlept
+                        ? `${Math.max((day.hoursSlept / 12) * 100, 10)}%`
+                        : '4px'
+                    }"
+                  >
+                    <span
+                      class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-600 dark:text-gray-300 whitespace-nowrap"
+                    >
+                      {{ day.hoursSlept ? day.hoursSlept.toFixed(1) + 'h' : '—' }}
+                    </span>
+                    <div
+                      class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-xl whitespace-nowrap pointer-events-none z-10"
+                    >
+                      {{ formatDateUTC(day.date, 'MMM d') }}:
+                      {{ day.hoursSlept ? day.hoursSlept.toFixed(1) + 'h' : 'N/A' }}
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between gap-1.5 px-4">
+                  <div
+                    v-for="(day, idx) in trendData"
+                    :key="`sleep-date-${idx}`"
+                    class="flex-1 text-center text-[10px] font-medium text-gray-500 dark:text-gray-400"
+                  >
+                    {{ formatDateUTC(day.date, 'MMM d') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resting HR Trend Chart -->
+            <div v-if="trendData.some((d) => d.restingHr != null)" class="space-y-3">
+              <div class="flex items-center justify-between px-1">
+                <span
+                  class="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-tight"
+                  >Resting HR</span
+                >
+              </div>
+              <div class="space-y-2">
+                <div
+                  class="h-32 flex items-end justify-between gap-1.5 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl ring-1 ring-inset ring-gray-200 dark:ring-gray-700"
+                >
+                  <div
+                    v-for="(day, idx) in trendData"
+                    :key="idx"
+                    class="flex-1 bg-rose-400/30 dark:bg-rose-500/20 rounded-lg hover:bg-rose-400 dark:hover:bg-rose-500 transition-all duration-300 relative group"
+                    :style="{
+                      height: day.restingHr
+                        ? `${Math.max((day.restingHr / maxRHR) * 100, 10)}%`
+                        : '4px'
+                    }"
+                  >
+                    <span
+                      class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-600 dark:text-gray-300 whitespace-nowrap"
+                    >
+                      {{ day.restingHr ? day.restingHr + 'bpm' : '—' }}
+                    </span>
+                    <div
+                      class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-xl whitespace-nowrap pointer-events-none z-10"
+                    >
+                      {{ formatDateUTC(day.date, 'MMM d') }}:
+                      {{ day.restingHr ? day.restingHr + 'bpm' : 'N/A' }}
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between gap-1.5 px-4">
+                  <div
+                    v-for="(day, idx) in trendData"
+                    :key="`rhr-date-${idx}`"
+                    class="flex-1 text-center text-[10px] font-medium text-gray-500 dark:text-gray-400"
+                  >
+                    {{ formatDateUTC(day.date, 'MMM d') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recovery Score Trend Chart -->
+            <div v-if="trendData.some((d) => d.recoveryScore != null)" class="space-y-3">
+              <div class="flex items-center justify-between px-1">
+                <span
+                  class="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-tight"
+                  >Recovery Score</span
+                >
+              </div>
+              <div
+                class="h-32 flex items-end justify-between gap-1.5 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl ring-1 ring-inset ring-gray-200 dark:ring-gray-700"
+              >
+                <div
+                  v-for="(day, idx) in trendData"
+                  :key="idx"
+                  class="flex-1 bg-emerald-400/30 dark:bg-emerald-500/20 rounded-lg hover:bg-emerald-400 dark:hover:bg-emerald-500 transition-all duration-300 relative group"
+                  :style="{
+                    height: day.recoveryScore ? `${Math.max(day.recoveryScore, 10)}%` : '4px'
+                  }"
+                >
+                  <div
+                    class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-xl whitespace-nowrap pointer-events-none z-10"
+                  >
+                    {{ formatDateUTC(day.date, 'MMM d') }}:
+                    {{ day.recoveryScore ? day.recoveryScore + '%' : 'N/A' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Training Recommendations -->
+        <div
+          v-if="wellnessData.id"
+          class="p-4 bg-primary-50 dark:bg-primary-900/10 rounded-xl ring-1 ring-inset ring-primary-200 dark:ring-primary-800/30 hover:bg-primary-100 dark:hover:bg-primary-900/20 transition-colors group/rec-card cursor-pointer relative"
+          @click="
+            () => {
+              void navigateTo(`/fitness/${wellnessData.id}`)
+            }
+          "
+        >
+          <div class="flex items-start gap-3">
+            <UIcon name="i-heroicons-sparkles" class="w-5 h-5 text-primary-500 flex-shrink-0" />
+            <div class="space-y-3 w-full">
+              <div>
+                <h4 class="font-bold text-primary-900 dark:text-primary-100">
+                  Coach Recommendation
+                </h4>
+
+                <div
+                  v-if="
+                    wellnessData.aiAnalysisJson &&
+                    wellnessData.aiAnalysisJson.recommendations?.length
+                  "
+                  class="mt-1"
+                >
+                  <div
+                    v-for="(rec, index) in wellnessData.aiAnalysisJson.recommendations.slice(0, 1)"
+                    :key="index"
+                  >
+                    <p class="text-sm font-semibold text-primary-900 dark:text-primary-100">
+                      {{ rec.title }}
+                    </p>
+                    <p class="text-sm text-primary-800 dark:text-primary-200 leading-relaxed mt-1">
+                      {{ rec.description }}
+                    </p>
+                  </div>
+                </div>
+
+                <p
+                  v-else
+                  class="text-sm text-primary-800 dark:text-primary-200 leading-relaxed font-medium mt-1"
+                >
+                  {{ getTrainingRecommendation() }}
+                </p>
+
+                <div class="flex justify-end mt-2">
+                  <span
+                    class="text-[10px] font-bold text-primary-600 dark:text-primary-400 flex items-center gap-1 group-hover/rec-card:underline uppercase tracking-tight"
+                  >
+                    View Full Details
+                    <UIcon name="i-heroicons-arrow-right" class="w-3 h-3" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Daily Logs & Custom Metrics -->
+        <div
+          v-if="wellnessData.id"
+          class="space-y-6 pt-6 border-t border-gray-100 dark:border-gray-800"
+        >
+          <div>
+            <h4
+              class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest px-1 mb-4"
+            >
+              Daily Logs & Subjective Metrics
+            </h4>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 px-1">
+              <UFormField label="Mood" :help="getMoodLabel(localWellness.mood)">
+                <USlider
+                  v-model="localWellness.mood"
+                  :min="1"
+                  :max="10"
+                  :step="1"
+                  color="warning"
+                />
+              </UFormField>
+
+              <UFormField label="Stress" :help="getStressLabel(localWellness.stress)">
+                <USlider
+                  v-model="localWellness.stress"
+                  :min="1"
+                  :max="10"
+                  :step="1"
+                  color="warning"
+                />
+              </UFormField>
+
+              <UFormField
+                label="Fatigue"
+                :help="localWellness.fatigue > 7 ? 'Feeling very tired' : 'Normal fatigue'"
+              >
+                <USlider
+                  v-model="localWellness.fatigue"
+                  :min="1"
+                  :max="10"
+                  :step="1"
+                  color="neutral"
+                />
+              </UFormField>
+
+              <UFormField
+                label="Soreness"
+                :help="localWellness.soreness > 7 ? 'Significant muscle pain' : 'Normal recovery'"
+              >
+                <USlider
+                  v-model="localWellness.soreness"
+                  :min="1"
+                  :max="10"
+                  :step="1"
+                  color="error"
+                />
+              </UFormField>
+            </div>
+          </div>
+
+          <!-- Dynamic Custom Metrics -->
+          <div v-if="customFieldDefinitions.length > 0" class="space-y-4">
+            <h5 class="text-[10px] font-black uppercase text-neutral-400 tracking-widest px-1">
+              Custom Fields
+            </h5>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 px-1">
+              <UFormField
+                v-for="field in customFieldDefinitions"
+                :key="field.id"
+                :label="field.label"
+                :help="field.unit ? `Unit: ${field.unit}` : undefined"
+              >
+                <UInput
+                  v-if="field.dataType === 'NUMBER'"
+                  v-model.number="localWellness.customMetrics[field.fieldKey]"
+                  type="number"
+                  class="w-full"
+                />
+                <UInput
+                  v-else-if="field.dataType === 'STRING'"
+                  v-model="localWellness.customMetrics[field.fieldKey]"
+                  class="w-full"
+                />
+                <UCheckbox
+                  v-else-if="field.dataType === 'BOOLEAN'"
+                  v-model="localWellness.customMetrics[field.fieldKey]"
+                />
+              </UFormField>
+            </div>
+          </div>
+
+          <UFormField label="Daily Comments">
+            <UTextarea
+              v-model="localWellness.comments"
+              placeholder="How did you feel today? Any specific notes for your coach?"
+              class="w-full"
+              :rows="3"
+            />
+          </UFormField>
+
+          <div class="flex justify-end gap-3">
+            <UButton
+              color="primary"
+              label="Save Logs"
+              icon="i-heroicons-check"
+              :loading="savingWellness"
+              :disabled="!hasChanges"
+              @click="
+                () => {
+                  void saveWellness()
+                }
+              "
+            />
+          </div>
+        </div>
+      </div>
+
+      <div v-else-if="fetchError" class="py-12 text-center space-y-4">
+        <UIcon name="i-heroicons-exclamation-circle" class="w-12 h-12 text-red-500 mx-auto" />
+        <p class="text-gray-700 dark:text-gray-300 font-medium font-sans">{{ fetchError }}</p>
+        <UButton
+          v-if="props.date"
+          color="primary"
+          variant="soft"
+          icon="i-heroicons-arrow-path"
+          @click="
+            () => {
+              void fetchWellnessData(props.date!)
+            }
+          "
+        >
+          Retry
+        </UButton>
+      </div>
+
+      <div v-else class="py-12 text-center">
+        <UIcon name="i-heroicons-calendar-days" class="w-12 h-12 text-gray-300 mx-auto mb-4" />
+        <p class="text-gray-500 font-medium font-sans">No wellness data available for this date</p>
+      </div>
+    </template>
+
+<script setup lang="ts">
+  import { subDays, format as formatDateFns } from 'date-fns'
+  import { getMoodLabel, getStressLabel, normalizeStressScore } from '~/utils/wellness'
+
+  const props = defineProps<{
+    open: boolean
+    date: Date | null
+  }>()
+
+  const emit = defineEmits<{
+    'update:open': [value: boolean]
+  }>()
+
+  const { formatDate, formatDateUTC, formatWeight, timezone } = useFormat()
+  const toast = useToast()
+  const { checkWellnessStale } = useDataStatus()
+  const integrationStore = useIntegrationStore()
+
+  const isOpen = computed({
+    get: () => props.open,
+    set: (value) => emit('update:open', value)
+  })
+
+  const wellnessStatus = computed(() => {
+    if (!props.date) return { isStale: false, label: '' }
+    const dateStr = formatDateUTC(props.date, 'yyyy-MM-dd')
+    return checkWellnessStale(dateStr)
+  })
+  const isStale = computed(() => wellnessStatus.value.isStale)
+  const staleLabel = computed(() => wellnessStatus.value.label)
+  const isGarminConnected = computed(() => {
+    return (
+      integrationStore.integrationStatus?.integrations?.some((i: any) => i.provider === 'garmin') ??
+      false
+    )
+  })
+
+  const formattedDate = computed(() => {
+    return props.date ? formatDateUTC(props.date, 'EEEE, MMMM d, yyyy') : ''
+  })
+
+  const loading = ref(false)
+  const fetchError = ref<string | null>(null)
+  const wellnessData = ref<any>(null)
+  const trendData = ref<any[]>([])
+  const analyzingWellness = ref(false)
+  const savingWellness = ref(false)
+
+  const localWellness = ref({
+    mood: 5,
+    stress: 5,
+    fatigue: 5,
+    soreness: 5,
+    comments: '',
+    customMetrics: {} as Record<string, any>
+  })
+
+  const customFieldDefinitions = ref<any[]>([])
+
+  const hasChanges = computed(() => {
+    if (!wellnessData.value) return false
+    return (
+      localWellness.value.mood !== (wellnessData.value.mood || 5) ||
+      localWellness.value.stress !== (wellnessData.value.stress || 5) ||
+      localWellness.value.fatigue !== (wellnessData.value.fatigue || 5) ||
+      localWellness.value.soreness !== (wellnessData.value.soreness || 5) ||
+      localWellness.value.comments !== (wellnessData.value.comments || '') ||
+      JSON.stringify(localWellness.value.customMetrics) !==
+        JSON.stringify(wellnessData.value.customMetrics || {})
+    )
+  })
+
+  const normalizedStress = computed(() => normalizeStressScore(wellnessData.value?.stress))
+  const normalizedStressTrend = computed(() =>
+    trendData.value.map((d) => normalizeStressScore(d.stress)).filter((v) => v != null)
+  )
+
+  // Background Task Monitoring
+  const { refresh: refreshRuns } = useUserRuns()
+  const { onTaskCompleted } = useUserRunsState()
+
+  // Listeners
+  onTaskCompleted('analyze-wellness', async (run) => {
+    if (props.date) {
+      await fetchWellnessData(props.date)
+    }
+    analyzingWellness.value = false
+    toast.add({
+      title: 'Analysis Complete',
+      color: 'success',
+      icon: 'i-heroicons-check-circle'
+    })
+  })
+
+  // Watch for date changes to fetch data
+  watch(
+    () => props.date,
+    async (newDate) => {
+      if (newDate && props.open) {
+        await fetchWellnessData(newDate)
+      }
+    },
+    { immediate: true }
+  )
+
+  watch(
+    () => props.open,
+    async (isOpen) => {
+      if (isOpen && props.date) {
+        await fetchWellnessData(props.date)
+      }
+    }
+  )
+
+  async function fetchWellnessData(date: Date) {
+    if (import.meta.server) return
+    loading.value = true
+    fetchError.value = null
+
+    try {
+      const dateStr = formatDateUTC(date, 'yyyy-MM-dd')
+
+      // Fetch wellness data for the specific date
+      const response = await $fetch<any, string & {}>(`/api/wellness/${dateStr}`)
+      wellnessData.value = response
+
+      // Initialize local state
+      if (response) {
+        const data = response as any
+        localWellness.value = {
+          mood: data.mood || 5,
+          stress: data.stress || 5,
+          fatigue: data.fatigue || 5,
+          soreness: data.soreness || 5,
+          comments: data.comments || '',
+          customMetrics: data.customMetrics ? { ...data.customMetrics } : {}
+        }
+      }
+
+      // Fetch 7-day trend data
+      const startDate = formatDateUTC(subDays(date, 6), 'yyyy-MM-dd')
+      const endDate = dateStr
+      const trendResponse = (await ($fetch as any)(
+        `/api/wellness/trend?startDate=${startDate}&endDate=${endDate}`
+      )) as any[]
+      trendData.value = trendResponse.map((d: any) => ({
+        ...d,
+        date: new Date(d.date)
+      }))
+
+      // Fetch Custom Field Definitions
+      const fieldsData = await $fetch<any[], string & {}>('/api/analytics/fields/definitions')
+      customFieldDefinitions.value = fieldsData.filter((f) => f.entityType === 'WELLNESS')
+    } catch (error: any) {
+      console.error('Error fetching wellness data:', error)
+      fetchError.value =
+        error?.data?.message || error?.message || 'Failed to load wellness data for this date.'
+      wellnessData.value = null
+      trendData.value = []
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function saveWellness() {
+    if (!wellnessData.value?.id) return
+    savingWellness.value = true
+    try {
+      const response = await $fetch<any, string & {}>(`/api/wellness/${wellnessData.value.id}`, {
+        method: 'PATCH',
+        body: localWellness.value
+      })
+      wellnessData.value = response
+      toast.add({ title: 'Logs saved', color: 'success' })
+    } catch (e) {
+      toast.add({ title: 'Failed to save logs', color: 'error' })
+    } finally {
+      savingWellness.value = false
+    }
+  }
+
+  // AI Analysis Logic
+  async function analyzeWellness() {
+    if (!wellnessData.value?.id) return
+
+    analyzingWellness.value = true
+    try {
+      const result = await $fetch<any, string & {}>('/api/wellness/analyze', {
+        method: 'POST',
+        body: {
+          wellnessId: wellnessData.value.id
+        }
+      })
+
+      // If already completed, update immediately
+      if (result.status === 'COMPLETED' && result.analysis) {
+        wellnessData.value.aiAnalysisJson = result.analysis
+        wellnessData.value.aiAnalyzedAt = result.analyzedAt
+        wellnessData.value.aiAnalysisStatus = 'COMPLETED'
+        wellnessData.value.llmUsageId = result.llmUsageId
+        wellnessData.value.feedback = result.feedback
+        wellnessData.value.feedbackText = result.feedbackText
+        analyzingWellness.value = false
+
+        toast.add({
+          title: 'Analysis Ready',
+          description: 'Wellness analysis is ready',
+          color: 'success',
+          icon: 'i-heroicons-check-circle'
+        })
+        return
+      }
+
+      // Update status and start polling
+      if (wellnessData.value) {
+        wellnessData.value.aiAnalysisStatus = result.status || 'PROCESSING'
+      }
+      refreshRuns()
+
+      toast.add({
+        title: 'Analysis Started',
+        description: 'AI is analyzing your wellness data...',
+        color: 'info',
+        icon: 'i-heroicons-sparkles'
+      })
+    } catch (e: any) {
+      console.error('Error triggering wellness analysis:', e)
+      analyzingWellness.value = false
+
+      if (e.statusCode === 429 || e.status === 429) {
+        const { showQuotaPaywall } = useQuotaPaywall()
+        await showQuotaPaywall({
+          operation: 'wellness_analysis',
+          featureTitle: 'Wellness analysis'
+        })
+        return
+      }
+
+      toast.add({
+        title: 'Analysis Failed',
+        description: e.data?.message || 'Failed to start analysis',
+        color: 'error',
+        icon: 'i-heroicons-exclamation-circle'
+      })
+    }
+  }
+
+  const { calculateTrend } = useTrend()
+
+  // Computed properties for trends
+  const maxHRV = computed(() => {
+    const values = trendData.value.filter((d) => d.hrv != null).map((d) => d.hrv)
+    return values.length > 0 ? Math.max(...values) * 1.2 : 100
+  })
+
+  const maxRHR = computed(() => {
+    const values = trendData.value.filter((d) => d.restingHr != null).map((d) => d.restingHr)
+    return values.length > 0 ? Math.max(...values) * 1.2 : 100
+  })
+
+  function formatStatus(status: string) {
+    if (!status) return ''
+    return status.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
+  }
+
+  function getHRVInterpretation(hrv: number): string {
+    if (hrv >= 70) return 'Excellent recovery, ready for high-intensity training.'
+    if (hrv >= 50) return 'Good recovery, suitable for moderate to high intensity.'
+    if (hrv >= 30) return 'Moderate recovery, consider lighter training.'
+    return 'Low recovery, prioritize rest and recovery.'
+  }
+
+  function getSleepInterpretation(hours: number): string {
+    if (hours >= 8) return 'Excellent sleep duration for recovery.'
+    if (hours >= 7) return 'Good sleep duration, adequate for most athletes.'
+    if (hours >= 6) return 'Below optimal, consider prioritizing more sleep.'
+    return 'Insufficient sleep, recovery may be compromised.'
+  }
+
+  function getTrainingRecommendation(): string {
+    if (!wellnessData.value) return 'No data available for recommendations.'
+
+    const recovery = wellnessData.value.recoveryScore
+    const hrv = wellnessData.value.hrv
+    const sleep = wellnessData.value.hoursSlept
+    const restingHr = wellnessData.value.restingHr
+
+    // High recovery
+    if (recovery && recovery >= 67) {
+      return "You're well recovered! This is a great day for high-intensity training or hard workouts. Your body is ready to handle significant stress."
+    }
+
+    // Check HRV and sleep
+    if (hrv && hrv >= 60 && sleep && sleep >= 7.5) {
+      return "Good recovery metrics indicate you're ready for challenging training. Consider intervals, tempo runs, or strength work."
+    }
+
+    // Moderate recovery
+    if ((recovery && recovery >= 34) || (hrv && hrv >= 40)) {
+      return 'Moderate recovery suggests sticking to moderate-intensity training. Good day for aerobic base work, technique sessions, or moderate volume.'
+    }
+
+    // Low recovery indicators
+    if ((recovery && recovery < 34) || (hrv && hrv < 40) || (sleep && sleep < 6.5)) {
+      return 'Your body needs recovery. Focus on easy aerobic work, mobility, or consider a rest day. Quality recovery now will pay dividends later.'
+    }
+
+    // Elevated resting HR
+    if (restingHr && trendData.value.length > 0) {
+      const rhrTrend = calculateTrend(
+        restingHr,
+        trendData.value.map((d) => d.restingHr).filter((v) => v != null),
+        'lower-is-better',
+        3 // 3% threshold
+      )
+
+      if (rhrTrend.direction === 'up') {
+        // Up is bad for 'lower-is-better' (e.g. Elevated)
+        return 'Elevated resting heart rate suggests your body is under stress. Prioritize recovery activities like easy movement, stretching, or complete rest.'
+      }
+    }
+
+    return 'Listen to your body and adjust training intensity based on how you feel throughout your session.'
+  }
+</script>
+
+

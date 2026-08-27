@@ -11,17 +11,26 @@
               <DashboardTriggerMonitorButton />
             </ClientOnly>
 
+            
             <UButton
               to="/workouts/upload"
               icon="i-heroicons-cloud-arrow-up"
               color="neutral"
-              variant="outline"
-              size="sm"
-              class="font-black uppercase tracking-widest text-[10px]"
-              :aria-label="t('header_upload')"
+              variant="ghost"
+              class="hidden sm:inline-flex font-black uppercase tracking-widest text-[10px]"
             >
-              <span class="hidden md:inline">{{ t('header_upload') }}</span>
+              Upload FIT
             </UButton>
+            <UButton
+              to="/workouts/upload-csv"
+              icon="i-heroicons-table-cells"
+              color="neutral"
+              variant="ghost"
+              class="hidden sm:inline-flex font-black uppercase tracking-widest text-[10px]"
+            >
+              Upload CSV
+            </UButton>
+
 
             <UDropdownMenu :items="activityMenuItems">
               <UButton

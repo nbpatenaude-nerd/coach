@@ -12,17 +12,26 @@
               <NotificationDropdown />
             </ClientOnly>
             <DashboardReleaseNotification />
+            
             <UButton
               to="/workouts/upload"
               icon="i-heroicons-cloud-arrow-up"
               color="neutral"
-              variant="outline"
-              size="sm"
-              class="font-bold"
-              :aria-label="t('header_upload')"
+              variant="ghost"
+              class="hidden sm:inline-flex font-black uppercase tracking-widest text-[10px]"
             >
-              <span class="hidden md:inline">{{ t('header_upload') }}</span>
+              Upload FIT
             </UButton>
+            <UButton
+              to="/workouts/upload-csv"
+              icon="i-heroicons-table-cells"
+              color="neutral"
+              variant="ghost"
+              class="hidden sm:inline-flex font-black uppercase tracking-widest text-[10px]"
+            >
+              Upload CSV
+            </UButton>
+
             <UButton
               v-if="canUseDashboardActions"
               :loading="integrationStore.syncingData"
@@ -486,7 +495,7 @@
   </UDashboardPanel>
 
   <!-- Wellness Modal -->
-  <WellnessModal v-model:open="showWellnessModal" :date="wellnessModalDate" />
+  <
 
   <!-- Recommendation Modal -->
   <DashboardRecommendationDetailModal
@@ -509,7 +518,7 @@
   <TrainingLoadModal v-model:open="showTrainingLoadModal" />
 
   <!-- Daily Check-in Modal -->
-  <DashboardDailyCheckinModal v-model:open="showCheckinModal" />
+  <DashboardTodayWellnessCheckModal v-model:open="showCheckinModal" />
 
   <!-- Share Journey Modal -->
   <DashboardShareCoachWattsModal v-model:open="showShareCoachWattsModal" />
@@ -868,7 +877,7 @@
 
     const today = getUserLocalDate()
     wellnessModalDate.value = latestDate > today ? today : latestDate
-    showWellnessModal.value = true
+    showCheckinModal.value = true
   }
 
   // Function to open score detail modal
@@ -976,3 +985,4 @@
     ]
   })
 </script>
+

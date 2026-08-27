@@ -158,26 +158,11 @@
       ...(true
         ? [
             {
-              label: navLabel('navigation_morning_checkin', 'Morning Check-in'),
-              icon: 'i-lucide-sunrise',
-              to: {
-                path: '/dashboard',
-                query: { focus: 'checkin' }
-              },
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
-      ...(true
-        ? [
-            {
-              label: navLabel('navigation_todays_wellness', "Today's Wellness"),
+              label: navLabel('navigation_todays_wellness_check', "Today's Wellness Check"),
               icon: 'i-lucide-heart-pulse',
               to: {
                 path: '/dashboard',
-                query: { focus: 'wellness' }
+                query: { focus: 'checkin' }
               },
               onSelect: () => {
                 open.value = false
@@ -583,12 +568,7 @@
         defaultOpen: route.query.focus === 'checkin' || route.query.focus === 'wellness',
         items: sectionItems([
           {
-            label: label('navigation_morning_checkin', 'Morning Check-in'),
-            icon: 'i-lucide-sunrise',
-            to: { path: '/dashboard', query: { focus: 'checkin' } }
-          },
-          {
-            label: label('navigation_todays_wellness', "Today's Wellness"),
+            label: label('navigation_todays_wellness_check', "Today's Wellness Check"),
             icon: 'i-lucide-heart-pulse',
             to: { path: '/dashboard', query: { focus: 'wellness' } }
           }
@@ -906,18 +886,11 @@
       label: navLabel('navigation_search_morning_routine', 'Morning Routine'),
       items: [
         {
-          id: 'morning-checkin',
-          label: navLabel('navigation_morning_checkin', 'Morning Check-in'),
-          icon: 'i-lucide-sunrise',
-          to: {
-            path: '/dashboard',
-            query: { focus: 'checkin' }
-          },
           onSelect: () => (open.value = false)
         },
         {
           id: 'todays-wellness',
-          label: navLabel('navigation_todays_wellness', "Today's Wellness"),
+          label: navLabel('navigation_todays_wellness_check', "Today's Wellness Check"),
           icon: 'i-lucide-heart-pulse',
           to: {
             path: '/dashboard',

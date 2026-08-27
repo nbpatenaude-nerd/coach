@@ -557,16 +557,26 @@
           >
             <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Recent Workouts</h2>
             <div class="flex gap-2">
+              
               <UButton
                 to="/workouts/upload"
                 icon="i-heroicons-cloud-arrow-up"
-                size="sm"
                 color="primary"
                 variant="solid"
-                class="hidden sm:flex"
+                class="font-black uppercase tracking-widest text-[10px]"
               >
                 Upload FIT
               </UButton>
+              <UButton
+                to="/workouts/upload-csv"
+                icon="i-heroicons-table-cells"
+                color="primary"
+                variant="outline"
+                class="font-black uppercase tracking-widest text-[10px]"
+              >
+                Upload CSV
+              </UButton>
+
               <button
                 :disabled="analyzingWorkouts"
                 class="bg-gray-600 hover:bg-gray-700 disabled:bg-gray-400 text-white font-medium py-2 px-3 rounded transition-colors text-sm"

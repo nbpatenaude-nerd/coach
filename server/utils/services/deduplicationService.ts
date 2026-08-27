@@ -345,12 +345,69 @@ export const deduplicationService = {
   /**
    * Executes the merge logic for a duplicate group.
    */
+    /**
+   * Helper to merge streamsV2 arrays based on timestamps
+   */
+  mergeStreamsV2(primary: any, secondary: any) {
+    const merged = { ...primary }
+    
+    if (!primary.time || primary.time.length === 0) {
+      for (const key of Object.keys(secondary)) {
+        if (Array.isArray(secondary[key]) && secondary[key].length > 0 && (!primary[key] || primary[key].length === 0)) {
+          merged[key] = secondary[key]
+        }
+      }
+      return merged
+    }
+
+    if (!secondary.time || secondary.time.length === 0) {
+      return merged
+    }
+
+    const pTime = primary.time as number[]
+    const sTime = secondary.time as number[]
+
+    const keysToMerge = [
+      'watts', 'heartrate', 'cadence', 'velocity', 'distance', 'altitude', 'lat', 'lng', 
+      'smO2', 'thb', 'vo2', 'respiration', 'temp', 'torque', 'leftRightBalance', 'hrv'
+    ]
+
+    for (const key of keysToMerge) {
+      const sArr = secondary[key]
+      const pArr = primary[key]
+
+      if (sArr && sArr.length > 0 && (!pArr || pArr.length === 0)) {
+        const interpolated: (number | null)[] = []
+        let sIdx = 0
+        
+        for (let i = 0; i < pTime.length; i++) {
+          const pt = pTime[i]
+          while (sIdx < sTime.length - 1 && Math.abs(sTime[sIdx + 1] - pt) <= Math.abs(sTime[sIdx] - pt)) {
+            sIdx++
+          }
+          if (Math.abs(sTime[sIdx] - pt) <= 15) {
+            interpolated.push(sArr[sIdx])
+          } else {
+            interpolated.push(null)
+          }
+        }
+        merged[key] = interpolated
+      }
+    }
+    return merged
+  },
+
   async mergeDuplicateGroup(group: DuplicateGroup) {
     if (group.toDelete.length === 0) return { deletedCount: 0, keptCount: 1 }
 
-    const duplicatesToDelete = await prisma.workout.findMany({
+        const duplicatesToDelete = await prisma.workout.findMany({
       where: { id: { in: group.toDelete } },
-      select: { id: true, plannedWorkoutId: true, streams: { select: { id: true } } }
+      select: { id: true, plannedWorkoutId: true, streams: { select: { id: true } }, streamsV2: true }
+    })
+
+    const bestWorkoutWithStreams = await prisma.workout.findUnique({
+      where: { id: group.bestWorkoutId },
+      select: { streamsV2: true }
     })
 
     // Collect planned workout IDs from duplicates
@@ -453,19 +510,54 @@ export const deduplicationService = {
         })
       }
 
-      // 2. Stream Transfer Logic
-      // Check if bestWorkout already has streams in DB to avoid collision
+            // 2. Stream Transfer Logic
       const existingBestStream = await tx.workoutStream.findUnique({
         where: { workoutId: bestWorkout.id },
         select: { id: true }
       })
 
       if (!existingBestStream) {
-        // Find a donor that has streams
         const donorWithStreams = duplicatesToDelete.find((w) => w.streams)
         if (donorWithStreams) {
-          logger.log(
-            `Transferring streams from duplicate ${donorWithStreams.id} to best workout ${bestWorkout.id}`
+          logger.log(Transferring streams from duplicate \${donorWithStreams.id}\ to best workout \${bestWorkout.id}\`)
+          await tx.workoutStream.update({
+            where: { workoutId: donorWithStreams.id },
+            data: { workoutId: bestWorkout.id }
+          })
+        }
+      }
+
+      // 2.5 StreamV2 Interpolation Logic
+      let currentBestStreamV2 = bestWorkoutWithStreams?.streamsV2
+      let v2Modified = false
+      
+      if (currentBestStreamV2) {
+        for (const duplicate of duplicatesToDelete) {
+          if (duplicate.streamsV2) {
+             logger.log(Interpolating StreamV2 from \${duplicate.id}\ into best workout \${bestWorkout.id}\`)
+             currentBestStreamV2 = this.mergeStreamsV2(currentBestStreamV2, duplicate.streamsV2) as any
+             v2Modified = true
+          }
+        }
+      } else {
+        const donorWithStreamsV2 = duplicatesToDelete.find((w) => w.streamsV2)
+        if (donorWithStreamsV2) {
+          logger.log(Transferring StreamV2 from duplicate \${donorWithStreamsV2.id}\ to best workout \${bestWorkout.id}\`)
+          await tx.workoutStreamV2.update({
+            where: { workoutId: donorWithStreamsV2.id },
+            data: { workoutId: bestWorkout.id }
+          })
+        }
+      }
+
+      if (v2Modified && currentBestStreamV2) {
+        // Strip out the ID and relationship fields before updating
+        const { id, workoutId, ...streamData } = currentBestStreamV2 as any
+        await tx.workoutStreamV2.update({
+          where: { workoutId: bestWorkout.id },
+          data: streamData
+        })
+      }`
           )
           await tx.workoutStream.update({
             where: { workoutId: donorWithStreams.id },
@@ -521,3 +613,4 @@ export const deduplicationService = {
     }
   }
 }
+

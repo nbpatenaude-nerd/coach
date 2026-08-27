@@ -1,0 +1,915 @@
+<template>
+  <div class="p-4">
+    <div>
+      <div class="space-y-4">
+        <!-- Header with Refreshing State -->
+        <div
+          v-if="isPending && localQuestions.length > 0"
+          class="flex items-center justify-center gap-2 text-primary-500 bg-primary-50 dark:bg-primary-900/10 p-2 rounded-md mb-2"
+        >
+          <UIcon name="i-heroicons-arrow-path" class="w-4 h-4 animate-spin" />
+          <span class="text-xs font-medium">{{
+            tr('daily_checkin_refreshing', 'Refreshing check-in...')
+          }}</span>
+        </div>
+
+        <div
+          v-if="loading || (isPending && localQuestions.length === 0)"
+          class="flex flex-col items-center justify-center py-8 space-y-4"
+        >
+          <UIcon name="i-heroicons-arrow-path" class="w-10 h-10 animate-spin text-primary-500" />
+
+          <div class="h-6 relative w-full text-center">
+            <Transition
+              mode="out-in"
+              enter-active-class="transition duration-300 ease-out"
+              enter-from-class="transform translate-y-2 opacity-0"
+              enter-to-class="transform translate-y-0 opacity-100"
+              leave-active-class="transition duration-300 ease-in"
+              leave-from-class="transform translate-y-0 opacity-100"
+              leave-to-class="transform -translate-y-2 opacity-0"
+            >
+              <p :key="currentLoadingMessage" class="text-sm text-gray-500 absolute w-full left-0">
+                {{ currentLoadingMessage }}
+              </p>
+            </Transition>
+          </div>
+
+          <UButton
+            v-if="showManualRefresh"
+            :label="tr('daily_checkin_retry_label', 'Taking too long? Click to retry')"
+            variant="link"
+            size="xs"
+            color="neutral"
+            @click="
+              () => {
+                void fetchToday()
+              }
+            "
+          />
+        </div>
+
+        <div v-else-if="error || checkin?.status === 'FAILED'" class="text-center py-8">
+          <UIcon
+            name="i-heroicons-exclamation-circle"
+            class="w-10 h-10 text-red-500 mx-auto mb-2"
+          />
+          <p class="text-red-500">
+            {{
+              error || checkin?.error || tr('daily_checkin_generation_failed', 'Generation failed')
+            }}
+          </p>
+          <UButton
+            :label="tr('daily_checkin_try_again', 'Try Again')"
+            color="error"
+            variant="soft"
+            class="mt-4"
+            @click="
+              () => {
+                void generate(true)
+              }
+            "
+          />
+        </div>
+
+        <div v-else-if="localQuestions.length > 0" class="space-y-4">
+          <div
+            v-if="completedAnswersSummary.length || userNotes"
+            class="rounded-xl border border-teal-100 bg-teal-50/70 p-4 dark:border-teal-900/40 dark:bg-teal-950/20"
+          >
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <p class="text-sm font-semibold text-teal-900 dark:text-teal-100">
+                  {{ tr('daily_checkin_today_submission', "Today's submission") }}
+                </p>
+                <p class="mt-1 text-xs text-teal-800/80 dark:text-teal-200/80">
+                  {{
+                    tr(
+                      'daily_checkin_today_submission_desc',
+                      'Edit your answers here, or delete this entry if it was submitted by mistake.'
+                    )
+                  }}
+                </p>
+              </div>
+              <UButton
+                v-if="checkin?.id && checkin?.status === 'COMPLETED'"
+                color="error"
+                variant="ghost"
+                size="xs"
+                icon="i-lucide-trash"
+                :loading="deleting"
+                @click="
+                  () => {
+                    void deleteCheckin()
+                  }
+                "
+              >
+                {{ tr('daily_checkin_delete', 'Delete') }}
+              </UButton>
+            </div>
+            <ul
+              v-if="completedAnswersSummary.length"
+              class="mt-3 space-y-1 text-sm text-teal-900 dark:text-teal-100"
+            >
+              <li v-for="entry in completedAnswersSummary" :key="entry">{{ entry }}</li>
+            </ul>
+            <p v-if="userNotes" class="mt-3 text-sm text-teal-900 dark:text-teal-100">
+              {{ tr('daily_checkin_notes_prefix', 'Notes:') }} {{ userNotes }}
+            </p>
+          </div>
+
+          <div
+            v-if="checkin?.openingRemark"
+            class="text-sm text-gray-700 dark:text-gray-200 bg-primary-50/50 dark:bg-primary-900/10 p-4 rounded-lg border border-primary-100 dark:border-primary-800 flex gap-3 items-start shadow-sm"
+          >
+            <UIcon
+              name="i-heroicons-chat-bubble-bottom-center-text"
+              class="w-6 h-6 text-primary-500 shrink-0 mt-0.5"
+            />
+            <div class="italic leading-relaxed">
+              {{ checkin.openingRemark }}
+            </div>
+          </div>
+
+          <UCard
+            v-for="q in localQuestions"
+            :key="q.id"
+            :ui="{ body: 'p-3 sm:p-6' }"
+            class="cursor-pointer transition-all hover:ring-2 hover:ring-primary-500/20"
+            :class="{ 'ring-2 ring-primary-500/10': isExpanded(q.id) }"
+            @click="
+              () => {
+                void toggleExpand(q.id)
+              }
+            "
+          >
+            <div class="flex items-start justify-between gap-3">
+              <label
+                class="text-sm font-medium text-gray-900 dark:text-white block flex-1 cursor-pointer"
+              >
+                {{ q.text }}
+              </label>
+              <UButton
+                icon="i-heroicons-trash"
+                color="neutral"
+                variant="ghost"
+                size="xs"
+                class="-mr-1 -mt-1"
+                :aria-label="tr('daily_checkin_remove_question', 'Remove question')"
+                @click.stop="removeQuestion(q.id)"
+              />
+            </div>
+
+            <!-- Expanded Reasoning -->
+            <div
+              v-if="isExpanded(q.id)"
+              class="mt-3 text-sm text-gray-600 dark:text-gray-400 bg-gray-100/50 dark:bg-gray-800/50 p-3 rounded-md flex gap-2.5 items-start border border-gray-100 dark:border-gray-800"
+            >
+              <UIcon name="i-heroicons-light-bulb" class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+              <div class="flex-1 leading-relaxed">
+                <span class="font-medium text-gray-900 dark:text-gray-200 block mb-0.5">
+                  {{ tr('daily_checkin_coach_reasoning', "Coach's Reasoning") }}
+                </span>
+                {{ q.reasoning }}
+              </div>
+            </div>
+
+            <div class="mt-3 flex justify-end" @click.stop>
+              <URadioGroup
+                v-model="answers[q.id]"
+                :name="q.id"
+                orientation="horizontal"
+                :items="[
+                  { label: tr('daily_checkin_answer_yes', 'Yes'), value: 'YES' },
+                  { label: tr('daily_checkin_answer_no', 'No'), value: 'NO' }
+                ]"
+              />
+            </div>
+          </UCard>
+
+          <!-- AI Adjustment Prompt -->
+          <UCard
+            v-if="checkin?.adjustmentStatus === 'PENDING' && checkin?.proposedAdjustmentPercentage"
+            class="ring-2 ring-primary-500"
+          >
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <UIcon name="i-heroicons-sparkles" class="w-6 h-6 text-primary-500 mt-1 shrink-0" />
+                <div>
+                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                    AI Coach Recommendation
+                  </h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Based on your check-in, I recommend reducing today's workout intensity by
+                    <span class="font-bold text-primary-600 dark:text-primary-400"
+                      >{{ checkin.proposedAdjustmentPercentage }}%</span
+                    >.
+                  </p>
+                  <div
+                    class="mt-2 text-sm italic text-gray-500 dark:text-gray-500 border-l-2 border-primary-200 pl-3"
+                  >
+                    {{ checkin.proposedAdjustmentReasoning }}
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end gap-2 mt-4">
+                <UButton
+                  color="neutral"
+                  variant="ghost"
+                  :loading="adjusting"
+                  @click="handleAdjustment('REJECTED')"
+                  >Decline</UButton
+                >
+                <UButton color="primary" :loading="adjusting" @click="handleAdjustment('ACCEPTED')"
+                  >Accept Reduction</UButton
+                >
+              </div>
+            </div>
+          </UCard>
+
+          <UCard
+            v-else-if="checkin?.adjustmentStatus === 'APPLIED'"
+            class="bg-green-50/50 dark:bg-green-900/10 border-green-200 dark:border-green-900/30"
+          >
+            <div class="flex items-center gap-2 text-green-700 dark:text-green-400 text-sm">
+              <UIcon name="i-heroicons-check-circle" class="w-5 h-5" />
+              <span>Workout intensity reduced by {{ checkin?.proposedAdjustmentPercentage }}%</span>
+            </div>
+          </UCard>
+
+          <!-- User Notes -->
+          <UCard :ui="{ body: 'p-3 sm:p-6' }">
+            <div class="space-y-3">
+              <label class="text-sm font-medium text-gray-900 dark:text-white block">
+                {{ tr('daily_checkin_share_label', 'Do you have anything to share?') }}
+              </label>
+              <UTextarea
+                v-model="userNotes"
+                :placeholder="
+                  tr(
+                    'daily_checkin_share_placeholder',
+                    'E.g., I feel tired today, I think I have the flu, etc.'
+                  )
+                "
+                :rows="4"
+                autoresize
+                class="w-full"
+              />
+
+              <div class="border-t border-gray-100 dark:border-gray-800 pt-4 mt-4">
+                <div class="flex items-center justify-between mb-4">
+                  <label class="text-sm font-medium text-gray-900 dark:text-white flex items-center gap-2">
+                    {{ tr('daily_checkin_tracked_metrics', 'Tracked Metrics') }}
+                    <UTooltip :text="tr('daily_checkin_customize_tooltip', 'You can change which metrics appear here in your Profile Settings > Measurements.')">
+                      <UIcon name="i-heroicons-information-circle" class="w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors cursor-help" />
+                    </UTooltip>
+                  </label>
+                </div>
+
+                <div v-if="activeMetrics.length === 0" class="text-sm text-gray-500 italic">
+                  No metrics selected. Go to your Profile Settings > Measurements to select metrics to track here daily.
+                </div>
+
+                <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div v-for="metric in activeMetrics" :key="metric.key" class="space-y-1">
+                    <label class="text-xs font-medium text-gray-700 dark:text-gray-300">{{
+                      metric.label
+                    }}</label>
+
+                    <UInput
+                      v-if="metric.type === 'number'"
+                      v-model.number="wellnessUpdates[metric.key]"
+                      type="number"
+                      step="any"
+                      :placeholder="metric.unit ? `e.g. 10 ${metric.unit}` : 'Enter value'"
+                    >
+                      <template v-if="metric.unit" #trailing>
+                        <span class="text-xs text-gray-500 pr-1">{{ metric.unit }}</span>
+                      </template>
+                    </UInput>
+
+                    <USelect
+                      v-else-if="metric.options"
+                      v-model="wellnessUpdates[metric.key]"
+                      :options="metric.options"
+                      placeholder="Select..."
+                    />
+
+                    <UInput
+                      v-else
+                      v-model="wellnessUpdates[metric.key]"
+                      type="text"
+                      placeholder="Enter value"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </UCard>
+
+          <!-- AI Feedback Section -->
+          <div class="flex justify-end pt-2">
+            <AiFeedback
+              v-if="checkin?.llmUsageId"
+              :llm-usage-id="checkin.llmUsageId"
+              :initial-feedback="checkin.feedback"
+              :initial-feedback-text="checkin.feedbackText"
+            />
+          </div>
+        </div>
+
+        <div v-else class="text-center py-8">
+          <p class="text-gray-500">
+            {{ tr('daily_checkin_no_questions', 'No questions available.') }}
+          </p>
+          <UButton
+            :label="tr('daily_checkin_generate', 'Generate')"
+            color="primary"
+            class="mt-4"
+            @click="
+              () => {
+                void generate(true)
+              }
+            "
+          />
+        </div>
+
+        <div
+          v-if="recentCheckins.length"
+          class="rounded-xl border border-gray-200 p-4 dark:border-gray-800"
+        >
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <p class="text-[10px] font-black uppercase tracking-[0.24em] text-gray-400">
+                {{ tr('daily_checkin_recent_header', 'Recent Check-ins') }}
+              </p>
+              <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                {{
+                  tr(
+                    'daily_checkin_recent_desc',
+                    'Review your previous check-ins here.'
+                  )
+                }}
+              </p>
+            </div>
+            <UButton
+              color="neutral"
+              variant="ghost"
+              size="xs"
+              :icon="showRecentCheckins ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
+              @click="
+                () => {
+                  showRecentCheckins = !showRecentCheckins
+                }
+              "
+            >
+              {{
+                showRecentCheckins
+                  ? tr('daily_checkin_hide', 'Hide')
+                  : tr('daily_checkin_show', 'Show')
+              }}
+            </UButton>
+          </div>
+          <div v-if="showRecentCheckins" class="mt-4 space-y-3">
+            <button
+              v-for="entry in recentCheckins"
+              :key="entry.id"
+              type="button"
+              class="w-full rounded-xl border border-gray-200 px-4 py-3 text-left transition hover:border-primary-300 dark:border-gray-800"
+              @click="
+                () => {
+                  void loadCheckinIntoEditor(entry)
+                }
+              "
+            >
+              <div class="flex items-center justify-between gap-2">
+                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  {{ formatDateUTC(entry.date, 'EEE, MMM d') }}
+                </p>
+                <span class="text-[10px] uppercase tracking-widest text-gray-400">
+                  {{
+                    tr('daily_checkin_answers_count', '{count} answers', {
+                      count: summarizeCheckin(entry).length
+                    })
+                  }}
+                </span>
+              </div>
+              <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                {{
+                  summarizeCheckin(entry).slice(0, 2).join(' • ') ||
+                  tr('daily_checkin_no_answers', 'No answers captured')
+                }}
+              </p>
+            </button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="flex flex-col gap-3 w-full">
+        <QuotaMeter operation="daily_checkin" />
+        <div class="flex justify-between w-full items-center gap-2">
+          <div class="flex items-center gap-2">
+            <UButton
+              v-if="!loading && !isPending"
+              :label="tr('daily_checkin_regenerate', 'Regenerate')"
+              color="neutral"
+              variant="ghost"
+              :icon="isCheckinLocked ? 'i-heroicons-lock-closed' : 'i-heroicons-arrow-path'"
+              @click="
+                () => {
+                  void handleLockedAction({
+                    operation: 'daily_checkin',
+                    featureTitle: 'Daily Coach Check-In',
+                    onAllowed: () => generate(true)
+                  })
+                }
+              "
+            />
+            <UBadge
+              v-if="isCheckinLocked"
+              color="warning"
+              variant="subtle"
+              size="xs"
+              class="shrink-0 uppercase tracking-wide font-bold"
+            >
+              {{ lockedTierLabel }}
+            </UBadge>
+            <UBadge
+              v-else-if="checkinRemainingLabel"
+              color="neutral"
+              variant="subtle"
+              size="xs"
+              class="shrink-0 uppercase tracking-wide font-bold"
+            >
+              {{ checkinRemainingLabel }}
+            </UBadge>
+          </div>
+          <div class="flex gap-2 ml-auto">
+            <UButton
+              color="neutral"
+              variant="outline"
+              @click="
+                () => {
+                  isOpen = false
+                }
+              "
+            >
+              {{ tr('daily_checkin_close', 'Close') }}
+            </UButton>
+            <UButton
+              v-if="localQuestions.length > 0"
+              :label="tr('daily_checkin_save', 'Save Answers')"
+              color="primary"
+              :loading="submitting"
+              @click="
+                () => {
+                  void submit()
+                }
+              "
+            />
+          </div>
+        </div>
+      </div>
+    </template>
+
+<script setup lang="ts">
+  import { useIntervalFn } from '@vueuse/core'
+  import { useTranslate } from '@tolgee/vue'
+
+  const { t } = useTranslate('dashboard')
+  const tr = (key: string, fallback: string, params?: Record<string, any>) => {
+    if (typeof t.value !== 'function') return fallback
+    const translated = t.value(key, params)
+    return translated === key ? fallback : translated
+  }
+
+  const props = defineProps<{
+    open: boolean
+  }>()
+
+  const emit = defineEmits(['update:open'])
+
+  const isOpen = computed({
+    get: () => props.open,
+    set: (value) => emit('update:open', value)
+  })
+
+  const loading = ref(false)
+  const submitting = ref(false)
+  const showManualRefresh = ref(false)
+  const error = ref<string | null>(null)
+  const checkin = ref<any>(null)
+  const answers = ref<Record<string, string>>({})
+  const userNotes = ref('')
+  const wellnessUpdates = ref<Record<string, any>>({})
+  const adjusting = ref(false)
+  const userStore = useUserStore()
+
+  const { data: customFields } = useFetch<any[]>('/api/analytics/fields/definitions')
+
+  const availableMetrics = computed(() => {
+    const base = [
+      { key: 'bloodGlucose', label: 'Blood Glucose', type: 'number', unit: 'mg/dL' },
+      { key: 'weight', label: 'Weight', type: 'number', unit: 'kg' },
+      { key: 'skinTemp', label: 'Skin Temperature', type: 'number', unit: '°C' },
+      { key: 'hydrationVolume', label: 'Hydration', type: 'number', unit: 'L' },
+      { key: 'injury', label: 'Injury Status', type: 'text' },
+      {
+        key: 'menstrualPhase',
+        label: 'Menstrual Phase',
+        type: 'select',
+        options: [
+          { label: 'Menstruation', value: 'MENSTRUATION' },
+          { label: 'Follicular', value: 'FOLLICULAR' },
+          { label: 'Ovulation', value: 'OVULATION' },
+          { label: 'Luteal', value: 'LUTEAL' }
+        ]
+      }
+    ]
+
+    if (customFields.value) {
+      customFields.value.forEach((f) => {
+        base.push({
+          key: `customMetrics.${f.fieldKey}`,
+          label: f.label,
+          type: f.dataType === 'NUMBER' ? 'number' : f.dataType === 'BOOLEAN' ? 'select' : 'text',
+          unit: f.unit || undefined,
+          ...(f.dataType === 'BOOLEAN'
+            ? {
+                options: [
+                  { label: 'Yes', value: true },
+                  { label: 'No', value: false }
+                ]
+              }
+            : {})
+        } as any)
+      })
+    }
+    return base
+  })
+
+  const activeMetrics = computed(() => {
+    const trackedKeys = userStore.user?.trackedCheckinMetrics || ['bloodGlucose']
+    return availableMetrics.value.filter((m) => trackedKeys.includes(m.key))
+  })
+
+  async function handleAdjustment(status: 'ACCEPTED' | 'REJECTED') {
+    if (!checkin.value?.id) return
+    adjusting.value = true
+    try {
+      const updated = await $fetch(`/api/checkin/adjust`, {
+        method: 'POST',
+        body: { checkinId: checkin.value.id, status }
+      })
+      checkin.value = updated
+      toast.add({
+        title: status === 'ACCEPTED' ? 'Workout Adjusted' : 'Adjustment Declined',
+        color: 'success'
+      })
+    } catch (e: any) {
+      toast.add({ title: 'Error', description: e.message, color: 'error' })
+    } finally {
+      adjusting.value = false
+    }
+  }
+
+  const localQuestions = ref<any[]>([])
+  const expandedQuestions = ref<Set<string>>(new Set())
+  const recentCheckins = ref<any[]>([])
+  const showRecentCheckins = ref(false)
+  const deleting = ref(false)
+  const { showQuotaPaywall, handleLockedAction, useOperationLockState } = useQuotaPaywall()
+  const {
+    locked: isCheckinLocked,
+    lockedTierLabel,
+    remainingLabel: checkinRemainingLabel
+  } = useOperationLockState('daily_checkin')
+  const toast = useToast()
+  const { formatDateUTC } = useFormat()
+  const { trackDailyCheckinStart, trackDailyCheckinComplete } = useAnalytics()
+
+  const {
+    message: currentLoadingMessage,
+    start: startMessages,
+    stop: stopMessages
+  } = useLoadingMessages('daily-checkin')
+
+  const isPending = computed(() => {
+    return checkin.value?.status === 'PENDING' || checkin.value?.status === 'PROCESSING'
+  })
+  const completedAnswersSummary = computed(() =>
+    summarizeCheckin({
+      questions: localQuestions.value,
+      userNotes: userNotes.value
+    })
+  )
+
+  watch(
+    () => loading.value || (isPending.value && localQuestions.value.length === 0),
+    (busy) => {
+      if (busy) {
+        startMessages()
+      } else {
+        stopMessages()
+      }
+    }
+  )
+
+  // Poll while pending
+  const { pause: pausePoll, resume: resumePoll } = useIntervalFn(
+    async () => {
+      if (isOpen.value && isPending.value) {
+        await fetchToday(true) // silent fetch
+      }
+    },
+    3000,
+    { immediate: false }
+  )
+
+  watch(isPending, (pending) => {
+    if (pending) resumePoll()
+    else pausePoll()
+  })
+
+  // Show manual refresh if taking too long (15s)
+  let refreshTimer: NodeJS.Timeout | null = null
+  watch(
+    () => loading.value || isPending.value,
+    (busy) => {
+      if (busy) {
+        showManualRefresh.value = false
+        if (refreshTimer) clearTimeout(refreshTimer)
+        refreshTimer = setTimeout(() => {
+          showManualRefresh.value = true
+        }, 15000)
+      } else {
+        showManualRefresh.value = false
+        if (refreshTimer) clearTimeout(refreshTimer)
+      }
+    }
+  )
+
+  function isExpanded(id: string) {
+    return expandedQuestions.value.has(id)
+  }
+
+  function toggleExpand(id: string) {
+    if (expandedQuestions.value.has(id)) {
+      expandedQuestions.value.delete(id)
+    } else {
+      expandedQuestions.value.add(id)
+    }
+  }
+
+  function removeQuestion(id: string) {
+    localQuestions.value = localQuestions.value.filter((q) => q.id !== id)
+    if (answers.value[id]) {
+      const newAnswers = { ...answers.value }
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete newAnswers[id]
+      answers.value = newAnswers
+    }
+  }
+
+  // Background Task Monitoring
+  const { refresh: refreshRuns } = useUserRuns()
+  const { onTaskCompleted, onTaskFailed } = useUserRunsState()
+
+  // Listeners
+  onTaskCompleted('generate-daily-checkin', async (run) => {
+    // Refresh checkin data
+    await fetchToday()
+    if (checkin.value?.status === 'COMPLETED') {
+      localQuestions.value = checkin.value.questions || []
+      userNotes.value = checkin.value.userNotes || ''
+      useCheckinStore().currentCheckin = checkin.value
+    } else if (checkin.value?.status === 'FAILED') {
+      error.value = tr('daily_checkin_generation_failed', 'Generation failed')
+    }
+  })
+
+  onTaskFailed('generate-daily-checkin', async (run) => {
+    loading.value = false
+    error.value = run.error?.message || tr('daily_checkin_generation_failed', 'Generation failed')
+    if (checkin.value) {
+      checkin.value = { ...checkin.value, status: 'FAILED' }
+    }
+    toast.add({
+      title: tr('daily_checkin_failed_toast', 'Check-in Failed'),
+      description: error.value ?? undefined,
+      color: 'error',
+      icon: 'i-heroicons-exclamation-circle'
+    })
+  })
+
+  async function fetchToday(silent = false) {
+    if (import.meta.server) return
+    try {
+      if (!silent) loading.value = true
+      error.value = null
+      const data = (await ($fetch as any)('/api/checkin/today')) as any
+      if (data) {
+        checkin.value = data
+
+        // Populate questions if available (stale-while-revalidate)
+        if (data.questions && data.questions.length > 0) {
+          localQuestions.value = data.questions
+        }
+
+        if (data.status === 'COMPLETED') {
+          // Update reliable data
+          localQuestions.value = data.questions || []
+          userNotes.value = data.userNotes || ''
+          // Pre-fill answers if they exist
+          data.questions.forEach((q: any) => {
+            if (q.answer) answers.value[q.id] = q.answer
+          })
+        }
+      } else if (!silent) {
+        // Generate if not found
+        await generate(false)
+      }
+    } catch (e: any) {
+      if (!silent) error.value = e.message
+    } finally {
+      if (!silent) loading.value = false
+    }
+  }
+
+  async function fetchHistory() {
+    try {
+      recentCheckins.value =
+        ((await ($fetch as any)('/api/checkin/history', {
+          query: { limit: 14 }
+        })) as any[]) || []
+    } catch (error) {
+      recentCheckins.value = []
+    }
+  }
+
+  async function generate(force: boolean = false) {
+    try {
+      loading.value = true
+      error.value = null
+      const data = (await ($fetch as any)('/api/checkin/generate', {
+        method: 'POST',
+        body: { force }
+      })) as any
+      checkin.value = data
+
+      if (data.status === 'COMPLETED') {
+        localQuestions.value = data.questions || []
+      } else {
+        // If pending/processing, clear questions ONLY if force was true
+        // Otherwise keep old ones if they exist
+        if (force) {
+          localQuestions.value = []
+          answers.value = {}
+          wellnessUpdates.value = {}
+        }
+      }
+      userNotes.value = ''
+
+      refreshRuns()
+    } catch (e: any) {
+      const statusCode = e?.statusCode ?? e?.status
+      if (statusCode === 429) {
+        error.value = tr(
+          'daily_checkin_quota_error',
+          'You have reached your Daily Coach Check-In quota for your current plan. Try again after your quota resets, or upgrade for more check-ins.'
+        )
+        await showQuotaPaywall({
+          operation: 'daily_checkin',
+          title: 'Usage Quota Reached',
+          featureTitle: 'Daily Coach Check-In',
+          reason: 'quota_exceeded'
+        })
+      } else {
+        error.value = e?.data?.message || e?.message || 'Failed to generate check-in'
+      }
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function submit() {
+    if (!checkin.value) return
+    try {
+      submitting.value = true
+      // Only send answers for remaining questions
+      const filteredAnswers: Record<string, string> = {}
+      localQuestions.value.forEach((q) => {
+        const answer = answers.value[q.id]
+        if (answer) {
+          filteredAnswers[q.id] = answer
+        }
+      })
+
+      const processedUpdates: Record<string, any> = {}
+      for (const [key, val] of Object.entries(wellnessUpdates.value)) {
+        if (val === undefined || val === null || val === '') continue
+        if (key.startsWith('customMetrics.')) {
+          const customKey = key.split('.')[1]
+          if (!processedUpdates.customMetrics) processedUpdates.customMetrics = {}
+          processedUpdates.customMetrics[customKey] = val
+        } else {
+          processedUpdates[key] = val
+        }
+      }
+
+      await ($fetch as any)('/api/checkin/answer', {
+        method: 'POST',
+        body: {
+          checkinId: checkin.value.id,
+          answers: filteredAnswers,
+          userNotes: userNotes.value,
+          wellnessUpdates: processedUpdates
+        }
+      })
+      await useCheckinStore().fetchToday()
+      await fetchHistory()
+      trackDailyCheckinComplete()
+      isOpen.value = false
+      emit('update:open', false)
+      toast.add({
+        title: 'Check-in saved',
+        description: 'Your daily check-in has been successfully submitted.',
+        color: 'success'
+      })
+    } catch (e: any) {
+      toast.add({
+        title: 'Save failed',
+        description: e.data?.message || e.message || 'An error occurred while saving your check-in.',
+        color: 'error'
+      })
+    } finally {
+      submitting.value = false
+    }
+  }
+
+  watch(
+    () => props.open,
+    (isOpen) => {
+      if (isOpen) {
+        trackDailyCheckinStart()
+        fetchToday()
+        fetchHistory()
+      } else {
+        pausePoll()
+        stopMessages()
+      }
+    }
+  )
+
+  function summarizeCheckin(entry: any) {
+    const questions = entry?.questions || []
+    return questions
+      .filter((question: any) => question.answer)
+      .map((question: any) => `${question.text}: ${question.answer}`)
+  }
+
+  function loadCheckinIntoEditor(entry: any) {
+    checkin.value = entry
+    localQuestions.value = entry.questions || []
+    userNotes.value = entry.userNotes || ''
+    wellnessUpdates.value = {}
+    answers.value = {}
+    for (const question of entry.questions || []) {
+      if (question.answer) {
+        answers.value[question.id] = question.answer
+      }
+    }
+  }
+
+  async function deleteCheckin() {
+    if (!checkin.value?.id) return
+    if (!window.confirm(tr('daily_checkin_delete_confirm', 'Delete this daily check-in?'))) return
+
+    deleting.value = true
+    try {
+      await ($fetch as any)(`/api/checkin/${checkin.value.id}`, {
+        method: 'DELETE'
+      })
+      checkin.value = null
+      localQuestions.value = []
+      answers.value = {}
+      wellnessUpdates.value = {}
+      userNotes.value = ''
+      await Promise.all([useCheckinStore().fetchToday(), fetchHistory()])
+      toast.add({
+        title: tr('daily_checkin_deleted_toast', 'Daily check-in deleted'),
+        color: 'success'
+      })
+    } catch (error: any) {
+      toast.add({
+        title: tr('daily_checkin_delete_failed_toast', 'Unable to delete check-in'),
+        description: error?.data?.message || error?.message || 'Please try again.',
+        color: 'error'
+      })
+    } finally {
+      deleting.value = false
+    }
+  }
+</script>
+
+
