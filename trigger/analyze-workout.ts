@@ -583,12 +583,10 @@ export const analyzeWorkoutTask = task({
       }
 
       // Trigger enriched workout insight email after AI analysis.
-      if (
-        source === 'AUTOMATIC' &&
-        emailPrefs &&
-        emailPrefs.workoutAnalysis &&
-        !emailPrefs.globalUnsubscribe
-      ) {
+      const workoutAnalysisEnabled = emailPrefs?.workoutAnalysis ?? true
+      const globalUnsubscribe = emailPrefs?.globalUnsubscribe ?? false
+
+      if (source === 'AUTOMATIC' && workoutAnalysisEnabled && !globalUnsubscribe) {
         logger.log('Triggering enriched workout insight email')
         try {
           const planAdherence = await prisma.planAdherence.findUnique({

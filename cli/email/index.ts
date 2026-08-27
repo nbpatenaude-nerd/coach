@@ -470,11 +470,7 @@ emailCommand
     if (!hasData) {
       blockers.push('EMPTY_SESSION: no duration/distance/power/hr/exercises found')
     }
-    if (!emailPref) {
-      blockers.push(
-        'NO_EMAIL_PREFERENCE_ROW: automatic analyze email trigger requires existing EmailPreference row'
-      )
-    } else {
+    if (emailPref) {
       if (emailPref.globalUnsubscribe) {
         blockers.push('GLOBAL_UNSUBSCRIBE: EmailPreference.globalUnsubscribe=true')
       }
