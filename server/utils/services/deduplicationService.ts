@@ -519,7 +519,7 @@ export const deduplicationService = {
       if (!existingBestStream) {
         const donorWithStreams = duplicatesToDelete.find((w) => w.streams)
         if (donorWithStreams) {
-          logger.log(Transferring streams from duplicate \${donorWithStreams.id}\ to best workout \${bestWorkout.id}\`)
+          logger.log(`Transferring streams from duplicate ${donorWithStreams.id} to best workout ${bestWorkout.id}`)
           await tx.workoutStream.update({
             where: { workoutId: donorWithStreams.id },
             data: { workoutId: bestWorkout.id }
