@@ -188,7 +188,7 @@ function trackUpgradeClick() {
 
 Tracking for all outbound emails is centralized in `trigger/send-email.ts`. It utilizes metadata from `EMAIL_TEMPLATE_REGISTRY` to construct a standardized `utmQuery` string:
 
-- `utm_source`: Always `coachwatts_email`.
+- `utm_source`: Always `journey_email`.
 - `utm_medium`: Sourced from `template.utmMedium`.
 - `utm_campaign`: Sourced from `template.utmCampaign`.
 

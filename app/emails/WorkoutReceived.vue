@@ -61,10 +61,13 @@
     shareUrl?: string
     chatUrl?: string
     utmQuery?: string
+    logoUrl?: string
+    siteUrl?: string
   }>()
 
-  const logoUrl = 'https://journeyendurance.com/icon.png'
-  const siteUrl = 'https://journeyendurance.com'
+  const resolvedSiteUrl = typeof siteUrl !== 'undefined' ? siteUrl : 'https://journeyendurance.com'
+  const resolvedLogoUrl =
+    typeof logoUrl !== 'undefined' ? logoUrl : 'https://journeyendurance.com/icon.png'
 </script>
 
 <template>
@@ -120,9 +123,9 @@
 
         <!-- Header -->
         <ESection style="padding: 32px 40px 0; text-align: center">
-          <ELink :href="siteUrl + (utmQuery || '')">
+          <ELink :href="resolvedSiteUrl + (utmQuery || '')">
             <EImg
-              :src="logoUrl"
+              :src="resolvedLogoUrl"
               width="64"
               height="64"
               alt="Journey Endurance Coaching"
@@ -338,7 +341,7 @@
           <div style="text-align: center; margin-bottom: 24px">
             <EButton
               :href="
-                (workoutUrl || siteUrl + '/workouts/' + workoutId) +
+                (workoutUrl || resolvedSiteUrl + '/workouts/' + workoutId) +
                 (utmQuery || '') +
                 '&utm_content=cta_view_analysis'
               "
@@ -495,7 +498,7 @@
             <br />
             You can
             <ELink
-              :href="unsubscribeUrl || siteUrl + '/profile/settings?tab=communication'"
+              :href="unsubscribeUrl || resolvedSiteUrl + '/profile/settings?tab=communication'"
               style="color: #00c16a; text-decoration: underline"
             >
               manage your email preferences

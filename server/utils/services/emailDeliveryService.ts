@@ -315,7 +315,7 @@ export const EmailDeliveryService = {
     let utmQuery = ''
     if (template) {
       const params = new URLSearchParams({
-        utm_source: 'coachwatts_email',
+        utm_source: 'journey_email',
         utm_medium: template.utmMedium,
         utm_campaign: template.utmCampaign
       })

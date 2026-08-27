@@ -93,7 +93,7 @@ Users can manage their experience in **Settings > Profile > Communication**:
 
 ## Tracking Conventions (UTM)
 
-- `utm_source=coachwatts_email` for all email links.
+- `utm_source=journey_email` for all email links.
 - `utm_medium` by audience:
   - `transactional` for account and billing lifecycle mail.
   - `engagement` for coaching and analysis mail.
