@@ -267,23 +267,16 @@
 
               <div class="border-t border-gray-100 dark:border-gray-800 pt-4 mt-4">
                 <div class="flex items-center justify-between mb-4">
-                  <label class="text-sm font-medium text-gray-900 dark:text-white block">
+                  <label class="text-sm font-medium text-gray-900 dark:text-white flex items-center gap-2">
                     {{ tr('daily_checkin_tracked_metrics', 'Tracked Metrics') }}
+                    <UTooltip :text="tr('daily_checkin_customize_tooltip', 'You can change which metrics appear here in your Profile Settings > Measurements.')">
+                      <UIcon name="i-heroicons-information-circle" class="w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors cursor-help" />
+                    </UTooltip>
                   </label>
-                  <UButton
-                    size="xs"
-                    color="neutral"
-                    variant="ghost"
-                    icon="i-heroicons-cog-6-tooth"
-                    to="/profile/settings?tab=measurements"
-                    @click="isOpen = false"
-                  >
-                    Customize
-                  </UButton>
                 </div>
 
                 <div v-if="activeMetrics.length === 0" class="text-sm text-gray-500 italic">
-                  No metrics selected. Click customize to add metrics to track daily.
+                  No metrics selected. Go to your Profile Settings > Measurements to select metrics to track here daily.
                 </div>
 
                 <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -363,7 +356,7 @@
                 {{
                   tr(
                     'daily_checkin_recent_desc',
-                    'Your last submitted check-ins stay visible here so they are not write-only.'
+                    'Review your previous check-ins here.'
                   )
                 }}
               </p>
@@ -849,10 +842,19 @@
       await useCheckinStore().fetchToday()
       await fetchHistory()
       trackDailyCheckinComplete()
+      isOpen.value = false
       emit('update:open', false)
-      // Maybe toast success?
+      toast.add({
+        title: 'Check-in saved',
+        description: 'Your daily check-in has been successfully submitted.',
+        color: 'success'
+      })
     } catch (e: any) {
-      // error
+      toast.add({
+        title: 'Save failed',
+        description: e.data?.message || e.message || 'An error occurred while saving your check-in.',
+        color: 'error'
+      })
     } finally {
       submitting.value = false
     }
