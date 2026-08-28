@@ -50,7 +50,7 @@
     "free": {
       "description": "The smartest logbook you've ever used.",
       "feature_1": "Unlimited data history",
-      "feature_2": "Manual sync mode",
+      "feature_2": "Automatic sync for workouts and health metrics",
       "feature_3": "On-demand analysis",
       "feature_4": "Quick AI analysis",
       "name": "Tri Nerds"

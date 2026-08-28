@@ -30,7 +30,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     mobileDescription: 'Essential activity tracking and analysis.',
     features: [
       'Unlimited data history',
-      'Manual sync mode',
+      'Automatic sync for workouts and health metrics',
       'On-demand analysis',
       'Quick AI analysis'
     ],

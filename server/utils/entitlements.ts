@@ -24,7 +24,7 @@ export type EntitlementUser = Pick<
 function entitlementsFromTier(effectiveTier: SubscriptionTier): UserEntitlements {
   return {
     tier: effectiveTier,
-    autoSync: effectiveTier !== 'FREE',
+    autoSync: true,
     autoAnalysis: effectiveTier !== 'FREE',
     aiModel: effectiveTier === 'UNLEASH' || effectiveTier === 'UNLOCK' ? 'pro' : 'flash',
     priorityProcessing: effectiveTier !== 'FREE',
