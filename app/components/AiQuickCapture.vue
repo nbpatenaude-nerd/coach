@@ -124,65 +124,64 @@
             : 'opacity-0 pointer-events-none duration-200 delay-0'
         "
       >
-        <UInput
-          v-model="input"
-          :placeholder="
-            isExpanded ? t('quick_capture_placeholder_reply') : t('quick_capture_placeholder_ask')
-          "
-          size="lg"
-          variant="none"
-          class="w-full"
-          :loading="chatStatus === 'streaming'"
-          :ui="{
-            base: 'pe-16 sm:pe-20',
-            leading:
-              chatMessages.length > 0
-                ? 'cursor-pointer hover:text-primary-500 transition-colors'
-                : ''
-          }"
-          @keyup.enter="handleSubmit"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
-        >
-          <template #leading>
-            <UIcon
-              name="i-heroicons-sparkles"
-              class="w-5 h-5 transition-colors"
-              :class="[
-                shouldBeWide ? 'animate-pulse text-primary-500' : 'text-gray-400 dark:text-gray-500'
-              ]"
-              @click="
-                () => {
-                  void toggleExpand()
-                }
-              "
-            />
-          </template>
-          <template #trailing>
-            <div class="flex items-center gap-2 mr-1">
-              <kbd
-                v-if="!input && !isExpanded"
-                class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded border border-gray-200 dark:border-gray-800 text-[10px] font-medium text-gray-400"
-              >
-                {{ t('quick_capture_ask_coach') }}
-              </kbd>
-              <UButton
-                v-else
-                :icon="isExpanded ? 'i-heroicons-paper-airplane' : 'i-heroicons-arrow-up-right'"
-                color="primary"
-                variant="solid"
-                size="sm"
-                class="rounded-xl px-2.5 sm:px-4 font-bold"
-                :loading="chatStatus === 'streaming'"
+        <form class="w-full flex items-center" @submit.prevent="handleSubmit">
+          <UInput
+            v-model="input"
+            :placeholder="
+              isExpanded ? t('quick_capture_placeholder_reply') : t('quick_capture_placeholder_ask')
+            "
+            size="lg"
+            variant="none"
+            class="w-full"
+            :loading="chatStatus === 'streaming'"
+            :ui="{
+              base: 'pe-16 sm:pe-20',
+              leading:
+                chatMessages.length > 0
+                  ? 'cursor-pointer hover:text-primary-500 transition-colors'
+                  : ''
+            }"
+            @focus="isFocused = true"
+            @blur="isFocused = false"
+          >
+            <template #leading>
+              <UIcon
+                name="i-heroicons-sparkles"
+                class="w-5 h-5 transition-colors"
+                :class="[
+                  shouldBeWide
+                    ? 'animate-pulse text-primary-500'
+                    : 'text-gray-400 dark:text-gray-500'
+                ]"
                 @click="
                   () => {
-                    void handleSubmit()
+                    void toggleExpand()
                   }
                 "
               />
-            </div>
-          </template>
-        </UInput>
+            </template>
+            <template #trailing>
+              <div class="flex items-center gap-2 mr-1">
+                <kbd
+                  v-if="!input && !isExpanded"
+                  class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded border border-gray-200 dark:border-gray-800 text-[10px] font-medium text-gray-400"
+                >
+                  {{ t('quick_capture_ask_coach') }}
+                </kbd>
+                <UButton
+                  v-else
+                  :icon="isExpanded ? 'i-heroicons-paper-airplane' : 'i-heroicons-arrow-up-right'"
+                  color="primary"
+                  variant="solid"
+                  size="sm"
+                  class="rounded-xl px-2.5 sm:px-4 font-bold"
+                  :loading="chatStatus === 'streaming'"
+                  type="submit"
+                />
+              </div>
+            </template>
+          </UInput>
+        </form>
       </div>
 
       <!-- Minimized Pill View -->
@@ -356,7 +355,7 @@
       }
 
       // 3. Send message
-      chatInstance.value.sendMessage({
+      await chatInstance.value.sendMessage({
         text
       })
     } catch (e: any) {
@@ -366,7 +365,6 @@
         description: 'Could not connect to coach. Please try again.',
         color: 'error'
       })
-      isExpanded.value = false
     }
   }
 </script>
