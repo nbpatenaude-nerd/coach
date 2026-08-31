@@ -19,7 +19,7 @@
         <div
           class="w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-gray-800 pb-6 lg:pb-0 lg:pr-6 overflow-y-auto max-h-[75vh]"
         >
-          <WellnessModalInner :date="date" />
+          <WellnessModalInner :date="date" :open="open" />
         </div>
         <div class="w-full lg:w-1/2 overflow-y-auto max-h-[75vh]">
           <DailyCheckinModalInner :date="date" @close="isOpen = false" />

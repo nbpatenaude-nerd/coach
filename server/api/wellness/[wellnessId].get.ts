@@ -115,7 +115,10 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!wellnessData) {
-    return null
+    throw createError({
+      statusCode: 404,
+      message: 'No wellness data found for this date'
+    })
   }
 
   // Some providers send sleepSecs only. Normalize for UI consumers expecting sleepHours.

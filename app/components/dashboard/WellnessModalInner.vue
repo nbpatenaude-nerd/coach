@@ -879,7 +879,7 @@
   watch(
     () => props.date,
     async (newDate) => {
-      if (newDate && props.open) {
+      if (newDate) {
         await fetchWellnessData(newDate)
       }
     },
