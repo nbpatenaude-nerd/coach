@@ -38,6 +38,11 @@ type QueueWorkoutInsightEmailOptions = {
   adherenceSummary?: string
   adherenceScore?: number
   overallScore?: number
+  zoneUpdates?: Array<{
+    metric: 'FTP' | 'LTHR' | 'MAX_HR' | 'THRESHOLD_PACE'
+    newValue: number
+    reason: string
+  }>
 }
 
 function logWorkoutInsightSkip(context: Record<string, unknown>) {
@@ -1065,7 +1070,8 @@ export async function queueWorkoutInsightEmail(options: QueueWorkoutInsightEmail
       analysisSummary: options.analysisSummary,
       recommendationHighlights: options.recommendationHighlights,
       adherenceSummary: options.adherenceSummary,
-      adherenceScore: options.adherenceScore
+      adherenceScore: options.adherenceScore,
+      zoneUpdates: options.zoneUpdates
     }
   })
 

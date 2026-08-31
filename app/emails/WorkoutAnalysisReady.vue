@@ -33,6 +33,11 @@
     recommendationHighlights?: string[]
     adherenceSummary?: string
     adherenceScore?: number
+    zoneUpdates?: Array<{
+      metric: 'FTP' | 'LTHR' | 'MAX_HR' | 'THRESHOLD_PACE'
+      newValue: number
+      reason: string
+    }>
     unsubscribeUrl?: string
     utmQuery?: string
   }>()
@@ -322,6 +327,87 @@
             >
               {{ adherenceSummary }}
             </EText>
+          </EContainer>
+
+          <EContainer
+            v-if="zoneUpdates && zoneUpdates.length > 0"
+            style="
+              background-color: #f0fdf4;
+              border-radius: 12px;
+              padding: 18px;
+              margin-bottom: 14px;
+              border: 1px solid #bbf7d0;
+            "
+          >
+            <EText
+              style="
+                font-size: 10px;
+                font-weight: 900;
+                color: #16a34a;
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                margin-bottom: 12px;
+              "
+              >Level Up Detected</EText
+            >
+            <div v-for="(update, idx) in zoneUpdates" :key="idx" style="margin-bottom: 16px">
+              <EText style="font-size: 16px; font-weight: 600; color: #09090b; margin: 0 0 4px">
+                New {{ update.metric }}: {{ update.newValue }}
+              </EText>
+              <EText style="font-size: 14px; line-height: 1.5; color: #52525b; margin: 0 0 12px">
+                {{ update.reason }}
+              </EText>
+              <ERow>
+                <EColumn>
+                  <EButton
+                    :href="
+                      (workoutUrl ||
+                        (workoutId ? `${siteUrl}/workouts/${workoutId}` : `${siteUrl}/dashboard`)) +
+                      (utmQuery ? utmQuery + '&' : '?') +
+                      'reviewZones=true&action=accept'
+                    "
+                    style="
+                      background-color: #16a34a;
+                      color: #ffffff;
+                      border-radius: 6px;
+                      padding: 8px 16px;
+                      font-size: 13px;
+                      font-weight: 600;
+                      text-decoration: none;
+                      text-align: center;
+                      display: inline-block;
+                    "
+                  >
+                    Accept
+                  </EButton>
+                </EColumn>
+                <EColumn>
+                  <EButton
+                    :href="
+                      (workoutUrl ||
+                        (workoutId ? `${siteUrl}/workouts/${workoutId}` : `${siteUrl}/dashboard`)) +
+                      (utmQuery ? utmQuery + '&' : '?') +
+                      'reviewZones=true&action=reject'
+                    "
+                    style="
+                      background-color: #ffffff;
+                      color: #52525b;
+                      border: 1px solid #e4e4e7;
+                      border-radius: 6px;
+                      padding: 8px 16px;
+                      font-size: 13px;
+                      font-weight: 600;
+                      text-decoration: none;
+                      text-align: center;
+                      display: inline-block;
+                      margin-left: 8px;
+                    "
+                  >
+                    Reject
+                  </EButton>
+                </EColumn>
+              </ERow>
+            </div>
           </EContainer>
 
           <EText style="font-size: 15px; line-height: 1.6; color: #71717a; margin: 0 0 28px">

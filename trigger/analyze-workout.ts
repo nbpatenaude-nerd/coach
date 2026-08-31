@@ -64,6 +64,11 @@ interface StructuredAnalysis {
   }>
   strengths?: string[]
   weaknesses?: string[]
+  zoneUpdates?: Array<{
+    metric: 'FTP' | 'LTHR' | 'MAX_HR' | 'THRESHOLD_PACE'
+    newValue: number
+    reason: string
+  }>
   scores?: {
     overall: number
     overall_explanation: string
@@ -171,6 +176,31 @@ export const analysisSchema = {
       description: 'Areas needing improvement',
       items: {
         type: 'string'
+      }
+    },
+    zoneUpdates: {
+      type: 'array',
+      description:
+        "Potential updates to the athlete's training zones based on definitive shifts in performance (e.g., faster pace at same HR). Do not elicit a change if they are merely adhering to their current zones well. Only output when a clear threshold-breaking performance is detected.",
+      items: {
+        type: 'object',
+        properties: {
+          metric: {
+            type: 'string',
+            enum: ['FTP', 'LTHR', 'MAX_HR', 'THRESHOLD_PACE'],
+            description: 'The metric to update'
+          },
+          newValue: {
+            type: 'number',
+            description: 'The proposed new value for the metric'
+          },
+          reason: {
+            type: 'string',
+            description:
+              'A 1-sentence explanation of why the AI recommends this zone change based on the workout data'
+          }
+        },
+        required: ['metric', 'newValue', 'reason']
       }
     },
     scores: {
@@ -618,7 +648,8 @@ export const analyzeWorkoutTask = task({
             analysisSummary: structuredAnalysis.executive_summary,
             recommendationHighlights,
             adherenceSummary,
-            adherenceScore
+            adherenceScore,
+            zoneUpdates: structuredAnalysis.zoneUpdates
           })
           logger.log('Workout insight email decision (analysis-ready)', {
             workoutId,
@@ -1765,6 +1796,11 @@ ${getAnalysisSectionsGuidance(workoutType, isCardio, isStrength)}
    - 5-6: Adequate, met basic requirements but room for improvement
    - 3-4: Needs work, several areas requiring attention
    - 1-2: Poor execution, significant issues to address
+
+9. **Zone Updates** (Only if necessary):
+   - Does this performance represent a clear, definitive shift in the athlete's capabilities that invalidates their current training zones? (e.g., ran a 10km race at a significantly faster pace than threshold, with the same or lower heart rate).
+   - If yes, provide a \`zoneUpdates\` array with the recommended new value and a 1-sentence reason.
+   - DO NOT recommend a change just because they did a good job adhering to their current zones. Only recommend changes for definitive breakthrough performances or regressions.
 
 IMPORTANT:
 - Each analysis_point must be a separate, concise item in the array
