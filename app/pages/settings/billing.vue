@@ -262,7 +262,7 @@
 
     return {
       tier: effectiveTier,
-      autoSync: effectiveTier !== 'FREE',
+      autoSync: true,
       autoAnalysis: effectiveTier !== 'FREE',
       aiModel: effectiveTier === 'PRO' ? 'pro' : 'flash',
       priorityProcessing: effectiveTier !== 'FREE',

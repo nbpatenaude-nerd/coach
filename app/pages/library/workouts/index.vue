@@ -328,6 +328,14 @@
                         :items="[
                           [
                             {
+                              label: 'Apply to athlete(s)',
+                              icon: 'i-heroicons-user-group',
+                              onSelect: () => {
+                                applyTemplateTarget = template
+                                showApplyModal = true
+                              }
+                            },
+                            {
                               label: 'Move to folder',
                               icon: 'i-heroicons-folder-open',
                               onSelect: () => openMoveTemplatesModal([template.id])

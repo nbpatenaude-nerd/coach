@@ -3731,6 +3731,15 @@
   </UModal>
 
   <WorkoutsWorkoutComparisonDock />
+
+  <WorkoutsZoneUpdatesModal
+    v-if="workout?.aiAnalysisJson?.zoneUpdates"
+    v-model="isZoneUpdateModalOpen"
+    :zone-updates="workout.aiAnalysisJson.zoneUpdates"
+    :workout-type="workout.type"
+    :action="zoneUpdateAction"
+    @resolved="onZoneUpdatesResolved"
+  />
 </template>
 
 <script setup lang="ts">
@@ -3793,6 +3802,20 @@
   const route = useRoute()
   const router = useRouter()
   const toast = useToast()
+
+  // AI Zone Updates state
+  const isZoneUpdateModalOpen = ref(route.query.reviewZones === 'true')
+  const zoneUpdateAction = ref(route.query.action as 'accept' | 'reject' | undefined)
+  const onZoneUpdatesResolved = () => {
+    // Clear query params after resolving to avoid reopening on refresh
+    if (route.query.reviewZones) {
+      const newQuery = { ...route.query }
+      delete newQuery.reviewZones
+      delete newQuery.action
+      void router.replace({ query: newQuery })
+    }
+  }
+
   const config = useRuntimeConfig()
   const { showQuotaPaywall, getOperationQuota, isQuotaExhausted } = useQuotaPaywall()
   const workoutAnalysisQuota = ref<any>(null)

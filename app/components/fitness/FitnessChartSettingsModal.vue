@@ -95,7 +95,7 @@
 
         <!-- Target Line -->
         <div
-          v-if="['weight', 'bp', 'hrv', 'restingHr'].includes(metricKey)"
+          v-if="['weight', 'bp', 'hrv', 'restingHr', 'bloodGlucose'].includes(metricKey)"
           class="border-t border-gray-200 dark:border-gray-800 pt-6 space-y-4"
         >
           <h4 class="font-medium text-gray-900 dark:text-white text-sm">Goals & Targets</h4>
@@ -262,6 +262,7 @@
     if (props.metricKey === 'hrv') return 'ms'
     if (props.metricKey === 'restingHr') return 'bpm'
     if (props.metricKey === 'weight') return userStore.weightUnitLabel || 'kg'
+    if (props.metricKey === 'bloodGlucose') return 'mg/dL'
     return ''
   })
 
@@ -270,6 +271,7 @@
     if (props.metricKey === 'hrv') return 120
     if (props.metricKey === 'restingHr') return 100
     if (props.metricKey === 'sleep') return 10
+    if (props.metricKey === 'bloodGlucose') return 300
     return 100
   })
 

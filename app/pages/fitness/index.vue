@@ -245,6 +245,18 @@
             />
 
             <FitnessTrendChart
+              v-if="showBloodGlucoseChart"
+              metric-key="bloodGlucose"
+              title="Blood Glucose"
+              :loading="loading"
+              :data="bloodGlucoseTrendData"
+              :options="getChartOptions('bloodGlucose')"
+              :settings="chartSettings.bloodGlucose"
+              :plugins="[ChartDataLabels]"
+              @settings="openChartSettings('bloodGlucose', 'Blood Glucose')"
+            />
+
+            <FitnessTrendChart
               v-for="field in customFields?.filter((f) => f.dataType === 'NUMBER') || []"
               v-show="chartSettings[`custom_${field.fieldKey}`]?.visible !== false"
               :key="`custom-chart-${field.fieldKey}`"
@@ -465,6 +477,15 @@
       yMin: 0
     },
     bp: {
+      type: 'line',
+      visible: true,
+      smooth: true,
+      showPoints: false,
+      opacity: 0.5,
+      yScale: 'dynamic',
+      yMin: 0
+    },
+    bloodGlucose: {
       type: 'line',
       visible: true,
       smooth: true,
@@ -1267,6 +1288,53 @@
     }
   })
 
+  const bloodGlucoseTrendData = computed(() => {
+    const recentWellness = [...filteredWellness.value]
+      .filter((w) => w.bloodGlucose)
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+    const labels = recentWellness.map((w) =>
+      new Date(w.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    )
+
+    const datasets: any[] = []
+    const settings = chartSettings.value.bloodGlucose || defaultChartSettings.bloodGlucose || {}
+
+    datasets.push({
+      type: settings.type || 'line',
+      label: 'Blood Glucose',
+      data: recentWellness.map((w) => w.bloodGlucose),
+      borderColor: 'rgb(245, 158, 11)',
+      backgroundColor: `rgba(245, 158, 11, ${settings.opacity ?? 0.5})`,
+      tension: settings.smooth ? 0.4 : 0,
+      borderWidth: 2,
+      pointRadius: settings.showPoints ? 3 : 0,
+      pointHoverRadius: 6,
+      fill: settings.type === 'line' ? 'origin' : false,
+      spanGaps: true
+    })
+
+    if (settings.showTarget && settings.targetValue !== undefined) {
+      datasets.push({
+        type: 'line',
+        label: 'Target',
+        data: new Array(labels.length).fill(settings.targetValue),
+        borderColor: 'rgba(255, 255, 255, 0.5)',
+        borderDash: [2, 2],
+        borderWidth: 1,
+        pointRadius: 0,
+        fill: false,
+        spanGaps: true
+      })
+    }
+
+    return {
+      labels,
+      dates: recentWellness.map((w) => w.date),
+      datasets
+    }
+  })
+
   const chartDataByKey = computed(() => ({
     recovery: recoveryTrendData.value,
     readinessEstimate: readinessEstimateTrendData.value,
@@ -1274,7 +1342,8 @@
     hrv: hrvTrendData.value,
     restingHr: restingHrTrendData.value,
     weight: weightTrendData.value,
-    bp: bpTrendData.value
+    bp: bpTrendData.value,
+    bloodGlucose: bloodGlucoseTrendData.value
   }))
 
   const hasRecoveryChartData = computed(() => (recoveryTrendData.value?.labels?.length || 0) > 0)
@@ -1286,6 +1355,9 @@
   const hasRestingHrChartData = computed(() => (restingHrTrendData.value?.labels?.length || 0) > 0)
   const hasWeightChartData = computed(() => (weightTrendData.value?.labels?.length || 0) > 0)
   const hasBpChartData = computed(() => (bpTrendData.value?.labels?.length || 0) > 0)
+  const hasBloodGlucoseChartData = computed(
+    () => (bloodGlucoseTrendData.value?.labels?.length || 0) > 0
+  )
 
   const showRecoveryChart = computed(
     () =>
@@ -1315,6 +1387,11 @@
   const showBpChart = computed(
     () => chartSettings.value.bp?.visible !== false && (loading.value || hasBpChartData.value)
   )
+  const showBloodGlucoseChart = computed(
+    () =>
+      chartSettings.value.bloodGlucose?.visible !== false &&
+      (loading.value || hasBloodGlucoseChartData.value)
+  )
 
   const showSecondaryChartsGrid = computed(
     () =>
@@ -1324,7 +1401,8 @@
       showHrvChart.value ||
       showRestingHrChart.value ||
       showWeightChart.value ||
-      showBpChart.value
+      showBpChart.value ||
+      showBloodGlucoseChart.value
   )
 
   // Chart options
