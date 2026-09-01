@@ -275,16 +275,16 @@
                   >
                     <div class="h-full">
                       <template v-if="element.id === 'athleteProfileBasic'">
-                        <AthleteProfileCard section="profile" class="h-full" />
+                        <DashboardAthleteProfileCard section="profile" class="h-full" />
                       </template>
                       <template v-else-if="element.id === 'trainingLoad'">
-                        <AthleteProfileCard section="trainingLoad" class="h-full" />
+                        <DashboardAthleteProfileCard section="trainingLoad" class="h-full" />
                       </template>
                       <template v-else-if="element.id === 'corePerformance'">
-                        <AthleteProfileCard section="corePerformance" class="h-full" />
+                        <DashboardAthleteProfileCard section="corePerformance" class="h-full" />
                       </template>
                       <template v-else-if="element.id === 'recentWellness'">
-                        <AthleteProfileCard section="recentWellness" class="h-full" />
+                        <DashboardAthleteProfileCard section="recentWellness" class="h-full" />
                       </template>
 
                       <template v-else-if="element.id === 'recoveryContext'">

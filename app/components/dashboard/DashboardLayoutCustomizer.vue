@@ -27,9 +27,13 @@
           >
             <template #item="{ element }">
               <div
-                class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm cursor-move"
+                class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm"
               >
-                <UIcon name="i-heroicons-bars-3" class="drag-handle w-5 h-5 text-gray-400" />
+                <div
+                  class="drag-handle p-2 cursor-move flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                >
+                  <UIcon name="i-heroicons-bars-3" class="w-5 h-5 text-gray-400" />
+                </div>
                 <div class="flex-grow">
                   <p class="text-sm font-semibold truncate">{{ getWidgetName(element.id) }}</p>
                 </div>
