@@ -759,7 +759,7 @@
   import { getWorkoutIcon } from '~/utils/activity-types'
   import { mobileListCardUi } from '~/utils/mobile-surface-ui'
 
-  const { isCoach } = useAuth()
+  const { data: session } = useAuth()
   const route = useRoute()
   const toast = useToast()
 

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userStore.isAdmin || isCoachForAnyone" class="space-y-6">
+  <div v-if="userStore.user?.isCoach || isCoachForAnyone" class="space-y-6">
     <UCard :ui="{ ...profileSettingsCardUi, body: 'hidden' }">
       <template #header>
         <h2 class="text-xl font-bold uppercase tracking-tight">{{ t('ai_coach_header') }}</h2>
@@ -10,7 +10,7 @@
     </UCard>
 
     <UCard
-      v-if="showUpgradeBanner && !hasSuccessBypass && !userStore.hasMinimumTier('SUPPORTER')"
+      v-if="showUpgradeBanner && !hasSuccessBypass && !userStore.hasMinimumTier('SUPPORTER' as any)"
       :ui="profileSettingsCardUi"
       class="mb-6"
     >
@@ -96,6 +96,8 @@
   import { useTranslate } from '@tolgee/vue'
   import { profileSettingsCardUi } from '~/utils/mobile-surface-ui'
 
+  import { useCoachingRole } from '~/components/navigation/useCoachingRole'
+
   const { t } = useTranslate('settings')
   const toast = useToast()
   const route = useRoute()
@@ -113,7 +115,6 @@
       }
     ]
   })
-
   const userStore = useUserStore()
   const { isCoachForAnyone } = useCoachingRole()
   const showUpgradeBanner = useLocalStorage('ai-settings-upgrade-banner', true)

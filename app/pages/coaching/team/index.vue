@@ -42,7 +42,11 @@
               icon="i-heroicons-plus"
               size="xs"
               class="font-bold"
-              @click="isConnectCoachModalOpen = true"
+              @click="
+                () => {
+                  isConnectCoachModalOpen = true
+                }
+              "
             />
           </div>
 
@@ -68,7 +72,11 @@
               variant="outline"
               icon="i-lucide-user-plus"
               label="Add Coach"
-              @click="isConnectCoachModalOpen = true"
+              @click="
+                () => {
+                  isConnectCoachModalOpen = true
+                }
+              "
             />
           </div>
 
@@ -441,7 +449,11 @@
         label="Cancel"
         color="neutral"
         variant="ghost"
-        @click="isConnectCoachModalOpen = false"
+        @click="
+          () => {
+            isConnectCoachModalOpen = false
+          }
+        "
       />
       <UButton
         label="Connect"

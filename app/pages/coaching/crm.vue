@@ -302,7 +302,7 @@
     () => pipelines.value,
     (newPipelines) => {
       if (newPipelines && newPipelines.length > 0 && !activePipelineId.value) {
-        activePipelineId.value = newPipelines[0].id
+        activePipelineId.value = newPipelines[0]?.id
       }
     },
     { immediate: true }
@@ -344,11 +344,14 @@
 
     if (athletes.value && activePipeline.value) {
       athletes.value.forEach((a: CrmAthlete) => {
-        const deal = a.crmDeals.find((d) => d.pipelineId === activePipeline.value!.id)
+        const pipeline = activePipeline.value
+        if (!pipeline) return
+
+        const deal = a.crmDeals.find((d) => d.pipelineId === pipeline.id)
         if (deal && grouped[deal.stageId]) {
           grouped[deal.stageId].push(a)
-        } else if (activePipeline.value!.stages.length > 0) {
-          grouped[activePipeline.value!.stages[0].id].push(a)
+        } else if (pipeline.stages && pipeline.stages.length > 0) {
+          grouped[pipeline.stages[0].id].push(a)
         }
       })
     }

@@ -1810,7 +1810,7 @@
         title: 'Pro Feature',
         featureTitle,
         featureDescription: error.data?.message || featureDescription,
-        recommendedTier: 'pro'
+        recommendedTier: 'pro' as any
       })
       return true
     }

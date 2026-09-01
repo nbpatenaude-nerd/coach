@@ -283,7 +283,7 @@
   })
 
   type ShareRatio = 'story' | 'square' | 'post'
-  type ShareStyle = 'map' | 'poster' | 'crest' | 'pulse'
+  type ShareStyle = 'map' | 'poster' | 'crest' | 'pulse' | 'journey'
   type ShareVariant = 'default' | 'flat' | 'transparent'
 
   interface PreviewVariant {

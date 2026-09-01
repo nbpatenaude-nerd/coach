@@ -1,7 +1,10 @@
 <script setup lang="ts">
   import { useTranslate } from '@tolgee/vue'
   import { format } from 'date-fns'
-  import type { SubscriptionStatus, SubscriptionTier } from '@prisma/client'
+  import type {
+    SubscriptionStatus,
+    SubscriptionTier
+  } from '~~/server/utils/generated-prisma/client'
   import { profileSettingsCardUi } from '~/utils/mobile-surface-ui'
 
   const { t } = useTranslate('settings')
@@ -1020,7 +1023,7 @@
         </div>
 
         <div class="pb-6 sm:pb-8">
-          <LandingPricingPlans conversion-goal="pro" @close="showPlansModal = false" />
+          <LandingPricingPlans :conversion-goal="'pro' as any" @close="showPlansModal = false" />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -1137,7 +1140,7 @@
               </div>
             </template>
 
-            <SettingsBillingPlans conversion-goal="pro" @close="showPlansModal = false" />
+            <SettingsBillingPlans :conversion-goal="'pro' as any" @close="showPlansModal = false" />
 
             <div v-if="!subscriptionsEnabled" class="mt-8">
               <UAlert

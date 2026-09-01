@@ -9,7 +9,15 @@
               Define your own metrics to track daily on your wellness check-ins.
             </p>
           </div>
-          <UButton color="primary" icon="i-heroicons-plus" @click="isCreateModalOpen = true">
+          <UButton
+            color="primary"
+            icon="i-heroicons-plus"
+            @click="
+              () => {
+                isCreateModalOpen = true
+              }
+            "
+          >
             Create Tracker
           </UButton>
         </div>
@@ -86,7 +94,14 @@
       </template>
       <template #footer>
         <div class="flex justify-end gap-3 w-full">
-          <UButton color="neutral" variant="ghost" @click="isCreateModalOpen = false"
+          <UButton
+            color="neutral"
+            variant="ghost"
+            @click="
+              () => {
+                isCreateModalOpen = false
+              }
+            "
             >Cancel</UButton
           >
           <UButton

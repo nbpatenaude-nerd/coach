@@ -47,7 +47,16 @@
         <p class="text-slate-400">
           We don't have any plans matching this category right now. Check back soon!
         </p>
-        <UButton color="white" variant="outline" class="mt-6" @click="activeCategory = 'all'">
+        <UButton
+          color="neutral"
+          variant="outline"
+          class="mt-6"
+          @click="
+            () => {
+              activeCategory = 'all'
+            }
+          "
+        >
           View All Plans
         </UButton>
       </div>

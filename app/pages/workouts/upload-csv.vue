@@ -160,11 +160,12 @@
     const target = e.target as HTMLInputElement
     if (!target.files || target.files.length === 0) return
 
-    selectedFile.value = target.files[0]
+    selectedFile.value = target.files[0] || null
     errorMsg.value = ''
 
     // Parse just the first few lines to get headers
-    Papa.parse(selectedFile.value, {
+    if (!selectedFile.value) return
+    Papa.parse(selectedFile.value as any, {
       header: true,
       preview: 1, // Only need header, but let's parse 1 line to ensure it has data
       skipEmptyLines: true,
