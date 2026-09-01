@@ -933,10 +933,18 @@
   }
 
   const showUpcomingEventsSection = computed(() => {
-    return (settings.value.upcomingEvents?.enabled ?? true) && upcomingEvents.value.length > 0
+    return (
+      section.value === 'all' &&
+      (settings.value.upcomingEvents?.enabled ?? true) &&
+      upcomingEvents.value.length > 0
+    )
   })
   const showHydrationSection = computed(() => {
-    return (settings.value.hydration?.enabled ?? true) && nutritionEnabled.value
+    return (
+      section.value === 'all' &&
+      (settings.value.hydration?.enabled ?? true) &&
+      nutritionEnabled.value
+    )
   })
 
   const metricConfigs: Record<string, any> = {

@@ -20,18 +20,15 @@
             v-model="localLayout"
             group="customizer"
             item-key="id"
-            handle=".drag-handle"
             ghost-class="opacity-50 border-2 border-dashed border-primary-500 rounded bg-gray-50 dark:bg-gray-800"
             animation="200"
             @end="emitUpdate"
           >
             <template #item="{ element }">
               <div
-                class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm"
+                class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm cursor-move hover:border-primary-500 transition-colors"
               >
-                <div
-                  class="drag-handle p-2 cursor-move flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
-                >
+                <div class="p-1 flex items-center justify-center rounded">
                   <UIcon name="i-heroicons-bars-3" class="w-5 h-5 text-gray-400" />
                 </div>
                 <div class="flex-grow">
@@ -76,12 +73,15 @@
 
   const localLayout = ref([...props.layout])
 
+  // Only reset local layout when the slideover is opened
+  // Doing this constantly breaks vuedraggable's internal DOM tracking
   watch(
-    () => props.layout,
-    (newLayout) => {
-      localLayout.value = [...newLayout]
-    },
-    { deep: true }
+    () => props.open,
+    (isOpen) => {
+      if (isOpen) {
+        localLayout.value = [...props.layout]
+      }
+    }
   )
 
   const sizeOptions = [
