@@ -1,5 +1,5 @@
 import pg from 'pg'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 export async function waitForPostgres(connectionString: string, attempts = 60) {

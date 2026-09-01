@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
 import Table from 'cli-table3'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import { startOfDay, endOfDay } from 'date-fns'
@@ -35,7 +35,9 @@ const metabolicCommand = new Command('metabolic')
       process.exit(1)
     }
 
-    console.log(chalk[isProd ? 'yellow' : 'blue'](`Using ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'} database.`))
+    console.log(
+      chalk[isProd ? 'yellow' : 'blue'](`Using ${isProd ? 'PRODUCTION' : 'DEVELOPMENT'} database.`)
+    )
 
     const pool = new pg.Pool({ connectionString })
     const adapter = new PrismaPg(pool)

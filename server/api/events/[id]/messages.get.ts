@@ -1,4 +1,4 @@
-import { PrismaClient } from '~/server/utils/generated-prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 
 export default defineEventHandler(async (event) => {
   const session = await requireAuthSession(event)

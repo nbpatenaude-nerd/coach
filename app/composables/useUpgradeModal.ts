@@ -1,6 +1,6 @@
 import type { PricingTier } from '~/utils/pricing'
 import { resolveRecommendedUpgradeTier } from '~~/shared/quota-paywall'
-import type { SubscriptionTier } from '@prisma/client'
+import type { SubscriptionTier } from '~~/server/utils/generated-prisma/client'
 
 interface UpgradeModalOptions {
   title?: string

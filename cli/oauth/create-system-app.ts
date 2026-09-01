@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import chalk from 'chalk'

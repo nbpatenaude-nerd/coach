@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 
@@ -25,7 +25,11 @@ replayWebhooksCommand
       process.exit(1)
     }
 
-    console.log(chalk[isProd ? 'yellow' : 'blue'](isProd ? 'Using PRODUCTION database.' : 'Using DEVELOPMENT database.'))
+    console.log(
+      chalk[isProd ? 'yellow' : 'blue'](
+        isProd ? 'Using PRODUCTION database.' : 'Using DEVELOPMENT database.'
+      )
+    )
 
     process.env.DATABASE_URL = connectionString
     const pool = new pg.Pool({ connectionString })
@@ -112,7 +116,9 @@ replayWebhooksCommand
 
       if (!integration?.externalUserId) {
         console.error(
-          chalk.red(`Intervals integration with externalUserId not found for ${user.email || user.id}.`)
+          chalk.red(
+            `Intervals integration with externalUserId not found for ${user.email || user.id}.`
+          )
         )
         process.exit(1)
       }
@@ -198,7 +204,11 @@ replayWebhooksCommand
       const totalRecords = matched.reduce((sum, item) => sum + item.records.length, 0)
       matched.sort((left, right) => left.createdAt.getTime() - right.createdAt.getTime())
 
-      console.log(chalk.green(`Matched ${matched.length} webhook event payload(s), ${totalRecords} record(s).`))
+      console.log(
+        chalk.green(
+          `Matched ${matched.length} webhook event payload(s), ${totalRecords} record(s).`
+        )
+      )
       for (const item of matched.slice(0, 20)) {
         const firstDate = item.records[0]?.id
         const lastDate = item.records[item.records.length - 1]?.id
@@ -213,7 +223,9 @@ replayWebhooksCommand
       }
 
       if (!options.apply) {
-        console.log(chalk.yellow('Preview only. Re-run with --apply to write the replayed records.'))
+        console.log(
+          chalk.yellow('Preview only. Re-run with --apply to write the replayed records.')
+        )
         return
       }
 

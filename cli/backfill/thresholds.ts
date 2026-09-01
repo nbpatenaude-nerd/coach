@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
-import { Prisma, PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import { thresholdDetectionService } from '../../server/utils/services/thresholdDetectionService'

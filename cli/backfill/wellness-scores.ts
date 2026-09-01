@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import { normalizeIntervalsWellness } from '../../server/utils/intervals'
@@ -98,7 +98,8 @@ backfillWellnessScoresCommand
           let normalized: any = null
 
           // Detect Source
-          const isOuraFormat = raw.dailyReadiness || raw.readiness_score || (entry.lastSource === 'oura')
+          const isOuraFormat =
+            raw.dailyReadiness || raw.readiness_score || entry.lastSource === 'oura'
 
           if (isOuraFormat && (raw.dailyReadiness || raw.dailySleep)) {
             normalized = normalizeOuraWellness(
@@ -130,8 +131,14 @@ backfillWellnessScoresCommand
 
           // Fields to check for backfill
           const fields = [
-            'mood', 'soreness', 'stress', 'fatigue',
-            'sleepQuality', 'motivation', 'readiness', 'recoveryScore'
+            'mood',
+            'soreness',
+            'stress',
+            'fatigue',
+            'sleepQuality',
+            'motivation',
+            'readiness',
+            'recoveryScore'
           ]
 
           for (const field of fields) {
@@ -149,7 +156,9 @@ backfillWellnessScoresCommand
             if (isDryRun) {
               if (fixedCount < 10 || options.id) {
                 console.log(
-                  chalk.green(`[DRY RUN] Update for ${entry.date.toISOString().split('T')[0]} (${entry.id})`)
+                  chalk.green(
+                    `[DRY RUN] Update for ${entry.date.toISOString().split('T')[0]} (${entry.id})`
+                  )
                 )
                 for (const [k, v] of Object.entries(updateData)) {
                   console.log(chalk.gray(`  ${k}: ${(entry as any)[k]} -> ${v}`))
@@ -174,7 +183,9 @@ backfillWellnessScoresCommand
         }
 
         if (processedCount % 5000 === 0) {
-          console.log(chalk.gray(`Processed ${processedCount}/${totalCount}... (Fixed: ${fixedCount})`))
+          console.log(
+            chalk.gray(`Processed ${processedCount}/${totalCount}... (Fixed: ${fixedCount})`)
+          )
         }
 
         if (wellnessEntries.length < batchSize) break

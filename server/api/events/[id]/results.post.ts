@@ -1,5 +1,5 @@
-import { PrismaClient } from '~/server/utils/generated-prisma/client'
-import { sendTelegramMessage } from '~/server/utils/telegram'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
+import { sendTelegramMessage } from '~~/server/utils/telegram'
 
 export default defineEventHandler(async (event) => {
   const session = await requireAuthSession(event)

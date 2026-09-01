@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { toRaw } from 'vue'
-import type { SubscriptionTier, SubscriptionStatus } from '@prisma/client'
+import type { SubscriptionTier, SubscriptionStatus } from '~~/server/utils/generated-prisma/client'
 import { LBS_TO_KG } from '~/utils/metrics'
 import { showDashboardProgressToast } from '~/utils/dashboard-progress-toast'
 interface User {

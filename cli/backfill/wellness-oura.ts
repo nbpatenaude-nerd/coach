@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
-import { Prisma, PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import { subDays } from 'date-fns'
@@ -90,7 +90,9 @@ async function handleSoftBackfill(prisma: any, options: any) {
   })
   if (sample && sample.rawJson) {
     console.log(chalk.gray(`DEBUG: Sample Record ID: ${sample.id}`))
-    console.log(chalk.gray(`DEBUG: Sample rawJson keys: ${Object.keys(sample.rawJson as object).join(', ')}`))
+    console.log(
+      chalk.gray(`DEBUG: Sample rawJson keys: ${Object.keys(sample.rawJson as object).join(', ')}`)
+    )
   }
 
   // Fetch all records to filter in memory (safer than Prisma JSON filter)
@@ -99,9 +101,7 @@ async function handleSoftBackfill(prisma: any, options: any) {
     orderBy: { date: 'desc' }
   })
 
-  console.log(
-    chalk.gray(`Scanned ${entries.length} records. Filtering for Oura data...`)
-  )
+  console.log(chalk.gray(`Scanned ${entries.length} records. Filtering for Oura data...`))
 
   let updatedCount = 0
   for (const entry of entries) {

@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
-import { PrismaClient, BugStatus } from '@prisma/client'
+import { PrismaClient, BugStatus } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import { sendToUser } from '../../server/utils/ws-state'

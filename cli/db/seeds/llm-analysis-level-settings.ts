@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '~~/server/utils/generated-prisma/client'
 
 export const seed = async (prisma: PrismaClient, options: { force?: boolean } = {}) => {
   console.log('Seeding LLM Analysis Level Settings...')

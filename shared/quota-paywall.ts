@@ -1,4 +1,4 @@
-import type { SubscriptionTier } from '@prisma/client'
+import type { SubscriptionTier } from '~~/server/utils/generated-prisma/client'
 import type { PricingTier } from '~/utils/pricing'
 import type { QuotaStatus } from '~/types/quotas'
 
@@ -176,5 +176,5 @@ export function buildQuotaUpgradeBullets(
 }
 
 export function tierMeetsPaidSubscription(tier: SubscriptionTier): boolean {
-  return TIER_RANK[tier] > TIER_RANK.FREE
+  return TIER_RANK[tier] > 0
 }

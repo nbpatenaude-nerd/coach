@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import { format } from 'date-fns'
@@ -147,7 +147,9 @@ async function getLatestSourceBeforeDay(
   ])
 
   const targetDay = toUtcDateKey(day)
-  const priorWorkout = workouts.find((workout) => formatUserDate(workout.date, timezone) < targetDay)
+  const priorWorkout = workouts.find(
+    (workout) => formatUserDate(workout.date, timezone) < targetDay
+  )
 
   const workoutDay = priorWorkout ? formatUserDate(priorWorkout.date, timezone) : ''
   const wellnessDay = wellness[0] ? toUtcDateKey(wellness[0].date) : ''
@@ -213,67 +215,74 @@ formCommand
 
       const tomorrowDate = new Date(todayDate)
       tomorrowDate.setUTCDate(tomorrowDate.getUTCDate() + 1)
-      const [latestSource, previousSource, completedWorkoutsToday, plannedForToday, futurePlanned, rawSummary, adjustedSummary] =
-        await Promise.all([
-          getLatestSource(prisma, user.id),
-          getLatestSourceBeforeDay(prisma, user.id, todayDate, timezone),
-          prisma.workout.findMany({
-            where: {
-              userId: user.id,
-              isDuplicate: false,
-              date: {
-                gte: new Date(todayDate.getTime() - 24 * 60 * 60 * 1000),
-                lt: tomorrowDate
-              }
-            },
-            orderBy: { date: 'asc' },
-            select: {
-              id: true,
-              date: true,
-              title: true,
-              tss: true,
-              ctl: true,
-              atl: true
+      const [
+        latestSource,
+        previousSource,
+        completedWorkoutsToday,
+        plannedForToday,
+        futurePlanned,
+        rawSummary,
+        adjustedSummary
+      ] = await Promise.all([
+        getLatestSource(prisma, user.id),
+        getLatestSourceBeforeDay(prisma, user.id, todayDate, timezone),
+        prisma.workout.findMany({
+          where: {
+            userId: user.id,
+            isDuplicate: false,
+            date: {
+              gte: new Date(todayDate.getTime() - 24 * 60 * 60 * 1000),
+              lt: tomorrowDate
             }
-          }),
-          prisma.plannedWorkout.findMany({
-            where: {
-              userId: user.id,
-              date: todayDate,
-              completed: { not: true },
-              completionStatus: { not: 'COMPLETED' },
-              completedWorkouts: { none: {} }
+          },
+          orderBy: { date: 'asc' },
+          select: {
+            id: true,
+            date: true,
+            title: true,
+            tss: true,
+            ctl: true,
+            atl: true
+          }
+        }),
+        prisma.plannedWorkout.findMany({
+          where: {
+            userId: user.id,
+            date: todayDate,
+            completed: { not: true },
+            completionStatus: { not: 'COMPLETED' },
+            completedWorkouts: { none: {} }
+          },
+          orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+          select: {
+            id: true,
+            title: true,
+            type: true,
+            date: true,
+            tss: true,
+            durationSec: true
+          }
+        }),
+        prisma.plannedWorkout.findMany({
+          where: {
+            userId: user.id,
+            date: {
+              gte: todayDate,
+              lte: new Date(todayDate.getTime() + projectionDays * 24 * 60 * 60 * 1000)
             },
-            orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
-            select: {
-              id: true,
-              title: true,
-              type: true,
-              date: true,
-              tss: true,
-              durationSec: true
-            }
-          }),
-          prisma.plannedWorkout.findMany({
-            where: {
-              userId: user.id,
-              date: {
-                gte: todayDate,
-                lte: new Date(todayDate.getTime() + projectionDays * 24 * 60 * 60 * 1000)
-              },
-              completed: { not: true },
-              completionStatus: { not: 'COMPLETED' },
-              completedWorkouts: { none: {} }
-            },
-            orderBy: { date: 'asc' },
-            select: { date: true, tss: true }
-          }),
-          getCurrentFitnessSummary(user.id, prisma, { timezone }),
-          getCurrentFitnessSummary(user.id, prisma, {
-            timezone,
-            adjustForTodayUncompletedPlannedTSS: true
-          })
-        ])
+            completed: { not: true },
+            completionStatus: { not: 'COMPLETED' },
+            completedWorkouts: { none: {} }
+          },
+          orderBy: { date: 'asc' },
+          select: { date: true, tss: true }
+        }),
+        getCurrentFitnessSummary(user.id, prisma, { timezone }),
+        getCurrentFitnessSummary(user.id, prisma, {
+          timezone,
+          adjustForTodayUncompletedPlannedTSS: true
+        })
+      ])
 
       const todayKey = toUtcDateKey(todayDate)
       const completedToday = completedWorkoutsToday.filter(

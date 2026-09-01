@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
 import Table from 'cli-table3'
@@ -69,7 +69,9 @@ const llmStatsCommand = new Command('stats')
 
       console.log(chalk.bold('Daily Totals:'))
       console.log(dailyTable.toString())
-      console.log(chalk.cyan(`Total Cost: $${totalCost.toFixed(4)} across ${totalRequests} requests.`))
+      console.log(
+        chalk.cyan(`Total Cost: $${totalCost.toFixed(4)} across ${totalRequests} requests.`)
+      )
 
       // 1.5. Daily Breakdown by Model
       console.log(chalk.bold('\nDaily Breakdown by Model:'))
@@ -154,7 +156,6 @@ const llmStatsCommand = new Command('stats')
       })
 
       console.log(modelTable.toString())
-
     } catch (e) {
       console.error(chalk.red('Error fetching LLM stats:'), e)
     } finally {

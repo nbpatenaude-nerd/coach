@@ -1,6 +1,6 @@
 import type { PricingTier } from '~/utils/pricing'
 import type { QuotaStatus } from '~/types/quotas'
-import type { SubscriptionTier } from '@prisma/client'
+import type { SubscriptionTier } from '~~/server/utils/generated-prisma/client'
 import {
   buildQuotaFeatureDescription,
   buildQuotaUpgradeBullets,

@@ -1,4 +1,4 @@
-import type { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '~~/server/utils/generated-prisma/client'
 
 // ------------------------------------------------------------------
 // 1. Last 3 Workouts Analysis

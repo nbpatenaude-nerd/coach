@@ -1,10 +1,10 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import pg from 'pg'
-import type { SubscriptionTier } from '@prisma/client'
+import type { SubscriptionTier } from '~~/server/utils/generated-prisma/client'
 import { QUOTA_REGISTRY, type QuotaOperation } from '../../server/utils/quotas/registry'
 import { getStartOfDayUTC, getEndOfDayUTC } from '../../server/utils/date'
 

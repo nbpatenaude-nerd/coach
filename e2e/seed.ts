@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { randomUUID } from 'node:crypto'
-import type { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '~~/server/utils/generated-prisma/client'
 
 export const E2E_ATHLETE_EMAIL = 'e2e-athlete@coachwatts.test'
 export const E2E_ADMIN_EMAIL = 'e2e-admin@coachwatts.test'

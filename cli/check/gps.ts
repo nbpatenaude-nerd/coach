@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 import { prisma } from '../../server/utils/db'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 
 const gpsCommand = new Command('gps')
   .description('Check GPS data format in workout streams')
