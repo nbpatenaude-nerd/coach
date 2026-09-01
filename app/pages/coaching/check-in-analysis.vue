@@ -80,7 +80,7 @@
             </div>
 
             <div class="h-[400px] w-full">
-              <LineChart :chart-data="chartData" :chart-options="chartOptions" />
+              <LineChart :data="chartData" :options="chartOptions" />
             </div>
           </div>
 

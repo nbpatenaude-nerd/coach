@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { BugStatus } from '@prisma/client'
+  import type { BugStatus } from '~~/server/utils/generated-prisma/client'
   import { useDebounce } from '@vueuse/core'
 
   definePageMeta({

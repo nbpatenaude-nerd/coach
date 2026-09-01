@@ -75,7 +75,7 @@
         class="flex-1 overflow-x-auto overflow-y-hidden p-6 flex gap-4 bg-background"
       >
         <div
-          v-for="stage in activePipeline.stages"
+          v-for="stage in activePipeline?.stages || []"
           :key="stage.id"
           class="flex flex-col min-w-[320px] max-w-[320px] bg-transparent overflow-hidden"
           @dragover.prevent
@@ -351,7 +351,12 @@
         if (deal && grouped[deal.stageId]) {
           grouped[deal.stageId].push(a)
         } else if (pipeline.stages && pipeline.stages.length > 0) {
-          grouped[pipeline.stages[0].id].push(a)
+          if (pipeline.stages && pipeline.stages.length > 0) {
+            const defaultStageId = pipeline.stages[0].id
+            if (grouped[defaultStageId]) {
+              grouped[defaultStageId].push(a)
+            }
+          }
         }
       })
     }
@@ -384,7 +389,7 @@
     const athleteId = e.dataTransfer?.getData('text/plain')
     if (!athleteId || !activePipeline.value) return
 
-    const athlete = athletes.value.find((a: CrmAthlete) => a.id === athleteId)
+    const athlete = athletes.value?.find((a: CrmAthlete) => a.id === athleteId)
     if (!athlete) return
 
     const deal = athlete.crmDeals.find((d) => d.pipelineId === activePipeline.value!.id)

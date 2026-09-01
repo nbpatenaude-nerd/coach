@@ -2,7 +2,7 @@ import type { BillingInterval, PricingPlan, SupportedCurrency } from '~/utils/pr
 import { calculateAnnualSavings, computeSavingsPercent, getPrice } from '~/utils/pricing'
 
 type StripePriceInfo = {
-  tier: 'supporter' | 'pro'
+  tier: PricingTier
   interval: BillingInterval
   currency: SupportedCurrency
   amount: number
@@ -46,7 +46,7 @@ export function useLivePricing() {
   }
 
   function monthlyEquivalent(plan: PricingPlan, currency: SupportedCurrency): number {
-    return priceFor(plan, 'annual', currency) / 12
+    return priceFor(plan, '12-phase', currency) / 12
   }
 
   /**
@@ -54,8 +54,8 @@ export function useLivePricing() {
    * against — never claim a discount that isn't in the prices.
    */
   function annualSavings(plan: PricingPlan, currency: SupportedCurrency): number | null {
-    const monthly = findPrice(plan, 'monthly', currency)
-    const annual = findPrice(plan, 'annual', currency)
+    const monthly = findPrice(plan, '1-phase', currency)
+    const annual = findPrice(plan, '12-phase', currency)
     if (monthly === null || annual === null) {
       const fallback = calculateAnnualSavings(plan)
       return fallback > 0 ? fallback : null

@@ -1,6 +1,6 @@
 <template>
   <UModal v-model="isOpen" :prevent-close="isSaving">
-    <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+    <UCard>
       <template #header>
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -8,12 +8,16 @@
             Level Up Detected
           </h3>
           <UButton
-            color="gray"
+            color="neutral"
             variant="ghost"
             icon="i-heroicons-x-mark"
             class="-my-1"
             :disabled="isSaving"
-            @click="isOpen = false"
+            @click="
+              () => {
+                isOpen = false
+              }
+            "
           />
         </div>
       </template>
@@ -46,7 +50,7 @@
 
       <template #footer>
         <div class="flex justify-end gap-3">
-          <UButton color="gray" variant="ghost" :loading="isSaving" @click="handleReject"
+          <UButton color="neutral" variant="ghost" :loading="isSaving" @click="handleReject"
             >Dismiss</UButton
           >
           <UButton color="primary" variant="solid" :loading="isSaving" @click="handleAccept"
@@ -119,7 +123,7 @@
     isSaving.value = true
     try {
       // 1. Find or create the matching sport setting for this workout's sport
-      const existingSettings = userStore.user?.sportSettings || []
+      const existingSettings = userStore.profile?.sportSettings || []
       const targetSetting = existingSettings.find(
         (s: any) => props.workoutType && s.types.includes(props.workoutType)
       )
@@ -159,7 +163,7 @@
         toast.add({
           title: 'Zones Updated',
           description: `Successfully applied ${appliedCount} AI recommendation(s).`,
-          color: 'green',
+          color: 'success',
           icon: 'i-heroicons-check-circle'
         })
       }
@@ -171,7 +175,7 @@
       toast.add({
         title: 'Update Failed',
         description: error.message || 'Could not save your new zones.',
-        color: 'red',
+        color: 'error',
         icon: 'i-heroicons-exclamation-circle'
       })
     } finally {

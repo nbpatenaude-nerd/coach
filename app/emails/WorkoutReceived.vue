@@ -17,7 +17,7 @@
     EFont
   } from 'vue-email'
 
-  defineProps<{
+  const props = defineProps<{
     name?: string
     workoutId: string
     workoutTitle: string

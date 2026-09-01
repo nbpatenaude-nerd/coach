@@ -112,14 +112,14 @@
 
         <UAlert
           v-if="errorMsg"
-          color="red"
+          color="error"
           variant="soft"
           icon="i-heroicons-x-circle"
           :title="errorMsg"
         />
         <UAlert
           v-if="successMsg"
-          color="green"
+          color="success"
           variant="soft"
           icon="i-heroicons-check-circle"
           :title="successMsg"

@@ -13,7 +13,11 @@
             variant="ghost"
             color="neutral"
             :loading="status === 'pending'"
-            @click="refresh"
+            @click="
+              () => {
+                refresh()
+              }
+            "
           >
             Refresh
           </UButton>
@@ -106,7 +110,11 @@
                 variant="solid"
                 icon="i-heroicons-play"
                 :loading="runningTasks.has(task.taskName)"
-                @click="runTask(task.taskName)"
+                @click="
+                  () => {
+                    runTask(task.taskName)
+                  }
+                "
               >
                 Run Now
               </UButton>

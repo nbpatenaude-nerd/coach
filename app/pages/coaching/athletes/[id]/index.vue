@@ -705,7 +705,7 @@
         color: 'success'
       })
       // Refresh the page data after a short delay
-      setTimeout(() => refresh(), 3000)
+      setTimeout(() => window.location.reload(), 3000)
     } catch (error: any) {
       toast.add({
         title: 'Sync Failed',

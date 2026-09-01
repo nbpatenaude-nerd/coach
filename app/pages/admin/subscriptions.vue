@@ -263,7 +263,7 @@
                     </td>
                     <td class="px-6 py-3">
                       <UBadge
-                        :color="user.subscriptionTier === 'PRO' ? 'primary' : 'info'"
+                        :color="(user.subscriptionTier as any) === 'PRO' ? 'primary' : 'info'"
                         size="xs"
                       >
                         {{ user.subscriptionTier }}
