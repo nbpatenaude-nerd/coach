@@ -240,18 +240,18 @@
       return
     }
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
-    if (!priceId) {
-      console.error('No Stripe price ID found for plan:', plan.key, billingInterval.value)
+    const phase12PriceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    if (!phase12PriceId) {
+      console.error('No Stripe phase12Price ID found for plan:', plan.key, billingInterval.value)
       return
     }
 
     // Track begin checkout
-    const priceValue = billingInterval.value === 'monthly' ? plan.price : plan.price
-    trackCheckoutStart(priceId, plan.name, billingInterval.value, priceValue || 0, currency.value)
+    const phase12PriceValue = billingInterval.value === 'monthly' ? plan.phase12Price : plan.phase12Price
+    trackCheckoutStart(phase12PriceId, plan.name, billingInterval.value, phase12PriceValue || 0, currency.value)
     trackModalComplete('upgrade_modal', 'checkout')
 
-    await createCheckoutSession(priceId, {
+    await createCheckoutSession(phase12PriceId, {
       successUrl: `${window.location.origin}/settings/billing?success=true`,
       cancelUrl: window.location.href
     })

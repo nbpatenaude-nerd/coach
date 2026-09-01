@@ -115,7 +115,7 @@
 
           <div class="flex items-baseline gap-2 font-athletic italic mb-1.5">
             <span class="font-black text-white leading-none text-5xl xl:text-[3.75rem]">
-              {{ formatPrice(priceFor(plan, billingInterval, currency), currency) }}
+              {{ formatPrice(phase12PriceFor(plan, billingInterval, currency), currency) }}
             </span>
             <span
               class="text-[10px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
@@ -131,14 +131,14 @@
           </div>
 
           <div class="min-h-8">
-            <template v-if="billingInterval === 'annual' && plan.price">
+            <template v-if="billingInterval === 'annual' && plan.phase12Price">
               <div class="text-[10px] font-black text-primary-500 uppercase tracking-widest mb-1">
                 {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
                 {{ t('billing.per_month') }}
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-[10px] font-bold text-gray-600 line-through tracking-wider">
-                  {{ formatPrice(priceFor(plan, 'monthly', currency), currency) }}/mo
+                  {{ formatPrice(phase12PriceFor(plan, 'monthly', currency), currency) }}/mo
                 </span>
                 <span
                   v-if="annualSavings(plan, currency)"
@@ -278,9 +278,9 @@
   const userStore = useUserStore()
   const { createCheckoutSession, openCustomerPortal, changePlan } = useStripe()
   const { currency, setCurrency } = useCurrency()
-  const { priceFor, monthlyEquivalent, annualSavings, bestAnnualSavings } = useLivePricing()
+  const { phase12PriceFor, monthlyEquivalent, annualSavings, bestAnnualSavings } = useLivePricing()
   const { data: currentSubscription } = useAsyncData<{
-    priceId: string | null
+    phase12PriceId: string | null
     interval: 'monthly' | 'annual' | null
   }>('current-stripe-subscription', () => ($fetch as any)('/api/stripe/subscription'), {
     lazy: true
@@ -305,7 +305,7 @@
   const pendingPriceLabel = computed(() =>
     planToChangeTo.value
       ? formatPrice(
-          priceFor(planToChangeTo.value, billingInterval.value, currency.value),
+          phase12PriceFor(planToChangeTo.value, billingInterval.value, currency.value),
           currency.value
         )
       : ''
@@ -325,13 +325,13 @@
     if (pendingChangeKind.value === 'upgrade') {
       return (t.value as (key: string, params?: Record<string, string>) => string)(
         'modal.upgrade_warning',
-        { price: pendingPriceLabel.value }
+        { phase12Price: pendingPriceLabel.value }
       )
     }
     if (pendingChangeKind.value === 'interval') {
       return (t.value as (key: string, params?: Record<string, string>) => string)(
         'modal.interval_warning',
-        { interval: pendingIntervalLabel.value, price: pendingPriceLabel.value }
+        { interval: pendingIntervalLabel.value, phase12Price: pendingPriceLabel.value }
       )
     }
     return translate('modal.warning')
@@ -380,9 +380,9 @@
     const current = currentSubscription.value
     // Without a known interval, fall back to tier-only matching rather than
     // offering a "switch" that might be a no-op.
-    if (!current?.priceId) return true
+    if (!current?.phase12PriceId) return true
     if (current.interval) return current.interval === billingInterval.value
-    return current.priceId === getStripePriceId(plan, billingInterval.value, currency.value)
+    return current.phase12PriceId === getStripePriceId(plan, billingInterval.value, currency.value)
   }
 
   function isPrimaryPlan(plan: PricingPlan): boolean {
@@ -448,14 +448,14 @@
     loading.value = true
     selectedPlan.value = plan.key
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
-    if (priceId) {
+    const phase12PriceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    if (phase12PriceId) {
       // API contract is upgrade | downgrade. Same-tier interval switches share the
       // create_prorations path with downgrades (next invoice, not charged now).
       const kind = planChangeKind(plan)
       const direction = kind === 'upgrade' ? 'upgrade' : 'downgrade'
 
-      const success = await changePlan(priceId, direction)
+      const success = await changePlan(phase12PriceId, direction)
       if (success) {
         showConfirmModal.value = false
         emit('close')
@@ -506,12 +506,12 @@
       return
     }
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
-    if (!priceId) return
+    const phase12PriceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    if (!phase12PriceId) return
 
     loading.value = true
     selectedPlan.value = plan.key
-    await createCheckoutSession(priceId, {
+    await createCheckoutSession(phase12PriceId, {
       successUrl: `${window.location.origin}/settings/billing?success=true`,
       cancelUrl: `${window.location.origin}/settings/billing?canceled=true`
     })

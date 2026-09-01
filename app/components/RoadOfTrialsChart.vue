@@ -228,7 +228,7 @@
         }
       }
     },
-    interaction: {
+    interaction: { mode: 'index' as any,
       mode: 'nearest',
       axis: 'x',
       intersect: false

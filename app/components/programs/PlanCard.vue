@@ -57,7 +57,7 @@
       <UButton
         :to="plan.trainingPeaksUrl"
         target="_blank"
-        color="cyan"
+        color="primary"
         variant="solid"
         class="w-full justify-center font-bold uppercase tracking-widest text-xs py-3"
       >

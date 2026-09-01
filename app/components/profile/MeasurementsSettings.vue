@@ -16,7 +16,7 @@
         <UCheckbox
           v-for="metric in availableMetrics"
           :key="metric.key"
-          :model-value="userStore.user?.trackedCheckinMetrics?.includes(metric.key)"
+          :model-value="(userStore.user as any)?.trackedCheckinMetrics?.includes(metric.key)"
           :label="metric.label"
           @update:model-value="(val) => toggleMetricTracking(metric.key, val)"
         />

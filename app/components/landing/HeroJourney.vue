@@ -60,7 +60,7 @@
             <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto mt-2">
               <UButton
                 size="xl"
-                color="white"
+                color="neutral"
                 class="!bg-white/95 backdrop-blur-md text-slate-950 font-bold whitespace-nowrap px-10 py-3.5 text-[0.8rem] tracking-[0.15em] uppercase hover:!bg-white justify-center transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(34,211,238,0.4)]"
               >
                 Book Free Consult
@@ -68,7 +68,7 @@
               <UButton
                 size="xl"
                 variant="outline"
-                color="gray"
+                color="neutral"
                 class="text-white hover:bg-slate-800/80 border-white/20 backdrop-blur-md bg-black/40 px-10 py-3.5 text-[0.8rem] tracking-[0.15em] uppercase justify-center transition-all"
               >
                 Explore Coaching

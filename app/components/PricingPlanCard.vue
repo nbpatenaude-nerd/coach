@@ -30,7 +30,7 @@
           {{ formatPrice(priceFor(plan, interval, currency), currency) }}
         </span>
         <span class="text-sm text-gray-500 dark:text-gray-400">
-          / {{ interval === 'annual' ? 'year' : 'month' }}
+          / {{ interval === '12-phase' ? 'year' : 'month' }}
         </span>
       </div>
       <p
