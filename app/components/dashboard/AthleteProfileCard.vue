@@ -71,609 +71,625 @@
     <!-- Actual profile data -->
     <div v-else-if="userStore?.profile" class="space-y-0 sm:space-y-4 flex-grow">
       <!-- Profile Info Card - Clickable -->
-      <NuxtLink to="/profile/athlete" :class="profileModuleClass">
-        <div class="flex items-center justify-between mb-3">
-          <p
-            class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest"
-          >
-            {{ t('athlete_profile_header') }}
-          </p>
-          <div class="flex items-center gap-2">
-            <UTooltip v-if="profileStatus.isStale" :text="profileStatus.label">
-              <UIcon name="i-heroicons-exclamation-triangle" class="w-4 h-4 text-amber-500" />
-            </UTooltip>
-            <UButton
-              size="xs"
-              color="neutral"
-              variant="ghost"
-              icon="i-heroicons-arrow-path"
-              :loading="userStore?.generating"
-              @click.prevent="userStore?.generateProfile"
+      <div v-if="section === 'all' || section === 'profile'">
+        <NuxtLink to="/profile/athlete" :class="profileModuleClass">
+          <div class="flex items-center justify-between mb-3">
+            <p
+              class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest"
             >
-              {{ t('header_sync') }}
-            </UButton>
+              {{ t('athlete_profile_header') }}
+            </p>
+            <div class="flex items-center gap-2">
+              <UTooltip v-if="profileStatus.isStale" :text="profileStatus.label">
+                <UIcon name="i-heroicons-exclamation-triangle" class="w-4 h-4 text-amber-500" />
+              </UTooltip>
+              <UButton
+                size="xs"
+                color="neutral"
+                variant="ghost"
+                icon="i-heroicons-arrow-path"
+                :loading="userStore?.generating"
+                @click.prevent="userStore?.generateProfile"
+              >
+                {{ t('header_sync') }}
+              </UButton>
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="flex items-baseline gap-2">
+              <div class="flex items-center gap-2">
+                <span
+                  v-if="
+                    userStore.profile.country &&
+                    countries.find((c) => c.code === userStore.profile.country)
+                  "
+                  class="text-2xl"
+                  :title="countries.find((c) => c.code === userStore.profile.country)?.name"
+                >
+                  {{ countries.find((c) => c.code === userStore.profile.country)?.flag }}
+                </span>
+                <p class="font-bold text-lg text-gray-900 dark:text-white">
+                  {{ userStore.profile.name || 'Athlete' }}
+                </p>
+              </div>
+              <p
+                v-if="userStore.profile.age"
+                class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-widest"
+              >
+                {{ userStore.profile.age }} <span class="text-[9px] opacity-70">yrs</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div
+              v-for="metric in getVisibleMetrics('profileInfo')"
+              :key="metric.key"
+              class="space-y-1"
+            >
+              <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
+                <UIcon
+                  :name="metricConfigs[metric.key].icon"
+                  class="w-3 h-3"
+                  :class="metricConfigs[metric.key].iconColor"
+                />
+                {{ metricConfigs[metric.key].label }}
+              </div>
+              <div class="text-sm font-bold text-gray-900 dark:text-white">
+                <template v-if="metric.key === 'maxHr'">
+                  <template v-if="userStore.currentMaxHr"
+                    >{{ userStore.currentMaxHr }}
+                    <span class="text-[9px] opacity-70">bpm</span></template
+                  >
+                  <template v-else-if="userStore.profile.estimatedMaxHR"
+                    >~{{ userStore.profile.estimatedMaxHR }}
+                    <span class="text-[9px] opacity-70">bpm</span></template
+                  >
+                  <UButton
+                    v-else
+                    to="/profile/settings"
+                    icon="i-heroicons-pencil"
+                    color="neutral"
+                    variant="soft"
+                    size="xs"
+                    class="-my-1"
+                    @click.stop
+                  />
+                </template>
+                <template v-else-if="metric.key === 'restingHr'">
+                  <template v-if="userStore.profile.restingHr"
+                    >{{ userStore.profile.restingHr }}
+                    <span class="text-[9px] opacity-70">bpm</span></template
+                  >
+                  <UButton
+                    v-else
+                    to="/profile/settings"
+                    icon="i-heroicons-pencil"
+                    color="neutral"
+                    variant="soft"
+                    size="xs"
+                    class="-my-1"
+                    @click.stop
+                  />
+                </template>
+                <template v-else-if="metric.key === 'lthr'">
+                  <template v-if="userStore.currentLthr"
+                    >{{ userStore.currentLthr }}
+                    <span class="text-[9px] opacity-70">bpm</span></template
+                  >
+                  <UButton
+                    v-else
+                    to="/profile/settings"
+                    icon="i-heroicons-pencil"
+                    color="neutral"
+                    variant="soft"
+                    size="xs"
+                    class="-my-1"
+                    @click.stop
+                  />
+                </template>
+                <template v-else-if="metric.key === 'age'">
+                  {{ userStore.profile.age || 'N/A' }}
+                  <span class="text-[9px] opacity-70">yrs</span>
+                </template>
+                <template v-else-if="metric.key === 'height'">
+                  <span class="font-bold">{{
+                    formatHeight(userStore.profile.height, userStore.profile.heightUnits)
+                  }}</span>
+                </template>
+              </div>
+            </div>
+          </div>
+        </NuxtLink>
+      </div>
+      <!-- Training Load & Form Section -->
+      <div v-if="section === 'all' || section === 'trainingLoad'">
+        <button
+          :class="profileModuleClass"
+          @click="
+            () => {
+              void $emit('open-training-load')
+            }
+          "
+        >
+          <div class="flex items-center justify-between mb-3">
+            <p
+              class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest"
+            >
+              Training Load & Form
+            </p>
             <UIcon
               name="i-heroicons-chevron-right"
               class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
             />
           </div>
-        </div>
 
-        <div class="mb-3">
-          <div class="flex items-baseline gap-2">
+          <div v-if="pmcLoading" class="grid grid-cols-2 sm:grid-cols-3 gap-3 animate-pulse">
+            <div v-for="i in 3" :key="i" class="h-8 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+          </div>
+
+          <div v-else-if="pmcData?.summary" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div
+              v-for="metric in getVisibleMetrics('trainingLoad')"
+              :key="metric.key"
+              class="space-y-1"
+            >
+              <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
+                <UIcon
+                  :name="metricConfigs[metric.key].icon"
+                  class="w-3 h-3"
+                  :class="
+                    metric.key === 'tsb'
+                      ? getTSBIconColor(pmcData.summary.currentTSB)
+                      : 'text-purple-500'
+                  "
+                />
+                {{ metricConfigs[metric.key].label }}
+                <span class="text-[9px] font-normal lowercase opacity-70"
+                  >({{ metricConfigs[metric.key].sublabel }})</span
+                >
+              </div>
+              <div class="flex items-center gap-2">
+                <div
+                  class="text-sm font-bold"
+                  :class="
+                    metric.key === 'tsb'
+                      ? getTSBTextColor(pmcData.summary.currentTSB)
+                      : 'text-gray-900 dark:text-white'
+                  "
+                >
+                  <template v-if="metric.key === 'ctl'">
+                    {{ (pmcData.summary.currentCTL ?? 0).toFixed(0) }}
+                  </template>
+                  <template v-else-if="metric.key === 'atl'">
+                    {{ (pmcData.summary.currentATL ?? 0).toFixed(0) }}
+                  </template>
+                  <template v-else-if="metric.key === 'tsb'">
+                    {{ (pmcData.summary.currentTSB ?? 0) > 0 ? '+' : ''
+                    }}{{ (pmcData.summary.currentTSB ?? 0).toFixed(0) }}
+                  </template>
+                </div>
+                <TrendIndicator
+                  v-if="pmcData.data"
+                  :current="
+                    metric.key === 'ctl'
+                      ? pmcData.summary.currentCTL
+                      : metric.key === 'atl'
+                        ? pmcData.summary.currentATL
+                        : pmcData.summary.currentTSB
+                  "
+                  :previous="
+                    pmcData.data
+                      .slice(-8, -1)
+                      .map((d: any) =>
+                        metric.key === 'ctl' ? d.ctl : metric.key === 'atl' ? d.atl : d.tsb
+                      )
+                  "
+                  :type="metric.key === 'atl' ? 'lower-is-better' : 'higher-is-better'"
+                  compact
+                  icon-only
+                  show-value
+                />
+              </div>
+            </div>
+          </div>
+          <div v-else class="text-xs text-gray-500 italic text-center py-1">
+            No training load data yet. Upload workouts with TSS to see CTL/ATL/TSB.
+          </div>
+        </button>
+      </div>
+      <!-- Performance Section - Clickable -->
+      <div v-if="section === 'all' || section === 'corePerformance'">
+        <NuxtLink to="/performance" :class="profileModuleClass">
+          <div class="flex items-center justify-between mb-3">
+            <p
+              class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest"
+            >
+              Core Performance
+            </p>
+            <UIcon
+              name="i-heroicons-chevron-right"
+              class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
+            />
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div
+              v-for="metric in getVisibleMetrics('corePerformance')"
+              :key="metric.key"
+              class="space-y-1"
+            >
+              <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
+                <UIcon :name="metricConfigs[metric.key].icon" class="w-3 h-3 text-amber-500" />
+                {{ metricConfigs[metric.key].label }}
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="text-sm font-bold text-gray-900 dark:text-white">
+                  <template v-if="metric.key === 'ftp'">
+                    <template v-if="userStore.defaultProfileFtp"
+                      >{{ userStore.defaultProfileFtp
+                      }}<span class="text-[9px] opacity-70">W</span></template
+                    >
+                    <UButton
+                      v-else
+                      to="/profile/settings"
+                      icon="i-heroicons-pencil"
+                      color="neutral"
+                      variant="soft"
+                      size="xs"
+                      class="-my-1"
+                      @click.stop
+                    />
+                  </template>
+                  <template v-else-if="metric.key === 'rideFtp'">
+                    <template v-if="userStore.rideFtp"
+                      >{{ userStore.rideFtp }}<span class="text-[9px] opacity-70">W</span></template
+                    >
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'runFtp'">
+                    <template v-if="userStore.runFtp"
+                      >{{ userStore.runFtp }}<span class="text-[9px] opacity-70">W</span></template
+                    >
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'swimFtp'">
+                    <template v-if="userStore.swimFtp"
+                      >{{ userStore.swimFtp }}<span class="text-[9px] opacity-70">W</span></template
+                    >
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'skiFtp'">
+                    <template v-if="userStore.skiFtp"
+                      >{{ userStore.skiFtp }}<span class="text-[9px] opacity-70">W</span></template
+                    >
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'weight'">
+                    <template v-if="userStore.displayWeight">
+                      {{ userStore.displayWeight.toFixed(1) }}
+                      <span class="text-[9px] opacity-70">{{ userStore.weightUnitLabel }}</span>
+                    </template>
+                    <UButton
+                      v-else
+                      to="/profile/settings"
+                      icon="i-heroicons-pencil"
+                      color="neutral"
+                      variant="soft"
+                      size="xs"
+                      class="-my-1"
+                      @click.stop
+                    />
+                  </template>
+                  <template v-else-if="metric.key === 'wKg'">
+                    <template v-if="userStore.currentWkg">
+                      {{ userStore.currentWkg.toFixed(2) }}
+                    </template>
+                    <UButton
+                      v-else
+                      to="/profile/settings"
+                      icon="i-heroicons-pencil"
+                      color="neutral"
+                      variant="soft"
+                      size="xs"
+                      class="-my-1"
+                      @click.stop
+                    />
+                  </template>
+                  <template v-else-if="metric.key === 'wPrime'">
+                    {{
+                      userStore.currentWPrime
+                        ? (userStore.currentWPrime / 1000).toFixed(1) + 'kJ'
+                        : 'N/A'
+                    }}
+                  </template>
+                  <template v-else-if="metric.key === 'thresholdPace'">
+                    {{ userStore.currentThresholdPace || 'N/A' }}
+                  </template>
+                </div>
+                <TrendIndicator
+                  v-if="
+                    metric.key === 'ftp' && userStore.defaultProfileFtp && ftpHistory.length > 0
+                  "
+                  :current="userStore.defaultProfileFtp"
+                  :previous="ftpHistory.map((d: any) => d.ftp)"
+                  type="higher-is-better"
+                  compact
+                  icon-only
+                  show-value
+                />
+                <TrendIndicator
+                  v-else-if="
+                    metric.key === 'weight' && userStore.displayWeight && weightHistory.length > 0
+                  "
+                  :current="userStore.displayWeight"
+                  :previous="
+                    weightHistory.map((d: any) =>
+                      userStore.profile?.weightUnits === 'Pounds' ? d.weight / LBS_TO_KG : d.weight
+                    )
+                  "
+                  type="neutral"
+                  compact
+                  icon-only
+                  show-value
+                />
+                <TrendIndicator
+                  v-else-if="
+                    metric.key === 'wKg' &&
+                    userStore.defaultProfileFtp &&
+                    userStore.profile.weight &&
+                    wKgHistory.length > 0
+                  "
+                  :current="userStore.defaultProfileFtp / userStore.profile.weight"
+                  :previous="wKgHistory"
+                  type="higher-is-better"
+                  compact
+                  icon-only
+                  show-value
+                />
+              </div>
+            </div>
+          </div>
+        </NuxtLink>
+      </div>
+      <!-- Wellness Section - Clickable -->
+      <div v-if="section === 'all' || section === 'recentWellness'">
+        <button
+          v-if="hasWellnessSummary"
+          :class="profileModuleClass"
+          @click="
+            () => {
+              void $emit('open-wellness')
+            }
+          "
+        >
+          <div class="flex items-center justify-between mb-3">
             <div class="flex items-center gap-2">
-              <span
-                v-if="
-                  userStore.profile.country &&
-                  countries.find((c) => c.code === userStore.profile.country)
-                "
-                class="text-2xl"
-                :title="countries.find((c) => c.code === userStore.profile.country)?.name"
+              <p
+                class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest"
               >
-                {{ countries.find((c) => c.code === userStore.profile.country)?.flag }}
-              </span>
-              <p class="font-bold text-lg text-gray-900 dark:text-white">
-                {{ userStore.profile.name || 'Athlete' }}
+                {{ t('athlete_profile_wellness') }}
+              </p>
+              <UiDataAttribution
+                v-if="userStore.profile?.wellnessSource === 'garmin'"
+                provider="garmin"
+                mode="minimal"
+                class="opacity-60 grayscale hover:grayscale-0 transition-all ml-1"
+              />
+              <UTooltip v-if="wellnessStatus.isStale" :text="wellnessStatus.label">
+                <UIcon name="i-heroicons-exclamation-triangle" class="w-4 h-4 text-amber-500" />
+              </UTooltip>
+            </div>
+            <UIcon
+              name="i-heroicons-chevron-right"
+              class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+            <div
+              v-for="metric in getVisibleMetrics('wellness')"
+              :key="metric.key"
+              class="space-y-1"
+            >
+              <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
+                <UIcon :name="metricConfigs[metric.key].icon" class="w-3 h-3 text-indigo-500" />
+                {{ metricConfigs[metric.key].label }}
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="text-sm font-bold text-gray-900 dark:text-white">
+                  <template v-if="metric.key === 'sleep'">
+                    <template v-if="userStore.profile.recentSleep">
+                      {{ userStore.profile.recentSleep.toFixed(1) }}
+                      <span class="text-[9px] opacity-70">h</span>
+                      <span
+                        v-if="
+                          userStore.profile.recentSleepDate &&
+                          formatWellnessDate(userStore.profile.recentSleepDate) !== 'today'
+                        "
+                        class="text-[9px] font-medium text-gray-500 dark:text-gray-400 normal-case"
+                      >
+                        · {{ formatWellnessDate(userStore.profile.recentSleepDate) }}
+                      </span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'hrv'">
+                    <template v-if="userStore.profile.recentHRV">
+                      {{ Math.round(userStore.profile.recentHRV) }}
+                      <span class="text-[9px] opacity-70">ms</span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'rhr'">
+                    <template v-if="userStore.profile.restingHr">
+                      {{ userStore.profile.restingHr }}
+                      <span class="text-[9px] opacity-70">bpm</span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'bodyFat'">
+                    <template v-if="userStore.profile.recentBodyFat != null">
+                      {{ userStore.profile.recentBodyFat.toFixed(1) }}
+                      <span class="text-[9px] opacity-70">%</span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'recovery'">
+                    <template v-if="userStore.profile.recentRecoveryScore">
+                      {{ userStore.profile.recentRecoveryScore }}
+                      <span class="text-[9px] opacity-70">%</span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'readiness'">
+                    {{ userStore.profile.recentReadiness || 'N/A' }}
+                  </template>
+                  <template v-else-if="metric.key === 'fatigue'">
+                    {{ userStore.profile.recentFatigue || 'N/A' }}
+                  </template>
+                  <template v-else-if="metric.key === 'stress'">
+                    {{ normalizeStressScore(userStore.profile.recentStress) || 'N/A' }}
+                  </template>
+                  <template v-else-if="metric.key === 'mood'">
+                    {{ userStore.profile.recentMood || 'N/A' }}
+                  </template>
+                  <template v-else-if="metric.key === 'spO2'">
+                    <template v-if="userStore.profile.recentSpO2">
+                      {{ userStore.profile.recentSpO2 }}
+                      <span class="text-[9px] opacity-70">%</span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'bloodPressure'">
+                    {{
+                      userStore.profile.recentSystolic
+                        ? userStore.profile.recentSystolic + '/' + userStore.profile.recentDiastolic
+                        : 'N/A'
+                    }}
+                  </template>
+                  <template v-else-if="metric.key === 'respiration'">
+                    <template v-if="userStore.profile.recentRespiration">
+                      {{ userStore.profile.recentRespiration }}
+                      <span class="text-[9px] opacity-70">brpm</span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'skinTemp'">
+                    <template v-if="userStore.profile.recentSkinTemp != null">
+                      {{ userStore.profile.recentSkinTemp.toFixed(2) }}
+                      <span class="text-[9px] opacity-70">°C</span>
+                    </template>
+                    <template v-else>N/A</template>
+                  </template>
+                  <template v-else-if="metric.key === 'vo2max'">
+                    {{ userStore.profile.recentVo2max || 'N/A' }}
+                  </template>
+                </div>
+                <TrendIndicator
+                  v-if="wellnessHistory.length > 0 && getValueForKey(metric.key)"
+                  :current="getValueForKey(metric.key)"
+                  :previous="getHistoryForKey(metric.key)"
+                  :type="
+                    metric.key === 'rhr' || metric.key === 'fatigue' || metric.key === 'stress'
+                      ? 'lower-is-better'
+                      : 'higher-is-better'
+                  "
+                  compact
+                  icon-only
+                  show-value
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Sleep Stages Breakdown -->
+          <div
+            v-if="
+              userStore.profile.recentSleepDeep ||
+              userStore.profile.recentSleepRem ||
+              userStore.profile.recentSleepLight ||
+              userStore.profile.recentSleepAwake
+            "
+            class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                Sleep Stages
+              </p>
+              <p class="text-[10px] font-medium text-gray-500">
+                {{ formatSleepTime(sleepStageTotalSecs) }} total
               </p>
             </div>
-            <p
-              v-if="userStore.profile.age"
-              class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-widest"
-            >
-              {{ userStore.profile.age }} <span class="text-[9px] opacity-70">yrs</span>
-            </p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div
-            v-for="metric in getVisibleMetrics('profileInfo')"
-            :key="metric.key"
-            class="space-y-1"
-          >
-            <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
-              <UIcon
-                :name="metricConfigs[metric.key].icon"
-                class="w-3 h-3"
-                :class="metricConfigs[metric.key].iconColor"
-              />
-              {{ metricConfigs[metric.key].label }}
-            </div>
-            <div class="text-sm font-bold text-gray-900 dark:text-white">
-              <template v-if="metric.key === 'maxHr'">
-                <template v-if="userStore.currentMaxHr"
-                  >{{ userStore.currentMaxHr }}
-                  <span class="text-[9px] opacity-70">bpm</span></template
-                >
-                <template v-else-if="userStore.profile.estimatedMaxHR"
-                  >~{{ userStore.profile.estimatedMaxHR }}
-                  <span class="text-[9px] opacity-70">bpm</span></template
-                >
-                <UButton
-                  v-else
-                  to="/profile/settings"
-                  icon="i-heroicons-pencil"
-                  color="neutral"
-                  variant="soft"
-                  size="xs"
-                  class="-my-1"
-                  @click.stop
-                />
-              </template>
-              <template v-else-if="metric.key === 'restingHr'">
-                <template v-if="userStore.profile.restingHr"
-                  >{{ userStore.profile.restingHr }}
-                  <span class="text-[9px] opacity-70">bpm</span></template
-                >
-                <UButton
-                  v-else
-                  to="/profile/settings"
-                  icon="i-heroicons-pencil"
-                  color="neutral"
-                  variant="soft"
-                  size="xs"
-                  class="-my-1"
-                  @click.stop
-                />
-              </template>
-              <template v-else-if="metric.key === 'lthr'">
-                <template v-if="userStore.currentLthr"
-                  >{{ userStore.currentLthr }}
-                  <span class="text-[9px] opacity-70">bpm</span></template
-                >
-                <UButton
-                  v-else
-                  to="/profile/settings"
-                  icon="i-heroicons-pencil"
-                  color="neutral"
-                  variant="soft"
-                  size="xs"
-                  class="-my-1"
-                  @click.stop
-                />
-              </template>
-              <template v-else-if="metric.key === 'age'">
-                {{ userStore.profile.age || 'N/A' }} <span class="text-[9px] opacity-70">yrs</span>
-              </template>
-              <template v-else-if="metric.key === 'height'">
-                <span class="font-bold">{{
-                  formatHeight(userStore.profile.height, userStore.profile.heightUnits)
-                }}</span>
-              </template>
-            </div>
-          </div>
-        </div>
-      </NuxtLink>
-
-      <!-- Training Load & Form Section -->
-      <button
-        :class="profileModuleClass"
-        @click="
-          () => {
-            void $emit('open-training-load')
-          }
-        "
-      >
-        <div class="flex items-center justify-between mb-3">
-          <p
-            class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest"
-          >
-            Training Load & Form
-          </p>
-          <UIcon
-            name="i-heroicons-chevron-right"
-            class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
-          />
-        </div>
-
-        <div v-if="pmcLoading" class="grid grid-cols-2 sm:grid-cols-3 gap-3 animate-pulse">
-          <div v-for="i in 3" :key="i" class="h-8 bg-gray-200 dark:bg-gray-700 rounded-lg" />
-        </div>
-
-        <div v-else-if="pmcData?.summary" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div
-            v-for="metric in getVisibleMetrics('trainingLoad')"
-            :key="metric.key"
-            class="space-y-1"
-          >
-            <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
-              <UIcon
-                :name="metricConfigs[metric.key].icon"
-                class="w-3 h-3"
-                :class="
-                  metric.key === 'tsb'
-                    ? getTSBIconColor(pmcData.summary.currentTSB)
-                    : 'text-purple-500'
-                "
-              />
-              {{ metricConfigs[metric.key].label }}
-              <span class="text-[9px] font-normal lowercase opacity-70"
-                >({{ metricConfigs[metric.key].sublabel }})</span
+            <div class="h-2 w-full rounded-full overflow-hidden flex bg-gray-100 dark:bg-gray-800">
+              <UTooltip
+                v-if="userStore.profile.recentSleepDeep"
+                :text="`Deep: ${formatSleepTime(userStore.profile.recentSleepDeep)}`"
+                class="h-full shrink-0"
+                :style="{
+                  width: (userStore.profile.recentSleepDeep / sleepStageTotalSecs) * 100 + '%'
+                }"
               >
-            </div>
-            <div class="flex items-center gap-2">
-              <div
-                class="text-sm font-bold"
-                :class="
-                  metric.key === 'tsb'
-                    ? getTSBTextColor(pmcData.summary.currentTSB)
-                    : 'text-gray-900 dark:text-white'
-                "
+                <div class="h-full w-full bg-indigo-600" />
+              </UTooltip>
+              <UTooltip
+                v-if="userStore.profile.recentSleepRem"
+                :text="`REM: ${formatSleepTime(userStore.profile.recentSleepRem)}`"
+                class="h-full shrink-0"
+                :style="{
+                  width: (userStore.profile.recentSleepRem / sleepStageTotalSecs) * 100 + '%'
+                }"
               >
-                <template v-if="metric.key === 'ctl'">
-                  {{ (pmcData.summary.currentCTL ?? 0).toFixed(0) }}
-                </template>
-                <template v-else-if="metric.key === 'atl'">
-                  {{ (pmcData.summary.currentATL ?? 0).toFixed(0) }}
-                </template>
-                <template v-else-if="metric.key === 'tsb'">
-                  {{ (pmcData.summary.currentTSB ?? 0) > 0 ? '+' : ''
-                  }}{{ (pmcData.summary.currentTSB ?? 0).toFixed(0) }}
-                </template>
+                <div class="h-full w-full bg-purple-500" />
+              </UTooltip>
+              <UTooltip
+                v-if="userStore.profile.recentSleepLight"
+                :text="`Light: ${formatSleepTime(userStore.profile.recentSleepLight)}`"
+                class="h-full shrink-0"
+                :style="{
+                  width: (userStore.profile.recentSleepLight / sleepStageTotalSecs) * 100 + '%'
+                }"
+              >
+                <div class="h-full w-full bg-blue-400" />
+              </UTooltip>
+              <UTooltip
+                v-if="userStore.profile.recentSleepAwake"
+                :text="`Awake: ${formatSleepTime(userStore.profile.recentSleepAwake)}`"
+                class="h-full shrink-0"
+                :style="{
+                  width: (userStore.profile.recentSleepAwake / sleepStageTotalSecs) * 100 + '%'
+                }"
+              >
+                <div class="h-full w-full bg-rose-400" />
+              </UTooltip>
+            </div>
+            <div class="flex items-center gap-4 mt-2">
+              <div class="flex items-center gap-1.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                <span class="text-[10px] text-gray-500">Deep</span>
               </div>
-              <TrendIndicator
-                v-if="pmcData.data"
-                :current="
-                  metric.key === 'ctl'
-                    ? pmcData.summary.currentCTL
-                    : metric.key === 'atl'
-                      ? pmcData.summary.currentATL
-                      : pmcData.summary.currentTSB
-                "
-                :previous="
-                  pmcData.data
-                    .slice(-8, -1)
-                    .map((d: any) =>
-                      metric.key === 'ctl' ? d.ctl : metric.key === 'atl' ? d.atl : d.tsb
-                    )
-                "
-                :type="metric.key === 'atl' ? 'lower-is-better' : 'higher-is-better'"
-                compact
-                icon-only
-                show-value
-              />
-            </div>
-          </div>
-        </div>
-        <div v-else class="text-xs text-gray-500 italic text-center py-1">
-          No training load data yet. Upload workouts with TSS to see CTL/ATL/TSB.
-        </div>
-      </button>
-
-      <!-- Performance Section - Clickable -->
-      <NuxtLink to="/performance" :class="profileModuleClass">
-        <div class="flex items-center justify-between mb-3">
-          <p
-            class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest"
-          >
-            Core Performance
-          </p>
-          <UIcon
-            name="i-heroicons-chevron-right"
-            class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
-          />
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div
-            v-for="metric in getVisibleMetrics('corePerformance')"
-            :key="metric.key"
-            class="space-y-1"
-          >
-            <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
-              <UIcon :name="metricConfigs[metric.key].icon" class="w-3 h-3 text-amber-500" />
-              {{ metricConfigs[metric.key].label }}
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="text-sm font-bold text-gray-900 dark:text-white">
-                <template v-if="metric.key === 'ftp'">
-                  <template v-if="userStore.defaultProfileFtp"
-                    >{{ userStore.defaultProfileFtp
-                    }}<span class="text-[9px] opacity-70">W</span></template
-                  >
-                  <UButton
-                    v-else
-                    to="/profile/settings"
-                    icon="i-heroicons-pencil"
-                    color="neutral"
-                    variant="soft"
-                    size="xs"
-                    class="-my-1"
-                    @click.stop
-                  />
-                </template>
-                <template v-else-if="metric.key === 'rideFtp'">
-                  <template v-if="userStore.rideFtp"
-                    >{{ userStore.rideFtp }}<span class="text-[9px] opacity-70">W</span></template
-                  >
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'runFtp'">
-                  <template v-if="userStore.runFtp"
-                    >{{ userStore.runFtp }}<span class="text-[9px] opacity-70">W</span></template
-                  >
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'swimFtp'">
-                  <template v-if="userStore.swimFtp"
-                    >{{ userStore.swimFtp }}<span class="text-[9px] opacity-70">W</span></template
-                  >
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'skiFtp'">
-                  <template v-if="userStore.skiFtp"
-                    >{{ userStore.skiFtp }}<span class="text-[9px] opacity-70">W</span></template
-                  >
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'weight'">
-                  <template v-if="userStore.displayWeight">
-                    {{ userStore.displayWeight.toFixed(1) }}
-                    <span class="text-[9px] opacity-70">{{ userStore.weightUnitLabel }}</span>
-                  </template>
-                  <UButton
-                    v-else
-                    to="/profile/settings"
-                    icon="i-heroicons-pencil"
-                    color="neutral"
-                    variant="soft"
-                    size="xs"
-                    class="-my-1"
-                    @click.stop
-                  />
-                </template>
-                <template v-else-if="metric.key === 'wKg'">
-                  <template v-if="userStore.currentWkg">
-                    {{ userStore.currentWkg.toFixed(2) }}
-                  </template>
-                  <UButton
-                    v-else
-                    to="/profile/settings"
-                    icon="i-heroicons-pencil"
-                    color="neutral"
-                    variant="soft"
-                    size="xs"
-                    class="-my-1"
-                    @click.stop
-                  />
-                </template>
-                <template v-else-if="metric.key === 'wPrime'">
-                  {{
-                    userStore.currentWPrime
-                      ? (userStore.currentWPrime / 1000).toFixed(1) + 'kJ'
-                      : 'N/A'
-                  }}
-                </template>
-                <template v-else-if="metric.key === 'thresholdPace'">
-                  {{ userStore.currentThresholdPace || 'N/A' }}
-                </template>
+              <div class="flex items-center gap-1.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                <span class="text-[10px] text-gray-500">REM</span>
               </div>
-              <TrendIndicator
-                v-if="metric.key === 'ftp' && userStore.defaultProfileFtp && ftpHistory.length > 0"
-                :current="userStore.defaultProfileFtp"
-                :previous="ftpHistory.map((d: any) => d.ftp)"
-                type="higher-is-better"
-                compact
-                icon-only
-                show-value
-              />
-              <TrendIndicator
-                v-else-if="
-                  metric.key === 'weight' && userStore.displayWeight && weightHistory.length > 0
-                "
-                :current="userStore.displayWeight"
-                :previous="
-                  weightHistory.map((d: any) =>
-                    userStore.profile?.weightUnits === 'Pounds' ? d.weight / LBS_TO_KG : d.weight
-                  )
-                "
-                type="neutral"
-                compact
-                icon-only
-                show-value
-              />
-              <TrendIndicator
-                v-else-if="
-                  metric.key === 'wKg' &&
-                  userStore.defaultProfileFtp &&
-                  userStore.profile.weight &&
-                  wKgHistory.length > 0
-                "
-                :current="userStore.defaultProfileFtp / userStore.profile.weight"
-                :previous="wKgHistory"
-                type="higher-is-better"
-                compact
-                icon-only
-                show-value
-              />
-            </div>
-          </div>
-        </div>
-      </NuxtLink>
-
-      <!-- Wellness Section - Clickable -->
-      <button
-        v-if="hasWellnessSummary"
-        :class="profileModuleClass"
-        @click="
-          () => {
-            void $emit('open-wellness')
-          }
-        "
-      >
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <p
-              class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest"
-            >
-              {{ t('athlete_profile_wellness') }}
-            </p>
-            <UiDataAttribution
-              v-if="userStore.profile?.wellnessSource === 'garmin'"
-              provider="garmin"
-              mode="minimal"
-              class="opacity-60 grayscale hover:grayscale-0 transition-all ml-1"
-            />
-            <UTooltip v-if="wellnessStatus.isStale" :text="wellnessStatus.label">
-              <UIcon name="i-heroicons-exclamation-triangle" class="w-4 h-4 text-amber-500" />
-            </UTooltip>
-          </div>
-          <UIcon
-            name="i-heroicons-chevron-right"
-            class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
-          />
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-          <div v-for="metric in getVisibleMetrics('wellness')" :key="metric.key" class="space-y-1">
-            <div class="flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
-              <UIcon :name="metricConfigs[metric.key].icon" class="w-3 h-3 text-indigo-500" />
-              {{ metricConfigs[metric.key].label }}
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="text-sm font-bold text-gray-900 dark:text-white">
-                <template v-if="metric.key === 'sleep'">
-                  <template v-if="userStore.profile.recentSleep">
-                    {{ userStore.profile.recentSleep.toFixed(1) }}
-                    <span class="text-[9px] opacity-70">h</span>
-                    <span
-                      v-if="
-                        userStore.profile.recentSleepDate &&
-                        formatWellnessDate(userStore.profile.recentSleepDate) !== 'today'
-                      "
-                      class="text-[9px] font-medium text-gray-500 dark:text-gray-400 normal-case"
-                    >
-                      · {{ formatWellnessDate(userStore.profile.recentSleepDate) }}
-                    </span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'hrv'">
-                  <template v-if="userStore.profile.recentHRV">
-                    {{ Math.round(userStore.profile.recentHRV) }}
-                    <span class="text-[9px] opacity-70">ms</span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'rhr'">
-                  <template v-if="userStore.profile.restingHr">
-                    {{ userStore.profile.restingHr }} <span class="text-[9px] opacity-70">bpm</span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'bodyFat'">
-                  <template v-if="userStore.profile.recentBodyFat != null">
-                    {{ userStore.profile.recentBodyFat.toFixed(1) }}
-                    <span class="text-[9px] opacity-70">%</span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'recovery'">
-                  <template v-if="userStore.profile.recentRecoveryScore">
-                    {{ userStore.profile.recentRecoveryScore }}
-                    <span class="text-[9px] opacity-70">%</span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'readiness'">
-                  {{ userStore.profile.recentReadiness || 'N/A' }}
-                </template>
-                <template v-else-if="metric.key === 'fatigue'">
-                  {{ userStore.profile.recentFatigue || 'N/A' }}
-                </template>
-                <template v-else-if="metric.key === 'stress'">
-                  {{ normalizeStressScore(userStore.profile.recentStress) || 'N/A' }}
-                </template>
-                <template v-else-if="metric.key === 'mood'">
-                  {{ userStore.profile.recentMood || 'N/A' }}
-                </template>
-                <template v-else-if="metric.key === 'spO2'">
-                  <template v-if="userStore.profile.recentSpO2">
-                    {{ userStore.profile.recentSpO2 }} <span class="text-[9px] opacity-70">%</span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'bloodPressure'">
-                  {{
-                    userStore.profile.recentSystolic
-                      ? userStore.profile.recentSystolic + '/' + userStore.profile.recentDiastolic
-                      : 'N/A'
-                  }}
-                </template>
-                <template v-else-if="metric.key === 'respiration'">
-                  <template v-if="userStore.profile.recentRespiration">
-                    {{ userStore.profile.recentRespiration }}
-                    <span class="text-[9px] opacity-70">brpm</span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'skinTemp'">
-                  <template v-if="userStore.profile.recentSkinTemp != null">
-                    {{ userStore.profile.recentSkinTemp.toFixed(2) }}
-                    <span class="text-[9px] opacity-70">°C</span>
-                  </template>
-                  <template v-else>N/A</template>
-                </template>
-                <template v-else-if="metric.key === 'vo2max'">
-                  {{ userStore.profile.recentVo2max || 'N/A' }}
-                </template>
+              <div class="flex items-center gap-1.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                <span class="text-[10px] text-gray-500">Light</span>
               </div>
-              <TrendIndicator
-                v-if="wellnessHistory.length > 0 && getValueForKey(metric.key)"
-                :current="getValueForKey(metric.key)"
-                :previous="getHistoryForKey(metric.key)"
-                :type="
-                  metric.key === 'rhr' || metric.key === 'fatigue' || metric.key === 'stress'
-                    ? 'lower-is-better'
-                    : 'higher-is-better'
-                "
-                compact
-                icon-only
-                show-value
-              />
+              <div v-if="userStore.profile.recentSleepAwake" class="flex items-center gap-1.5">
+                <div class="w-1.5 h-1.5 rounded-full bg-rose-400" />
+                <span class="text-[10px] text-gray-500">Awake</span>
+              </div>
             </div>
           </div>
-        </div>
+        </button>
 
-        <!-- Sleep Stages Breakdown -->
-        <div
-          v-if="
-            userStore.profile.recentSleepDeep ||
-            userStore.profile.recentSleepRem ||
-            userStore.profile.recentSleepLight ||
-            userStore.profile.recentSleepAwake
-          "
-          class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800"
-        >
-          <div class="flex items-center justify-between mb-2">
-            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Sleep Stages</p>
-            <p class="text-[10px] font-medium text-gray-500">
-              {{ formatSleepTime(sleepStageTotalSecs) }} total
-            </p>
-          </div>
-          <div class="h-2 w-full rounded-full overflow-hidden flex bg-gray-100 dark:bg-gray-800">
-            <UTooltip
-              v-if="userStore.profile.recentSleepDeep"
-              :text="`Deep: ${formatSleepTime(userStore.profile.recentSleepDeep)}`"
-              class="h-full shrink-0"
-              :style="{
-                width: (userStore.profile.recentSleepDeep / sleepStageTotalSecs) * 100 + '%'
-              }"
-            >
-              <div class="h-full w-full bg-indigo-600" />
-            </UTooltip>
-            <UTooltip
-              v-if="userStore.profile.recentSleepRem"
-              :text="`REM: ${formatSleepTime(userStore.profile.recentSleepRem)}`"
-              class="h-full shrink-0"
-              :style="{
-                width: (userStore.profile.recentSleepRem / sleepStageTotalSecs) * 100 + '%'
-              }"
-            >
-              <div class="h-full w-full bg-purple-500" />
-            </UTooltip>
-            <UTooltip
-              v-if="userStore.profile.recentSleepLight"
-              :text="`Light: ${formatSleepTime(userStore.profile.recentSleepLight)}`"
-              class="h-full shrink-0"
-              :style="{
-                width: (userStore.profile.recentSleepLight / sleepStageTotalSecs) * 100 + '%'
-              }"
-            >
-              <div class="h-full w-full bg-blue-400" />
-            </UTooltip>
-            <UTooltip
-              v-if="userStore.profile.recentSleepAwake"
-              :text="`Awake: ${formatSleepTime(userStore.profile.recentSleepAwake)}`"
-              class="h-full shrink-0"
-              :style="{
-                width: (userStore.profile.recentSleepAwake / sleepStageTotalSecs) * 100 + '%'
-              }"
-            >
-              <div class="h-full w-full bg-rose-400" />
-            </UTooltip>
-          </div>
-          <div class="flex items-center gap-4 mt-2">
-            <div class="flex items-center gap-1.5">
-              <div class="w-1.5 h-1.5 rounded-full bg-indigo-600" />
-              <span class="text-[10px] text-gray-500">Deep</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <div class="w-1.5 h-1.5 rounded-full bg-purple-500" />
-              <span class="text-[10px] text-gray-500">REM</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <div class="w-1.5 h-1.5 rounded-full bg-blue-400" />
-              <span class="text-[10px] text-gray-500">Light</span>
-            </div>
-            <div v-if="userStore.profile.recentSleepAwake" class="flex items-center gap-1.5">
-              <div class="w-1.5 h-1.5 rounded-full bg-rose-400" />
-              <span class="text-[10px] text-gray-500">Awake</span>
-            </div>
-          </div>
-        </div>
-      </button>
-
-      <!-- Upcoming Events Section -->
+        <!-- Upcoming Events Section -->
+      </div>
       <div v-if="showHydrationSection" :class="profileModuleStaticClass">
         <DashboardHydrationQuickCard
           :nutrition="todayNutrition"
@@ -755,6 +771,10 @@
   import { normalizeStressScore } from '~/utils/wellness'
 
   const { t } = useTranslate('dashboard')
+  const props = defineProps<{
+    section?: 'all' | 'profile' | 'trainingLoad' | 'corePerformance' | 'recentWellness'
+  }>()
+  const section = computed(() => props.section || 'all')
   const userStore = useUserStore()
 
   const profileModuleClass =

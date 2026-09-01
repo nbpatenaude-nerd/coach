@@ -278,18 +278,48 @@
                         class="absolute inset-0 z-10 flex items-start justify-end p-2 pointer-events-none rounded-xl"
                       >
                         <div
-                          class="bg-white dark:bg-gray-800 shadow-sm rounded border border-gray-200 dark:border-gray-700 p-1 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                          class="bg-white dark:bg-gray-800 shadow-sm rounded border border-gray-200 dark:border-gray-700 p-1 flex items-center gap-1 transition-opacity pointer-events-auto"
                         >
+                          <USelect
+                            v-model="element.class"
+                            :options="[
+                              { label: '1/3 Width', value: 'col-span-1 lg:col-span-1' },
+                              {
+                                label: '2/3 Width',
+                                value: 'col-span-1 md:col-span-2 lg:col-span-2'
+                              },
+                              {
+                                label: 'Full Width',
+                                value: 'col-span-1 md:col-span-2 lg:col-span-3'
+                              }
+                            ]"
+                            size="2xs"
+                            variant="none"
+                            class="bg-transparent text-xs"
+                            @change="saveLayout"
+                          />
                           <UIcon
                             name="i-heroicons-arrows-pointing-out"
-                            class="w-5 h-5 text-gray-500"
+                            class="w-5 h-5 text-gray-500 ml-2"
                           />
                         </div>
                       </div>
 
                       <div :class="isEditMode ? 'pointer-events-none' : ''" class="h-full">
-                        <template v-if="element.id === 'coachFeedback'">
-                          <DashboardCoachFeedback class="h-full" />
+                        <template v-if="element.id === 'reviewFeedback'">
+                          <DashboardReviewFeedback class="h-full" />
+                        </template>
+                        <template v-else-if="element.id === 'athleteProfileBasic'">
+                          <AthleteProfileCard section="profile" class="h-full" />
+                        </template>
+                        <template v-else-if="element.id === 'trainingLoad'">
+                          <AthleteProfileCard section="trainingLoad" class="h-full" />
+                        </template>
+                        <template v-else-if="element.id === 'corePerformance'">
+                          <AthleteProfileCard section="corePerformance" class="h-full" />
+                        </template>
+                        <template v-else-if="element.id === 'recentWellness'">
+                          <AthleteProfileCard section="recentWellness" class="h-full" />
                         </template>
 
                         <template v-else-if="element.id === 'recoveryContext'">
@@ -379,14 +409,6 @@
                             </div>
                             <p v-else class="text-sm text-gray-500">Fuel status optimal.</p>
                           </UCard>
-                        </template>
-
-                        <template v-else-if="element.id === 'athleteProfile'">
-                          <DashboardAthleteProfileCard
-                            class="h-full"
-                            @open-wellness="openWellnessModal"
-                            @open-training-load="openTrainingLoadModal"
-                          />
                         </template>
 
                         <template v-else-if="element.id === 'trainingRecommendation'">
@@ -849,8 +871,11 @@
   const isEditMode = ref(false)
 
   const DEFAULT_DASHBOARD_LAYOUT = [
-    { id: 'coachFeedback', class: 'col-span-1 md:col-span-2 lg:col-span-3' },
-    { id: 'athleteProfile', class: 'col-span-1 lg:col-span-1' },
+    { id: 'reviewFeedback', class: 'col-span-1 md:col-span-2 lg:col-span-3' },
+    { id: 'athleteProfileBasic', class: 'col-span-1 lg:col-span-1' },
+    { id: 'trainingLoad', class: 'col-span-1 lg:col-span-1' },
+    { id: 'corePerformance', class: 'col-span-1 lg:col-span-1' },
+    { id: 'recentWellness', class: 'col-span-1 lg:col-span-1' },
     { id: 'trainingRecommendation', class: 'col-span-1 lg:col-span-1' },
     { id: 'performanceScores', class: 'col-span-1 lg:col-span-1' },
     { id: 'monthlyComparison', class: 'col-span-1 lg:col-span-1' },
@@ -870,12 +895,16 @@
     () => userStore.user?.dashboardSettings,
     (newSettings) => {
       if (newSettings && newSettings.layout && Array.isArray(newSettings.layout)) {
-        // Merge with default layout to ensure any new components not in their saved layout are added
-        const savedIds = newSettings.layout.map((item: any) => item.id)
+        const deprecatedIds = ['coachFeedback', 'athleteProfile']
+        const validLayout = newSettings.layout.filter(
+          (item: any) => !deprecatedIds.includes(item.id)
+        )
+        const savedIds = validLayout.map((item: any) => item.id)
         const missingComponents = DEFAULT_DASHBOARD_LAYOUT.filter(
           (item) => !savedIds.includes(item.id)
         )
-        dashboardLayout.value = [...newSettings.layout, ...missingComponents]
+
+        dashboardLayout.value = [...validLayout, ...missingComponents]
       }
     },
     { immediate: true, deep: true }
