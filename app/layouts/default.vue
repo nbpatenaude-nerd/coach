@@ -257,7 +257,7 @@
       {
         label: navLabel('navigation_community_calendar', 'Community Calendar'),
         icon: 'i-lucide-calendar-heart',
-        to: '/calendar',
+        to: '/community-calendar',
         onSelect: () => {
           open.value = false
         }
@@ -619,7 +619,7 @@
           {
             label: label('navigation_community_calendar', 'Community Calendar'),
             icon: 'i-lucide-calendar-heart',
-            to: '/calendar'
+            to: '/community-calendar'
           }
         ])
       },
