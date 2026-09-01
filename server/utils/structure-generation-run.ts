@@ -183,7 +183,7 @@ export async function hasActiveStructureGenerationRun(plannedWorkoutId: string):
 
 export async function supersedeActiveStructureGenerationRuns(
   plannedWorkoutId: string,
-  tx?: import('@prisma/client').Prisma.TransactionClient
+  tx?: import('~~~/server/utils/generated-prisma/client').Prisma.TransactionClient
 ) {
   const client = tx || prisma
   await client.workoutStructureGenerationRun.updateMany({

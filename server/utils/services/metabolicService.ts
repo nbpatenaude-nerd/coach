@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { dailyBaseWindowKey } from '../../../shared/window-keys'
 import { prisma } from '../db'
 import { nutritionRepository } from '../repositories/nutritionRepository'

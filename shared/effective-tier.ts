@@ -1,4 +1,4 @@
-import type { SubscriptionStatus, SubscriptionTier } from '~/server/utils/generated-prisma/client'
+import type { SubscriptionStatus, SubscriptionTier } from '~~~/server/utils/generated-prisma/client'
 
 export type EffectiveTierSource = 'FREE' | 'TRIAL' | 'SUBSCRIPTION' | 'PROMOTIONAL'
 
@@ -22,7 +22,7 @@ export function maxSubscriptionTier(
   left: SubscriptionTier,
   right: SubscriptionTier
 ): SubscriptionTier {
-  return TIER_RANK[left] >= TIER_RANK[right] ? left : right
+  return (TIER_RANK[left] ?? 0) >= (TIER_RANK[right] ?? 0) ? left : right
 }
 
 export function resolveEffectiveTier(input: EffectiveTierInput): SubscriptionTier {

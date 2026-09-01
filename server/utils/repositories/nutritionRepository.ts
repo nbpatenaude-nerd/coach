@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 /** Sentinel returned by `updateWithVersionCheck` when the row changed since it was read. */
 export const CONCURRENT_UPDATE_CONFLICT = Symbol('CONCURRENT_UPDATE_CONFLICT')

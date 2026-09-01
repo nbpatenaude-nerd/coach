@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { wellnessRepository } from '../repositories/wellnessRepository'
 import { formatUserDate } from '../date'
@@ -260,7 +261,7 @@ export async function getWellnessEventOverlaysForUser(
   ])
 
   return buildWellnessEventOverlays({
-    wellnessEntries,
+    wellnessEntries: wellnessEntries as WellnessEntryInput[],
     calendarNotes
   })
 }

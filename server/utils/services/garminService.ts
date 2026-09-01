@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { registerTaskHandler } from '../task-registry'
 import { prisma } from '../db'
 import { toPrismaInputJsonValue } from '../prisma-json'

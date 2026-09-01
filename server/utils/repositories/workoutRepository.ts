@@ -1,3 +1,4 @@
+import type { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { queueWorkoutInsightEmail } from '../workout-insight-email'
 import { publishActivityEvent } from '../activity-realtime'

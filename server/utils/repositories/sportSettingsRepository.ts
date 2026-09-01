@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma as globalPrisma } from '../db'
 import { toPrismaInputJsonValue } from '../prisma-json'
 import { normalizeTargetPolicy, toLegacyLoadPreference } from '../workout-target-policy'

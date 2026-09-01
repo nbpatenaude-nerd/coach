@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { fetchUltrahumanDaily, normalizeUltrahumanWellness } from '../ultrahuman'
 import { shouldIngestWellness } from '../integration-settings'

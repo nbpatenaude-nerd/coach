@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { sportSettingsRepository } from '../repositories/sportSettingsRepository'
 import { getUserLocalDate, formatUserDate, formatDateUTC } from '../date'

@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { athleteMetricsService } from '../athleteMetricsService'
 import { sportSettingsRepository } from './sportSettingsRepository'

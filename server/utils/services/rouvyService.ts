@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import crypto from 'node:crypto'
 import { prisma } from '../db'
 import { workoutRepository } from '../repositories/workoutRepository'

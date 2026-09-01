@@ -1,3 +1,4 @@
+import type { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 export const scoreTrendExplanationRepository = {
   async findByMetric(userId: string, type: string, period: number, metric: string) {

@@ -1,3 +1,4 @@
+import { Prisma } from '~~~/server/utils/generated-prisma/client'
 import { createError } from 'h3'
 import type { H3Event } from 'h3'
 import { prisma } from '../db'
