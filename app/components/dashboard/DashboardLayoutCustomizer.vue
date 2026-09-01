@@ -1,57 +1,53 @@
 <template>
-  <USlideover v-model="isOpen">
-    <UCard class="flex flex-col flex-1">
-      <template #header>
-        <div class="flex items-center justify-between">
-          <h2 class="font-bold text-lg">Customize Layout</h2>
-          <UButton
-            color="neutral"
-            variant="ghost"
-            icon="i-heroicons-x-mark"
-            class="-my-1"
-            @click="
-              () => {
-                isOpen = false
-              }
-            "
-          />
-        </div>
-      </template>
+  <USlideover v-model:open="isOpen" title="Customize Layout" side="right">
+    <template #content>
+      <UCard class="flex flex-col flex-1 h-full border-0 rounded-none">
+        <template #header>
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-lg">Customize Layout</h2>
+            <UButton
+              color="neutral"
+              variant="ghost"
+              icon="i-heroicons-x-mark"
+              class="-my-1"
+              @click="isOpen = false"
+            />
+          </div>
+        </template>
 
-      <div class="p-4 flex-grow overflow-y-auto">
-        <draggable
-          v-model="localLayout"
-          group="customizer"
-          item-key="id"
-          ghost-class="opacity-50 border-2 border-dashed border-primary-500 rounded bg-gray-50 dark:bg-gray-800"
-          animation="200"
-          @end="emitUpdate"
-        >
-          <template #item="{ element }">
-            <div
-              class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm"
-            >
-              <UIcon
-                name="i-heroicons-bars-3"
-                class="drag-handle w-5 h-5 text-gray-400 cursor-move"
-              />
-              <div class="flex-grow">
-                <p class="text-sm font-semibold truncate">{{ getWidgetName(element.id) }}</p>
+        <div class="p-4 flex-grow overflow-y-auto">
+          <draggable
+            v-model="localLayout"
+            group="customizer"
+            item-key="id"
+            handle=".drag-handle"
+            ghost-class="opacity-50 border-2 border-dashed border-primary-500 rounded bg-gray-50 dark:bg-gray-800"
+            animation="200"
+            @end="emitUpdate"
+          >
+            <template #item="{ element }">
+              <div
+                class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm cursor-move"
+              >
+                <UIcon name="i-heroicons-bars-3" class="drag-handle w-5 h-5 text-gray-400" />
+                <div class="flex-grow">
+                  <p class="text-sm font-semibold truncate">{{ getWidgetName(element.id) }}</p>
+                </div>
+                <USelect
+                  v-model="element.class"
+                  :options="sizeOptions"
+                  option-attribute="label"
+                  value-attribute="value"
+                  size="xs"
+                  class="w-28"
+                  @change="emitUpdate"
+                />
               </div>
-              <USelect
-                v-model="element.class"
-                :options="sizeOptions"
-                option-attribute="label"
-                value-attribute="value"
-                size="xs"
-                class="w-28"
-                @change="emitUpdate"
-              />
-            </div>
-          </template>
-        </draggable>
-      </div>
-    </UCard>
+            </template>
+          </draggable>
+        </div>
+      </UCard>
+    </template>
   </USlideover>
 </template>
 
