@@ -22,25 +22,25 @@ function priceKeys(config: Record<string, unknown>): PriceKey[] {
       tier: 'supporter',
       interval: 'monthly',
       currency: 'usd',
-      configKey: 'stripeSupporterMonthlyPriceId'
+      configKey: 'stripeUncoverMonthlyPriceId'
     },
     {
       tier: 'supporter',
       interval: 'annual',
       currency: 'usd',
-      configKey: 'stripeSupporterAnnualPriceId'
+      configKey: 'stripeUncoverAnnualPriceId'
     },
     {
       tier: 'supporter',
       interval: 'monthly',
       currency: 'eur',
-      configKey: 'stripeSupporterMonthlyEurPriceId'
+      configKey: 'stripeUncoverMonthlyEurPriceId'
     },
     {
       tier: 'supporter',
       interval: 'annual',
       currency: 'eur',
-      configKey: 'stripeSupporterAnnualEurPriceId'
+      configKey: 'stripeUncoverAnnualEurPriceId'
     },
     { tier: 'pro', interval: 'monthly', currency: 'usd', configKey: 'stripeProMonthlyPriceId' },
     { tier: 'pro', interval: 'annual', currency: 'usd', configKey: 'stripeProAnnualPriceId' },

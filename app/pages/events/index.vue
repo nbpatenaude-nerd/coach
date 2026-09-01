@@ -121,6 +121,13 @@
           </div>
         </template>
       </UModal>
+
+      <!-- Event Result Modal -->
+      <EventsEventResultModal
+        v-model="isResultModalOpen"
+        :event="selectedResultEvent"
+        @saved="fetchEvents"
+      />
     </template>
   </UDashboardPanel>
 </template>
@@ -254,8 +261,15 @@
     }
   }
 
+  const isResultModalOpen = ref(false)
+  const selectedResultEvent = ref<any>(null)
+
   function navigateToEvent(id: string) {
-    navigateTo(`/events/${id}`)
+    const event = events.value.find((e) => e.id === id)
+    if (event) {
+      selectedResultEvent.value = event
+      isResultModalOpen.value = true
+    }
   }
 
   onMounted(() => {

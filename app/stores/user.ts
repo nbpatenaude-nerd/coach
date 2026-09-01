@@ -169,7 +169,7 @@ export const useUserStore = defineStore('user', () => {
 
     return {
       tier: effectiveTier,
-      autoSync: effectiveTier !== 'FREE',
+      autoSync: true,
       autoAnalysis: effectiveTier !== 'FREE',
       aiModel: effectiveTier === 'UNLOCK' || effectiveTier === 'UNLEASH' ? 'pro' : 'flash',
       priorityProcessing: effectiveTier !== 'FREE',

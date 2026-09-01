@@ -1,5 +1,5 @@
 export function getAnalyzeAthleteSystemPrompt(tier: string): string {
-  const isPro = tier === 'PRO'
+  const isPro = tier === 'UNLOCK' || tier === 'UNLEASH'
 
   let prompt = `You are Journey, the AI coaching assistant for Journey Endurance Coaching.
 

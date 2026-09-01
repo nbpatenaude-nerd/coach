@@ -14,11 +14,17 @@
           <UIcon :name="typeIcon" class="w-5 h-5" />
         </div>
         <div>
-          <h3
-            class="font-semibold text-sm text-gray-900 dark:text-white group-hover:text-primary transition-colors"
-          >
-            {{ goal.title }}
-          </h3>
+          <div class="flex items-center gap-2">
+            <h3
+              class="font-semibold text-sm text-gray-900 dark:text-white group-hover:text-primary transition-colors"
+              :class="{ 'line-through opacity-70': goal.status === 'COMPLETED' }"
+            >
+              {{ goal.title }}
+            </h3>
+            <UBadge v-if="goal.status === 'COMPLETED'" color="success" size="xs">
+              {{ goal.completionLevel === 'PARTIAL' ? 'Partially Completed' : 'Completed' }}
+            </UBadge>
+          </div>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ typeLabel }}</p>
 
           <div class="mt-3 flex flex-wrap gap-2">
@@ -106,7 +112,7 @@
     goal: any
   }>()
 
-  const emit = defineEmits(['delete', 'edit'])
+  const emit = defineEmits(['delete', 'edit', 'complete'])
 
   const typeIcon = computed(() => {
     switch (props.goal.type) {
@@ -185,6 +191,11 @@
 
   const actions = [
     [
+      {
+        label: 'Mark Complete',
+        icon: 'i-heroicons-check-circle',
+        onSelect: () => emit('complete', props.goal)
+      },
       {
         label: 'Edit Goal',
         icon: 'i-heroicons-pencil',

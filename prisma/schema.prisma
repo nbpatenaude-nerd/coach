@@ -211,6 +211,7 @@ model User {
   workoutTemplates               WorkoutTemplate[]
   workoutTemplateFolders         WorkoutTemplateFolder[]
   eventParticipants              EventParticipant[]
+  eventMessages                  EventMessage[]
 
   // CRM Fields
   pipelineStage String?     @default("Lead") // Deprecated: Migrating to CrmDeal
@@ -654,6 +655,8 @@ model Goal {
   status        String         @default("ACTIVE")
   priority      String         @default("MEDIUM")
   aiContext     String?
+  completionLevel String? // FULL, PARTIAL
+  completionNotes String? @db.Text
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   distance      Float?
@@ -696,6 +699,7 @@ model Event {
   syncStatus       String?  @default("SYNCED")
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   participants     EventParticipant[]
+  messages         EventMessage[]
   goals            Goal[]   @relation("EventToGoal")
 
   @@unique([userId, source, externalId])
@@ -710,10 +714,31 @@ model EventParticipant {
   priority  String?  @default("B")
   createdAt DateTime @default(now())
 
+  isCompleted    Boolean  @default(false)
+  resultTime     Int?     // Time in seconds
+  resultPosition Int?     
+  raceReport     String?  @db.Text
+  photoUrl       String?
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([userId])
+}
+
+model EventMessage {
+  id        String   @id @default(uuid())
+  eventId   String
+  userId    String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([eventId, userId])
+  @@index([eventId])
   @@index([userId])
 }
 
@@ -2733,8 +2758,6 @@ enum ReferralStatus {
 
 enum SubscriptionTier {
   FREE
-  SUPPORTER
-  PRO
   UNCOVER
   UNLOCK
   UNLEASH

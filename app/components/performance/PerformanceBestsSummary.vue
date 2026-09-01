@@ -13,7 +13,11 @@
       }"
       @click="
         () => {
-          void navigateTo('/performance/bests')
+          if (cat.pb?.workoutId) {
+            void navigateTo(`/workouts/${cat.pb.workoutId}`)
+          } else {
+            void navigateTo('/performance/bests')
+          }
         }
       "
     >

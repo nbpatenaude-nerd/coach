@@ -16,25 +16,69 @@
   const heroTypes = ['RUN_5K', 'POWER_20M', 'ELEVATION_GAIN']
   const featuredTypes = ['RUN_10K', 'POWER_1M', 'POWER_5M', 'RUN_1K']
 
+  const standardTrophies: Record<string, any[]> = {
+    RUN: [
+      { type: 'RUN_1K', unit: 's', category: 'RUN' },
+      { type: 'RUN_1MI', unit: 's', category: 'RUN' },
+      { type: 'RUN_5K', unit: 's', category: 'RUN' },
+      { type: 'RUN_10K', unit: 's', category: 'RUN' },
+      { type: 'RUN_HM', unit: 's', category: 'RUN' },
+      { type: 'RUN_MARATHON', unit: 's', category: 'RUN' }
+    ],
+    CYCLE: [
+      { type: 'POWER_1M', unit: 'W', category: 'CYCLE' },
+      { type: 'POWER_5M', unit: 'W', category: 'CYCLE' },
+      { type: 'POWER_20M', unit: 'W', category: 'CYCLE' },
+      { type: 'POWER_60M', unit: 'W', category: 'CYCLE' },
+      { type: 'ELEVATION_GAIN', unit: 'm', category: 'CYCLE' }
+    ],
+    SWIM: [
+      { type: 'SWIM_100M', unit: 's', category: 'SWIM' },
+      { type: 'SWIM_400M', unit: 's', category: 'SWIM' },
+      { type: 'SWIM_1500M', unit: 's', category: 'SWIM' }
+    ]
+  }
+
   const pbsByCategory = computed(() => {
     const map: Record<string, any[]> = {}
-    if (!props.personalBests) return map
 
-    // Sort: Heroes first, then Featured, then others
-    const sorted = [...props.personalBests].sort((a, b) => {
-      const getPriority = (type: string) => {
-        if (heroTypes.includes(type)) return 0
-        if (featuredTypes.includes(type)) return 1
-        return 2
-      }
-      return getPriority(a.type) - getPriority(b.type)
+    // Initialize map with standard trophies
+    categories.forEach((cat) => {
+      map[cat.id] = [...(standardTrophies[cat.id] || [])].map((t) => ({
+        ...t,
+        isPlaceholder: true
+      }))
     })
 
-    sorted.forEach((pb) => {
-      if (!pb || !pb.category) return
-      if (!map[pb.category]) map[pb.category] = []
-      map[pb.category]!.push(pb)
+    if (props.personalBests) {
+      props.personalBests.forEach((pb) => {
+        if (!pb || !pb.category) return
+        if (!map[pb.category]) map[pb.category] = []
+
+        // Check if there is a placeholder to replace
+        const placeholderIdx = map[pb.category].findIndex(
+          (p: any) => p.type === pb.type && p.isPlaceholder
+        )
+        if (placeholderIdx !== -1) {
+          map[pb.category][placeholderIdx] = { ...pb, isPlaceholder: false }
+        } else {
+          map[pb.category].push({ ...pb, isPlaceholder: false })
+        }
+      })
+    }
+
+    // Sort each category
+    Object.keys(map).forEach((catId) => {
+      map[catId].sort((a, b) => {
+        const getPriority = (type: string) => {
+          if (heroTypes.includes(type)) return 0
+          if (featuredTypes.includes(type)) return 1
+          return 2
+        }
+        return getPriority(a.type) - getPriority(b.type)
+      })
     })
+
     return map
   })
 
@@ -60,7 +104,8 @@
       .replace('ELEVATION GAIN', 'Max Climb')
   }
 
-  function getHumanDate(date: string | Date) {
+  function getHumanDate(date?: string | Date) {
+    if (!date) return 'Not yet achieved'
     try {
       const d = new Date(date)
       if (isToday(d)) return 'Today'
@@ -71,7 +116,8 @@
     }
   }
 
-  function isRecent(date: string | Date) {
+  function isRecent(date?: string | Date) {
+    if (!date) return false
     const d = new Date(date)
     const thirtyDaysAgo = new Date()
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
@@ -187,7 +233,7 @@
             </div>
 
             <!-- Value & Label -->
-            <div class="space-y-3">
+            <div class="space-y-3" :class="{ 'opacity-40 grayscale': pb.isPlaceholder }">
               <div
                 class="text-[11px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.4em] ml-1"
               >
@@ -197,7 +243,7 @@
                 <span
                   class="text-8xl font-black text-gray-900 dark:text-white tracking-tighter italic tabular-nums font-athletic leading-none drop-shadow-2xl"
                 >
-                  {{ formatValue(pb) }}
+                  {{ pb.isPlaceholder ? '--' : formatValue(pb) }}
                 </span>
                 <span
                   v-if="pb.unit !== 's'"
@@ -269,7 +315,7 @@
               <div
                 class="text-[10px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.3em]"
               >
-                Achieved
+                {{ pb.isPlaceholder ? 'Status' : 'Achieved' }}
               </div>
               <div class="text-base font-black text-gray-700 dark:text-gray-500 italic">
                 {{ getHumanDate(pb.date) }}
@@ -290,33 +336,7 @@
       </div>
     </div>
 
-    <!-- Empty State -->
-    <div
-      v-if="personalBests.length === 0"
-      class="text-center py-32 bg-gray-50/50 dark:bg-gray-900/30 backdrop-blur-md rounded-[50px] border-2 border-dashed border-gray-200 dark:border-white/10 max-w-2xl mx-auto"
-    >
-      <div
-        class="w-24 h-24 bg-white dark:bg-gray-800 rounded-[40px] shadow-2xl flex items-center justify-center mx-auto mb-8 transform -rotate-12 border border-gray-100 dark:border-white/5"
-      >
-        <UIcon name="i-heroicons-trophy" class="w-12 h-12 text-gray-200" />
-      </div>
-      <h3 class="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tight italic">
-        The Case is Empty
-      </h3>
-      <p class="text-base text-gray-500 max-w-sm mx-auto mt-3 font-medium leading-relaxed">
-        Your peak performances are waiting. Go out, push your limits, and Journey will celebrate you
-        here.
-      </p>
-      <UButton
-        color="primary"
-        variant="solid"
-        size="xl"
-        class="mt-10 font-black uppercase tracking-widest rounded-2xl px-10 py-4 shadow-xl shadow-primary-500/20"
-        to="/activities"
-      >
-        Ignite Training
-      </UButton>
-    </div>
+    <!-- Empty State Removed as we now show placeholders -->
   </div>
 </template>
 

@@ -185,6 +185,14 @@
     })
   })
 
+  const isCompleteModalOpen = ref(false)
+  const goalToComplete = ref<any>(null)
+
+  function handleComplete(goal: any) {
+    goalToComplete.value = goal
+    isCompleteModalOpen.value = true
+  }
+
   function handleEdit(goal: any) {
     router.push({ query: { edit: goal.id } })
   }
@@ -1091,6 +1099,7 @@
               v-for="goal in goals"
               :key="goal.id"
               :goal="goal"
+              @complete="handleComplete"
               @edit="handleEdit"
               @delete="deleteGoal"
             />
@@ -1125,6 +1134,13 @@
               />
             </template>
           </UModal>
+
+          <!-- Complete Goal Modal -->
+          <GoalsGoalCompleteModal
+            v-model="isCompleteModalOpen"
+            :goal="goalToComplete"
+            @completed="refresh"
+          />
         </div>
       </div>
     </template>

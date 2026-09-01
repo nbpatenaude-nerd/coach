@@ -6,22 +6,23 @@ This document defines the subscription tiers, entitlements, and technical implem
 
 ## 2. Subscription Tiers
 
-| Tier          | Monthly Price | Annual Price | Description                                      |
-| :------------ | :------------ | :----------- | :----------------------------------------------- |
-| **Free**      | $0            | N/A          | The smartest logbook you’ve ever used.           |
-| **Supporter** | $8.99         | $89.99       | Automated insights for the self-coached athlete. |
-| **Pro**       | $14.99        | $119.00      | Your full-service Digital Twin and Coach.        |
+| Tier        | Price   | Description                                      |
+| :---------- | :------ | :----------------------------------------------- |
+| **Free**    | $0      | The smartest logbook you’ve ever used.           |
+| **UNCOVER** | $200    | Automated insights for the self-coached athlete. |
+| **UNLOCK**  | $350/mo | Your full-service Digital Twin and Coach.        |
+| **UNLEASH** | $550/mo | Ultimate performance mapping.                    |
 
 ## 3. Entitlements Matrix
 
-| Feature             | Free               | Supporter             | Pro                   |
-| :------------------ | :----------------- | :-------------------- | :-------------------- |
-| Data History        | Unlimited          | Unlimited             | Unlimited             |
-| Sync Mode           | Manual             | Automatic             | Automatic             |
-| Workout Analysis    | On-Demand (Manual) | Automatic (Always-On) | Automatic (Always-On) |
-| AI Engine           | Standard (Fast)    | Standard (Fast)       | Deep Reasoning        |
-| Priority Processing | No                 | Yes                   | Yes                   |
-| Proactivity         | No                 | No                    | Yes                   |
+| Feature             | Free               | UNCOVER               | UNLOCK                | UNLEASH               |
+| :------------------ | :----------------- | :-------------------- | :-------------------- | :-------------------- |
+| Data History        | Unlimited          | Unlimited             | Unlimited             | Unlimited             |
+| Sync Mode           | Automatic          | Automatic             | Automatic             | Automatic             |
+| Workout Analysis    | On-Demand (Manual) | Automatic (Always-On) | Automatic (Always-On) | Automatic (Always-On) |
+| AI Engine           | Standard (Fast)    | Standard (Fast)       | Deep Reasoning        | Deep Reasoning        |
+| Priority Processing | No                 | Yes                   | Yes                   | Yes                   |
+| Proactivity         | No                 | No                    | Yes                   | Yes                   |
 
 ## 4. Technical Entitlement Object
 
@@ -29,7 +30,7 @@ The system should use a canonical entitlement object to gate features in the UI 
 
 ```typescript
 export interface UserEntitlements {
-  tier: 'FREE' | 'SUPPORTER' | 'PRO'
+  tier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH'
   autoSync: boolean
   autoAnalysis: boolean
   aiModel: 'flash' | 'pro'
@@ -43,29 +44,29 @@ export interface UserEntitlements {
 ### 5.1 AI Credit & Usage
 
 - **Free:** Unlimited standard analysis, but requires manual trigger (On-Demand).
-- **Supporter/Pro:** Background jobs automatically trigger analysis on ingestion.
-- **Pro:** Uses `gemini-pro` for analysis and chat.
+- **UNCOVER/UNLOCK/UNLEASH:** Background jobs automatically trigger analysis on ingestion.
+- **UNLOCK/UNLEASH:** Uses `gemini-pro` for analysis and chat.
 
 ### 5.2 Stripe Mapping
 
 These IDs must be configured in the `.env` file.
 
-| Tier      | Stripe Product ID | Price ID (Monthly)        | Price ID (Annual)        |
-| :-------- | :---------------- | :------------------------ | :----------------------- |
-| Supporter | `prod_supporter`  | `price_supporter_monthly` | `price_supporter_annual` |
-| Pro       | `prod_pro`        | `price_pro_monthly`       | `price_pro_annual`       |
+| Tier    | Stripe Product ID | Price ID (Monthly) | Price ID (Annual)  |
+| :------ | :---------------- | :----------------- | :----------------- |
+| UNCOVER | `prod_uncover`    | `price_uncover_mo` | `price_uncover_yr` |
+| UNLOCK  | `prod_unlock`     | `price_unlock_mo`  | `price_unlock_yr`  |
+| UNLEASH | `prod_unleash`    | `price_unleash_mo` | `price_unleash_yr` |
 
 ## 6. UX Requirements
 
 ### 6.1 Feature Gating (The "Lock")
 
-- **Deep Analysis:** When a Free/Supporter user views a workout, the "Deep Analysis" tab or section should be visible but blurred or locked with a "Pro Feature" badge. Clicking it opens the Upgrade Modal.
-- **Proactivity:** Free/Supporter users do not see unsolicited messages. A setting toggle for "Proactive AI Tips" should be disabled (grayed out) with a Pro badge in the Settings page.
+- **Deep Analysis:** When a Free/UNCOVER user views a workout, the "Deep Analysis" tab or section should be visible but blurred or locked with an "UNLOCK Feature" badge. Clicking it opens the Upgrade Modal.
+- **Proactivity:** Free/UNCOVER users do not see unsolicited messages. A setting toggle for "Proactive AI Tips" should be disabled (grayed out) with an UNLOCK badge in the Settings page.
 
 ### 6.2 Sync Status
 
-- **Free Users:** Dashboard shows a "Sync Now" button. "Last sync: [Time]" is displayed.
-- **Supporter/Pro Users:** Dashboard shows "Auto-sync active" with a pulsing green indicator or similar subtle status.
+- **All Users:** Dashboard shows "Auto-sync active" with a pulsing green indicator or similar subtle status.
 
 ## 7. Stripe Integration Strategy
 

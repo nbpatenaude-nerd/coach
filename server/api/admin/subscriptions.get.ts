@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   })
 
   // 4. Monthly Recurring Revenue (Estimate)
-  // Supporter: $8.99, Pro: $14.99
+  // UNCOVER: $200, UNLOCK: $350/mo, UNLEASH: $550/mo
   // Note: This is a rough estimate assuming monthly billing. Annual plans would distort this.
   // Ideally we should check Stripe for real MRR, but this is a good approximation from DB.
   let estimatedMRR = 0
