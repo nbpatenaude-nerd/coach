@@ -246,13 +246,75 @@
               <div class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2">
                 <UCard>
                   <h3 class="font-bold mb-1">Active Recovery Context</h3>
-                  <p class="text-sm text-gray-500">
-                    Recovery algorithms are analyzing your sleep data.
-                  </p>
+                  <div v-if="recommendationStore.loading" class="animate-pulse space-y-2 mt-2">
+                    <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                    <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                  </div>
+                  <div
+                    v-else-if="
+                      recommendationStore.todayRecommendation?.analysisJson?.recovery_analysis
+                    "
+                  >
+                    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Sleep:
+                      {{
+                        recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                          .sleep_quality
+                      }}
+                      • HRV:
+                      {{
+                        recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                          .hrv_status
+                      }}
+                    </p>
+                    <p class="text-sm text-gray-500 mt-1">
+                      Fatigue Level:
+                      {{
+                        recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                          .fatigue_level
+                      }}
+                      <span
+                        v-if="
+                          recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                            .readiness_score
+                        "
+                      >
+                        (Score:
+                        {{
+                          recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                            .readiness_score
+                        }})
+                      </span>
+                    </p>
+                  </div>
+                  <p v-else class="text-sm text-gray-500">No active recovery analysis available.</p>
                 </UCard>
                 <UCard>
                   <h3 class="font-bold mb-1">Glycogen Fuel Tank</h3>
-                  <p class="text-sm text-gray-500">Fuel status optimal.</p>
+                  <div v-if="loadingNutrition" class="animate-pulse space-y-2 mt-2">
+                    <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                    <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                  </div>
+                  <div v-else-if="todayNutrition?.percentage != null">
+                    <div class="flex items-center gap-3 mb-1">
+                      <UProgress
+                        :value="todayNutrition.percentage"
+                        :color="
+                          todayNutrition.state === 3
+                            ? 'red'
+                            : todayNutrition.state === 2
+                              ? 'yellow'
+                              : 'primary'
+                        "
+                        class="flex-1"
+                      />
+                      <span class="text-sm font-bold">{{ todayNutrition.percentage }}%</span>
+                    </div>
+                    <p class="text-sm text-gray-500 line-clamp-2" :title="todayNutrition.advice">
+                      {{ todayNutrition.advice || 'Fuel status optimal.' }}
+                    </p>
+                  </div>
+                  <p v-else class="text-sm text-gray-500">Fuel status optimal.</p>
                 </UCard>
               </div>
 
