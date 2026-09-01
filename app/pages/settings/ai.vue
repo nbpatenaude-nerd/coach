@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userStore.user?.isCoach || isCoachForAnyone" class="space-y-6">
+  <div v-if="(userStore.user as any)?.isCoach || isCoachForAnyone" class="space-y-6">
     <UCard :ui="{ ...profileSettingsCardUi, body: 'hidden' }">
       <template #header>
         <h2 class="text-xl font-bold uppercase tracking-tight">{{ t('ai_coach_header') }}</h2>

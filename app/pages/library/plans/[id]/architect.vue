@@ -645,7 +645,11 @@
               color="primary"
               variant="soft"
               size="sm"
-              @click="isAiModalOpen = true"
+              @click="
+                () => {
+                  isAiModalOpen = true
+                }
+              "
             >
               Generate with AI
             </UButton>

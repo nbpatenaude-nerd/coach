@@ -1,6 +1,5 @@
 <template>
   <UCard
-    v-if="isOnboarded"
     :ui="{ root: 'rounded-none sm:rounded-lg shadow-none sm:shadow' }"
     class="flex flex-col overflow-hidden"
   >

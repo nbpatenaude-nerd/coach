@@ -58,7 +58,6 @@
 
 <script setup lang="ts">
   import { ref, watch } from 'vue'
-  import draggable from 'vuedraggable'
 
   const props = defineProps<{
     open: boolean
