@@ -85,7 +85,7 @@
                 "
               >
                 {{ interval }}
-                <span v-if="interval === 'annual' && toggleSavings" class="ml-1 text-green-500">
+                <span v-if="interval === 'ANNUAL' && toggleSavings" class="ml-1 text-green-500">
                 -{{ toggleSavings }}%
               </span>
               </button>

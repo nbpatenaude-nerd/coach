@@ -65,9 +65,9 @@
     siteUrl?: string
   }>()
 
-  const resolvedSiteUrl = typeof siteUrl !== 'undefined' ? siteUrl : 'https://journeyendurance.com'
+  const resolvedSiteUrl = typeof props.siteUrl !== 'undefined' ? props.siteUrl : 'https://journeyendurance.com'
   const resolvedLogoUrl =
-    typeof logoUrl !== 'undefined' ? logoUrl : 'https://journeyendurance.com/icon.png'
+    typeof props.logoUrl !== 'undefined' ? props.logoUrl : 'https://journeyendurance.com/icon.png'
 </script>
 
 <template>
