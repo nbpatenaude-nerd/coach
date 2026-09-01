@@ -3,7 +3,7 @@ import type {
   UserMemoryCategory,
   UserMemoryScope,
   UserMemoryStatus
-} from '~/server/utils/generated-prisma/client'
+} from '~~/server/utils/generated-prisma/client'
 import { getServerSession } from '../../../utils/session'
 import { chatService } from '../../../utils/services/chatService'
 import { userMemoryService } from '../../../utils/services/userMemoryService'

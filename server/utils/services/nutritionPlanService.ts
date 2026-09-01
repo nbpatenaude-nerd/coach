@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { addDays, endOfDay, format, startOfWeek } from 'date-fns'
 import { prisma } from '../db'
 import { getUserTimezone, parseDateTimeInTimezone } from '../date'

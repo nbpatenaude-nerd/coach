@@ -1,4 +1,4 @@
-import type { SubscriptionTier } from '~/server/utils/generated-prisma/client'
+import type { SubscriptionTier } from '~~/server/utils/generated-prisma/client'
 export type QuotaOperation =
   | 'chat'
   | 'workout_analysis'

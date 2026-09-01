@@ -1,4 +1,5 @@
-import type { type PrismaClient } from '~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
+import type { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { mergeWorkoutTags } from './workout-tags'
 
 export interface BackfillWorkoutTagsOptions {

@@ -104,19 +104,20 @@ export default defineEventHandler(async (event) => {
       title: workoutName,
       date: new Date(),
       source: 'CSV',
-      totalTime,
-      totalDistance: 0,
-      sport: 'OTHER',
-      maxPower: maxWatts,
-      maxHeartRate: maxHr,
+      externalId: `csv-${Date.now()}`,
+      durationSec: totalTime,
+      distanceMeters: 0,
+      type: 'OTHER',
+      maxWatts: maxWatts,
+      maxHr: maxHr,
       streamsV2: {
         create: {
           time,
           watts,
           heartrate,
-          smO2,
-          thb,
-          vo2,
+
+
+
           distance: [],
           velocity: [],
           cadence: [],

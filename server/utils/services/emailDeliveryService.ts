@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { getResend } from '../email'
 import { registerTaskHandler } from '../task-registry'

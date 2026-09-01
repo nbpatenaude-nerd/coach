@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { workoutRepository } from '../repositories/workoutRepository'
 import { logger } from '@trigger.dev/sdk/v3'

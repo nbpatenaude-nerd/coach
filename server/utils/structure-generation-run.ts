@@ -1,3 +1,4 @@
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from './db'
 import type { StructureRunSource } from './trigger-run-tags'
 import { STRUCTURE_GENERATION_RUN_STALE_AFTER_MS } from './workout-ai-timeouts'
@@ -183,7 +184,7 @@ export async function hasActiveStructureGenerationRun(plannedWorkoutId: string):
 
 export async function supersedeActiveStructureGenerationRuns(
   plannedWorkoutId: string,
-  tx?: import('~~~/server/utils/generated-prisma/client').Prisma.TransactionClient
+  tx?: import('~~/server/utils/generated-prisma/client').Prisma.TransactionClient
 ) {
   const client = tx || prisma
   await client.workoutStructureGenerationRun.updateMany({

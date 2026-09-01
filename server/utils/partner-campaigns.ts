@@ -2,7 +2,7 @@ import type {
   PartnerCampaign,
   PartnerCampaignRedemption,
   SubscriptionTier
-} from '~/server/utils/generated-prisma/client'
+} from '~~/server/utils/generated-prisma/client'
 import { prisma } from './db'
 import { maxSubscriptionTier, resolveEffectiveTier } from '../../shared/effective-tier'
 import { normalizeSlug } from '../../shared/slug'

@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 /** Sentinel returned by `updateWithVersionCheck` when the row changed since it was read. */
 export const CONCURRENT_UPDATE_CONFLICT = Symbol('CONCURRENT_UPDATE_CONFLICT')
@@ -188,7 +188,7 @@ export const nutritionRepository = {
         })
       })
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && (error as any).code === 'P2025') {
         return CONCURRENT_UPDATE_CONFLICT
       }
       throw error

@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma as globalPrisma } from '../db'
 import { sportSettingsRepository } from '../repositories/sportSettingsRepository'
 import { findPeakEfforts } from '../interval-detection'

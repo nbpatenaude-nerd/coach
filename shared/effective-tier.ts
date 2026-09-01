@@ -1,4 +1,4 @@
-import type { SubscriptionStatus, SubscriptionTier } from '~~~/server/utils/generated-prisma/client'
+import type { SubscriptionStatus, SubscriptionTier } from '~~/server/utils/generated-prisma/client'
 
 export type EffectiveTierSource = 'FREE' | 'TRIAL' | 'SUBSCRIPTION' | 'PROMOTIONAL'
 

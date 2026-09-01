@@ -5,7 +5,7 @@ import {
   quotaFeatureCode,
   resolveUpgradeForOperation
 } from '../../utils/quotas/registry'
-import type { SubscriptionTier } from '~/server/utils/generated-prisma/client'
+import type { SubscriptionTier } from '~~/server/utils/generated-prisma/client'
 import type { QuotaStatus } from '~~/app/types/quotas'
 
 function resolveEffectiveTier(user: {

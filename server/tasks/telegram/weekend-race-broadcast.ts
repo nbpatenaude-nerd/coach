@@ -33,7 +33,7 @@ export default defineTask({
             lte: nextWeek
           }
         },
-        include: { participants: true },
+        include: { participants: { include: { user: true } } },
         orderBy: { date: 'asc' }
       })
 
@@ -58,7 +58,7 @@ export default defineTask({
 
         if (event.participants && event.participants.length > 0) {
           message += `👥 Racing: `
-          const names = event.participants.map((p) => p.name || p.email).join(', ')
+          const names = event.participants.map((p) => p.user?.name || p.user?.email || 'Athlete').join(', ')
           message += `${names}\n`
         } else {
           message += `👥 Racing: No Tri Nerds registered yet.\n`

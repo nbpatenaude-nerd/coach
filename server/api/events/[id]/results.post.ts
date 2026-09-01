@@ -1,9 +1,11 @@
+import { requireAuth } from '~~/server/utils/auth-guard'
+import { prisma } from '~~/server/utils/db'
 import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import { sendTelegramMessage } from '~~/server/utils/telegram'
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAuthSession(event)
-  if (!session.user?.id) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  const user = await requireAuth(event)
+  if (!user.id) throw createError({ statusCode: 401, message: 'Unauthorized' })
 
   const eventId = getRouterParam(event, 'id')
   if (!eventId) throw createError({ statusCode: 400, message: 'Missing event ID' })
@@ -11,18 +13,18 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { resultTime, resultPosition, raceReport, photoUrl } = body
 
-  const db = await getPrisma()
+  
 
   // verify the user is participating
-  const participant = await db.eventParticipant.findUnique({
-    where: { eventId_userId: { eventId, userId: session.user.id } },
+  const participant = await prisma.eventParticipant.findUnique({
+    where: { eventId_userId: { eventId, userId: user.id } },
     include: { event: true, user: true }
   })
   if (!participant) {
     throw createError({ statusCode: 403, message: 'Must be RSVPed to post results' })
   }
 
-  const updated = await db.eventParticipant.update({
+  const updated = await prisma.eventParticipant.update({
     where: { id: participant.id },
     data: {
       isCompleted: true,

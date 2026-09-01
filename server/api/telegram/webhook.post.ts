@@ -1,5 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import type { PrismaClient } from '~/server/utils/generated-prisma/client'
+import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 import pg from 'pg'
 import { sendTelegramMessage } from '../../utils/telegram'
 
@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
         where: {
           date: { gte: now, lte: nextWeek }
         },
-        include: { participants: true },
+        include: { participants: { include: { user: true } } },
         orderBy: { date: 'asc' }
       })
 
@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
         let msg = `🏁 <b>Upcoming Races (Next 7 Days)</b>\n\n`
         for (const ev of upcomingEvents) {
           msg += `📍 <b>${ev.title}</b> - ${ev.date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}\n`
-          const participants = ev.participants.map((p) => p.name || p.email).join(', ')
+          const participants = ev.participants.map((p) => p.user?.name || p.user?.email || 'Athlete').join(', ')
           msg += `👥 ${participants || 'None'}\n\n`
         }
         await sendTelegramMessage(msg, chatId)

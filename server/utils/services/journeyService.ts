@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { metabolicService } from './metabolicService'
 import { getUserTimezone, getStartOfDayUTC, getEndOfDayUTC } from '../date'

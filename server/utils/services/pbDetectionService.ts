@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma as globalPrisma } from '../db'
 import { findPeakEfforts } from '../interval-detection'
 import { logger } from '@trigger.dev/sdk/v3'

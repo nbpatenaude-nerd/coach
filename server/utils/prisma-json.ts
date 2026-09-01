@@ -1,3 +1,4 @@
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 export function toPrismaInputJsonValue(value: unknown): Prisma.InputJsonValue {
   return JSON.parse(JSON.stringify(value ?? {})) as Prisma.InputJsonValue
 }

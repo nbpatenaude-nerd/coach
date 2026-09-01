@@ -1,3 +1,4 @@
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { z } from 'zod'
 import { getServerSession } from '../../../../utils/session'
 import { prisma } from '../../../../utils/db'

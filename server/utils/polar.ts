@@ -1,4 +1,4 @@
-import type { Integration } from '~/server/utils/generated-prisma/client'
+import type { Integration } from '~~/server/utils/generated-prisma/client'
 import { prisma } from './db'
 import { normalizePolarSport } from './activity-mapping'
 

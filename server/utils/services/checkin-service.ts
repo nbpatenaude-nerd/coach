@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { dailyCheckinRepository } from '../repositories/dailyCheckinRepository'
 import {
   formatUserDate,

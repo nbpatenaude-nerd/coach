@@ -1,4 +1,4 @@
-import type { OAuthApp } from '~/server/utils/generated-prisma/client'
+import type { OAuthApp } from '~~/server/utils/generated-prisma/client'
 import { createError } from 'h3'
 import { oauthRepository } from '../repositories/oauthRepository'
 import { parseScopeString, validateMcpOAuthScopes, validateRestOAuthScopes } from './scopes'

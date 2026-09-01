@@ -136,7 +136,7 @@ export default defineEventHandler(async (event) => {
       })
 
       // Compute dates
-      await trainingPlanRepository.recalculateDates(athleteId, newPlan.id)
+      // await trainingPlanRepository.recalculateDates(athleteId, newPlan.id)
 
       results.push({ athleteId, success: true, planId: newPlan.id })
     } catch (e: any) {

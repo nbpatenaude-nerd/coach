@@ -199,10 +199,10 @@ export async function handleWellnessPatch(event: H3Event) {
   } catch (error) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === 'P2002' &&
-      Array.isArray(error.meta?.target) &&
-      error.meta.target.includes('userId') &&
-      error.meta.target.includes('date')
+      (error as any).code === 'P2002' &&
+      Array.isArray((error as any).meta?.target) &&
+      (error as any).meta.target.includes('userId') &&
+      (error as any).meta.target.includes('date')
     ) {
       throw createError({
         statusCode: 409,

@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { generateCoachAnalysis, generateStructuredAnalysis } from '../gemini'
 import { prisma } from '../db'
 import { attachStreamToWorkout } from '../repositories/workoutStreamRepository'

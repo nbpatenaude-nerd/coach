@@ -1,4 +1,4 @@
-import { Prisma } from '~~~/server/utils/generated-prisma/client'
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { shouldIngestActivities } from '../integration-settings'
 import { dispatchTask } from '../task-dispatcher'

@@ -1,4 +1,4 @@
-import type { Prisma } from '~~~/server/utils/generated-prisma/client'
+import type { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 export const trainingPlanRepository = {
   async getById<T extends Prisma.TrainingPlanInclude>(

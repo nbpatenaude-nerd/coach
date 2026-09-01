@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   const weekStartDate = startOfWeek(new Date(), { weekStartsOn: 0 })
 
   // Find the coach to assign this check-in to
-  const coachRel = await prisma.coachAthlete.findFirst({
+  const coachRel = await prisma.coachingRelationship.findFirst({
     where: { athleteId: user.id },
     orderBy: { createdAt: 'desc' } // Most recent coach
   })

@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
       nutritionTrackingEnabled: true,
       updateWorkoutNotesEnabled: true,
       nickname: true,
-      aiTtsStyle: true,
+      aiTtsStyle: true, aiTtsVoiceName: true, aiTtsSpeed: true,
       aiTtsAutoReadMessages: true
     }
   })

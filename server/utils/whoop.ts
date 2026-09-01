@@ -1,4 +1,4 @@
-import type { Integration } from '~/server/utils/generated-prisma/client'
+import type { Integration } from '~~/server/utils/generated-prisma/client'
 import { prisma } from './db'
 import { normalizeWhoopSport } from './activity-mapping'
 import { IntegrationAuthError, IntegrationProviderError } from './integration-errors'

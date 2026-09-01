@@ -68,7 +68,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     success: true,
-    workoutId: createdWorkout.id,
+    workoutId: createdWorkout.workout.id,
     targetUserId
   }
 })

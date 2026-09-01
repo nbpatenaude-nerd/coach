@@ -1,8 +1,10 @@
+import { requireAuth } from '~~/server/utils/auth-guard'
+import { prisma } from '~~/server/utils/db'
 import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAuthSession(event)
-  if (!session.user?.id) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  const user = await requireAuth(event)
+  if (!user.id) throw createError({ statusCode: 401, message: 'Unauthorized' })
 
   const goalId = getRouterParam(event, 'id')
   if (!goalId) throw createError({ statusCode: 400, message: 'Missing goal ID' })
@@ -10,17 +12,17 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { completionLevel, completionNotes } = body
 
-  const db = await getPrisma()
+  
 
   // Verify goal exists and belongs to user
-  const goal = await db.goal.findUnique({
-    where: { id: goalId, userId: session.user.id }
+  const goal = await prisma.goal.findUnique({
+    where: { id: goalId, userId: user.id }
   })
   if (!goal) {
     throw createError({ statusCode: 404, message: 'Goal not found' })
   }
 
-  const updated = await db.goal.update({
+  const updated = await prisma.goal.update({
     where: { id: goalId },
     data: {
       status: 'COMPLETED',

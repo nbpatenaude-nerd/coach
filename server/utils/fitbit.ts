@@ -1,4 +1,4 @@
-import type { Integration } from '~/server/utils/generated-prisma/client'
+import type { Integration } from '~~/server/utils/generated-prisma/client'
 import { prisma } from './db'
 import { fromZonedTime } from 'date-fns-tz'
 import { pickMealScheduledTime } from './nutrition/meal-pattern'

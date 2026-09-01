@@ -1,15 +1,17 @@
+import { requireAuth } from '~~/server/utils/auth-guard'
+import { prisma } from '~~/server/utils/db'
 import { PrismaClient } from '~~/server/utils/generated-prisma/client'
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAuthSession(event)
-  if (!session.user?.id) throw createError({ statusCode: 401, message: 'Unauthorized' })
+  const user = await requireAuth(event)
+  if (!user.id) throw createError({ statusCode: 401, message: 'Unauthorized' })
 
   const eventId = getRouterParam(event, 'id')
   if (!eventId) throw createError({ statusCode: 400, message: 'Missing event ID' })
 
-  const db = await getPrisma()
+  
 
-  const messages = await db.eventMessage.findMany({
+  const messages = await prisma.eventMessage.findMany({
     where: { eventId },
     include: {
       user: {

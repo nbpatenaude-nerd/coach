@@ -1,4 +1,4 @@
-import type { Integration } from '~/server/utils/generated-prisma/client'
+import type { Integration } from '~~/server/utils/generated-prisma/client'
 import { IntegrationAuthError, IntegrationProviderError } from './integration-errors'
 
 export interface UltrahumanSettings {

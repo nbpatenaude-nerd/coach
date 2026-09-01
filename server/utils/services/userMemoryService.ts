@@ -1,4 +1,4 @@
-import type { Prisma } from '~~~/server/utils/generated-prisma/client'
+import type { Prisma } from '~~/server/utils/generated-prisma/client'
 import type {
   UserMemory,
   UserMemoryCategory,
