@@ -181,7 +181,7 @@
 
   definePageMeta({
     middleware: 'auth',
-    layout: 'app'
+    layout: 'default'
   })
 
   const { data: session } = useAuth()

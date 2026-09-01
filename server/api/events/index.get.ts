@@ -69,6 +69,11 @@ export default defineEventHandler(async (event) => {
       return {
         ...event,
         priority: userParticipant?.priority || event.priority,
+        isCompleted: userParticipant?.isCompleted || false,
+        resultTime: userParticipant?.resultTime,
+        resultPosition: userParticipant?.resultPosition,
+        raceReport: userParticipant?.raceReport,
+        photoUrl: userParticipant?.photoUrl,
         participants: event.participants.map((p) => ({
           id: p.user.id,
           name: p.user.name,
