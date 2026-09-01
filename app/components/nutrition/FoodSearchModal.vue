@@ -127,16 +127,28 @@
               </p>
             </div>
             <div class="flex items-center gap-2 text-xs font-mono">
-              <span
-                class="px-2 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold"
+              <template
+                v-if="
+                  item.nutrients_per_100g.calories_kcal > 0 ||
+                  item.nutrients_per_100g.carbs_g > 0 ||
+                  item.nutrients_per_100g.protein_g > 0 ||
+                  item.nutrients_per_100g.fat_g > 0
+                "
               >
-                {{ Math.round(item.nutrients_per_100g.calories_kcal) }} kcal
-              </span>
-              <span class="text-neutral-600 dark:text-neutral-400">
-                P: {{ item.nutrients_per_100g.protein_g }}g | C:
-                {{ item.nutrients_per_100g.carbs_g }}g | F: {{ item.nutrients_per_100g.fat_g }}g
-              </span>
-              <span class="text-[10px] text-neutral-400 dark:text-neutral-500">(100g)</span>
+                <span
+                  class="px-2 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold"
+                >
+                  {{ Math.round(item.nutrients_per_100g.calories_kcal) }} kcal
+                </span>
+                <span class="text-neutral-600 dark:text-neutral-400">
+                  P: {{ item.nutrients_per_100g.protein_g }}g | C:
+                  {{ item.nutrients_per_100g.carbs_g }}g | F: {{ item.nutrients_per_100g.fat_g }}g
+                </span>
+                <span class="text-[10px] text-neutral-400 dark:text-neutral-500">(100g)</span>
+              </template>
+              <template v-else>
+                <span class="text-neutral-500 italic">Select to load macros</span>
+              </template>
             </div>
           </div>
         </div>
@@ -354,9 +366,46 @@
     }
   }
 
-  function selectItem(item: any) {
+  async function selectItem(item: any) {
     selectedItem.value = item
     portionGrams.value = item.serving_size_g || 100
+
+    const n = item.nutrients_per_100g || {}
+    const hasNutrients = n.calories_kcal > 0 || n.carbs_g > 0 || n.protein_g > 0 || n.fat_g > 0
+
+    if (!hasNutrients && (item.barcode || item.external_key)) {
+      loading.value = true
+      try {
+        let res
+        if (item.barcode) {
+          res = await $fetch<any, string & {}>(
+            `/api/nutrition/barcode/${encodeURIComponent(item.barcode)}`
+          )
+        } else if (item.external_key) {
+          res = await $fetch<any, string & {}>(
+            `/api/nutrition/item/${encodeURIComponent(item.external_key)}`
+          )
+        }
+
+        if (res && res.item) {
+          selectedItem.value = { ...item, ...res.item }
+
+          // Also update the item in the list so it shows macros in the UI list too
+          const index = items.value.findIndex((i: any) => i === item)
+          if (index !== -1) {
+            items.value[index] = selectedItem.value
+          }
+
+          if (res.item.serving_size_g) {
+            portionGrams.value = res.item.serving_size_g
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch full item details:', err)
+      } finally {
+        loading.value = false
+      }
+    }
   }
 
   const calculatedPortion = computed(() => {

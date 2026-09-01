@@ -23,7 +23,6 @@
           v-model="localLayout"
           group="customizer"
           item-key="id"
-          handle=".drag-handle"
           ghost-class="opacity-50 border-2 border-dashed border-primary-500 rounded bg-gray-50 dark:bg-gray-800"
           animation="200"
           @end="emitUpdate"

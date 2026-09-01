@@ -266,12 +266,12 @@
               <!-- Draggable Dashboard Grid (Rendered statically, customized in Slideover) -->
               <div v-if="hasLoadedDashboardWidgets" class="relative">
                 <div
-                  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-start"
+                  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-start grid-flow-dense"
                 >
                   <div
                     v-for="element in dashboardLayout"
                     :key="element.id"
-                    :class="['transition-all duration-200', element.class]"
+                    :class="['transition-all duration-200 break-inside-avoid', element.class]"
                   >
                     <div class="h-full">
                       <template v-if="element.id === 'athleteProfileBasic'">
