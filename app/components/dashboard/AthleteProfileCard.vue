@@ -11,9 +11,46 @@
     <template #header>
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <UIcon name="i-heroicons-user-circle" class="w-5 h-5 text-primary-500" />
-          <h3 class="font-bold text-sm tracking-tight uppercase">
+          <UIcon
+            v-if="section === 'all' || section === 'profile'"
+            name="i-heroicons-user-circle"
+            class="w-5 h-5 text-primary-500"
+          />
+          <h3
+            v-if="section === 'all' || section === 'profile'"
+            class="font-bold text-sm tracking-tight uppercase"
+          >
             {{ t('athlete_profile_header') }}
+          </h3>
+          <UIcon
+            v-if="section === 'trainingLoad'"
+            name="i-heroicons-chart-bar"
+            class="w-5 h-5 text-purple-500"
+          />
+          <h3 v-if="section === 'trainingLoad'" class="font-bold text-sm tracking-tight uppercase">
+            Training Load & Form
+          </h3>
+          <UIcon
+            v-if="section === 'corePerformance'"
+            name="i-heroicons-bolt"
+            class="w-5 h-5 text-amber-500"
+          />
+          <h3
+            v-if="section === 'corePerformance'"
+            class="font-bold text-sm tracking-tight uppercase"
+          >
+            Core Performance
+          </h3>
+          <UIcon
+            v-if="section === 'recentWellness'"
+            name="i-heroicons-heart"
+            class="w-5 h-5 text-indigo-500"
+          />
+          <h3
+            v-if="section === 'recentWellness'"
+            class="font-bold text-sm tracking-tight uppercase"
+          >
+            Recent Wellness
           </h3>
         </div>
         <div class="flex items-center gap-1">
@@ -74,11 +111,6 @@
       <div v-if="section === 'all' || section === 'profile'">
         <NuxtLink to="/profile/athlete" :class="profileModuleClass">
           <div class="flex items-center justify-between mb-3">
-            <p
-              class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest"
-            >
-              {{ t('athlete_profile_header') }}
-            </p>
             <div class="flex items-center gap-2">
               <UTooltip v-if="profileStatus.isStale" :text="profileStatus.label">
                 <UIcon name="i-heroicons-exclamation-triangle" class="w-4 h-4 text-amber-500" />
@@ -218,11 +250,6 @@
           "
         >
           <div class="flex items-center justify-between mb-3">
-            <p
-              class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest"
-            >
-              Training Load & Form
-            </p>
             <UIcon
               name="i-heroicons-chevron-right"
               class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"
@@ -307,11 +334,6 @@
       <div v-if="section === 'all' || section === 'corePerformance'">
         <NuxtLink to="/performance" :class="profileModuleClass">
           <div class="flex items-center justify-between mb-3">
-            <p
-              class="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest"
-            >
-              Core Performance
-            </p>
             <UIcon
               name="i-heroicons-chevron-right"
               class="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-primary-500 transition-colors"

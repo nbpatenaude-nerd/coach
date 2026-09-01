@@ -15,7 +15,7 @@
               class="hidden sm:inline-flex font-bold text-xs"
               @click="toggleEditMode"
             >
-              {{ isEditMode ? 'Done Editing' : 'Edit Layout' }}
+              {{ isEditMode ? 'Done Editing' : 'Customize Layout' }}
             </UButton>
 
             <ClientOnly>
@@ -306,10 +306,7 @@
                       </div>
 
                       <div :class="isEditMode ? 'pointer-events-none' : ''" class="h-full">
-                        <template v-if="element.id === 'reviewFeedback'">
-                          <DashboardReviewFeedback class="h-full" />
-                        </template>
-                        <template v-else-if="element.id === 'athleteProfileBasic'">
+                        <template v-if="element.id === 'athleteProfileBasic'">
                           <AthleteProfileCard section="profile" class="h-full" />
                         </template>
                         <template v-else-if="element.id === 'trainingLoad'">
@@ -708,7 +705,7 @@
 <script setup lang="ts">
   import { useTranslate } from '@tolgee/vue'
   import { useLocalStorage } from '@vueuse/core'
-  import draggable from 'vuedraggable'
+
   import {
     getWorkoutIcon,
     getWorkoutColorClass,
@@ -871,7 +868,6 @@
   const isEditMode = ref(false)
 
   const DEFAULT_DASHBOARD_LAYOUT = [
-    { id: 'reviewFeedback', class: 'col-span-1 md:col-span-2 lg:col-span-3' },
     { id: 'athleteProfileBasic', class: 'col-span-1 lg:col-span-1' },
     { id: 'trainingLoad', class: 'col-span-1 lg:col-span-1' },
     { id: 'corePerformance', class: 'col-span-1 lg:col-span-1' },
@@ -915,6 +911,11 @@
     if (!isEditMode.value) {
       saveLayout()
     }
+  }
+
+  function handleLayoutUpdate(newLayout: any[]) {
+    dashboardLayout.value = newLayout
+    saveLayout()
   }
 
   function saveLayout() {
