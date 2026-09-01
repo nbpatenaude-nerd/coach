@@ -133,9 +133,6 @@
                 @dismiss="handleCompleteSetup"
               />
 
-              <!-- Weekly Check-In (For All Athletes) -->
-              <DashboardCheckIn />
-
               <!-- Garmin Attribution -->
               <div v-if="isGarminConnected" class="flex justify-end px-4 sm:px-0">
                 <div class="flex items-center gap-1.5">
@@ -250,408 +247,178 @@
                 </UCard>
               </div>
 
-              <!-- Draggable Dashboard Grid -->
-              <div v-if="hasLoadedDashboardWidgets" class="relative">
-                <draggable
-                  v-model="dashboardLayout"
-                  group="dashboard"
-                  tag="div"
-                  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-start"
-                  item-key="id"
-                  :disabled="!isEditMode"
-                  ghost-class="opacity-50 border-2 border-dashed border-primary-500 rounded-xl"
-                  animation="200"
-                  @end="saveLayout"
-                >
-                  <template #item="{ element }">
-                    <div
-                      :class="[
-                        'relative group transition-all duration-200',
-                        isEditMode
-                          ? 'ring-2 ring-transparent hover:ring-gray-300 dark:hover:ring-gray-700 rounded-xl bg-gray-50/50 dark:bg-gray-900/50 p-2 -m-2 cursor-move'
-                          : ''
-                      ]"
-                    >
-                      <!-- Edit Mode Overlay (No handle needed, entire card is draggable) -->
-                      <div
-                        v-if="isEditMode"
-                        class="absolute inset-0 z-10 flex items-start justify-end p-2 pointer-events-none rounded-xl"
-                      >
-                        <div
-                          class="bg-white dark:bg-gray-800 shadow-sm rounded border border-gray-200 dark:border-gray-700 p-1 flex items-center gap-1 transition-opacity pointer-events-auto"
-                        >
-                          <USelect
-                            v-model="element.class"
-                            :options="[
-                              { label: '1/3 Width', value: 'col-span-1 lg:col-span-1' },
-                              {
-                                label: '2/3 Width',
-                                value: 'col-span-1 md:col-span-2 lg:col-span-2'
-                              },
-                              {
-                                label: 'Full Width',
-                                value: 'col-span-1 md:col-span-2 lg:col-span-3'
-                              }
-                            ]"
-                            size="xs"
-                            variant="none"
-                            class="bg-transparent text-xs"
-                            @change="saveLayout"
-                          />
-                          <UIcon
-                            name="i-heroicons-arrows-pointing-out"
-                            class="w-5 h-5 text-gray-500 ml-2"
-                          />
-                        </div>
-                      </div>
+              <!-- Top Pinned Section -->
+              <div
+                v-if="hasLoadedDashboardWidgets"
+                class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8 mb-4 sm:mb-8"
+              >
+                <!-- Weekly Review (1/3) -->
+                <div class="col-span-1 h-full">
+                  <DashboardCheckIn class="h-full" />
+                </div>
 
-                      <div :class="isEditMode ? 'pointer-events-none' : ''" class="h-full">
-                        <template v-if="element.id === 'athleteProfileBasic'">
-                          <AthleteProfileCard section="profile" class="h-full" />
-                        </template>
-                        <template v-else-if="element.id === 'trainingLoad'">
-                          <AthleteProfileCard section="trainingLoad" class="h-full" />
-                        </template>
-                        <template v-else-if="element.id === 'corePerformance'">
-                          <AthleteProfileCard section="corePerformance" class="h-full" />
-                        </template>
-                        <template v-else-if="element.id === 'recentWellness'">
-                          <AthleteProfileCard section="recentWellness" class="h-full" />
-                        </template>
-
-                        <template v-else-if="element.id === 'recoveryContext'">
-                          <UCard class="h-full flex flex-col">
-                            <h3 class="font-bold mb-1">Active Recovery Context</h3>
-                            <div
-                              v-if="recommendationStore.loading"
-                              class="animate-pulse space-y-2 mt-2"
-                            >
-                              <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                              <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-                            </div>
-                            <div
-                              v-else-if="
-                                recommendationStore.todayRecommendation?.analysisJson
-                                  ?.recovery_analysis
-                              "
-                            >
-                              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Sleep:
-                                {{
-                                  recommendationStore.todayRecommendation.analysisJson
-                                    .recovery_analysis.sleep_quality
-                                }}
-                                • HRV:
-                                {{
-                                  recommendationStore.todayRecommendation.analysisJson
-                                    .recovery_analysis.hrv_status
-                                }}
-                              </p>
-                              <p class="text-sm text-gray-500 mt-1">
-                                Fatigue Level:
-                                {{
-                                  recommendationStore.todayRecommendation.analysisJson
-                                    .recovery_analysis.fatigue_level
-                                }}
-                                <span
-                                  v-if="
-                                    recommendationStore.todayRecommendation.analysisJson
-                                      .recovery_analysis.readiness_score
-                                  "
-                                >
-                                  (Score:
-                                  {{
-                                    recommendationStore.todayRecommendation.analysisJson
-                                      .recovery_analysis.readiness_score
-                                  }})
-                                </span>
-                              </p>
-                            </div>
-                            <p v-else class="text-sm text-gray-500">
-                              No active recovery analysis available.
-                            </p>
-                          </UCard>
-                        </template>
-
-                        <template v-else-if="element.id === 'glycogenFuel'">
-                          <UCard class="h-full flex flex-col">
-                            <h3 class="font-bold mb-1">Glycogen Fuel Tank</h3>
-                            <div v-if="loadingNutrition" class="animate-pulse space-y-2 mt-2">
-                              <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-                              <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                            </div>
-                            <div v-else-if="todayNutrition?.percentage != null">
-                              <div class="flex items-center gap-3 mb-1">
-                                <UProgress
-                                  :value="todayNutrition.percentage"
-                                  :color="
-                                    todayNutrition.state === 3
-                                      ? 'error'
-                                      : todayNutrition.state === 2
-                                        ? 'warning'
-                                        : 'primary'
-                                  "
-                                  class="flex-1"
-                                />
-                                <span class="text-sm font-bold"
-                                  >{{ todayNutrition.percentage }}%</span
-                                >
-                              </div>
-                              <p
-                                class="text-sm text-gray-500 line-clamp-2"
-                                :title="todayNutrition.advice"
-                              >
-                                {{ todayNutrition.advice || 'Fuel status optimal.' }}
-                              </p>
-                            </div>
-                            <p v-else class="text-sm text-gray-500">Fuel status optimal.</p>
-                          </UCard>
-                        </template>
-
-                        <template v-else-if="element.id === 'trainingRecommendation'">
-                          <DashboardTrainingRecommendationCard
-                            class="h-full"
-                            @open-details="openRecommendationModal"
-                            @open-checkin="openCheckinModal"
-                          />
-                        </template>
-
-                        <template v-else-if="element.id === 'monthlyComparison'">
-                          <DashboardMonthlyComparisonCard
-                            v-if="canUseDashboardActions"
-                            class="h-full"
-                          />
-                        </template>
-
-                        <template v-else-if="element.id === 'performanceScores'">
-                          <DashboardPerformanceScoresCard
-                            ref="performanceScoresCard"
-                            class="h-full"
-                            @open-score="openScoreModal"
-                          />
-                        </template>
-
-                        <template v-else-if="element.id === 'telemetryRadar'">
-                          <UCard class="h-full">
-                            <h3 class="font-bold mb-1">Telemetry Radar</h3>
-                            <p class="text-sm text-gray-500">ACWR, EF, Biomechanical Risk</p>
-                          </UCard>
-                        </template>
-
-                        <template v-else-if="element.id === 'liveEnergy'">
-                          <UCard class="h-full">
-                            <h3 class="font-bold mb-1">Live Energy Availability</h3>
-                            <p class="text-sm text-gray-500">Tracking calorie deficit.</p>
-                          </UCard>
-                        </template>
-
-                        <template v-else-if="element.id === 'nutritionFueling' && nutritionEnabled">
-                          <DashboardNutritionFuelingCard
-                            class="h-full"
-                            :nutrition="todayNutrition"
-                            :workouts="todayWorkouts"
-                            :settings="nutritionSettings"
-                            :weight="userStore.currentWeightKg || 75"
-                            :loading="loadingNutrition"
-                            @refresh="handleNutritionRefresh"
-                          />
-                        </template>
-
-                        <template v-else-if="element.id === 'recentActivity'">
-                          <DashboardRecentActivityCard class="h-full" />
-                        </template>
-
-                        <template v-else-if="element.id === 'upcomingWorkouts'">
-                          <UCard
-                            :ui="{
-                              root: 'rounded-none sm:rounded-lg shadow-none sm:shadow h-full',
-                              body: 'p-4 sm:p-6 h-full flex flex-col'
-                            }"
-                            class="flex flex-col h-full"
-                          >
-                            <template #header>
-                              <div class="flex items-center justify-between">
-                                <h3
-                                  class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-2"
-                                >
-                                  <UIcon name="i-heroicons-calendar-days" class="w-4 h-4" />
-                                  {{ t('upcoming_workouts_header') }}
-                                </h3>
-                                <UButton
-                                  to="/plan"
-                                  variant="ghost"
-                                  color="neutral"
-                                  size="xs"
-                                  icon="i-heroicons-arrow-right"
-                                  trailing
-                                />
-                              </div>
-                            </template>
-
-                            <div class="flex-1 space-y-4">
-                              <div v-if="loadingUpcoming" class="space-y-3">
-                                <div v-for="i in 3" :key="i" class="flex items-center gap-3">
-                                  <USkeleton class="w-10 h-10 rounded-lg" />
-                                  <div class="flex-1 space-y-2">
-                                    <USkeleton class="h-3 w-3/4" />
-                                    <USkeleton class="h-2 w-1/2" />
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div v-else-if="upcomingWorkoutsError" class="text-center py-8">
-                                <UIcon
-                                  name="i-heroicons-exclamation-triangle"
-                                  class="w-8 h-8 text-amber-500 mx-auto mb-2"
-                                />
-                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                                  {{ upcomingWorkoutsError }}
-                                </p>
-                                <UButton
-                                  variant="soft"
-                                  color="neutral"
-                                  size="xs"
-                                  icon="i-heroicons-arrow-path"
-                                  @click="
-                                    () => {
-                                      void fetchUpcomingWorkouts()
-                                    }
-                                  "
-                                >
-                                  {{ t('upcoming_workouts_retry') }}
-                                </UButton>
-                              </div>
-
-                              <div
-                                v-else-if="upcomingWorkouts.length === 0"
-                                class="text-center py-8"
-                              >
-                                <UIcon
-                                  name="i-heroicons-calendar"
-                                  class="w-8 h-8 text-gray-300 dark:text-gray-600 mx-auto mb-2"
-                                />
-                                <p class="text-sm text-gray-500">
-                                  {{ t('upcoming_workouts_empty') }}
-                                </p>
-                                <UButton
-                                  to="/plans"
-                                  variant="link"
-                                  color="primary"
-                                  size="xs"
-                                  class="mt-2"
-                                  >{{ t('upcoming_workouts_view_plans') }}</UButton
-                                >
-                              </div>
-
-                              <div
-                                v-else
-                                class="divide-y divide-gray-100 dark:divide-gray-800 -mx-4 px-4"
-                              >
-                                <div
-                                  v-for="workout in upcomingWorkouts"
-                                  :key="workout.id"
-                                  class="py-3 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer -mx-4 px-4 rounded-lg transition-colors group relative"
-                                  @click="
-                                    () => {
-                                      void handleUpcomingWorkoutClick(workout.id)
-                                    }
-                                  "
-                                >
-                                  <!-- Date Box (Standardized) -->
-                                  <div
-                                    class="flex flex-col items-center justify-center w-10 h-10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-400 shrink-0 shadow-sm"
-                                  >
-                                    <span class="text-[10px] font-bold uppercase leading-none">{{
-                                      formatDayShort(workout.date)
-                                    }}</span>
-                                    <span class="text-sm font-bold">{{
-                                      formatDateDay(workout.date)
-                                    }}</span>
-                                  </div>
-
-                                  <!-- Workout Icon -->
-                                  <UTooltip :text="workout.type" class="shrink-0">
-                                    <div class="flex items-center justify-center w-8 h-8">
-                                      <UIcon
-                                        :name="getWorkoutIcon(workout.type)"
-                                        class="w-5 h-5"
-                                        :class="getWorkoutColorClass(workout.type)"
-                                      />
-                                    </div>
-                                  </UTooltip>
-
-                                  <!-- Workout Details -->
-                                  <div class="flex-1 min-w-0">
-                                    <div class="flex items-center gap-2">
-                                      <div
-                                        class="text-sm font-bold text-gray-900 dark:text-white truncate"
-                                      >
-                                        {{ workout.title }}
-                                      </div>
-                                      <UTooltip
-                                        v-if="workout.planName"
-                                        :text="
-                                          t('upcoming_workouts_plan_part_of', {
-                                            name: workout.planName
-                                          })
-                                        "
-                                      >
-                                        <UIcon
-                                          name="i-heroicons-trophy"
-                                          class="w-3.5 h-3.5 text-primary shrink-0"
-                                        />
-                                      </UTooltip>
-                                    </div>
-                                    <div
-                                      class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-3 mt-0.5"
-                                    >
-                                      <div
-                                        v-if="workout.durationSec"
-                                        class="flex items-center gap-1"
-                                      >
-                                        <UIcon
-                                          name="i-tabler-clock"
-                                          class="w-3 h-3 opacity-80"
-                                          :class="getWorkoutColorClass(workout.type)"
-                                        />
-                                        <span class="font-medium"
-                                          >{{ Math.round(workout.durationSec / 60) }}m</span
-                                        >
-                                      </div>
-                                      <div v-if="workout.tss" class="flex items-center gap-1">
-                                        <UIcon
-                                          name="i-tabler-bolt"
-                                          class="w-3 h-3 opacity-80"
-                                          :class="getWorkoutColorClass(workout.type)"
-                                        />
-                                        <span class="font-medium"
-                                          >{{ Math.round(workout.tss) }} TSS</span
-                                        >
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <UIcon
-                                    name="i-heroicons-chevron-right"
-                                    class="w-4 h-4 text-gray-300 group-hover:text-primary transition-colors"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </UCard>
-                        </template>
-
-                        <template v-else-if="element.id === 'dataSyncStatus'">
-                          <DashboardDataSyncStatusCard
-                            v-if="integrationStore.syncingData"
-                            class="h-full"
-                          />
-                        </template>
-                      </div>
-                    </div>
-                  </template>
-                </draggable>
+                <!-- Coach Feedback (2/3) -->
+                <div class="col-span-1 lg:col-span-2 h-full">
+                  <DashboardCoachFeedback class="h-full" />
+                </div>
               </div>
-              <DashboardShareFooterCard />
+
+              <!-- Draggable Dashboard Grid (Rendered statically, customized in Slideover) -->
+              <div v-if="hasLoadedDashboardWidgets" class="relative">
+                <div
+                  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-start"
+                >
+                  <div
+                    v-for="element in dashboardLayout"
+                    :key="element.id"
+                    :class="['transition-all duration-200', element.class]"
+                  >
+                    <div class="h-full">
+                      <template v-if="element.id === 'athleteProfileBasic'">
+                        <AthleteProfileCard section="profile" class="h-full" />
+                      </template>
+                      <template v-else-if="element.id === 'trainingLoad'">
+                        <AthleteProfileCard section="trainingLoad" class="h-full" />
+                      </template>
+                      <template v-else-if="element.id === 'corePerformance'">
+                        <AthleteProfileCard section="corePerformance" class="h-full" />
+                      </template>
+                      <template v-else-if="element.id === 'recentWellness'">
+                        <AthleteProfileCard section="recentWellness" class="h-full" />
+                      </template>
+
+                      <template v-else-if="element.id === 'recoveryContext'">
+                        <UCard class="h-full flex flex-col">
+                          <h3 class="font-bold mb-1">Active Recovery Context</h3>
+                          <div
+                            v-if="recommendationStore.loading"
+                            class="animate-pulse space-y-2 mt-2"
+                          >
+                            <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                            <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                          </div>
+                          <div
+                            v-else-if="
+                              recommendationStore.todayRecommendation?.analysisJson
+                                ?.recovery_analysis
+                            "
+                          >
+                            <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                              Sleep:
+                              {{
+                                recommendationStore.todayRecommendation.analysisJson
+                                  .recovery_analysis.sleep_quality
+                              }}
+                              &bull; HRV:
+                              {{
+                                recommendationStore.todayRecommendation.analysisJson
+                                  .recovery_analysis.hrv_status
+                              }}
+                            </p>
+                            <p class="text-sm text-gray-500 mt-1">
+                              Fatigue Level:
+                              {{
+                                recommendationStore.todayRecommendation.analysisJson
+                                  .recovery_analysis.fatigue_level
+                              }}
+                              <span
+                                v-if="
+                                  recommendationStore.todayRecommendation.analysisJson
+                                    .recovery_analysis.stress_level
+                                "
+                              >
+                                &bull; Stress:
+                                {{
+                                  recommendationStore.todayRecommendation.analysisJson
+                                    .recovery_analysis.stress_level
+                                }}
+                              </span>
+                            </p>
+                            <p class="text-sm text-gray-500 mt-2">
+                              {{
+                                recommendationStore.todayRecommendation.analysisJson
+                                  .recovery_analysis.key_limiter ||
+                                "Journey will use this when generating today's guidance."
+                              }}
+                            </p>
+                          </div>
+                          <div v-else>
+                            <p class="text-sm text-gray-500 mt-1">
+                              Journey will use this when generating today's guidance.
+                            </p>
+                          </div>
+                        </UCard>
+                      </template>
+                      <template v-else-if="element.id === 'glycogenFuel'">
+                        <DashboardGlycogenFuelCard class="h-full" />
+                      </template>
+
+                      <template v-else-if="element.id === 'telemetryRadar'">
+                        <DashboardTelemetryRadarCard class="h-full" />
+                      </template>
+                      <template v-else-if="element.id === 'liveEnergy'">
+                        <DashboardLiveEnergyCard class="h-full" />
+                      </template>
+
+                      <template v-else-if="element.id === 'trainingRecommendation'">
+                        <DashboardTrainingRecommendationCard
+                          class="h-full"
+                          @open-details="openRecommendationModal"
+                          @open-checkin="openCheckinModal"
+                        />
+                      </template>
+
+                      <template v-else-if="element.id === 'performanceScores'">
+                        <DashboardPerformanceScoresCard
+                          class="h-full"
+                          @open-wellness="openWellnessModal"
+                          @open-score="openScoreModal"
+                        />
+                      </template>
+
+                      <template v-else-if="element.id === 'monthlyComparison'">
+                        <DashboardMonthlyComparisonCard class="h-full" />
+                      </template>
+
+                      <template v-else-if="element.id === 'nutritionFueling' && nutritionEnabled">
+                        <DashboardNutritionFuelingCard
+                          class="h-full"
+                          :nutrition="todayNutrition"
+                          :workouts="todayWorkouts"
+                          :settings="nutritionSettings"
+                          :weight="userStore.user?.weight"
+                          :loading="loadingNutrition"
+                          @refresh="fetchTodayNutrition"
+                        />
+                      </template>
+
+                      <template v-else-if="element.id === 'recentActivity'">
+                        <DashboardRecentActivityCard class="h-full" />
+                      </template>
+
+                      <template v-else-if="element.id === 'upcomingWorkouts'">
+                        <DashboardUpcomingWorkouts class="h-full" />
+                      </template>
+
+                      <template v-else-if="element.id === 'dataSyncStatus'">
+                        <DashboardDataSyncStatusCard
+                          v-if="integrationStore.syncingData"
+                          class="h-full"
+                        />
+                      </template>
+                    </div>
+                  </div>
+                </div>
+
+                <DashboardShareFooterCard class="mt-8" />
+              </div>
+
+              <!-- Dashboard Customizer Slideover -->
+              <DashboardLayoutCustomizer
+                v-model:open="isEditMode"
+                :layout="dashboardLayout"
+                @update="handleLayoutUpdate"
+              />
 
               <!-- App Info Footer -->
               <div class="flex justify-center pt-8 pb-12 sm:pb-4">
@@ -891,7 +658,7 @@
     () => userStore.user?.dashboardSettings,
     (newSettings) => {
       if (newSettings && newSettings.layout && Array.isArray(newSettings.layout)) {
-        const deprecatedIds = ['coachFeedback', 'athleteProfile']
+        const deprecatedIds = ['coachFeedback', 'athleteProfile', 'reviewFeedback']
         const validLayout = newSettings.layout.filter(
           (item: any) => !deprecatedIds.includes(item.id)
         )
