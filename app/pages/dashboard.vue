@@ -293,7 +293,7 @@
                                 value: 'col-span-1 md:col-span-2 lg:col-span-3'
                               }
                             ]"
-                            size="2xs"
+                            size="xs"
                             variant="none"
                             class="bg-transparent text-xs"
                             @change="saveLayout"
