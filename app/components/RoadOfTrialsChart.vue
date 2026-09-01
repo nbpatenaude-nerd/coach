@@ -38,7 +38,7 @@
       <UIcon name="i-heroicons-exclamation-triangle" class="w-12 h-12 text-red-500 mb-4" />
       <h3 class="text-lg font-bold text-white mb-2">Failed to load chart data</h3>
       <p class="text-gray-400 mb-4">{{ error.message }}</p>
-      <UButton @click="refresh">Retry</UButton>
+      <UButton @click="() => { refresh() }">Retry</UButton>
     </div>
 
     <div

@@ -258,9 +258,9 @@
                     <td class="py-2 px-4">
                       <UBadge
                         :color="
-                          user.tier === 'PRO'
+                          user.tier === 'UNLOCK'
                             ? 'primary'
-                            : user.tier === 'SUPPORTER'
+                            : user.tier === 'UNCOVER'
                               ? 'info'
                               : 'neutral'
                         "

@@ -131,7 +131,7 @@
           </div>
 
           <div class="min-h-8">
-            <template v-if="billingInterval === 'annual' && plan.annualPrice">
+            <template v-if="billingInterval === 'annual' && plan.price">
               <div class="text-[10px] font-black text-primary-500 uppercase tracking-widest mb-1">
                 {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
                 {{ t('billing.per_month') }}

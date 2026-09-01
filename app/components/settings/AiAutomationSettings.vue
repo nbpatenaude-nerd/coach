@@ -15,11 +15,11 @@
             v-model="localSettings.aiAutoAnalyzeReadiness"
             :label="t('automation_readiness_label')"
             :description="t('automation_readiness_desc')"
-            :disabled="!canUseTier('SUPPORTER')"
+            :disabled="!canUseTier('UNCOVER')"
             @update:model-value="handleChange"
           />
         </div>
-        <div v-if="!canUseTier('SUPPORTER')" class="flex items-center gap-2">
+        <div v-if="!canUseTier('UNCOVER')" class="flex items-center gap-2">
           <UBadge color="primary" variant="subtle" size="xs">{{
             t('billing_tier_supporter')
           }}</UBadge>
@@ -33,7 +33,7 @@
                 upgradeModal.show({
                   featureTitle: t('automation_readiness_label'),
                   featureDescription: t('automation_readiness_upgrade_desc'),
-                  recommendedTier: 'supporter'
+                  recommendedTier: 'UNCOVER'
                 })
               }
             "
@@ -48,11 +48,11 @@
             v-model="localSettings.aiAutoAnalyzeWorkouts"
             :label="t('automation_workouts_label')"
             :description="t('automation_workouts_desc')"
-            :disabled="!canUseTier('SUPPORTER')"
+            :disabled="!canUseTier('UNCOVER')"
             @update:model-value="handleChange"
           />
         </div>
-        <div v-if="!canUseTier('SUPPORTER')" class="flex items-center gap-2">
+        <div v-if="!canUseTier('UNCOVER')" class="flex items-center gap-2">
           <UBadge color="primary" variant="subtle" size="xs">{{
             t('billing_tier_supporter')
           }}</UBadge>
@@ -66,7 +66,7 @@
                 upgradeModal.show({
                   featureTitle: t('automation_workouts_label'),
                   featureDescription: t('automation_workouts_upgrade_desc'),
-                  recommendedTier: 'supporter'
+                  recommendedTier: 'UNCOVER'
                 })
               }
             "
@@ -81,11 +81,11 @@
             v-model="localSettings.aiAutoAnalyzeNutrition"
             :label="t('automation_nutrition_label')"
             :description="t('automation_nutrition_desc')"
-            :disabled="!canUseTier('SUPPORTER')"
+            :disabled="!canUseTier('UNCOVER')"
             @update:model-value="handleChange"
           />
         </div>
-        <div v-if="!canUseTier('SUPPORTER')" class="flex items-center gap-2">
+        <div v-if="!canUseTier('UNCOVER')" class="flex items-center gap-2">
           <UBadge color="primary" variant="subtle" size="xs">{{
             t('billing_tier_supporter')
           }}</UBadge>
@@ -99,7 +99,7 @@
                 upgradeModal.show({
                   featureTitle: t('automation_nutrition_label'),
                   featureDescription: t('automation_nutrition_upgrade_desc'),
-                  recommendedTier: 'supporter'
+                  recommendedTier: 'UNCOVER'
                 })
               }
             "
@@ -132,7 +132,7 @@
                 upgradeModal.show({
                   featureTitle: t('automation_thoughtful_label'),
                   featureDescription: t('automation_thoughtful_upgrade_desc'),
-                  recommendedTier: 'pro'
+                  recommendedTier: 'UNLOCK'
                 })
               }
             "
@@ -165,7 +165,7 @@
                 upgradeModal.show({
                   featureTitle: t('automation_proactive_label'),
                   featureDescription: t('automation_proactive_upgrade_desc'),
-                  recommendedTier: 'pro'
+                  recommendedTier: 'UNLOCK'
                 })
               }
             "
@@ -233,7 +233,7 @@
   const userStore = useUserStore()
   const upgradeModal = useUpgradeModal()
 
-  function canUseTier(tier: 'SUPPORTER' | 'PRO') {
+  function canUseTier(tier: 'UNCOVER' | 'UNLOCK' | 'UNLEASH') {
     if (props.forceUnlocked) return true
     return userStore.hasMinimumTier(tier)
   }

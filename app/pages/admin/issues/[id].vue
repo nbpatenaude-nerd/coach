@@ -1035,7 +1035,7 @@
                   <h3 class="text-sm font-semibold">User Info</h3>
                   <UBadge
                     v-if="report?.user.subscriptionTier"
-                    :color="report.user.subscriptionTier === 'PRO' ? 'primary' : 'neutral'"
+                    :color="report.user.subscriptionTier === 'UNLOCK' ? 'primary' : 'neutral'"
                     variant="soft"
                     size="xs"
                   >

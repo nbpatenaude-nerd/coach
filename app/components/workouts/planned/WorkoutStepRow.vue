@@ -98,9 +98,9 @@
               @update:model-value="emitUpdate"
             />
             <UButton
-              color="gray"
+              color="neutral"
               variant="ghost"
-              size="2xs"
+              size="xs"
               class="text-[8px] font-bold p-0 text-gray-400 uppercase hover:text-primary-500 transition-colors"
               @click="toggleDurationType"
             >
@@ -242,9 +242,9 @@
             />
             <UButton
               v-if="!hasNestedSteps"
-              color="gray"
+              color="neutral"
               variant="ghost"
-              size="2xs"
+              size="xs"
               class="text-[9px] font-bold p-0 text-gray-400 uppercase hover:text-primary-500 transition-colors"
               @click="toggleDurationType"
             >

@@ -85,7 +85,7 @@
                 "
               >
                 {{ interval }}
-                <span v-if="interval === 'ANNUAL' && toggleSavings" class="ml-1 text-green-500">
+                <span v-if="interval === '12-phase' && toggleSavings" class="ml-1 text-green-500">
                 -{{ toggleSavings }}%
               </span>
               </button>
@@ -247,7 +247,7 @@
     }
 
     // Track begin checkout
-    const priceValue = billingInterval.value === 'monthly' ? plan.monthlyPrice : plan.annualPrice
+    const priceValue = billingInterval.value === 'monthly' ? plan.price : plan.price
     trackCheckoutStart(priceId, plan.name, billingInterval.value, priceValue || 0, currency.value)
     trackModalComplete('upgrade_modal', 'checkout')
 

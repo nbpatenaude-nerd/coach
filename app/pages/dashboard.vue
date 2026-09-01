@@ -386,7 +386,7 @@
                           :nutrition="todayNutrition"
                           :workouts="todayWorkouts"
                           :settings="nutritionSettings"
-                          :weight="userStore.user?.weight"
+                          :weight="(userStore.user as any)?.weight"
                           :loading="loadingNutrition"
                           @refresh="fetchTodayNutrition"
                         />
