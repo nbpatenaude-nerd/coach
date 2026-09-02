@@ -45,6 +45,8 @@ export interface PeakEffort {
   duration_label: string
   start_time: number
   end_time: number
+  start_index?: number
+  end_index?: number
   value: number
   metric: 'power' | 'heartrate' | 'pace'
 }
@@ -355,7 +357,7 @@ function flattenPlannedStepsForDetection(
       continue
     }
     if (!Number.isFinite(durationSeconds) || durationSeconds <= 0) continue
-    
+
     const resolvedType =
       normalizePlannedStepType({
         type: step.type,
@@ -638,15 +640,14 @@ export function findPeakEfforts(
   metric: 'power' | 'heartrate' | 'pace'
 ): PeakEffort[] {
   if (!values || values.length === 0) return []
-
   const durations = [
     { sec: 5, label: '5s' },
-    { sec: 30, label: '30s' },
     { sec: 60, label: '1m' },
-    { sec: 300, label: '5m' },
-    { sec: 600, label: '10m' },
+    { sec: 180, label: '3m' },
+    { sec: 360, label: '6m' },
     { sec: 1200, label: '20m' },
-    { sec: 3600, label: '60m' }
+    { sec: 3600, label: '60m' },
+    { sec: 5400, label: '90m' }
   ]
 
   const peaks: PeakEffort[] = []
@@ -715,6 +716,8 @@ export function findPeakEfforts(
           duration_label: dur.label,
           start_time: startTimeValue,
           end_time: endTimeValue,
+          start_index: bestStartIdx,
+          end_index: bestEndIdx,
           value: Math.round(maxSum),
           metric
         })

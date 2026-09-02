@@ -51,12 +51,35 @@ export const pbDetectionService = {
     const isRun = workoutType.includes('run')
     const isBike =
       workoutType.includes('ride') || workoutType.includes('bike') || workoutType.includes('cycle')
+    const isSwim = workoutType.includes('swim')
 
     const commonMetadata = {
       avgHr: workout.averageHr,
       avgCadence: workout.averageCadence,
       maxHr: workout.maxHr,
       maxCadence: workout.maxCadence
+    }
+
+    const appendSegmentMetadata = (candidate: any, startIndex?: number, endIndex?: number) => {
+      const metadata = { ...commonMetadata }
+      if (
+        workout.streams.heartrate &&
+        Array.isArray(workout.streams.heartrate) &&
+        startIndex !== undefined &&
+        endIndex !== undefined
+      ) {
+        const hrSlice = workout.streams.heartrate
+          .slice(startIndex, endIndex + 1)
+          .filter((v: number) => v > 0)
+        if (hrSlice.length > 0) {
+          metadata.avgHr = Math.round(
+            hrSlice.reduce((a: number, b: number) => a + b, 0) / hrSlice.length
+          )
+          metadata.maxHr = Math.max(...hrSlice)
+        }
+      }
+      candidate.metadata = metadata
+      return candidate
     }
 
     // 1. POWER PEAKS (Cycling or Running with Power)
@@ -72,30 +95,32 @@ export const pbDetectionService = {
       )
 
       for (const peak of powerPeaks) {
-        candidates.push({
+        const candidate = {
           type: `POWER_${peak.duration_label.toUpperCase()}`,
           category: isBike ? 'CYCLE' : isRun ? 'RUN' : 'OTHER',
           value: peak.value,
           unit: 'W',
-          label: `Peak ${peak.duration_label} Power`,
-          metadata: commonMetadata
-        })
+          label: `Peak ${peak.duration_label} Power`
+        } as PersonalBestCandidate
+        candidates.push(appendSegmentMetadata(candidate, peak.start_index, peak.end_index))
       }
     }
 
-    // 2. RUNNING PACE PEAKS (Distance-based)
+    // 2. PACE PEAKS (Distance-based for RUN and SWIM)
     if (
-      isRun &&
+      (isRun || isSwim) &&
       workout.streams.distance &&
       Array.isArray(workout.streams.distance) &&
       Array.isArray(workout.streams.time)
     ) {
       const pacePBs = this.findFastestDistanceSegments(
         workout.streams.time as number[],
-        workout.streams.distance as number[]
+        workout.streams.distance as number[],
+        isSwim ? 'SWIM' : 'RUN'
       )
-      pacePBs.forEach((p) => (p.metadata = commonMetadata))
-      candidates.push(...pacePBs)
+      pacePBs.forEach((p) => {
+        candidates.push(appendSegmentMetadata(p, p.start_index, p.end_index))
+      })
     }
 
     // 3. ELEVATION PEAKS
@@ -132,24 +157,44 @@ export const pbDetectionService = {
   /**
    * Find fastest time for standard distances (m)
    */
-  findFastestDistanceSegments(times: number[], distances: number[]): PersonalBestCandidate[] {
-    const targets = [
-      { dist: 400, label: '400m', type: 'RUN_400M' },
-      { dist: 1000, label: '1km', type: 'RUN_1K' },
-      { dist: 1609, label: '1mi', type: 'RUN_1MI' },
-      { dist: 5000, label: '5km', type: 'RUN_5K' },
-      { dist: 10000, label: '10km', type: 'RUN_10K' },
-      { dist: 21097, label: 'Half Marathon', type: 'RUN_HM' },
-      { dist: 42195, label: 'Marathon', type: 'RUN_MARATHON' }
-    ]
+  findFastestDistanceSegments(
+    times: number[],
+    distances: number[],
+    category: 'RUN' | 'SWIM' = 'RUN'
+  ): (PersonalBestCandidate & { start_index?: number; end_index?: number })[] {
+    let targets: { dist: number; label: string; type: string }[] = []
 
-    const results: PersonalBestCandidate[] = []
+    if (category === 'RUN') {
+      targets = [
+        { dist: 400, label: '400m', type: 'RUN_400M' },
+        { dist: 800, label: '800m', type: 'RUN_800M' },
+        { dist: 1000, label: '1km', type: 'RUN_1K' },
+        { dist: 1609, label: '1mi', type: 'RUN_1MI' },
+        { dist: 5000, label: '5km', type: 'RUN_5K' },
+        { dist: 10000, label: '10km', type: 'RUN_10K' },
+        { dist: 21097, label: 'Half Marathon', type: 'RUN_HM' },
+        { dist: 42195, label: 'Marathon', type: 'RUN_MARATHON' }
+      ]
+    } else if (category === 'SWIM') {
+      targets = [
+        { dist: 50, label: '50m', type: 'SWIM_50M' },
+        { dist: 100, label: '100m', type: 'SWIM_100M' },
+        { dist: 400, label: '400m', type: 'SWIM_400M' },
+        { dist: 1500, label: '1500m', type: 'SWIM_1500M' },
+        { dist: 2000, label: '2km', type: 'SWIM_2KM' },
+        { dist: 5000, label: '5km', type: 'SWIM_5KM' }
+      ]
+    }
+
+    const results: (PersonalBestCandidate & { start_index?: number; end_index?: number })[] = []
     const maxWorkoutDist = distances[distances.length - 1] || 0
 
     for (const target of targets) {
       if (maxWorkoutDist < target.dist) continue
 
       let minTime = Infinity
+      let bestStartIdx = -1
+      let bestEndIdx = -1
       let startPtr = 0
 
       for (let endPtr = 0; endPtr < distances.length; endPtr++) {
@@ -158,6 +203,8 @@ export const pbDetectionService = {
           const duration = times[endPtr]! - times[startPtr]!
           if (duration < minTime) {
             minTime = duration
+            bestStartIdx = startPtr
+            bestEndIdx = endPtr
           }
           startPtr++
         }
@@ -166,17 +213,23 @@ export const pbDetectionService = {
         if (distances[endPtr]! - distances[startPtr]! >= target.dist * 0.998) {
           // 0.2% tolerance
           const duration = times[endPtr]! - times[startPtr]!
-          if (duration < minTime) minTime = duration
+          if (duration < minTime) {
+            minTime = duration
+            bestStartIdx = startPtr
+            bestEndIdx = endPtr
+          }
         }
       }
 
       if (minTime !== Infinity && minTime > 0) {
         results.push({
           type: target.type,
-          category: 'RUN',
+          category,
           value: minTime, // We store time (s) for pace PBs
           unit: 's',
-          label: `Fastest ${target.label}`
+          label: `Fastest ${target.label}`,
+          start_index: bestStartIdx !== -1 ? bestStartIdx : undefined,
+          end_index: bestEndIdx !== -1 ? bestEndIdx : undefined
         })
       }
     }
