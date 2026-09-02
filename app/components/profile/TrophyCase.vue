@@ -312,82 +312,97 @@
             </div>
           </div>
 
-          <!-- Value & Label -->
-          <div class="space-y-2">
+          <!-- Value & Context Row -->
+          <div class="mt-4">
             <div
-              class="text-[10px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.3em] ml-1"
+              class="text-[10px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.3em] mb-1.5 ml-1"
             >
               {{ formatType(pb.type) }}
             </div>
-            <div class="flex items-baseline gap-3">
-              <span
-                class="text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tighter italic tabular-nums font-athletic leading-none drop-shadow-xl"
-              >
-                {{ getMetricValue(pb).val }}
-              </span>
-              <span
-                v-if="getMetricValue(pb).unit"
-                class="text-lg font-black text-gray-500 dark:text-gray-600 uppercase italic tracking-widest"
-              >
-                {{ getMetricValue(pb).unit }}
-              </span>
-            </div>
-          </div>
 
-          <!-- Secondary Stats / Context -->
-          <div
-            v-if="!pb.isPlaceholder && (pb.metadata || pb.workout)"
-            class="mt-6 flex flex-wrap gap-6 ml-1"
-          >
-            <div
-              v-if="
-                pb.metadata?.avgHr ||
-                pb.workout?.averageHr ||
-                pb.metadata?.maxHr ||
-                pb.workout?.maxHr
-              "
-              class="flex items-center gap-2 group/stat"
-            >
-              <div
-                class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-red-500/30 transition-colors"
-              >
-                <UIcon name="i-heroicons-heart" class="w-4 h-4 text-red-500/60" />
-              </div>
-              <div>
-                <div
-                  class="text-[8px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest mb-0.5"
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-3 ml-1">
+              <!-- Primary Value -->
+              <div class="flex items-baseline gap-2">
+                <span
+                  class="text-4xl lg:text-5xl font-black text-gray-900 dark:text-white tracking-tighter italic tabular-nums font-athletic leading-none drop-shadow-md"
                 >
-                  {{ activeMetric === 'Heart Rate' ? 'Peak Heart Rate' : 'Avg Heart Rate' }}
-                </div>
-                <span class="text-sm font-black text-gray-700 dark:text-gray-400 tabular-nums">
-                  {{
-                    activeMetric === 'Heart Rate'
-                      ? pb.metadata?.maxHr || pb.workout?.maxHr
-                      : pb.metadata?.avgHr || pb.workout?.averageHr
-                  }}
-                  <span class="text-[9px] text-gray-500 dark:text-gray-600">BPM</span>
+                  {{ getMetricValue(pb).val }}
+                </span>
+                <span
+                  v-if="getMetricValue(pb).unit"
+                  class="text-sm font-black text-gray-500 dark:text-gray-600 uppercase italic tracking-widest"
+                >
+                  {{ getMetricValue(pb).unit }}
                 </span>
               </div>
-            </div>
-            <div
-              v-if="pb.metadata?.avgCadence || pb.workout?.averageCadence"
-              class="flex items-center gap-2 group/stat"
-            >
+
+              <!-- Divider (only visible on wider screens) -->
               <div
-                class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-blue-500/30 transition-colors"
+                v-if="!pb.isPlaceholder && (pb.metadata || pb.workout)"
+                class="w-px h-8 bg-gray-200 dark:bg-white/10 hidden sm:block"
+              ></div>
+
+              <!-- Secondary Stats inline -->
+              <div
+                v-if="!pb.isPlaceholder && (pb.metadata || pb.workout)"
+                class="flex flex-wrap items-center gap-4"
               >
-                <UIcon name="i-lucide-rotate-cw" class="w-4 h-4 text-blue-500/60" />
-              </div>
-              <div>
+                <!-- HR -->
                 <div
-                  class="text-[8px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest mb-0.5"
+                  v-if="
+                    pb.metadata?.avgHr ||
+                    pb.workout?.averageHr ||
+                    pb.metadata?.maxHr ||
+                    pb.workout?.maxHr
+                  "
+                  class="flex items-center gap-2 group/stat"
                 >
-                  Avg Cadence
+                  <div
+                    class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-red-500/30 transition-colors"
+                  >
+                    <UIcon name="i-heroicons-heart" class="w-4 h-4 text-red-500/60" />
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="text-[8px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest leading-none mb-0.5"
+                    >
+                      {{ activeMetric === 'Heart Rate' ? 'Peak HR' : 'Avg HR' }}
+                    </span>
+                    <span
+                      class="text-xs font-black text-gray-700 dark:text-gray-400 tabular-nums leading-tight"
+                    >
+                      {{
+                        activeMetric === 'Heart Rate'
+                          ? pb.metadata?.maxHr || pb.workout?.maxHr
+                          : pb.metadata?.avgHr || pb.workout?.averageHr
+                      }}
+                    </span>
+                  </div>
                 </div>
-                <span class="text-sm font-black text-gray-700 dark:text-gray-400 tabular-nums">
-                  {{ pb.metadata?.avgCadence || pb.workout?.averageCadence }}
-                  <span class="text-[9px] text-gray-500 dark:text-gray-600">RPM</span>
-                </span>
+
+                <!-- Cadence -->
+                <div
+                  v-if="pb.metadata?.avgCadence || pb.workout?.averageCadence"
+                  class="flex items-center gap-2 group/stat"
+                >
+                  <div
+                    class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-blue-500/30 transition-colors"
+                  >
+                    <UIcon name="i-lucide-rotate-cw" class="w-4 h-4 text-blue-500/60" />
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="text-[8px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest leading-none mb-0.5"
+                    >
+                      Avg RPM
+                    </span>
+                    <span
+                      class="text-xs font-black text-gray-700 dark:text-gray-400 tabular-nums leading-tight"
+                    >
+                      {{ pb.metadata?.avgCadence || pb.workout?.averageCadence }}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
