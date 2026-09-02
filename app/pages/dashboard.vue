@@ -7,17 +7,6 @@
         </template>
         <template #right>
           <LayoutPageNavbarActions :overflow-items="dashboardOverflowItems">
-            <UButton
-              v-if="canUseDashboardActions"
-              :color="isEditMode ? 'primary' : 'neutral'"
-              :variant="isEditMode ? 'solid' : 'ghost'"
-              icon="i-heroicons-squares-2x2"
-              class="hidden sm:inline-flex font-bold text-xs"
-              @click="toggleEditMode"
-            >
-              {{ isEditMode ? 'Done Editing' : 'Customize Layout' }}
-            </UButton>
-
             <ClientOnly>
               <DashboardTriggerMonitorButton />
               <NotificationDropdown />
@@ -263,162 +252,207 @@
                 </div>
               </div>
 
-              <!-- Draggable Dashboard Grid (Rendered statically, customized in Slideover) -->
+              <!-- Static Dashboard Grid -->
               <div v-if="hasLoadedDashboardWidgets" class="relative">
                 <div
                   class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-start grid-flow-dense"
                 >
-                  <div
-                    v-for="element in dashboardLayout"
-                    :key="element.id"
-                    :class="['transition-all duration-200 break-inside-avoid', element.class]"
-                  >
-                    <div class="h-full">
-                      <template v-if="element.id === 'athleteProfileBasic'">
-                        <DashboardAthleteProfileCard section="profile" class="h-full" />
-                      </template>
-                      <template v-else-if="element.id === 'trainingLoad'">
-                        <DashboardAthleteProfileCard section="trainingLoad" class="h-full" />
-                      </template>
-                      <template v-else-if="element.id === 'corePerformance'">
-                        <DashboardAthleteProfileCard section="corePerformance" class="h-full" />
-                      </template>
-                      <template v-else-if="element.id === 'recentWellness'">
-                        <DashboardAthleteProfileCard section="recentWellness" class="h-full" />
-                      </template>
+                  <DashboardAthleteProfileCard
+                    section="profile"
+                    class="col-span-1 lg:col-span-1 h-full"
+                  />
+                  <DashboardTrainingRecommendationCard
+                    class="col-span-1 md:col-span-2 lg:col-span-2 h-full"
+                    @open-details="openRecommendationModal"
+                    @open-checkin="openCheckinModal"
+                  />
 
-                      <template v-else-if="element.id === 'recoveryContext'">
-                        <UCard class="h-full flex flex-col">
-                          <h3 class="font-bold mb-1">Active Recovery Context</h3>
-                          <div
-                            v-if="recommendationStore.loading"
-                            class="animate-pulse space-y-2 mt-2"
-                          >
-                            <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                            <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-                          </div>
-                          <div
-                            v-else-if="
-                              recommendationStore.todayRecommendation?.analysisJson
-                                ?.recovery_analysis
-                            "
-                          >
-                            <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Sleep:
-                              {{
-                                recommendationStore.todayRecommendation.analysisJson
-                                  .recovery_analysis.sleep_quality
-                              }}
-                              &bull; HRV:
-                              {{
-                                recommendationStore.todayRecommendation.analysisJson
-                                  .recovery_analysis.hrv_status
-                              }}
-                            </p>
-                            <p class="text-sm text-gray-500 mt-1">
-                              Fatigue Level:
-                              {{
-                                recommendationStore.todayRecommendation.analysisJson
-                                  .recovery_analysis.fatigue_level
-                              }}
-                              <span
-                                v-if="
-                                  recommendationStore.todayRecommendation.analysisJson
-                                    .recovery_analysis.stress_level
-                                "
-                              >
-                                &bull; Stress:
-                                {{
-                                  recommendationStore.todayRecommendation.analysisJson
-                                    .recovery_analysis.stress_level
-                                }}
-                              </span>
-                            </p>
-                            <p class="text-sm text-gray-500 mt-2">
-                              {{
-                                recommendationStore.todayRecommendation.analysisJson
-                                  .recovery_analysis.key_limiter ||
-                                "Journey will use this when generating today's guidance."
-                              }}
-                            </p>
-                          </div>
-                          <div v-else>
-                            <p class="text-sm text-gray-500 mt-1">
-                              Journey will use this when generating today's guidance.
-                            </p>
-                          </div>
-                        </UCard>
-                      </template>
-                      <template v-else-if="element.id === 'glycogenFuel'">
-                        <DashboardGlycogenFuelCard class="h-full" />
-                      </template>
+                  <DashboardAthleteProfileCard
+                    section="trainingLoad"
+                    class="col-span-1 lg:col-span-1 h-full"
+                  />
+                  <DashboardAthleteProfileCard
+                    section="corePerformance"
+                    class="col-span-1 lg:col-span-1 h-full"
+                  />
+                  <DashboardAthleteProfileCard
+                    section="recentWellness"
+                    class="col-span-1 lg:col-span-1 h-full"
+                  />
 
-                      <template v-else-if="element.id === 'telemetryRadar'">
-                        <DashboardTelemetryRadarCard class="h-full" />
-                      </template>
-                      <template v-else-if="element.id === 'liveEnergy'">
-                        <DashboardLiveEnergyCard class="h-full" />
-                      </template>
+                  <DashboardMonthlyComparisonCard
+                    v-if="canUseDashboardActions"
+                    class="col-span-1 md:col-span-2 lg:col-span-2 h-full"
+                  />
+                  <DashboardPerformanceScoresCard
+                    ref="performanceScoresCard"
+                    class="col-span-1 lg:col-span-1 h-full"
+                    @open-score="openScoreModal"
+                  />
 
-                      <template v-else-if="element.id === 'trainingRecommendation'">
-                        <DashboardTrainingRecommendationCard
-                          class="h-full"
-                          @open-details="openRecommendationModal"
-                          @open-checkin="openCheckinModal"
-                        />
-                      </template>
-
-                      <template v-else-if="element.id === 'performanceScores'">
-                        <DashboardPerformanceScoresCard
-                          class="h-full"
-                          @open-wellness="openWellnessModal"
-                          @open-score="openScoreModal"
-                        />
-                      </template>
-
-                      <template v-else-if="element.id === 'monthlyComparison'">
-                        <DashboardMonthlyComparisonCard class="h-full" />
-                      </template>
-
-                      <template v-else-if="element.id === 'nutritionFueling' && nutritionEnabled">
-                        <DashboardNutritionFuelingCard
-                          class="h-full"
-                          :nutrition="todayNutrition"
-                          :workouts="todayWorkouts"
-                          :settings="nutritionSettings"
-                          :weight="(userStore.user as any)?.weight"
-                          :loading="loadingNutrition"
-                          @refresh="fetchTodayNutrition"
-                        />
-                      </template>
-
-                      <template v-else-if="element.id === 'recentActivity'">
-                        <DashboardRecentActivityCard class="h-full" />
-                      </template>
-
-                      <template v-else-if="element.id === 'upcomingWorkouts'">
-                        <DashboardUpcomingWorkouts class="h-full" />
-                      </template>
-
-                      <template v-else-if="element.id === 'dataSyncStatus'">
-                        <DashboardDataSyncStatusCard
-                          v-if="integrationStore.syncingData"
-                          class="h-full"
-                        />
-                      </template>
+                  <UCard class="col-span-1 lg:col-span-1 h-full flex flex-col">
+                    <h3 class="font-bold mb-1">Active Recovery Context</h3>
+                    <div v-if="recommendationStore.loading" class="animate-pulse space-y-2 mt-2">
+                      <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                      <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                     </div>
-                  </div>
+                    <div
+                      v-else-if="
+                        recommendationStore.todayRecommendation?.analysisJson?.recovery_analysis
+                      "
+                    >
+                      <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Sleep:
+                        {{
+                          recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                            .sleep_quality
+                        }}
+                        - HRV:
+                        {{
+                          recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                            .hrv_trend
+                        }}
+                      </p>
+                      <p class="text-xs text-gray-500 mt-2 italic">
+                        {{
+                          recommendationStore.todayRecommendation.analysisJson.recovery_analysis
+                            .coach_note
+                        }}
+                      </p>
+                    </div>
+                    <div v-else>
+                      <p class="text-sm text-gray-500">
+                        Recovery algorithms are analyzing your sleep data.
+                      </p>
+                    </div>
+                  </UCard>
+
+                  <UCard class="col-span-1 lg:col-span-1 h-full flex flex-col">
+                    <h3 class="font-bold mb-1">Glycogen Fuel Tank</h3>
+                    <p class="text-sm text-gray-500">
+                      Estimating muscle glycogen depletion based on recent training volume.
+                    </p>
+                  </UCard>
+
+                  <UCard class="col-span-1 lg:col-span-1 h-full flex flex-col">
+                    <h3 class="font-bold mb-1">Telemetry Radar</h3>
+                    <p class="text-sm text-gray-500">ACWR, EF, Biomechanical Risk</p>
+                  </UCard>
+
+                  <UCard class="col-span-1 lg:col-span-1 h-full flex flex-col">
+                    <h3 class="font-bold mb-1">Live Energy Availability</h3>
+                    <p class="text-sm text-gray-500">Tracking calorie deficit.</p>
+                  </UCard>
+
+                  <DashboardNutritionFuelingCard
+                    class="col-span-1 md:col-span-2 lg:col-span-3 h-full"
+                    :nutrition="todayNutrition"
+                    :settings="nutritionSettings"
+                    :is-loading="loadingNutrition"
+                    @refresh="handleNutritionRefresh"
+                  />
+
+                  <DashboardRecentActivityCard
+                    class="col-span-1 md:col-span-2 lg:col-span-2 h-full"
+                  />
+
+                  <UCard
+                    class="col-span-1 lg:col-span-1 h-full flex flex-col"
+                    :ui="{
+                      root: 'rounded-none sm:rounded-lg shadow-none sm:shadow',
+                      body: 'p-4 sm:p-6'
+                    }"
+                  >
+                    <template #header>
+                      <div class="flex items-center justify-between">
+                        <h3
+                          class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-2"
+                        >
+                          <UIcon name="i-heroicons-calendar-days" class="w-4 h-4" />
+                          {{ t('upcoming_workouts_title') }}
+                        </h3>
+                        <UButton
+                          to="/workouts/planned"
+                          color="neutral"
+                          variant="ghost"
+                          icon="i-heroicons-arrow-right"
+                          size="2xs"
+                        />
+                      </div>
+                    </template>
+                    <div v-if="loadingUpcoming" class="space-y-4">
+                      <div v-for="i in 3" :key="i" class="animate-pulse flex gap-4">
+                        <div class="h-10 w-10 bg-gray-200 dark:bg-gray-800 rounded"></div>
+                        <div class="flex-1 space-y-2 py-1">
+                          <div class="h-4 bg-gray-200 dark:bg-gray-800 rounded w-3/4"></div>
+                          <div class="h-3 bg-gray-200 dark:bg-gray-800 rounded w-1/2"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      v-else-if="upcomingWorkoutsError"
+                      class="text-sm text-red-500 dark:text-red-400 py-4 text-center"
+                    >
+                      {{ upcomingWorkoutsError }}
+                    </div>
+                    <div
+                      v-else-if="upcomingWorkouts.length === 0"
+                      class="text-sm text-gray-500 dark:text-gray-400 py-4 text-center"
+                    >
+                      {{ t('upcoming_workouts_empty') }}
+                    </div>
+                    <div v-else class="space-y-1">
+                      <button
+                        v-for="workout in upcomingWorkouts"
+                        :key="workout.id"
+                        class="w-full text-left flex items-start gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+                        @click="handleUpcomingWorkoutClick(workout.id)"
+                      >
+                        <div
+                          class="flex flex-col items-center justify-center min-w-[3rem] p-1.5 rounded bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
+                        >
+                          <span
+                            class="text-[10px] font-bold text-gray-400 uppercase leading-none mb-1"
+                            >{{ formatDayShort(workout.scheduledDate) }}</span
+                          >
+                          <span
+                            class="text-lg font-black text-gray-700 dark:text-gray-300 leading-none"
+                            >{{ formatDateDay(workout.scheduledDate) }}</span
+                          >
+                        </div>
+                        <div class="flex-1 min-w-0 py-1">
+                          <p
+                            class="text-sm font-bold text-gray-900 dark:text-white truncate group-hover:text-primary-500 transition-colors"
+                          >
+                            {{ workout.name }}
+                          </p>
+                          <div class="flex items-center gap-2 mt-0.5 text-xs text-gray-500">
+                            <span class="capitalize">{{ workout.sportType }}</span>
+                            <span v-if="workout.duration" class="flex items-center gap-1">
+                              <span
+                                class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"
+                              ></span>
+                              {{ workout.duration }}m
+                            </span>
+                            <span v-if="workout.tss" class="flex items-center gap-1">
+                              <span
+                                class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"
+                              ></span>
+                              {{ workout.tss }} TSS
+                            </span>
+                          </div>
+                        </div>
+                        <UIcon
+                          name="i-heroicons-chevron-right"
+                          class="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity mt-3"
+                        />
+                      </button>
+                    </div>
+                  </UCard>
+
+                  <DashboardDataSyncStatus class="col-span-1 lg:col-span-1 h-full" />
                 </div>
-
-                <DashboardShareFooterCard class="mt-8" />
               </div>
-
-              <!-- Dashboard Customizer Slideover -->
-              <DashboardLayoutCustomizer
-                v-model:open="isEditMode"
-                :layout="dashboardLayout"
-                @update="handleLayoutUpdate"
-              />
 
               <!-- App Info Footer -->
               <div class="flex justify-center pt-8 pb-12 sm:pb-4">
@@ -631,67 +665,6 @@
   onTaskFailed('ingest-strava', handleIngestTaskFailed)
 
   const showWelcome = useLocalStorage('dashboard-welcome-banner', true)
-
-  const isEditMode = ref(false)
-
-  const DEFAULT_DASHBOARD_LAYOUT = [
-    { id: 'athleteProfileBasic', class: 'col-span-1 lg:col-span-1' },
-    { id: 'trainingLoad', class: 'col-span-1 lg:col-span-1' },
-    { id: 'corePerformance', class: 'col-span-1 lg:col-span-1' },
-    { id: 'recentWellness', class: 'col-span-1 lg:col-span-1' },
-    { id: 'trainingRecommendation', class: 'col-span-1 lg:col-span-1' },
-    { id: 'performanceScores', class: 'col-span-1 lg:col-span-1' },
-    { id: 'monthlyComparison', class: 'col-span-1 lg:col-span-1' },
-    { id: 'recoveryContext', class: 'col-span-1' },
-    { id: 'glycogenFuel', class: 'col-span-1' },
-    { id: 'telemetryRadar', class: 'col-span-1 lg:col-span-1' },
-    { id: 'liveEnergy', class: 'col-span-1 lg:col-span-1' },
-    { id: 'nutritionFueling', class: 'col-span-1 md:col-span-2 lg:col-span-3' },
-    { id: 'recentActivity', class: 'col-span-1 lg:col-span-1' },
-    { id: 'upcomingWorkouts', class: 'col-span-1 lg:col-span-1' },
-    { id: 'dataSyncStatus', class: 'col-span-1 lg:col-span-1' }
-  ]
-
-  const dashboardLayout = ref([...DEFAULT_DASHBOARD_LAYOUT])
-
-  watch(
-    () => userStore.user?.dashboardSettings,
-    (newSettings) => {
-      if (newSettings && newSettings.layout && Array.isArray(newSettings.layout)) {
-        const deprecatedIds = ['coachFeedback', 'athleteProfile', 'reviewFeedback']
-        const validLayout = newSettings.layout.filter(
-          (item: any) => !deprecatedIds.includes(item.id)
-        )
-        const savedIds = validLayout.map((item: any) => item.id)
-        const missingComponents = DEFAULT_DASHBOARD_LAYOUT.filter(
-          (item) => !savedIds.includes(item.id)
-        )
-
-        dashboardLayout.value = [...validLayout, ...missingComponents]
-      }
-    },
-    { immediate: true, deep: true }
-  )
-
-  function toggleEditMode() {
-    isEditMode.value = !isEditMode.value
-    if (!isEditMode.value) {
-      saveLayout()
-    }
-  }
-
-  function handleLayoutUpdate(newLayout: any[]) {
-    dashboardLayout.value = newLayout
-    saveLayout()
-  }
-
-  function saveLayout() {
-    if (userStore.updateDashboardSettings) {
-      // Create a clean serializable copy
-      const layoutToSave = dashboardLayout.value.map((item) => ({ id: item.id, class: item.class }))
-      userStore.updateDashboardSettings({ layout: layoutToSave })
-    }
-  }
 
   const upcomingWorkouts = ref<any[]>([])
   const upcomingWorkoutsError = ref<string | null>(null)
