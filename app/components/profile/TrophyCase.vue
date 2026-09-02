@@ -116,6 +116,10 @@
     return map
   })
 
+  const activeTrophies = computed(() => {
+    return pbsByCategory.value[activeModality.value] || []
+  })
+
   // Distance mapping for pace calculations
   const distanceMap: Record<string, number> = {
     RUN_400M: 400,
@@ -135,6 +139,7 @@
   }
 
   function getMetricValue(pb: any) {
+    if (!pb) return { val: '--', unit: '' }
     if (pb.isPlaceholder) return { val: '--', unit: '' }
 
     if (activeMetric.value === 'Heart Rate') {
@@ -143,31 +148,29 @@
     }
 
     if (activeMetric.value === 'Pace') {
-      // Pace = Time / (Distance in appropriate unit)
-      const dist = distanceMap[pb.type]
+      const dist = pb.type ? distanceMap[pb.type] : 0
       if (!dist) return { val: '--', unit: '' }
 
       let paceSeconds = 0
       let paceUnit = ''
 
       if (pb.category === 'SWIM') {
-        // Swim pace: min/100m
         paceSeconds = pb.value / (dist / 100)
         paceUnit = '/100m'
       } else {
-        // Run pace: min/km (assuming metric)
         paceSeconds = pb.value / (dist / 1000)
         paceUnit = '/km'
       }
 
-      const mins = Math.floor(paceSeconds / 60)
-      const secs = Math.floor(paceSeconds % 60)
+      const mins = Math.floor(paceSeconds / 60) || 0
+      const secs = Math.floor(paceSeconds % 60) || 0
       return { val: `${mins}:${secs.toString().padStart(2, '0')}`, unit: paceUnit }
     }
 
     if (activeMetric.value === 'Time') {
-      const mins = Math.floor(pb.value / 60)
-      const secs = Math.floor(pb.value % 60)
+      const val = pb.value || 0
+      const mins = Math.floor(val / 60)
+      const secs = Math.floor(val % 60)
       if (mins >= 60) {
         const hrs = Math.floor(mins / 60)
         const rmins = mins % 60
@@ -180,13 +183,14 @@
     }
 
     if (activeMetric.value === 'Power') {
-      return { val: `${Math.round(pb.value)}`, unit: 'W' }
+      return { val: `${Math.round(pb.value || 0)}`, unit: 'W' }
     }
 
     return { val: '--', unit: '' }
   }
 
   function formatType(type: string) {
+    if (!type) return ''
     return type
       .replace(/_/g, ' ')
       .replace('RUN ', '')
@@ -199,6 +203,7 @@
     if (!date) return 'Not yet achieved'
     try {
       const d = new Date(date)
+      if (isNaN(d.getTime())) return 'Not yet achieved'
       if (isToday(d)) return 'Today'
       if (isYesterday(d)) return 'Yesterday'
       return formatDistanceToNow(d, { addSuffix: true })
@@ -209,13 +214,19 @@
 
   function isRecent(date?: string | Date) {
     if (!date) return false
-    const d = new Date(date)
-    const thirtyDaysAgo = new Date()
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-    return d > thirtyDaysAgo
+    try {
+      const d = new Date(date)
+      if (isNaN(d.getTime())) return false
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+      return d > thirtyDaysAgo
+    } catch (e) {
+      return false
+    }
   }
 
   function getSportIcon(pb: any) {
+    if (!pb || !pb.type) return 'i-heroicons-trophy'
     if (pb.type.includes('POWER')) return 'i-lucide-bolt'
     if (pb.type.includes('ELEVATION')) return 'i-lucide-mountain'
     if (pb.category === 'RUN') return 'i-lucide-footprints'
@@ -270,8 +281,8 @@
     <!-- Active Modality Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <div
-        v-for="pb in pbsByCategory[activeModality]"
-        :key="pb.id || pb.type"
+        v-for="(pb, index) in activeTrophies"
+        :key="pb.id || pb.type + '-' + index"
         class="floating-card-base grain-overlay p-10 rounded-[40px] flex flex-col justify-between h-full group !bg-white dark:!bg-[#111111] !border-gray-200 dark:!border-white/5"
         :class="{ 'opacity-60': pb.isPlaceholder }"
       >
