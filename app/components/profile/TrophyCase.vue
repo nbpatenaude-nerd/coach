@@ -89,9 +89,6 @@
         )
         if (placeholderIdx !== -1) {
           map[pb.category][placeholderIdx] = { ...pb, isPlaceholder: false }
-        } else {
-          // If we allow arbitrary PBs (e.g. ELEVATION_GAIN), append them
-          map[pb.category].push({ ...pb, isPlaceholder: false })
         }
       })
     }
@@ -143,7 +140,7 @@
     if (pb.isPlaceholder) return { val: '--', unit: '' }
 
     if (activeMetric.value === 'Heart Rate') {
-      const hr = pb.metadata?.maxHr || pb.workout?.maxHr
+      const hr = pb.metadata?.avgHr || pb.workout?.averageHr
       return { val: hr ? hr.toString() : '--', unit: 'BPM' }
     }
 
@@ -279,58 +276,58 @@
     </div>
 
     <!-- Active Modality Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div
         v-for="(pb, index) in activeTrophies"
         :key="pb.id || pb.type + '-' + index"
-        class="floating-card-base grain-overlay p-10 rounded-[40px] flex flex-col justify-between h-full group !bg-white dark:!bg-[#111111] !border-gray-200 dark:!border-white/5"
+        class="floating-card-base grain-overlay p-6 rounded-[32px] flex flex-col justify-between h-full group !bg-white dark:!bg-[#111111] !border-gray-200 dark:!border-white/5"
         :class="{ 'opacity-60': pb.isPlaceholder }"
       >
         <!-- Hero Glow & Patterns -->
         <div
           v-if="heroTypes.includes(pb.type) && !pb.isPlaceholder"
-          class="absolute -top-32 -right-32 w-80 h-80 bg-amber-400/10 blur-[100px] rounded-full -z-10"
+          class="absolute -top-32 -right-32 w-64 h-64 bg-amber-400/10 blur-[80px] rounded-full -z-10"
         />
 
         <div class="relative">
           <!-- Top Header: Icon + Badge -->
-          <div class="flex items-start justify-between mb-10">
+          <div class="flex items-start justify-between mb-8">
             <div
-              class="p-5 rounded-[24px] bg-gray-100 dark:bg-gray-950 border border-gray-200 dark:border-white/5 group-hover:border-primary-500/40 transition-colors duration-500"
+              class="p-4 rounded-[20px] bg-gray-100 dark:bg-gray-950 border border-gray-200 dark:border-white/5 group-hover:border-primary-500/40 transition-colors duration-500"
             >
-              <UIcon :name="getSportIcon(pb)" class="w-8 h-8 text-primary-500" />
+              <UIcon :name="getSportIcon(pb)" class="w-6 h-6 text-primary-500" />
             </div>
 
             <div v-if="!pb.isPlaceholder && isRecent(pb.date)" class="relative group/badge">
               <div
-                class="relative flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-400 text-black overflow-hidden shadow-[0_0_20px_rgba(251,191,36,0.4)] animate-neon-pulse"
+                class="relative flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-amber-400 text-black overflow-hidden shadow-[0_0_15px_rgba(251,191,36,0.3)] animate-neon-pulse"
               >
                 <!-- Holographic Shimmer Effect -->
                 <div
                   class="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-12"
                 />
-                <UIcon name="i-heroicons-sparkles" class="w-5 h-5 animate-spin-slow" />
-                <span class="text-xs font-black uppercase tracking-[0.2em]">New Record</span>
+                <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-spin-slow" />
+                <span class="text-[10px] font-black uppercase tracking-[0.2em]">New Record</span>
               </div>
             </div>
           </div>
 
           <!-- Value & Label -->
-          <div class="space-y-3">
+          <div class="space-y-2">
             <div
-              class="text-[11px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.4em] ml-1"
+              class="text-[10px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.3em] ml-1"
             >
               {{ formatType(pb.type) }}
             </div>
-            <div class="flex items-baseline gap-4">
+            <div class="flex items-baseline gap-3">
               <span
-                class="text-7xl lg:text-8xl font-black text-gray-900 dark:text-white tracking-tighter italic tabular-nums font-athletic leading-none drop-shadow-2xl"
+                class="text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tighter italic tabular-nums font-athletic leading-none drop-shadow-xl"
               >
                 {{ getMetricValue(pb).val }}
               </span>
               <span
                 v-if="getMetricValue(pb).unit"
-                class="text-xl font-black text-gray-500 dark:text-gray-600 uppercase italic tracking-widest"
+                class="text-lg font-black text-gray-500 dark:text-gray-600 uppercase italic tracking-widest"
               >
                 {{ getMetricValue(pb).unit }}
               </span>
@@ -340,47 +337,56 @@
           <!-- Secondary Stats / Context -->
           <div
             v-if="!pb.isPlaceholder && (pb.metadata || pb.workout)"
-            class="mt-10 flex flex-wrap gap-8 ml-1"
+            class="mt-6 flex flex-wrap gap-6 ml-1"
           >
             <div
-              v-if="pb.metadata?.avgHr || pb.workout?.averageHr"
-              class="flex items-center gap-3 group/stat"
+              v-if="
+                pb.metadata?.avgHr ||
+                pb.workout?.averageHr ||
+                pb.metadata?.maxHr ||
+                pb.workout?.maxHr
+              "
+              class="flex items-center gap-2 group/stat"
             >
               <div
-                class="w-10 h-10 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-red-500/30 transition-colors"
+                class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-red-500/30 transition-colors"
               >
-                <UIcon name="i-heroicons-heart" class="w-6 h-6 text-red-500/60" />
+                <UIcon name="i-heroicons-heart" class="w-4 h-4 text-red-500/60" />
               </div>
               <div>
                 <div
-                  class="text-[9px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest mb-0.5"
+                  class="text-[8px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest mb-0.5"
                 >
-                  Avg Heart Rate
+                  {{ activeMetric === 'Heart Rate' ? 'Peak Heart Rate' : 'Avg Heart Rate' }}
                 </div>
-                <span class="text-base font-black text-gray-700 dark:text-gray-400 tabular-nums">
-                  {{ pb.metadata?.avgHr || pb.workout?.averageHr }}
-                  <span class="text-[10px] text-gray-500 dark:text-gray-600">BPM</span>
+                <span class="text-sm font-black text-gray-700 dark:text-gray-400 tabular-nums">
+                  {{
+                    activeMetric === 'Heart Rate'
+                      ? pb.metadata?.maxHr || pb.workout?.maxHr
+                      : pb.metadata?.avgHr || pb.workout?.averageHr
+                  }}
+                  <span class="text-[9px] text-gray-500 dark:text-gray-600">BPM</span>
                 </span>
               </div>
             </div>
             <div
               v-if="pb.metadata?.avgCadence || pb.workout?.averageCadence"
-              class="flex items-center gap-3 group/stat"
+              class="flex items-center gap-2 group/stat"
             >
               <div
-                class="w-10 h-10 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-blue-500/30 transition-colors"
+                class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5 group-hover/stat:border-blue-500/30 transition-colors"
               >
-                <UIcon name="i-lucide-rotate-cw" class="w-6 h-6 text-blue-500/60" />
+                <UIcon name="i-lucide-rotate-cw" class="w-4 h-4 text-blue-500/60" />
               </div>
               <div>
                 <div
-                  class="text-[9px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest mb-0.5"
+                  class="text-[8px] font-bold text-gray-500 dark:text-gray-600 uppercase tracking-widest mb-0.5"
                 >
                   Avg Cadence
                 </div>
-                <span class="text-base font-black text-gray-700 dark:text-gray-400 tabular-nums">
+                <span class="text-sm font-black text-gray-700 dark:text-gray-400 tabular-nums">
                   {{ pb.metadata?.avgCadence || pb.workout?.averageCadence }}
-                  <span class="text-[10px] text-gray-500 dark:text-gray-600">RPM</span>
+                  <span class="text-[9px] text-gray-500 dark:text-gray-600">RPM</span>
                 </span>
               </div>
             </div>
@@ -389,15 +395,15 @@
 
         <!-- Footer: Date + Action -->
         <div
-          class="mt-14 pt-8 border-t border-gray-200 dark:border-white/5 flex items-end justify-between ml-1"
+          class="mt-8 pt-6 border-t border-gray-200 dark:border-white/5 flex items-end justify-between ml-1"
         >
-          <div class="flex flex-col gap-1.5">
+          <div class="flex flex-col gap-1">
             <div
-              class="text-[10px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.3em]"
+              class="text-[9px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-[0.2em]"
             >
               {{ pb.isPlaceholder ? 'Status' : 'Achieved' }}
             </div>
-            <div class="text-base font-black text-gray-700 dark:text-gray-500 italic">
+            <div class="text-sm font-black text-gray-700 dark:text-gray-500 italic">
               {{ getHumanDate(pb.date) }}
             </div>
           </div>
@@ -408,8 +414,8 @@
             icon="i-heroicons-arrow-right"
             color="neutral"
             variant="ghost"
-            size="xl"
-            class="rounded-full h-14 w-14 flex items-center justify-center transition-all duration-500 hover:bg-primary-500 hover:text-white hover:scale-110 shadow-lg hover:shadow-primary-500/20 group/arrow"
+            size="lg"
+            class="rounded-full h-10 w-10 flex items-center justify-center transition-all duration-500 hover:bg-primary-500 hover:text-white hover:scale-110 shadow-lg hover:shadow-primary-500/20 group/arrow"
           />
         </div>
       </div>
