@@ -114,6 +114,20 @@
           <!-- Dashboard Grid -->
           <template v-else>
             <div class="p-0 sm:p-6 pt-0! space-y-4 sm:space-y-8">
+              <!-- Top Section: Weekly Check-In & Coach Feedback -->
+              <div
+                class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8 mb-4 sm:mb-8 items-stretch"
+              >
+                <!-- Weekly Check-In (1/3 width) -->
+                <div class="col-span-1 h-full">
+                  <DashboardCheckIn class="h-full" />
+                </div>
+
+                <!-- Coach Feedback (2/3 width) -->
+                <div class="col-span-1 lg:col-span-2 h-full">
+                  <DashboardCoachFeedback class="h-full" />
+                </div>
+              </div>
               <DashboardSetupProgressCard
                 v-if="showCompactSetupCard && onboardingStatus"
                 :status="onboardingStatus"
@@ -121,9 +135,6 @@
                 @complete="handleCompleteSetup"
                 @dismiss="handleCompleteSetup"
               />
-
-              <!-- Weekly Check-In (For All Athletes) -->
-              <DashboardCheckIn />
 
               <!-- Garmin Attribution -->
               <div v-if="isGarminConnected" class="flex justify-end px-4 sm:px-0">
@@ -235,12 +246,6 @@
                   <h3 class="font-bold">12-Week Intro Plan</h3>
                   <p class="text-gray-500 text-sm">Your free plan is active.</p>
                 </UCard>
-              </div>
-
-              <!-- Row: Coach Interaction (Feedback) -->
-              <div class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2">
-                <!-- "Ask Coach" launcher -->
-                <DashboardCoachFeedback />
               </div>
 
               <div class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2">
