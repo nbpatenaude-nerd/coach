@@ -16,36 +16,33 @@
         </template>
 
         <div class="p-4 flex-grow overflow-y-auto">
-          <draggable
-            v-model="localLayout"
-            group="customizer"
-            item-key="id"
-            ghost-class="opacity-50 border-2 border-dashed border-primary-500 rounded bg-gray-50 dark:bg-gray-800"
-            animation="200"
-            @end="emitUpdate"
+          <div
+            v-for="(element, index) in localLayout"
+            :key="element.id"
+            class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm"
           >
-            <template #item="{ element }">
-              <div
-                class="flex items-center gap-2 mb-3 p-2 border border-gray-200 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm cursor-move hover:border-primary-500 transition-colors"
-              >
-                <div class="p-1 flex items-center justify-center rounded">
-                  <UIcon name="i-heroicons-bars-3" class="w-5 h-5 text-gray-400" />
-                </div>
-                <div class="flex-grow">
-                  <p class="text-sm font-semibold truncate">{{ getWidgetName(element.id) }}</p>
-                </div>
-                <USelect
-                  v-model="element.class"
-                  :options="sizeOptions"
-                  option-attribute="label"
-                  value-attribute="value"
-                  size="xs"
-                  class="w-28"
-                  @change="emitUpdate"
-                />
-              </div>
-            </template>
-          </draggable>
+            <USelect
+              :model-value="index"
+              :options="positionOptions"
+              option-attribute="label"
+              value-attribute="value"
+              size="xs"
+              class="w-16"
+              @update:model-value="changePosition(index, $event)"
+            />
+            <div class="flex-grow ml-1">
+              <p class="text-sm font-semibold truncate">{{ getWidgetName(element.id) }}</p>
+            </div>
+            <USelect
+              v-model="element.class"
+              :options="sizeOptions"
+              option-attribute="label"
+              value-attribute="value"
+              size="xs"
+              class="w-28"
+              @change="emitUpdate"
+            />
+          </div>
         </div>
       </UCard>
     </template>
@@ -54,7 +51,6 @@
 
 <script setup lang="ts">
   import { ref, watch, computed } from 'vue'
-  import draggable from 'vuedraggable'
 
   const props = defineProps<{
     open: boolean
@@ -83,6 +79,17 @@
       }
     }
   )
+
+  const positionOptions = computed(() => {
+    return localLayout.value.map((_, i) => ({ label: String(i + 1), value: i }))
+  })
+
+  function changePosition(oldIndex: number, newIndex: number) {
+    if (oldIndex === newIndex) return
+    const item = localLayout.value.splice(oldIndex, 1)[0]
+    localLayout.value.splice(newIndex, 0, item)
+    emitUpdate()
+  }
 
   const sizeOptions = [
     { label: '1 Column', value: 'col-span-1 lg:col-span-1' },
