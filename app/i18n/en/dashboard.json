@@ -321,5 +321,12 @@
   "notifications_mark_read": "Mark as read",
   "notifications_view_all": "View all notifications",
   "notifications_dropdown_empty": "No notifications yet",
-  "notifications_dropdown_load_error_desc": "Could not load notifications."
+  "notifications_dropdown_load_error_desc": "Could not load notifications.",
+  "monthly_call_banner_title": "Monthly Coaching Call",
+  "monthly_call_banner_desc": "It's the final week of the month! Schedule your 1-on-1 monthly call with Coach Nick.",
+  "monthly_call_banner_button": "Book a Call",
+  "monthly_call_modal_title": "Monthly Coaching Call",
+  "monthly_call_modal_subtitle": "Schedule your 1-on-1 monthly check-in call with Coach Nick",
+  "monthly_call_modal_open_external": "Open in New Tab",
+  "monthly_call_modal_loading": "Loading calendar..."
 }

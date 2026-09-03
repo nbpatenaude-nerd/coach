@@ -226,6 +226,9 @@
                 </div>
               </div>
 
+              <!-- Monthly Coaching Call Banner (shows during the last week of each month) -->
+              <DashboardMonthlyCallBanner />
+
               <DashboardSystemMessageCard />
 
               <DashboardMissingDataBanner
