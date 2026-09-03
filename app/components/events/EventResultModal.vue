@@ -59,9 +59,42 @@
     photoUrl: ''
   })
 
+  const { data: session } = useAuth()
+
   const loading = ref(false)
 
-  // Optional: populate form if results exist, but let's assume blank for now or populate if we can
+  watch(
+    () => props.modelValue,
+    (newVal) => {
+      if (newVal && props.event?.participants && session.value?.user?.id) {
+        const p = props.event.participants.find((p: any) => p.userId === session.value?.user?.id)
+        if (p) {
+          form.value = {
+            timeInput: p.resultTime
+              ? Math.floor(p.resultTime / 3600) +
+                ':' +
+                Math.floor((p.resultTime % 3600) / 60)
+                  .toString()
+                  .padStart(2, '0') +
+                ':' +
+                (p.resultTime % 60).toString().padStart(2, '0')
+              : '',
+            resultPosition: p.resultPosition || null,
+            raceReport: p.raceReport || '',
+            photoUrl: p.photoUrl || ''
+          }
+        }
+      } else if (!newVal) {
+        // Clear form when closing
+        form.value = {
+          timeInput: '',
+          resultPosition: null,
+          raceReport: '',
+          photoUrl: ''
+        }
+      }
+    }
+  )
 
   const parseTime = (input: string) => {
     if (!input) return null

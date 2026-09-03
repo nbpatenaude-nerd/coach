@@ -14,6 +14,27 @@
           <template #right>
             <div class="flex items-center gap-2">
               <UButton
+                icon="i-heroicons-chat-bubble-left-right"
+                color="secondary"
+                variant="soft"
+                size="sm"
+                class="font-bold uppercase tracking-tight"
+                @click="isChatSlideoverOpen = true"
+              >
+                Chat
+              </UButton>
+              <UButton
+                v-if="isParticipating"
+                icon="i-heroicons-trophy"
+                color="primary"
+                variant="solid"
+                size="sm"
+                class="font-bold uppercase tracking-tight"
+                @click="isResultModalOpen = true"
+              >
+                Add Result
+              </UButton>
+              <UButton
                 icon="i-heroicons-pencil-square"
                 color="primary"
                 variant="soft"
@@ -302,8 +323,105 @@
                 </div>
               </div>
             </div>
+
+            <!-- Participants and Results -->
+            <UCard
+              v-if="event.participants && event.participants.length > 0"
+              :ui="{
+                root: 'rounded-none sm:rounded-xl shadow-none sm:shadow border-x-0 sm:border-x',
+                header: 'border-b border-gray-100 dark:border-gray-800',
+                body: 'p-4 sm:p-6'
+              }"
+            >
+              <template #header>
+                <h2
+                  class="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2"
+                >
+                  <UIcon name="i-heroicons-users" class="w-4 h-4 text-primary-500" />
+                  Roster & Results
+                </h2>
+              </template>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div
+                  v-for="p in event.participants"
+                  :key="p.id"
+                  class="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-800"
+                >
+                  <UAvatar
+                    :src="p.user?.image || undefined"
+                    :text="p.user?.name ? p.user.name.charAt(0).toUpperCase() : 'A'"
+                    :alt="p.user?.name || 'Athlete'"
+                    size="md"
+                    class="ring-2 ring-white dark:ring-gray-900 mt-1"
+                  />
+                  <div class="flex-1 min-w-0">
+                    <div class="flex justify-between items-start">
+                      <div class="font-bold text-gray-900 dark:text-white truncate">
+                        {{ p.user?.name || 'Athlete' }}
+                      </div>
+                      <UBadge
+                        v-if="p.priority"
+                        :color="
+                          p.priority === 'A' ? 'error' : p.priority === 'B' ? 'warning' : 'info'
+                        "
+                        variant="soft"
+                        size="xs"
+                        class="font-black tracking-widest uppercase text-[9px]"
+                      >
+                        {{ p.priority }} Race
+                      </UBadge>
+                    </div>
+                    <div v-if="p.targetTime" class="text-xs text-gray-500 mt-1 font-medium">
+                      Target: {{ Math.floor(p.targetTime / 3600) }}h
+                      {{ Math.floor((p.targetTime % 3600) / 60) }}m
+                    </div>
+
+                    <!-- Result Block -->
+                    <div
+                      v-if="p.isCompleted"
+                      class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-800"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          v-if="p.resultPosition"
+                          class="text-lg font-black text-gray-900 dark:text-white"
+                        >
+                          <span
+                            class="text-[10px] text-gray-400 font-bold uppercase mr-1 tracking-widest"
+                            >Rank</span
+                          >
+                          {{ p.resultPosition }}
+                        </div>
+                        <div
+                          v-if="p.resultTime"
+                          class="text-lg font-black text-gray-900 dark:text-white"
+                        >
+                          <span
+                            class="text-[10px] text-gray-400 font-bold uppercase mr-1 tracking-widest"
+                            >Time</span
+                          >
+                          {{ Math.floor(p.resultTime / 3600) }}h
+                          {{ Math.floor((p.resultTime % 3600) / 60) }}m {{ p.resultTime % 60 }}s
+                        </div>
+                      </div>
+                      <p
+                        v-if="p.raceReport"
+                        class="mt-2 text-sm text-gray-600 dark:text-gray-400 italic"
+                      >
+                        "{{ p.raceReport }}"
+                      </p>
+                    </div>
+                    <div v-else class="mt-2 text-xs text-gray-400 italic">No result yet</div>
+                  </div>
+                </div>
+              </div>
+            </UCard>
           </div>
         </div>
+
+        <!-- Modals and Slideovers -->
+        <EventsEventChatSlideover v-model="isChatSlideoverOpen" :event="event" />
+        <EventsEventResultModal v-model="isResultModalOpen" :event="event" @saved="fetchEvent" />
 
         <!-- Event Form Modal (Edit) -->
         <UModal
@@ -394,6 +512,15 @@
   const isEventFormOpen = ref(false)
   const isDeleteModalOpen = ref(false)
   const deleting = ref(false)
+
+  const isChatSlideoverOpen = ref(false)
+  const isResultModalOpen = ref(false)
+  const { data: session } = useAuth()
+
+  const isParticipating = computed(() => {
+    if (!event.value || !event.value.participants || !session.value?.user?.id) return false
+    return event.value.participants.some((p: any) => p.userId === session.value?.user?.id)
+  })
 
   useHead(() => {
     if (!isUuid.value) {
