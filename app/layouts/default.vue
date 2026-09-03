@@ -1360,50 +1360,57 @@
             <USeparator class="my-2" />
           </div>
 
-          <div v-if="!collapsed" class="p-4 flex items-center gap-3">
-            <UAvatar v-if="user" :alt="user.email || ''" size="md" />
-            <div class="flex-1 min-w-0 flex flex-col items-start gap-0.5">
-              <UTooltip
-                :text="impersonatedEmail || user?.email || ''"
-                :popper="{ placement: 'right' }"
-              >
-                <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
-                  {{ user?.name || impersonatedEmail || user?.email }}
-                </p>
-              </UTooltip>
-              <UButton
-                v-if="impersonatedEmail"
-                variant="link"
-                color="warning"
-                size="xs"
-                :padded="false"
-                class="p-0 h-auto font-normal text-yellow-600 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300"
-                :loading="stoppingImpersonation"
-                @click="
-                  () => {
-                    void stopImpersonation()
-                  }
-                "
-              >
-                {{ isTReady ? t('navigation_admin_nav_stop_impersonating') : 'Stop impersonating' }}
-              </UButton>
-              <UButton
-                v-else
-                variant="link"
-                color="neutral"
-                size="xs"
-                :padded="false"
-                class="p-0 h-auto font-normal text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                @click="
-                  () => {
-                    void logout('/login')
-                  }
-                "
-              >
-                {{ isTReady ? t('navigation_admin_nav_sign_out') : 'Sign out' }}
-              </UButton>
+          <div v-if="!collapsed" class="p-4 flex items-center justify-between gap-3 min-w-0">
+            <div class="flex items-center gap-3 min-w-0 flex-1 overflow-hidden">
+              <UAvatar v-if="user" :alt="user.email || ''" size="md" class="shrink-0" />
+              <div class="min-w-0 flex-1 flex flex-col items-start gap-0.5 overflow-hidden">
+                <UTooltip
+                  :text="impersonatedEmail || user?.email || ''"
+                  :popper="{ placement: 'right' }"
+                  class="w-full max-w-full block min-w-0"
+                >
+                  <p
+                    class="text-sm font-medium truncate w-full max-w-full block text-gray-900 dark:text-white"
+                  >
+                    {{ user?.name || impersonatedEmail || user?.email }}
+                  </p>
+                </UTooltip>
+                <UButton
+                  v-if="impersonatedEmail"
+                  variant="link"
+                  color="warning"
+                  size="xs"
+                  :padded="false"
+                  class="p-0 h-auto font-normal text-yellow-600 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300 truncate max-w-full"
+                  :loading="stoppingImpersonation"
+                  @click="
+                    () => {
+                      void stopImpersonation()
+                    }
+                  "
+                >
+                  {{
+                    isTReady ? t('navigation_admin_nav_stop_impersonating') : 'Stop impersonating'
+                  }}
+                </UButton>
+                <UButton
+                  v-else
+                  variant="link"
+                  color="neutral"
+                  size="xs"
+                  :padded="false"
+                  class="p-0 h-auto font-normal text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 truncate max-w-full"
+                  @click="
+                    () => {
+                      void logout('/login')
+                    }
+                  "
+                >
+                  {{ isTReady ? t('navigation_admin_nav_sign_out') : 'Sign out' }}
+                </UButton>
+              </div>
             </div>
-            <ColorModeButton />
+            <ColorModeButton class="shrink-0" />
           </div>
 
           <div v-if="!collapsed" class="px-4 pb-0 flex justify-center">

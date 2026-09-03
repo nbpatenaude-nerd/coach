@@ -396,30 +396,34 @@
 
           <div
             v-if="!collapsed"
-            class="p-4 flex items-center gap-3"
+            class="p-4 flex items-center justify-between gap-3 min-w-0"
             :class="{ 'justify-center': collapsed }"
           >
-            <UAvatar v-if="user" :alt="user.email || ''" size="md" />
-            <div class="flex-1 min-w-0 flex flex-col items-start gap-0.5">
-              <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
-                {{ user?.name || user?.email }}
-              </p>
-              <UButton
-                variant="link"
-                color="neutral"
-                size="xs"
-                :padded="false"
-                class="p-0 h-auto font-normal text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                @click="
-                  () => {
-                    void logout('/login')
-                  }
-                "
-              >
-                Sign out
-              </UButton>
+            <div class="flex items-center gap-3 min-w-0 flex-1 overflow-hidden">
+              <UAvatar v-if="user" :alt="user.email || ''" size="md" class="shrink-0" />
+              <div class="flex-1 min-w-0 flex flex-col items-start gap-0.5 overflow-hidden">
+                <p
+                  class="text-sm font-medium truncate w-full max-w-full block text-gray-900 dark:text-white"
+                >
+                  {{ user?.name || user?.email }}
+                </p>
+                <UButton
+                  variant="link"
+                  color="neutral"
+                  size="xs"
+                  :padded="false"
+                  class="p-0 h-auto font-normal text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 truncate max-w-full"
+                  @click="
+                    () => {
+                      void logout('/login')
+                    }
+                  "
+                >
+                  Sign out
+                </UButton>
+              </div>
             </div>
-            <ColorModeButton />
+            <ColorModeButton class="shrink-0" />
           </div>
 
           <div v-if="!collapsed" class="px-4 pb-0 flex justify-center">

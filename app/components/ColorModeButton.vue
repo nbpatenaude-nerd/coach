@@ -1,20 +1,24 @@
 <template>
-  <ClientOnly>
-    <UButton
-      :icon="isDark ? 'i-lucide-moon' : 'i-lucide-sun'"
-      color="neutral"
-      variant="ghost"
-      :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
-      @click="
-        () => {
-          isDark = !isDark
-        }
-      "
-    />
-    <template #fallback>
-      <div class="w-8 h-8" />
-    </template>
-  </ClientOnly>
+  <div class="inline-flex shrink-0 items-center justify-center">
+    <ClientOnly>
+      <UButton
+        :icon="isDark ? 'i-lucide-moon' : 'i-lucide-sun'"
+        color="neutral"
+        variant="ghost"
+        size="sm"
+        class="shrink-0"
+        :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
+        @click="
+          () => {
+            isDark = !isDark
+          }
+        "
+      />
+      <template #fallback>
+        <div class="w-8 h-8 shrink-0" />
+      </template>
+    </ClientOnly>
+  </div>
 </template>
 
 <script setup lang="ts">
