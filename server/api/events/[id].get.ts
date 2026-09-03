@@ -26,10 +26,15 @@ export default defineEventHandler(async (event) => {
     const eventData = await prisma.event.findFirst({
       where: {
         id,
-        userId: user.id
+        OR: [{ userId: user.id }, { participants: { some: { userId: user.id } } }]
       },
       include: {
-        goals: true
+        goals: true,
+        participants: {
+          include: {
+            user: { select: { id: true, name: true, image: true } }
+          }
+        }
       }
     })
 

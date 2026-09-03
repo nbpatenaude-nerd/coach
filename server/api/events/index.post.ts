@@ -70,13 +70,15 @@ export default defineEventHandler(async (event) => {
         existingEvent = await prisma.event.findFirst({
           where: { isPublic: true, websiteUrl: result.data.websiteUrl }
         })
-      } else {
+      }
+
+      if (!existingEvent) {
         // Fallback to title and date match
         const eventDate = new Date(result.data.date)
         const startOfDay = new Date(eventDate)
-        startOfDay.setHours(0, 0, 0, 0)
+        startOfDay.setUTCHours(0, 0, 0, 0)
         const endOfDay = new Date(eventDate)
-        endOfDay.setHours(23, 59, 59, 999)
+        endOfDay.setUTCHours(23, 59, 59, 999)
 
         existingEvent = await prisma.event.findFirst({
           where: {
@@ -97,6 +99,26 @@ export default defineEventHandler(async (event) => {
         update: { priority }
       })
 
+      // Link any goals the user provided
+      if (result.data.goalIds && result.data.goalIds.length > 0) {
+        // We can't directly use connect on upsert easily without complicated nested writes,
+        // but we can update the event to link the goals. However, event goals are shared.
+        // We will just connect them to the event itself.
+        await prisma.event.update({
+          where: { id: existingEvent.id },
+          data: {
+            goals: {
+              connect: result.data.goalIds.map((id) => ({ id }))
+            }
+          }
+        })
+      }
+
+      // Sync to Intervals if needed
+      const integration = await prisma.integration.findFirst({
+        where: { userId, provider: 'intervals' }
+      })
+
       // Fetch the full event to return
       const finalEvent = await prisma.event.findUnique({
         where: { id: existingEvent.id },
@@ -106,6 +128,12 @@ export default defineEventHandler(async (event) => {
           }
         }
       })
+
+      if (finalEvent && integration) {
+        // Create a synthetic event object for sync that belongs to the user
+        const eventForSync = { ...finalEvent, userId }
+        await syncEventToIntervals('CREATE', eventForSync as any, userId)
+      }
 
       if (finalEvent) {
         const mappedEvent = {

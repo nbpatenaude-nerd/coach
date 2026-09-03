@@ -123,39 +123,66 @@
           </div>
         </div>
 
-        <!-- RSVP Priority Modal -->
-        <UModal v-model:open="isRSVPModalOpen" title="Select Priority">
+        <!-- RSVP Details Modal -->
+        <UModal v-model:open="isRSVPModalOpen" title="Race Details">
           <template #body>
-            <div class="space-y-4">
-              <p class="text-sm text-gray-400">
-                How important is this event to your overall training goals? This helps personalize
-                your training plan.
-              </p>
-              <USelect
-                v-model="selectedPriority"
-                :items="[
-                  { label: 'A - Peak Race (Highest Priority)', value: 'A' },
-                  { label: 'B - Important but not peaked', value: 'B' },
-                  { label: 'C - Fun/Training race', value: 'C' }
-                ]"
-                placeholder="Select priority"
-              />
+            <div class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  >Priority</label
+                >
+                <p class="text-xs text-gray-500 mb-2">
+                  How important is this event to your overall training goals?
+                </p>
+                <USelect
+                  v-model="rsvpForm.priority"
+                  :items="[
+                    { label: 'A - Peak Race (Highest Priority)', value: 'A' },
+                    { label: 'B - Important but not peaked', value: 'B' },
+                    { label: 'C - Fun/Training race', value: 'C' }
+                  ]"
+                  class="w-full"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  >Target Time (Optional)</label
+                >
+                <p class="text-xs text-gray-500 mb-2">Target duration in seconds</p>
+                <UInputNumber
+                  v-model="rsvpForm.targetTime"
+                  placeholder="e.g. 14400 (for 4 hours)"
+                  class="w-full"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  >Personal Notes (Optional)</label
+                >
+                <UTextarea
+                  v-model="rsvpForm.notes"
+                  placeholder="Wave start time, logistics, etc."
+                  class="w-full"
+                />
+              </div>
+
+              <div>
+                <UCheckbox
+                  v-model="rsvpForm.syncToCalendar"
+                  label="Sync to my Intervals.icu calendar"
+                />
+              </div>
+
               <div class="flex justify-end gap-2 mt-4">
-                <UButton
-                  color="neutral"
-                  variant="ghost"
-                  @click="
-                    () => {
-                      isRSVPModalOpen = false
-                    }
-                  "
+                <UButton color="neutral" variant="ghost" @click="isRSVPModalOpen = false"
                   >Cancel</UButton
                 >
                 <UButton
                   color="primary"
                   variant="solid"
                   :loading="loadingEventId === selectedEventForRSVP?.id"
-                  :disabled="!selectedPriority"
                   @click="confirmRSVP"
                 >
                   Confirm RSVP
@@ -165,7 +192,7 @@
           </template>
         </UModal>
 
-        <EventsEventDetailsModal
+        <EventsEventChatSlideover
           v-model="isDetailsModalOpen"
           :event="selectedEventDetails"
           :is-participating="isParticipating(selectedEventDetails)"
@@ -199,7 +226,14 @@
   const isDetailsModalOpen = ref(false)
   const selectedEventForRSVP = ref<any>(null)
   const selectedEventDetails = ref<any>(null)
-  const selectedPriority = ref('B')
+
+  const rsvpForm = ref({
+    priority: 'B',
+    targetTime: undefined as number | undefined,
+    notes: '',
+    syncToCalendar: true
+  })
+
   const toast = useToast()
 
   const openDetailsModal = (event: any) => {
@@ -218,24 +252,29 @@
       toggleRSVP(event.id)
     } else {
       selectedEventForRSVP.value = event
-      selectedPriority.value = 'B'
+      rsvpForm.value = {
+        priority: 'B',
+        targetTime: undefined,
+        notes: '',
+        syncToCalendar: true
+      }
       isRSVPModalOpen.value = true
     }
   }
 
   const confirmRSVP = () => {
     if (selectedEventForRSVP.value) {
-      toggleRSVP(selectedEventForRSVP.value.id, selectedPriority.value)
+      toggleRSVP(selectedEventForRSVP.value.id, rsvpForm.value)
       isRSVPModalOpen.value = false
     }
   }
 
-  const toggleRSVP = async (eventId: string, priority?: string) => {
+  const toggleRSVP = async (eventId: string, formData?: any) => {
     loadingEventId.value = eventId
     try {
       await $fetch('/api/events/rsvp' as any, {
         method: 'POST',
-        body: { eventId, priority }
+        body: { eventId, ...(formData || {}) }
       })
 
       // Refresh the local data to reflect new RSVP status

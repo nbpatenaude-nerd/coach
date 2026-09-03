@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   const userId = (session.user as any).id as string
   const body = await readBody(event)
-  const { eventId, priority } = body
+  const { eventId, priority, targetTime, notes, goalIds, syncToCalendar } = body
 
   if (!eventId) {
     throw createError({
@@ -54,9 +54,35 @@ export default defineEventHandler(async (event) => {
         data: {
           eventId,
           userId,
-          priority: priority || targetEvent.priority || 'B'
+          priority: priority || targetEvent.priority || 'B',
+          targetTime: targetTime || null,
+          notes: notes || null
         }
       })
+
+      // Optional: connect to goals if provided
+      if (goalIds && goalIds.length > 0) {
+        await prisma.event.update({
+          where: { id: eventId },
+          data: {
+            goals: {
+              connect: goalIds.map((id: string) => ({ id }))
+            }
+          }
+        })
+      }
+
+      if (syncToCalendar) {
+        const { syncEventToIntervals } = await import('../../utils/intervals-sync')
+        const integration = await prisma.integration.findFirst({
+          where: { userId, provider: 'intervals' }
+        })
+
+        if (integration) {
+          const eventForSync = { ...targetEvent, userId }
+          await syncEventToIntervals('CREATE', eventForSync as any, userId)
+        }
+      }
     }
 
     const updatedEvent = await prisma.event.findUnique({
