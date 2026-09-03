@@ -19,7 +19,11 @@
                 variant="soft"
                 size="sm"
                 class="font-bold uppercase tracking-tight"
-                @click="isChatSlideoverOpen = true"
+                @click="
+                  () => {
+                    isChatSlideoverOpen = true
+                  }
+                "
               >
                 Chat
               </UButton>
@@ -30,7 +34,11 @@
                 variant="solid"
                 size="sm"
                 class="font-bold uppercase tracking-tight"
-                @click="isResultModalOpen = true"
+                @click="
+                  () => {
+                    isResultModalOpen = true
+                  }
+                "
               >
                 Add Result
               </UButton>
@@ -42,7 +50,7 @@
                 class="font-bold uppercase tracking-tight"
                 @click="
                   () => {
-                    void openEditModal()
+                    openEditModal()
                   }
                 "
               >
@@ -55,7 +63,7 @@
                 size="sm"
                 @click="
                   () => {
-                    void confirmDeleteEvent()
+                    confirmDeleteEvent()
                   }
                 "
               />
@@ -420,7 +428,11 @@
         </div>
 
         <!-- Modals and Slideovers -->
-        <EventsEventChatSlideover v-model="isChatSlideoverOpen" :event="event" />
+        <EventsEventChatSlideover
+          v-model="isChatSlideoverOpen"
+          :event="event"
+          :is-participating="isParticipating"
+        />
         <EventsEventResultModal v-model="isResultModalOpen" :event="event" @saved="fetchEvent" />
 
         <!-- Event Form Modal (Edit) -->

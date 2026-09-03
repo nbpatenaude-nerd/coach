@@ -336,7 +336,7 @@ export async function getCalendarDataForUser(
     // Check if the user is a participant to get their priority, else use event priority
     let priority = e.priority
     if (e.participants && e.participants.length > 0) {
-      priority = e.participants[0].priority || e.priority
+      priority = e.participants[0]?.priority || e.priority
     }
 
     existing.push({
