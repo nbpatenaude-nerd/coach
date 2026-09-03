@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     const today = new Date()
-    today.setHours(0, 0, 0, 0)
+    today.setUTCHours(0, 0, 0, 0)
 
     const events = await prisma.event.findMany({
       where: {

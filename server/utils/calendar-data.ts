@@ -24,12 +24,14 @@ export async function getCalendarDataForUser(
   options: {
     includeNutrition?: boolean
     includeGoals?: boolean
+    includeEvents?: boolean
     includeThresholds?: boolean
     includePersonalBests?: boolean
   } = {}
 ) {
   const includeNutrition = options.includeNutrition ?? true
   const includeGoals = options.includeGoals ?? true
+  const includeEvents = options.includeEvents ?? true
   const includeThresholds = options.includeThresholds ?? true
   const includePersonalBests = options.includePersonalBests ?? true
 
@@ -258,7 +260,7 @@ export async function getCalendarDataForUser(
     orderBy: { startDate: 'asc' }
   })
 
-  const [goals, metricHistory, personalBests] = await Promise.all([
+  const [goals, events, metricHistory, personalBests] = await Promise.all([
     includeGoals
       ? prisma.goal.findMany({
           where: {
@@ -269,6 +271,18 @@ export async function getCalendarDataForUser(
             ]
           },
           orderBy: { targetDate: 'asc' }
+        })
+      : Promise.resolve([]),
+    includeEvents
+      ? prisma.event.findMany({
+          where: {
+            OR: [{ userId }, { participants: { some: { userId } } }],
+            date: { gte: calendarStart, lte: calendarEnd }
+          },
+          include: {
+            participants: { where: { userId } }
+          },
+          orderBy: { date: 'asc' }
         })
       : Promise.resolve([]),
     includeThresholds
@@ -310,6 +324,34 @@ export async function getCalendarDataForUser(
       metric: g.metric,
       targetValue: g.targetValue,
       description: g.description
+    })
+  }
+
+  for (const e of events) {
+    const dateKey = e.date.toISOString().split('T')[0] ?? ''
+    if (!activitiesByDate.has(dateKey)) activitiesByDate.set(dateKey, [])
+    const existing = activitiesByDate.get(dateKey)!
+    if (existing.some((a: any) => a.id === e.id && a.source === 'event')) continue
+
+    // Check if the user is a participant to get their priority, else use event priority
+    let priority = e.priority
+    if (e.participants && e.participants.length > 0) {
+      priority = e.participants[0].priority || e.priority
+    }
+
+    existing.push({
+      id: e.id,
+      title: e.title,
+      date: e.date.toISOString(),
+      type: 'Event',
+      source: 'goal', // We use 'goal' source so it renders the same visual style as goals (bg-yellow-500) based on how activities.vue handles them
+      status: 'active',
+      priority: priority,
+      description: e.description,
+      distance: e.distance,
+      elevation: e.elevation,
+      isVirtual: e.isVirtual,
+      isPublic: e.isPublic
     })
   }
 

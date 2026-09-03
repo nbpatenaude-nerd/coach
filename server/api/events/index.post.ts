@@ -131,7 +131,12 @@ export default defineEventHandler(async (event) => {
 
       if (finalEvent && integration) {
         // Create a synthetic event object for sync that belongs to the user
-        const eventForSync = { ...finalEvent, userId }
+        const userParticipant = finalEvent.participants.find((p) => p.userId === userId)
+        const eventForSync = {
+          ...finalEvent,
+          userId,
+          priority: userParticipant?.priority || finalEvent.priority
+        }
         await syncEventToIntervals('CREATE', eventForSync as any, userId)
       }
 

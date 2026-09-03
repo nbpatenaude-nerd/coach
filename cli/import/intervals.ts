@@ -29,8 +29,9 @@ const intervalsImportCommand = new Command('intervals')
     }
 
     const runnerPath = path.resolve(process.cwd(), 'cli/import/intervals-runner.ts')
+    const tsconfigPath = path.resolve(process.cwd(), '.nuxt/tsconfig.json')
     const pnpmCmd = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm'
-    const args = ['exec', 'tsx', runnerPath, userIdentifier]
+    const args = ['exec', 'tsx', '--tsconfig', tsconfigPath, runnerPath, userIdentifier]
 
     if (options.startDate) args.push('--start-date', String(options.startDate))
     if (options.endDate) args.push('--end-date', String(options.endDate))
@@ -43,6 +44,7 @@ const intervalsImportCommand = new Command('intervals')
     const child = spawn(pnpmCmd, args, {
       cwd: process.cwd(),
       stdio: 'inherit',
+      shell: process.platform === 'win32',
       env: {
         ...process.env,
         DATABASE_URL: connectionString,

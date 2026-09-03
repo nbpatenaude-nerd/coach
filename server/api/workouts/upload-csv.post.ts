@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
   const namePart = body.find((part) => part.name === 'name')
   const workoutName = namePart ? namePart.data.toString('utf-8') : filePart.filename || 'CSV Upload'
 
-  let mapping: Record<string, string> = {}
+  let mapping: Record<string, string>
   try {
     mapping = JSON.parse(mappingPart.data.toString('utf-8'))
   } catch (e) {
@@ -32,11 +32,15 @@ export default defineEventHandler(async (event) => {
   }
 
   const csvString = filePart.data.toString('utf-8')
-  
+
   const parsed = Papa.parse(csvString, { header: true, skipEmptyLines: true })
-  
+
   if (parsed.errors.length > 0) {
-    throw createError({ statusCode: 400, statusMessage: 'Failed to parse CSV', data: parsed.errors })
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Failed to parse CSV',
+      data: parsed.errors
+    })
   }
 
   // arrays
@@ -56,9 +60,9 @@ export default defineEventHandler(async (event) => {
 
   let maxWatts = 0
   let maxHr = 0
-  
+
   let totalTime = 0
-  
+
   // We expect time to be strictly increasing, often starting at 0 or a timestamp.
   // We'll normalize time to start at 0 and represent seconds if possible.
   let startTime = -1
@@ -71,14 +75,14 @@ export default defineEventHandler(async (event) => {
     const smo2Str = row[mapping['smO2'] || '']
     const thbStr = row[mapping['thb'] || '']
     const vo2Str = row[mapping['vo2'] || '']
-    
+
     // time parsing: could be seconds, or a Date string
     let t = parseFloat(tStr)
     if (isNaN(t)) {
       t = new Date(tStr).getTime() / 1000
     }
     if (isNaN(t)) t = 0
-    
+
     if (startTime === -1) startTime = t
     const elapsed = Math.round(t - startTime)
     time.push(elapsed)
@@ -87,11 +91,11 @@ export default defineEventHandler(async (event) => {
     const w = parseFloat(wStr) || 0
     watts.push(w)
     if (w > maxWatts) maxWatts = w
-    
+
     const hr = parseFloat(hrStr) || 0
     heartrate.push(hr)
     if (hr > maxHr) maxHr = hr
-    
+
     smO2.push(parseFloat(smo2Str) || 0)
     thb.push(parseFloat(thbStr) || 0)
     vo2.push(parseFloat(vo2Str) || 0)
@@ -115,8 +119,6 @@ export default defineEventHandler(async (event) => {
           time,
           watts,
           heartrate,
-
-
 
           distance: [],
           velocity: [],

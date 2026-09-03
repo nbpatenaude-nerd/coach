@@ -79,7 +79,11 @@ export default defineEventHandler(async (event) => {
         })
 
         if (integration) {
-          const eventForSync = { ...targetEvent, userId }
+          const eventForSync = {
+            ...targetEvent,
+            userId,
+            priority: priority || targetEvent.priority || 'B'
+          }
           await syncEventToIntervals('CREATE', eventForSync as any, userId)
         }
       }
