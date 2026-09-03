@@ -436,56 +436,75 @@
         <EventsEventResultModal v-model="isResultModalOpen" :event="event" @saved="fetchEvent" />
 
         <!-- Event Form Modal (Edit) -->
-        <UModal
-          v-model:open="isEventFormOpen"
-          title="Edit Event"
-          description="Update event details."
-        >
-          <template #body>
-            <EventForm
-              :initial-data="event"
-              @success="onEventUpdated"
-              @cancel="isEventFormOpen = false"
-            />
+        <UModal v-model:open="isEventFormOpen">
+          <template #content>
+            <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+              <template #header>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                      Edit Event
+                    </h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Update event details.
+                    </p>
+                  </div>
+                  <UButton
+                    color="gray"
+                    variant="ghost"
+                    icon="i-heroicons-x-mark-20-solid"
+                    class="-my-1"
+                    @click="isEventFormOpen = false"
+                  />
+                </div>
+              </template>
+              <EventForm
+                :initial-data="event"
+                @success="onEventUpdated"
+                @cancel="isEventFormOpen = false"
+              />
+            </UCard>
           </template>
         </UModal>
 
         <!-- Delete Confirmation Modal -->
-        <UModal
-          v-model:open="isDeleteModalOpen"
-          title="Delete Event"
-          description="Are you sure you want to delete this event? This action cannot be undone."
-        >
-          <template #body>
-            <div class="space-y-4">
-              <p>
-                Are you sure you want to delete <strong>{{ event?.title }}</strong
-                >?
-              </p>
-              <div class="flex justify-end gap-2">
-                <UButton
-                  color="neutral"
-                  variant="ghost"
-                  @click="
-                    () => {
-                      isDeleteModalOpen = false
-                    }
-                  "
-                  >Cancel</UButton
-                >
-                <UButton
-                  color="error"
-                  variant="solid"
-                  :loading="deleting"
-                  @click="
-                    () => {
-                      void deleteEvent()
-                    }
-                  "
-                  >Delete</UButton
-                >
+        <UModal v-model:open="isDeleteModalOpen">
+          <template #content>
+            <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+              <template #header>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                      Delete Event
+                    </h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Are you sure you want to delete this event? This action cannot be undone.
+                    </p>
+                  </div>
+                  <UButton
+                    color="gray"
+                    variant="ghost"
+                    icon="i-heroicons-x-mark-20-solid"
+                    class="-my-1"
+                    @click="isDeleteModalOpen = false"
+                  />
+                </div>
+              </template>
+              <div class="space-y-4">
+                <p>
+                  Are you sure you want to delete <strong>{{ event?.title }}</strong
+                  >?
+                </p>
+                <div class="flex justify-end gap-2">
+                  <UButton color="neutral" variant="ghost" @click="isDeleteModalOpen = false"
+                    >Cancel</UButton
+                  >
+                  <UButton color="error" variant="solid" :loading="deleting" @click="deleteEvent"
+                    >Delete</UButton
+                  >
+                </div>
               </div>
-            </div>
+            </UCard>
           </template>
         </UModal>
       </template>

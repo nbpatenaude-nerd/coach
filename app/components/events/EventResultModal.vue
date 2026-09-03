@@ -1,42 +1,44 @@
 <template>
   <UModal v-model:open="isOpen" :ui="{ width: 'sm:max-w-xl' }">
-    <UCard :ui="{ ring: '', divide: 'divide-y divide-white/10' }">
-      <template #header>
-        <div class="flex items-center justify-between">
-          <h3 class="text-xl font-bold text-white">Add Result: {{ event?.title }}</h3>
-          <UButton
-            color="gray"
-            variant="ghost"
-            icon="i-heroicons-x-mark-20-solid"
-            class="-my-1"
-            @click="isOpen = false"
-          />
-        </div>
-      </template>
+    <template #content>
+      <UCard :ui="{ ring: '', divide: 'divide-y divide-white/10' }">
+        <template #header>
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-bold text-white">Add Result: {{ event?.title }}</h3>
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-x-mark-20-solid"
+              class="-my-1"
+              @click="isOpen = false"
+            />
+          </div>
+        </template>
 
-      <form class="space-y-4 py-2" @submit.prevent="submitResult">
-        <UFormGroup label="Result Time (hh:mm:ss or seconds)">
-          <UInput v-model="form.timeInput" placeholder="e.g. 1:30:00 or 5400" />
-        </UFormGroup>
+        <form class="space-y-4 py-2" @submit.prevent="submitResult">
+          <UFormGroup label="Result Time (hh:mm:ss or seconds)">
+            <UInput v-model="form.timeInput" placeholder="e.g. 1:30:00 or 5400" />
+          </UFormGroup>
 
-        <UFormGroup label="Overall Position">
-          <UInput v-model.number="form.resultPosition" type="number" placeholder="e.g. 15" />
-        </UFormGroup>
+          <UFormGroup label="Overall Position">
+            <UInput v-model.number="form.resultPosition" type="number" placeholder="e.g. 15" />
+          </UFormGroup>
 
-        <UFormGroup label="Race Report">
-          <UTextarea v-model="form.raceReport" placeholder="How did it go?" :rows="4" />
-        </UFormGroup>
+          <UFormGroup label="Race Report">
+            <UTextarea v-model="form.raceReport" placeholder="How did it go?" :rows="4" />
+          </UFormGroup>
 
-        <UFormGroup label="Photo URL">
-          <UInput v-model="form.photoUrl" placeholder="https://imgur.com/..." />
-        </UFormGroup>
+          <UFormGroup label="Photo URL">
+            <UInput v-model="form.photoUrl" placeholder="https://imgur.com/..." />
+          </UFormGroup>
 
-        <div class="flex justify-end gap-3 mt-6">
-          <UButton color="white" variant="ghost" @click="isOpen = false">Cancel</UButton>
-          <UButton type="submit" color="primary" :loading="loading">Save Result</UButton>
-        </div>
-      </form>
-    </UCard>
+          <div class="flex justify-end gap-3 mt-6">
+            <UButton color="white" variant="ghost" @click="isOpen = false">Cancel</UButton>
+            <UButton type="submit" color="primary" :loading="loading">Save Result</UButton>
+          </div>
+        </form>
+      </UCard>
+    </template>
   </UModal>
 </template>
 

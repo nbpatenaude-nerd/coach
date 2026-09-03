@@ -1,44 +1,46 @@
 <template>
-  <UModal v-model="isOpen">
-    <UCard>
-      <template #header>
-        <div class="flex items-center justify-between">
-          <h3 class="text-lg font-bold text-white">Complete Goal</h3>
-          <UButton
-            color="gray"
-            variant="ghost"
-            icon="i-heroicons-x-mark-20-solid"
-            class="-my-1"
-            @click="isOpen = false"
-          />
-        </div>
-      </template>
+  <UModal v-model:open="isOpen">
+    <template #content>
+      <UCard>
+        <template #header>
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-white">Complete Goal</h3>
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-x-mark-20-solid"
+              class="-my-1"
+              @click="isOpen = false"
+            />
+          </div>
+        </template>
 
-      <form class="space-y-4" @submit.prevent="submitCompletion">
-        <UFormGroup label="Completion Level">
-          <USelect
-            v-model="form.completionLevel"
-            :options="[
-              { label: 'Fully Completed', value: 'FULL' },
-              { label: 'Partially Completed', value: 'PARTIAL' }
-            ]"
-          />
-        </UFormGroup>
+        <form class="space-y-4" @submit.prevent="submitCompletion">
+          <UFormGroup label="Completion Level">
+            <USelect
+              v-model="form.completionLevel"
+              :options="[
+                { label: 'Fully Completed', value: 'FULL' },
+                { label: 'Partially Completed', value: 'PARTIAL' }
+              ]"
+            />
+          </UFormGroup>
 
-        <UFormGroup label="To what extent? (Notes)" hint="Optional">
-          <UTextarea
-            v-model="form.completionNotes"
-            placeholder="e.g. Achieved 80% of my target wattage..."
-            :rows="3"
-          />
-        </UFormGroup>
+          <UFormGroup label="To what extent? (Notes)" hint="Optional">
+            <UTextarea
+              v-model="form.completionNotes"
+              placeholder="e.g. Achieved 80% of my target wattage..."
+              :rows="3"
+            />
+          </UFormGroup>
 
-        <div class="flex justify-end gap-3 mt-6">
-          <UButton color="white" variant="ghost" @click="isOpen = false">Cancel</UButton>
-          <UButton type="submit" color="success" :loading="loading">Mark Complete</UButton>
-        </div>
-      </form>
-    </UCard>
+          <div class="flex justify-end gap-3 mt-6">
+            <UButton color="white" variant="ghost" @click="isOpen = false">Cancel</UButton>
+            <UButton type="submit" color="success" :loading="loading">Mark Complete</UButton>
+          </div>
+        </form>
+      </UCard>
+    </template>
   </UModal>
 </template>
 
