@@ -167,6 +167,14 @@
               onSelect: () => {
                 open.value = false
               }
+            },
+            {
+              label: navLabel('navigation_daily_checkins', 'Daily Check-Ins'),
+              icon: 'i-lucide-activity',
+              to: '/daily-checkins',
+              onSelect: () => {
+                open.value = false
+              }
             }
           ]
         : []),
