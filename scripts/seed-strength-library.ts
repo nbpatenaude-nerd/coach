@@ -490,47 +490,53 @@ const libraryData = [
 ]
 
 async function main() {
-  console.log('Finding dev user...')
+  console.log('Finding all users to seed exercises to...')
 
-  let user = await prisma.user.findUnique({
-    where: { email: 'dev@coachwatts.test' }
-  })
+  const allUsers = await prisma.user.findMany()
 
-  if (!user) {
-    user = await prisma.user.findFirst()
+  if (allUsers.length === 0) {
+    console.error('No users found in the database. Please run the user seed script first.')
+    process.exit(1)
   }
 
-  console.log('Targeting user: ' + user.email)
-  console.log('Seeding extensive EXRX-based strength exercise library...')
+  console.log(
+    'Found ' +
+      allUsers.length +
+      ' users. Seeding extensive EXRX-based strength exercise library for all of them...'
+  )
 
-  let count = 0
-  for (const item of libraryData) {
-    const existing = await prisma.strengthExerciseLibraryItem.findFirst({
-      where: {
-        userId: user.id,
-        title: item.title
-      }
-    })
-
-    if (existing) {
-      await prisma.strengthExerciseLibraryItem.update({
-        where: { id: existing.id },
-        data: item
-      })
-      console.log('Updated: ' + item.title)
-    } else {
-      await prisma.strengthExerciseLibraryItem.create({
-        data: {
-          ...item,
-          userId: user.id
+  let totalCount = 0
+  for (const user of allUsers) {
+    console.log('Seeding for user: ' + user.email)
+    let countForUser = 0
+    for (const item of libraryData) {
+      const existing = await prisma.strengthExerciseLibraryItem.findFirst({
+        where: {
+          userId: user.id,
+          title: item.title
         }
       })
-      console.log('Created: ' + item.title)
+
+      if (existing) {
+        await prisma.strengthExerciseLibraryItem.update({
+          where: { id: existing.id },
+          data: item
+        })
+      } else {
+        await prisma.strengthExerciseLibraryItem.create({
+          data: {
+            ...item,
+            userId: user.id
+          }
+        })
+      }
+      countForUser++
+      totalCount++
     }
-    count++
+    console.log('  Successfully seeded ' + countForUser + ' exercises.')
   }
 
-  console.log('Successfully seeded ' + count + ' extensive exercises to the strength library!')
+  console.log('Successfully seeded ' + totalCount + ' total exercise records across all users!')
 }
 
 main()
