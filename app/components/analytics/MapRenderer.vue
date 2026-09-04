@@ -170,9 +170,10 @@
   })
 
   const tileUrl = computed(() => {
+    const key = '?key=cb1_2czx_1_3037f71416176db2379ee1fd'
     return colorMode.value === 'dark'
-      ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-      : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+      ? `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png${key}`
+      : `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png${key}`
   })
 
   const attribution = '&copy; OpenStreetMap contributors &copy; CARTO'
