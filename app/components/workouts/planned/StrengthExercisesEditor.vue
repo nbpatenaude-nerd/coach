@@ -63,10 +63,8 @@
         class="overflow-hidden rounded-2xl border border-default/70 bg-default/70 shadow-sm"
       >
         <div class="border-b border-default/70 bg-muted/20 px-4 py-4 sm:px-5">
-          <div
-            class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between"
-          >
-            <div class="min-w-0 flex-1 space-y-3">
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
               <div class="flex flex-wrap items-center gap-2">
                 <UBadge color="primary" variant="soft" size="sm" class="uppercase tracking-wide">
                   {{ blockTypeLabel(block.type) }}
@@ -76,75 +74,77 @@
                 </div>
               </div>
 
-              <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_160px]">
-                <UInput v-model="block.title" size="lg" placeholder="Block title" />
-                <UInput
-                  v-model.number="block.durationSec"
-                  type="number"
-                  min="0"
-                  placeholder="Block duration (s)"
-                />
+              <div class="flex flex-wrap items-center gap-2">
+                <UButton
+                  size="xs"
+                  color="neutral"
+                  variant="soft"
+                  @click="
+                    () => {
+                      void moveBlock(blockIndex, -1)
+                    }
+                  "
+                >
+                  Up
+                </UButton>
+                <UButton
+                  size="xs"
+                  color="neutral"
+                  variant="soft"
+                  @click="
+                    () => {
+                      void moveBlock(blockIndex, 1)
+                    }
+                  "
+                >
+                  Down
+                </UButton>
+                <UButton
+                  size="xs"
+                  color="primary"
+                  variant="soft"
+                  @click="
+                    () => {
+                      void openLibraryPicker(blockIndex)
+                    }
+                  "
+                >
+                  Add Exercise
+                </UButton>
+                <UButton
+                  size="xs"
+                  color="error"
+                  variant="ghost"
+                  :disabled="localBlocks.length === 1"
+                  @click="
+                    () => {
+                      void removeBlock(blockIndex)
+                    }
+                  "
+                >
+                  Delete Block
+                </UButton>
               </div>
+            </div>
 
-              <UTextarea
-                v-model="block.notes"
-                :rows="2"
-                autoresize
-                placeholder="Block notes or coach instructions..."
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <UInput v-model="block.title" size="lg" placeholder="Block title" class="flex-1" />
+              <UInput
+                v-model.number="block.durationSec"
+                type="number"
+                min="0"
+                size="lg"
+                placeholder="Block duration (s)"
+                class="w-full sm:w-48"
               />
             </div>
 
-            <div class="flex flex-wrap gap-2">
-              <UButton
-                size="xs"
-                color="neutral"
-                variant="soft"
-                @click="
-                  () => {
-                    void moveBlock(blockIndex, -1)
-                  }
-                "
-              >
-                Up
-              </UButton>
-              <UButton
-                size="xs"
-                color="neutral"
-                variant="soft"
-                @click="
-                  () => {
-                    void moveBlock(blockIndex, 1)
-                  }
-                "
-              >
-                Down
-              </UButton>
-              <UButton
-                size="xs"
-                color="primary"
-                variant="soft"
-                @click="
-                  () => {
-                    void openLibraryPicker(blockIndex)
-                  }
-                "
-              >
-                Add Exercise
-              </UButton>
-              <UButton
-                size="xs"
-                color="error"
-                variant="ghost"
-                :disabled="localBlocks.length === 1"
-                @click="
-                  () => {
-                    void removeBlock(blockIndex)
-                  }
-                "
-              >
-                Delete Block
-              </UButton>
-            </div>
+            <UTextarea
+              v-model="block.notes"
+              :rows="2"
+              autoresize
+              placeholder="Block notes or coach instructions..."
+            />
           </div>
         </div>
 
@@ -313,7 +313,7 @@
                     <table class="min-w-full divide-y divide-default/70 text-sm xl:table-fixed">
                       <colgroup>
                         <col style="width: 88px" />
-                        <col v-if="step.loadMode !== 'none'" style="width: 220px" />
+                        <col v-if="step.loadMode !== 'none'" style="width: 140px" />
                         <col />
                         <col v-if="step.showRestColumn" style="width: 180px" />
                       </colgroup>

@@ -1,5 +1,10 @@
 <template>
-  <UModal v-model:open="isOpen" :dismissible="!loading" :close="loading ? false : undefined">
+  <UModal
+    v-model:open="isOpen"
+    :dismissible="!loading"
+    :close="loading ? false : undefined"
+    :ui="{ content: 'sm:max-w-[85vw]' }"
+  >
     <template #title>
       <h3
         class="text-base font-black text-gray-900 dark:text-white uppercase tracking-tight truncate"

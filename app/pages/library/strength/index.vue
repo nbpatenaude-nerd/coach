@@ -548,6 +548,7 @@
     v-model:open="isEditorOpen"
     :title="editingTemplate?.id ? 'Edit Workout Template' : 'New Workout Template'"
     description="Define your reusable workout structure here."
+    :ui="{ content: 'sm:max-w-[85vw]' }"
   >
     <template #body>
       <div class="p-6">
