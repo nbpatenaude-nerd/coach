@@ -223,44 +223,7 @@
                       </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-2">
-                      <UButton
-                        size="xs"
-                        color="neutral"
-                        variant="soft"
-                        @click="
-                          () => {
-                            void addSetRow(step)
-                          }
-                        "
-                      >
-                        + Set
-                      </UButton>
-                      <UButton
-                        size="xs"
-                        color="neutral"
-                        variant="soft"
-                        :disabled="step.setRows.length <= 1"
-                        @click="
-                          () => {
-                            void removeSetRow(step)
-                          }
-                        "
-                      >
-                        - Set
-                      </UButton>
-                      <UButton
-                        size="xs"
-                        color="neutral"
-                        variant="soft"
-                        @click="
-                          () => {
-                            void openAdvancedStep(blockIndex, stepIndex)
-                          }
-                        "
-                      >
-                        Details
-                      </UButton>
+                    <div class="flex flex-wrap items-center gap-2">
                       <UButton
                         size="xs"
                         color="neutral"
@@ -278,14 +241,13 @@
                         size="xs"
                         color="error"
                         variant="ghost"
+                        icon="i-heroicons-trash"
                         @click="
                           () => {
                             void removeStep(blockIndex, stepIndex)
                           }
                         "
-                      >
-                        Delete
-                      </UButton>
+                      />
                     </div>
                   </div>
 
@@ -296,7 +258,58 @@
                     {{ step.setRows.length }} set{{ step.setRows.length === 1 ? '' : 's' }}
                   </div>
 
-                  <div v-else class="overflow-x-auto rounded-xl border border-default/70">
+                  <div v-if="!isDraggingExercises" class="space-y-4">
+                    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                      <UFormGroup label="Prescription">
+                        <USelect
+                          :items="prescriptionModeOptions"
+                          :model-value="step.prescriptionMode"
+                          @update:model-value="updatePrescriptionMode(step, $event)"
+                        />
+                      </UFormGroup>
+                      <UFormGroup label="Load">
+                        <USelect
+                          :items="loadModeOptions"
+                          :model-value="step.loadMode"
+                          @update:model-value="updateLoadMode(step, $event)"
+                        />
+                      </UFormGroup>
+                      <UFormGroup label="Movement Pattern">
+                        <USelect
+                          :items="movementPatternOptions"
+                          :model-value="selectValue(step.movementPattern)"
+                          @update:model-value="step.movementPattern = normalizeSelectValue($event)"
+                        />
+                      </UFormGroup>
+                      <UFormGroup label="Intent">
+                        <USelect
+                          :items="intentOptions"
+                          :model-value="selectValue(step.intent)"
+                          @update:model-value="step.intent = normalizeSelectValue($event)"
+                        />
+                      </UFormGroup>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3 pt-1">
+                      <UCheckbox
+                        :model-value="step.showRestColumn"
+                        label="Enable Rest Override"
+                        @update:model-value="toggleRestOverrideColumn(step, $event)"
+                      />
+                      <UInput
+                        v-if="step.showRestColumn"
+                        v-model="step.defaultRest"
+                        class="max-w-48"
+                        size="sm"
+                        placeholder="Default rest (e.g. 90s)"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    v-if="!isDraggingExercises"
+                    class="overflow-x-auto rounded-xl border border-default/70 mt-4"
+                  >
                     <table class="min-w-full divide-y divide-default/70 text-sm xl:table-fixed">
                       <colgroup>
                         <col style="width: 88px" />
@@ -353,11 +366,77 @@
                     </table>
                   </div>
 
+                  <div v-if="!isDraggingExercises" class="flex flex-wrap gap-2 pt-2">
+                    <UButton
+                      size="xs"
+                      color="neutral"
+                      variant="soft"
+                      @click="
+                        () => {
+                          void addSetRow(step)
+                        }
+                      "
+                    >
+                      + Set
+                    </UButton>
+                    <UButton
+                      size="xs"
+                      color="neutral"
+                      variant="soft"
+                      :disabled="step.setRows.length <= 1"
+                      @click="
+                        () => {
+                          void removeSetRow(step)
+                        }
+                      "
+                    >
+                      - Set
+                    </UButton>
+                  </div>
+
                   <div
-                    v-if="step.notes && !isDraggingExercises"
-                    class="rounded-lg bg-muted/15 px-3 py-2 text-sm text-muted"
+                    v-if="!isDraggingExercises"
+                    class="space-y-4 pt-4 border-t border-default/70"
                   >
-                    {{ step.notes }}
+                    <div class="grid gap-4 md:grid-cols-2">
+                      <UFormGroup label="Video URL">
+                        <UInput
+                          v-model="step.videoUrl"
+                          placeholder="https://youtube.com/..."
+                          icon="i-heroicons-video-camera"
+                        />
+                      </UFormGroup>
+                    </div>
+
+                    <div
+                      v-if="getYouTubeEmbedUrl(step.videoUrl)"
+                      class="overflow-hidden rounded-xl border border-default/70 bg-default max-w-sm mt-3"
+                    >
+                      <iframe
+                        :src="getYouTubeEmbedUrl(step.videoUrl) || undefined"
+                        title="Exercise video preview"
+                        class="aspect-video w-full"
+                        loading="lazy"
+                        allow="
+                          accelerometer;
+                          autoplay;
+                          clipboard-write;
+                          encrypted-media;
+                          gyroscope;
+                          picture-in-picture;
+                        "
+                        allowfullscreen
+                      />
+                    </div>
+
+                    <UFormGroup label="Notes">
+                      <UTextarea
+                        v-model="step.notes"
+                        :rows="2"
+                        autoresize
+                        placeholder="Instructions, form cues, substitutions..."
+                      />
+                    </UFormGroup>
                   </div>
                 </div>
               </div>
@@ -578,61 +657,36 @@
           </div>
 
           <div class="space-y-4">
-            <div class="space-y-3 rounded-xl border border-default/70 bg-muted/10 p-4">
-              <div class="text-sm font-semibold text-highlighted">Parameters</div>
-              <div
-                v-for="(parameter, parameterIndex) in getCustomParameterTokens()"
-                :key="`custom-parameter-${parameterIndex}`"
-                class="grid gap-3 md:grid-cols-[120px_minmax(0,1fr)_auto]"
-              >
-                <div
-                  class="flex items-center text-xs font-semibold uppercase tracking-[0.18em] text-muted"
-                >
-                  {{ parameterIndex === 0 ? 'Primary Metric' : 'Additional Metric' }}
-                </div>
-                <USelect
-                  :items="
-                    parameterIndex === 0
-                      ? primaryParameterOptions
-                      : secondaryParameterOptions(customExerciseForm, parameterIndex)
-                  "
-                  :model-value="parameter"
-                  class="w-full"
-                  @update:model-value="updateCustomParameter(parameterIndex, $event)"
-                />
-                <UButton
-                  v-if="parameterIndex > 0"
-                  size="sm"
-                  color="error"
-                  variant="ghost"
-                  @click="
-                    () => {
-                      void removeCustomParameter(parameterIndex)
-                    }
-                  "
-                >
-                  Remove
-                </UButton>
+            <div class="space-y-4 rounded-xl border border-default/70 bg-muted/10 p-4">
+              <div class="text-sm font-semibold text-highlighted">Set Table Columns</div>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <UFormGroup label="Prescription">
+                  <USelect
+                    v-model="customExerciseForm.prescriptionMode"
+                    :items="prescriptionModeOptions"
+                    @update:model-value="updatePrescriptionMode(customExerciseForm as any, $event)"
+                  />
+                </UFormGroup>
+                <UFormGroup label="Load">
+                  <USelect
+                    v-model="customExerciseForm.loadMode"
+                    :items="loadModeOptions"
+                    @update:model-value="updateLoadMode(customExerciseForm as any, $event)"
+                  />
+                </UFormGroup>
               </div>
-              <div class="flex flex-wrap items-center gap-3">
-                <UButton
-                  size="sm"
-                  color="neutral"
-                  variant="soft"
-                  :disabled="!canAddParameter(customExerciseForm)"
-                  @click="
-                    () => {
-                      void addCustomParameter()
-                    }
-                  "
-                >
-                  Add Parameter
-                </UButton>
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <UCheckbox
+                  :model-value="customExerciseForm.showRestColumn"
+                  label="Enable Rest Override"
+                  @update:model-value="toggleRestOverrideColumn(customExerciseForm as any, $event)"
+                />
                 <UInput
                   v-if="customExerciseForm.showRestColumn"
                   v-model="customExerciseForm.defaultRest"
                   class="max-w-48"
-                  placeholder="Default rest"
+                  size="sm"
+                  placeholder="Default rest (e.g. 90s)"
                 />
               </div>
             </div>
@@ -752,146 +806,6 @@
         </div>
       </template>
     </UModal>
-
-    <USlideover
-      v-model:open="isAdvancedOpen"
-      side="right"
-      title="Exercise Details"
-      description="Edit exercise metadata, coaching notes, and video details."
-    >
-      <template #content>
-        <div v-if="activeStep" class="flex h-full flex-col gap-4 p-6">
-          <UInput v-model="activeStep.name" placeholder="Exercise name" size="lg" />
-
-          <div class="grid gap-3 md:grid-cols-2">
-            <USelect
-              :items="movementPatternOptions"
-              :model-value="selectValue(activeStep.movementPattern)"
-              @update:model-value="activeStep.movementPattern = normalizeSelectValue($event)"
-            />
-            <USelect
-              :items="intentOptions"
-              :model-value="selectValue(activeStep.intent)"
-              @update:model-value="activeStep.intent = normalizeSelectValue($event)"
-            />
-          </div>
-
-          <UInput v-model="activeStep.videoUrl" placeholder="Video URL" />
-
-          <div class="rounded-xl border border-default/70 bg-muted/10 p-4">
-            <div class="text-sm font-semibold text-highlighted">Set Table Options</div>
-            <div class="mt-3 space-y-3">
-              <div
-                v-for="(parameter, parameterIndex) in getStepParameterTokens(activeStep)"
-                :key="`${activeStep.id}-parameter-${parameterIndex}`"
-                class="grid gap-3 md:grid-cols-[120px_minmax(0,1fr)_auto]"
-              >
-                <div
-                  class="flex items-center text-xs font-semibold uppercase tracking-[0.18em] text-muted"
-                >
-                  {{ parameterIndex === 0 ? 'Primary Metric' : 'Additional Metric' }}
-                </div>
-                <USelect
-                  :items="
-                    parameterIndex === 0
-                      ? primaryParameterOptions
-                      : secondaryParameterOptions(activeStep, parameterIndex)
-                  "
-                  :model-value="parameter"
-                  @update:model-value="updateStepParameter(activeStep, parameterIndex, $event)"
-                />
-                <UButton
-                  v-if="parameterIndex > 0"
-                  size="sm"
-                  color="error"
-                  variant="ghost"
-                  @click="
-                    () => {
-                      if (activeStep) void removeStepParameter(activeStep, parameterIndex)
-                    }
-                  "
-                >
-                  Remove
-                </UButton>
-              </div>
-              <div class="flex flex-wrap items-center gap-3">
-                <UButton
-                  size="sm"
-                  color="neutral"
-                  variant="soft"
-                  :disabled="!activeStep || !canAddParameter(activeStep)"
-                  @click="
-                    () => {
-                      if (activeStep) void addStepParameter(activeStep)
-                    }
-                  "
-                >
-                  Add Parameter
-                </UButton>
-                <UInput
-                  v-if="activeStep.showRestColumn"
-                  v-model="activeStep.defaultRest"
-                  class="max-w-48"
-                  placeholder="Default rest"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div
-            v-if="getYouTubeEmbedUrl(activeStep.videoUrl)"
-            class="overflow-hidden rounded-xl border border-default/70 bg-default"
-          >
-            <iframe
-              :src="getYouTubeEmbedUrl(activeStep.videoUrl) || undefined"
-              title="Exercise video preview"
-              class="aspect-video w-full"
-              loading="lazy"
-              allow="
-                accelerometer;
-                autoplay;
-                clipboard-write;
-                encrypted-media;
-                gyroscope;
-                picture-in-picture;
-              "
-              allowfullscreen
-            />
-          </div>
-
-          <UTextarea
-            v-model="activeStep.notes"
-            :rows="6"
-            autoresize
-            placeholder="Instructions, form cues, substitutions..."
-          />
-
-          <div class="mt-auto flex gap-2">
-            <UButton
-              color="neutral"
-              variant="soft"
-              :loading="savingLibraryExerciseId === activeStep.id"
-              @click="
-                () => {
-                  void saveActiveStepToLibrary()
-                }
-              "
-            >
-              {{ activeStep.libraryExerciseId ? 'Update Saved Exercise' : 'Save to Library' }}
-            </UButton>
-            <UButton
-              color="primary"
-              @click="
-                () => {
-                  isAdvancedOpen = false
-                }
-              "
-              >Done</UButton
-            >
-          </div>
-        </div>
-      </template>
-    </USlideover>
   </div>
 </template>
 
@@ -1005,7 +919,7 @@
   const isBlockTypeModalOpen = ref(false)
   const isLibraryModalOpen = ref(false)
   const isCustomExerciseModalOpen = ref(false)
-  const isAdvancedOpen = ref(false)
+
   const libraryItems = ref<StrengthLibraryExercise[]>([])
   const libraryLoading = ref(false)
   const libraryQuery = ref('')
@@ -1018,7 +932,7 @@
     blockIndex: 0,
     stepIndex: null
   })
-  const activeTarget = ref<{ blockIndex: number; stepIndex: number } | null>(null)
+
   let libraryQueryTimer: ReturnType<typeof setTimeout> | null = null
 
   const customExerciseForm = reactive<{
@@ -1045,14 +959,6 @@
     setRows: normalizeStrengthSetRows([{ value: '', loadValue: '' }])
   })
 
-  const activeBlock = computed(() =>
-    activeTarget.value ? localBlocks.value[activeTarget.value.blockIndex] : null
-  )
-  const activeStep = computed(() =>
-    activeTarget.value && activeBlock.value
-      ? activeBlock.value.steps[activeTarget.value.stepIndex]
-      : null
-  )
   const summary = computed(() => summarizeStrengthBlocks(localBlocks.value))
   const manualDurationMinutes = ref<number>(0)
   const manualTssInput = ref<string>('')
@@ -1086,18 +992,6 @@
     immediate: true,
     deep: true
   })
-
-  watch(
-    () => props.openStepTarget?.requestId,
-    async () => {
-      const target = props.openStepTarget
-      if (!target) return
-      await nextTick()
-      if (!localBlocks.value[target.blockIndex]?.steps?.[target.stepIndex]) return
-      openAdvancedStep(target.blockIndex, target.stepIndex)
-    },
-    { flush: 'post' }
-  )
 
   watch(
     libraryQuery,
@@ -1145,11 +1039,6 @@
     pickerTarget.blockIndex = blockIndex
     pickerTarget.stepIndex = stepIndex
     isLibraryModalOpen.value = true
-  }
-
-  function openAdvancedStep(blockIndex: number, stepIndex: number) {
-    activeTarget.value = { blockIndex, stepIndex }
-    isAdvancedOpen.value = true
   }
 
   function startExerciseDrag(block: StrengthBlock, event: any) {
@@ -1760,11 +1649,6 @@
     } finally {
       savingLibraryExerciseId.value = null
     }
-  }
-
-  async function saveActiveStepToLibrary() {
-    if (!activeStep.value) return
-    await saveStepToLibrary(activeStep.value)
   }
 
   async function deleteLibraryExercise(item: StrengthLibraryExercise) {
