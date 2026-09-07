@@ -186,15 +186,7 @@
           open.value = false
         }
       },
-      {
-        label: navLabel('navigation_journey_strength', 'Journey Strength'),
-        icon: 'i-lucide-dumbbell',
-        to: '/api/integrations/journey-strength/magic-link',
-        target: '_blank',
-        onSelect: () => {
-          open.value = false
-        }
-      },
+
       ...(true && nutritionEnabled.value
         ? [
             {
@@ -319,6 +311,14 @@
           {
             label: 'Strength',
             icon: 'i-lucide-dumbbell',
+            to: '/library/strength',
+            onSelect: () => {
+              open.value = false
+            }
+          },
+          {
+            label: 'Exercises',
+            icon: 'i-lucide-book-open',
             to: '/library/exercises',
             onSelect: () => {
               open.value = false
@@ -658,6 +658,11 @@
               {
                 label: 'Strength',
                 icon: 'i-lucide-dumbbell',
+                to: '/library/strength'
+              },
+              {
+                label: 'Exercises',
+                icon: 'i-lucide-book-open',
                 to: '/library/exercises'
               },
               {

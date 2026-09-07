@@ -57,6 +57,15 @@
               color="neutral"
               variant="subtle"
               icon="i-lucide-dumbbell"
+              label="Strength"
+              size="sm"
+              class="font-bold whitespace-nowrap"
+              to="/library/strength"
+            />
+            <UButton
+              color="neutral"
+              variant="subtle"
+              icon="i-lucide-book-open"
               :label="tr('index_exercises', 'Exercises')"
               size="sm"
               class="font-bold whitespace-nowrap"
