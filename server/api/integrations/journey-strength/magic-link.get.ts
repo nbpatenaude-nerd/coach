@@ -18,10 +18,12 @@ export default defineEventHandler(async (event) => {
   if (!integration || !integration.accessToken) {
     // If they don't have an integration yet, we can redirect them to a setup/provisioning page,
     // or just show an error. For now, we'll throw a 403.
-    throw createError({
-      statusCode: 403,
-      statusMessage: 'Journey Strength account not provisioned for this user.'
-    })
+    return sendRedirect(
+      event,
+      process.env.JOURNEY_STRENGTH_URL ||
+        'https://strength-production.up.railway.app/en/user/login',
+      302
+    )
   }
 
   // 3. Construct the Magic Link redirect URL
