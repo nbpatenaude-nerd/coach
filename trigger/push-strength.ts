@@ -94,6 +94,19 @@ export const pushWorkoutToJourneyStrength = task({
           ? parseInt(step.libraryExerciseId.replace(/\D/g, '') || '111')
           : 111
 
+        // Format user-facing notes based on load mode
+        let notes = step.notes || ''
+        const loadVal = step.setRows[0]?.loadValue || ''
+        const repVal = step.setRows[0]?.value || ''
+        if (step.loadMode === 'rir') {
+          notes = `${repVal} Reps @ ${loadVal} RIR. ${notes}`.trim()
+        } else if (step.loadMode === 'percent_1rm') {
+          notes = `${repVal} Reps @ ${loadVal}% 1RM. ${notes}`.trim()
+        } else if (loadVal) {
+          notes =
+            `${repVal} Reps @ ${loadVal} ${step.loadMode?.replace('weight_', '') || 'Load'}. ${notes}`.trim()
+        }
+
         const setRes = await fetch(`${baseUrl}/api/v2/set/`, {
           method: 'POST',
           headers,
@@ -107,7 +120,8 @@ export const pushWorkoutToJourneyStrength = task({
                 exercise: exerciseId,
                 sets: setsCount,
                 reps: isNaN(repsVal) ? 8 : repsVal,
-                weight: isNaN(weightVal) ? 0 : weightVal
+                weight: isNaN(weightVal) ? 0 : weightVal,
+                notes
               }
             ]
           })

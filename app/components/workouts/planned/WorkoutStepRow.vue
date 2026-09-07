@@ -636,7 +636,7 @@
   function toggleDurationType() {
     const modes: ('time' | 'm' | 'km' | 'mi')[] = ['time', 'm', 'km', 'mi']
     const currentIndex = modes.indexOf(localDurationType.value)
-    localDurationType.value = modes[(currentIndex + 1) % modes.length]
+    localDurationType.value = modes[(currentIndex + 1) % modes.length] || 'time'
 
     // Set sensible defaults when toggling
     if (localDurationType.value === 'time') {

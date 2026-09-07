@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-5">
+  <div class="space-y-5 pb-8">
     <div class="rounded-xl border border-primary/15 bg-primary/5 p-4">
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+        <div class="grid gap-3 grid-cols-2 sm:grid-cols-3">
           <div class="rounded-xl border border-default/60 bg-default/70 p-3">
             <div class="text-[11px] uppercase tracking-[0.18em] text-muted">Blocks</div>
             <div class="mt-1 text-xl font-semibold text-highlighted">{{ summary.blockCount }}</div>
@@ -63,7 +63,9 @@
         class="overflow-hidden rounded-2xl border border-default/70 bg-default/70 shadow-sm"
       >
         <div class="border-b border-default/70 bg-muted/20 px-4 py-4 sm:px-5">
-          <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div
+            class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between"
+          >
             <div class="min-w-0 flex-1 space-y-3">
               <div class="flex flex-wrap items-center gap-2">
                 <UBadge color="primary" variant="soft" size="sm" class="uppercase tracking-wide">
@@ -74,7 +76,7 @@
                 </div>
               </div>
 
-              <div class="grid gap-3 lg:grid-cols-[minmax(0,1fr)_160px]">
+              <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_160px]">
                 <UInput v-model="block.title" size="lg" placeholder="Block title" />
                 <UInput
                   v-model.number="block.durationSec"
@@ -165,7 +167,9 @@
                 ]"
               >
                 <div class="space-y-4">
-                  <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <div
+                    class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between"
+                  >
                     <div class="min-w-0 flex-1 space-y-3">
                       <div class="flex flex-wrap items-center gap-2">
                         <UButton
@@ -961,7 +965,9 @@
     { label: 'Weight (lb)', value: 'weight_lb' },
     { label: 'Weight (kg)', value: 'weight_kg' },
     { label: 'Weight / Side (lb)', value: 'weight_per_side_lb' },
-    { label: 'Weight / Side (kg)', value: 'weight_per_side_kg' }
+    { label: 'Weight / Side (kg)', value: 'weight_per_side_kg' },
+    { label: 'Reps in Reserve (RIR)', value: 'rir' },
+    { label: '% of 1RM', value: 'percent_1rm' }
   ]
 
   type ParameterToken =
@@ -1564,6 +1570,10 @@
         return 'Weight / Side (lb)'
       case 'weight_per_side_kg':
         return 'Weight / Side (kg)'
+      case 'rir':
+        return 'RIR'
+      case 'percent_1rm':
+        return '% 1RM'
       default:
         return 'Load'
     }
@@ -1600,6 +1610,10 @@
         return 'lb / side'
       case 'weight_per_side_kg':
         return 'kg / side'
+      case 'rir':
+        return 'Target RIR (e.g. 1-2)'
+      case 'percent_1rm':
+        return 'Target % (e.g. 85)'
       default:
         return 'Load'
     }

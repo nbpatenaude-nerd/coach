@@ -15,6 +15,8 @@ export type StrengthLoadMode =
   | 'weight_kg'
   | 'weight_per_side_lb'
   | 'weight_per_side_kg'
+  | 'rir'
+  | 'percent_1rm'
 
 export type StrengthSetRow = {
   id: string
