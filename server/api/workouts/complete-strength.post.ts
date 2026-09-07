@@ -4,9 +4,8 @@ import { requireAuth } from '../../utils/auth-guard'
 import { getEffectiveUserId } from '../../utils/coaching'
 
 export default defineEventHandler(async (event) => {
-  const session = await requireAuth(event)
-  const query = getQuery(event)
-  const userId = await getEffectiveUserId(event, session.user.id, query.athleteId as string)
+  await requireAuth(event)
+  const userId = await getEffectiveUserId(event)
 
   const body = await readBody(event)
   const { plannedWorkoutId, title, durationSec, exercises } = body
