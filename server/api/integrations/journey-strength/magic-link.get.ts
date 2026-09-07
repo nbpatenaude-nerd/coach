@@ -1,11 +1,11 @@
 import { defineEventHandler, sendRedirect, createError } from 'h3'
-import { requireAuth } from '../../utils/auth-guard'
-import { prisma } from '../../utils/db'
+import { requireAuth } from '../../../utils/auth-guard'
+import { prisma } from '../../../utils/db'
 
 export default defineEventHandler(async (event) => {
   // 1. Ensure the user is logged into Journey Endurance
-  const session = await requireAuth(event)
-  const userId = session.user.id
+  const user = await requireAuth(event)
+  const userId = user.id
 
   // 2. Fetch their Journey Strength integration token
   const integration = await prisma.integration.findFirst({

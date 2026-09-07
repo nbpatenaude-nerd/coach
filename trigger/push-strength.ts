@@ -40,7 +40,7 @@ export const pushWorkoutToJourneyStrength = task({
     const baseUrl = process.env.JOURNEY_STRENGTH_URL || 'https://strength-production.up.railway.app'
 
     const headers = {
-      'Authorization': `Token ${token}`,
+      Authorization: `Token ${token}`,
       'Content-Type': 'application/json'
     }
 
@@ -90,7 +90,9 @@ export const pushWorkoutToJourneyStrength = task({
 
         // Map libraryExerciseId to wger exercise ID.
         // Fallback ID 111 if unmapped.
-        const exerciseId = step.libraryExerciseId ? parseInt(step.libraryExerciseId.replace(/\D/g, '') || '111') : 111
+        const exerciseId = step.libraryExerciseId
+          ? parseInt(step.libraryExerciseId.replace(/\D/g, '') || '111')
+          : 111
 
         const setRes = await fetch(`${baseUrl}/api/v2/set/`, {
           method: 'POST',

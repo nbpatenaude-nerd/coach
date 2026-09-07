@@ -3,7 +3,8 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  const JOURNEY_STRENGTH_URL = process.env.JOURNEY_STRENGTH_URL || 'https://strength-production.up.railway.app'
+  const JOURNEY_STRENGTH_URL =
+    process.env.JOURNEY_STRENGTH_URL || 'https://strength-production.up.railway.app'
   const ADMIN_TOKEN = process.env.JOURNEY_STRENGTH_ADMIN_TOKEN
 
   if (!ADMIN_TOKEN) {
@@ -30,15 +31,15 @@ async function main() {
     'Pectoralis Major (Clavicular)': 4,
     'Triceps Brachii': 5,
     'Rectus Abdominis': 6,
-    'Gastrocnemius': 7,
+    Gastrocnemius: 7,
     'Gluteus Maximus': 8,
-    'Trapezius': 9,
-    'Quadriceps': 10,
-    'Hamstrings': 11,
+    Trapezius: 9,
+    Quadriceps: 10,
+    Hamstrings: 11,
     'Latissimus Dorsi': 12,
-    'Brachialis': 13,
-    'Obliques': 14,
-    'Soleus': 15
+    Brachialis: 13,
+    Obliques: 14,
+    Soleus: 15
   }
 
   let successCount = 0
@@ -68,7 +69,7 @@ async function main() {
       const response = await fetch(`${JOURNEY_STRENGTH_URL}/api/v2/exercise/`, {
         method: 'POST',
         headers: {
-          'Authorization': `Token ${ADMIN_TOKEN}`,
+          Authorization: `Token ${ADMIN_TOKEN}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
@@ -89,9 +90,11 @@ async function main() {
   console.log('\nMigration Complete!')
   console.log(`Successfully migrated: ${successCount}`)
   console.log(`Failed to migrate: ${errorCount}`)
-  
+
   if (successCount > 0) {
-    console.log('\nIMPORTANT: Remember to configure a Trigger.dev task to sync the unified library back to Journey Endurance!')
+    console.log(
+      '\nIMPORTANT: Remember to configure a Trigger.dev task to sync the unified library back to Journey Endurance!'
+    )
   }
 }
 

@@ -10,7 +10,7 @@ export const pushNutritionTargetsToJourneyStrength = task({
   run: async (payload: { userId: string; date: string }, { ctx }) => {
     const { userId, date } = payload
     const targetDate = new Date(date)
-    
+
     // Check for integration
     const integration = await prisma.integration.findFirst({
       where: {
@@ -24,7 +24,9 @@ export const pushNutritionTargetsToJourneyStrength = task({
     }
 
     // Get the calculated fueling plan for this date
-    const result = await metabolicService.calculateFuelingPlanForDate(userId, targetDate, { persist: false })
+    const result = await metabolicService.calculateFuelingPlanForDate(userId, targetDate, {
+      persist: false
+    })
     const plan = result.plan as any
 
     if (!plan || !plan.dailyTotals) {
@@ -40,7 +42,7 @@ export const pushNutritionTargetsToJourneyStrength = task({
     const response = await fetch(`${baseUrl}/api/v2/nutritionplan/`, {
       method: 'POST',
       headers: {
-        'Authorization': `Token ${token}`,
+        Authorization: `Token ${token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

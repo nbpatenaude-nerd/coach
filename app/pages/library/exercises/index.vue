@@ -945,8 +945,12 @@
   }
 
   const filteredTemplates = computed(() => {
-    const sortedAndFiltered = applyTemplateFilters(Array.isArray(templates.value) ? templates.value : [])
-    return sortedAndFiltered.filter((t: any) => t.sport === 'Strength' || t.workoutType === 'WeightTraining')
+    const sortedAndFiltered = applyTemplateFilters(
+      Array.isArray(templates.value) ? templates.value : []
+    )
+    return sortedAndFiltered.filter(
+      (t: any) => t.sport === 'Strength' || t.workoutType === 'WeightTraining'
+    )
   })
 
   const templateGroups = computed(() => {

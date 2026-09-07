@@ -26,7 +26,7 @@ export const syncJourneyStrengthData = task({
 
     // In the future, this is where we will query the Journey Strength API
     // using integration.accessToken to pull down missed workouts and nutrition logs.
-    // 
+    //
     // Example:
     // const response = await fetch(`https://strength-production.up.railway.app/api/v1/sync?since=${integration.lastSyncAt}`, {
     //   headers: { Authorization: `Token ${integration.accessToken}` }

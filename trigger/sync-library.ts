@@ -22,8 +22,8 @@ export const syncJourneyStrengthLibrary = task({
     while (url) {
       const response = await fetch(url, {
         headers: {
-          'Authorization': `Token ${adminToken}`,
-          'Accept': 'application/json'
+          Authorization: `Token ${adminToken}`,
+          Accept: 'application/json'
         }
       })
 
@@ -52,7 +52,7 @@ export const syncJourneyStrengthLibrary = task({
     for (const exercise of allExercises) {
       // Wger IDs are integers. We will prefix them so we don't conflict with any legacy UUIDs
       const exerciseId = `wger-${exercise.id}`
-      
+
       await prisma.strengthExerciseLibraryItem.upsert({
         where: { id: exerciseId },
         update: {
@@ -78,9 +78,9 @@ export const syncJourneyStrengthLibrary = task({
       upsertCount++
     }
 
-    return { 
-      success: true, 
-      message: `Successfully synced ${upsertCount} exercises from Journey Strength` 
+    return {
+      success: true,
+      message: `Successfully synced ${upsertCount} exercises from Journey Strength`
     }
   }
 })

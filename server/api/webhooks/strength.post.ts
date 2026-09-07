@@ -55,7 +55,6 @@ export default defineEventHandler(async (event) => {
       }
     })
     return { status: 'success', message: 'Workout logged' }
-
   } else if (eventType === 'nutrition.logged' || eventType === 'nutrition_daily_macros_updated') {
     // Upsert a WellnessRecord for today's macros
     const recordDate = new Date(body.date || body.data?.date || Date.now())

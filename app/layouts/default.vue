@@ -189,7 +189,7 @@
       {
         label: navLabel('navigation_journey_strength', 'Journey Strength'),
         icon: 'i-lucide-dumbbell',
-        to: '/api/auth/journey-strength-redirect',
+        to: '/api/integrations/journey-strength/magic-link',
         target: '_blank',
         onSelect: () => {
           open.value = false

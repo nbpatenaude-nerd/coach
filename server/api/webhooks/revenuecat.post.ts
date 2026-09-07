@@ -1,7 +1,8 @@
-import type { Prisma,
+import type {
+  Prisma,
   ProviderSubscriptionStatus,
   SubscriptionEnvironment
- } from '~~/server/utils/generated-prisma/client'
+} from '~~/server/utils/generated-prisma/client'
 import { z } from 'zod'
 
 import { prisma } from '../../utils/db'
