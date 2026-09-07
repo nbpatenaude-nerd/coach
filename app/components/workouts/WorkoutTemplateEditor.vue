@@ -35,7 +35,18 @@
 
     <USeparator />
 
-    <div class="space-y-4">
+    <StrengthExercisesEditor
+      v-if="isStrengthWorkout"
+      ref="strengthEditorRef"
+      :structured-workout="localTemplate.structuredWorkout"
+      :exercises="localTemplate.structuredWorkout?.exercises || []"
+      :owner-scope="activeOwnerScope"
+      :initial-duration-sec="localTemplate.durationSec"
+      :initial-tss="localTemplate.tss"
+      hide-actions
+    />
+
+    <div v-else class="space-y-4">
       <div class="flex items-center justify-between">
         <h3 class="text-sm font-black uppercase tracking-widest text-primary">Workout Structure</h3>
         <UButton
@@ -133,6 +144,8 @@
 </template>
 
 <script setup lang="ts">
+  import StrengthExercisesEditor from './planned/StrengthExercisesEditor.vue'
+
   const props = defineProps<{
     template?: any
     ownerScope?: 'athlete' | 'coach'
@@ -167,6 +180,10 @@
         }
   )
 
+  const isStrengthWorkout = computed(
+    () => localTemplate.value.sport === 'Strength' || localTemplate.value.type === 'WeightTraining'
+  )
+
   const folderOptions = computed(() => [
     { label: 'Unfiled', value: null },
     ...flat.value.map((folder) => ({
@@ -191,7 +208,10 @@
     })
   }
 
+  const strengthEditorRef = ref<any>(null)
+
   function removeStep(index: number) {
+    if (!localTemplate.value.structuredWorkout?.steps) return
     localTemplate.value.structuredWorkout.steps.splice(index, 1)
   }
 
@@ -199,6 +219,25 @@
     if (!localTemplate.value.title) {
       toast.add({ title: 'Title required', color: 'error' })
       return
+    }
+
+    if (isStrengthWorkout.value && strengthEditorRef.value) {
+      try {
+        const strengthPayload = strengthEditorRef.value.buildStructuredWorkoutPayload()
+        localTemplate.value.structuredWorkout = {
+          blocks: strengthPayload.blocks,
+          exercises: strengthPayload.exercises
+        }
+        localTemplate.value.durationSec = strengthPayload.durationSec
+        localTemplate.value.tss = strengthPayload.tss
+      } catch (err: any) {
+        toast.add({
+          title: 'Fix Exercise Details',
+          description: err.message || 'Please ensure all exercises are filled out.',
+          color: 'error'
+        })
+        return
+      }
     }
 
     saving.value = true

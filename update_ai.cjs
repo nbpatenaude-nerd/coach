@@ -7,7 +7,7 @@ content = content.replace(
   '<div\n        class=\"absolute inset-0 px-1 transition-opacity flex items-center\"\n        :class=\"\"\n      >\n        <form @submit.prevent=\"handleSubmit\" class=\"w-full flex items-center\">'
 );
 content = content.replace(
-  /<\/UInput>\n      <\/div>/g,
+  /<\/UInput>\n {6}<\/div>/g,
   '</UInput>\n        </form>\n      </div>'
 );
 // Remove @keyup.enter from UInput

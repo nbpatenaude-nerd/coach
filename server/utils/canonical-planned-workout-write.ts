@@ -1,4 +1,4 @@
-import { Prisma } from '~~/server/utils/generated-prisma/client'
+import type { Prisma } from '~~/server/utils/generated-prisma/client'
 import { createError } from 'h3'
 import { prisma } from './db'
 import {

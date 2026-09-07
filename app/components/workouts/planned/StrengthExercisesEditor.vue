@@ -385,7 +385,7 @@
       >
         Add Block
       </UButton>
-      <div class="flex gap-2">
+      <div v-if="!hideActions" class="flex gap-2">
         <UButton
           color="neutral"
           variant="ghost"
@@ -924,10 +924,15 @@
     initialDurationSec?: number | null
     initialTss?: number | null
     openStepTarget?: { blockIndex: number; stepIndex: number; requestId?: number } | null
+    hideActions?: boolean
   }>()
 
   const emit = defineEmits(['save', 'cancel'])
   const toast = useToast()
+
+  defineExpose({
+    buildStructuredWorkoutPayload
+  })
 
   const EMPTY_SELECT_VALUE = '__none__'
 

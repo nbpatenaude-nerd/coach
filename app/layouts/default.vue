@@ -186,6 +186,15 @@
           open.value = false
         }
       },
+      {
+        label: navLabel('navigation_journey_strength', 'Journey Strength'),
+        icon: 'i-lucide-dumbbell',
+        to: '/api/auth/journey-strength-redirect',
+        target: '_blank',
+        onSelect: () => {
+          open.value = false
+        }
+      },
       ...(true && nutritionEnabled.value
         ? [
             {
@@ -300,7 +309,7 @@
         defaultOpen: route.path.includes('library') || route.path.includes('analytics/browse'),
         children: [
           {
-            label: 'Workouts',
+            label: 'Cardio',
             icon: 'i-lucide-activity',
             to: '/library/workouts',
             onSelect: () => {
@@ -308,7 +317,7 @@
             }
           },
           {
-            label: 'Exercises',
+            label: 'Strength',
             icon: 'i-lucide-dumbbell',
             to: '/library/exercises',
             onSelect: () => {
@@ -642,12 +651,12 @@
             defaultOpen: route.path.includes('library') || route.path.includes('analytics/browse'),
             children: [
               {
-                label: 'Workouts',
+                label: 'Cardio',
                 icon: 'i-lucide-activity',
                 to: '/library/workouts'
               },
               {
-                label: 'Exercises',
+                label: 'Strength',
                 icon: 'i-lucide-dumbbell',
                 to: '/library/exercises'
               },

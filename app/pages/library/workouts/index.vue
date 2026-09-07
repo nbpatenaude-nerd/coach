@@ -1,10 +1,10 @@
 <template>
   <UDashboardPanel id="workout-library">
     <template #header>
-      <UDashboardNavbar title="Workouts">
+      <UDashboardNavbar title="Cardio">
         <template #right>
           <UDropdownMenu :items="newWorkoutDropdownItems" :content="{ align: 'end' }">
-            <UButton color="primary" icon="i-heroicons-plus" label="New Workout" />
+            <UButton color="primary" icon="i-heroicons-plus" label="New Cardio Workout" />
           </UDropdownMenu>
         </template>
       </UDashboardNavbar>
@@ -14,9 +14,9 @@
       <div class="space-y-6 px-0 py-4 sm:p-6">
         <div class="flex flex-col justify-between gap-4 px-4 md:flex-row md:items-center sm:px-0">
           <div>
-            <h1 class="text-3xl font-black uppercase tracking-tight">Workouts</h1>
+            <h1 class="text-3xl font-black uppercase tracking-tight">Cardio</h1>
             <p class="text-xs font-bold text-muted uppercase tracking-[0.2em] mt-1 italic">
-              Your Repository of Reusable Structured Sessions
+              Your Repository of Reusable Cardio Sessions
             </p>
           </div>
           <div class="flex flex-col items-stretch gap-2 md:items-end">
@@ -797,7 +797,7 @@
   }
 
   useHead({
-    title: 'Workouts'
+    title: 'Cardio'
   })
 
   const {
@@ -945,7 +945,8 @@
   }
 
   const filteredTemplates = computed(() => {
-    return applyTemplateFilters(Array.isArray(templates.value) ? templates.value : [])
+    const sortedAndFiltered = applyTemplateFilters(Array.isArray(templates.value) ? templates.value : [])
+    return sortedAndFiltered.filter((t: any) => t.sport !== 'Strength' && t.workoutType !== 'WeightTraining')
   })
 
   const templateGroups = computed(() => {

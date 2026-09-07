@@ -1,4 +1,5 @@
 import { prisma } from './db'
+import { tasks } from '@trigger.dev/sdk/v3'
 import {
   createIntervalsPlannedWorkout,
   deleteIntervalsPlannedWorkout,
@@ -169,9 +170,21 @@ export async function createPlannedWorkoutForUser(userId: string, body: any) {
   try {
     if (await isNutritionTrackingEnabled(userId)) {
       await metabolicService.calculateFuelingPlanForDate(userId, forcedDate, { persist: true })
+      await tasks.trigger('push-nutrition-targets-to-journey-strength', {
+        userId,
+        date: forcedDate.toISOString()
+      })
     }
   } catch (err) {
     console.error('[PlannedWorkoutCreate] Failed to trigger regeneration:', err)
+  }
+
+  if (plannedWorkout.type === 'WeightTraining') {
+    try {
+      await tasks.trigger('push-workout-to-journey-strength', { plannedWorkoutId: plannedWorkout.id })
+    } catch (err) {
+      console.error('[PlannedWorkoutCreate] Failed to trigger journey strength push:', err)
+    }
   }
 
   return {
@@ -260,6 +273,10 @@ export async function updatePlannedWorkoutForUser(userId: string, workoutId: str
       await metabolicService.calculateFuelingPlanForDate(userId, forcedDate || updated.date, {
         persist: true
       })
+      await tasks.trigger('push-nutrition-targets-to-journey-strength', {
+        userId,
+        date: (forcedDate || updated.date).toISOString()
+      })
     }
   } catch (err) {
     console.error('[PlannedWorkoutUpdate] Failed to trigger regeneration:', err)
@@ -340,6 +357,10 @@ export async function deletePlannedWorkoutForUser(userId: string, workoutId: str
   try {
     if (await isNutritionTrackingEnabled(userId)) {
       await metabolicService.calculateFuelingPlanForDate(userId, workout.date, { persist: true })
+      await tasks.trigger('push-nutrition-targets-to-journey-strength', {
+        userId,
+        date: workout.date.toISOString()
+      })
     }
   } catch (err) {
     console.error('[PlannedWorkoutDelete] Failed to trigger regeneration:', err)
