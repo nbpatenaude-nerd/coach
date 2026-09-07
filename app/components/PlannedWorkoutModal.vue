@@ -719,6 +719,17 @@
             Save to Library
           </UButton>
           <UButton
+            v-if="isStrengthWorkout && !plannedWorkout?.completed"
+            color="primary"
+            @click="
+              () => {
+                navigateTo(`/workouts/play/${plannedWorkout?.id}`)
+              }
+            "
+          >
+            Start Workout
+          </UButton>
+          <UButton
             v-if="showViewDetails && plannedWorkout"
             color="primary"
             @click="

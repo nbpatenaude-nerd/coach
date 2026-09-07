@@ -1,11 +1,18 @@
 <template>
-  <UDashboardPanel id="workout-library">
+  <UDashboardPanel id="exercise-library">
     <template #header>
-      <UDashboardNavbar title="Strength">
+      <UDashboardNavbar title="Exercises">
         <template #right>
-          <UDropdownMenu :items="newWorkoutDropdownItems" :content="{ align: 'end' }">
-            <UButton color="primary" icon="i-heroicons-plus" label="New Strength Workout" />
-          </UDropdownMenu>
+          <UButton
+            color="primary"
+            icon="i-heroicons-plus"
+            label="New Exercise"
+            @click="
+              () => {
+                void openCreateModal()
+              }
+            "
+          />
         </template>
       </UDashboardNavbar>
     </template>
@@ -14,11 +21,12 @@
       <div class="space-y-6 px-0 py-4 sm:p-6">
         <div class="flex flex-col justify-between gap-4 px-4 md:flex-row md:items-center sm:px-0">
           <div>
-            <h1 class="text-3xl font-black uppercase tracking-tight">Strength</h1>
-            <p class="text-xs font-bold text-muted uppercase tracking-[0.2em] mt-1 italic">
-              Your Repository of Reusable Strength Sessions
+            <h1 class="text-3xl font-black uppercase tracking-tight">Exercises</h1>
+            <p class="mt-1 text-xs font-bold uppercase tracking-[0.2em] text-muted">
+              Your Reusable Strength Exercise Library
             </p>
           </div>
+
           <div class="flex flex-col items-stretch gap-2 md:items-end">
             <div v-if="isCoachingMode" class="flex items-center gap-1 overflow-x-auto no-scrollbar">
               <UButton
@@ -37,1216 +45,1686 @@
                 {{ option.label }}
               </UButton>
             </div>
+
             <div class="flex items-center gap-2">
-              <UButton
-                color="neutral"
-                variant="outline"
-                icon="i-heroicons-folder-open"
-                class="lg:hidden"
-                :disabled="librarySource === 'all'"
-                @click="
-                  () => {
-                    showFolderSlideover = true
-                  }
-                "
-              >
-                Folders
-              </UButton>
               <UInput
                 v-model="searchQuery"
                 icon="i-heroicons-magnifying-glass"
-                placeholder="Search library..."
-                class="w-full md:w-64"
+                placeholder="Search exercises..."
+                class="min-w-0 flex-1 md:w-72 md:flex-none"
               />
             </div>
           </div>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <div v-if="librarySource !== 'all'" class="hidden lg:block">
-            <UCard :ui="{ body: 'p-4' }" class="sticky top-4 shadow-sm">
-              <UAlert
-                v-if="folderError"
-                color="error"
-                variant="soft"
-                icon="i-heroicons-exclamation-circle"
-                :title="folderError"
-                description="Workout folders could not be loaded."
-                class="mb-4"
-              >
-                <template #actions>
-                  <UButton
-                    color="error"
-                    variant="soft"
-                    size="xs"
-                    icon="i-heroicons-arrow-path"
-                    @click="
-                      () => {
-                        void refreshFolders()
-                      }
-                    "
-                  >
-                    Retry
-                  </UButton>
-                </template>
-              </UAlert>
-              <WorkoutFolderSelector
-                title="Library"
-                :tree="folderTree"
-                :counts="folderCounts"
-                :selected-scope="selectedScope"
-                :expanded-set="expandedSet"
-                :dragged-item="draggedItem"
-                allow-manage
-                @select-scope="setSelectedScope"
-                @toggle-folder="toggleExpanded"
-                @create-folder="openCreateFolder"
-                @rename-folder="openRenameFolder"
-                @delete-folder="openDeleteFolder"
-                @move-folder="moveFolder"
-                @drop-templates="dropTemplatesToFolder"
-                @drag-start="draggedItem = $event"
-                @drag-end="draggedItem = null"
-              />
-            </UCard>
+        <div class="flex flex-col gap-2 px-4 md:hidden sm:px-0">
+          <div class="flex items-center gap-2">
+            <UButton
+              icon="i-heroicons-adjustments-horizontal"
+              color="neutral"
+              variant="outline"
+              class="min-h-11"
+              :label="activeFilterCount ? `Filters (${activeFilterCount})` : 'Filters'"
+              aria-label="Open exercise filters"
+              @click="
+                () => {
+                  isMobileFilterOpen = true
+                }
+              "
+            />
+            <p v-if="mobileFilterSummary" class="min-w-0 flex-1 truncate text-xs text-muted">
+              {{ mobileFilterSummary }}
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="hidden flex-col gap-3 rounded-none border-y border-default/70 bg-muted/10 px-4 py-4 md:flex md:flex-row md:flex-wrap md:items-center sm:rounded-2xl sm:border sm:p-4"
+        >
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+            <UButton
+              size="xs"
+              :color="selectedPattern === 'all' ? 'primary' : 'neutral'"
+              :variant="selectedPattern === 'all' ? 'solid' : 'ghost'"
+              icon="i-heroicons-squares-2x2"
+              @click="
+                () => {
+                  selectedPattern = 'all'
+                }
+              "
+            >
+              All Patterns
+            </UButton>
+            <UButton
+              v-for="option in movementPatternFilterOptions"
+              :key="option.value"
+              size="xs"
+              :color="selectedPattern === option.value ? 'primary' : 'neutral'"
+              :variant="selectedPattern === option.value ? 'solid' : 'ghost'"
+              @click="
+                () => {
+                  selectedPattern = option.value
+                }
+              "
+            >
+              {{ option.label }}
+            </UButton>
           </div>
 
-          <div class="space-y-4">
-            <div
-              class="flex flex-col gap-3 rounded-none border-y border-default/70 bg-muted/10 px-4 py-4 md:flex-row md:flex-wrap md:items-center sm:rounded-2xl sm:border sm:p-4"
+          <div class="hidden h-4 w-px bg-default/70 md:block" />
+
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+            <UButton
+              v-for="option in intentFilterOptions"
+              :key="option.value"
+              size="xs"
+              :color="selectedIntent === option.value ? 'primary' : 'neutral'"
+              :variant="selectedIntent === option.value ? 'solid' : 'ghost'"
+              @click="
+                () => {
+                  selectedIntent = option.value
+                }
+              "
             >
-              <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-                <UTooltip text="All Types">
-                  <UButton
-                    size="xs"
-                    :color="selectedType === 'all' ? 'primary' : 'neutral'"
-                    :variant="selectedType === 'all' ? 'solid' : 'ghost'"
-                    icon="i-heroicons-squares-2x2"
-                    aria-label="All workout types"
-                    class="size-11 min-h-11 min-w-11 md:size-auto md:min-h-0 md:min-w-0"
-                    @click="
-                      () => {
-                        selectedType = 'all'
-                      }
-                    "
-                  />
-                </UTooltip>
-                <UTooltip v-for="type in workoutTypes" :key="type.value" :text="type.label">
-                  <UButton
-                    size="xs"
-                    :color="selectedType === type.value ? 'primary' : 'neutral'"
-                    :variant="selectedType === type.value ? 'solid' : 'ghost'"
-                    :icon="type.icon"
-                    :aria-label="type.label"
-                    class="size-11 min-h-11 min-w-11 md:size-auto md:min-h-0 md:min-w-0"
-                    @click="
-                      () => {
-                        selectedType = type.value
-                      }
-                    "
-                  />
-                </UTooltip>
-              </div>
+              {{ option.label }}
+            </UButton>
+          </div>
 
-              <div class="hidden h-4 w-px bg-default/70 md:block" />
+          <div class="hidden h-4 w-px bg-default/70 md:block" />
 
-              <div class="flex items-center gap-1.5">
-                <UButton
-                  v-for="range in durationRanges"
-                  :key="range.label"
-                  size="xs"
-                  :color="selectedDuration === range.value ? 'primary' : 'neutral'"
-                  :variant="selectedDuration === range.value ? 'solid' : 'ghost'"
-                  class="text-[10px] font-bold uppercase tracking-wider px-2"
-                  @click="
-                    () => {
-                      selectedDuration = range.value
-                    }
-                  "
-                >
-                  {{ range.label }}
-                </UButton>
-              </div>
+          <div class="min-w-0 md:min-w-[230px]">
+            <USelectMenu
+              v-model="selectedMuscleGroups"
+              multiple
+              :items="muscleGroupOptions"
+              value-key="value"
+              placeholder="Filter muscle groups"
+              class="w-full"
+            />
+          </div>
 
-              <div class="hidden h-4 w-px bg-default/70 md:block" />
+          <div class="hidden h-4 w-px bg-default/70 md:block" />
 
-              <div class="flex items-center gap-2 md:ml-auto">
-                <span class="text-[10px] font-black uppercase tracking-[0.16em] text-muted">
-                  Sort
-                </span>
-                <USelect v-model="sortBy" :items="sortOptions" size="xs" class="min-w-[150px]" />
-              </div>
-            </div>
+          <div class="flex items-center gap-2 md:ml-auto">
+            <span class="text-[10px] font-black uppercase tracking-[0.16em] text-muted">
+              Sort
+            </span>
+            <USelect v-model="sortBy" :items="sortOptions" size="xs" class="min-w-[170px]" />
+          </div>
+        </div>
 
-            <div
-              v-if="librarySource !== 'all' && selectedTemplateIds.length"
-              class="flex flex-wrap items-center justify-between gap-3 rounded-none border-y border-primary/20 bg-primary/5 px-4 py-4 sm:rounded-2xl sm:border sm:p-4"
-            >
-              <div class="text-sm font-medium text-highlighted">
-                {{ selectedTemplateIds.length }} workout{{
-                  selectedTemplateIds.length === 1 ? '' : 's'
-                }}
-                selected
-              </div>
-              <div class="flex items-center gap-2">
-                <UButton
-                  size="sm"
-                  color="primary"
-                  variant="soft"
-                  icon="i-heroicons-folder-open"
-                  @click="
-                    () => {
-                      void openMoveTemplatesModal(selectedTemplateIds)
-                    }
-                  "
-                >
-                  Move to folder
-                </UButton>
-                <UButton
-                  size="sm"
-                  color="neutral"
-                  variant="ghost"
-                  @click="
-                    () => {
-                      selectedTemplateIds = []
-                    }
-                  "
-                >
-                  Clear
-                </UButton>
-              </div>
-            </div>
+        <div
+          v-if="loading && !exerciseItems.length"
+          class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 xl:grid-cols-3"
+        >
+          <UCard v-for="i in 6" :key="i" class="min-h-[220px]" :ui="mobileListCardUi">
+            <USkeleton class="mb-4 h-5 w-2/3" />
+            <USkeleton class="mb-3 h-4 w-1/2" />
+            <USkeleton class="mb-2 h-20 w-full" />
+            <USkeleton class="h-10 w-full" />
+          </UCard>
+        </div>
 
-            <div
-              v-if="loading && !templateItems.length"
-              class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 xl:grid-cols-3"
-            >
-              <UCard v-for="i in 6" :key="i" class="min-h-[200px]" :ui="mobileListCardUi">
-                <USkeleton class="mb-4 h-4 w-3/4" />
-                <USkeleton class="mb-4 h-20 w-full" />
-                <div class="flex justify-between">
-                  <USkeleton class="h-4 w-20" />
-                  <USkeleton class="h-4 w-20" />
-                </div>
-              </UCard>
-            </div>
+        <div
+          v-else-if="filteredExercises.length === 0"
+          class="border-y border-dashed border-gray-200 bg-gray-50 px-4 py-20 text-center dark:border-gray-800 dark:bg-gray-900/50 sm:rounded-xl sm:border"
+        >
+          <UIcon name="i-tabler-barbell" class="mb-4 h-12 w-12 text-gray-300" />
+          <h3 class="text-lg font-bold">
+            {{ searchQuery ? 'No exercises match this search' : 'Your exercise library is empty' }}
+          </h3>
+          <p class="mx-auto mb-6 max-w-xs text-sm text-muted">
+            {{
+              searchQuery
+                ? 'Try a different keyword or filter combination.'
+                : 'Create reusable strength exercises here so coaches can quickly insert them into workout blocks.'
+            }}
+          </p>
+          <UButton
+            color="primary"
+            variant="soft"
+            @click="
+              () => {
+                void openCreateModal()
+              }
+            "
+          >
+            Create First Exercise
+          </UButton>
+        </div>
 
-            <div
-              v-else-if="librarySource !== 'all' && filteredTemplates.length === 0"
-              class="border-y border-dashed border-gray-200 bg-gray-50 px-4 py-20 text-center dark:border-gray-800 dark:bg-gray-900/50 sm:rounded-xl sm:border"
-            >
-              <UIcon name="i-heroicons-bookmark-slash" class="w-12 h-12 text-gray-300 mb-4" />
-              <h3 class="text-lg font-bold">
-                {{
-                  templateItems.length
-                    ? 'No workouts match this folder or filter'
-                    : 'Your library is empty'
-                }}
-              </h3>
-              <p class="text-sm text-muted max-w-xs mx-auto mb-6">
-                {{
-                  templateItems.length
-                    ? 'Try a different folder, search, or filter combination.'
-                    : 'Save any workout from your calendar or create a new session to start building your library.'
-                }}
-              </p>
-              <UDropdownMenu :items="newWorkoutDropdownItems" :content="{ align: 'center' }">
-                <UButton color="primary" icon="i-heroicons-plus" variant="soft">
-                  Create First Template
-                </UButton>
-              </UDropdownMenu>
-            </div>
-
-            <div
-              v-else-if="librarySource !== 'all'"
-              class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 xl:grid-cols-3"
-            >
-              <UCard
-                v-for="template in filteredTemplates"
-                :key="template.id"
-                class="group cursor-pointer transition-all hover:border-primary/50"
-                :ui="{
-                  ...mobileListCardUi,
-                  header: 'px-4 py-3 sm:px-4',
-                  body: 'px-4 py-3 sm:px-4',
-                  footer: 'px-4 py-2 sm:px-4'
-                }"
-                draggable="true"
-                @click="
-                  () => {
-                    previewTemplateId = template.id
-                  }
-                "
-                @dragstart="onTemplateDragStart(template)"
-                @dragend="draggedItem = null"
-              >
-                <template #header>
-                  <div class="flex items-start justify-between gap-3">
-                    <div class="flex min-w-0 items-start gap-3">
-                      <UIcon
-                        :name="getWorkoutIcon(template.type)"
-                        class="mt-0.5 h-4 w-4 shrink-0 text-primary"
-                      />
-                      <div class="min-w-0">
-                        <div class="truncate text-sm font-semibold leading-snug text-highlighted">
-                          {{ template.title }}
-                        </div>
-                        <div class="mt-2 flex min-h-6 flex-wrap items-center gap-1.5">
-                          <UBadge
-                            v-if="template.ownerScope"
-                            color="primary"
-                            variant="outline"
-                            size="xs"
-                            class="font-medium"
-                          >
-                            {{ template.ownerScope === 'coach' ? 'Coach' : 'Athlete' }}
-                          </UBadge>
-                          <UBadge
-                            v-if="template.folder?.name"
-                            color="neutral"
-                            variant="soft"
-                            size="xs"
-                            class="font-medium"
-                          >
-                            {{ template.folder.name }}
-                          </UBadge>
-                          <UBadge
-                            v-for="tag in (template.tags || []).slice(0, 2)"
-                            :key="tag"
-                            color="primary"
-                            variant="subtle"
-                            size="xs"
-                            class="font-medium"
-                          >
-                            {{ tag }}
-                          </UBadge>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex items-start gap-1">
-                      <UDropdownMenu
-                        :items="[
-                          [
-                            {
-                              label: 'Apply to athlete(s)',
-                              icon: 'i-heroicons-user-group',
-                              onSelect: () => {
-                                applyTemplateTarget = template
-                                showApplyModal = true
-                              }
-                            },
-                            {
-                              label: 'Move to folder',
-                              icon: 'i-heroicons-folder-open',
-                              onSelect: () => openMoveTemplatesModal([template.id])
-                            }
-                          ],
-                          [
-                            {
-                              label: 'Delete',
-                              icon: 'i-heroicons-trash',
-                              color: 'error',
-                              onSelect: () => confirmDelete(template)
-                            }
-                          ]
-                        ]"
-                        :content="{ align: 'end' }"
-                      >
-                        <UButton
-                          size="xs"
-                          color="neutral"
-                          variant="ghost"
-                          icon="i-heroicons-ellipsis-horizontal"
-                          class="opacity-0 transition-opacity group-hover:opacity-100"
-                          @click.stop
-                        />
-                      </UDropdownMenu>
-                      <UCheckbox
-                        :model-value="selectedTemplateIds.includes(template.id)"
-                        @click.stop
-                        @update:model-value="toggleTemplateSelection(template.id)"
-                      />
-                    </div>
+        <div v-else class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 xl:grid-cols-3">
+          <UCard
+            v-for="exercise in filteredExercises"
+            :key="exercise.id"
+            class="group flex h-full cursor-pointer flex-col transition-all hover:border-primary/50"
+            :ui="{
+              ...mobileListCardUi,
+              header: 'px-4 py-3 sm:px-4',
+              body: 'flex flex-1 flex-col px-4 py-3 sm:px-4',
+              footer: 'px-4 py-3 sm:px-4'
+            }"
+            @click="
+              () => {
+                void openPreview(exercise)
+              }
+            "
+          >
+            <template #header>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <div class="truncate text-sm font-semibold leading-snug text-highlighted">
+                    {{ exercise.title }}
                   </div>
-                </template>
-
-                <div class="space-y-2">
-                  <div
-                    v-if="template.structuredWorkout"
-                    class="h-12 w-full px-1.5 opacity-85 transition-opacity group-hover:opacity-100"
-                  >
-                    <MiniWorkoutChart :workout="template" class="h-full w-full" />
-                  </div>
-                  <div
-                    v-else
-                    class="mx-1.5 flex h-12 items-center justify-center rounded-lg bg-gray-50 text-[10px] italic text-muted dark:bg-gray-900"
-                  >
-                    No structure defined
-                  </div>
-                </div>
-
-                <template #footer>
-                  <div class="flex items-center justify-between gap-3 text-xs text-muted">
-                    <div class="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1">
-                      <div class="flex items-center gap-1 whitespace-nowrap">
-                        <UIcon name="i-heroicons-clock" class="h-3.5 w-3.5" />
-                        {{ Math.round(template.durationSec / 60) }}m
-                      </div>
-                      <div
-                        v-if="template.tss"
-                        class="flex items-center gap-1 whitespace-nowrap text-amber-500"
-                      >
-                        <UIcon name="i-heroicons-bolt" class="h-3.5 w-3.5" />
-                        {{ Math.round(template.tss) }} TSS
-                      </div>
-                      <div class="flex items-center gap-1 whitespace-nowrap">
-                        <UIcon name="i-heroicons-calendar" class="h-3.5 w-3.5" />
-                        {{ template.usageCount || 0 }} uses
-                      </div>
-                    </div>
-
-                    <UButton
-                      size="xs"
+                  <div class="mt-2 flex min-h-6 flex-wrap items-center gap-1.5">
+                    <UBadge
+                      v-if="exercise.ownerScope"
                       color="primary"
+                      variant="outline"
+                      size="xs"
+                      class="font-medium"
+                    >
+                      {{ exercise.ownerScope === 'coach' ? 'Coach' : 'Athlete' }}
+                    </UBadge>
+                    <UBadge
+                      v-if="exercise.movementPattern"
+                      color="neutral"
                       variant="soft"
-                      icon="i-heroicons-plus"
-                      class="h-7 w-7 shrink-0 rounded-full"
-                      :ui="{ base: 'h-7 w-7 items-center justify-center p-0' }"
-                      aria-label="Use session"
-                      title="Use Session"
-                      @click.stop="useTemplate(template)"
-                    />
+                      size="xs"
+                    >
+                      {{ formatTokenLabel(exercise.movementPattern) }}
+                    </UBadge>
+                    <UBadge v-if="exercise.intent" color="primary" variant="soft" size="xs">
+                      {{ formatTokenLabel(exercise.intent) }}
+                    </UBadge>
+                    <UBadge
+                      v-for="muscle in (exercise.targetMuscleGroups || []).slice(0, 2)"
+                      :key="muscle"
+                      color="warning"
+                      variant="subtle"
+                      size="xs"
+                    >
+                      {{ formatTokenLabel(muscle) }}
+                    </UBadge>
                   </div>
+                </div>
+
+                <div class="flex items-center gap-1">
+                  <UButton
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                    icon="i-tabler-brand-youtube"
+                    class="text-red-400 hover:text-red-500"
+                    @click.stop="openYouTubeSearch(exercise.title)"
+                  />
+                  <UButton
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                    icon="i-heroicons-pencil-square"
+                    @click.stop="openEditModal(exercise)"
+                  />
+                  <UButton
+                    color="error"
+                    variant="ghost"
+                    size="xs"
+                    icon="i-heroicons-trash"
+                    :loading="deletingExerciseId === exercise.id"
+                    @click.stop="deleteExercise(exercise)"
+                  />
+                </div>
+              </div>
+            </template>
+
+            <div class="flex h-full flex-col space-y-3">
+              <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+                <span
+                  >{{ getSetCount(exercise) }} set{{ getSetCount(exercise) === 1 ? '' : 's' }}</span
+                >
+                <span class="text-default/50">•</span>
+                <span>{{ prescriptionColumnLabel(exercise.prescriptionMode) }}</span>
+                <template v-if="exercise.loadMode && exercise.loadMode !== 'none'">
+                  <span class="text-default/50">•</span>
+                  <span>{{ loadModeLabel(exercise.loadMode) }}</span>
                 </template>
-              </UCard>
-            </div>
+                <template v-if="exercise.defaultRest || exercise.rest">
+                  <span class="text-default/50">•</span>
+                  <span>Rest {{ exercise.defaultRest || exercise.rest }}</span>
+                </template>
+              </div>
 
-            <div v-else-if="templateGroups.length === 0" class="space-y-3">
-              <UAlert
-                color="neutral"
-                variant="soft"
-                title="No templates available"
-                description="Neither the coach nor athlete library has matching items."
-              />
-            </div>
+              <p v-if="exercise.notes" class="line-clamp-2 text-sm italic text-muted">
+                {{ exercise.notes }}
+              </p>
 
-            <div v-else class="space-y-6">
-              <section v-for="group in templateGroups" :key="group.key" class="space-y-3">
-                <div class="flex items-center justify-between gap-3">
-                  <div>
-                    <h2 class="text-lg font-bold text-highlighted">{{ group.label }}</h2>
-                    <p class="text-xs uppercase tracking-[0.16em] text-muted">
-                      {{ group.items.length }} item{{ group.items.length === 1 ? '' : 's' }}
-                    </p>
+              <div
+                v-if="getYouTubeEmbedUrl(exercise.videoUrl)"
+                class="overflow-hidden rounded-2xl border border-default/70 bg-default shadow-sm"
+              >
+                <iframe
+                  :src="getYouTubeEmbedUrl(exercise.videoUrl) || undefined"
+                  title="Exercise video"
+                  class="aspect-video w-full"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                  "
+                  allowfullscreen
+                />
+              </div>
+
+              <div class="overflow-hidden rounded-2xl border border-default/70 bg-default/30">
+                <div
+                  class="grid text-[10px] font-black uppercase tracking-[0.24em] text-muted"
+                  :style="gridTemplateColumns(exercise)"
+                >
+                  <div class="border-b border-default/70 px-3 py-3">Set</div>
+                  <div
+                    v-if="exercise.loadMode && exercise.loadMode !== 'none'"
+                    class="border-b border-default/70 px-3 py-3"
+                  >
+                    {{ loadModeLabel(exercise.loadMode) }}
+                  </div>
+                  <div class="border-b border-default/70 px-3 py-3">
+                    {{ prescriptionColumnLabel(exercise.prescriptionMode) }}
+                  </div>
+                  <div v-if="exercise.showRestColumn" class="border-b border-default/70 px-3 py-3">
+                    Rest
                   </div>
                 </div>
 
                 <div
-                  v-if="group.items.length"
-                  class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 xl:grid-cols-3"
+                  v-for="row in previewRows(exercise).slice(0, 3)"
+                  :key="row.id"
+                  class="grid text-sm"
+                  :style="gridTemplateColumns(exercise)"
                 >
-                  <UCard
-                    v-for="template in group.items"
-                    :key="template.id"
-                    class="group cursor-pointer transition-all hover:border-primary/50"
-                    :ui="{
-                      ...mobileListCardUi,
-                      header: 'px-4 py-3 sm:px-4',
-                      body: 'px-4 py-3 sm:px-4',
-                      footer: 'px-4 py-2 sm:px-4'
-                    }"
-                    draggable="true"
-                    @click="
-                      () => {
-                        previewTemplateId = template.id
-                      }
-                    "
-                    @dragstart="onTemplateDragStart(template)"
-                    @dragend="draggedItem = null"
+                  <div class="border-b border-default/50 px-3 py-3 font-semibold text-highlighted">
+                    {{ row.index }}
+                  </div>
+                  <div
+                    v-if="exercise.loadMode && exercise.loadMode !== 'none'"
+                    class="border-b border-default/50 px-3 py-3 text-highlighted"
                   >
-                    <template #header>
-                      <div class="flex items-start justify-between gap-3">
-                        <div class="flex min-w-0 items-start gap-3">
-                          <UIcon
-                            :name="getWorkoutIcon(template.type)"
-                            class="mt-0.5 h-4 w-4 shrink-0 text-primary"
-                          />
-                          <div class="min-w-0">
-                            <div
-                              class="truncate text-sm font-semibold leading-snug text-highlighted"
-                            >
-                              {{ template.title }}
-                            </div>
-                            <div class="mt-2 flex min-h-6 flex-wrap items-center gap-1.5">
-                              <UBadge
-                                color="primary"
-                                variant="outline"
-                                size="xs"
-                                class="font-medium"
-                              >
-                                {{ template.ownerScope === 'coach' ? 'Coach' : 'Athlete' }}
-                              </UBadge>
-                              <UBadge
-                                v-if="template.folder?.name"
-                                color="neutral"
-                                variant="soft"
-                                size="xs"
-                                class="font-medium"
-                              >
-                                {{ template.folder.name }}
-                              </UBadge>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </template>
-
-                    <div class="space-y-2">
-                      <div
-                        v-if="template.structuredWorkout"
-                        class="h-12 w-full px-1.5 opacity-85 transition-opacity group-hover:opacity-100"
-                      >
-                        <MiniWorkoutChart :workout="template" class="h-full w-full" />
-                      </div>
-                      <div
-                        v-else
-                        class="mx-1.5 flex h-12 items-center justify-center rounded-lg bg-gray-50 text-[10px] italic text-muted dark:bg-gray-900"
-                      >
-                        No structure defined
-                      </div>
-                    </div>
-
-                    <template #footer>
-                      <div class="flex items-center justify-between gap-3 text-xs text-muted">
-                        <div class="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1">
-                          <div class="flex items-center gap-1 whitespace-nowrap">
-                            <UIcon name="i-heroicons-clock" class="h-3.5 w-3.5" />
-                            {{ Math.round(template.durationSec / 60) }}m
-                          </div>
-                          <div
-                            v-if="template.tss"
-                            class="flex items-center gap-1 whitespace-nowrap text-amber-500"
-                          >
-                            <UIcon name="i-heroicons-bolt" class="h-3.5 w-3.5" />
-                            {{ Math.round(template.tss) }} TSS
-                          </div>
-                        </div>
-                      </div>
-                    </template>
-                  </UCard>
+                    {{ row.loadValue || '--' }}
+                  </div>
+                  <div class="border-b border-default/50 px-3 py-3 text-highlighted">
+                    {{ row.value || '--' }}
+                  </div>
+                  <div
+                    v-if="exercise.showRestColumn"
+                    class="border-b border-default/50 px-3 py-3 text-highlighted"
+                  >
+                    {{ row.restOverride || exercise.defaultRest || '--' }}
+                  </div>
                 </div>
-              </section>
+
+                <div
+                  v-if="previewRows(exercise).length > 3"
+                  class="px-3 py-2 text-xs font-medium text-muted"
+                >
+                  +{{ previewRows(exercise).length - 3 }} more set{{
+                    previewRows(exercise).length - 3 === 1 ? '' : 's'
+                  }}
+                </div>
+              </div>
+
+              <div class="flex-1" />
             </div>
-          </div>
+
+            <template #footer>
+              <div class="flex items-center justify-between gap-3 text-xs text-muted">
+                <span>
+                  Updated
+                  {{
+                    new Date(
+                      exercise.updatedAt || exercise.createdAt || Date.now()
+                    ).toLocaleDateString()
+                  }}
+                </span>
+                <UButton
+                  color="neutral"
+                  variant="ghost"
+                  size="xs"
+                  trailing-icon="i-heroicons-arrow-right"
+                  @click.stop="openPreview(exercise)"
+                >
+                  View Details
+                </UButton>
+              </div>
+            </template>
+          </UCard>
         </div>
       </div>
     </template>
   </UDashboardPanel>
 
-  <!-- Editor Modal -->
-  <UModal
-    v-model:open="isEditorOpen"
-    :title="editingTemplate?.id ? 'Edit Workout Template' : 'New Workout Template'"
-    description="Define your reusable workout structure here."
-  >
-    <template #body>
-      <div class="p-6">
-        <WorkoutTemplateEditor
-          :template="editingTemplate"
-          :owner-scope="
-            editingTemplate?.ownerScope || (librarySource === 'athlete' ? 'athlete' : 'coach')
-          "
-          @save="onTemplateSaved"
-          @cancel="isEditorOpen = false"
-        />
-      </div>
-    </template>
-  </UModal>
+  <USlideover v-model:open="isMobileFilterOpen" side="bottom" class="md:hidden">
+    <template #content>
+      <div class="flex max-h-[85dvh] flex-col gap-6 overflow-y-auto p-4 pb-6">
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="text-lg font-bold">Filter exercises</h2>
+          <UButton
+            color="neutral"
+            variant="ghost"
+            icon="i-heroicons-x-mark"
+            aria-label="Close filters"
+            @click="
+              () => {
+                isMobileFilterOpen = false
+              }
+            "
+          />
+        </div>
 
-  <!-- Delete Confirmation -->
-  <UModal
-    v-model:open="isDeleteModalOpen"
-    title="Delete Template"
-    description="Are you sure you want to delete this workout template? This cannot be undone."
-  >
-    <template #footer>
-      <div class="flex justify-end gap-3 w-full">
-        <UButton
-          color="neutral"
-          variant="ghost"
-          @click="
-            () => {
-              isDeleteModalOpen = false
-            }
-          "
-          >Cancel</UButton
-        >
-        <UButton
-          color="error"
-          :loading="deleting"
-          @click="
-            () => {
-              void deleteTemplate()
-            }
-          "
-          >Delete Template</UButton
-        >
-      </div>
-    </template>
-  </UModal>
+        <div class="space-y-2">
+          <p class="text-[10px] font-black uppercase tracking-[0.16em] text-muted">
+            Movement pattern
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <UButton
+              size="xs"
+              :color="selectedPattern === 'all' ? 'primary' : 'neutral'"
+              :variant="selectedPattern === 'all' ? 'solid' : 'ghost'"
+              icon="i-heroicons-squares-2x2"
+              @click="
+                () => {
+                  selectedPattern = 'all'
+                }
+              "
+            >
+              All Patterns
+            </UButton>
+            <UButton
+              v-for="option in movementPatternFilterOptions"
+              :key="option.value"
+              size="xs"
+              :color="selectedPattern === option.value ? 'primary' : 'neutral'"
+              :variant="selectedPattern === option.value ? 'solid' : 'ghost'"
+              @click="
+                () => {
+                  selectedPattern = option.value
+                }
+              "
+            >
+              {{ option.label }}
+            </UButton>
+          </div>
+        </div>
 
-  <UModal
-    v-model:open="isFolderModalOpen"
-    :title="folderModalMode === 'rename' ? 'Rename Folder' : 'New Folder'"
-  >
-    <template #body>
-      <div class="space-y-4 p-4">
-        <UFormField label="Folder Name">
-          <UInput v-model="folderFormName" placeholder="Base, VO2, Race Week..." />
+        <div class="space-y-2">
+          <p class="text-[10px] font-black uppercase tracking-[0.16em] text-muted">Intent</p>
+          <div class="flex flex-wrap gap-1.5">
+            <UButton
+              v-for="option in intentFilterOptions"
+              :key="option.value"
+              size="xs"
+              :color="selectedIntent === option.value ? 'primary' : 'neutral'"
+              :variant="selectedIntent === option.value ? 'solid' : 'ghost'"
+              @click="
+                () => {
+                  selectedIntent = option.value
+                }
+              "
+            >
+              {{ option.label }}
+            </UButton>
+          </div>
+        </div>
+
+        <UFormField label="Muscle groups">
+          <USelectMenu
+            v-model="selectedMuscleGroups"
+            multiple
+            :items="muscleGroupOptions"
+            value-key="value"
+            placeholder="Filter muscle groups"
+            class="w-full"
+          />
         </UFormField>
-      </div>
-    </template>
-    <template #footer>
-      <div class="flex w-full justify-end gap-3">
-        <UButton
-          color="neutral"
-          variant="ghost"
-          @click="
-            () => {
-              isFolderModalOpen = false
-            }
-          "
-          >Cancel</UButton
-        >
-        <UButton
-          color="primary"
-          :loading="savingFolder"
-          @click="
-            () => {
-              void submitFolderForm()
-            }
-          "
-        >
-          {{ folderModalMode === 'rename' ? 'Save' : 'Create Folder' }}
-        </UButton>
-      </div>
-    </template>
-  </UModal>
 
-  <UModal
-    v-model:open="isDeleteFolderModalOpen"
-    title="Delete Folder"
-    description="Child folders move up one level and workouts in this folder become Unfiled."
-  >
-    <template #footer>
-      <div class="flex w-full justify-end gap-3">
-        <UButton
-          color="neutral"
-          variant="ghost"
-          @click="
-            () => {
-              isDeleteFolderModalOpen = false
-            }
-          "
-          >Cancel</UButton
-        >
-        <UButton
-          color="error"
-          :loading="savingFolder"
-          @click="
-            () => {
-              void deleteFolder()
-            }
-          "
-          >Delete Folder</UButton
-        >
-      </div>
-    </template>
-  </UModal>
+        <UFormField label="Sort">
+          <USelect v-model="sortBy" :items="sortOptions" class="w-full" />
+        </UFormField>
 
-  <UModal v-model:open="isMoveTemplatesModalOpen" title="Move to Folder">
-    <template #body>
-      <div class="p-4">
-        <WorkoutFolderSelector
-          title="Choose Destination"
-          :tree="folderTree"
-          :counts="folderCounts"
-          :selected-scope="moveTemplatesTargetScope"
-          :expanded-set="expandedSet"
-          @select-scope="moveTemplatesTargetScope = $event"
-          @toggle-folder="toggleExpanded"
-        />
-      </div>
-    </template>
-    <template #footer>
-      <div class="flex w-full justify-end gap-3">
-        <UButton
-          color="neutral"
-          variant="ghost"
-          @click="
-            () => {
-              isMoveTemplatesModalOpen = false
-            }
-          "
-          >Cancel</UButton
-        >
-        <UButton
-          color="primary"
-          :loading="movingTemplates"
-          @click="
-            () => {
-              void moveSelectedTemplates()
-            }
-          "
-        >
-          Move
-        </UButton>
-      </div>
-    </template>
-  </UModal>
-
-  <USlideover
-    v-if="librarySource !== 'all'"
-    v-model:open="showFolderSlideover"
-    side="left"
-    title="Folders"
-  >
-    <template #body>
-      <div class="p-4">
-        <WorkoutFolderSelector
-          title="Library"
-          :tree="folderTree"
-          :counts="folderCounts"
-          :selected-scope="selectedScope"
-          :expanded-set="expandedSet"
-          :dragged-item="draggedItem"
-          allow-manage
-          @select-scope="selectScopeFromSlideover"
-          @toggle-folder="toggleExpanded"
-          @create-folder="openCreateFolder"
-          @rename-folder="openRenameFolder"
-          @delete-folder="openDeleteFolder"
-          @move-folder="moveFolder"
-          @drop-templates="dropTemplatesToFolder"
-          @drag-start="draggedItem = $event"
-          @drag-end="draggedItem = null"
-        />
+        <div class="flex gap-2 pt-2">
+          <UButton
+            color="neutral"
+            variant="outline"
+            class="min-h-11 flex-1"
+            @click="
+              () => {
+                selectedPattern = 'all'
+                selectedIntent = 'all'
+                selectedMuscleGroups = []
+                sortBy = 'updated'
+              }
+            "
+          >
+            Reset
+          </UButton>
+          <UButton
+            color="primary"
+            class="min-h-11 flex-1"
+            @click="
+              () => {
+                isMobileFilterOpen = false
+              }
+            "
+          >
+            Show results
+          </UButton>
+        </div>
       </div>
     </template>
   </USlideover>
 
-  <WorkoutTemplatePreviewModal
-    v-model:template-id="previewTemplateId"
-    :template-owner-scope="activePreviewTemplate?.ownerScope"
-    @view="openPreviewDetails"
-  />
+  <USlideover v-model:open="isPreviewOpen" side="right">
+    <template #content>
+      <div class="flex h-full flex-col">
+        <div class="border-b border-default/70 px-5 py-4">
+          <div class="flex items-start justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-xs font-black uppercase tracking-[0.22em] text-muted">
+                Saved Exercise
+              </p>
+              <h2 class="mt-1 text-xl font-semibold text-highlighted">
+                {{ previewItem?.title || 'Exercise details' }}
+              </h2>
+              <div class="mt-3 flex flex-wrap items-center gap-1.5">
+                <UBadge v-if="previewItem?.ownerScope" color="primary" variant="outline" size="xs">
+                  {{ previewItem.ownerScope === 'coach' ? 'Coach' : 'Athlete' }}
+                </UBadge>
+                <UBadge
+                  v-if="previewItem?.movementPattern"
+                  color="neutral"
+                  variant="soft"
+                  size="xs"
+                >
+                  {{ formatTokenLabel(previewItem.movementPattern) }}
+                </UBadge>
+                <UBadge v-if="previewItem?.intent" color="primary" variant="soft" size="xs">
+                  {{ formatTokenLabel(previewItem.intent) }}
+                </UBadge>
+                <UBadge
+                  v-for="muscle in previewItem?.targetMuscleGroups || []"
+                  :key="muscle"
+                  color="warning"
+                  variant="subtle"
+                  size="xs"
+                >
+                  {{ formatTokenLabel(muscle) }}
+                </UBadge>
+              </div>
+            </div>
 
-  <LibraryApplyWorkoutModal
-    v-model:open="showApplyModal"
-    :template="applyTemplateTarget"
-    @applied="showApplyModal = false"
-  />
+            <div class="flex items-center gap-1">
+              <UButton
+                color="neutral"
+                variant="ghost"
+                size="sm"
+                icon="i-tabler-brand-youtube"
+                class="text-red-400 hover:text-red-500"
+                @click.stop="openYouTubeSearch(previewItem?.title || '')"
+              />
+              <UButton
+                color="neutral"
+                variant="ghost"
+                size="sm"
+                icon="i-heroicons-pencil-square"
+                @click="
+                  () => {
+                    previewItem && openEditModal(previewItem)
+                  }
+                "
+              />
+            </div>
+          </div>
+        </div>
 
-  <AiWorkoutGeneratorModal v-model:open="isAiModalOpen" @created="handleAiGenerated" />
+        <div class="flex-1 space-y-5 overflow-y-auto px-5 py-5">
+          <div
+            v-if="previewItem"
+            class="grid gap-3 rounded-2xl border border-default/70 bg-muted/10 p-4 sm:grid-cols-3"
+          >
+            <div>
+              <div class="text-[10px] font-black uppercase tracking-[0.22em] text-muted">Sets</div>
+              <div class="mt-1 text-lg font-semibold text-highlighted">
+                {{ getSetCount(previewItem) }}
+              </div>
+            </div>
+            <div>
+              <div class="text-[10px] font-black uppercase tracking-[0.22em] text-muted">
+                Primary Metric
+              </div>
+              <div class="mt-1 text-sm font-medium text-highlighted">
+                {{ prescriptionColumnLabel(previewItem.prescriptionMode) }}
+              </div>
+            </div>
+            <div>
+              <div class="text-[10px] font-black uppercase tracking-[0.22em] text-muted">Load</div>
+              <div class="mt-1 text-sm font-medium text-highlighted">
+                {{
+                  previewItem.loadMode && previewItem.loadMode !== 'none'
+                    ? loadModeLabel(previewItem.loadMode)
+                    : 'None'
+                }}
+              </div>
+            </div>
+          </div>
+
+          <div v-if="previewEmbedUrl" class="space-y-2">
+            <div class="text-[10px] font-black uppercase tracking-[0.22em] text-muted">Video</div>
+            <div class="overflow-hidden rounded-2xl border border-default/70 bg-default shadow-sm">
+              <iframe
+                :src="previewEmbedUrl"
+                title="Exercise video"
+                class="aspect-video w-full"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                "
+                allowfullscreen
+              />
+            </div>
+          </div>
+
+          <div
+            v-if="previewItem"
+            class="overflow-hidden rounded-2xl border border-default/70 bg-default shadow-sm"
+          >
+            <div
+              class="grid text-[10px] font-black uppercase tracking-[0.24em] text-muted"
+              :style="gridTemplateColumns(previewItem)"
+            >
+              <div class="border-b border-default/70 px-3 py-3">Set</div>
+              <div
+                v-if="previewItem.loadMode && previewItem.loadMode !== 'none'"
+                class="border-b border-default/70 px-3 py-3"
+              >
+                {{ loadModeLabel(previewItem.loadMode) }}
+              </div>
+              <div class="border-b border-default/70 px-3 py-3">
+                {{ prescriptionColumnLabel(previewItem.prescriptionMode) }}
+              </div>
+              <div v-if="previewItem.showRestColumn" class="border-b border-default/70 px-3 py-3">
+                Rest
+              </div>
+            </div>
+
+            <div
+              v-for="row in previewRows(previewItem)"
+              :key="row.id"
+              class="grid text-sm"
+              :style="gridTemplateColumns(previewItem)"
+            >
+              <div class="border-b border-default/50 px-3 py-3 font-semibold text-highlighted">
+                {{ row.index }}
+              </div>
+              <div
+                v-if="previewItem.loadMode && previewItem.loadMode !== 'none'"
+                class="border-b border-default/50 px-3 py-3 text-highlighted"
+              >
+                {{ row.loadValue || '--' }}
+              </div>
+              <div class="border-b border-default/50 px-3 py-3 text-highlighted">
+                {{ row.value || '--' }}
+              </div>
+              <div
+                v-if="previewItem.showRestColumn"
+                class="border-b border-default/50 px-3 py-3 text-highlighted"
+              >
+                {{ row.restOverride || previewItem.defaultRest || '--' }}
+              </div>
+            </div>
+          </div>
+
+          <div v-if="previewItem?.notes" class="space-y-2">
+            <div class="text-[10px] font-black uppercase tracking-[0.22em] text-muted">Notes</div>
+            <div
+              class="rounded-2xl border border-default/70 bg-muted/10 p-4 text-sm italic text-muted"
+            >
+              {{ previewItem.notes }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </USlideover>
+
+  <UModal
+    v-model:open="isEditorOpen"
+    :ui="{ content: 'w-[calc(100vw-1rem)] max-w-5xl max-h-[100dvh] overflow-hidden' }"
+  >
+    <template #content>
+      <div class="flex max-h-[100dvh] min-h-0 flex-col overflow-hidden">
+        <div class="shrink-0 border-b border-default/70 px-5 py-4">
+          <h2 class="text-lg font-semibold text-highlighted">
+            {{ editorMode === 'create' ? 'Create Exercise' : 'Edit Exercise' }}
+          </h2>
+          <p class="mt-1 text-sm text-muted">
+            Save a reusable exercise with starter set rows and optional video or coaching notes.
+          </p>
+        </div>
+
+        <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5">
+          <div class="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,0.95fr)]">
+            <div class="space-y-5">
+              <div class="grid gap-4 md:grid-cols-2">
+                <div class="md:col-span-2">
+                  <label
+                    class="mb-2 block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Exercise Title
+                  </label>
+                  <div class="flex items-center gap-2">
+                    <UInput v-model="form.title" placeholder="Back Squat" class="w-full" />
+                    <UButton
+                      color="neutral"
+                      variant="outline"
+                      size="sm"
+                      icon="i-tabler-brand-youtube"
+                      class="shrink-0 text-red-400 hover:text-red-500"
+                      :disabled="!form.title.trim()"
+                      @click="
+                        () => {
+                          void openYouTubeSearch(form.title)
+                        }
+                      "
+                    />
+                  </div>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label
+                    class="mb-2 block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Aliases
+                  </label>
+                  <UInput
+                    v-model="form.aliasesText"
+                    placeholder="RDL, BB RDL, Romanian Dead Lift"
+                    class="w-full"
+                  />
+                  <p class="mt-2 text-xs text-muted">
+                    Optional alternate names used when matching generated exercises to your library.
+                  </p>
+                </div>
+
+                <div>
+                  <label
+                    class="mb-2 block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Movement Pattern
+                  </label>
+                  <USelect
+                    v-model="movementPatternSelectValue"
+                    :items="movementPatternOptions"
+                    class="w-full"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    class="mb-2 block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Intent
+                  </label>
+                  <USelect v-model="intentSelectValue" :items="intentOptions" class="w-full" />
+                </div>
+
+                <div class="md:col-span-2">
+                  <label
+                    class="mb-2 block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Target Muscle Groups
+                  </label>
+                  <USelectMenu
+                    v-model="form.targetMuscleGroups"
+                    multiple
+                    :items="muscleGroupOptions"
+                    value-key="value"
+                    placeholder="Select target muscle groups"
+                    class="w-full"
+                  />
+                </div>
+              </div>
+
+              <div
+                class="overflow-hidden rounded-2xl border border-default/70 bg-default shadow-sm"
+              >
+                <div
+                  class="flex items-center justify-between gap-3 border-b border-default/70 px-4 py-3"
+                >
+                  <div>
+                    <div class="text-sm font-semibold text-highlighted">Set Table</div>
+                    <div class="text-xs text-muted">
+                      Starter rows copied whenever this exercise is inserted.
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <UButton
+                      size="xs"
+                      color="neutral"
+                      variant="ghost"
+                      icon="i-heroicons-minus"
+                      :disabled="form.setRows.length <= 1"
+                      @click="
+                        () => {
+                          void removeSetRow()
+                        }
+                      "
+                    />
+                    <div class="min-w-[56px] text-center text-sm font-semibold text-highlighted">
+                      {{ form.setRows.length }} set{{ form.setRows.length === 1 ? '' : 's' }}
+                    </div>
+                    <UButton
+                      size="xs"
+                      color="neutral"
+                      variant="ghost"
+                      icon="i-heroicons-plus"
+                      @click="
+                        () => {
+                          void addSetRow()
+                        }
+                      "
+                    />
+                  </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                  <div
+                    class="grid min-w-0 text-[10px] font-black uppercase tracking-[0.24em] text-muted sm:min-w-[520px]"
+                    :style="gridTemplateColumns(form)"
+                  >
+                    <div class="border-b border-default/70 px-3 py-3">Set</div>
+                    <div
+                      v-if="form.loadMode !== 'none'"
+                      class="border-b border-default/70 px-3 py-3"
+                    >
+                      {{ loadModeLabel(form.loadMode) }}
+                    </div>
+                    <div class="border-b border-default/70 px-3 py-3">
+                      {{ prescriptionColumnLabel(form.prescriptionMode) }}
+                    </div>
+                    <div v-if="form.showRestColumn" class="border-b border-default/70 px-3 py-3">
+                      Rest
+                    </div>
+                  </div>
+
+                  <div
+                    v-for="row in form.setRows"
+                    :key="row.id"
+                    class="grid min-w-0 sm:min-w-[520px]"
+                    :style="gridTemplateColumns(form)"
+                  >
+                    <div
+                      class="border-b border-default/50 px-3 py-3 font-semibold text-highlighted"
+                    >
+                      {{ row.index }}
+                    </div>
+                    <div
+                      v-if="form.loadMode !== 'none'"
+                      class="border-b border-default/50 px-3 py-2"
+                    >
+                      <UInput
+                        v-model="row.loadValue"
+                        :placeholder="loadModePlaceholder(form.loadMode)"
+                        class="w-full"
+                      />
+                    </div>
+                    <div class="border-b border-default/50 px-3 py-2">
+                      <UInput
+                        v-model="row.value"
+                        :placeholder="prescriptionPlaceholder(form.prescriptionMode)"
+                        class="w-full"
+                      />
+                    </div>
+                    <div v-if="form.showRestColumn" class="border-b border-default/50 px-3 py-2">
+                      <UInput v-model="row.restOverride" placeholder="e.g. 60s" class="w-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <UCard :ui="{ body: 'space-y-4 p-4' }">
+                <div>
+                  <div class="text-sm font-semibold text-highlighted">Set Table Options</div>
+                  <div class="text-xs text-muted">
+                    Choose which metrics the saved exercise should track by default.
+                  </div>
+                </div>
+
+                <div v-if="isCoachingMode && editorMode === 'create'" class="space-y-2">
+                  <label
+                    class="block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Library Owner
+                  </label>
+                  <USelect v-model="form.ownerScope" :items="createScopeOptions" class="w-full" />
+                </div>
+
+                <div class="space-y-2">
+                  <label
+                    class="block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Primary Metric
+                  </label>
+                  <USelect
+                    :model-value="getParameterTokens(form)[0]"
+                    :items="primaryParameterOptions"
+                    class="w-full"
+                    @update:model-value="updateParameter(0, $event)"
+                  />
+                </div>
+
+                <div
+                  v-for="(token, index) in getParameterTokens(form).slice(1)"
+                  :key="`${token}-${index}`"
+                  class="space-y-2"
+                >
+                  <div class="flex items-center justify-between gap-2">
+                    <label
+                      class="block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                    >
+                      Additional Metric
+                    </label>
+                    <UButton
+                      color="neutral"
+                      variant="ghost"
+                      size="xs"
+                      icon="i-heroicons-x-mark"
+                      @click="
+                        () => {
+                          void removeParameter(index + 1)
+                        }
+                      "
+                    />
+                  </div>
+                  <USelect
+                    :model-value="token"
+                    :items="secondaryParameterOptions(form, index + 1)"
+                    class="w-full"
+                    @update:model-value="updateParameter(index + 1, $event)"
+                  />
+                </div>
+
+                <UButton
+                  size="sm"
+                  color="neutral"
+                  variant="soft"
+                  icon="i-heroicons-plus"
+                  :disabled="!canAddParameter(form)"
+                  @click="
+                    () => {
+                      void addParameter()
+                    }
+                  "
+                >
+                  Add Metric
+                </UButton>
+
+                <div class="space-y-2">
+                  <label
+                    class="block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Default Rest
+                  </label>
+                  <UInput v-model="form.defaultRest" placeholder="e.g. 90s" class="w-full" />
+                </div>
+              </UCard>
+
+              <UCard :ui="{ body: 'space-y-4 p-4' }">
+                <div class="space-y-2">
+                  <label
+                    class="block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Video URL
+                  </label>
+                  <UInput
+                    v-model="form.videoUrl"
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    class="w-full"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label
+                    class="block text-[10px] font-black uppercase tracking-[0.22em] text-muted"
+                  >
+                    Notes
+                  </label>
+                  <UTextarea
+                    v-model="form.notes"
+                    :rows="6"
+                    placeholder="Coaching notes, setup cues, regressions, or special reminders."
+                    class="w-full"
+                  />
+                </div>
+              </UCard>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="sticky bottom-0 flex shrink-0 items-center justify-end gap-2 border-t border-default/70 bg-default px-5 py-4"
+        >
+          <UButton
+            color="neutral"
+            variant="ghost"
+            @click="
+              () => {
+                isEditorOpen = false
+              }
+            "
+            >Cancel</UButton
+          >
+          <UButton
+            color="primary"
+            :loading="saving"
+            @click="
+              () => {
+                void saveExercise()
+              }
+            "
+          >
+            {{ editorMode === 'create' ? 'Create Exercise' : 'Save Changes' }}
+          </UButton>
+        </div>
+      </div>
+    </template>
+  </UModal>
 </template>
 
 <script setup lang="ts">
-  import WorkoutFolderSelector from '~/components/workouts/library/WorkoutFolderSelector.vue'
-  import MiniWorkoutChart from '~/components/workouts/MiniWorkoutChart.vue'
-  import WorkoutTemplateEditor from '~/components/workouts/WorkoutTemplateEditor.vue'
-  import AiWorkoutGeneratorModal from '~/components/activities/AiWorkoutGeneratorModal.vue'
-  import WorkoutTemplatePreviewModal from '~/components/workouts/WorkoutTemplatePreviewModal.vue'
-  import { getWorkoutIcon } from '~/utils/activity-types'
+  import {
+    getYouTubeEmbedUrl,
+    normalizeYouTubeUrl,
+    type StrengthLibraryExercise,
+    type StrengthLibraryExercisePayload
+  } from '~/utils/strengthExerciseLibrary'
+  import {
+    DEFAULT_LOAD_MODE,
+    DEFAULT_PRESCRIPTION_MODE,
+    createStrengthSetRow,
+    normalizeStrengthSetRows,
+    type StrengthLoadMode,
+    type StrengthPrescriptionMode,
+    type StrengthSetRow
+  } from '~/utils/strengthWorkout'
   import { mobileListCardUi } from '~/utils/mobile-surface-ui'
 
-  const { data: session } = useAuth()
-  const route = useRoute()
-  const toast = useToast()
-
-  const isEditorOpen = ref(false)
-  const isAiModalOpen = ref(false)
-  const isDeleteModalOpen = ref(false)
-  const editingTemplate = ref<any>(null)
-  const deleting = ref(false)
-
-  const newWorkoutDropdownItems = computed(() => [
-    [
-      {
-        label: 'Manual Create',
-        icon: 'i-heroicons-pencil-square',
-        onSelect: () => createNewTemplate()
-      },
-      {
-        label: 'AI Generate',
-        icon: 'i-heroicons-sparkles',
-        onSelect: () => {
-          isAiModalOpen.value = true
-        }
-      }
-    ]
-  ])
-
-  function createNewTemplate() {
-    editingTemplate.value = { sport: 'Strength', type: 'WeightTraining' }
-    isEditorOpen.value = true
-  }
-
-  function handleAiGenerated(template: any) {
-    refresh()
-    refreshFolders()
-  }
+  definePageMeta({
+    middleware: ['auth']
+  })
 
   useHead({
-    title: 'Strength'
+    title: 'Exercises'
   })
+
+  type EditableLibraryExercise = {
+    title: string
+    aliasesText: string
+    movementPattern: string
+    intent: string
+    targetMuscleGroups: string[]
+    notes: string
+    videoUrl: string
+    ownerScope: 'athlete' | 'coach'
+    prescriptionMode: StrengthPrescriptionMode
+    loadMode: StrengthLoadMode
+    defaultRest: string
+    showRestColumn: boolean
+    setRows: StrengthSetRow[]
+  }
+
+  type ParameterToken =
+    | `prescription:${StrengthPrescriptionMode}`
+    | `load:${Exclude<StrengthLoadMode, 'none'>}`
+    | 'rest'
 
   const {
     source: librarySource,
     options: librarySourceOptions,
     isCoachingMode
-  } = useLibrarySource('library-page')
+  } = useLibrarySource('exercise-library', {
+    itemLabel: 'exercises'
+  })
+
+  const toast = useToast()
+  const searchQuery = ref('')
+  const selectedPattern = ref('all')
+  const selectedIntent = ref('all')
+  const selectedMuscleGroups = ref<string[]>([])
+  const sortBy = ref('updated')
+  const isMobileFilterOpen = ref(false)
+  const isPreviewOpen = ref(false)
+  const isEditorOpen = ref(false)
+  const saving = ref(false)
+  const deletingExerciseId = ref<string | null>(null)
+  const editorMode = ref<'create' | 'edit'>('create')
+  const editingExerciseId = ref<string | null>(null)
+  const previewItem = ref<StrengthLibraryExercise | null>(null)
+  const EMPTY_SELECT_VALUE = '__none__'
+
   const {
-    data: templates,
+    data: exercises,
     refresh,
     status
-  } = (await useAsyncData<any>(
-    'library-workouts',
+  } = (await useAsyncData<StrengthLibraryExercise[]>(
+    'library-strength-exercises',
     () =>
-      ($fetch as any)('/api/library/workouts', {
+      ($fetch as any)('/api/library/strength-exercises', {
         query: {
-          scope: librarySource.value
+          scope: librarySource.value,
+          q: searchQuery.value || undefined
         }
       }),
     {
-      watch: [librarySource]
+      watch: [librarySource, searchQuery]
     }
   )) as any
   const loading = computed(() => status.value === 'pending')
-  const searchQuery = ref('')
-  const selectedType = ref('all')
-  const selectedDuration = ref('all')
-  const sortBy = ref('updated')
-  const selectedTemplateIds = ref<string[]>([])
-  const showFolderSlideover = ref(false)
-  const draggedItem = ref<{ type: 'folder' | 'templates'; ids: string[] } | null>(null)
-  const isFolderModalOpen = ref(false)
-  const isDeleteFolderModalOpen = ref(false)
-  const folderModalMode = ref<'create' | 'rename'>('create')
-  const folderFormName = ref('')
-  const folderParentId = ref<string | null>(null)
-  const activeFolder = ref<any>(null)
-  const savingFolder = ref(false)
-  const isMoveTemplatesModalOpen = ref(false)
-  const movingTemplates = ref(false)
-  const moveTemplateIds = ref<string[]>([])
-  const moveTemplatesTargetScope = ref<string>('all')
-  const previewTemplateId = ref<string | null>(null)
-  const {
-    tree: folderTree,
-    counts: folderCounts,
-    selectedScope,
-    selectedFolderLabel,
-    expandedSet,
-    scopedFolderIds,
-    ensureFoldersLoaded,
-    refreshFolders,
-    error: folderError,
-    setSelectedScope,
-    toggleExpanded
-  } = useWorkoutTemplateFolders('library-page', {
-    librarySource
-  })
-
-  const workoutTypes = [
-    { label: 'Ride', value: 'Ride', icon: 'i-tabler-bike' },
-    { label: 'Run', value: 'Run', icon: 'i-tabler-run' },
-    { label: 'Swim', value: 'Swim', icon: 'i-tabler-swimming' },
-    { label: 'Gym', value: 'WeightTraining', icon: 'i-tabler-barbell' }
-  ]
-
-  const durationRanges = [
-    { label: 'All', value: 'all' },
-    { label: '<30m', value: 'short' },
-    { label: '30-60m', value: 'medium' },
-    { label: '60m+', value: 'long' }
-  ]
 
   const sortOptions = [
     { label: 'Recently Updated', value: 'updated' },
     { label: 'Title', value: 'title' },
-    { label: 'Duration', value: 'duration' },
-    { label: 'TSS', value: 'tss' }
+    { label: 'Movement Pattern', value: 'movementPattern' }
   ]
 
-  const templateItems = computed(() => {
-    if (Array.isArray(templates.value)) {
-      return templates.value
-    }
+  const movementPatternOptions = [
+    { label: 'No specific pattern', value: EMPTY_SELECT_VALUE },
+    { label: 'Squat', value: 'squat' },
+    { label: 'Hinge', value: 'hinge' },
+    { label: 'Push', value: 'push' },
+    { label: 'Pull', value: 'pull' },
+    { label: 'Lunge', value: 'lunge' },
+    { label: 'Core', value: 'core' },
+    { label: 'Carry', value: 'carry' },
+    { label: 'Mobility', value: 'mobility' }
+  ]
 
-    return [...(templates.value?.coach || []), ...(templates.value?.athlete || [])]
+  const intentOptions = [
+    { label: 'No specific intent', value: EMPTY_SELECT_VALUE },
+    { label: 'Max Strength', value: 'max_strength' },
+    { label: 'Power', value: 'power' },
+    { label: 'Muscular Endurance', value: 'muscular_endurance' },
+    { label: 'Prehab', value: 'prehab' }
+  ]
+
+  const movementPatternFilterOptions = movementPatternOptions.filter(
+    (option) => option.value !== EMPTY_SELECT_VALUE
+  )
+  const muscleGroupOptions = [
+    'chest',
+    'back',
+    'shoulders',
+    'biceps',
+    'triceps',
+    'forearms',
+    'glutes',
+    'quadriceps',
+    'hamstrings',
+    'calves',
+    'core',
+    'hip_flexors',
+    'adductors',
+    'abductors',
+    'full_body'
+  ].map((value) => ({
+    label: formatTokenLabel(value),
+    value
+  }))
+  const intentFilterOptions = [
+    { label: 'All Intents', value: 'all' },
+    ...intentOptions.filter((option) => option.value !== EMPTY_SELECT_VALUE)
+  ]
+
+  const activeFilterCount = computed(() => {
+    let count = 0
+    if (selectedPattern.value !== 'all') count++
+    if (selectedIntent.value !== 'all') count++
+    if (selectedMuscleGroups.value.length > 0) count++
+    return count
   })
 
-  const activePreviewTemplate = computed(
-    () => templateItems.value.find((item: any) => item.id === previewTemplateId.value) || null
-  )
+  const mobileFilterSummary = computed(() => {
+    const parts: string[] = []
+    if (selectedPattern.value !== 'all') {
+      parts.push(
+        movementPatternFilterOptions.find((option) => option.value === selectedPattern.value)
+          ?.label || selectedPattern.value
+      )
+    }
+    if (selectedIntent.value !== 'all') {
+      parts.push(
+        intentFilterOptions.find((option) => option.value === selectedIntent.value)?.label ||
+          selectedIntent.value
+      )
+    }
+    if (selectedMuscleGroups.value.length > 0) {
+      parts.push(`${selectedMuscleGroups.value.length} muscle groups`)
+    }
+    return parts.join(' · ')
+  })
 
-  function applyTemplateFilters(items: any[]) {
-    let result = items
+  const prescriptionModeOptions: Array<{ label: string; value: StrengthPrescriptionMode }> = [
+    { label: 'Reps', value: 'reps' },
+    { label: 'Reps / Side', value: 'reps_per_side' },
+    { label: 'Duration', value: 'duration' },
+    { label: 'Distance (m)', value: 'distance_meters' },
+    { label: 'Distance (km)', value: 'distance_km' },
+    { label: 'Distance (ft)', value: 'distance_ft' },
+    { label: 'Distance (yd)', value: 'distance_yd' },
+    { label: 'Distance (miles)', value: 'distance_miles' }
+  ]
 
-    if (librarySource.value !== 'all') {
-      if (selectedScope.value === 'unfiled') {
-        result = result.filter((t) => !t.folderId)
-      } else if (scopedFolderIds.value?.length) {
-        result = result.filter((t) => scopedFolderIds.value?.includes(t.folderId))
-      }
+  const loadModeOptions: Array<{ label: string; value: StrengthLoadMode }> = [
+    { label: 'No Load', value: 'none' },
+    { label: 'Generic Load', value: 'generic' },
+    { label: 'Weight (lb)', value: 'weight_lb' },
+    { label: 'Weight (kg)', value: 'weight_kg' },
+    { label: 'Weight / Side (lb)', value: 'weight_per_side_lb' },
+    { label: 'Weight / Side (kg)', value: 'weight_per_side_kg' }
+  ]
+
+  const primaryParameterOptions: Array<{ label: string; value: ParameterToken }> =
+    prescriptionModeOptions.map((option) => ({
+      label: option.label,
+      value: `prescription:${option.value}` as ParameterToken
+    }))
+
+  const createScopeOptions = computed(() => [
+    { label: 'Athlete Library', value: 'athlete' },
+    ...(isCoachingMode.value ? [{ label: 'Coach Library', value: 'coach' }] : [])
+  ])
+
+  function createEmptyForm(): EditableLibraryExercise {
+    return {
+      title: '',
+      aliasesText: '',
+      movementPattern: '',
+      intent: '',
+      targetMuscleGroups: [],
+      notes: '',
+      videoUrl: '',
+      ownerScope: isCoachingMode.value && librarySource.value !== 'athlete' ? 'coach' : 'athlete',
+      prescriptionMode: DEFAULT_PRESCRIPTION_MODE,
+      loadMode: DEFAULT_LOAD_MODE,
+      defaultRest: '',
+      showRestColumn: false,
+      setRows: normalizeStrengthSetRows([{ value: '', loadValue: '', restOverride: '' }])
+    }
+  }
+
+  const form = reactive<EditableLibraryExercise>(createEmptyForm())
+
+  const exerciseItems = computed(() => (Array.isArray(exercises.value) ? exercises.value : []))
+
+  const filteredExercises = computed(() => {
+    let result = [...exerciseItems.value]
+
+    if (selectedPattern.value !== 'all') {
+      result = result.filter((exercise) => exercise.movementPattern === selectedPattern.value)
     }
 
-    if (selectedType.value !== 'all') {
-      result = result.filter((t) => t.type === selectedType.value)
+    if (selectedIntent.value !== 'all') {
+      result = result.filter((exercise) => exercise.intent === selectedIntent.value)
     }
 
-    if (selectedDuration.value !== 'all') {
-      result = result.filter((t) => {
-        const mins = (t.durationSec || 0) / 60
-        if (selectedDuration.value === 'short') return mins < 30
-        if (selectedDuration.value === 'medium') return mins >= 30 && mins <= 60
-        if (selectedDuration.value === 'long') return mins > 60
-        return true
-      })
-    }
-
-    const query = searchQuery.value.trim().toLowerCase()
-    if (query) {
-      result = result.filter(
-        (t) =>
-          t.title.toLowerCase().includes(query) ||
-          t.category?.toLowerCase().includes(query) ||
-          t.type.toLowerCase().includes(query)
+    if (selectedMuscleGroups.value.length) {
+      result = result.filter((exercise) =>
+        selectedMuscleGroups.value.every((muscle) =>
+          Array.isArray(exercise.targetMuscleGroups)
+            ? exercise.targetMuscleGroups.includes(muscle)
+            : false
+        )
       )
     }
 
-    return [...result].sort((a, b) => {
-      if (sortBy.value === 'title') {
-        return (a.title || '').localeCompare(b.title || '')
+    result.sort((a, b) => {
+      if (sortBy.value === 'title') return (a.title || '').localeCompare(b.title || '')
+      if (sortBy.value === 'movementPattern') {
+        return (a.movementPattern || '').localeCompare(b.movementPattern || '')
       }
-
-      if (sortBy.value === 'duration') {
-        return (b.durationSec || 0) - (a.durationSec || 0)
-      }
-
-      if (sortBy.value === 'tss') {
-        return (b.tss || 0) - (a.tss || 0)
-      }
-
-      const aUpdated = new Date(a.updatedAt || a.createdAt || 0).getTime()
-      const bUpdated = new Date(b.updatedAt || b.createdAt || 0).getTime()
+      const aUpdated = new Date((a as any).updatedAt || (a as any).createdAt || 0).getTime()
+      const bUpdated = new Date((b as any).updatedAt || (b as any).createdAt || 0).getTime()
       return bUpdated - aUpdated
     })
-  }
 
-  const filteredTemplates = computed(() => {
-    const sortedAndFiltered = applyTemplateFilters(
-      Array.isArray(templates.value) ? templates.value : []
-    )
-    return sortedAndFiltered.filter(
-      (t: any) => t.sport === 'Strength' || t.workoutType === 'WeightTraining'
-    )
+    return result
   })
 
-  const templateGroups = computed(() => {
-    if (librarySource.value !== 'all' || Array.isArray(templates.value)) {
-      return []
-    }
+  const previewEmbedUrl = computed(() => getYouTubeEmbedUrl(previewItem.value?.videoUrl))
 
-    return [
-      {
-        key: 'coach',
-        label: 'Coach library',
-        items: applyTemplateFilters(templates.value?.coach || [])
-      },
-      {
-        key: 'athlete',
-        label: 'Athlete library',
-        items: applyTemplateFilters(templates.value?.athlete || [])
-      }
-    ].filter((group) => group.items.length > 0)
-  })
-
-  function editTemplate(template: any) {
-    editingTemplate.value = template
-    isEditorOpen.value = true
-  }
-
-  function openPreviewDetails() {
-    const template = activePreviewTemplate.value
-    if (!template) return
-    editTemplate(template)
-  }
-
-  function onTemplateSaved() {
-    isEditorOpen.value = false
-    selectedTemplateIds.value = []
-    refresh()
-    refreshFolders()
-  }
-
-  const showApplyModal = ref(false)
-  const applyTemplateTarget = ref<any>(null)
-
-  function useTemplate(template: any) {
-    applyTemplateTarget.value = template
-    showApplyModal.value = true
-  }
-
-  function confirmDelete(template: any) {
-    editingTemplate.value = template
-    isDeleteModalOpen.value = true
-  }
-
-  async function deleteTemplate() {
-    if (!editingTemplate.value) return
-
-    deleting.value = true
-    try {
-      await $fetch<any, string & {}>(`/api/library/workouts/${editingTemplate.value.id}`, {
-        method: 'DELETE',
-        query: {
-          scope: editingTemplate.value.ownerScope
-        }
-      })
-      toast.add({ title: 'Template deleted', color: 'success' })
-      isDeleteModalOpen.value = false
-      selectedTemplateIds.value = selectedTemplateIds.value.filter(
-        (id) => id !== editingTemplate.value.id
-      )
-      refresh()
-      refreshFolders()
-    } catch (error: any) {
-      toast.add({ title: 'Delete failed', color: 'error' })
-    } finally {
-      deleting.value = false
-    }
-  }
-
-  onMounted(() => {
-    if (librarySource.value !== 'all') {
-      void ensureFoldersLoaded()
+  const movementPatternSelectValue = computed({
+    get: () => selectValue(form.movementPattern),
+    set: (value) => {
+      form.movementPattern = normalizeSelectValue(value)
     }
   })
 
-  watch(librarySource, (value) => {
-    selectedTemplateIds.value = []
-    if (value === 'all') {
-      selectedScope.value = 'all'
+  const intentSelectValue = computed({
+    get: () => selectValue(form.intent),
+    set: (value) => {
+      form.intent = normalizeSelectValue(value)
     }
   })
 
-  function toggleTemplateSelection(templateId: string) {
-    selectedTemplateIds.value = selectedTemplateIds.value.includes(templateId)
-      ? selectedTemplateIds.value.filter((id) => id !== templateId)
-      : [...selectedTemplateIds.value, templateId]
+  function selectValue(value: unknown) {
+    const normalized = String(value || '').trim()
+    return normalized || EMPTY_SELECT_VALUE
   }
 
-  function openCreateFolder(parentId: string | null) {
-    folderModalMode.value = 'create'
-    folderParentId.value = parentId
-    folderFormName.value = ''
-    isFolderModalOpen.value = true
+  function normalizeSelectValue(value: unknown) {
+    const normalized = String(value || '').trim()
+    return normalized === EMPTY_SELECT_VALUE ? '' : normalized
   }
 
-  function openRenameFolder(folder: any) {
-    folderModalMode.value = 'rename'
-    activeFolder.value = folder
-    folderFormName.value = folder.name
-    isFolderModalOpen.value = true
+  function resetForm() {
+    Object.assign(form, createEmptyForm())
   }
 
-  function openDeleteFolder(folder: any) {
-    activeFolder.value = folder
-    isDeleteFolderModalOpen.value = true
+  function getSetCount(exercise: { sets?: number; setRows?: StrengthSetRow[] }) {
+    return Math.max(Number(exercise.sets || exercise.setRows?.length || 1), 1)
   }
 
-  async function submitFolderForm() {
-    if (!folderFormName.value.trim()) return
+  function previewRows(exercise: { setRows?: StrengthSetRow[] }) {
+    return normalizeStrengthSetRows(exercise.setRows)
+  }
 
-    savingFolder.value = true
-    try {
-      if (folderModalMode.value === 'create') {
-        await $fetch<any, string & {}>('/api/library/workout-folders', {
-          method: 'POST',
-          body: {
-            name: folderFormName.value.trim(),
-            parentId: folderParentId.value,
-            ownerScope: librarySource.value
-          }
-        })
-      } else if (activeFolder.value) {
-        await $fetch<any, string & {}>(`/api/library/workout-folders/${activeFolder.value.id}`, {
-          method: 'PATCH',
-          body: {
-            name: folderFormName.value.trim(),
-            ownerScope: activeFolder.value.ownerScope || librarySource.value
-          }
-        })
-      }
-
-      await refreshFolders()
-      isFolderModalOpen.value = false
-    } catch (error: any) {
-      toast.add({
-        title: 'Folder save failed',
-        description: error.data?.message || 'Could not save folder.',
-        color: 'error'
-      })
-    } finally {
-      savingFolder.value = false
+  function prescriptionColumnLabel(mode: StrengthPrescriptionMode | undefined) {
+    switch (mode) {
+      case 'reps_per_side':
+        return 'Reps / Side'
+      case 'duration':
+        return 'Duration'
+      case 'distance_meters':
+        return 'Distance (m)'
+      case 'distance_km':
+        return 'Distance (km)'
+      case 'distance_ft':
+        return 'Distance (ft)'
+      case 'distance_yd':
+        return 'Distance (yd)'
+      case 'distance_miles':
+        return 'Distance (miles)'
+      default:
+        return 'Reps'
     }
   }
 
-  async function deleteFolder() {
-    if (!activeFolder.value) return
-
-    savingFolder.value = true
-    try {
-      await $fetch<any, string & {}>(`/api/library/workout-folders/${activeFolder.value.id}`, {
-        method: 'DELETE',
-        query: {
-          scope: activeFolder.value.ownerScope || librarySource.value
-        }
-      })
-      await refresh()
-      await refreshFolders()
-      isDeleteFolderModalOpen.value = false
-    } catch (error: any) {
-      toast.add({
-        title: 'Folder delete failed',
-        description: error.data?.message || 'Could not delete folder.',
-        color: 'error'
-      })
-    } finally {
-      savingFolder.value = false
+  function loadModeLabel(mode: StrengthLoadMode | undefined) {
+    switch (mode) {
+      case 'weight_lb':
+        return 'Weight (lb)'
+      case 'weight_kg':
+        return 'Weight (kg)'
+      case 'weight_per_side_lb':
+        return 'Weight / Side (lb)'
+      case 'weight_per_side_kg':
+        return 'Weight / Side (kg)'
+      default:
+        return 'Load'
     }
   }
 
-  async function moveFolder(payload: {
-    folderId: string
-    parentId: string | null
-    beforeId: string | null
+  function prescriptionPlaceholder(mode: StrengthPrescriptionMode | undefined) {
+    switch (mode) {
+      case 'reps_per_side':
+        return 'Reps / side'
+      case 'duration':
+        return 'Seconds'
+      case 'distance_meters':
+        return 'Meters'
+      case 'distance_km':
+        return 'Kilometers'
+      case 'distance_ft':
+        return 'Feet'
+      case 'distance_yd':
+        return 'Yards'
+      case 'distance_miles':
+        return 'Miles'
+      default:
+        return 'Reps'
+    }
+  }
+
+  function loadModePlaceholder(mode: StrengthLoadMode | undefined) {
+    switch (mode) {
+      case 'weight_lb':
+        return 'lb'
+      case 'weight_kg':
+        return 'kg'
+      case 'weight_per_side_lb':
+        return 'lb / side'
+      case 'weight_per_side_kg':
+        return 'kg / side'
+      default:
+        return 'Load'
+    }
+  }
+
+  function formatTokenLabel(value: string) {
+    return value.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+  }
+
+  function getParameterTokens(target: {
+    prescriptionMode: StrengthPrescriptionMode
+    loadMode: StrengthLoadMode
+    showRestColumn?: boolean
+  }): ParameterToken[] {
+    const tokens: ParameterToken[] = [
+      `prescription:${target.prescriptionMode || DEFAULT_PRESCRIPTION_MODE}` as ParameterToken
+    ]
+
+    if (target.loadMode && target.loadMode !== 'none') {
+      tokens.push(`load:${target.loadMode as Exclude<StrengthLoadMode, 'none'>}` as ParameterToken)
+    }
+
+    if (target.showRestColumn) {
+      tokens.push('rest')
+    }
+
+    return tokens
+  }
+
+  function availableSecondaryParameterOptions(
+    selected: ParameterToken[],
+    current?: ParameterToken
+  ) {
+    const options: Array<{ label: string; value: ParameterToken }> = [
+      ...loadModeOptions
+        .filter((option) => option.value !== 'none')
+        .map((option) => ({
+          label: option.label,
+          value: `load:${option.value as Exclude<StrengthLoadMode, 'none'>}` as ParameterToken
+        })),
+      { label: 'Rest Override', value: 'rest' as ParameterToken }
+    ]
+
+    return options.filter((option) => option.value === current || !selected.includes(option.value))
+  }
+
+  function canAddParameter(target: {
+    prescriptionMode: StrengthPrescriptionMode
+    loadMode: StrengthLoadMode
+    showRestColumn?: boolean
   }) {
-    draggedItem.value = null
-    try {
-      await $fetch<any, string & {}>(`/api/library/workout-folders/${payload.folderId}`, {
-        method: 'PATCH',
-        body: {
-          parentId: payload.parentId,
-          beforeId: payload.beforeId,
-          ownerScope: librarySource.value
-        }
-      })
-      await refreshFolders()
-    } catch (error: any) {
-      toast.add({
-        title: 'Folder move failed',
-        description: error.data?.message || 'Could not move folder.',
-        color: 'error'
-      })
+    return availableSecondaryParameterOptions(getParameterTokens(target)).length > 0
+  }
+
+  function updatePrescriptionMode(target: EditableLibraryExercise, value: unknown) {
+    target.prescriptionMode = String(value || DEFAULT_PRESCRIPTION_MODE) as StrengthPrescriptionMode
+    target.setRows = normalizeStrengthSetRows(
+      target.setRows.map((row) => ({ ...row, value: '' })),
+      target.setRows.length
+    )
+  }
+
+  function updateLoadMode(target: EditableLibraryExercise, value: unknown) {
+    target.loadMode = String(value || DEFAULT_LOAD_MODE) as StrengthLoadMode
+    if (target.loadMode === 'none') {
+      target.setRows = normalizeStrengthSetRows(
+        target.setRows.map((row) => ({ ...row, loadValue: '' })),
+        target.setRows.length
+      )
     }
   }
 
-  function openMoveTemplatesModal(templateIds: string[]) {
-    moveTemplateIds.value = [...templateIds]
-    moveTemplatesTargetScope.value = 'all'
-    isMoveTemplatesModalOpen.value = true
+  function toggleRestOverrideColumn(target: EditableLibraryExercise, value: unknown) {
+    const enabled = Boolean(value)
+    target.showRestColumn = enabled
+    if (!enabled) {
+      target.setRows = normalizeStrengthSetRows(
+        target.setRows.map((row) => ({ ...row, restOverride: '' })),
+        target.setRows.length
+      )
+    }
   }
 
-  async function moveSelectedTemplates() {
-    if (moveTemplatesTargetScope.value === 'all') {
+  function setPrimaryParameter(target: EditableLibraryExercise, value: ParameterToken) {
+    const mode = String(value || `prescription:${DEFAULT_PRESCRIPTION_MODE}`).replace(
+      'prescription:',
+      ''
+    ) as StrengthPrescriptionMode
+
+    if (target.prescriptionMode === mode) return
+    updatePrescriptionMode(target, mode)
+  }
+
+  function applyParameterTokens(target: EditableLibraryExercise, tokens: ParameterToken[]) {
+    const nextPrimary = tokens.find((token) => token.startsWith('prescription:'))
+    setPrimaryParameter(
+      target,
+      nextPrimary || (`prescription:${DEFAULT_PRESCRIPTION_MODE}` as ParameterToken)
+    )
+
+    const nextLoad = tokens.find((token) => token.startsWith('load:'))
+    updateLoadMode(target, nextLoad ? nextLoad.replace('load:', '') : DEFAULT_LOAD_MODE)
+
+    toggleRestOverrideColumn(target, tokens.includes('rest'))
+  }
+
+  function secondaryParameterOptions(target: EditableLibraryExercise, index: number) {
+    const tokens = getParameterTokens(target)
+    return availableSecondaryParameterOptions(
+      tokens.filter((_, tokenIndex) => tokenIndex !== index),
+      tokens[index]
+    )
+  }
+
+  function updateParameter(index: number, value: unknown) {
+    const tokens = getParameterTokens(form)
+    tokens[index] = String(value) as ParameterToken
+    applyParameterTokens(form, tokens)
+  }
+
+  function addParameter() {
+    const tokens = getParameterTokens(form)
+    const next = availableSecondaryParameterOptions(tokens)[0]
+    if (!next) {
       toast.add({
-        title: 'Choose a destination',
-        description: 'Select a folder or Unfiled as the move target.',
-        color: 'warning'
+        title: 'No More Metrics',
+        description: 'This exercise already has all available additional metrics.',
+        color: 'neutral'
       })
       return
     }
+    tokens.push(next.value)
+    applyParameterTokens(form, tokens)
+  }
 
-    movingTemplates.value = true
-    try {
-      await $fetch<any, string & {}>('/api/library/workouts/bulk-move', {
-        method: 'POST',
-        body: {
-          templateIds: moveTemplateIds.value,
-          folderId:
-            moveTemplatesTargetScope.value === 'unfiled' ? null : moveTemplatesTargetScope.value,
-          ownerScope: librarySource.value
-        }
-      })
-      selectedTemplateIds.value = selectedTemplateIds.value.filter(
-        (id) => !moveTemplateIds.value.includes(id)
-      )
-      isMoveTemplatesModalOpen.value = false
-      await refresh()
-      await refreshFolders()
-    } catch (error: any) {
-      toast.add({
-        title: 'Move failed',
-        description: error.data?.message || 'Could not move templates.',
-        color: 'error'
-      })
-    } finally {
-      movingTemplates.value = false
+  function removeParameter(index: number) {
+    if (index === 0) return
+    const tokens = getParameterTokens(form).filter((_, tokenIndex) => tokenIndex !== index)
+    applyParameterTokens(form, tokens)
+  }
+
+  function addSetRow() {
+    const previousRow = form.setRows[form.setRows.length - 1]
+    form.setRows = normalizeStrengthSetRows(
+      [
+        ...form.setRows,
+        createStrengthSetRow({
+          value: String(previousRow?.value || '').trim(),
+          loadValue: String(previousRow?.loadValue || '').trim(),
+          restOverride: String(previousRow?.restOverride || '').trim()
+        })
+      ],
+      form.setRows.length + 1
+    )
+  }
+
+  function removeSetRow() {
+    if (form.setRows.length <= 1) return
+    form.setRows = normalizeStrengthSetRows(form.setRows.slice(0, -1))
+  }
+
+  function mapExerciseToForm(exercise: StrengthLibraryExercise): EditableLibraryExercise {
+    return {
+      title: exercise.title || '',
+      aliasesText: Array.isArray(exercise.aliases) ? exercise.aliases.join(', ') : '',
+      movementPattern: exercise.movementPattern || '',
+      intent: exercise.intent || '',
+      targetMuscleGroups: Array.isArray(exercise.targetMuscleGroups)
+        ? [...exercise.targetMuscleGroups]
+        : [],
+      notes: exercise.notes || '',
+      videoUrl: exercise.videoUrl || '',
+      ownerScope: exercise.ownerScope === 'coach' && isCoachingMode.value ? 'coach' : 'athlete',
+      prescriptionMode: exercise.prescriptionMode || DEFAULT_PRESCRIPTION_MODE,
+      loadMode: exercise.loadMode || DEFAULT_LOAD_MODE,
+      defaultRest: exercise.defaultRest || exercise.rest || '',
+      showRestColumn: Boolean(
+        exercise.setRows?.some((row) => String(row.restOverride || '').trim())
+      ),
+      setRows: normalizeStrengthSetRows(exercise.setRows)
     }
   }
 
-  function selectScopeFromSlideover(scope: string) {
-    setSelectedScope(scope)
-    showFolderSlideover.value = false
-  }
+  function buildPayload(): StrengthLibraryExercisePayload {
+    const title = String(form.title || '').trim()
+    if (!title) throw new Error('Exercise title is required')
 
-  function onTemplateDragStart(template: any) {
-    const ids = selectedTemplateIds.value.includes(template.id)
-      ? selectedTemplateIds.value
-      : [template.id]
-
-    draggedItem.value = {
-      type: 'templates',
-      ids
+    const payload: StrengthLibraryExercisePayload = {
+      title,
+      aliases: String(form.aliasesText || '')
+        .split(',')
+        .map((alias) => alias.trim())
+        .filter(Boolean),
+      movementPattern: form.movementPattern || undefined,
+      intent: form.intent || undefined,
+      targetMuscleGroups: form.targetMuscleGroups,
+      notes: form.notes || undefined,
+      videoUrl: form.videoUrl || undefined,
+      ownerScope: editorMode.value === 'create' ? form.ownerScope : undefined,
+      prescriptionMode: form.prescriptionMode,
+      loadMode: form.loadMode,
+      defaultRest: form.defaultRest || undefined,
+      setRows: form.setRows.map((row) => ({
+        id: row.id,
+        index: row.index,
+        value: String(row.value || '').trim() || undefined,
+        loadValue: String(row.loadValue || '').trim() || undefined,
+        restOverride: String(row.restOverride || '').trim() || undefined
+      }))
     }
+
+    if (payload.videoUrl) {
+      const normalized = normalizeYouTubeUrl(payload.videoUrl)
+      if (!normalized) throw new Error('Only valid YouTube URLs are supported for exercise videos')
+      payload.videoUrl = normalized
+    }
+
+    return payload
   }
 
-  async function dropTemplatesToFolder({
-    templateIds,
-    folderId
-  }: {
-    templateIds: string[]
-    folderId: string | null
-  }) {
-    draggedItem.value = null
+  function openCreateModal() {
+    editorMode.value = 'create'
+    editingExerciseId.value = null
+    resetForm()
+    isEditorOpen.value = true
+  }
 
+  function openEditModal(exercise: StrengthLibraryExercise) {
+    editorMode.value = 'edit'
+    editingExerciseId.value = exercise.id
+    Object.assign(form, mapExerciseToForm(exercise))
+    isEditorOpen.value = true
+    isPreviewOpen.value = false
+  }
+
+  function openPreview(exercise: StrengthLibraryExercise) {
+    previewItem.value = exercise
+    isPreviewOpen.value = true
+  }
+
+  async function saveExercise() {
+    saving.value = true
     try {
-      await $fetch<any, string & {}>('/api/library/workouts/bulk-move', {
-        method: 'POST',
-        body: {
-          templateIds,
-          folderId,
-          ownerScope: librarySource.value
+      const body = buildPayload()
+      await $fetch<any, string & {}>(
+        editorMode.value === 'edit' && editingExerciseId.value
+          ? `/api/library/strength-exercises/${editingExerciseId.value}`
+          : '/api/library/strength-exercises',
+        {
+          method: editorMode.value === 'edit' ? 'PATCH' : 'POST',
+          body
         }
-      })
-
-      selectedTemplateIds.value = selectedTemplateIds.value.filter(
-        (id) => !templateIds.includes(id)
       )
+
       await refresh()
-      await refreshFolders()
+      isEditorOpen.value = false
       toast.add({
-        title: folderId ? 'Moved to folder' : 'Moved to Unfiled',
+        title: editorMode.value === 'edit' ? 'Exercise Updated' : 'Exercise Created',
         color: 'success'
       })
     } catch (error: any) {
       toast.add({
-        title: 'Move failed',
-        description: error.data?.message || 'Could not move templates.',
+        title: 'Save Failed',
+        description: error.data?.message || error.message || 'Could not save this exercise.',
         color: 'error'
       })
+    } finally {
+      saving.value = false
+    }
+  }
+
+  async function deleteExercise(exercise: StrengthLibraryExercise) {
+    if (!window.confirm(`Delete "${exercise.title}" from the exercise library?`)) return
+    deletingExerciseId.value = exercise.id
+    try {
+      await $fetch<any, string & {}>(`/api/library/strength-exercises/${exercise.id}`, {
+        method: 'DELETE'
+      })
+      if (previewItem.value?.id === exercise.id) {
+        isPreviewOpen.value = false
+        previewItem.value = null
+      }
+      await refresh()
+      toast.add({
+        title: 'Exercise Deleted',
+        color: 'success'
+      })
+    } catch (error: any) {
+      toast.add({
+        title: 'Delete Failed',
+        description: error.data?.message || 'Could not delete this exercise.',
+        color: 'error'
+      })
+    } finally {
+      deletingExerciseId.value = null
+    }
+  }
+
+  function openYouTubeSearch(title: string) {
+    if (!title.trim()) return
+    window.open(
+      `https://www.youtube.com/results?search_query=${encodeURIComponent(title).replace(/%20/g, '+')}`,
+      '_blank',
+      'noopener,noreferrer'
+    )
+  }
+
+  function gridTemplateColumns(target: { loadMode?: StrengthLoadMode; showRestColumn?: boolean }) {
+    const columns = ['72px']
+    if (target.loadMode && target.loadMode !== 'none') columns.push('minmax(120px, 180px)')
+    columns.push('minmax(140px, 1fr)')
+    if (target.showRestColumn) columns.push('minmax(110px, 140px)')
+    return {
+      gridTemplateColumns: columns.join(' ')
     }
   }
 </script>
