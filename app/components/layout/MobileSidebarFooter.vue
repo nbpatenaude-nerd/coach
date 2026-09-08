@@ -37,30 +37,6 @@
         label: ready.value ? t.value('navigation_settings_changelog') : 'Changelog',
         icon: 'i-lucide-scroll-text',
         to: '/settings/changelog'
-      },
-      {
-        label: ready.value ? t.value('sidebar_community_discord') : 'Discord',
-        icon: 'i-simple-icons-discord',
-        to: 'https://discord.gg/dPYkzg49T9',
-        target: '_blank'
-      },
-      {
-        label: ready.value ? t.value('sidebar_community_github') : 'GitHub',
-        icon: 'i-simple-icons-github',
-        to: 'https://github.com/newpush/coach',
-        target: '_blank'
-      },
-      {
-        label: ready.value ? t.value('sidebar_attribution_strava') : 'Powered by Strava',
-        icon: 'i-simple-icons-strava',
-        to: 'https://www.strava.com/clubs/2004142',
-        target: '_blank'
-      },
-      {
-        label: ready.value ? t.value('sidebar_attribution_garmin') : 'Works with Garmin',
-        icon: 'i-lucide-watch',
-        to: 'https://www.garmin.com',
-        target: '_blank'
       }
     ]
 
