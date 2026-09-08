@@ -7,6 +7,27 @@
         </p>
         <UButton
           block
+          icon="i-heroicons-bolt"
+          size="lg"
+          color="neutral"
+          variant="soft"
+          @click="() => selectCreate('cardio')"
+        >
+          Create Cardio
+        </UButton>
+        <UButton
+          block
+          icon="i-heroicons-trophy"
+          size="lg"
+          color="neutral"
+          variant="soft"
+          @click="() => selectCreate('strength')"
+        >
+          Create Strength
+        </UButton>
+        <USeparator class="my-2" />
+        <UButton
+          block
           icon="i-heroicons-bookmark-square"
           size="lg"
           color="neutral"
@@ -28,7 +49,7 @@
   import { useFormat } from '~/composables/useFormat'
 
   const props = defineProps<{ open: boolean; date?: Date | null }>()
-  const emit = defineEmits(['update:open', 'manual', 'ai'])
+  const emit = defineEmits(['update:open', 'manual', 'ai', 'create'])
   const { formatDateUTC } = useFormat()
 
   const isOpen = computed({
@@ -49,5 +70,10 @@
   function selectAI() {
     isOpen.value = false
     emit('ai', props.date)
+  }
+
+  function selectCreate(type: 'cardio' | 'strength') {
+    isOpen.value = false
+    emit('create', { date: props.date, type })
   }
 </script>

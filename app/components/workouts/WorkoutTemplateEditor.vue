@@ -151,7 +151,7 @@
     ownerScope?: 'athlete' | 'coach'
   }>()
 
-  const emit = defineEmits(['save', 'cancel'])
+  const emit = defineEmits<{ save: [template: any]; cancel: [] }>()
   const toast = useToast()
   const saving = ref(false)
   const activeOwnerScope = computed(
@@ -260,7 +260,7 @@
         title: isNew ? 'Template Created' : 'Template Updated',
         color: 'success'
       })
-      emit('save')
+      emit('save', savedTemplate)
     } catch (error: any) {
       toast.add({
         title: 'Save Failed',

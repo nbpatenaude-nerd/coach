@@ -4,6 +4,19 @@
       <UDashboardNavbar :title="t('activities_title')">
         <template #leading>
           <UDashboardSidebarCollapse />
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
         <template #right>
           <LayoutPageNavbarActions :overflow-items="activitiesOverflowItems">
@@ -11,7 +24,6 @@
               <DashboardTriggerMonitorButton />
             </ClientOnly>
 
-            
             <UButton
               to="/workouts/upload"
               icon="i-heroicons-cloud-arrow-up"
@@ -30,7 +42,6 @@
             >
               Upload CSV
             </UButton>
-
 
             <UDropdownMenu :items="activityMenuItems">
               <UButton
@@ -90,10 +101,45 @@
                 color="primary"
                 variant="solid"
               />
+              <UModal
+                v-model:open="showAdHocEditorModal"
+                :ui="{ content: 'sm:max-w-4xl' }"
+                prevent-close
+              >
+                <template #body>
+                  <WorkoutTemplateEditor
+                    :template="adHocTemplateData"
+                    @save="onAdHocEditorSave"
+                    @cancel="showAdHocEditorModal = false"
+                  />
+                </template>
+              </UModal>
             </template>
           </LayoutPageNavbarActions>
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
       </UDashboardNavbar>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
 
     <template #body>
@@ -485,6 +531,19 @@
                     v-if="calendarSettings.showWeekSeparator"
                     class="col-span-8 h-4 bg-transparent"
                   />
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
               </div>
 
@@ -657,6 +716,19 @@
                                   >
                                     <span v-if="i > 0">•</span>
                                     <span v-if="item" :class="item.class">{{ item.label }}</span>
+                                    <UModal
+                                      v-model:open="showAdHocEditorModal"
+                                      :ui="{ content: 'sm:max-w-4xl' }"
+                                      prevent-close
+                                    >
+                                      <template #body>
+                                        <WorkoutTemplateEditor
+                                          :template="adHocTemplateData"
+                                          @save="onAdHocEditorSave"
+                                          @cancel="showAdHocEditorModal = false"
+                                        />
+                                      </template>
+                                    </UModal>
                                   </template>
                                 </div>
 
@@ -754,12 +826,38 @@
                     />
                     <span class="hidden sm:inline">{{ row.original.type }}</span>
                   </div>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #date-cell="{ row }">
                   <div class="whitespace-nowrap">
                     {{ formatActivityDateForList(row.original) }}
                   </div>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #chart-cell="{ row }">
@@ -771,6 +869,19 @@
                     />
                   </div>
                   <span v-else class="text-gray-400 text-xs">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #title-cell="{ row }">
@@ -791,6 +902,19 @@
                       @click.stop="toggleWorkoutComparison(row.original)"
                     />
                   </div>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #duration-cell="{ row }">
@@ -802,6 +926,19 @@
                     }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #distance-cell="{ row }">
@@ -812,6 +949,19 @@
                     {{ formatDistance(row.original.distance || row.original.plannedDistance || 0) }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #averageHr-cell="{ row }">
@@ -823,6 +973,19 @@
                     <span class="font-medium">{{ Math.round(row.original.averageHr) }}</span>
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #intensity-cell="{ row }">
@@ -830,6 +993,19 @@
                     {{ (row.original.intensity * 100).toFixed(0) }}%
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #tss-cell="{ row }">
@@ -837,11 +1013,37 @@
                     {{ Math.round(row.original.tss || row.original.plannedTss || 0) }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #rpe-cell="{ row }">
                   <span v-if="row.original.rpe"> {{ row.original.rpe }}/10 </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #trainingLoad-cell="{ row }">
@@ -849,6 +1051,19 @@
                     {{ Math.round(row.original.trainingLoad) }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #trimp-cell="{ row }">
@@ -856,6 +1071,19 @@
                     {{ Math.round(row.original.trimp) }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #sessionRpe-cell="{ row }">
@@ -863,17 +1091,56 @@
                     {{ row.original.sessionRpe }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #feel-cell="{ row }">
                   <span v-if="row.original.feel"> {{ row.original.feel }}/5 </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
                 <template #averageWatts-cell="{ row }">
                   <span v-if="row.original.averageWatts" class="font-medium">
                     {{ Math.round(row.original.averageWatts) }}W
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #normalizedPower-cell="{ row }">
@@ -881,6 +1148,19 @@
                     {{ Math.round(row.original.normalizedPower) }}W
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #weightedAvgWatts-cell="{ row }">
@@ -888,6 +1168,19 @@
                     {{ Math.round(row.original.weightedAvgWatts) }}W
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #kilojoules-cell="{ row }">
@@ -895,6 +1188,19 @@
                     {{ Math.round(row.original.kilojoules) }} kJ
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #calories-cell="{ row }">
@@ -902,6 +1208,19 @@
                     {{ Math.round(row.original.calories) }} kcal
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #elapsedTime-cell="{ row }">
@@ -909,6 +1228,19 @@
                     {{ formatDurationCompact(row.original.elapsedTime) }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #deviceName-cell="{ row }">
@@ -916,6 +1248,19 @@
                     {{ row.original.deviceName }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #commute-cell="{ row }">
@@ -923,6 +1268,19 @@
                     Commute
                   </UBadge>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #isPrivate-cell="{ row }">
@@ -932,6 +1290,19 @@
                     class="text-gray-500"
                   />
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #gearId-cell="{ row }">
@@ -939,6 +1310,19 @@
                     {{ row.original.gearId }}
                   </span>
                   <span v-else class="text-gray-400">-</span>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #source-cell="{ row }">
@@ -949,6 +1333,19 @@
                   >
                     {{ row.original.source === 'completed' ? 'Completed' : 'Planned' }}
                   </UBadge>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
 
                 <template #status-cell="{ row }">
@@ -966,12 +1363,34 @@
                   >
                     {{ row.original.status }}
                   </UBadge>
+                  <UModal
+                    v-model:open="showAdHocEditorModal"
+                    :ui="{ content: 'sm:max-w-4xl' }"
+                    prevent-close
+                  >
+                    <template #body>
+                      <WorkoutTemplateEditor
+                        :template="adHocTemplateData"
+                        @save="onAdHocEditorSave"
+                        @cancel="showAdHocEditorModal = false"
+                      />
+                    </template>
+                  </UModal>
                 </template>
               </UTable>
             </div>
           </ClientOnly>
         </div>
       </div>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
   </UDashboardPanel>
 
@@ -1040,6 +1459,15 @@
         The dragged workout will be marked as a duplicate, and the target workout will be kept as
         the primary version.
       </p>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
 
     <template #footer>
@@ -1066,6 +1494,15 @@
           >Merge</UButton
         >
       </div>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
   </UModal>
 
@@ -1081,6 +1518,15 @@
         completed activity <strong>{{ linkCompleted?.title }}</strong
         >?
       </p>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
 
     <template #footer>
@@ -1107,6 +1553,15 @@
           >Link</UButton
         >
       </div>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
   </UModal>
 
@@ -1125,6 +1580,15 @@
           @matched="onWorkoutsMatched"
         />
       </div>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
   </UModal>
 
@@ -1172,6 +1636,15 @@
           <UCalendar v-model="calendarPickerDate" />
         </div>
       </div>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
 
     <template #footer>
@@ -1199,6 +1672,15 @@
           Add to day
         </UButton>
       </div>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
   </UModal>
 
@@ -1221,6 +1703,7 @@
   import CalendarSettingsModal from '~/components/activities/CalendarSettingsModal.vue'
   import MilestoneModal from '~/components/activities/MilestoneModal.vue'
   import CalendarQuickAddModal from '~/components/activities/CalendarQuickAddModal.vue'
+  import WorkoutTemplateEditor from '~/components/workouts/WorkoutTemplateEditor.vue'
   import DashboardCreateAdHocModal from '~/components/dashboard/DashboardCreateAdHocModal.vue'
   import PlanArchitectWorkoutDrawer from '~/components/plans/PlanArchitectWorkoutDrawer.vue'
   import { getDefaultSportSettings, getSportSettingsForActivity } from '~/utils/sportSettings'
@@ -2033,6 +2516,25 @@
         description: 'Please try again.',
         color: 'error'
       })
+    }
+  }
+
+  const showAdHocEditorModal = ref(false)
+  const adHocTemplateData = ref<any>(null)
+
+  function handleQuickAddCreate({ date, type }: { date: Date; type: 'cardio' | 'strength' }) {
+    quickAddDate.value = date
+    adHocTemplateData.value = {
+      type: type === 'strength' ? 'WeightTraining' : 'Ride',
+      title: type === 'strength' ? 'Strength Workout' : 'Cardio Workout'
+    }
+    showAdHocEditorModal.value = true
+  }
+
+  async function onAdHocEditorSave(savedTemplate: any) {
+    showAdHocEditorModal.value = false
+    if (quickAddDate.value) {
+      await onScheduleTemplate({ template: savedTemplate, date: quickAddDate.value })
     }
   }
 

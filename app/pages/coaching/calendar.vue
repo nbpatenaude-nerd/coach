@@ -4,9 +4,37 @@
       <UDashboardNavbar>
         <template #leading>
           <UDashboardSidebarCollapse />
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
         <template #title>
           <CoachingNavbarLinks />
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
         <template #right>
           <LayoutPageNavbarActions :overflow-items="calendarOverflowItems">
@@ -75,10 +103,48 @@
                   }
                 "
               />
+              <UModal
+                v-model:open="showAdHocEditorModal"
+                :ui="{ content: 'sm:max-w-4xl' }"
+                prevent-close
+              >
+                <template #body>
+                  <WorkoutTemplateEditor
+                    :template="adHocTemplateData"
+                    owner-scope="coach"
+                    @save="onAdHocEditorSave"
+                    @cancel="showAdHocEditorModal = false"
+                  />
+                </template>
+              </UModal>
             </template>
           </LayoutPageNavbarActions>
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
       </UDashboardNavbar>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            owner-scope="coach"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
 
     <template #body>
@@ -466,6 +532,20 @@
               <UCalendar v-model="calendarPickerDate" />
             </div>
           </div>
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
         <template #footer>
           <div class="flex w-full justify-end gap-2">
@@ -492,6 +572,20 @@
               Schedule
             </UButton>
           </div>
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
       </UModal>
 
@@ -549,6 +643,20 @@
               </div>
             </div>
           </div>
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
 
         <template #footer>
@@ -563,6 +671,20 @@
               View Detailed Analysis
             </UButton>
           </div>
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
       </UModal>
 
@@ -690,8 +812,32 @@
               />
             </div>
           </div>
+          <UModal
+            v-model:open="showAdHocEditorModal"
+            :ui="{ content: 'sm:max-w-4xl' }"
+            prevent-close
+          >
+            <template #body>
+              <WorkoutTemplateEditor
+                :template="adHocTemplateData"
+                owner-scope="coach"
+                @save="onAdHocEditorSave"
+                @cancel="showAdHocEditorModal = false"
+              />
+            </template>
+          </UModal>
         </template>
       </USlideover>
+      <UModal v-model:open="showAdHocEditorModal" :ui="{ content: 'sm:max-w-4xl' }" prevent-close>
+        <template #body>
+          <WorkoutTemplateEditor
+            :template="adHocTemplateData"
+            owner-scope="coach"
+            @save="onAdHocEditorSave"
+            @cancel="showAdHocEditorModal = false"
+          />
+        </template>
+      </UModal>
     </template>
   </UDashboardPanel>
 
@@ -716,6 +862,7 @@
   import CoachingPlanSidebar from '~/components/coaching/CoachingPlanSidebar.vue'
   import CoachCalendarPanel from '~/components/coaching/CoachCalendarPanel.vue'
   import CalendarQuickAddModal from '~/components/activities/CalendarQuickAddModal.vue'
+  import WorkoutTemplateEditor from '~/components/workouts/WorkoutTemplateEditor.vue'
   import DashboardCreateAdHocModal from '~/components/dashboard/DashboardCreateAdHocModal.vue'
   import { useCoachCalendar } from '~/composables/useCoachCalendar'
 
@@ -1144,6 +1291,29 @@
   const showCreateAdHocModal = ref(false)
   const quickAddDate = ref<Date | null>(null)
   const quickAddAthleteId = ref<string | null>(null)
+
+  const showAdHocEditorModal = ref(false)
+  const adHocTemplateData = ref<any>(null)
+
+  function handleQuickAddCreate({ date, type }: { date: Date; type: 'cardio' | 'strength' }) {
+    quickAddDate.value = date
+    adHocTemplateData.value = {
+      type: type === 'strength' ? 'WeightTraining' : 'Ride',
+      title: type === 'strength' ? 'Strength Workout' : 'Cardio Workout'
+    }
+    showAdHocEditorModal.value = true
+  }
+
+  async function onAdHocEditorSave(savedTemplate: any) {
+    showAdHocEditorModal.value = false
+    if (quickAddDate.value && quickAddAthleteId.value) {
+      await onScheduleTemplate({
+        athleteId: quickAddAthleteId.value,
+        template: savedTemplate,
+        date: quickAddDate.value
+      })
+    }
+  }
 
   function handleQuickAdd(athleteId: string, date: Date) {
     quickAddAthleteId.value = athleteId
