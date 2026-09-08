@@ -408,7 +408,7 @@ ${
   USER INSTRUCTIONS (HIGHEST PRIORITY):
   ${
     customInstructions
-      ? `"${customInstructions}"\n\nFollow these instructions above everything else. They override standard progression and availability constraints.`
+      ? `"${customInstructions}"\n\nFollow these instructions above everything else. They completely override standard progression, volume budgets, availability constraints, and the 'one slot per day' rule. If the user asks for multiple sessions on a day, you MUST schedule them.`
       : 'No special instructions.'
   }
 
@@ -482,6 +482,11 @@ Return valid JSON matching the schema provided.`
   })
 
   let volumeViolations = validateGeneratedBlockWeeks(result.weeks, weekTargets)
+  if (customInstructions && customInstructions.length > 10) {
+    logger.log('[GenerateBlock] Bypassing volume budget enforcement due to custom instructions')
+    volumeViolations = []
+  }
+
   if (volumeViolations.length > 0) {
     logger.warn('[GenerateBlock] Generated weeks violate volume budgets, retrying with feedback', {
       blockId,

@@ -620,7 +620,7 @@ TRAINING AVAILABILITY (when user can train):
 ${availabilitySummary || 'No availability set - assume flexible schedule'}
 
 USER INSTRUCTIONS (HIGHEST PRIORITY):
-${userInstructions ? `"${userInstructions}"\n\nFollow these instructions above everything else. They override standard progression and availability constraints.` : 'No special instructions.'}
+${userInstructions ? `"${userInstructions}"\n\nFollow these instructions above everything else. They completely override standard progression, volume budgets, availability constraints, and the 'one slot per day' rule. If the user asks for multiple sessions on a day, you MUST schedule them.` : 'No special instructions.'}
 
 LOCKED/ANCHOR WORKOUTS (DO NOT CHANGE OR REPLACE):
 ${
@@ -769,6 +769,11 @@ Maintain your **${aiSettings.aiPersona}** persona throughout the plan's reasonin
 
   let planDays: any[] = Array.isArray((plan as any)?.days) ? (plan as any).days : []
   let volumeViolations = validateGeneratedBlockWeeks([daysToBlockWeek(planDays)], weekTargets)
+  if (userInstructions && userInstructions.length > 10) {
+    logger.log('Bypassing volume budget enforcement due to user instructions')
+    volumeViolations = []
+  }
+
   if (volumeViolations.length > 0) {
     logger.warn('Generated week violates volume budget, retrying with feedback', {
       violations: volumeViolations.map((v) => v.message)
