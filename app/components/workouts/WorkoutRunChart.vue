@@ -216,12 +216,6 @@
                   >
                     {{ step.cadence }} SPM
                   </span>
-                  <div
-                    v-if="showHrColumn && hasMetricTarget(step.heartRate) && getStepBpmLabel(step)"
-                    class="basis-full text-[10px] leading-tight text-muted"
-                  >
-                    {{ getStepBpmLabel(step) }}
-                  </div>
                 </div>
               </div>
 
@@ -269,12 +263,6 @@
                   <div class="text-sm font-semibold whitespace-nowrap">
                     <span v-if="hasMetricTarget(step.heartRate)">{{ getHrZoneLabel(step) }}</span>
                     <span v-else class="text-gray-300 dark:text-gray-700">-</span>
-                  </div>
-                  <div
-                    v-if="hasMetricTarget(step.heartRate) && getStepBpmLabel(step)"
-                    class="text-[10px] text-muted whitespace-nowrap"
-                  >
-                    {{ getStepBpmLabel(step) }}
                   </div>
                 </div>
                 <div
@@ -367,6 +355,9 @@
     getWorkoutChartPreference
   } from '~/utils/workoutChartContext'
   import WorkoutStepsEditor from './planned/WorkoutStepsEditor.vue'
+
+  import { useUserStore } from '~/stores/user'
+  import { formatPace as formatPaceShared } from '~/utils/metrics'
 
   const props = withDefaults(
     defineProps<{
@@ -1256,6 +1247,15 @@
       const hrUnits = String((target as any)?.units || '')
         .trim()
         .toLowerCase()
+
+      let hrZoneLabel = ''
+      const normalized = normalizeMetricTarget(target, 'hr')
+      const targetVal = getTargetValue(normalized)
+      if (targetVal !== undefined) {
+        const zoneName = getZoneName(targetVal)
+        if (zoneName && zoneName !== '??') hrZoneLabel = zoneName
+      }
+
       if (hrUnits === 'hr_zone' || hrUnits === 'zone') {
         if (typeof target.value === 'number') {
           return `Z${Math.round(target.value)} HR`
@@ -1265,14 +1265,24 @@
         }
       }
 
-      const normalized = normalizeMetricTarget(target, 'hr')
+      if (hrUnits === 'bpm') {
+        let bpmStr = ''
+        if (target.range)
+          bpmStr = `${Math.round(target.range.start)}-${Math.round(target.range.end)} bpm`
+        else if (typeof target.value === 'number') bpmStr = `${Math.round(target.value)} bpm`
+
+        return hrZoneLabel ? `${hrZoneLabel} ${bpmStr}` : bpmStr
+      }
+
       if (!normalized) return null
 
       if (normalized.range) {
-        return `${Math.round(normalized.range.start * 100)}-${Math.round(normalized.range.end * 100)}% LTHR`
+        const str = `${Math.round(normalized.range.start * 100)}-${Math.round(normalized.range.end * 100)}% LTHR`
+        return hrZoneLabel ? `${hrZoneLabel} ${str}` : str
       }
       if (typeof normalized.value === 'number') {
-        return `${Math.round(normalized.value * 100)}% LTHR`
+        const str = `${Math.round(normalized.value * 100)}% LTHR`
+        return hrZoneLabel ? `${hrZoneLabel} ${str}` : str
       }
       return null
     }
@@ -1288,27 +1298,34 @@
     }
 
     const paceZoneLabel = getPaceZoneLabel(target as any)
-    if (paceZoneLabel) return `${paceZoneLabel} Pace`
-
     const normalizedPace = normalizeMetricTarget(target as any, 'pace')
-    if (!normalizedPace) return null
-    if (String(normalizedPace?.units || '').toLowerCase() === 'm/s' && normalizedPace?.range) {
-      return `${normalizedPace.range.start.toFixed(2)}-${normalizedPace.range.end.toFixed(2)} m/s`
-    }
-    if (
-      String(normalizedPace?.units || '').toLowerCase() === 'm/s' &&
-      typeof normalizedPace?.value === 'number'
-    ) {
-      return `${normalizedPace.value.toFixed(2)} m/s`
+    if (!normalizedPace) return paceZoneLabel ? `${paceZoneLabel} Pace` : null
+
+    if (String(normalizedPace?.units || '').toLowerCase() === 'm/s') {
+      const userStore = useUserStore()
+      const dUnits = userStore.profile?.distanceUnits || 'Kilometers'
+      let paceStr = ''
+      if (normalizedPace?.range) {
+        const endStr = formatPaceShared(1000 / normalizedPace.range.end, dUnits)
+        const startStr = formatPaceShared(1000 / normalizedPace.range.start, dUnits)
+        const startMatch = startStr.match(/(.+?)(\/km|\/mi)/)
+        const startVal = startMatch ? startMatch[1] : startStr
+        paceStr = `${startVal}-${endStr}`
+      } else if (typeof normalizedPace?.value === 'number') {
+        paceStr = formatPaceShared(1000 / normalizedPace.value, dUnits)
+      }
+      return paceZoneLabel ? `${paceZoneLabel} ${paceStr}` : paceStr
     }
 
     if (normalizedPace.range) {
-      return `${Math.round(normalizedPace.range.start * 100)}-${Math.round(normalizedPace.range.end * 100)}% Pace`
+      const str = `${Math.round(normalizedPace.range.start * 100)}-${Math.round(normalizedPace.range.end * 100)}% Pace`
+      return paceZoneLabel ? `${paceZoneLabel} ${str}` : str
     }
     if (typeof normalizedPace.value === 'number') {
-      return `${Math.round(normalizedPace.value * 100)}% Pace`
+      const str = `${Math.round(normalizedPace.value * 100)}% Pace`
+      return paceZoneLabel ? `${paceZoneLabel} ${str}` : str
     }
-    return null
+    return paceZoneLabel ? `${paceZoneLabel} Pace` : null
   }
 
   function parsePaceToMps(value: number, units?: string): number | null {
@@ -1408,10 +1425,7 @@
   }
 
   function getHrZoneLabel(step: any): string {
-    const normalized = normalizeMetricTarget(step.heartRate, 'hr')
-    const value = getTargetValue(normalized)
-    if (value === undefined) return '-'
-    return `${getZoneName(value)} HR`
+    return formatTargetLabel(step.heartRate, 'hr') || '-'
   }
 
   function getStepRange(step: any) {

@@ -39,7 +39,7 @@
             <div class="flex items-center justify-between">
               <div class="font-bold text-gray-800 dark:text-gray-100">{{ ex.name }}</div>
             </div>
-            <p v-if="ex.notes" class="text.xs text-gray-500">{{ ex.notes }}</p>
+            <p v-if="ex.notes" class="text-xs text-gray-500">{{ ex.notes }}</p>
 
             <div class="space-y-2">
               <div
@@ -60,7 +60,7 @@
                   {{ setRow.index }}
                 </div>
                 <div
-                  class="col-span-3 text-center text.xs font-medium text-gray-600 dark:text-gray-300"
+                  class="col-span-3 text-center text-xs font-medium text-gray-600 dark:text-gray-300"
                 >
                   <div v-if="setRow.targetValue">{{ setRow.targetValue }}</div>
                   <div v-if="setRow.targetLoad">{{ setRow.targetLoad }}</div>
@@ -112,7 +112,7 @@
 
   async function fetchWorkout() {
     try {
-      const data = await $fetch<any>(`/api/planned-workouts/${workoutId}`)
+      const data = await $fetch<any>('/api/planned-workouts/' + workoutId)
       plannedWorkout.value = data
 
       const blocks = normalizeStrengthBlocks(data.structuredWorkout || {})

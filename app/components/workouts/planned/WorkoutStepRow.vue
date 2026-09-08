@@ -386,6 +386,9 @@
   import draggable from 'vuedraggable'
   import { ZONE_COLORS } from '~/utils/zone-colors'
 
+  import { useUserStore } from '~/stores/user'
+  import { formatPace as formatPaceShared, usesImperialDistance } from '~/utils/metrics'
+
   const props = defineProps<{
     step: any
     index: number
@@ -463,7 +466,9 @@
   const valueUnit = computed(() => {
     if (props.metric === 'power') return 'W'
     if (props.metric === 'hr') return 'BPM'
-    return '/KM'
+    const userStore = useUserStore()
+    const dUnits = userStore.profile?.distanceUnits || 'Kilometers'
+    return usesImperialDistance(dUnits) ? '/MI' : '/KM'
   })
 
   const currentIntensity = computed(() => {
@@ -529,10 +534,11 @@
     if (props.metric === 'pace') {
       const speedMps = intensity * refValue
       if (!speedMps) return '-'
-      const secondsPerKm = 1000 / speedMps
-      const mins = Math.floor(secondsPerKm / 60)
-      const secs = Math.round(secondsPerKm % 60)
-      return `${mins}:${secs.toString().padStart(2, '0')}`
+      const userStore = useUserStore()
+      const dUnits = userStore.profile?.distanceUnits || 'Kilometers'
+      const str = formatPaceShared(1000 / speedMps, dUnits)
+      const match = str.match(/(.+?)(\/km|\/mi)/)
+      return match ? match[1] : str
     }
 
     return Math.round(intensity * refValue)

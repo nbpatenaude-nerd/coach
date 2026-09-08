@@ -409,6 +409,9 @@
   import { resolveStepChartIntensity, type ChartMetric } from '#shared/workout-render-model'
   import WorkoutStepsEditor from './planned/WorkoutStepsEditor.vue'
 
+  import { useUserStore } from '~/stores/user'
+  import { formatPace as formatPaceShared } from '~/utils/metrics'
+
   const props = defineProps<{
     workout: any // structuredWorkout JSON
     userFtp?: number
@@ -1146,24 +1149,59 @@
     if (!target) return 'N/A'
 
     const unit = target.units || (step.power ? '% FTP' : step.heartRate ? '% LTHR' : '% Pace')
-    // Ensure there's a space if the unit doesn't start with %
+    const originalUnits = String(target.originalUnits || '')
+      .trim()
+      .toLowerCase()
+
+    const zonePrefix = typeof target.zone === 'number' ? `Z${target.zone} ` : ''
+
+    if (originalUnits === 'm/s') {
+      const userStore = useUserStore()
+      const dUnits = userStore.profile?.distanceUnits || 'Kilometers'
+      if (target.originalRange) {
+        const startStr = formatPaceShared(1000 / target.originalRange.start, dUnits)
+        const endStr = formatPaceShared(1000 / target.originalRange.end, dUnits)
+        const startMatch = startStr.match(/(.+?)(\/km|\/mi)/)
+        const startVal = startMatch ? startMatch[1] : startStr
+        return `${zonePrefix}${startVal}-${endStr}`
+      }
+      if (typeof target.originalValue === 'number') {
+        return `${zonePrefix}${formatPaceShared(1000 / target.originalValue, dUnits)}`
+      }
+    }
+
+    if (originalUnits === 'bpm') {
+      if (target.originalRange) {
+        return `${zonePrefix}${Math.round(target.originalRange.start)}-${Math.round(target.originalRange.end)} bpm`
+      }
+      if (typeof target.originalValue === 'number') {
+        return `${zonePrefix}${Math.round(target.originalValue)} bpm`
+      }
+    }
+
     const displayUnit = unit.startsWith('%') ? unit : ` ${unit}`
 
-    if (typeof target.zone === 'number') return `Z${target.zone}`
+    if (
+      typeof target.zone === 'number' &&
+      !target.originalRange &&
+      typeof target.originalValue !== 'number'
+    )
+      return `Z${target.zone}`
+
     if (target.originalRange && target.originalUnits) {
-      return `${Math.round(target.originalRange.start)}-${Math.round(
-        target.originalRange.end
-      )} ${target.originalUnits}`
+      return `${zonePrefix}${Math.round(target.originalRange.start)}-${Math.round(target.originalRange.end)} ${target.originalUnits}`
     }
     if (typeof target.originalValue === 'number' && target.originalUnits) {
-      return `${Math.round(target.originalValue)} ${target.originalUnits}`
+      return `${zonePrefix}${Math.round(target.originalValue)} ${target.originalUnits}`
     }
     if (target.range) {
-      return `${Math.round(target.range.start * 100)}-${Math.round(
-        target.range.end * 100
-      )}${displayUnit}`
+      return `${zonePrefix}${Math.round(target.range.start * 100)}-${Math.round(target.range.end * 100)}${displayUnit}`
     }
-    return `${Math.round((target.value || 0) * 100)}${displayUnit}`
+    if (typeof target.value === 'number') {
+      return `${zonePrefix}${Math.round(target.value * 100)}${displayUnit}`
+    }
+
+    return 'N/A'
   }
 
   function formatDuration(seconds: number): string {
