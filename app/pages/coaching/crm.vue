@@ -13,7 +13,7 @@
               >{{ athletes?.length || 0 }} Athletes</span
             >
           </h1>
-          <div v-if="pipelines?.length" class="mt-2">
+          <div v-if="pipelines?.length" class="mt-2 flex gap-4 items-center">
             <select
               v-model="activePipelineId"
               class="bg-background border border-border rounded-md px-2 py-1 text-sm text-foreground focus:ring-primary focus:border-primary"
@@ -26,6 +26,17 @@
         <div class="flex items-center gap-2">
           <!-- View Toggle -->
           <div class="flex items-center p-1 bg-muted/50 rounded-lg border border-border/50">
+            <button
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
+              :class="
+                viewMode === 'dashboard'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              "
+              @click="viewMode = 'dashboard'"
+            >
+              <Icon name="lucide:layout-dashboard" class="w-4 h-4" /> Dashboard
+            </button>
             <button
               class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
               :class="
@@ -46,7 +57,7 @@
               "
               @click="viewMode = 'table'"
             >
-              <Icon name="lucide:table-2" class="w-4 h-4" /> Table
+              <Icon name="lucide:table-2" class="w-4 h-4" /> List
             </button>
           </div>
         </div>
@@ -69,105 +80,177 @@
         <p>No active pipelines found.</p>
       </div>
 
+      <!-- Dashboard View -->
+      <div v-else-if="viewMode === 'dashboard'" class="flex-1 overflow-auto p-6 bg-muted/20">
+        <div class="max-w-7xl mx-auto space-y-6">
+          <!-- KPI Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-card border border-border rounded-xl p-5 shadow-sm">
+              <h3 class="text-sm font-medium text-muted-foreground">Total Pipeline Value</h3>
+              <p class="text-3xl font-bold text-foreground mt-2">
+                {{ formatCurrency(totalPipelineValue) }}
+              </p>
+            </div>
+            <div class="bg-card border border-border rounded-xl p-5 shadow-sm">
+              <h3 class="text-sm font-medium text-muted-foreground">Active Athletes</h3>
+              <p class="text-3xl font-bold text-foreground mt-2">{{ athletes?.length || 0 }}</p>
+            </div>
+            <div class="bg-card border border-border rounded-xl p-5 shadow-sm">
+              <h3 class="text-sm font-medium text-muted-foreground">High Risk</h3>
+              <p class="text-3xl font-bold text-red-500 mt-2">{{ highRiskCount }}</p>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-card border border-border rounded-xl p-5 shadow-sm flex flex-col">
+              <h3 class="text-base font-semibold text-foreground mb-4">Pipeline Distribution</h3>
+              <div class="flex-1 min-h-[300px]">
+                <ClientOnly>
+                  <Bar :data="funnelChartData" :options="funnelChartOptions" />
+                </ClientOnly>
+              </div>
+            </div>
+            <div class="bg-card border border-border rounded-xl p-5 shadow-sm flex flex-col">
+              <h3 class="text-base font-semibold text-foreground mb-4">Lead Sources</h3>
+              <div class="flex-1 min-h-[300px] flex items-center justify-center">
+                <ClientOnly>
+                  <Doughnut :data="leadSourceChartData" :options="doughnutChartOptions" />
+                </ClientOnly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Kanban View -->
       <div
         v-else-if="viewMode === 'kanban'"
-        class="flex-1 overflow-x-auto overflow-y-hidden p-6 flex gap-4 bg-background"
+        class="flex-1 overflow-x-auto overflow-y-hidden p-6 flex gap-6 bg-muted/20"
       >
         <div
           v-for="stage in activePipeline?.stages || []"
           :key="stage.id"
-          class="flex flex-col min-w-[320px] max-w-[320px] bg-transparent overflow-hidden"
+          class="flex flex-col w-[320px] min-w-[320px] max-w-[320px] shrink-0 bg-transparent overflow-hidden"
           @dragover.prevent
           @dragenter.prevent
           @drop="onDrop($event, stage.id)"
         >
-          <div class="px-2 py-3 flex items-center justify-between shrink-0">
-            <h3 class="font-medium text-[13px] text-foreground flex items-center gap-2">
+          <div
+            class="px-2 py-3 flex items-center justify-between shrink-0 border-b-2"
+            :style="{ borderColor: stage.color || '#3b82f6' }"
+          >
+            <h3
+              class="font-semibold text-sm text-foreground flex items-center gap-2 uppercase tracking-wider"
+            >
               {{ stage.name }}
               <span
-                class="text-muted-foreground font-medium bg-muted/50 px-2 py-0.5 rounded-full text-[11px] leading-none"
+                class="text-muted-foreground font-medium bg-muted px-2 py-0.5 rounded-full text-xs leading-none"
               >
                 {{ athletesByStage[stage.id]?.length || 0 }}
               </span>
             </h3>
+            <span class="text-xs font-medium text-muted-foreground">{{
+              formatCurrency(getStageValue(stage.id))
+            }}</span>
           </div>
 
-          <div class="flex-1 overflow-y-auto p-3 space-y-3">
+          <div
+            class="flex-1 overflow-y-auto p-1 py-3 space-y-3 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/50 transition-colors"
+          >
             <div
               v-for="athlete in athletesByStage[stage.id]"
               :key="athlete.id"
               draggable="true"
-              class="bg-card border border-border/40 rounded-lg p-3 shadow-sm hover:shadow-md hover:border-border/80 transition-all cursor-pointer group flex flex-col gap-3"
+              class="bg-card border border-border rounded-lg p-4 shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer group flex flex-col gap-3 relative"
               @dragstart="onDragStart($event, athlete)"
               @click="selectedAthlete = athlete"
             >
-              <div class="flex items-start justify-between gap-2">
+              <div
+                class="absolute top-0 left-0 w-1 h-full rounded-l-lg opacity-50 group-hover:opacity-100 transition-opacity"
+                :style="{ backgroundColor: stage.color || '#3b82f6' }"
+              ></div>
+
+              <div class="flex items-start justify-between gap-2 pl-1">
                 <div class="flex items-center gap-3">
                   <div
-                    class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium text-xs shrink-0"
+                    class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm shrink-0"
                   >
                     {{ athlete.name ? athlete.name.charAt(0).toUpperCase() : 'U' }}
                   </div>
                   <div class="min-w-0">
-                    <p class="font-medium text-[13px] leading-tight text-foreground truncate">
+                    <p
+                      class="font-semibold text-sm leading-tight text-foreground truncate group-hover:text-primary transition-colors"
+                    >
                       {{ athlete.name || 'Unnamed Athlete' }}
                     </p>
-                    <p class="text-[11px] text-muted-foreground truncate">{{ athlete.email }}</p>
+                    <p class="text-xs text-muted-foreground truncate mt-0.5">{{ athlete.email }}</p>
                   </div>
                 </div>
               </div>
 
-              <div class="flex flex-wrap gap-1 mt-1">
+              <div class="flex items-center justify-between pl-1">
+                <span
+                  class="text-xs font-medium"
+                  :class="athlete.lifetimeValue ? 'text-emerald-500' : 'text-muted-foreground'"
+                >
+                  {{ formatCurrency(athlete.lifetimeValue || 0) }}
+                </span>
+                <span
+                  v-if="athlete.lastLoginAt"
+                  class="text-[10px] text-muted-foreground flex items-center gap-1"
+                >
+                  <Icon name="lucide:clock" class="w-3 h-3" />
+                  {{ new Date(athlete.lastLoginAt).toLocaleDateString() }}
+                </span>
+              </div>
+
+              <div class="flex flex-wrap gap-1 mt-1 pl-1">
                 <span
                   v-if="athlete.churnRisk === 'HIGH'"
-                  class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-medium bg-red-500/10 text-red-500"
+                  class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-500/10 text-red-500 border border-red-500/20"
                 >
-                  High Churn Risk
+                  HIGH RISK
                 </span>
                 <span
                   v-for="tag in (athlete.crmTags || []).slice(0, 3)"
                   :key="tag"
-                  class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-medium bg-muted/60 text-muted-foreground"
+                  class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border"
                 >
-                  #{{ tag }}
+                  {{ tag }}
                 </span>
                 <span
                   v-if="(athlete.crmTags || []).length > 3"
                   class="text-[10px] text-muted-foreground"
                   >+{{ athlete.crmTags.length - 3 }}</span
                 >
-                <span
-                  v-if="!athlete.crmTags || athlete.crmTags.length === 0"
-                  class="text-[10px] text-muted-foreground italic"
-                  >No tags</span
-                >
               </div>
             </div>
 
             <div
               v-if="!athletesByStage[stage.id]?.length"
-              class="h-16 flex items-center justify-center text-muted-foreground text-[11px] opacity-40"
+              class="h-24 border-2 border-dashed border-border rounded-lg flex items-center justify-center text-muted-foreground text-xs font-medium"
             >
-              Drop here
+              Drag & Drop Here
             </div>
           </div>
         </div>
       </div>
 
       <!-- Table View -->
-      <div v-else-if="activePipeline" class="flex-1 overflow-auto p-6">
-        <div class="bg-background border border-border rounded-xl overflow-hidden shadow-sm">
+      <div v-else-if="activePipeline" class="flex-1 overflow-auto p-6 bg-muted/20">
+        <div class="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
           <table class="w-full text-sm text-left whitespace-nowrap">
             <thead
-              class="text-xs text-muted-foreground uppercase bg-muted/30 border-b border-border"
+              class="text-xs text-muted-foreground uppercase bg-muted/50 border-b border-border"
             >
               <tr>
-                <th class="px-6 py-3.5 font-medium tracking-wider">Athlete</th>
-                <th class="px-6 py-3.5 font-medium tracking-wider">Stage</th>
-                <th class="px-6 py-3.5 font-medium tracking-wider">Lead Source</th>
-                <th class="px-6 py-3.5 font-medium tracking-wider">Tags</th>
-                <th class="px-6 py-3.5 font-medium tracking-wider text-right">Last Login</th>
+                <th class="px-6 py-4 font-semibold tracking-wider">Athlete</th>
+                <th class="px-6 py-4 font-semibold tracking-wider">Stage</th>
+                <th class="px-6 py-4 font-semibold tracking-wider">Value</th>
+                <th class="px-6 py-4 font-semibold tracking-wider">Lead Source</th>
+                <th class="px-6 py-4 font-semibold tracking-wider">Tags</th>
+                <th class="px-6 py-4 font-semibold tracking-wider text-right">Last Login</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-border">
@@ -180,51 +263,61 @@
                 <td class="px-6 py-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shadow-inner text-xs shrink-0"
+                      class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shadow-inner text-sm shrink-0"
                     >
                       {{ athlete.name ? athlete.name.charAt(0).toUpperCase() : 'U' }}
                     </div>
                     <div class="flex flex-col">
                       <span
-                        class="font-medium text-foreground group-hover:text-primary transition-colors"
+                        class="font-semibold text-foreground group-hover:text-primary transition-colors"
                         >{{ athlete.name || 'Unnamed Athlete' }}</span
                       >
-                      <span class="text-xs text-muted-foreground">{{ athlete.email }}</span>
+                      <span class="text-xs text-muted-foreground mt-0.5">{{ athlete.email }}</span>
                     </div>
+                    <div
+                      v-if="athlete.churnRisk === 'HIGH'"
+                      class="ml-2 w-2 h-2 rounded-full bg-red-500"
+                      title="High Churn Risk"
+                    ></div>
                   </div>
                 </td>
                 <td class="px-6 py-3">
                   <span
-                    class="inline-flex items-center rounded bg-muted px-2 py-1 text-xs font-medium text-foreground border border-border"
+                    class="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs font-semibold text-foreground border border-border"
                   >
                     {{ getAthleteStageName(athlete) }}
                   </span>
                 </td>
                 <td class="px-6 py-3">
-                  <span class="text-muted-foreground text-xs">{{ athlete.leadSource || '-' }}</span>
+                  <span
+                    class="font-medium"
+                    :class="athlete.lifetimeValue ? 'text-emerald-500' : 'text-muted-foreground'"
+                  >
+                    {{ formatCurrency(athlete.lifetimeValue || 0) }}
+                  </span>
+                </td>
+                <td class="px-6 py-3">
+                  <span class="text-muted-foreground text-xs font-medium">{{
+                    athlete.leadSource || '-'
+                  }}</span>
                 </td>
                 <td class="px-6 py-3">
                   <div class="flex flex-wrap gap-1 max-w-50">
                     <span
                       v-for="tag in (athlete.crmTags || []).slice(0, 2)"
                       :key="tag"
-                      class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border"
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground border border-border"
                     >
-                      #{{ tag }}
+                      {{ tag }}
                     </span>
                     <span
                       v-if="(athlete.crmTags || []).length > 2"
-                      class="text-[10px] text-muted-foreground"
+                      class="text-[10px] text-muted-foreground font-medium"
                       >+{{ athlete.crmTags.length - 2 }}</span
-                    >
-                    <span
-                      v-if="!athlete.crmTags || athlete.crmTags.length === 0"
-                      class="text-[10px] text-muted-foreground italic"
-                      >None</span
                     >
                   </div>
                 </td>
-                <td class="px-6 py-3 text-right text-muted-foreground text-xs">
+                <td class="px-6 py-3 text-right text-muted-foreground text-xs font-medium">
                   {{
                     athlete.lastLoginAt
                       ? new Date(athlete.lastLoginAt).toLocaleDateString()
@@ -233,7 +326,7 @@
                 </td>
               </tr>
               <tr v-if="(athletes?.length || 0) === 0">
-                <td colspan="5" class="px-6 py-12 text-center text-muted-foreground">
+                <td colspan="6" class="px-6 py-12 text-center text-muted-foreground">
                   No athletes found.
                 </td>
               </tr>
@@ -256,6 +349,19 @@
 
 <script setup lang="ts">
   import { ref, computed, watch } from 'vue'
+  import { Bar, Doughnut } from 'vue-chartjs'
+  import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    ArcElement
+  } from 'chart.js'
+
+  ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement)
 
   type CrmPipelineStage = {
     id: string
@@ -331,7 +437,15 @@
     middleware: ['auth', 'coach'] as any
   })
 
-  const viewMode = ref<'kanban' | 'table'>('kanban')
+  const viewMode = ref<'dashboard' | 'kanban' | 'table'>('dashboard')
+
+  const formatCurrency = (val: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0
+    }).format(val)
+  }
 
   const athletesByStage = computed<Record<string, CrmAthlete[]>>(() => {
     const grouped: Record<string, CrmAthlete[]> = {}
@@ -351,17 +465,93 @@
         if (deal && grouped[deal.stageId]) {
           grouped[deal.stageId].push(a)
         } else if (pipeline.stages && pipeline.stages.length > 0) {
-          if (pipeline.stages && pipeline.stages.length > 0) {
-            const defaultStageId = pipeline.stages[0].id
-            if (grouped[defaultStageId]) {
-              grouped[defaultStageId].push(a)
-            }
+          const defaultStageId = pipeline.stages[0].id
+          if (grouped[defaultStageId]) {
+            grouped[defaultStageId].push(a)
           }
         }
       })
     }
     return grouped
   })
+
+  const getStageValue = (stageId: string) => {
+    const group = athletesByStage.value[stageId]
+    if (!group) return 0
+    return group.reduce((sum, a) => sum + (a.lifetimeValue || 0), 0)
+  }
+
+  const totalPipelineValue = computed(() => {
+    if (!athletes.value) return 0
+    return athletes.value.reduce((sum, a) => sum + (a.lifetimeValue || 0), 0)
+  })
+
+  const highRiskCount = computed(() => {
+    if (!athletes.value) return 0
+    return athletes.value.filter((a) => a.churnRisk === 'HIGH').length
+  })
+
+  // Chart Data Computations
+  const funnelChartData = computed(() => {
+    if (!activePipeline.value) return { labels: [], datasets: [] }
+    const labels = activePipeline.value.stages.map((s) => s.name)
+    const data = activePipeline.value.stages.map((s) => getStageValue(s.id))
+    const colors = activePipeline.value.stages.map((s) => s.color || '#3b82f6')
+    return {
+      labels,
+      datasets: [
+        {
+          label: 'Stage Value ($)',
+          data,
+          backgroundColor: colors,
+          borderRadius: 6
+        }
+      ]
+    }
+  })
+
+  const funnelChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      y: { beginAtZero: true }
+    }
+  }
+
+  const leadSourceChartData = computed(() => {
+    if (!athletes.value) return { labels: [], datasets: [] }
+
+    const sources: Record<string, number> = {}
+    athletes.value.forEach((a) => {
+      const source = a.leadSource || 'Unknown'
+      sources[source] = (sources[source] || 0) + 1
+    })
+
+    const bgColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#64748b']
+
+    return {
+      labels: Object.keys(sources),
+      datasets: [
+        {
+          data: Object.values(sources),
+          backgroundColor: bgColors.slice(0, Object.keys(sources).length),
+          borderWidth: 0
+        }
+      ]
+    }
+  })
+
+  const doughnutChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '70%',
+    plugins: {
+      legend: { position: 'right' as const }
+    }
+  }
 
   const getAthleteStageName = (athlete: CrmAthlete) => {
     if (!activePipeline.value) return 'Unknown'
