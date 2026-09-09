@@ -13,21 +13,31 @@
               >{{ athletes?.length || 0 }} Athletes</span
             >
           </h1>
-          <div v-if="pipelines?.length" class="mt-2 flex gap-4 items-center">
+          <div class="mt-2 flex gap-2 items-center">
             <select
+              v-if="pipelines?.length"
               v-model="activePipelineId"
               class="bg-background border border-border rounded-md px-2 py-1 text-sm text-foreground focus:ring-primary focus:border-primary"
             >
               <option v-for="p in pipelines" :key="p.id" :value="p.id">{{ p.name }}</option>
             </select>
+            <button
+              class="p-1 hover:bg-muted text-muted-foreground rounded"
+              title="Manage Pipelines"
+              @click="isSettingsOpen = true"
+            >
+              <Icon name="lucide:settings" class="w-4 h-4" />
+            </button>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
           <!-- View Toggle -->
-          <div class="flex items-center p-1 bg-muted/50 rounded-lg border border-border/50">
+          <div
+            class="flex items-center p-1 bg-muted/50 rounded-lg border border-border/50 overflow-x-auto"
+          >
             <button
-              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 shrink-0"
               :class="
                 viewMode === 'dashboard'
                   ? 'bg-background shadow-sm text-foreground'
@@ -38,26 +48,56 @@
               <Icon name="lucide:layout-dashboard" class="w-4 h-4" /> Dashboard
             </button>
             <button
-              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 shrink-0"
               :class="
-                viewMode === 'kanban'
+                viewMode === 'kanban' || viewMode === 'table'
                   ? 'bg-background shadow-sm text-foreground'
                   : 'text-muted-foreground hover:text-foreground'
               "
               @click="viewMode = 'kanban'"
             >
-              <Icon name="lucide:kanban" class="w-4 h-4" /> Kanban
+              <Icon name="lucide:kanban" class="w-4 h-4" /> Pipelines
             </button>
             <button
-              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 shrink-0"
+              :class="
+                viewMode === 'marketing'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              "
+              @click="viewMode = 'marketing'"
+            >
+              <Icon name="lucide:mail" class="w-4 h-4" /> Marketing
+            </button>
+          </div>
+
+          <div
+            v-if="viewMode === 'kanban' || viewMode === 'table'"
+            class="flex items-center p-1 bg-muted/50 rounded-lg border border-border/50 shrink-0"
+          >
+            <button
+              class="px-2 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
+              :class="
+                viewMode === 'kanban'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              "
+              title="Kanban View"
+              @click="viewMode = 'kanban'"
+            >
+              <Icon name="lucide:layout-grid" class="w-4 h-4" />
+            </button>
+            <button
+              class="px-2 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2"
               :class="
                 viewMode === 'table'
                   ? 'bg-background shadow-sm text-foreground'
                   : 'text-muted-foreground hover:text-foreground'
               "
+              title="List View"
               @click="viewMode = 'table'"
             >
-              <Icon name="lucide:table-2" class="w-4 h-4" /> List
+              <Icon name="lucide:table-2" class="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -282,12 +322,12 @@
       <!-- Kanban View -->
       <div
         v-else-if="viewMode === 'kanban'"
-        class="flex-1 overflow-x-auto overflow-y-hidden p-6 flex gap-6 bg-muted/20"
+        class="flex-1 min-h-0 overflow-x-auto overflow-y-hidden p-6 flex gap-6 bg-muted/20"
       >
         <div
           v-for="stage in activePipeline?.stages || []"
           :key="stage.id"
-          class="flex flex-col w-[320px] min-w-[320px] max-w-[320px] shrink-0 bg-transparent overflow-hidden"
+          class="flex flex-col h-full min-h-0 w-[320px] min-w-[320px] max-w-[320px] shrink-0 bg-transparent overflow-hidden"
           @dragover.prevent
           @dragenter.prevent
           @drop="onDrop($event, stage.id)"
@@ -394,7 +434,7 @@
       </div>
 
       <!-- Table View -->
-      <div v-else-if="activePipeline" class="flex-1 overflow-auto p-6 bg-muted/20">
+      <div v-else-if="viewMode === 'table'" class="flex-1 overflow-auto p-6 bg-muted/20">
         <div class="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
           <table class="w-full text-sm text-left whitespace-nowrap">
             <thead
@@ -490,7 +530,30 @@
           </table>
         </div>
       </div>
+
+      <!-- Marketing View -->
+      <div v-else-if="viewMode === 'marketing'" class="flex-1 overflow-auto p-6 bg-muted/20">
+        <div class="max-w-4xl mx-auto space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Email Campaigns & Marketing</h2>
+            <UButton color="primary" icon="i-lucide-plus">New Campaign</UButton>
+          </div>
+          <div
+            class="bg-card border border-border rounded-xl p-8 text-center text-muted-foreground"
+          >
+            <Icon name="lucide:mail" class="w-12 h-12 mx-auto mb-4 opacity-50" />
+            <h3 class="text-lg font-medium text-foreground mb-2">No active campaigns</h3>
+            <p class="max-w-md mx-auto">
+              Create targeted email segments based on pipeline stages, tags, or churn risk once the
+              email service is connected.
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
+
+    <!-- Pipeline Settings Modal -->
+    <CoachingCrmPipelineSettingsModal v-model="isSettingsOpen" @created="handlePipelineCreated" />
 
     <!-- Slide-over panel for athlete profile -->
     <CoachingCrmAthleteProfileDrawer
@@ -607,7 +670,17 @@
     middleware: ['auth', 'coach'] as any
   })
 
-  const viewMode = ref<'dashboard' | 'kanban' | 'table'>('dashboard')
+  const viewMode = ref<'dashboard' | 'kanban' | 'table' | 'marketing'>('dashboard')
+
+  const isSettingsOpen = ref(false)
+  const handlePipelineCreated = async () => {
+    await useFetch('/api/coaching/crm/pipelines').then((res) => {
+      pipelines.value = res.data.value || []
+      if (pipelines.value.length > 0) {
+        activePipelineId.value = pipelines.value[pipelines.value.length - 1].id
+      }
+    })
+  }
 
   const formatCurrency = (val: number) => {
     return new Intl.NumberFormat('en-US', {
