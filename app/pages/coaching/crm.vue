@@ -408,7 +408,7 @@
     () => pipelines.value,
     (newPipelines) => {
       if (newPipelines && newPipelines.length > 0 && !activePipelineId.value) {
-        activePipelineId.value = newPipelines[0]?.id
+        activePipelineId.value = newPipelines[0]?.id || null
       }
     },
     { immediate: true }
@@ -493,10 +493,11 @@
 
   // Chart Data Computations
   const funnelChartData = computed(() => {
-    if (!activePipeline.value) return { labels: [], datasets: [] }
-    const labels = activePipeline.value.stages.map((s) => s.name)
-    const data = activePipeline.value.stages.map((s) => getStageValue(s.id))
-    const colors = activePipeline.value.stages.map((s) => s.color || '#3b82f6')
+    const pipeline = activePipeline.value
+    if (!pipeline) return { labels: [], datasets: [] }
+    const labels = pipeline.stages.map((s) => s.name)
+    const data = pipeline.stages.map((s) => getStageValue(s.id))
+    const colors = pipeline.stages.map((s) => s.color || '#3b82f6')
     return {
       labels,
       datasets: [
@@ -554,10 +555,11 @@
   }
 
   const getAthleteStageName = (athlete: CrmAthlete) => {
-    if (!activePipeline.value) return 'Unknown'
-    const deal = athlete.crmDeals.find((d) => d.pipelineId === activePipeline.value!.id)
+    const pipeline = activePipeline.value
+    if (!pipeline) return 'Unknown'
+    const deal = athlete.crmDeals.find((d) => d.pipelineId === pipeline.id)
     if (deal) return deal.stage.name
-    return activePipeline.value.stages[0]?.name || 'Unknown'
+    return pipeline.stages[0]?.name || 'Unknown'
   }
 
   const isUpdating = ref(false)
@@ -577,24 +579,25 @@
 
   const onDrop = async (e: DragEvent, stageId: string) => {
     const athleteId = e.dataTransfer?.getData('text/plain')
-    if (!athleteId || !activePipeline.value) return
+    const pipeline = activePipeline.value
+    if (!athleteId || !pipeline) return
 
     const athlete = athletes.value?.find((a: CrmAthlete) => a.id === athleteId)
     if (!athlete) return
 
-    const deal = athlete.crmDeals.find((d) => d.pipelineId === activePipeline.value!.id)
+    const deal = athlete.crmDeals.find((d) => d.pipelineId === pipeline.id)
     if (deal && deal.stageId === stageId) return
 
     const oldDeals = [...athlete.crmDeals]
     if (deal) {
       deal.stageId = stageId
-      deal.stage = activePipeline.value.stages.find((s) => s.id === stageId)!
+      deal.stage = pipeline.stages.find((s) => s.id === stageId)!
     } else {
       athlete.crmDeals.push({
         id: 'temp',
-        pipelineId: activePipeline.value.id,
+        pipelineId: pipeline.id,
         stageId: stageId,
-        stage: activePipeline.value.stages.find((s) => s.id === stageId)!
+        stage: pipeline.stages.find((s) => s.id === stageId)!
       })
     }
 
@@ -602,7 +605,7 @@
     try {
       await $fetch('/api/coaching/crm/update-athlete', {
         method: 'PATCH',
-        body: { athleteId, pipelineId: activePipeline.value.id, stageId: stageId }
+        body: { athleteId, pipelineId: pipeline.id, stageId: stageId }
       })
       await refreshAthletes()
     } catch (err) {
