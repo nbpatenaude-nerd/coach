@@ -1,9 +1,9 @@
-<template>
+﻿<template>
   <UModal v-model="isOpen">
     <UCard>
       <template #header>
         <div class="flex items-center justify-between">
-          <h3 class="text-lg font-semibold">Create New Pipeline</h3>
+          <h3 class="text-lg font-semibold text-foreground">Create New Pipeline</h3>
           <UButton color="gray" variant="ghost" icon="i-lucide-x" @click="isOpen = false" />
         </div>
       </template>
@@ -18,7 +18,7 @@
           <label class="block text-sm font-medium text-foreground mb-1">Stages (in order)</label>
           <div class="space-y-2">
             <div v-for="(stage, idx) in form.stages" :key="idx" class="flex gap-2">
-              <UInput v-model="form.stages[idx]" class="flex-1" placeholder="Stage Name" />
+              <UInput v-model="stage.name" class="flex-1" placeholder="Stage Name" />
               <UButton
                 v-if="form.stages.length > 1"
                 color="red"
@@ -32,7 +32,7 @@
               variant="soft"
               size="sm"
               icon="i-lucide-plus"
-              @click="form.stages.push('')"
+              @click="form.stages.push({ name: '' })"
             >
               Add Stage
             </UButton>
@@ -69,7 +69,7 @@
   const isSaving = ref(false)
   const form = reactive({
     name: '',
-    stages: ['Lead', 'Review', 'Closed']
+    stages: [{ name: 'Lead' }, { name: 'Review' }, { name: 'Closed' }]
   })
 
   watch(
@@ -77,19 +77,19 @@
     (val) => {
       if (val) {
         form.name = ''
-        form.stages = ['Lead', 'Review', 'Closed']
+        form.stages = [{ name: 'Lead' }, { name: 'Review' }, { name: 'Closed' }]
       }
     }
   )
 
   const savePipeline = async () => {
-    if (!form.name || form.stages.some((s) => !s.trim())) return
+    if (!form.name || form.stages.some((s) => !s.name.trim())) return
 
     isSaving.value = true
     try {
       await $fetch('/api/coaching/crm/pipelines', {
         method: 'POST',
-        body: { name: form.name, stages: form.stages.filter((s) => s.trim()) }
+        body: { name: form.name, stages: form.stages.map((s) => s.name.trim()).filter(Boolean) }
       })
       emit('created')
       isOpen.value = false
