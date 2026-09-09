@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <UDashboardPanel id="athlete-detail">
     <template #header>
       <UDashboardNavbar>
@@ -181,7 +181,7 @@
                     }}
                   </p>
                   <p v-if="readinessSummary?.date" class="mt-2 text-xs text-gray-500">
-                    {{ readinessSummary.status }} • {{ formatLongDate(readinessSummary.date) }}
+                    {{ readinessSummary.status }} â€¢ {{ formatLongDate(readinessSummary.date) }}
                   </p>
                 </UCard>
 
@@ -320,8 +320,8 @@
                       <div class="min-w-0 flex-1">
                         <p class="text-sm font-bold truncate">{{ workout.title }}</p>
                         <p class="text-xs text-gray-500">
-                          {{ workout.type || 'Workout' }} •
-                          {{ formatDurationMinutes(workout.durationSec) }} •
+                          {{ workout.type || 'Workout' }} â€¢
+                          {{ formatDurationMinutes(workout.durationSec) }} â€¢
                           {{ formatTss(workout.tss) }}
                         </p>
                       </div>
@@ -363,8 +363,8 @@
                       <div class="min-w-0 flex-1">
                         <p class="text-sm font-bold truncate">{{ workout.title }}</p>
                         <p class="text-xs text-gray-500">
-                          {{ workout.type || 'Workout' }} •
-                          {{ formatDurationMinutes(workout.durationSec) }} •
+                          {{ workout.type || 'Workout' }} â€¢
+                          {{ formatDurationMinutes(workout.durationSec) }} â€¢
                           {{ formatTss(workout.tss) }}
                         </p>
                       </div>
@@ -477,7 +477,7 @@
                         <div class="min-w-0">
                           <p class="font-bold">{{ workout.title }}</p>
                           <p class="text-sm text-gray-500 mt-1">
-                            {{ formatLongDate(workout.date) }} • {{ workout.type || 'Workout' }}
+                            {{ formatLongDate(workout.date) }} â€¢ {{ workout.type || 'Workout' }}
                           </p>
                         </div>
                         <UBadge color="neutral" variant="soft">
@@ -510,7 +510,7 @@
                         <div class="min-w-0">
                           <p class="font-bold">{{ workout.title }}</p>
                           <p class="text-sm text-gray-500 mt-1">
-                            {{ formatLongDate(workout.date) }} • {{ workout.type || 'Workout' }}
+                            {{ formatLongDate(workout.date) }} â€¢ {{ workout.type || 'Workout' }}
                           </p>
                         </div>
                         <UBadge
@@ -615,7 +615,7 @@
         <div>
           <div class="text-lg font-black">{{ selectedWorkout.title }}</div>
           <div class="text-xs uppercase tracking-widest text-muted">
-            {{ selectedWorkout.type || 'Workout' }} •
+            {{ selectedWorkout.type || 'Workout' }} â€¢
             {{ formatLongDate(selectedWorkout.date) }}
           </div>
         </div>
@@ -766,13 +766,10 @@
     data: athlete,
     pending,
     error
-  } = useAsyncData<AthleteProfile>(
-    `athlete-${athleteId}`,
-    () => ($fetch as any)(`/api/coaching/athletes/${athleteId}`),
-    {
-      lazy: true
-    }
-  ) as any
+  } = useFetch<AthleteProfile>(`/api/coaching/athletes/${athleteId}`, {
+    key: `athlete-${athleteId}`,
+    lazy: true
+  }) as any
 
   const athleteName = computed(() => athlete.value?.name || 'Athlete Profile')
 
