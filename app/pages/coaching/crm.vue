@@ -82,27 +82,80 @@
 
       <!-- Dashboard View -->
       <div v-else-if="viewMode === 'dashboard'" class="flex-1 overflow-auto p-6 bg-muted/20">
-        <div class="max-w-7xl mx-auto space-y-6">
-          <!-- KPI Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-card border border-border rounded-xl p-5 shadow-sm">
-              <h3 class="text-sm font-medium text-muted-foreground">Total Pipeline Value</h3>
-              <p class="text-3xl font-bold text-foreground mt-2">
-                {{ formatCurrency(totalPipelineValue) }}
-              </p>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Left Column (Wider) -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- SuiteCRM style Activity Stream -->
+            <div
+              class="bg-card border border-border rounded-xl overflow-hidden shadow-sm flex flex-col"
+            >
+              <div
+                class="bg-muted/50 px-4 py-3 border-b border-border flex items-center justify-between"
+              >
+                <h3 class="font-semibold text-foreground flex items-center gap-2">
+                  <Icon name="lucide:activity" class="w-4 h-4" /> My Activity Stream
+                </h3>
+                <button
+                  class="p-1 hover:bg-muted rounded text-muted-foreground"
+                  @click="refreshActivities"
+                >
+                  <Icon name="lucide:refresh-cw" class="w-4 h-4" />
+                </button>
+              </div>
+              <div class="p-0 flex-1 max-h-[400px] overflow-y-auto">
+                <div v-if="!activities?.length" class="p-8 text-center text-muted-foreground">
+                  No recent activity.
+                </div>
+                <div v-else class="divide-y divide-border">
+                  <div
+                    v-for="act in activities"
+                    :key="act.id"
+                    class="p-4 hover:bg-muted/20 transition-colors flex gap-3"
+                  >
+                    <div
+                      class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0"
+                    >
+                      <span class="text-primary font-bold text-xs">{{
+                        act.user?.name ? act.user.name.charAt(0) : 'U'
+                      }}</span>
+                    </div>
+                    <div>
+                      <p class="text-sm">
+                        <span class="font-semibold text-foreground">{{
+                          act.user?.name || 'System'
+                        }}</span>
+                        <span class="text-muted-foreground ml-1">
+                          {{
+                            act.action === 'DEAL_MOVED'
+                              ? 'moved a deal'
+                              : act.action === 'NOTE_ADDED'
+                                ? 'added a note'
+                                : act.action === 'WORKOUT_COMPLETED'
+                                  ? 'completed a workout'
+                                  : act.action === 'DEAL_WON'
+                                    ? 'closed a deal'
+                                    : act.action === 'CHECK_IN_SUBMITTED'
+                                      ? 'submitted a check-in'
+                                      : act.action
+                          }}
+                        </span>
+                      </p>
+                      <p
+                        v-if="act.metadata"
+                        class="text-xs text-muted-foreground mt-1 bg-muted/50 p-2 rounded border border-border inline-block"
+                      >
+                        {{ Object.values(act.metadata).join(' · ') }}
+                      </p>
+                      <p class="text-[10px] text-muted-foreground mt-1">
+                        {{ new Date(act.createdAt).toLocaleString() }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="bg-card border border-border rounded-xl p-5 shadow-sm">
-              <h3 class="text-sm font-medium text-muted-foreground">Active Athletes</h3>
-              <p class="text-3xl font-bold text-foreground mt-2">{{ athletes?.length || 0 }}</p>
-            </div>
-            <div class="bg-card border border-border rounded-xl p-5 shadow-sm">
-              <h3 class="text-sm font-medium text-muted-foreground">High Risk</h3>
-              <p class="text-3xl font-bold text-red-500 mt-2">{{ highRiskCount }}</p>
-            </div>
-          </div>
 
-          <!-- Charts -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Pipeline Distribution Chart -->
             <div class="bg-card border border-border rounded-xl p-5 shadow-sm flex flex-col">
               <h3 class="text-base font-semibold text-foreground mb-4">Pipeline Distribution</h3>
               <div class="flex-1 min-h-[300px]">
@@ -111,9 +164,112 @@
                 </ClientOnly>
               </div>
             </div>
+          </div>
+
+          <!-- Right Column (Narrower) -->
+          <div class="space-y-6">
+            <!-- SuiteCRM style Tasks/Calls -->
+            <div
+              class="bg-card border border-border rounded-xl overflow-hidden shadow-sm flex flex-col"
+            >
+              <div
+                class="bg-muted/50 px-4 py-3 border-b border-border flex items-center justify-between"
+              >
+                <h3 class="font-semibold text-foreground flex items-center gap-2">
+                  <Icon name="lucide:phone-call" class="w-4 h-4" /> My Calls & Tasks
+                </h3>
+                <div class="flex gap-1">
+                  <button class="p-1 hover:bg-muted rounded text-muted-foreground">
+                    <Icon name="lucide:plus" class="w-4 h-4" />
+                  </button>
+                  <button
+                    class="p-1 hover:bg-muted rounded text-muted-foreground"
+                    @click="refreshTasks"
+                  >
+                    <Icon name="lucide:refresh-cw" class="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+              <div class="p-0 flex-1 max-h-[400px] overflow-y-auto">
+                <div v-if="!tasks?.length" class="p-8 text-center text-muted-foreground">
+                  No upcoming tasks.
+                </div>
+                <div v-else class="divide-y divide-border">
+                  <div
+                    v-for="task in tasks"
+                    :key="task.id"
+                    class="p-3 hover:bg-muted/20 flex gap-3 items-start"
+                    :class="{ 'opacity-50': task.isCompleted }"
+                  >
+                    <button
+                      class="mt-0.5 shrink-0 text-muted-foreground hover:text-primary transition-colors"
+                      @click="completeTask(task)"
+                    >
+                      <Icon
+                        :name="task.isCompleted ? 'lucide:check-circle-2' : 'lucide:circle'"
+                        class="w-5 h-5"
+                        :class="{ 'text-primary': task.isCompleted }"
+                      />
+                    </button>
+                    <div class="min-w-0 flex-1">
+                      <p
+                        class="text-sm font-medium text-foreground truncate"
+                        :class="{ 'line-through': task.isCompleted }"
+                      >
+                        {{ task.title }}
+                      </p>
+                      <p v-if="task.deal?.user" class="text-xs text-primary truncate mt-0.5">
+                        Related to: {{ task.deal.user.name }}
+                      </p>
+                      <div class="flex items-center gap-2 mt-1">
+                        <span
+                          v-if="task.dueDate"
+                          class="text-[10px] text-muted-foreground flex items-center gap-1"
+                        >
+                          <Icon name="lucide:calendar" class="w-3 h-3" />
+                          {{ new Date(task.dueDate).toLocaleDateString() }}
+                        </span>
+                        <span
+                          class="text-[10px] px-1.5 py-0.5 rounded bg-muted border border-border"
+                        >
+                          {{ task.isCompleted ? 'Completed' : 'Planned' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPI Summary Widget -->
+            <div class="bg-card border border-border rounded-xl shadow-sm p-4 space-y-4">
+              <h3 class="font-semibold text-foreground border-b border-border pb-2">Overview</h3>
+              <div>
+                <p class="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
+                  Total Pipeline Value
+                </p>
+                <p class="text-2xl font-bold text-foreground">
+                  {{ formatCurrency(totalPipelineValue) }}
+                </p>
+              </div>
+              <div>
+                <p class="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
+                  Active Athletes
+                </p>
+                <p class="text-2xl font-bold text-foreground">{{ athletes?.length || 0 }}</p>
+              </div>
+              <div>
+                <p class="text-xs text-red-500 uppercase tracking-wider font-semibold">
+                  High Risk Athletes
+                </p>
+                <p class="text-2xl font-bold text-red-500">{{ highRiskCount }}</p>
+              </div>
+            </div>
+
+            <!-- Lead Sources -->
             <div class="bg-card border border-border rounded-xl p-5 shadow-sm flex flex-col">
               <h3 class="text-base font-semibold text-foreground mb-4">Lead Sources</h3>
-              <div class="flex-1 min-h-[300px] flex items-center justify-center">
+              <div class="flex-1 min-h-[200px] flex items-center justify-center">
                 <ClientOnly>
                   <Doughnut :data="leadSourceChartData" :options="doughnutChartOptions" />
                 </ClientOnly>
@@ -401,6 +557,20 @@
       default: () => []
     }
   )
+
+  const { data: tasks, refresh: refreshTasks } = await useFetch<any[]>('/api/coaching/crm/tasks')
+  const { data: activities, refresh: refreshActivities } = await useFetch<any[]>(
+    '/api/coaching/crm/activity'
+  )
+
+  const completeTask = async (task: any) => {
+    task.isCompleted = true
+    await $fetch('/api/coaching/crm/tasks', {
+      method: 'PATCH',
+      body: { id: task.id, isCompleted: true }
+    })
+    refreshTasks()
+  }
 
   const activePipelineId = ref<string | null>(null)
 
