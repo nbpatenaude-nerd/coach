@@ -26,10 +26,6 @@
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
       <div class="flex flex-col items-center pointer-events-auto w-full px-4 -mt-16">
         <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
-          <UIcon
-            name="i-heroicons-sparkles"
-            class="w-10 h-10 md:w-14 md:h-14 text-cyan-400 opacity-90 drop-shadow-md"
-          />
           <h1
             class="font-athletic text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.25em] md:tracking-[0.3em] uppercase text-white m-0 leading-none drop-shadow-2xl text-center"
           >
