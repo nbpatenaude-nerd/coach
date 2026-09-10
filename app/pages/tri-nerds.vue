@@ -11,7 +11,7 @@
       />
     </div>
 
-    <div ref="hyperlaneRef" class="relative pb-24 sm:pb-32 z-20 pointer-events-none">
+    <div ref="hyperlaneRef" class="relative pb-0 z-20 pointer-events-none">
       <!-- Continuous Glowing Hyperlane Route Line -->
       <div
         class="absolute left-6 sm:left-1/2 top-24 sm:top-32 bottom-0 w-0.5 sm:-translate-x-1/2 bg-slate-800/50 pointer-events-none z-0"
@@ -52,21 +52,27 @@
     <!-- Closing band (The Footer / Community Hook) -->
     <section
       ref="closingSectionRef"
-      class="px-6 pt-12 pb-24 sm:pb-32 lg:px-8 transition-all duration-700 transform relative z-20 pointer-events-none"
+      class="px-6 pb-24 sm:pb-32 lg:px-8 transition-all duration-700 transform relative z-20 pointer-events-none"
       :class="[isClosingVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
     >
       <div
-        class="mx-auto flex max-w-3xl flex-col items-center text-center gap-4 mt-12 sm:mt-16 bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] relative z-20 pointer-events-auto"
+        class="mx-auto flex max-w-3xl flex-col items-center text-center gap-4 bg-slate-950/95 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] relative z-20 pointer-events-auto"
       >
         <h2
           class="font-athletic text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl"
         >
           The Journey is the Destination.
         </h2>
-        <p class="mt-2 max-w-2xl text-lg leading-8 text-cyan-100/70">
-          Whether you're training for your first sprint triathlon or trying to shave 5 minutes off
-          your Ironman PR, do it with the data on your side and the community at your back.
-        </p>
+        <div class="mt-2 max-w-2xl text-center flex flex-col gap-4">
+          <p class="text-lg leading-8 text-cyan-100/70">
+            Whether you're training for your first sprint triathlon or trying to shave 5 minutes off
+            your Ironman PR, do it with the data on your side and the community at your back.
+          </p>
+          <p class="text-base italic text-cyan-100/50 font-light mt-2">
+            "Coming back to where you started is not the same as never leaving." — Terry Pratchett,
+            A Hat Full of Sky
+          </p>
+        </div>
         <div class="mt-4 flex flex-wrap items-center gap-4">
           <UButton
             size="xl"

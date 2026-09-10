@@ -28,7 +28,7 @@
 
       <!-- Solid wrapper container -->
       <div
-        class="bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex flex-col items-center relative z-20 w-full max-w-4xl mx-auto pointer-events-auto"
+        class="bg-slate-950/95 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex flex-col items-center relative z-20 w-full max-w-4xl mx-auto pointer-events-auto"
       >
         <img
           src="/media/Tri%20Nerd%20Logos/TriNerds_pixelbadge_logo.png"
@@ -45,10 +45,14 @@
             >Welcome to the Tri Nerds.</span
           >
         </h1>
-        <p class="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-cyan-100/70 sm:text-xl">
-          We don't just log miles. We value the process. Join a community of multisport geeks
-          powered by an elite AI Coaching Assistant.
-        </p>
+        <div class="mt-6 max-w-2xl text-center flex flex-col gap-3">
+          <p class="text-lg font-medium leading-relaxed text-cyan-100/90 sm:text-xl">
+            Hone your triathlon training, become the Master you seek.
+          </p>
+          <p class="text-base italic text-cyan-100/60 drop-shadow-sm font-light">
+            "Your focus determines your reality." — Qui-Gon Jinn
+          </p>
+        </div>
 
         <div class="mt-10 flex flex-wrap items-center justify-center gap-5">
           <UButton
