@@ -59,6 +59,8 @@ model User {
   altitude                           Int?
   isAdmin                            Boolean            @default(false)
   isCoach                            Boolean            @default(false)
+  isProgramAccount                   Boolean            @default(false)
+  programOwnerId                     String?
   lthr                               Int?
   healthConsentAcceptedAt            DateTime?
   privacyPolicyVersion               String?

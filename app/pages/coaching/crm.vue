@@ -69,6 +69,17 @@
             >
               <Icon name="lucide:mail" class="w-4 h-4" /> Marketing
             </button>
+            <button
+              class="px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 shrink-0"
+              :class="
+                viewMode === 'programs'
+                  ? 'bg-background shadow-sm text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              "
+              @click="viewMode = 'programs'"
+            >
+              <Icon name="lucide:users" class="w-4 h-4" /> Group Programs
+            </button>
           </div>
 
           <div
@@ -549,6 +560,11 @@
             </p>
           </div>
         </div>
+      </div>
+
+      <!-- Programs View -->
+      <div v-else-if="viewMode === 'programs'" class="flex-1 overflow-auto p-6 bg-muted/20">
+        <CoachingCrmProgramsTab />
       </div>
     </main>
 

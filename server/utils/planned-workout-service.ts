@@ -189,6 +189,8 @@ export async function createPlannedWorkoutForUser(userId: string, body: any) {
     }
   }
 
+  await fanoutIfProgramAccount(userId, plannedWorkout.id, 'SINGLE_WORKOUT')
+
   return {
     success: true,
     workout: plannedWorkout
@@ -317,6 +319,8 @@ export async function updatePlannedWorkoutForUser(userId: string, workoutId: str
         })
     })
 
+    await fanoutIfProgramAccount(userId, workoutId, 'SINGLE_WORKOUT')
+
     return {
       success: true,
       workout: finalWorkout,
@@ -324,6 +328,8 @@ export async function updatePlannedWorkoutForUser(userId: string, workoutId: str
       message: syncResult.message || 'Workout updated successfully'
     }
   }
+
+  await fanoutIfProgramAccount(userId, workoutId, 'SINGLE_WORKOUT')
 
   return {
     success: true,
@@ -368,6 +374,8 @@ export async function deletePlannedWorkoutForUser(userId: string, workoutId: str
     console.error('[PlannedWorkoutDelete] Failed to trigger regeneration:', err)
   }
 
+  await fanoutIfProgramAccount(userId, workoutId, 'SINGLE_WORKOUT_DELETE')
+
   return {
     success: true,
     message: 'Workout deleted successfully'
@@ -411,4 +419,22 @@ export async function movePlannedWorkoutForUser(
   })
 
   return { success: true }
+}
+
+export async function fanoutIfProgramAccount(
+  userId: string,
+  workoutId: string,
+  mode: 'SINGLE_WORKOUT' | 'SINGLE_WORKOUT_DELETE'
+) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { isProgramAccount: true }
+  })
+  if (user?.isProgramAccount) {
+    try {
+      await tasks.trigger('fanout-program-workout', { programId: userId, workoutId, mode })
+    } catch (err) {
+      console.error('[FanoutProgramWorkout] Failed to trigger fanout:', err)
+    }
+  }
 }

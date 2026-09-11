@@ -233,6 +233,8 @@ export const UserScalarFieldEnum = {
   altitude: 'altitude',
   isAdmin: 'isAdmin',
   isCoach: 'isCoach',
+  isProgramAccount: 'isProgramAccount',
+  programOwnerId: 'programOwnerId',
   lthr: 'lthr',
   healthConsentAcceptedAt: 'healthConsentAcceptedAt',
   privacyPolicyVersion: 'privacyPolicyVersion',

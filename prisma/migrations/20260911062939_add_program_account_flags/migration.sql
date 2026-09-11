@@ -1,0 +1,1 @@
+ALTER TABLE "User" ADD COLUMN "isProgramAccount" BOOLEAN NOT NULL DEFAULT false, ADD COLUMN "programOwnerId" TEXT;
