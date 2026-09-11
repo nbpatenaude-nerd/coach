@@ -130,7 +130,7 @@
             </li>
           </ul>
           <UButton
-            to="https://reclaim.ai/m/coachwatts"
+            to="https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting"
             target="_blank"
             block
             size="xl"
@@ -186,7 +186,7 @@
             </li>
           </ul>
           <UButton
-            to="https://reclaim.ai/m/coachwatts"
+            to="https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting"
             target="_blank"
             block
             size="xl"
