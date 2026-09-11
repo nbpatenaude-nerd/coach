@@ -19,14 +19,14 @@
       <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         <!-- Triathlon -->
         <div
-          class="pricing-card bg-[rgba(15,20,35,0.4)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/50 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)] shadow-xl group relative overflow-hidden"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/40 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] shadow-xl group relative overflow-hidden"
         >
           <div
             class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
                 1000px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(226, 232, 240, 0.05),
+                rgba(200, 220, 240, 0.02),
                 transparent 40%
               );
               mix-blend-mode: screen;
@@ -37,7 +37,7 @@
             style="
               background: radial-gradient(
                 400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.01),
                 transparent 50%
               );
               mix-blend-mode: overlay;
@@ -46,17 +46,17 @@
 
           <div class="relative z-10 flex flex-col h-full items-start text-left">
             <div class="flex items-center gap-4 mb-6">
-              <span class="text-amber-500 font-bold text-xs tracking-[0.2em] font-mono"
+              <span class="text-slate-400 font-bold text-xs tracking-[0.2em] font-mono"
                 >PATH 01</span
               >
               <span
-                class="text-xs text-slate-300 border border-slate-700 rounded-full px-3 py-1 bg-transparent tracking-widest"
+                class="text-xs text-slate-400 border border-slate-700 rounded-full px-3 py-1 bg-transparent tracking-widest"
                 >MULTISPORT</span
               >
             </div>
 
             <h3
-              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
               style="
                 font-family:
                   system-ui,
@@ -67,7 +67,7 @@
             >
               TRIATHLON
             </h3>
-            <p class="text-sm font-bold text-slate-400 mb-8 tracking-widest uppercase">
+            <p class="text-sm font-bold text-slate-500 mb-8 tracking-widest uppercase">
               Swim Bike Run
             </p>
 
@@ -75,9 +75,9 @@
               From your first sprint to mastering the Ironman distance. Data-driven programming to
               optimize your swim, bike, and run.
             </p>
-            <div class="w-full flex justify-start">
+            <div class="w-full flex justify-start mt-auto">
               <UButton
-                class="rounded-full bg-linear-to-r from-amber-500 to-orange-500 text-slate-950 font-bold border-none hover:from-amber-400 hover:to-orange-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300 uppercase tracking-widest px-8 py-3"
+                class="rounded-full bg-slate-800 text-slate-200 font-bold border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest px-8 py-3"
                 >Explore Path &rarr;</UButton
               >
             </div>
@@ -86,14 +86,14 @@
 
         <!-- HYROX -->
         <div
-          class="pricing-card bg-[rgba(15,20,35,0.4)] backdrop-blur-2xl rounded-[2rem] border border-cyan-800/60 p-8 flex flex-col transition-all duration-700 shadow-[0_10px_40px_rgba(34,211,238,0.03)] hover:shadow-[0_15px_50px_rgba(34,211,238,0.08)] hover:border-cyan-600/50 group relative overflow-hidden md:-translate-y-4"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-cyan-900/40 p-8 flex flex-col transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_50px_rgba(0,0,0,0.4)] hover:border-cyan-700/50 group relative overflow-hidden md:-translate-y-4"
         >
           <div
             class="absolute inset-0 opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
                 1000px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(186, 230, 253, 0.05),
+                rgba(186, 230, 253, 0.02),
                 transparent 50%
               );
               mix-blend-mode: screen;
@@ -104,7 +104,7 @@
             style="
               background: radial-gradient(
                 500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(255, 255, 255, 0.04),
+                rgba(255, 255, 255, 0.02),
                 transparent 50%
               );
               mix-blend-mode: overlay;
@@ -113,17 +113,17 @@
 
           <div class="relative z-10 flex flex-col h-full items-start text-left">
             <div class="flex items-center gap-4 mb-6">
-              <span class="text-cyan-400 font-bold text-xs tracking-[0.2em] font-mono"
+              <span class="text-cyan-500/70 font-bold text-xs tracking-[0.2em] font-mono"
                 >PATH 02</span
               >
               <span
-                class="text-xs text-slate-300 border border-slate-700 rounded-full px-3 py-1 bg-transparent tracking-widest"
+                class="text-xs text-cyan-500/70 border border-cyan-800/50 rounded-full px-3 py-1 bg-transparent tracking-widest"
                 >FUNCTIONAL</span
               >
             </div>
 
             <h3
-              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
               style="
                 font-family:
                   system-ui,
@@ -134,7 +134,7 @@
             >
               HYROX
             </h3>
-            <p class="text-sm font-bold text-slate-400 mb-8 tracking-widest uppercase">
+            <p class="text-sm font-bold text-slate-500 mb-8 tracking-widest uppercase">
               Fitness Racing
             </p>
 
@@ -142,9 +142,9 @@
               Combine functional strength with raw aerobic engine. Specific race-simulation workouts
               to dominate the Roxzone.
             </p>
-            <div class="w-full flex justify-start">
+            <div class="w-full flex justify-start mt-auto">
               <UButton
-                class="rounded-full bg-linear-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold border-none hover:from-cyan-300 hover:to-blue-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all duration-300 uppercase tracking-widest px-8 py-3"
+                class="rounded-full bg-slate-800 text-cyan-100 font-bold border border-cyan-900/50 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest px-8 py-3"
                 >Explore Path &rarr;</UButton
               >
             </div>
@@ -153,14 +153,14 @@
 
         <!-- Running -->
         <div
-          class="pricing-card bg-[rgba(15,20,35,0.4)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/50 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)] shadow-xl group relative overflow-hidden"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/40 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] shadow-xl group relative overflow-hidden"
         >
           <div
             class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
                 1000px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(226, 232, 240, 0.05),
+                rgba(200, 220, 240, 0.02),
                 transparent 40%
               );
               mix-blend-mode: screen;
@@ -171,7 +171,7 @@
             style="
               background: radial-gradient(
                 400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.01),
                 transparent 50%
               );
               mix-blend-mode: overlay;
@@ -180,17 +180,17 @@
 
           <div class="relative z-10 flex flex-col h-full items-start text-left">
             <div class="flex items-center gap-4 mb-6">
-              <span class="text-rose-400 font-bold text-xs tracking-[0.2em] font-mono"
+              <span class="text-slate-400 font-bold text-xs tracking-[0.2em] font-mono"
                 >PATH 03</span
               >
               <span
-                class="text-xs text-slate-300 border border-slate-700 rounded-full px-3 py-1 bg-transparent tracking-widest"
+                class="text-xs text-slate-400 border border-slate-700 rounded-full px-3 py-1 bg-transparent tracking-widest"
                 >ENDURANCE</span
               >
             </div>
 
             <h3
-              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
               style="
                 font-family:
                   system-ui,
@@ -201,7 +201,7 @@
             >
               RUNNING
             </h3>
-            <p class="text-sm font-bold text-slate-400 mb-8 tracking-widest uppercase">
+            <p class="text-sm font-bold text-slate-500 mb-8 tracking-widest uppercase">
               5K To Ultra
             </p>
 
@@ -209,9 +209,9 @@
               5K to Ultramarathon. Smart volume progression and polarized training to build your
               aerobic base without breaking down.
             </p>
-            <div class="w-full flex justify-start">
+            <div class="w-full flex justify-start mt-auto">
               <UButton
-                class="rounded-full bg-linear-to-r from-rose-400 to-pink-500 text-slate-950 font-bold border-none hover:from-rose-300 hover:to-pink-400 hover:shadow-[0_0_20px_rgba(251,113,133,0.4)] transition-all duration-300 uppercase tracking-widest px-8 py-3"
+                class="rounded-full bg-slate-800 text-slate-200 font-bold border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest px-8 py-3"
                 >Explore Path &rarr;</UButton
               >
             </div>

@@ -19,14 +19,14 @@
       <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         <!-- Tier 1: UNCOVER -->
         <div
-          class="pricing-card bg-[rgba(15,20,35,0.4)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/50 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)] shadow-xl group relative overflow-hidden"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/40 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] shadow-xl group relative overflow-hidden"
         >
           <div
             class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
                 1000px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(226, 232, 240, 0.05),
+                rgba(200, 220, 240, 0.02),
                 transparent 40%
               );
               mix-blend-mode: screen;
@@ -37,7 +37,7 @@
             style="
               background: radial-gradient(
                 400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.01),
                 transparent 50%
               );
               mix-blend-mode: overlay;
@@ -46,7 +46,9 @@
 
           <div class="relative z-10 flex flex-col h-full">
             <div class="flex items-center gap-4 mb-6">
-              <span class="text-slate-400 font-bold text-xs tracking-[0.2em]">TIER 01</span>
+              <span class="text-slate-400 font-bold text-xs tracking-[0.2em] font-mono"
+                >TIER 01</span
+              >
               <span
                 class="text-xs text-slate-400 border border-slate-700/50 rounded-full px-3 py-1 bg-slate-800/30"
                 >FOUNDATIONAL</span
@@ -54,7 +56,14 @@
             </div>
 
             <h3
-              class="text-4xl font-bold text-white mb-2 tracking-tight transition-all duration-500"
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+              style="
+                font-family:
+                  system-ui,
+                  -apple-system,
+                  sans-serif;
+                font-stretch: expanded;
+              "
             >
               UNCOVER
             </h3>
@@ -101,14 +110,14 @@
 
         <!-- Tier 2: UNLOCK -->
         <div
-          class="pricing-card bg-[rgba(15,20,35,0.5)] backdrop-blur-2xl rounded-[2rem] border border-cyan-800/60 p-8 flex flex-col transition-all duration-700 shadow-[0_10px_40px_rgba(34,211,238,0.03)] hover:shadow-[0_15px_50px_rgba(34,211,238,0.08)] hover:border-cyan-600/50 group relative overflow-hidden md:-translate-y-4"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-cyan-900/40 p-8 flex flex-col transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_50px_rgba(0,0,0,0.4)] hover:border-cyan-700/50 group relative overflow-hidden md:-translate-y-4"
         >
           <div
             class="absolute inset-0 opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
                 1000px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(186, 230, 253, 0.05),
+                rgba(186, 230, 253, 0.02),
                 transparent 50%
               );
               mix-blend-mode: screen;
@@ -119,7 +128,7 @@
             style="
               background: radial-gradient(
                 500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                rgba(255, 255, 255, 0.04),
+                rgba(255, 255, 255, 0.02),
                 transparent 50%
               );
               mix-blend-mode: overlay;
@@ -128,15 +137,24 @@
 
           <div class="relative z-10 flex flex-col h-full">
             <div class="flex items-center gap-4 mb-6">
-              <span class="text-cyan-200 font-bold text-xs tracking-[0.2em]">TIER 02</span>
+              <span class="text-cyan-500/70 font-bold text-xs tracking-[0.2em] font-mono"
+                >TIER 02</span
+              >
               <span
-                class="text-xs text-cyan-100 border border-cyan-700/50 rounded-full px-3 py-1 bg-cyan-900/20"
+                class="text-xs text-cyan-500/70 border border-cyan-800/50 rounded-full px-3 py-1 bg-cyan-900/20"
                 >MOST POPULAR</span
               >
             </div>
 
             <h3
-              class="text-4xl font-bold text-white mb-2 tracking-tight transition-all duration-500"
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+              style="
+                font-family:
+                  system-ui,
+                  -apple-system,
+                  sans-serif;
+                font-stretch: expanded;
+              "
             >
               UNLOCK
             </h3>
@@ -151,25 +169,25 @@
 
             <div class="flex flex-col gap-4 mb-12 text-sm grow">
               <div class="grid grid-cols-[100px_1fr] items-start">
-                <span class="text-cyan-500/60 tracking-widest text-[10px] font-bold uppercase mt-1"
+                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
                   >Engine</span
                 >
                 <span class="text-slate-200">Daily Digital Twin AI</span>
               </div>
               <div class="grid grid-cols-[100px_1fr] items-start">
-                <span class="text-cyan-500/60 tracking-widest text-[10px] font-bold uppercase mt-1"
+                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
                   >Feedback</span
                 >
                 <span class="text-slate-200">Daily Check-In & AI Chat</span>
               </div>
               <div class="grid grid-cols-[100px_1fr] items-start">
-                <span class="text-cyan-500/60 tracking-widest text-[10px] font-bold uppercase mt-1"
+                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
                   >Metrics</span
                 >
                 <span class="text-slate-200">Glycogen Fuel Tank Tracking</span>
               </div>
               <div class="grid grid-cols-[100px_1fr] items-start">
-                <span class="text-cyan-500/60 tracking-widest text-[10px] font-bold uppercase mt-1"
+                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
                   >Human</span
                 >
                 <span class="text-slate-200">Custom 1:1 Coaching</span>
@@ -181,7 +199,7 @@
               target="_blank"
               block
               size="xl"
-              class="rounded-full bg-slate-100 text-slate-900 font-bold border-none hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all duration-500 uppercase tracking-widest py-4 mt-auto"
+              class="rounded-full bg-slate-800 text-cyan-100 font-bold border border-cyan-900/50 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest py-4 mt-auto"
             >
               Apply for Unlock &rarr;
             </UButton>
@@ -190,14 +208,14 @@
 
         <!-- Tier 3: UNLEASH -->
         <div
-          class="pricing-card bg-[rgba(15,20,35,0.4)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/50 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(255,255,255,0.03)] shadow-xl group relative overflow-hidden"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/40 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] shadow-xl group relative overflow-hidden"
         >
           <div
             class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
                 1000px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(226, 232, 240, 0.05),
+                rgba(200, 220, 240, 0.02),
                 transparent 40%
               );
               mix-blend-mode: screen;
@@ -208,7 +226,7 @@
             style="
               background: radial-gradient(
                 400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.01),
                 transparent 50%
               );
               mix-blend-mode: overlay;
@@ -217,7 +235,9 @@
 
           <div class="relative z-10 flex flex-col h-full">
             <div class="flex items-center gap-4 mb-6">
-              <span class="text-slate-400 font-bold text-xs tracking-[0.2em]">TIER 03</span>
+              <span class="text-slate-400 font-bold text-xs tracking-[0.2em] font-mono"
+                >TIER 03</span
+              >
               <span
                 class="text-xs text-slate-400 border border-slate-700/50 rounded-full px-3 py-1 bg-slate-800/30"
                 >INVITE ONLY</span
@@ -225,7 +245,14 @@
             </div>
 
             <h3
-              class="text-4xl font-bold text-white mb-2 tracking-tight transition-all duration-500"
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+              style="
+                font-family:
+                  system-ui,
+                  -apple-system,
+                  sans-serif;
+                font-stretch: expanded;
+              "
             >
               UNLEASH
             </h3>
