@@ -15,7 +15,7 @@
   "payment_value": "No payment card required",
   "billing_label": "Billing",
   "billing_value": "No automatic charge",
-  "after_days": "After {days} days, your account continues on the permanent FREE tier unless you choose to upgrade.",
+  "after_days": "After {days} days, your account continues on the permanent Tri Nerds tier unless you choose to upgrade.",
   "capacity": "This pilot offer is limited to {max} members ({count} redeemed so far).",
   "status_disabled": "This partner offer is currently unavailable.",
   "status_not_started": "This partner offer is not open yet.",

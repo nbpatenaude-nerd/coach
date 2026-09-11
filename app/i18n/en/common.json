@@ -5,12 +5,12 @@
   "cta": {
     "description": "Join endurance athletes using Journey Endurance Coaching to train smarter and fuel with confidence every day.",
     "headline": "Ready to reach your peak?",
-    "primary": "Get Started for Free",
+    "primary": "Start your 14-Day Trial",
     "secondary": "Read Success Stories"
   },
   "cta_description": "Join endurance athletes using Journey Endurance Coaching to train smarter and fuel with confidence every day.",
   "cta_headline": "Ready to reach your peak?",
-  "cta_primary": "Get Started for Free",
+  "cta_primary": "Start your 14-Day Trial",
   "cta_secondary": "Read Success Stories",
   "footer": {
     "architecture": "Architecture",
@@ -135,7 +135,7 @@
     "how_it_works": "How it Works",
     "integrations": "Integrations",
     "pricing": "Pricing",
-    "pricing_badge": "Free",
+    "pricing_badge": "Tri Nerds",
     "sign_in": "Sign In",
     "stories": "Stories"
   },
@@ -149,7 +149,7 @@
   "nav_how_it_works": "How it Works",
   "nav_integrations": "Integrations",
   "nav_pricing": "Pricing",
-  "nav_pricing_badge": "Free",
+  "nav_pricing_badge": "Tri Nerds",
   "nav_sign_in": "Sign In",
   "nav_stories": "Stories",
   "navigation_activities": "Activities",

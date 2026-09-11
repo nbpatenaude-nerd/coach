@@ -11,7 +11,7 @@
   "analysis_header": "Assistant Insights",
   "analysis_legacy_analysis": "Legacy Analysis • {date}",
   "analysis_pending_desc": "Click 'Analyze' to initialize deep performance auditing on this session.",
-  "analysis_quota_skipped_desc": "Not analyzed — the free plan covers 6 workouts per week.",
+  "analysis_quota_skipped_desc": "Not analyzed — the Tri Nerds plan covers 6 workouts per week.",
   "analysis_quota_skipped_retry": "Analyze now",
   "analysis_quota_skipped_title": "Analysis skipped by quota",
   "analysis_quota_skipped_upgrade": "Analyze with Supporter",

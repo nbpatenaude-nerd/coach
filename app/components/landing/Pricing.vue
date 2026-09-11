@@ -15,7 +15,7 @@
           The Journey Framework
         </h2>
         <p class="mt-4 text-lg leading-8 text-cyan-100/70">
-          From free community support to elite telemetry and performance analysis.
+          From group community support to elite telemetry and performance analysis.
         </p>
       </div>
 
@@ -37,7 +37,7 @@
               <div class="mt-4 flex items-baseline text-5xl font-extrabold text-white">
                 $10<span class="text-lg font-medium text-cyan-100/50 ml-1">/mo</span>
               </div>
-              <p class="mt-2 text-sm text-cyan-100/50">Includes 14-Day Free Trial</p>
+              <p class="mt-2 text-sm text-cyan-100/50">Includes 14-Day Trial</p>
             </div>
             <ul role="list" class="mt-8 space-y-4 text-sm leading-6 text-cyan-100/80">
               <li class="flex gap-x-3">

@@ -18,17 +18,17 @@
   "btn": {
     "choose_supporter": "Choose Supporter",
     "current_plan": "Current Plan",
-    "downgrade_free": "Downgrade to Free",
+    "downgrade_free": "Downgrade to Tri Nerds",
     "get_pro": "Get Pro",
     "get_supporter": "Get Supporter",
     "sign_up": "Sign Up",
-    "stay_free": "Stay Free",
+    "stay_free": "Stay with Tri Nerds",
     "switch_pro": "Switch to Pro",
     "switch_supporter": "Switch to Supporter",
     "unavailable": "Temporarily Unavailable",
     "upgrade_pro": "Upgrade to Pro"
   },
-  "cancel_anytime": "Cancel anytime. Instant downgrade to Free.",
+  "cancel_anytime": "Cancel anytime. Instant downgrade to Tri Nerds.",
   "card1_cue": "What you get: current level, trend, and next action.",
   "card1_desc": "A live glycogen estimate for your current day. Use it to understand your readiness for high-intensity work and avoid under-fueling before key sessions.",
   "card1_title": "Fuel Tank",
@@ -55,11 +55,11 @@
   "cta": "Start Tracking Goals",
   "cta.description": "Join endurance athletes using Journey Endurance Coaching to train smarter and fuel with confidence every day.",
   "cta.headline": "Ready to reach your peak?",
-  "cta.primary": "Get Started for Free",
+  "cta.primary": "Start your 14-Day Trial",
   "cta.secondary": "Read Success Stories",
   "cta_button": "Start Your Journey",
   "cta_description": "Join the community and start training smarter today.",
-  "cta_primary": "Claim Your Digital Twin (Free)",
+  "cta_primary": "Claim Your Digital Twin",
   "cta_secondary": "See How It Works",
   "cta_title": "Have your own success story?",
   "data_nutrition": "Nutrition",
@@ -139,7 +139,7 @@
     "desc": "Found a bug or have a feature request? Open an issue on our GitHub repository to track its progress and contribute.",
     "title": "GitHub Issues"
   },
-  "guarantee": "Paid plans include a 14-day money-back guarantee. No credit card required to start free.",
+  "guarantee": "Paid plans include a 14-day money-back guarantee. No credit card required to start.",
   "header_badge": "Community",
   "header_description": "Real athletes achieving their peak performance with Journey Endurance Coaching. From first centuries to podium finishes.",
   "header_title": "Athlete Stories",
@@ -207,7 +207,7 @@
     "get_started": "Get Started",
     "how_it_works": "How it Works",
     "pricing": "Pricing",
-    "pricing_badge": "Free",
+    "pricing_badge": "Tri Nerds",
     "sign_in": "Sign In",
     "stories": "Stories"
   },
@@ -224,7 +224,7 @@
       "feature_2": "Automatic sync for workouts and health metrics",
       "feature_3": "On-demand analysis",
       "feature_4": "Quick AI analysis",
-      "name": "Free"
+      "name": "Tri Nerds"
     },
     "pro": {
       "description": "Your full-service Digital Twin and Coach.",

@@ -27,8 +27,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     phase1Price: 10,
     phase6Price: null,
     phase12Price: 100,
-    description: 'Start free with a 14-day full-access trial.',
-    mobileDescription: 'Includes 14-day free trial.',
+    description: 'Start your 14-day full-access trial.',
+    mobileDescription: 'Includes 14-day full-access trial.',
     features: [
       'One-Time AI 12-Wk Plan',
       'Pre-made library access',

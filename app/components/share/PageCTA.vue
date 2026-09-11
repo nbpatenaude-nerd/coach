@@ -37,7 +37,7 @@
           icon="i-heroicons-rocket-launch"
           class="font-bold shadow-lg shadow-primary-500/20"
         >
-          Get Started for Free
+          Start your 14-Day Trial
         </UButton>
         <UButton
           to="https://coachwatts.com"

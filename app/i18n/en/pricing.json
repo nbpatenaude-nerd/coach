@@ -18,16 +18,16 @@
     "current_plan": "Current Plan",
     "downgrade": "Downgrade",
     "upgrade": "Upgrade",
-    "start_free": "Start Free",
+    "start_free": "Start Trial",
     "get_uncover": "Get Uncover",
     "get_unlock": "Apply for Unlock",
     "get_unleash": "Apply for Unleash",
     "sign_up": "Sign Up",
     "unavailable": "Temporarily Unavailable"
   },
-  "cancel_anytime": "Cancel anytime. Instant downgrade to Free.",
-  "description": "Start free with a 14-day full-access trial. Upgrade when you need more.",
-  "guarantee": "Paid plans include a 14-day money-back guarantee. No credit card required to start free.",
+  "cancel_anytime": "Cancel anytime. Instant downgrade to Tri Nerds.",
+  "description": "Start your 14-day full-access trial. Upgrade when you need more.",
+  "guarantee": "Paid plans include a 14-day money-back guarantee. No credit card required to start.",
   "headline": "Plans for Every Athlete",
   "label": "PRICING",
   "modal": {
@@ -48,7 +48,7 @@
   },
   "plan": {
     "free": {
-      "description": "Start free with a 14-day full-access trial.",
+      "description": "Start your 14-day full-access trial.",
       "feature_1": "One-Time AI 12-Wk Plan",
       "feature_2": "Pre-made library access",
       "feature_3": "Synced/Pushed Workouts",

@@ -193,7 +193,7 @@
   )
   const joinFormSubtitle = translateOrFallback(
     'join.form_subtitle',
-    'Start free with a 14-day full-access trial. No credit card required.',
+    'Start your 14-day full-access trial. No credit card required.',
     ['Create your Journey Endurance Coaching account. No credit card required.']
   )
   const joinErrorTitle = translateOrFallback('join.error_title', 'Signup failed')
