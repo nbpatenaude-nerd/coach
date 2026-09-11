@@ -86,17 +86,18 @@
         PRESSURE: 0.2,
         PRESSURE_ITERATIONS: 20,
         CURL: 15,
-        SPLAT_RADIUS: 0.5,
-        SPLAT_FORCE: 4000,
+        SPLAT_RADIUS: 0.8,
+        SPLAT_FORCE: 2000,
         SHADING: true,
-        COLORFUL: true, // Use colors for visible fog
+        COLORFUL: false,
+        COLOR_PALETTE: ['#94a3b8', '#38bdf8', '#0f172a', '#e2e8f0'], // Use colors for visible fog
         PAUSED: false,
         BACK_COLOR: { r: 0, g: 0, b: 0 },
         TRANSPARENT: false, // mix-blend-screen handles transparency
         BLOOM: true,
         BLOOM_ITERATIONS: 8,
         BLOOM_RESOLUTION: 256,
-        BLOOM_INTENSITY: 0.8,
+        BLOOM_INTENSITY: 0.3,
         BLOOM_THRESHOLD: 0.4,
         BLOOM_SOFT_KNEE: 0.7,
         SUNRAYS: true,
