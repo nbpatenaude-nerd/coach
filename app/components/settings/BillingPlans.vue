@@ -406,7 +406,8 @@
     // Without a known interval, fall back to tier-only matching rather than
     // offering a "switch" that might be a no-op.
     if (!current?.phase12PriceId) return true
-    if (current.interval) return current.interval === billingInterval.value
+    if (current.interval)
+      return current.interval === (billingInterval.value === 'monthly' ? '1-phase' : '12-phase')
     return (
       current.phase12PriceId ===
       getStripePriceId(

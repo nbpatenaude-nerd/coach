@@ -117,7 +117,7 @@
             :show-popular="false"
             :highlight="true"
             :currency="currency"
-            :interval="billingInterval"
+            :interval="billingInterval === 'monthly' ? '1-phase' : '12-phase'"
             @select="handlePlanSelect"
           />
           <p class="mt-3 text-center text-[10px] text-gray-500 font-bold uppercase tracking-widest">

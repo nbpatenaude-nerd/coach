@@ -145,9 +145,9 @@
       nutritionTrackingEnabled: boolean
       updateWorkoutNotesEnabled: boolean
       nickname: string | null
-      aiTtsStyle: string
+      aiTtsStyle: 'direct' | 'coach' | 'calm' | 'energetic'
       aiTtsVoiceName: string
-      aiTtsSpeed: string
+      aiTtsSpeed: 'normal' | 'slow' | 'fast'
       aiTtsAutoReadMessages: boolean
       aiWorkoutAutonomyLimit: number
     }

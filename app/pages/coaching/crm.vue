@@ -693,7 +693,7 @@
     await useFetch('/api/coaching/crm/pipelines').then((res) => {
       pipelines.value = res.data.value || []
       if (pipelines.value.length > 0) {
-        activePipelineId.value = pipelines.value[pipelines.value.length - 1].id
+        activePipelineId.value = pipelines.value[pipelines.value.length - 1]?.id || ''
       }
     })
   }
@@ -722,11 +722,11 @@
 
         const deal = a.crmDeals?.find((d) => d.pipelineId === pipeline.id)
         if (deal && grouped[deal.stageId]) {
-          grouped[deal.stageId].push(a)
+          grouped[deal.stageId]?.push(a)
         } else if (pipeline.stages && pipeline.stages.length > 0) {
           const defaultStageId = pipeline.stages[0].id
           if (grouped[defaultStageId]) {
-            grouped[defaultStageId].push(a)
+            grouped[defaultStageId]?.push(a)
           }
         }
       })
