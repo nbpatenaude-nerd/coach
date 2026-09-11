@@ -1,9 +1,7 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
   import { ref } from 'vue'
-  import { useAuth } from '../../../composables/useAuth'
-
+  const coachingStore = useCoachingStore()
   const { data: programs, refresh } = await useFetch('/api/coaching/programs')
-  const { startActingAs } = useAuth()
 
   const isCreateModalOpen = ref(false)
   const newProgramName = ref('')
@@ -22,7 +20,7 @@
   }
 
   function manageProgram(program: any) {
-    startActingAs({ id: program.id, name: program.name })
+    coachingStore.startActingAs(program.id, program.name)
     navigateTo('/calendar')
   }
 
