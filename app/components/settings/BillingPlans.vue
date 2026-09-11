@@ -114,9 +114,23 @@
           </h3>
 
           <div class="flex items-baseline gap-2 font-athletic italic mb-1.5">
-            <template v-if="priceFor(plan, billingInterval, currency) !== null">
+            <template
+              v-if="
+                priceFor(plan, billingInterval === 'monthly' ? '1-phase' : '12-phase', currency) !==
+                null
+              "
+            >
               <span class="font-black text-white leading-none text-5xl xl:text-[3.75rem]">
-                {{ formatPrice(priceFor(plan, billingInterval, currency) as number, currency) }}
+                {{
+                  formatPrice(
+                    priceFor(
+                      plan,
+                      billingInterval === 'monthly' ? '1-phase' : '12-phase',
+                      currency
+                    ) as number,
+                    currency
+                  )
+                }}
               </span>
               <span
                 class="text-[10px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
@@ -145,7 +159,7 @@
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-[10px] font-bold text-gray-600 line-through tracking-wider">
-                  {{ formatPrice(priceFor(plan, 'monthly', currency) as number, currency) }}/mo
+                  {{ formatPrice(priceFor(plan, '1-phase', currency) as number, currency) }}/mo
                 </span>
                 <span
                   v-if="annualSavings(plan, currency)"
@@ -302,7 +316,7 @@
 
   const PLAN_TIERS = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH'] as const
 
-  const billingInterval = ref<BillingInterval>('monthly')
+  const billingInterval = ref<'monthly' | 'annual'>('monthly')
   const loading = ref(false)
   const selectedPlan = ref<string | null>(null)
   const showConfirmModal = ref(false)
@@ -312,7 +326,11 @@
   const pendingPriceLabel = computed(() =>
     planToChangeTo.value
       ? formatPrice(
-          priceFor(planToChangeTo.value, billingInterval.value, currency.value),
+          priceFor(
+            planToChangeTo.value,
+            billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+            currency.value
+          ),
           currency.value
         )
       : ''
@@ -389,7 +407,14 @@
     // offering a "switch" that might be a no-op.
     if (!current?.phase12PriceId) return true
     if (current.interval) return current.interval === billingInterval.value
-    return current.phase12PriceId === getStripePriceId(plan, billingInterval.value, currency.value)
+    return (
+      current.phase12PriceId ===
+      getStripePriceId(
+        plan,
+        billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+        currency.value
+      )
+    )
   }
 
   function isPrimaryPlan(plan: PricingPlan): boolean {
@@ -455,7 +480,11 @@
     loading.value = true
     selectedPlan.value = plan.key
 
-    const phase12PriceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const phase12PriceId = getStripePriceId(
+      plan,
+      billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+      currency.value
+    )
     if (phase12PriceId) {
       // API contract is upgrade | downgrade. Same-tier interval switches share the
       // create_prorations path with downgrades (next invoice, not charged now).
@@ -518,7 +547,11 @@
       return
     }
 
-    const phase12PriceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const phase12PriceId = getStripePriceId(
+      plan,
+      billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+      currency.value
+    )
     if (!phase12PriceId) return
 
     loading.value = true

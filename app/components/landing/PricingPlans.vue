@@ -108,9 +108,23 @@
           </h3>
 
           <div class="flex items-baseline gap-2 mb-2 font-athletic">
-            <template v-if="priceFor(plan, billingInterval, currency) !== null">
+            <template
+              v-if="
+                priceFor(plan, billingInterval === 'monthly' ? '1-phase' : '12-phase', currency) !==
+                null
+              "
+            >
               <span class="text-6xl font-black text-white leading-none">
-                {{ formatPrice(priceFor(plan, billingInterval, currency) as number, currency) }}
+                {{
+                  formatPrice(
+                    priceFor(
+                      plan,
+                      billingInterval === 'monthly' ? '1-phase' : '12-phase',
+                      currency
+                    ) as number,
+                    currency
+                  )
+                }}
               </span>
               <span
                 class="text-xs font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
@@ -137,7 +151,7 @@
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-xs font-bold text-gray-600 line-through tracking-wider">
-                  {{ formatPrice(priceFor(plan, 'monthly', currency) as number, currency) }}/mo
+                  {{ formatPrice(priceFor(plan, '1-phase', currency) as number, currency) }}/mo
                 </span>
                 <span
                   v-if="annualSavings(plan, currency)"
@@ -286,7 +300,7 @@
   // while the cards below it showed the actual (different) figures.
   const toggleSavings = computed(() => bestAnnualSavings(PRICING_PLANS, currency.value))
 
-  const billingInterval = ref<BillingInterval>('monthly')
+  const billingInterval = ref<'monthly' | 'annual'>('monthly')
   const loading = ref(false)
   const selectedPlan = ref<string | null>(null)
   const showDowngradeModal = ref(false)
@@ -368,7 +382,11 @@
     loading.value = true
     selectedPlan.value = plan.key
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const priceId = getStripePriceId(
+      plan,
+      billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+      currency.value
+    )
     if (priceId) {
       const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
       const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
@@ -430,7 +448,11 @@
       return
     }
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const priceId = getStripePriceId(
+      plan,
+      billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+      currency.value
+    )
     if (!priceId) return
 
     loading.value = true

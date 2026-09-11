@@ -60,9 +60,9 @@
         <!-- Recommended Plan -->
         <div v-if="recommendedTier && subscriptionsEnabled">
           <div class="flex items-center gap-2 mb-4">
-            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400"
-              >{{ tp('upgrade_modal.eyebrow') }}</span
-            >
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">{{
+              tp('upgrade_modal.eyebrow')
+            }}</span>
             <div class="h-px bg-gray-100 dark:bg-gray-800 flex-1" />
           </div>
 
@@ -85,9 +85,9 @@
                 "
               >
                 {{ interval }}
-                <span v-if="interval === '12-phase' && toggleSavings" class="ml-1 text-green-500">
-                -{{ toggleSavings }}%
-              </span>
+                <span v-if="interval === 'annual' && toggleSavings" class="ml-1 text-green-500">
+                  -{{ toggleSavings }}%
+                </span>
               </button>
             </div>
 
@@ -138,9 +138,7 @@
             }
           "
         >
-          {{
-            subscriptionsEnabled ? tp('upgrade_modal.maybe_later') : tp('upgrade_modal.close')
-          }}
+          {{ subscriptionsEnabled ? tp('upgrade_modal.maybe_later') : tp('upgrade_modal.close') }}
         </UButton>
         <div class="flex items-center gap-3">
           <UButton
@@ -225,7 +223,7 @@
   } = useAnalytics()
   const subscriptionsEnabled = computed(() => config.public.subscriptionsEnabled)
 
-  const billingInterval = ref<BillingInterval>('monthly')
+  const billingInterval = ref<'monthly' | 'annual'>('monthly')
 
   const recommendedPlan = computed(() => {
     if (!props.recommendedTier) return null
@@ -240,15 +238,26 @@
       return
     }
 
-    const phase12PriceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const phase12PriceId = getStripePriceId(
+      plan,
+      billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+      currency.value
+    )
     if (!phase12PriceId) {
       console.error('No Stripe phase12Price ID found for plan:', plan.key, billingInterval.value)
       return
     }
 
     // Track begin checkout
-    const phase12PriceValue = billingInterval.value === 'monthly' ? plan.phase12Price : plan.phase12Price
-    trackCheckoutStart(phase12PriceId, plan.name, billingInterval.value, phase12PriceValue || 0, currency.value)
+    const phase12PriceValue =
+      billingInterval.value === 'monthly' ? plan.phase12Price : plan.phase12Price
+    trackCheckoutStart(
+      phase12PriceId,
+      plan.name,
+      billingInterval.value,
+      phase12PriceValue || 0,
+      currency.value
+    )
     trackModalComplete('upgrade_modal', 'checkout')
 
     await createCheckoutSession(phase12PriceId, {

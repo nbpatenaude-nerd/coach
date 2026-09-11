@@ -136,7 +136,7 @@ export function getPrice(plan: PricingPlan, interval: BillingInterval): number |
 /**
  * Get Stripe price ID for a plan, interval, and currency
  */
-function getStripePriceId(
+export function getStripePriceId(
   plan: PricingPlan,
   interval: BillingInterval,
   currency: 'usd' | 'eur' = 'usd'
