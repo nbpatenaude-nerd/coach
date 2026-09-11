@@ -2,10 +2,6 @@ import { defineEventHandler, readBody } from 'h3'
 
 import { prisma } from '~~/server/utils/db'
 
-const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL
-})
-
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 

@@ -55,19 +55,28 @@
           </UCard>
         </div>
 
-        <div v-else class="text-center py-20 bg-gray-50 dark:bg-gray-900 rounded-xl border border-dashed border-gray-200 dark:border-gray-800">
+        <div
+          v-else
+          class="text-center py-20 bg-gray-50 dark:bg-gray-900 rounded-xl border border-dashed border-gray-200 dark:border-gray-800"
+        >
           <UIcon name="i-heroicons-book-open" class="w-12 h-12 text-gray-400 mb-4 mx-auto" />
           <h3 class="text-lg font-bold">No exercises found</h3>
-          <p class="text-sm text-muted">Create your first exercise to start building the dictionary.</p>
+          <p class="text-sm text-muted">
+            Create your first exercise to start building the dictionary.
+          </p>
         </div>
       </div>
     </template>
   </UDashboardPanel>
 
   <!-- New Exercise Modal -->
-  <UModal v-model:open="isModalOpen" title="New Exercise" description="Add a new exercise to the global dictionary.">
+  <UModal
+    v-model:open="isModalOpen"
+    title="New Exercise"
+    description="Add a new exercise to the global dictionary."
+  >
     <template #body>
-      <form @submit.prevent="submitExercise" class="space-y-4 p-4">
+      <form class="space-y-4 p-4" @submit.prevent="submitExercise">
         <UFormField label="Title">
           <UInput v-model="form.title" placeholder="e.g. Barbell Squat" required />
         </UFormField>
@@ -78,7 +87,11 @@
           <UInput v-model="form.type" placeholder="e.g. Compound" />
         </UFormField>
         <UFormField label="Instructions">
-          <UTextarea v-model="form.instructions" placeholder="How to perform this exercise..." :rows="3" />
+          <UTextarea
+            v-model="form.instructions"
+            placeholder="How to perform this exercise..."
+            :rows="3"
+          />
         </UFormField>
       </form>
     </template>
@@ -105,7 +118,11 @@
   })
 
   // Fetch exercises
-  const { data: exercises, pending, refresh } = useFetch<any[]>('/api/exercises', {
+  const {
+    data: exercises,
+    pending,
+    refresh
+  } = useFetch<any[]>('/api/exercises', {
     query: computed(() => ({ search: searchQuery.value })),
     watch: [searchQuery]
   })

@@ -96,7 +96,7 @@
   import { normalizeStrengthBlocks } from '~/utils/strengthWorkout'
 
   definePageMeta({
-    layout: 'blank'
+    layout: 'simple'
   })
 
   const route = useRoute()

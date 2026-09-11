@@ -121,14 +121,14 @@
       <!-- RSVP Details Modal -->
       <UModal v-model:open="isRSVPModalOpen">
         <template #content>
-          <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+          <UCard :ui="{ divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
             <template #header>
               <div class="flex items-center justify-between">
                 <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
                   Race Details
                 </h3>
                 <UButton
-                  color="gray"
+                  color="neutral"
                   variant="ghost"
                   icon="i-heroicons-x-mark-20-solid"
                   class="-my-1"
