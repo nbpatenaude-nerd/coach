@@ -28,8 +28,8 @@
   // Ensure activeMetric is valid when modality changes
   function setModality(mod: string) {
     activeModality.value = mod
-    if (!metricsByModality[mod].includes(activeMetric.value)) {
-      activeMetric.value = metricsByModality[mod][0]
+    if (metricsByModality[mod] && !metricsByModality[mod].includes(activeMetric.value)) {
+      activeMetric.value = metricsByModality[mod][0] || ''
     }
   }
 

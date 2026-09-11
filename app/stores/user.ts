@@ -20,6 +20,7 @@ interface User {
   shareRewardClaimedAt: Date | null
   shareRewardDaysGranted: number | null
   dashboardSettings?: any
+  trackedCheckinMetrics?: string[]
   isAdmin?: boolean
   language?: string
   uiLanguage?: string

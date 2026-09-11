@@ -104,7 +104,7 @@
     showPopular: true,
     highlight: false,
     currency: undefined,
-    interval: 'monthly'
+    interval: '1-phase'
   })
 
   defineEmits<{
