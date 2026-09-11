@@ -20,8 +20,8 @@
     "upgrade": "Upgrade",
     "start_free": "Start Free",
     "get_uncover": "Get Uncover",
-    "get_unlock": "Get Unlock",
-    "get_unleash": "Get Unleash",
+    "get_unlock": "Apply for Unlock",
+    "get_unleash": "Apply for Unleash",
     "sign_up": "Sign Up",
     "unavailable": "Temporarily Unavailable"
   },
@@ -48,12 +48,12 @@
   },
   "plan": {
     "free": {
-      "description": "The smartest logbook you've ever used.",
-      "feature_1": "Unlimited data history",
-      "feature_2": "Automatic sync for workouts and health metrics",
-      "feature_3": "On-demand analysis",
-      "feature_4": "Quick AI analysis",
-      "name": "Tri Nerds"
+      "description": "Start free with a 14-day full-access trial.",
+      "feature_1": "One-Time AI 12-Wk Plan",
+      "feature_2": "Pre-made library access",
+      "feature_3": "Synced/Pushed Workouts",
+      "feature_4": "Community Calendar",
+      "name": "Tri Nerds Guild"
     },
     "uncover": {
       "description": "Automated insights for the self-coached athlete.",

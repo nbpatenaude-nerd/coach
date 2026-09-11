@@ -1,13 +1,10 @@
-﻿import { defineEventHandler } from 'h3'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '@prisma/client'
-import pg from 'pg'
+import { defineEventHandler } from 'h3'
+
+import { prisma } from '~~/server/utils/db'
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL
 })
-const adapter = new PrismaPg(pool)
-const prisma = new PrismaClient({ adapter })
 
 export default defineEventHandler(async (event) => {
   const activities = await prisma.auditLog.findMany({
@@ -42,7 +39,7 @@ export default defineEventHandler(async (event) => {
         action: 'WORKOUT_COMPLETED',
         metadata: { workout: 'Threshold Intervals' },
         createdAt: new Date(Date.now() - 7200000).toISOString(),
-        user: { name: 'Tailor Mészáros' }
+        user: { name: 'Tailor M�sz�ros' }
       },
       {
         id: '4',

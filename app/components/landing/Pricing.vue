@@ -34,8 +34,10 @@
               <span class="text-cyan-400 font-semibold text-sm uppercase tracking-wide"
                 >Tri Nerds Guild</span
               >
-              <div class="mt-4 flex items-baseline text-5xl font-extrabold text-white">$0</div>
-              <p class="mt-2 text-sm text-cyan-100/50">FREE</p>
+              <div class="mt-4 flex items-baseline text-5xl font-extrabold text-white">
+                $10<span class="text-lg font-medium text-cyan-100/50 ml-1">/mo</span>
+              </div>
+              <p class="mt-2 text-sm text-cyan-100/50">Includes 14-Day Free Trial</p>
             </div>
             <ul role="list" class="mt-8 space-y-4 text-sm leading-6 text-cyan-100/80">
               <li class="flex gap-x-3">
@@ -136,8 +138,8 @@
                   >MOST POPULAR</UBadge
                 >
               </span>
-              <div class="mt-4 flex items-baseline text-5xl font-extrabold text-white">
-                $350<span class="text-lg font-medium text-cyan-100/50 ml-1">/mo</span>
+              <div class="mt-4 flex items-baseline text-4xl font-extrabold text-white">
+                Apply to Join
               </div>
               <p class="mt-2 text-sm text-pink-400/80 font-bold tracking-widest">UNLOCK</p>
             </div>
@@ -162,7 +164,8 @@
           </div>
           <div class="mt-8 relative z-10">
             <UButton
-              to="/join"
+              to="https://reclaim.ai/m/coachwatts"
+              target="_blank"
               block
               class="bg-pink-500 hover:bg-pink-400 text-slate-950 font-bold shadow-[0_0_15px_rgba(236,72,153,0.4)]"
               >Apply for Unlock</UButton
@@ -181,7 +184,7 @@
               <span class="text-purple-400 font-semibold text-sm uppercase tracking-wide"
                 >Elite</span
               >
-              <div class="mt-4 flex items-baseline text-3xl font-extrabold text-white">
+              <div class="mt-4 flex items-baseline text-4xl font-extrabold text-white">
                 Waitlist
               </div>
               <p class="mt-2 text-sm text-cyan-100/50">UNLEASH</p>
@@ -207,11 +210,12 @@
           </div>
           <div class="mt-8">
             <UButton
-              to="/join"
+              to="https://reclaim.ai/m/coachwatts"
+              target="_blank"
               block
               variant="outline"
               class="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 hover:border-purple-400"
-              >Join Waitlist</UButton
+              >Apply for Unleash</UButton
             >
           </div>
         </UCard>

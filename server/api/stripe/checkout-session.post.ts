@@ -85,6 +85,9 @@ export default defineEventHandler(async (event) => {
     automatic_tax: {
       enabled: true
     },
+    subscription_data: {
+      trial_period_days: 14
+    },
     success_url,
     cancel_url,
     metadata: {

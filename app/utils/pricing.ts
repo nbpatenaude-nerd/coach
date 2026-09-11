@@ -5,13 +5,14 @@ export type SupportedCurrency = 'usd' | 'eur'
 export interface PricingPlan {
   key: PricingTier
   name: string
-  phase1Price: number
+  phase1Price: number | null
   phase6Price: number | null
   phase12Price: number | null
   description: string
   mobileDescription?: string
   features: string[]
   popular: boolean
+  isApplication?: boolean
   stripePriceIds?: {
     phase1?: string
     phase6?: string
@@ -22,17 +23,17 @@ export interface PricingPlan {
 export const PRICING_PLANS: PricingPlan[] = [
   {
     key: 'free',
-    name: 'Tri Nerds',
-    phase1Price: 0,
+    name: 'Tri Nerds Guild',
+    phase1Price: 10,
     phase6Price: null,
-    phase12Price: null,
-    description: "The smartest logbook you've ever used.",
-    mobileDescription: 'Essential activity tracking and analysis.',
+    phase12Price: 100,
+    description: 'Start free with a 14-day full-access trial.',
+    mobileDescription: 'Includes 14-day free trial.',
     features: [
-      'Unlimited data history',
-      'Automatic sync for workouts and health metrics',
-      'On-demand analysis',
-      'Quick AI analysis'
+      'One-Time AI 12-Wk Plan',
+      'Pre-made library access',
+      'Synced/Pushed Workouts',
+      'Community Calendar'
     ],
     popular: false
   },
@@ -56,9 +57,9 @@ export const PRICING_PLANS: PricingPlan[] = [
   {
     key: 'unlock',
     name: 'Unlock',
-    phase1Price: 350,
+    phase1Price: null,
     phase6Price: null,
-    phase12Price: 3500,
+    phase12Price: null,
     description: 'Unlock your true potential with detailed planning.',
     mobileDescription: 'Adaptive planning and AI-assisted coaching.',
     features: [
@@ -67,14 +68,15 @@ export const PRICING_PLANS: PricingPlan[] = [
       'Daily Check-In & Glycogen Fuel Tank',
       'Full Intervals.icu Sync & Garmin Pushes'
     ],
-    popular: true
+    popular: true,
+    isApplication: true
   },
   {
     key: 'unleash',
     name: 'Unleash',
-    phase1Price: 500,
+    phase1Price: null,
     phase6Price: null,
-    phase12Price: 5000,
+    phase12Price: null,
     description: 'Your full-service Digital Twin and Coach.',
     mobileDescription: 'Elite AI-assisted coaching.',
     features: [
@@ -82,7 +84,8 @@ export const PRICING_PLANS: PricingPlan[] = [
       'Elite Telemetry & Live Energy Availability',
       'Performance Scores & Executive AI Reports'
     ],
-    popular: false
+    popular: false,
+    isApplication: true
   }
 ]
 
@@ -103,7 +106,7 @@ export function computeSavingsPercent(
  * Calculate savings percentage for 12-phase (annual) plans
  */
 export function calculateAnnualSavings(plan: PricingPlan): number {
-  if (!plan.phase12Price) return 0
+  if (!plan.phase12Price || !plan.phase1Price) return 0
   const monthlyTotal = plan.phase1Price * 12
   const savings = ((monthlyTotal - plan.phase12Price) / monthlyTotal) * 100
   return Math.round(savings)
@@ -124,7 +127,7 @@ export function formatPrice(price: number, currency: 'usd' | 'eur' = 'usd'): str
 /**
  * Get price for a specific interval
  */
-export function getPrice(plan: PricingPlan, interval: BillingInterval): number {
+export function getPrice(plan: PricingPlan, interval: BillingInterval): number | null {
   if (interval === '12-phase' && plan.phase12Price) return plan.phase12Price
   if (interval === '6-phase' && plan.phase6Price) return plan.phase6Price
   return plan.phase1Price
@@ -133,12 +136,17 @@ export function getPrice(plan: PricingPlan, interval: BillingInterval): number {
 /**
  * Get Stripe price ID for a plan, interval, and currency
  */
-export function getStripePriceId(
+function getStripePriceId(
   plan: PricingPlan,
   interval: BillingInterval,
   currency: 'usd' | 'eur' = 'usd'
 ): string | undefined {
   const config = useRuntimeConfig()
+
+  if (plan.key === 'free') {
+    if (interval === '1-phase') return config.public.stripeFree1PhasePriceId as string
+    if (interval === '12-phase') return config.public.stripeFree12PhasePriceId as string
+  }
 
   if (plan.key === 'uncover') {
     if (interval === '1-phase') return config.public.stripeUncover1PhasePriceId as string

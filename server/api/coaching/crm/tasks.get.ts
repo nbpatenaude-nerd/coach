@@ -1,13 +1,10 @@
-﻿import { defineEventHandler } from 'h3'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '@prisma/client'
-import pg from 'pg'
+import { defineEventHandler } from 'h3'
+
+import { prisma } from '~~/server/utils/db'
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL
 })
-const adapter = new PrismaPg(pool)
-const prisma = new PrismaClient({ adapter })
 
 export default defineEventHandler(async (event) => {
   // In a real app we'd verify the user is a coach, but auth is often bypassed in dev

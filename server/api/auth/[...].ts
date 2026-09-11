@@ -30,7 +30,11 @@ export default NuxtAuthHandler({
             deactivatedAt: true,
             isAdmin: true,
             isCoach: true,
-            role: true
+            role: true,
+            subscriptionStatus: true,
+            subscriptionTier: true,
+            subscriptionPeriodEnd: true,
+            trialEndsAt: true
           }
         })
 
@@ -40,6 +44,10 @@ export default NuxtAuthHandler({
           ;(session.user as any).isAdmin = dbUser.isAdmin
           ;(session.user as any).isCoach = dbUser.isCoach
           ;(session.user as any).role = dbUser.role
+          ;(session.user as any).subscriptionStatus = dbUser.subscriptionStatus
+          ;(session.user as any).subscriptionTier = dbUser.subscriptionTier
+          ;(session.user as any).subscriptionPeriodEnd = dbUser.subscriptionPeriodEnd
+          ;(session.user as any).trialEndsAt = dbUser.trialEndsAt
         }
       }
       return session

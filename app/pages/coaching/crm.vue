@@ -148,7 +148,7 @@
                 </h3>
                 <button
                   class="p-1 hover:bg-muted rounded text-muted-foreground"
-                  @click="refreshActivities"
+                  @click="() => refreshActivities()"
                 >
                   <Icon name="lucide:refresh-cw" class="w-4 h-4" />
                 </button>
@@ -235,7 +235,7 @@
                   </button>
                   <button
                     class="p-1 hover:bg-muted rounded text-muted-foreground"
-                    @click="refreshTasks"
+                    @click="() => refreshTasks()"
                   >
                     <Icon name="lucide:refresh-cw" class="w-4 h-4" />
                   </button>
@@ -709,7 +709,7 @@
   const athletesByStage = computed<Record<string, CrmAthlete[]>>(() => {
     const grouped: Record<string, CrmAthlete[]> = {}
 
-    if (activePipeline.value) {
+    if (activePipeline.value?.stages) {
       activePipeline.value.stages.forEach((s) => {
         grouped[s.id] = []
       })
@@ -720,7 +720,7 @@
         const pipeline = activePipeline.value
         if (!pipeline) return
 
-        const deal = a.crmDeals.find((d) => d.pipelineId === pipeline.id)
+        const deal = a.crmDeals?.find((d) => d.pipelineId === pipeline.id)
         if (deal && grouped[deal.stageId]) {
           grouped[deal.stageId].push(a)
         } else if (pipeline.stages && pipeline.stages.length > 0) {

@@ -1,4 +1,4 @@
-import type { BillingInterval, PricingPlan, SupportedCurrency } from '~/utils/pricing'
+import type { BillingInterval, PricingPlan, PricingTier, SupportedCurrency } from '~/utils/pricing'
 import { calculateAnnualSavings, computeSavingsPercent, getPrice } from '~/utils/pricing'
 
 type StripePriceInfo = {
@@ -28,7 +28,7 @@ export function useLivePricing() {
     interval: BillingInterval,
     currency: SupportedCurrency
   ): number | null {
-    if (plan.key === 'free') return 0
+    if (plan.key === 'free') return 10
     const match = data.value?.prices?.find(
       (price: StripePriceInfo) =>
         price.tier === plan.key && price.interval === interval && price.currency === currency
@@ -41,12 +41,13 @@ export function useLivePricing() {
     plan: PricingPlan,
     interval: BillingInterval,
     currency: SupportedCurrency
-  ): number {
+  ): number | null {
     return findPrice(plan, interval, currency) ?? getPrice(plan, interval)
   }
 
-  function monthlyEquivalent(plan: PricingPlan, currency: SupportedCurrency): number {
-    return priceFor(plan, '12-phase', currency) / 12
+  function monthlyEquivalent(plan: PricingPlan, currency: SupportedCurrency): number | null {
+    const annualPrice = priceFor(plan, '12-phase', currency)
+    return annualPrice ? annualPrice / 12 : null
   }
 
   /**

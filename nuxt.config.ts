@@ -345,6 +345,9 @@ export default defineNuxtConfig({
     // Stripe Configuration
     stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
     stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
+    stripeFreeProductId: process.env.STRIPE_FREE_PRODUCT_ID || '',
+    stripeFree1PhasePriceId: process.env.STRIPE_FREE_1_PHASE_PRICE_ID || '',
+    stripeFree12PhasePriceId: process.env.STRIPE_FREE_12_PHASE_PRICE_ID || '',
     stripeUncoverProductId: process.env.STRIPE_UNCOVER_PRODUCT_ID || '',
     stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID || '',
     stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID || '',
@@ -388,6 +391,8 @@ export default defineNuxtConfig({
       authBypassUser: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_USER || '',
       authBypassName: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_NAME || '',
       stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
+      stripeFree1PhasePriceId: process.env.STRIPE_FREE_1_PHASE_PRICE_ID || '',
+      stripeFree12PhasePriceId: process.env.STRIPE_FREE_12_PHASE_PRICE_ID || '',
       stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID || '',
       stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID || '',
       stripeUncover12PhasePriceId: process.env.STRIPE_UNCOVER_12_PHASE_PRICE_ID || '',

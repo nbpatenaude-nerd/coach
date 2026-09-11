@@ -108,31 +108,36 @@
           </h3>
 
           <div class="flex items-baseline gap-2 mb-2 font-athletic">
-            <span class="text-6xl font-black text-white leading-none">
-              {{ formatPrice(priceFor(plan, billingInterval, currency), currency) }}
-            </span>
-            <span
-              class="text-xs font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
-            >
-              {{
-                plan.key === 'free'
-                  ? ''
-                  : billingInterval === 'annual'
-                    ? t('billing.per_year')
-                    : t('billing.per_month')
-              }}
-            </span>
+            <template v-if="priceFor(plan, billingInterval, currency) !== null">
+              <span class="text-6xl font-black text-white leading-none">
+                {{ formatPrice(priceFor(plan, billingInterval, currency) as number, currency) }}
+              </span>
+              <span
+                class="text-xs font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
+              >
+                {{ billingInterval === 'annual' ? t('billing.per_year') : t('billing.per_month') }}
+              </span>
+            </template>
+            <template v-else>
+              <span class="text-4xl font-black text-white leading-none"> Apply to Join </span>
+            </template>
           </div>
 
           <div class="min-h-10">
-            <template v-if="billingInterval === 'annual' && plan.phase12Price">
+            <template
+              v-if="
+                billingInterval === 'annual' &&
+                plan.phase12Price &&
+                monthlyEquivalent(plan, currency) !== null
+              "
+            >
               <div class="text-xs font-black text-primary-500 uppercase tracking-widest mb-1">
-                {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
+                {{ formatPrice(monthlyEquivalent(plan, currency) as number, currency) }} /
                 {{ t('billing.per_month') }}
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-xs font-bold text-gray-600 line-through tracking-wider">
-                  {{ formatPrice(priceFor(plan, 'monthly', currency), currency) }}/mo
+                  {{ formatPrice(priceFor(plan, 'monthly', currency) as number, currency) }}/mo
                 </span>
                 <span
                   v-if="annualSavings(plan, currency)"
@@ -385,6 +390,11 @@
   }
 
   async function handlePlanSelect(plan: PricingPlan) {
+    if (plan.isApplication) {
+      window.open('https://reclaim.ai/m/coachwatts', '_blank')
+      return
+    }
+
     if (userStore.user?.stripeCustomerId && userStore.user?.subscriptionTier !== 'FREE') {
       const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
       const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']

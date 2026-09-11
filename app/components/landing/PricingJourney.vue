@@ -104,8 +104,7 @@
               >Custom Coaching</span
             >
             <div class="mt-4 flex items-baseline gap-2 mb-2">
-              <span class="text-4xl font-bold text-white">$350</span>
-              <span class="text-slate-400">/mo</span>
+              <span class="text-3xl font-bold text-white">Apply to Join</span>
             </div>
             <h3 class="text-xl font-bold text-pink-400 mb-2 uppercase tracking-wide">UNLOCK</h3>
             <p class="text-sm text-slate-400">
@@ -131,9 +130,11 @@
             </li>
           </ul>
           <UButton
+            to="https://reclaim.ai/m/coachwatts"
+            target="_blank"
             block
             size="xl"
-            class="bg-pink-500 hover:bg-pink-400 text-white font-bold uppercase shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-all relative z-10"
+            class="bg-pink-500 hover:bg-pink-400 text-slate-950 font-bold uppercase relative z-10"
           >
             Apply for Unlock
           </UButton>
@@ -159,8 +160,7 @@
           <div class="mb-6 relative z-10">
             <span class="text-purple-400 font-semibold text-sm uppercase tracking-wide">Elite</span>
             <div class="mt-4 flex items-baseline gap-2 mb-2">
-              <span class="text-4xl font-bold text-white">$550</span>
-              <span class="text-slate-400">/mo</span>
+              <span class="text-3xl font-bold text-white">Waitlist</span>
             </div>
             <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">UNLEASH</h3>
             <p class="text-sm text-slate-400">
@@ -186,6 +186,8 @@
             </li>
           </ul>
           <UButton
+            to="https://reclaim.ai/m/coachwatts"
+            target="_blank"
             block
             size="xl"
             variant="outline"

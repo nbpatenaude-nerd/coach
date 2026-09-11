@@ -114,31 +114,38 @@
           </h3>
 
           <div class="flex items-baseline gap-2 font-athletic italic mb-1.5">
-            <span class="font-black text-white leading-none text-5xl xl:text-[3.75rem]">
-              {{ formatPrice(phase12PriceFor(plan, billingInterval, currency), currency) }}
-            </span>
-            <span
-              class="text-[10px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
-            >
-              {{
-                plan.key === 'free'
-                  ? ''
-                  : billingInterval === 'annual'
-                    ? t('billing.per_year')
-                    : t('billing.per_month')
-              }}
-            </span>
+            <template v-if="priceFor(plan, billingInterval, currency) !== null">
+              <span class="font-black text-white leading-none text-5xl xl:text-[3.75rem]">
+                {{ formatPrice(priceFor(plan, billingInterval, currency) as number, currency) }}
+              </span>
+              <span
+                class="text-[10px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
+              >
+                {{ billingInterval === 'annual' ? t('billing.per_year') : t('billing.per_month') }}
+              </span>
+            </template>
+            <template v-else>
+              <span class="font-black text-white leading-none text-3xl xl:text-4xl">
+                Apply to Join
+              </span>
+            </template>
           </div>
 
           <div class="min-h-8">
-            <template v-if="billingInterval === 'annual' && plan.phase12Price">
+            <template
+              v-if="
+                billingInterval === 'annual' &&
+                plan.phase12Price &&
+                monthlyEquivalent(plan, currency) !== null
+              "
+            >
               <div class="text-[10px] font-black text-primary-500 uppercase tracking-widest mb-1">
-                {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
+                {{ formatPrice(monthlyEquivalent(plan, currency) as number, currency) }} /
                 {{ t('billing.per_month') }}
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-[10px] font-bold text-gray-600 line-through tracking-wider">
-                  {{ formatPrice(phase12PriceFor(plan, 'monthly', currency), currency) }}/mo
+                  {{ formatPrice(priceFor(plan, 'monthly', currency) as number, currency) }}/mo
                 </span>
                 <span
                   v-if="annualSavings(plan, currency)"
@@ -278,7 +285,7 @@
   const userStore = useUserStore()
   const { createCheckoutSession, openCustomerPortal, changePlan } = useStripe()
   const { currency, setCurrency } = useCurrency()
-  const { phase12PriceFor, monthlyEquivalent, annualSavings, bestAnnualSavings } = useLivePricing()
+  const { priceFor, monthlyEquivalent, annualSavings, bestAnnualSavings } = useLivePricing()
   const { data: currentSubscription } = useAsyncData<{
     phase12PriceId: string | null
     interval: 'monthly' | 'annual' | null
@@ -305,7 +312,7 @@
   const pendingPriceLabel = computed(() =>
     planToChangeTo.value
       ? formatPrice(
-          phase12PriceFor(planToChangeTo.value, billingInterval.value, currency.value),
+          priceFor(planToChangeTo.value, billingInterval.value, currency.value),
           currency.value
         )
       : ''
@@ -469,6 +476,11 @@
   }
 
   async function handlePlanSelect(plan: PricingPlan) {
+    if (plan.isApplication) {
+      window.open('https://reclaim.ai/m/coachwatts', '_blank')
+      return
+    }
+
     if (userStore.user?.stripeCustomerId && userStore.user?.subscriptionTier !== 'FREE') {
       const kind = planChangeKind(plan)
 
