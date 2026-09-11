@@ -330,7 +330,7 @@
             planToChangeTo.value,
             billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
             currency.value
-          ),
+          ) || 0,
           currency.value
         )
       : ''

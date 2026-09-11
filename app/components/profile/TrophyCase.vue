@@ -84,18 +84,18 @@
         if (!map[pb.category]) map[pb.category] = []
 
         // Check if there is a placeholder to replace
-        const placeholderIdx = map[pb.category].findIndex(
+        const placeholderIdx = map[pb.category]!.findIndex(
           (p: any) => p.type === pb.type && p.isPlaceholder
         )
         if (placeholderIdx !== -1) {
-          map[pb.category][placeholderIdx] = { ...pb, isPlaceholder: false }
+          map[pb.category]![placeholderIdx] = { ...pb, isPlaceholder: false }
         }
       })
     }
 
     // Sort each category
     Object.keys(map).forEach((catId) => {
-      map[catId].sort((a, b) => {
+      map[catId]!.sort((a, b) => {
         // preserve standard order, or fallback to priority
         const aIdx = standardTrophies[catId]?.findIndex((t) => t.type === a.type) ?? 999
         const bIdx = standardTrophies[catId]?.findIndex((t) => t.type === b.type) ?? 999
