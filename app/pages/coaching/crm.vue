@@ -686,7 +686,7 @@
     middleware: ['auth', 'coach'] as any
   })
 
-  const viewMode = ref<'dashboard' | 'kanban' | 'table' | 'marketing'>('dashboard')
+  const viewMode = ref<'dashboard' | 'kanban' | 'table' | 'marketing' | 'programs'>('dashboard')
 
   const isSettingsOpen = ref(false)
   const handlePipelineCreated = async () => {

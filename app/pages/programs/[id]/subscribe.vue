@@ -1,4 +1,4 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
   import { useRoute, useRouter } from '#app'
   import { ref } from 'vue'
 
@@ -6,7 +6,7 @@
   const router = useRouter()
   const programId = route.params.id as string
 
-  const { data: program, error } = await useFetch(`/api/programs/${programId}`)
+  const { data: program, error } = await useFetch<any>(`/api/programs/${programId}`)
 
   const isSubscribing = ref(false)
   const hasSubscribed = ref(false)
@@ -19,7 +19,7 @@
       useToast().add({
         title: 'Subscribed!',
         description: 'Workouts will now appear on your calendar.',
-        color: 'green'
+        color: 'success'
       })
       setTimeout(() => {
         router.push('/dashboard')
@@ -28,7 +28,7 @@
       useToast().add({
         title: 'Error',
         description: err.data?.message || 'Failed to subscribe',
-        color: 'red'
+        color: 'error'
       })
     } finally {
       isSubscribing.value = false
@@ -73,7 +73,7 @@
             Subscribe to Program
           </UButton>
 
-          <UButton v-else block size="xl" color="green" icon="i-lucide-check" disabled>
+          <UButton v-else block size="xl" color="success" icon="i-lucide-check" disabled>
             Subscribed Successfully!
           </UButton>
         </div>
