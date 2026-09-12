@@ -39,9 +39,9 @@
             <MistBackground />
           </div>
           <div class="relative z-10 -mt-[100vh]">
-            <LandingJourneyStats />
             <LandingQuestSelection />
             <LandingPathsForged />
+            <LandingPrograms />
             <LandingPricingJourney />
 
             <!-- Closing Call to Action -->

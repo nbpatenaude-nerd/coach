@@ -1,18 +1,19 @@
-import re
-with open('app/components/dashboard/AthleteProfileCard.vue', 'r', encoding='utf-8') as f:
-    c = f.read()
+import os
+with open('d:/coach/app/layouts/home.vue', 'r', encoding='utf-8') as f:
+    lines = f.readlines()
 
-c = c.replace('const userStore = useUserStore()', '''const props = defineProps<{ section?: \\'all\\' | \\'profile\\' | \\'trainingLoad\\' | \\'corePerformance\\' | \\'recentWellness\\' }>()\n  const section = computed(() => props.section || \\'all\\')\n  const userStore = useUserStore()''')
+new_lines = []
+skip = False
+for line in lines:
+    if '<NuxtLink' in line and ('to="/library"' in line or 'to="/community"' in line):
+        skip = True
+        
+    if skip:
+        if '</NuxtLink' in line:
+            skip = False
+        continue
+    
+    new_lines.append(line)
 
-c = c.replace('<!-- Profile Info Card - Clickable -->', '''<!-- Profile Info Card - Clickable -->\n      <div v-if=\"section === 'all' || section === 'profile'\">''')
-
-c = c.replace('<!-- Training Load & Form Section -->', '''</div>\n      <!-- Training Load & Form Section -->\n      <div v-if=\"section === 'all' || section === 'trainingLoad'\">''')
-
-c = c.replace('<!-- Performance Section - Clickable -->', '''</div>\n      <!-- Performance Section - Clickable -->\n      <div v-if=\"section === 'all' || section === 'corePerformance'\">''')
-
-c = c.replace('<!-- Wellness Section - Clickable -->', '''</div>\n      <!-- Wellness Section - Clickable -->\n      <div v-if=\"section === 'all' || section === 'recentWellness'\">''')
-
-c = c.replace('<div v-if=\"showHydrationSection\"', '</div>\n      <div v-if=\"showHydrationSection\"')
-
-with open('app/components/dashboard/AthleteProfileCard.vue', 'w', encoding='utf-8') as f:
-    f.write(c)
+with open('d:/coach/app/layouts/home.vue', 'w', encoding='utf-8') as f:
+    f.write(''.join(new_lines))

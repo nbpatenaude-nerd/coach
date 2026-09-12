@@ -68,23 +68,12 @@
             >Media</NuxtLink
           >
           <NuxtLink
-            to="/programs"
+            to="/#programs"
             class="uppercase tracking-widest whitespace-nowrap transition-colors"
             :class="y > 50 ? 'hover:text-white' : 'hover:text-black'"
             >Programs</NuxtLink
           >
-          <NuxtLink
-            to="/library"
-            class="uppercase tracking-widest whitespace-nowrap transition-colors"
-            :class="y > 50 ? 'hover:text-white' : 'hover:text-black'"
-            >Library</NuxtLink
-          >
-          <NuxtLink
-            to="/community"
-            class="uppercase tracking-widest whitespace-nowrap transition-colors"
-            :class="y > 50 ? 'hover:text-white' : 'hover:text-black'"
-            >Community</NuxtLink
-          >
+
           <NuxtLink
             to="/about"
             class="uppercase tracking-widest whitespace-nowrap transition-colors"
@@ -159,7 +148,7 @@
                     >Media</NuxtLink
                   >
                   <NuxtLink
-                    to="/programs"
+                    to="/#programs"
                     class="uppercase tracking-widest text-sm font-medium whitespace-nowrap transition-colors hover:text-primary"
                     >Programs</NuxtLink
                   >
