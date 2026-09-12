@@ -64,7 +64,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     mobileDescription: 'Adaptive planning and AI-assisted coaching.',
     features: [
       'Custom 1:1 Coaching',
-      'Daily Digital Twin AI & Chat',
+      'Daily AI Coaching & Chat',
       'Daily Check-In & Glycogen Fuel Tank',
       'Full Intervals.icu Sync & Garmin Pushes'
     ],
@@ -77,7 +77,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     phase1Price: null,
     phase6Price: null,
     phase12Price: null,
-    description: 'Your full-service Digital Twin and Coach.',
+    description: 'Your full-service AI assistant and Coach.',
     mobileDescription: 'Elite AI-assisted coaching.',
     features: [
       'Waitlist / Elite Access',

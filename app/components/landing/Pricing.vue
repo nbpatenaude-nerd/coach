@@ -154,7 +154,7 @@
               </li>
               <li class="flex gap-x-3">
                 <UIcon name="i-heroicons-check" class="h-6 w-5 flex-none text-pink-500" />
-                <span>Daily Digital Twin AI</span>
+                <span>Daily AI Coaching Engine</span>
               </li>
               <li class="flex gap-x-3">
                 <UIcon name="i-heroicons-check" class="h-6 w-5 flex-none text-pink-500" />

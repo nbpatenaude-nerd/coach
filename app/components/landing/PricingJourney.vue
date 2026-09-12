@@ -184,7 +184,7 @@
                 <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
                   >Tools</span
                 >
-                <span class="text-slate-200">Digital Twin & Fuel Tracking</span>
+                <span class="text-slate-200">AI Analysis & Fuel Tracking</span>
               </div>
             </div>
 
