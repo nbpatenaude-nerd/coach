@@ -1,76 +1,17 @@
 <template>
   <div class="min-h-screen relative selection:bg-purple-500/30">
-    <!-- Fixed Parallax Backgrounds -->
-    <div
-      class="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000"
-      :class="activeSection === 'personal' ? 'opacity-100' : 'opacity-0'"
-    >
-      <div class="absolute inset-0 bg-slate-950"></div>
-      <div
-        class="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,_rgba(124,58,237,0.15),_transparent_50%)]"
-      ></div>
-      <div
-        class="absolute inset-0"
-        style="
-          background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-          background-size: 32px 32px;
-        "
-      ></div>
-    </div>
-
-    <div
-      class="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000"
-      :class="activeSection === 'sport' ? 'opacity-100' : 'opacity-0'"
-    >
-      <div class="absolute inset-0 bg-slate-950"></div>
-      <div
-        class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,_rgba(56,189,248,0.15),_transparent_50%)]"
-      ></div>
-      <div
-        class="absolute inset-0"
-        style="
-          background-image:
-            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-          background-size: 64px 64px;
-        "
-      ></div>
-    </div>
-
-    <div
-      class="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000"
-      :class="activeSection === 'experience' ? 'opacity-100' : 'opacity-0'"
-    >
-      <div class="absolute inset-0 bg-slate-950"></div>
-      <div
-        class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(236,72,153,0.15),_transparent_50%)]"
-      ></div>
-      <div
-        class="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-pink-500/20 to-transparent transform -translate-y-1/2 shadow-[0_0_15px_rgba(236,72,153,0.3)]"
-      ></div>
-    </div>
-
-    <div
-      class="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000"
-      :class="activeSection === 'goals' ? 'opacity-100' : 'opacity-0'"
-    >
-      <div class="absolute inset-0 bg-slate-950"></div>
-      <div
-        class="absolute inset-0 bg-[conic-gradient(from_180deg_at_50%_50%,_rgba(139,92,246,0.1)_0deg,_transparent_180deg,_rgba(139,92,246,0.1)_360deg)]"
-      ></div>
-      <div
-        class="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,_rgba(168,85,247,0.15),_transparent_60%)]"
-      ></div>
-    </div>
+    <LandingCosmicBackground />
 
     <!-- Main Content -->
     <div class="relative z-10 pt-32 pb-24 px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
-        <div class="mb-12">
-          <h1 class="font-athletic text-5xl font-bold uppercase text-white mb-4">
+        <div class="mb-16">
+          <h1
+            class="font-athletic text-5xl font-bold uppercase text-white mb-4 font-stretch-expanded tracking-wider"
+          >
             Apply for <span class="text-purple-400">UNLEASH</span>
           </h1>
-          <p class="text-xl text-slate-400 max-w-2xl">
+          <p class="text-xl text-slate-300 max-w-2xl">
             This tier is for athletes pushing the absolute limits. Please provide detailed insights
             into your physiological and psychological goals.
           </p>
@@ -80,7 +21,7 @@
           <!-- Left Sidebar (Sticky Melius Style) -->
           <div class="lg:w-1/3 sticky top-32 z-20">
             <div
-              class="bg-[#1a1a1a] rounded-xl p-6 border border-slate-800 shadow-2xl relative overflow-hidden"
+              class="bg-slate-950/80 backdrop-blur-md rounded-none border-l-4 border-l-purple-500 p-6 shadow-2xl relative overflow-hidden"
             >
               <!-- Horizontal Navigation Tabs -->
               <div
@@ -89,11 +30,11 @@
                 <button
                   v-for="tab in tabs"
                   :key="tab.id"
-                  class="px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300"
+                  class="px-4 py-1.5 rounded-none text-sm font-bold uppercase tracking-widest whitespace-nowrap transition-all duration-300"
                   :class="
                     activeSection === tab.id
-                      ? 'bg-red-500 text-white shadow-[0_0_10px_rgba(239,68,68,0.4)]'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-purple-500 text-white'
+                      : 'text-slate-400 hover:text-white bg-slate-900'
                   "
                   @click="scrollTo(tab.id)"
                 >
@@ -103,14 +44,14 @@
 
               <!-- Dynamic Description -->
               <div class="pt-4 min-h-[100px] flex items-center justify-between">
-                <p class="text-slate-300 text-lg leading-snug pr-4">
+                <p class="text-slate-300 text-lg pr-4">
                   {{ activeTabDescription }}
                 </p>
                 <div
-                  class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 cursor-pointer hover:bg-red-500/40 transition-colors"
+                  class="w-10 h-10 bg-purple-500/20 flex items-center justify-center flex-shrink-0 cursor-pointer hover:bg-purple-500/40 transition-colors"
                   @click="scrollToNext"
                 >
-                  <UIcon name="i-heroicons-arrow-down" class="w-5 h-5 text-red-500" />
+                  <UIcon name="i-heroicons-arrow-down" class="w-5 h-5 text-purple-400" />
                 </div>
               </div>
             </div>
@@ -120,16 +61,22 @@
           <div class="lg:w-2/3">
             <form class="space-y-32 pb-16" @submit.prevent="submitForm">
               <!-- Personal Info -->
-              <section id="personal" class="scroll-mt-40">
-                <div
-                  class="bg-[#131313]/90 backdrop-blur-xl border border-slate-800/60 rounded-2xl p-8 shadow-2xl"
-                >
-                  <h3
-                    class="font-athletic text-2xl font-bold text-white mb-8 uppercase tracking-wide"
+              <section id="personal" class="scroll-mt-40 relative">
+                <div class="absolute -top-4 -left-4 z-10">
+                  <span
+                    class="bg-purple-500 text-black px-3 py-1 text-xs font-bold tracking-widest uppercase shadow-md"
                   >
-                    Personal Info
-                  </h3>
-                  <div class="space-y-6">
+                    01 // Personal Info
+                  </span>
+                </div>
+                <div
+                  class="bg-slate-950/90 backdrop-blur-md border border-slate-800 rounded-none p-8 pt-12 shadow-2xl relative overflow-hidden"
+                >
+                  <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl pointer-events-none"
+                  ></div>
+
+                  <div class="space-y-6 relative z-10">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <UFormGroup label="Full Name" name="name" required>
                         <UInput
@@ -172,16 +119,18 @@
               </section>
 
               <!-- Sport & Results -->
-              <section id="sport" class="scroll-mt-40">
-                <div
-                  class="bg-[#131313]/90 backdrop-blur-xl border border-slate-800/60 rounded-2xl p-8 shadow-2xl"
-                >
-                  <h3
-                    class="font-athletic text-2xl font-bold text-white mb-8 uppercase tracking-wide"
+              <section id="sport" class="scroll-mt-40 relative">
+                <div class="absolute -top-4 -left-4 z-10">
+                  <span
+                    class="bg-purple-500 text-black px-3 py-1 text-xs font-bold tracking-widest uppercase shadow-md"
                   >
-                    Sport & Results
-                  </h3>
-                  <div class="space-y-6">
+                    02 // Sport & Results
+                  </span>
+                </div>
+                <div
+                  class="bg-slate-950/90 backdrop-blur-md border border-slate-800 rounded-none p-8 pt-12 shadow-2xl relative overflow-hidden"
+                >
+                  <div class="space-y-6 relative z-10">
                     <UFormGroup label="Primary Sport" name="primarySport" required>
                       <USelectMenu
                         v-model="form.primarySport"
@@ -204,16 +153,18 @@
               </section>
 
               <!-- Experience -->
-              <section id="experience" class="scroll-mt-40">
-                <div
-                  class="bg-[#131313]/90 backdrop-blur-xl border border-slate-800/60 rounded-2xl p-8 shadow-2xl"
-                >
-                  <h3
-                    class="font-athletic text-2xl font-bold text-white mb-8 uppercase tracking-wide"
+              <section id="experience" class="scroll-mt-40 relative">
+                <div class="absolute -top-4 -left-4 z-10">
+                  <span
+                    class="bg-purple-500 text-black px-3 py-1 text-xs font-bold tracking-widest uppercase shadow-md"
                   >
-                    Identity & Strategy
-                  </h3>
-                  <div class="space-y-8">
+                    03 // Identity & Strategy
+                  </span>
+                </div>
+                <div
+                  class="bg-slate-950/90 backdrop-blur-md border border-slate-800 rounded-none p-8 pt-12 shadow-2xl relative overflow-hidden"
+                >
+                  <div class="space-y-8 relative z-10">
                     <UFormGroup
                       label="How do you want to shape your identity as an athlete?"
                       name="identity"
@@ -256,16 +207,18 @@
               </section>
 
               <!-- Goals -->
-              <section id="goals" class="scroll-mt-40">
-                <div
-                  class="bg-[#131313]/90 backdrop-blur-xl border border-slate-800/60 rounded-2xl p-8 shadow-2xl"
-                >
-                  <h3
-                    class="font-athletic text-2xl font-bold text-white mb-8 uppercase tracking-wide"
+              <section id="goals" class="scroll-mt-40 relative">
+                <div class="absolute -top-4 -left-4 z-10">
+                  <span
+                    class="bg-purple-500 text-black px-3 py-1 text-xs font-bold tracking-widest uppercase shadow-md"
                   >
-                    Telemetry & Goals
-                  </h3>
-                  <div class="space-y-8">
+                    04 // Telemetry & Goals
+                  </span>
+                </div>
+                <div
+                  class="bg-slate-950/90 backdrop-blur-md border border-slate-800 rounded-none p-8 pt-12 shadow-2xl relative overflow-hidden"
+                >
+                  <div class="space-y-8 relative z-10">
                     <UFormGroup
                       label="What metrics or telemetry do you currently track?"
                       name="telemetry"
@@ -300,7 +253,7 @@
                 <UButton
                   type="submit"
                   size="xl"
-                  class="w-full justify-center text-white font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all hover:scale-[1.02] bg-red-600 hover:bg-red-500"
+                  class="w-full justify-center text-white font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all hover:scale-[1.02] bg-purple-600 hover:bg-purple-500 rounded-none"
                   :loading="loading"
                 >
                   Submit UNLEASH Application
@@ -381,7 +334,6 @@
     if (currentIndex < tabs.length - 1) {
       scrollTo(tabs[currentIndex + 1].id)
     } else {
-      // If at the end, just focus the submit button
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
@@ -391,10 +343,8 @@
   onMounted(() => {
     observer = new IntersectionObserver(
       (entries) => {
-        // Sort entries by intersection ratio to find the most visible one
         const visibleEntries = entries.filter((e) => e.isIntersecting)
         if (visibleEntries.length > 0) {
-          // If multiple are visible, pick the one taking up the most space
           const mostVisible = visibleEntries.reduce((prev, current) =>
             prev.intersectionRatio > current.intersectionRatio ? prev : current
           )
