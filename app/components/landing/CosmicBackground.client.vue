@@ -1,5 +1,9 @@
 <template>
-  <div ref="container" class="fixed inset-0 z-0 bg-[#020617] pointer-events-none"></div>
+  <canvas
+    ref="canvas"
+    class="fixed inset-0 w-full h-full"
+    style="z-index: 0; background: #020617"
+  ></canvas>
 </template>
 
 <script setup>
@@ -7,72 +11,76 @@
   import * as THREE from 'three'
   import { useWindowScroll, useWindowSize } from '@vueuse/core'
 
-  const container = ref(null)
+  const canvas = ref(null)
   const { y } = useWindowScroll()
   const { width, height } = useWindowSize()
 
   let scene, camera, renderer, starSystem
   let animationFrameId
-  let lastY = y.value || 0
-  let targetZ = 0
+  let lastY = 0
   let currentZ = 0
   let velocityZ = 0
 
   onMounted(() => {
-    if (!container.value) return
+    if (!canvas.value) return
 
     scene = new THREE.Scene()
-    scene.fog = new THREE.FogExp2(0x020617, 0.0015)
 
-    camera = new THREE.PerspectiveCamera(75, width.value / height.value, 0.1, 2000)
+    camera = new THREE.PerspectiveCamera(75, width.value / height.value, 0.1, 5000)
     camera.position.z = 0
 
-    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
+    renderer = new THREE.WebGLRenderer({ canvas: canvas.value, antialias: true, alpha: false })
+    renderer.setClearColor(0x020617, 1)
     renderer.setSize(width.value, height.value)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    container.value.appendChild(renderer.domElement)
 
-    const particleCount = 15000
-    const geometry = new THREE.BufferGeometry()
-    const positions = new Float32Array(particleCount * 3)
-    const colors = new Float32Array(particleCount * 3)
-    const sizes = new Float32Array(particleCount)
+    // --- Starfield ---
+    const count = 18000
+    const positions = new Float32Array(count * 3)
+    const colors = new Float32Array(count * 3)
+    const sizes = new Float32Array(count)
 
-    const colorPalette = [
-      new THREE.Color(0x38bdf8),
-      new THREE.Color(0x818cf8),
-      new THREE.Color(0xc084fc),
-      new THREE.Color(0xffffff)
+    const palette = [
+      new THREE.Color(0x38bdf8), // cyan
+      new THREE.Color(0x818cf8), // indigo
+      new THREE.Color(0xc084fc), // purple
+      new THREE.Color(0xe2e8f0), // cool white
+      new THREE.Color(0xfbbf24) // amber (rare star)
     ]
 
-    for (let i = 0; i < particleCount; i++) {
-      const radius = 10 + Math.random() * 400
+    for (let i = 0; i < count; i++) {
+      const r = 20 + Math.random() * 500
       const theta = 2 * Math.PI * Math.random()
+      const z = (Math.random() - 0.5) * 6000
 
-      positions[i * 3] = radius * Math.cos(theta)
-      positions[i * 3 + 1] = radius * Math.sin(theta)
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 3000
+      positions[i * 3 + 0] = r * Math.cos(theta)
+      positions[i * 3 + 1] = r * Math.sin(theta)
+      positions[i * 3 + 2] = z
 
-      const cluster = Math.sin(positions[i * 3 + 2] * 0.005) + Math.cos(positions[i * 3] * 0.01)
-      let colorObj
-      if (cluster > 1.2) colorObj = colorPalette[2]
-      else if (cluster < -1.2) colorObj = colorPalette[0]
-      else if (Math.random() > 0.9) colorObj = colorPalette[1]
-      else colorObj = colorPalette[3]
+      // Nebula clusters by depth
+      const band = Math.abs(Math.sin(z * 0.003))
+      let c
+      if (band > 0.85)
+        c = palette[2] // dense purple nebula
+      else if (band > 0.7)
+        c = palette[0] // cyan nebula
+      else if (Math.random() > 0.96)
+        c = palette[4] // rare amber star
+      else if (Math.random() > 0.9)
+        c = palette[1] // indigo
+      else c = palette[3] // default white
 
-      colorObj.toArray(colors, i * 3)
-      sizes[i] = Math.random() * 2
+      c.toArray(colors, i * 3)
+      sizes[i] = 0.5 + Math.random() * 2.5
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
+    const geo = new THREE.BufferGeometry()
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+    geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
 
-    const material = new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 },
-        uVelocity: { value: 0 }
-      },
+    const mat = new THREE.ShaderMaterial({
+      uniforms: { uVelocity: { value: 0 } },
       vertexShader: `
       attribute float size;
       attribute vec3 color;
@@ -80,21 +88,21 @@
       uniform float uVelocity;
       void main() {
         vColor = color;
-        vec3 pos = position;
-        pos.z += uVelocity * 2.0; 
-        vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-        gl_PointSize = size * (300.0 / -mvPosition.z) * (1.0 + abs(uVelocity) * 0.1);
-        gl_Position = projectionMatrix * mvPosition;
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        // Hyperspace stretch: scale point size by speed
+        float speed = abs(uVelocity);
+        gl_PointSize = size * (400.0 / -mv.z) * (1.0 + speed * 0.15);
+        gl_Position = projectionMatrix * mv;
       }
     `,
       fragmentShader: `
       varying vec3 vColor;
       void main() {
-        vec2 xy = gl_PointCoord.xy - vec2(0.5);
-        float ll = length(xy);
-        if (ll > 0.5) discard;
-        float alpha = (0.5 - ll) * 2.0;
-        gl_FragColor = vec4(vColor, alpha * 0.8);
+        vec2 uv = gl_PointCoord - 0.5;
+        float d = length(uv);
+        if (d > 0.5) discard;
+        float a = smoothstep(0.5, 0.1, d);
+        gl_FragColor = vec4(vColor, a * 0.9);
       }
     `,
       transparent: true,
@@ -102,48 +110,57 @@
       depthWrite: false
     })
 
-    starSystem = new THREE.Points(geometry, material)
+    starSystem = new THREE.Points(geo, mat)
     scene.add(starSystem)
 
+    // --- Constellation lines (Orion) ---
+    const lineMat = new THREE.LineBasicMaterial({
+      color: 0x334155,
+      transparent: true,
+      opacity: 0.3
+    })
+    const linePoints = [
+      new THREE.Vector3(-80, 60, -300),
+      new THREE.Vector3(-40, 30, -300),
+      new THREE.Vector3(0, 50, -300),
+      new THREE.Vector3(40, 30, -300),
+      new THREE.Vector3(80, 60, -300)
+    ]
+    const lineGeo = new THREE.BufferGeometry().setFromPoints(linePoints)
+    scene.add(new THREE.Line(lineGeo, lineMat))
+
+    // --- Animation ---
     const clock = new THREE.Clock()
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate)
       const delta = clock.getDelta()
 
-      targetZ = -y.value * 2.5
-      currentZ += (targetZ - currentZ) * 0.05
+      const targetZ = -y.value * 3
+      currentZ += (targetZ - currentZ) * 0.06
       camera.position.z = currentZ
 
       const scrollDelta = y.value - lastY
-      velocityZ += (scrollDelta - velocityZ) * 0.1
+      velocityZ += (scrollDelta * 0.5 - velocityZ) * 0.15
       lastY = y.value
 
-      material.uniforms.uTime.value += delta
-      material.uniforms.uVelocity.value = velocityZ
+      mat.uniforms.uVelocity.value = velocityZ
+      starSystem.rotation.z += delta * 0.01
 
-      starSystem.rotation.z += delta * 0.02
       renderer.render(scene, camera)
     }
-
     animate()
   })
 
   onUnmounted(() => {
     if (animationFrameId) cancelAnimationFrame(animationFrameId)
-    if (renderer) {
-      renderer.dispose()
-      if (container.value && renderer.domElement) {
-        container.value.removeChild(renderer.domElement)
-      }
-    }
+    renderer?.dispose()
   })
 
   watch([width, height], () => {
-    if (camera && renderer) {
-      camera.aspect = width.value / height.value
-      camera.updateProjectionMatrix()
-      renderer.setSize(width.value, height.value)
-    }
+    if (!camera || !renderer) return
+    camera.aspect = width.value / height.value
+    camera.updateProjectionMatrix()
+    renderer.setSize(width.value, height.value)
   })
 </script>

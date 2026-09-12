@@ -304,7 +304,7 @@
   import { ref, computed, onMounted, onUnmounted } from 'vue'
 
   definePageMeta({
-    layout: 'home',
+    layout: 'apply',
     auth: false
   })
 
