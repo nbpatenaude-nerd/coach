@@ -1,5 +1,5 @@
 <template>
-  <section class="py-24 relative z-10">
+  <section id="pricing" class="py-24 relative z-10">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-20">
         <h2
@@ -102,9 +102,9 @@
               block
               size="xl"
               class="rounded-full bg-slate-800 text-slate-200 font-bold border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest py-4 mt-auto"
+              @click="startUncover"
+              >Start Uncover &rarr;</UButton
             >
-              Start Uncover &rarr;
-            </UButton>
           </div>
         </div>
 
@@ -189,8 +189,7 @@
             </div>
 
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
-              target="_blank"
+              to="/apply/unlock"
               block
               size="xl"
               class="rounded-full bg-slate-800 text-cyan-100 font-bold border border-cyan-900/50 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest py-4 mt-auto"
@@ -281,13 +280,11 @@
             </div>
 
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
-              target="_blank"
+              to="/apply/unleash"
               block
               size="xl"
               class="rounded-full bg-slate-800/50 text-slate-300 font-bold border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest py-4 mt-auto"
-            >
-              Apply for Unleash &rarr;
+              >Apply for Unleash &rarr;
             </UButton>
           </div>
         </div>
@@ -298,6 +295,15 @@
 
 <script setup lang="ts">
   import { onMounted, onUnmounted } from 'vue'
+  import { useStripe } from '~/composables/useStripe'
+  const config = useRuntimeConfig()
+  const { createCheckoutSession } = useStripe()
+
+  const startUncover = () => {
+    if (config.public.stripeUncover1PhasePriceId) {
+      createCheckoutSession(config.public.stripeUncover1PhasePriceId as string)
+    }
+  }
 
   const handleMouseMove = (e: MouseEvent) => {
     if (typeof document === 'undefined') return
