@@ -507,7 +507,7 @@
 
   async function handlePlanSelect(plan: PricingPlan) {
     if (plan.isApplication) {
-      window.open('https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting', '_blank')
+      window.open('https://app.reclaim.ai/m/Coach-Nick/coachnick1-2-1', '_blank')
       return
     }
 

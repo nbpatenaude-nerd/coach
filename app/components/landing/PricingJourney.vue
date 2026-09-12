@@ -189,7 +189,7 @@
             </div>
 
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting"
+              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
               target="_blank"
               block
               size="xl"
@@ -234,7 +234,7 @@
               >
               <span
                 class="text-xs text-slate-400 border border-slate-700/50 rounded-full px-3 py-1 bg-slate-800/30"
-                >INVITE ONLY</span
+                >APPLICATION ONLY</span
               >
             </div>
 
@@ -281,7 +281,7 @@
             </div>
 
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting"
+              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
               target="_blank"
               block
               size="xl"

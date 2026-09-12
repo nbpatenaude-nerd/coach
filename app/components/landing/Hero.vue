@@ -57,7 +57,7 @@
 
         <div class="mt-10 flex flex-wrap items-center justify-center gap-5">
           <UButton
-            to="https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting"
+            to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
             target="_blank"
             size="xl"
             class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-8 shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all hover:scale-105"

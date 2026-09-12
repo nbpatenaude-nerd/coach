@@ -45,9 +45,7 @@
             <LandingPricingJourney />
 
             <!-- Closing Call to Action -->
-            <section
-              class="bg-transparent border-t border-slate-800 px-6 py-24 sm:py-32 lg:px-8 relative z-10"
-            >
+            <section class="bg-transparent px-6 py-24 sm:py-32 lg:px-8 relative z-10">
               <div
                 class="mx-auto flex max-w-4xl flex-col items-center text-center gap-8 relative z-10"
               >

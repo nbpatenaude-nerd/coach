@@ -37,7 +37,7 @@ export const trainingPlans: TrainingPlan[] = [
       'Turn your curiosity into a finish line with a structured, walk-run supported guide designed to lead the “tri-curious” through their first Sprint or Super-Sprint triathlon.',
     trainingPeaksUrl:
       'https://www.trainingpeaks.com/training-plans/triathlon/sprint/tp-570972/triathlon-starter-base-6-week-intro-to-tri',
-    image: '/images/plans/triathlon.png'
+    image: '/images/plans/triathlon-starter.jpg'
   },
   {
     id: '10k-heros-ascent',

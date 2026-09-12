@@ -164,7 +164,7 @@
           </div>
           <div class="mt-8 relative z-10">
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting"
+              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
               target="_blank"
               block
               class="bg-pink-500 hover:bg-pink-400 text-slate-950 font-bold shadow-[0_0_15px_rgba(236,72,153,0.4)]"
@@ -210,7 +210,7 @@
           </div>
           <div class="mt-8">
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/20min-quick-meeting"
+              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
               target="_blank"
               block
               variant="outline"
