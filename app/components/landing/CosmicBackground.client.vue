@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="fixed inset-0 z-[-1] bg-[#020617] pointer-events-none"></div>
+  <div ref="container" class="fixed inset-0 z-0 bg-[#020617] pointer-events-none"></div>
 </template>
 
 <script setup>

@@ -74,68 +74,75 @@
 
           <!-- Right Content (Forms) -->
           <div class="lg:w-2/3">
-            <form class="space-y-32 pb-16" @submit.prevent="submitForm">
+            <form class="space-y-16 pb-16" @submit.prevent="submitForm">
               <!-- Personal Info -->
               <section id="personal" class="scroll-mt-40 relative group">
                 <div
-                  class="absolute -left-8 top-0 h-full w-[1px] bg-gradient-to-b from-cyan-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                ></div>
-                <div class="space-y-12">
-                  <h3
-                    class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
-                  >
-                    Personal Info
-                  </h3>
+                  class="bg-slate-950/60 backdrop-blur-xl border border-white/5 p-10 shadow-2xl relative overflow-hidden"
+                >
+                  <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-3xl pointer-events-none rounded-full"
+                  ></div>
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div class="flex flex-col gap-2">
-                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Full Name</label
-                      >
-                      <input
-                        v-model="form.name"
-                        required
-                        type="text"
-                        placeholder="John Doe"
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors"
-                      />
-                    </div>
-                    <div class="flex flex-col gap-2">
-                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Email Address</label
-                      >
-                      <input
-                        v-model="form.email"
-                        required
-                        type="email"
-                        placeholder="john@example.com"
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors"
-                      />
-                    </div>
-                  </div>
+                  <div class="space-y-12 relative z-10">
+                    <h3
+                      class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
+                    >
+                      Personal Info
+                    </h3>
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div class="flex flex-col gap-2">
-                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Phone Number</label
-                      >
-                      <input
-                        v-model="form.phone"
-                        type="text"
-                        placeholder="+1 (555) 000-0000"
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors"
-                      />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Full Name</label
+                        >
+                        <input
+                          v-model="form.name"
+                          required
+                          type="text"
+                          placeholder="John Doe"
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors"
+                        />
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Email Address</label
+                        >
+                        <input
+                          v-model="form.email"
+                          required
+                          type="email"
+                          placeholder="john@example.com"
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors"
+                        />
+                      </div>
                     </div>
-                    <div class="flex flex-col gap-2">
-                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Location / Country</label
-                      >
-                      <input
-                        v-model="form.location"
-                        type="text"
-                        placeholder="Victoria, BC"
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors"
-                      />
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Phone Number</label
+                        >
+                        <input
+                          v-model="form.phone"
+                          required
+                          type="text"
+                          placeholder="+1 (555) 000-0000"
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors"
+                        />
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Location / Country</label
+                        >
+                        <input
+                          v-model="form.location"
+                          required
+                          type="text"
+                          placeholder="Victoria, BC"
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -144,43 +151,51 @@
               <!-- Sport -->
               <section id="sport" class="scroll-mt-40 relative group">
                 <div
-                  class="absolute -left-8 top-0 h-full w-[1px] bg-gradient-to-b from-cyan-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                ></div>
-                <div class="space-y-12">
-                  <h3
-                    class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
-                  >
-                    Sport Profile
-                  </h3>
+                  class="bg-slate-950/60 backdrop-blur-xl border border-white/5 p-10 shadow-2xl relative overflow-hidden"
+                >
+                  <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-3xl pointer-events-none rounded-full"
+                  ></div>
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div class="flex flex-col gap-2">
-                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Primary Sport</label
-                      >
-                      <select
-                        v-model="form.primarySport"
-                        required
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white focus:ring-0 focus:border-cyan-400 transition-colors appearance-none cursor-pointer"
-                      >
-                        <option value="Triathlon" class="bg-slate-900 text-white">Triathlon</option>
-                        <option value="Running" class="bg-slate-900 text-white">Running</option>
-                        <option value="Cycling" class="bg-slate-900 text-white">Cycling</option>
-                        <option value="Hyrox" class="bg-slate-900 text-white">Hyrox</option>
-                        <option value="Strength" class="bg-slate-900 text-white">Strength</option>
-                        <option value="Other" class="bg-slate-900 text-white">Other</option>
-                      </select>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Secondary Sports</label
-                      >
-                      <input
-                        v-model="form.secondarySports"
-                        type="text"
-                        placeholder="e.g. Swimming, Weightlifting"
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors"
-                      />
+                  <div class="space-y-12 relative z-10">
+                    <h3
+                      class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
+                    >
+                      Sport Profile
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Primary Sport</label
+                        >
+                        <select
+                          v-model="form.primarySport"
+                          required
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white focus:ring-0 focus:border-cyan-400 transition-colors appearance-none cursor-pointer"
+                        >
+                          <option value="Triathlon" class="bg-slate-900 text-white">
+                            Triathlon
+                          </option>
+                          <option value="Running" class="bg-slate-900 text-white">Running</option>
+                          <option value="Cycling" class="bg-slate-900 text-white">Cycling</option>
+                          <option value="Hyrox" class="bg-slate-900 text-white">Hyrox</option>
+                          <option value="Strength" class="bg-slate-900 text-white">Strength</option>
+                          <option value="Other" class="bg-slate-900 text-white">Other</option>
+                        </select>
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Secondary Sports</label
+                        >
+                        <input
+                          v-model="form.secondarySports"
+                          required
+                          type="text"
+                          placeholder="e.g. Swimming, Weightlifting"
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -189,82 +204,95 @@
               <!-- Experience -->
               <section id="experience" class="scroll-mt-40 relative group">
                 <div
-                  class="absolute -left-8 top-0 h-full w-[1px] bg-gradient-to-b from-cyan-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                ></div>
-                <div class="space-y-12">
-                  <h3
-                    class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
-                  >
-                    Experience
-                  </h3>
+                  class="bg-slate-950/60 backdrop-blur-xl border border-white/5 p-10 shadow-2xl relative overflow-hidden"
+                >
+                  <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-3xl pointer-events-none rounded-full"
+                  ></div>
 
-                  <div class="flex flex-col gap-4">
-                    <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                      >Current Experience Level</label
+                  <div class="space-y-12 relative z-10">
+                    <h3
+                      class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
                     >
-                    <div class="flex gap-6">
-                      <label
-                        v-for="lvl in ['Beginner', 'Intermediate', 'Advanced']"
-                        :key="lvl"
-                        class="flex items-center gap-3 cursor-pointer group/radio"
+                      Experience
+                    </h3>
+
+                    <div class="flex flex-col gap-4">
+                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                        >Current Experience Level</label
                       >
-                        <div
-                          class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center transition-colors group-hover/radio:border-cyan-400"
-                          :class="form.experienceLevel === lvl ? 'border-cyan-400' : ''"
+                      <div class="flex gap-6">
+                        <label
+                          v-for="lvl in ['Beginner', 'Intermediate', 'Advanced']"
+                          :key="lvl"
+                          class="flex items-center gap-3 cursor-pointer group/radio"
                         >
                           <div
-                            class="w-2.5 h-2.5 rounded-full bg-cyan-400 transition-transform"
-                            :class="form.experienceLevel === lvl ? 'scale-100' : 'scale-0'"
-                          ></div>
-                        </div>
-                        <span class="text-slate-300 group-hover/radio:text-white transition-colors">
-                          <input
-                            v-model="form.experienceLevel"
-                            type="radio"
-                            :value="lvl"
-                            class="sr-only"
-                          />
-                          {{ lvl }}
-                        </span>
-                      </label>
+                            class="w-5 h-5 rounded-full border border-slate-700 flex items-center justify-center transition-colors group-hover/radio:border-cyan-400"
+                            :class="form.experienceLevel === lvl ? 'border-cyan-400' : ''"
+                          >
+                            <div
+                              class="w-2.5 h-2.5 rounded-full bg-cyan-400 transition-transform"
+                              :class="form.experienceLevel === lvl ? 'scale-100' : 'scale-0'"
+                            ></div>
+                          </div>
+                          <span
+                            class="text-slate-300 group-hover/radio:text-white transition-colors"
+                          >
+                            <input
+                              v-model="form.experienceLevel"
+                              type="radio"
+                              :value="lvl"
+                              required
+                              class="sr-only"
+                            />
+                            {{ lvl }}
+                          </span>
+                        </label>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Years in sport</label
+                        >
+                        <input
+                          v-model="form.years"
+                          required
+                          type="number"
+                          min="0"
+                          placeholder="e.g. 3"
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors"
+                        />
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                          >Current Weekly Volume (Hours)</label
+                        >
+                        <input
+                          v-model="form.volume"
+                          required
+                          type="number"
+                          min="0"
+                          placeholder="e.g. 8"
+                          class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors"
+                        />
+                      </div>
+                    </div>
+
                     <div class="flex flex-col gap-2">
                       <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Years in sport</label
+                        >What do you struggle with most?</label
                       >
-                      <input
-                        v-model="form.years"
-                        type="number"
-                        placeholder="e.g. 3"
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors"
-                      />
+                      <textarea
+                        v-model="form.limiters"
+                        required
+                        rows="2"
+                        placeholder="Nutrition, consistency, injuries, etc."
+                        class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors resize-none"
+                      ></textarea>
                     </div>
-                    <div class="flex flex-col gap-2">
-                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                        >Current Weekly Volume (Hours)</label
-                      >
-                      <input
-                        v-model="form.volume"
-                        type="number"
-                        placeholder="e.g. 8"
-                        class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col gap-2">
-                    <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                      >What do you struggle with most?</label
-                    >
-                    <textarea
-                      v-model="form.limiters"
-                      rows="2"
-                      placeholder="Nutrition, consistency, injuries, etc."
-                      class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors resize-none"
-                    ></textarea>
                   </div>
                 </div>
               </section>
@@ -272,51 +300,63 @@
               <!-- Goals -->
               <section id="goals" class="scroll-mt-40 relative group">
                 <div
-                  class="absolute -left-8 top-0 h-full w-[1px] bg-gradient-to-b from-cyan-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                ></div>
-                <div class="space-y-12">
-                  <h3
-                    class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
-                  >
-                    Goals
-                  </h3>
+                  class="bg-slate-950/60 backdrop-blur-xl border border-white/5 p-10 shadow-2xl relative overflow-hidden"
+                >
+                  <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-3xl pointer-events-none rounded-full"
+                  ></div>
 
-                  <div class="flex flex-col gap-2">
-                    <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                      >A-Race / Main Goal for the Season</label
+                  <div class="space-y-12 relative z-10">
+                    <h3
+                      class="font-athletic text-3xl font-bold text-white uppercase tracking-widest border-b border-white/10 pb-4"
                     >
-                    <textarea
-                      v-model="form.mainGoal"
-                      required
-                      rows="2"
-                      placeholder="Describe your primary objective..."
-                      class="w-full bg-transparent border-0 border-b border-slate-800 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-700 focus:ring-0 focus:border-cyan-400 transition-colors resize-none"
-                    ></textarea>
-                  </div>
+                      Goals
+                    </h3>
 
-                  <div class="flex flex-col gap-4">
-                    <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
-                      >Commitment Level (1-10)</label
-                    >
-                    <div class="px-2">
-                      <URange v-model="form.commitment" :min="1" :max="10" color="cyan" />
-                      <div
-                        class="flex justify-between text-xs text-slate-500 mt-2 font-bold uppercase tracking-widest"
+                    <div class="flex flex-col gap-2">
+                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                        >A-Race / Main Goal for the Season</label
                       >
-                        <span>Casual</span>
-                        <span>{{ form.commitment }}</span>
-                        <span>Dedicated</span>
+                      <textarea
+                        v-model="form.mainGoal"
+                        required
+                        rows="2"
+                        placeholder="Describe your primary objective..."
+                        class="w-full bg-transparent border-0 border-b border-slate-700 rounded-none px-0 py-2 text-lg font-light text-white placeholder-slate-600 focus:ring-0 focus:border-cyan-400 transition-colors resize-none"
+                      ></textarea>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                      <label class="text-xs font-bold uppercase tracking-widest text-slate-500"
+                        >Commitment Level (1-10)</label
+                      >
+                      <div class="px-2 pt-2">
+                        <input
+                          v-model="form.commitment"
+                          type="range"
+                          min="1"
+                          max="10"
+                          required
+                          class="w-full h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+                        />
+                        <div
+                          class="flex justify-between text-xs text-slate-500 mt-4 font-bold uppercase tracking-widest"
+                        >
+                          <span>Casual</span>
+                          <span class="text-cyan-400 text-lg">{{ form.commitment }}</span>
+                          <span>Dedicated</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </section>
 
-              <div class="pt-8">
+              <div class="pt-8 pb-32">
                 <button
                   type="submit"
                   :disabled="loading"
-                  class="group relative flex w-full md:w-auto md:min-w-[300px] mx-auto items-center justify-center gap-4 rounded-full bg-gradient-to-r from-[#b4f07a] to-[#ffda7c] py-4 px-8 text-xl font-bold text-slate-950 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_40px_-10px_#b4f07a] disabled:opacity-50"
+                  class="group relative flex w-full md:w-auto md:min-w-[300px] mx-auto items-center justify-center gap-4 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 py-4 px-8 text-xl font-bold text-slate-950 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_40px_-10px_rgba(6,182,212,0.8)] disabled:opacity-50"
                 >
                   <span class="tracking-widest uppercase">{{
                     loading ? 'SUBMITTING...' : 'SUBMIT APPLICATION'
@@ -387,7 +427,7 @@
     volume: '',
     limiters: '',
     mainGoal: '',
-    commitment: 7
+    commitment: '7'
   })
 
   const scrollTo = (id: string) => {
