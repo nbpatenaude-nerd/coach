@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="fixed inset-0 z-0 bg-slate-950"></div>
+  <div ref="container" class="fixed inset-0 z-[-1] bg-[#020617] pointer-events-none"></div>
 </template>
 
 <script setup>
@@ -13,7 +13,7 @@
 
   let scene, camera, renderer, starSystem
   let animationFrameId
-  let lastY = y.value
+  let lastY = y.value || 0
   let targetZ = 0
   let currentZ = 0
   let velocityZ = 0
@@ -111,7 +111,7 @@
       animationFrameId = requestAnimationFrame(animate)
       const delta = clock.getDelta()
 
-      targetZ = -y.value * 1.5
+      targetZ = -y.value * 2.5
       currentZ += (targetZ - currentZ) * 0.05
       camera.position.z = currentZ
 
