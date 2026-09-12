@@ -60,11 +60,11 @@
                 <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
                   <UButton
                     size="xl"
-                    to="/auth/signin"
+                    to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
+                    target="_blank"
                     class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold whitespace-nowrap px-10 shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(34,211,238,0.6)]"
+                    >Start Your Journey</UButton
                   >
-                    Start Your Journey
-                  </UButton>
                 </div>
               </div>
             </section>

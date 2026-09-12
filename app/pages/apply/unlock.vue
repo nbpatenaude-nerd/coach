@@ -56,8 +56,7 @@
   const submitForm = async () => {
     loading.value = true
     try {
-      // In the future, this will POST to /api/apply/unlock
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await $fetch('/api/apply/submit', { method: 'POST', body: { ...form.value, tier: 'UNLOCK' } })
       toast.add({
         title: 'Application Submitted',
         description: 'We will be in touch soon!',

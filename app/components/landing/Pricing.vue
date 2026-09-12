@@ -164,8 +164,7 @@
           </div>
           <div class="mt-8 relative z-10">
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
-              target="_blank"
+              to="/apply/unlock"
               block
               class="bg-pink-500 hover:bg-pink-400 text-slate-950 font-bold shadow-[0_0_15px_rgba(236,72,153,0.4)]"
               >Apply for Unlock</UButton
@@ -210,8 +209,7 @@
           </div>
           <div class="mt-8">
             <UButton
-              to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
-              target="_blank"
+              to="/apply/unleash"
               block
               variant="outline"
               class="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 hover:border-purple-400"

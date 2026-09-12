@@ -62,8 +62,10 @@
   const submitForm = async () => {
     loading.value = true
     try {
-      // In the future, this will POST to /api/apply/unleash
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await $fetch('/api/apply/submit', {
+        method: 'POST',
+        body: { ...form.value, tier: 'UNLEASH' }
+      })
       toast.add({
         title: 'Application Submitted',
         description: 'We will review your elite profile and reach out.',
