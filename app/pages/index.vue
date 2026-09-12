@@ -40,9 +40,8 @@
           </div>
           <div class="relative z-10 -mt-[100vh]">
             <LandingQuestSelection />
-            <LandingPathsForged />
-            <LandingPrograms />
             <LandingPricingJourney />
+            <LandingPathsForged />
 
             <!-- Closing Call to Action -->
             <section class="bg-transparent px-6 py-24 sm:py-32 lg:px-8 relative z-10">

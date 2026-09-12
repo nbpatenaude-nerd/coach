@@ -1,5 +1,5 @@
 <template>
-  <div id="programs" class="pt-24 pb-24">
+  <div class="min-h-screen bg-slate-950 pt-32 pb-24">
     <div class="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Page Header -->
       <div class="mb-12">
@@ -67,6 +67,10 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue'
   import { trainingPlans } from '../../data/training-plans'
+  definePageMeta({
+    layout: 'home',
+    auth: false
+  })
 
   const activeCategory = ref('all')
 
