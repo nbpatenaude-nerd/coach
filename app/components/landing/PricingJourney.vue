@@ -270,7 +270,7 @@
                 <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
                   >Support</span
                 >
-                <span class="text-slate-300">Executive AI Briefings</span>
+                <span class="text-slate-300">Advanced Coach Analysis and Race Briefings</span>
               </div>
               <div class="grid grid-cols-[100px_1fr] items-start">
                 <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
