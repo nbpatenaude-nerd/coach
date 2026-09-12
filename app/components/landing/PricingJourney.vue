@@ -170,27 +170,21 @@
             <div class="flex flex-col gap-4 mb-12 text-sm grow">
               <div class="grid grid-cols-[100px_1fr] items-start">
                 <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Engine</span
+                  >Focus</span
                 >
-                <span class="text-slate-200">Daily Digital Twin AI</span>
+                <span class="text-slate-200">Individualized Training Plan</span>
               </div>
               <div class="grid grid-cols-[100px_1fr] items-start">
                 <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Feedback</span
+                  >Support</span
                 >
-                <span class="text-slate-200">Daily Check-In & AI Chat</span>
+                <span class="text-slate-200">1:1 Coach & Daily AI Chat</span>
               </div>
               <div class="grid grid-cols-[100px_1fr] items-start">
                 <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Metrics</span
+                  >Tools</span
                 >
-                <span class="text-slate-200">Glycogen Fuel Tank Tracking</span>
-              </div>
-              <div class="grid grid-cols-[100px_1fr] items-start">
-                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Human</span
-                >
-                <span class="text-slate-200">Custom 1:1 Coaching</span>
+                <span class="text-slate-200">Digital Twin & Fuel Tracking</span>
               </div>
             </div>
 
@@ -268,27 +262,21 @@
             <div class="flex flex-col gap-4 mb-12 text-sm grow">
               <div class="grid grid-cols-[100px_1fr] items-start">
                 <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Telemetry</span
+                  >Focus</span
                 >
-                <span class="text-slate-300">Elite Biometric Streaming</span>
+                <span class="text-slate-300">Advanced Performance Metrics</span>
               </div>
               <div class="grid grid-cols-[100px_1fr] items-start">
                 <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Energy</span
-                >
-                <span class="text-slate-300">Live Energy Availability</span>
-              </div>
-              <div class="grid grid-cols-[100px_1fr] items-start">
-                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Scores</span
-                >
-                <span class="text-slate-300">Advanced Readiness Metrics</span>
-              </div>
-              <div class="grid grid-cols-[100px_1fr] items-start">
-                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
-                  >Reports</span
+                  >Support</span
                 >
                 <span class="text-slate-300">Executive AI Briefings</span>
+              </div>
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Tools</span
+                >
+                <span class="text-slate-300">Live Telemetry & Energy Sync</span>
               </div>
             </div>
 
