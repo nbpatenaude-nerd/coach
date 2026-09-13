@@ -1,4 +1,3 @@
-import { getOAuthClient } from '~/server/utils/googleCalendar'
 import { prisma } from '~/server/utils/db'
 import { google } from 'googleapis'
 

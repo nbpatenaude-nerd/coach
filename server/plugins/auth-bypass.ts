@@ -1,6 +1,6 @@
 import { defineNitroPlugin } from 'nitropack/runtime'
 import { getCookie, setCookie } from 'h3'
-import { prisma } from '../utils/db'
+
 import { v4 as uuidv4 } from 'uuid'
 
 export default defineNitroPlugin((nitroApp: any) => {

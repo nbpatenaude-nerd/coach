@@ -1,4 +1,3 @@
-import { prisma } from '../../utils/db'
 import { sendTelegramMessage } from '../../utils/telegram'
 
 export default defineTask({

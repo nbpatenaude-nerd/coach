@@ -1,6 +1,5 @@
 import { defineEventHandler, getCookie } from 'h3'
 import { getServerSession as getBaseSession } from '#auth'
-import { prisma } from '../utils/db'
 
 /**
  * Middleware that intercepts getServerSession calls and applies impersonation

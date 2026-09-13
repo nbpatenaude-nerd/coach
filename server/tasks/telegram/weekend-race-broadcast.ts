@@ -1,4 +1,3 @@
-import { prisma } from '../../utils/db'
 import { sendTelegramMessage } from '../../utils/telegram'
 
 export default defineTask({
@@ -58,7 +57,9 @@ export default defineTask({
 
         if (event.participants && event.participants.length > 0) {
           message += `👥 Racing: `
-          const names = event.participants.map((p) => p.user?.name || p.user?.email || 'Athlete').join(', ')
+          const names = event.participants
+            .map((p) => p.user?.name || p.user?.email || 'Athlete')
+            .join(', ')
           message += `${names}\n`
         } else {
           message += `👥 Racing: No Tri Nerds registered yet.\n`

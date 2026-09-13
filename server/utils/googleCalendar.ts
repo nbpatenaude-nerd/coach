@@ -107,10 +107,10 @@ export function generateSlots(
   const [endH, endM] = endTimeStr.split(':').map(Number)
 
   const dayStart = new Date(date)
-  dayStart.setHours(startH, startM, 0, 0)
+  dayStart.setHours(startH || 0, startM || 0, 0, 0)
 
   const dayEnd = new Date(date)
-  dayEnd.setHours(endH, endM, 0, 0)
+  dayEnd.setHours(endH || 0, endM || 0, 0, 0)
 
   const slotDuration = (durationMins + bufferMins) * 60 * 1000
   let cursor = dayStart.getTime()

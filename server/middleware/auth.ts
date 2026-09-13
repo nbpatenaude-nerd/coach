@@ -1,5 +1,4 @@
 import { createError, defineEventHandler, deleteCookie, getCookie, sendRedirect } from 'h3'
-import { prisma } from '../utils/db'
 
 const SESSION_COOKIE_NAMES = [
   'next-auth.session-token',

@@ -1,5 +1,4 @@
-﻿import { prisma } from '~/server/utils/db'
-import { getCoachBusyTimes, generateSlots, filterBusySlots } from '~/server/utils/googleCalendar'
+import { prisma } from '~/server/utils/db'
 import { addDays, addHours } from 'date-fns'
 
 export default defineEventHandler(async (event) => {
@@ -39,7 +38,7 @@ export default defineEventHandler(async (event) => {
 
   const allBusy = [
     ...busyFromCalendars,
-    ...confirmedBookings.map((b) => ({ start: b.startTime, end: b.endTime }))
+    ...confirmedBookings.map((b: any) => ({ start: b.startTime, end: b.endTime }))
   ]
 
   const result: Record<string, Array<{ start: string; end: string }>> = {}
@@ -47,7 +46,7 @@ export default defineEventHandler(async (event) => {
   for (let i = 0; i < daysAhead; i++) {
     const day = addDays(now, i)
     const dayOfWeek = day.getDay()
-    const rule = availabilityRules.find((r) => r.dayOfWeek === dayOfWeek)
+    const rule = availabilityRules.find((r: any) => r.dayOfWeek === dayOfWeek)
     if (!rule) continue
 
     const daySlots = generateSlots(
@@ -58,11 +57,13 @@ export default defineEventHandler(async (event) => {
       meetingType.bufferMins
     )
 
-    const available = filterBusySlots(daySlots, allBusy).filter((s) => s.start >= leadTimeCutoff)
+    const available = filterBusySlots(daySlots, allBusy).filter(
+      (s: any) => s.start >= leadTimeCutoff
+    )
 
     if (available.length > 0) {
-      const dateKey = day.toISOString().split('T')[0]
-      result[dateKey] = available.map((s) => ({
+      const dateKey = day.toISOString().split('T')[0] as string
+      result[dateKey] = available.map((s: any) => ({
         start: s.start.toISOString(),
         end: s.end.toISOString()
       }))
