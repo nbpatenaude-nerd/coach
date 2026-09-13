@@ -33,54 +33,8 @@
           />
         </NuxtLink>
 
-        <!-- Navigation for Tri Nerds -->
-        <nav
-          v-if="route.path === '/tri-nerds'"
-          class="hidden items-center gap-8 text-sm font-medium text-gray-400 lg:flex"
-          aria-label="Primary"
-        >
-          <NuxtLink to="/#why-us" class="whitespace-nowrap transition-colors hover:text-white"
-            >Why Us</NuxtLink
-          >
-          <NuxtLink
-            to="/#pricing"
-            class="flex items-center gap-1.5 whitespace-nowrap transition-colors hover:text-white"
-          >
-            Pricing
-            <span
-              class="inline-flex items-center justify-center rounded-sm bg-primary-500/20 text-primary-400 px-1.5 py-0.5 text-xs font-bold leading-none"
-              >START</span
-            >
-          </NuxtLink>
-        </nav>
-
-        <!-- Navigation for Journey Endurance -->
-        <nav
-          v-else
-          class="hidden items-center gap-8 text-sm font-bold lg:flex transition-colors duration-300"
-          :class="y > 50 ? 'text-gray-300' : 'text-slate-800'"
-          aria-label="Primary"
-        >
-          <NuxtLink
-            to="/media"
-            class="uppercase tracking-widest whitespace-nowrap transition-colors"
-            :class="y > 50 ? 'hover:text-white' : 'hover:text-black'"
-            >Media</NuxtLink
-          >
-          <NuxtLink
-            to="/#programs"
-            class="uppercase tracking-widest whitespace-nowrap transition-colors"
-            :class="y > 50 ? 'hover:text-white' : 'hover:text-black'"
-            >Programs</NuxtLink
-          >
-
-          <NuxtLink
-            to="/about"
-            class="uppercase tracking-widest whitespace-nowrap transition-colors"
-            :class="y > 50 ? 'hover:text-white' : 'hover:text-black'"
-            >About</NuxtLink
-          >
-        </nav>
+        <!-- Navigation for Tri Nerds (Removed for minimalist sales page) -->
+        <!-- Navigation for Journey Endurance (Removed for minimalist sales page) -->
 
         <!-- CTAs -->
         <div class="flex items-center gap-2 mt-2">
@@ -119,59 +73,6 @@
               >
             </template>
           </template>
-
-          <UPopover class="lg:hidden">
-            <UButton
-              icon="i-heroicons-bars-3"
-              color="white"
-              variant="ghost"
-              class="text-white hover:bg-white/10"
-            />
-            <template #content>
-              <div class="flex w-48 flex-col gap-4 p-4">
-                <template v-if="route.path === '/tri-nerds'">
-                  <NuxtLink
-                    to="/#why-us"
-                    class="text-sm font-medium whitespace-nowrap transition-colors hover:text-primary"
-                    >Why Us</NuxtLink
-                  >
-                  <NuxtLink
-                    to="/#pricing"
-                    class="flex items-center justify-between text-sm font-medium whitespace-nowrap transition-colors hover:text-primary"
-                    >Pricing</NuxtLink
-                  >
-                </template>
-                <template v-else>
-                  <NuxtLink
-                    to="/media"
-                    class="uppercase tracking-widest text-sm font-medium whitespace-nowrap transition-colors hover:text-primary"
-                    >Media</NuxtLink
-                  >
-                  <NuxtLink
-                    to="/#programs"
-                    class="uppercase tracking-widest text-sm font-medium whitespace-nowrap transition-colors hover:text-primary"
-                    >Programs</NuxtLink
-                  >
-                </template>
-                <template v-if="!isAuthPage && isSignedIn">
-                  <hr class="border-white/10" />
-                  <UButton to="/dashboard" color="white" class="text-black" block
-                    >Dashboard</UButton
-                  >
-                </template>
-                <template v-else-if="!isAuthPage">
-                  <hr class="border-white/10" />
-                  <UButton
-                    to="/login"
-                    color="white"
-                    class="text-black uppercase tracking-widest font-bold"
-                    block
-                    >Sign In</UButton
-                  >
-                </template>
-              </div>
-            </template>
-          </UPopover>
         </div>
       </div>
     </header>

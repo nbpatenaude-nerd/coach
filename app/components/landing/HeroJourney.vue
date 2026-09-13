@@ -24,7 +24,7 @@
 
     <!-- Centered Title Layout (SkyClinics Inspired) -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
-      <div class="flex flex-col items-center pointer-events-auto w-full px-4 -mt-16">
+      <div class="flex flex-col items-center pointer-events-auto w-full px-4 mt-24">
         <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
           <h1
             class="font-athletic text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-white m-0 leading-tight drop-shadow-2xl text-center max-w-4xl"

@@ -1,7 +1,7 @@
 <template>
-  <section class="py-24 relative overflow-hidden z-10 bg-slate-900">
+  <section class="py-12 md:py-16 relative overflow-hidden z-10 bg-slate-900/30">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-      <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-center max-w-3xl mx-auto mb-10">
         <h2
           class="font-athletic text-4xl sm:text-5xl font-bold uppercase text-white mb-6 tracking-wide drop-shadow-sm"
         >

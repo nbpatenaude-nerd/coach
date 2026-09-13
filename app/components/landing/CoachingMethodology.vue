@@ -1,5 +1,5 @@
 <template>
-  <section class="py-24 relative overflow-hidden z-10 bg-slate-950">
+  <section class="py-12 md:py-16 relative overflow-hidden z-10 bg-slate-950/20">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <!-- Image Placeholder (left) -->
