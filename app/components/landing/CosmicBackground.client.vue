@@ -80,16 +80,21 @@
     geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
 
     const mat = new THREE.ShaderMaterial({
-      uniforms: { uVelocity: { value: 0 } },
+      uniforms: { uVelocity: { value: 0 }, uCameraZ: { value: 0 } },
       vertexShader: `
       attribute float size;
       attribute vec3 color;
       varying vec3 vColor;
       uniform float uVelocity;
+      uniform float uCameraZ;
       void main() {
         vColor = color;
-        vec4 mv = modelViewMatrix * vec4(position, 1.0);
-        // Hyperspace stretch: scale point size by speed
+        vec3 pos = position;
+        // Infinite Z loop
+        float zOffset = mod(pos.z - uCameraZ + 3000.0, 6000.0) - 3000.0;
+        pos.z = uCameraZ + zOffset;
+        vec4 mv = modelViewMatrix * vec4(pos, 1.0);
+        // Hyperspace stretch
         float speed = abs(uVelocity);
         gl_PointSize = size * (400.0 / -mv.z) * (1.0 + speed * 0.15);
         gl_Position = projectionMatrix * mv;
@@ -145,6 +150,7 @@
       lastY = y.value
 
       mat.uniforms.uVelocity.value = velocityZ
+      mat.uniforms.uCameraZ.value = currentZ
       starSystem.rotation.z += delta * 0.01
 
       renderer.render(scene, camera)
