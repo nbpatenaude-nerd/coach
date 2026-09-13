@@ -12,51 +12,54 @@
 
         <!-- Text (right) -->
         <div class="flex flex-col gap-6 text-slate-300">
+          <h2
+            class="font-athletic text-3xl font-bold uppercase tracking-tight text-white mb-4 drop-shadow-md"
+          >
+            The High-Touch <span class="text-cyan-500">Method</span>
+          </h2>
           <p class="text-xl leading-relaxed font-light text-slate-200">
-            With our growth-oriented coaching philosophy, uncover your potential, unlock your
-            capability, and unleash your passion. Find the meaning behind training and competing.
+            Intelligent, individualized programming specifically designed for busy schedules,
+            recovery needs, and precise race build-ups.
           </p>
 
           <ul class="space-y-6 mt-4">
             <li class="flex items-start gap-4">
               <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
               <div>
-                <strong class="text-white block mb-1">Train based on YOUR Physiology</strong>
+                <strong class="text-white block mb-1">Remove the Guesswork</strong>
                 <span class="text-slate-400"
-                  >Don't waste time on calculations that don't take your personal physiology into
-                  consideration. Measure and track based on your own unique self.</span
+                  >Know exactly what to swim, bike, and run every single week. We remove all daily
+                  guesswork so you can just focus on executing.</span
                 >
               </div>
             </li>
             <li class="flex items-start gap-4">
               <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
               <div>
-                <strong class="text-white block mb-1">Don't waste your time with guesswork</strong>
+                <strong class="text-white block mb-1">Injury-Prevention Framework</strong>
                 <span class="text-slate-400"
-                  >As your personal Guide, your Coach will help you optimize every step of your
-                  path. Ensuring you have time to spend on the things that matter in life.</span
+                  >We balance volume with proper intensity control. Arrive on race day feeling
+                  strong, fresh, and fully capable, not broken down.</span
                 >
               </div>
             </li>
             <li class="flex items-start gap-4">
               <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
               <div>
-                <strong class="text-white block mb-1"
-                  >Improve your longevity, in health and sport</strong
-                >
+                <strong class="text-white block mb-1">Built for the Busy Athlete</strong>
                 <span class="text-slate-400"
-                  >Train and make decisions that support your health and that allow you to
-                  participate in your life and sport for longer.</span
+                  >Your training adapts to your life, not the other way around. Intelligent
+                  adjustments ensure you progress without sacrificing your career or family.</span
                 >
               </div>
             </li>
             <li class="flex items-start gap-4">
               <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
               <div>
-                <strong class="text-white block mb-1">Find meaning in your training</strong>
+                <strong class="text-white block mb-1">High-Touch 1-on-1 Access</strong>
                 <span class="text-slate-400"
-                  >Every step in your journey brings you closer to the person you want to be,
-                  uncovering the deeper purpose behind your efforts.</span
+                  >Weekly schedule adjustments, video movement checks, and race-day execution
+                  strategies directly with your dedicated coach.</span
                 >
               </div>
             </li>

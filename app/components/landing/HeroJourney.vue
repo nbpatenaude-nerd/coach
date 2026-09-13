@@ -27,28 +27,23 @@
       <div class="flex flex-col items-center pointer-events-auto w-full px-4 -mt-16">
         <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
           <h1
-            class="font-athletic text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.25em] md:tracking-[0.3em] uppercase text-white m-0 leading-none drop-shadow-2xl text-center"
+            class="font-athletic text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-white m-0 leading-tight drop-shadow-2xl text-center max-w-4xl"
           >
-            Journey Endurance
+            Master the Crucible of Endurance Sport:<br /><span class="text-cyan-400"
+              >Science-Backed Coaching to Build Peak Performance and Long-Term Athleticism</span
+            >
           </h1>
         </div>
 
         <div class="relative w-full flex justify-center mt-8 md:mt-10">
-          <div class="flex flex-col items-center gap-4 max-w-2xl">
-            <!-- Uppercase Bold Subtitle -->
+          <div class="flex flex-col items-center gap-6 max-w-3xl">
+            <!-- Uppercase Bold Subtitle (The Hook) -->
             <span
-              class="font-sans text-[0.65rem] md:text-[0.75rem] font-bold tracking-[0.2em] md:tracking-[0.25em] uppercase text-cyan-400 leading-relaxed text-center drop-shadow-md max-w-prose"
+              class="font-sans text-[0.8rem] md:text-[0.95rem] font-semibold tracking-wide text-slate-200 leading-relaxed text-center drop-shadow-md"
             >
-              Science backed coaching to guide you through your next Endurance adventure. We
-              eliminate the guesswork and apply research-based coaching methodologies to ensure
-              you're not wasting your time. Make every moment count.
-            </span>
-
-            <!-- Standard Subtitle -->
-            <span
-              class="font-sans text-[0.95rem] md:text-[1.05rem] font-light tracking-[0.05em] text-slate-200 text-center leading-relaxed italic drop-shadow-md"
-            >
-              "The most important step is always the next one."
+              Stop letting random internet plans burn you out or get you injured before you even
+              reach the starting line. Cut through the noise, protect your joints, and build a
+              sustainable, high-performance engine for your next half Ironman.
             </span>
 
             <div

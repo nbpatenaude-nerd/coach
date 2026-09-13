@@ -5,11 +5,13 @@
         <h2
           class="font-athletic text-4xl sm:text-5xl font-bold uppercase text-white mb-6 tracking-wide drop-shadow-sm"
         >
-          Start Your Coaching Journey
+          Beyond the <span class="text-rose-500">Finish Line</span>
         </h2>
         <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10">
-          Everything you need to succeed, unified into a single comprehensive coaching experience.
-          We provide the guidance, tools, and expertise so you can focus on the work.
+          Triathlon training is a vehicle for personal growth, resilience, and building a lifelong
+          relationship with endurance sports. As a premium athlete, you receive weekly schedule
+          adjustments, video movement checks, race-day execution strategies, pace/power structuring,
+          and direct 1-on-1 access to a dedicated coach.
         </p>
         <UButton
           to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"

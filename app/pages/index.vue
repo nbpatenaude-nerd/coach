@@ -39,6 +39,7 @@
             <MistBackground />
           </div>
           <div class="relative z-10 -mt-[100vh]">
+            <LandingTheProblem />
             <LandingCoachingMethodology />
             <LandingTestimonials />
             <LandingWhyCoaching />
@@ -56,8 +57,9 @@
                   The most important step is always the next one.
                 </h2>
                 <p class="mt-4 text-lg leading-8 text-cyan-100/70 max-w-2xl">
-                  Join the community of athletes redefining their limits. Data-driven coaching,
-                  expert support, and unparalleled results.
+                  Designed specifically for endurance athletes (ages 40 to 60) with baseline
+                  experience looking to level up to a half Ironman or optimize their performance.
+                  Let's assess your readiness and fit.
                 </p>
                 <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
                   <UButton
