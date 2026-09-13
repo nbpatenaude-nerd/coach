@@ -1,4 +1,5 @@
-import { prisma } from '../../../../../utils/db'
+import { prisma } from '../../../../utils/db'
+import { getOAuthClient } from '../../../../utils/googleCalendar'
 import { google } from 'googleapis'
 
 export default defineEventHandler(async (event) => {

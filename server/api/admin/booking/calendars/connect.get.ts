@@ -1,3 +1,4 @@
+import { getAuthUrl } from '../../../../utils/googleCalendar'
 import { getServerSession } from '#auth'
 
 export default defineEventHandler(async (event) => {
