@@ -1,7 +1,7 @@
 import { defineEventHandler, readMultipartFormData, createError } from 'h3'
 import { requireAuth } from '../../utils/auth-guard'
 import { prisma } from '../../utils/db'
-import Papa from 'papaparse'
+// Dynamically imported below to prevent Rollup parsing errors in SSR
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event, ['workout:write'])
@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
 
   const csvString = filePart.data.toString('utf-8')
 
+  const Papa = (await import('papaparse')).default
   const parsed = Papa.parse(csvString, { header: true, skipEmptyLines: true })
 
   if (parsed.errors.length > 0) {
