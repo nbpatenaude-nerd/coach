@@ -490,7 +490,11 @@ export const ModelName = {
   CoachFeedback: 'CoachFeedback',
   ScheduledTaskConfig: 'ScheduledTaskConfig',
   PasswordResetToken: 'PasswordResetToken',
-  WeeklyCheckIn: 'WeeklyCheckIn'
+  WeeklyCheckIn: 'WeeklyCheckIn',
+  CoachCalendarAccount: 'CoachCalendarAccount',
+  MeetingType: 'MeetingType',
+  Booking: 'Booking',
+  CoachAvailabilityRule: 'CoachAvailabilityRule'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,6 +632,10 @@ export type TypeMap<
       | 'scheduledTaskConfig'
       | 'passwordResetToken'
       | 'weeklyCheckIn'
+      | 'coachCalendarAccount'
+      | 'meetingType'
+      | 'booking'
+      | 'coachAvailabilityRule'
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -9383,6 +9391,306 @@ export type TypeMap<
         }
       }
     }
+    CoachCalendarAccount: {
+      payload: Prisma.$CoachCalendarAccountPayload<ExtArgs>
+      fields: Prisma.CoachCalendarAccountFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CoachCalendarAccountFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CoachCalendarAccountFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>
+        }
+        findFirst: {
+          args: Prisma.CoachCalendarAccountFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CoachCalendarAccountFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>
+        }
+        findMany: {
+          args: Prisma.CoachCalendarAccountFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>[]
+        }
+        create: {
+          args: Prisma.CoachCalendarAccountCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>
+        }
+        createMany: {
+          args: Prisma.CoachCalendarAccountCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CoachCalendarAccountCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>[]
+        }
+        delete: {
+          args: Prisma.CoachCalendarAccountDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>
+        }
+        update: {
+          args: Prisma.CoachCalendarAccountUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>
+        }
+        deleteMany: {
+          args: Prisma.CoachCalendarAccountDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CoachCalendarAccountUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CoachCalendarAccountUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>[]
+        }
+        upsert: {
+          args: Prisma.CoachCalendarAccountUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachCalendarAccountPayload>
+        }
+        aggregate: {
+          args: Prisma.CoachCalendarAccountAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCoachCalendarAccount>
+        }
+        groupBy: {
+          args: Prisma.CoachCalendarAccountGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoachCalendarAccountGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CoachCalendarAccountCountArgs<ExtArgs>
+          result:
+            | runtime.Types.Utils.Optional<Prisma.CoachCalendarAccountCountAggregateOutputType>
+            | number
+        }
+      }
+    }
+    MeetingType: {
+      payload: Prisma.$MeetingTypePayload<ExtArgs>
+      fields: Prisma.MeetingTypeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MeetingTypeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MeetingTypeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>
+        }
+        findFirst: {
+          args: Prisma.MeetingTypeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MeetingTypeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>
+        }
+        findMany: {
+          args: Prisma.MeetingTypeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>[]
+        }
+        create: {
+          args: Prisma.MeetingTypeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>
+        }
+        createMany: {
+          args: Prisma.MeetingTypeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MeetingTypeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>[]
+        }
+        delete: {
+          args: Prisma.MeetingTypeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>
+        }
+        update: {
+          args: Prisma.MeetingTypeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>
+        }
+        deleteMany: {
+          args: Prisma.MeetingTypeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MeetingTypeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MeetingTypeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>[]
+        }
+        upsert: {
+          args: Prisma.MeetingTypeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MeetingTypePayload>
+        }
+        aggregate: {
+          args: Prisma.MeetingTypeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMeetingType>
+        }
+        groupBy: {
+          args: Prisma.MeetingTypeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MeetingTypeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MeetingTypeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MeetingTypeCountAggregateOutputType> | number
+        }
+      }
+    }
+    Booking: {
+      payload: Prisma.$BookingPayload<ExtArgs>
+      fields: Prisma.BookingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BookingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BookingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>
+        }
+        findFirst: {
+          args: Prisma.BookingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BookingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>
+        }
+        findMany: {
+          args: Prisma.BookingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>[]
+        }
+        create: {
+          args: Prisma.BookingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>
+        }
+        createMany: {
+          args: Prisma.BookingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BookingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>[]
+        }
+        delete: {
+          args: Prisma.BookingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>
+        }
+        update: {
+          args: Prisma.BookingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>
+        }
+        deleteMany: {
+          args: Prisma.BookingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BookingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BookingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>[]
+        }
+        upsert: {
+          args: Prisma.BookingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookingPayload>
+        }
+        aggregate: {
+          args: Prisma.BookingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBooking>
+        }
+        groupBy: {
+          args: Prisma.BookingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BookingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BookingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BookingCountAggregateOutputType> | number
+        }
+      }
+    }
+    CoachAvailabilityRule: {
+      payload: Prisma.$CoachAvailabilityRulePayload<ExtArgs>
+      fields: Prisma.CoachAvailabilityRuleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CoachAvailabilityRuleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CoachAvailabilityRuleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>
+        }
+        findFirst: {
+          args: Prisma.CoachAvailabilityRuleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CoachAvailabilityRuleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>
+        }
+        findMany: {
+          args: Prisma.CoachAvailabilityRuleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>[]
+        }
+        create: {
+          args: Prisma.CoachAvailabilityRuleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>
+        }
+        createMany: {
+          args: Prisma.CoachAvailabilityRuleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CoachAvailabilityRuleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>[]
+        }
+        delete: {
+          args: Prisma.CoachAvailabilityRuleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>
+        }
+        update: {
+          args: Prisma.CoachAvailabilityRuleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>
+        }
+        deleteMany: {
+          args: Prisma.CoachAvailabilityRuleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CoachAvailabilityRuleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CoachAvailabilityRuleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>[]
+        }
+        upsert: {
+          args: Prisma.CoachAvailabilityRuleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CoachAvailabilityRulePayload>
+        }
+        aggregate: {
+          args: Prisma.CoachAvailabilityRuleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCoachAvailabilityRule>
+        }
+        groupBy: {
+          args: Prisma.CoachAvailabilityRuleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CoachAvailabilityRuleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CoachAvailabilityRuleCountArgs<ExtArgs>
+          result:
+            | runtime.Types.Utils.Optional<Prisma.CoachAvailabilityRuleCountAggregateOutputType>
+            | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -11848,6 +12156,73 @@ export const WeeklyCheckInScalarFieldEnum = {
 export type WeeklyCheckInScalarFieldEnum =
   (typeof WeeklyCheckInScalarFieldEnum)[keyof typeof WeeklyCheckInScalarFieldEnum]
 
+export const CoachCalendarAccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  googleEmail: 'googleEmail',
+  accountLabel: 'accountLabel',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiresAt: 'expiresAt',
+  scope: 'scope',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type CoachCalendarAccountScalarFieldEnum =
+  (typeof CoachCalendarAccountScalarFieldEnum)[keyof typeof CoachCalendarAccountScalarFieldEnum]
+
+export const MeetingTypeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  durationMins: 'durationMins',
+  bufferMins: 'bufferMins',
+  leadTimeHours: 'leadTimeHours',
+  conferenceUrl: 'conferenceUrl',
+  color: 'color',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type MeetingTypeScalarFieldEnum =
+  (typeof MeetingTypeScalarFieldEnum)[keyof typeof MeetingTypeScalarFieldEnum]
+
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  meetingTypeId: 'meetingTypeId',
+  coachUserId: 'coachUserId',
+  prospectName: 'prospectName',
+  prospectEmail: 'prospectEmail',
+  prospectPhone: 'prospectPhone',
+  prospectNotes: 'prospectNotes',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  timezone: 'timezone',
+  status: 'status',
+  googleEventId: 'googleEventId',
+  cancelToken: 'cancelToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BookingScalarFieldEnum =
+  (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+export const CoachAvailabilityRuleScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  dayOfWeek: 'dayOfWeek',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isActive: 'isActive'
+} as const
+
+export type CoachAvailabilityRuleScalarFieldEnum =
+  (typeof CoachAvailabilityRuleScalarFieldEnum)[keyof typeof CoachAvailabilityRuleScalarFieldEnum]
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -12524,6 +12899,10 @@ export type GlobalOmitConfig = {
   scheduledTaskConfig?: Prisma.ScheduledTaskConfigOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   weeklyCheckIn?: Prisma.WeeklyCheckInOmit
+  coachCalendarAccount?: Prisma.CoachCalendarAccountOmit
+  meetingType?: Prisma.MeetingTypeOmit
+  booking?: Prisma.BookingOmit
+  coachAvailabilityRule?: Prisma.CoachAvailabilityRuleOmit
 }
 
 /* Types for Logging */

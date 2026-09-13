@@ -227,6 +227,12 @@ model User {
   churnRisk     String?     @default("LOW")
   lifetimeValue Float?      @default(0)
 
+  // Booking System (Coach-side)
+  calendarAccounts     CoachCalendarAccount[]
+  meetingTypes         MeetingType[]
+  availabilityRules    CoachAvailabilityRule[]
+  coachBookings        Booking[]              @relation("CoachBookings")
+
   @@index([createdAt])
   @@index([deactivatedAt])
   @@index([subscriptionTier])
@@ -2929,4 +2935,80 @@ model WeeklyCheckIn {
   @@unique([athleteId, weekStartDate])
   @@index([athleteId])
   @@index([coachId])
+}
+
+// ─────────────────────────────────────────────
+// BOOKING SYSTEM
+// ─────────────────────────────────────────────
+
+model CoachCalendarAccount {
+  id           String    @id @default(uuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  googleEmail  String
+  accountLabel String?
+  accessToken  String    @db.Text
+  refreshToken String?   @db.Text
+  expiresAt    DateTime?
+  scope        String?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model MeetingType {
+  id            String    @id @default(uuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  slug          String    @unique
+  description   String?   @db.Text
+  durationMins  Int
+  bufferMins    Int       @default(15)
+  leadTimeHours Int       @default(24)
+  conferenceUrl String?
+  color         String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  bookings      Booking[]
+
+  @@index([userId])
+}
+
+model Booking {
+  id              String      @id @default(uuid())
+  meetingTypeId   String
+  meetingType     MeetingType @relation(fields: [meetingTypeId], references: [id])
+  coachUserId     String
+  coach           User        @relation("CoachBookings", fields: [coachUserId], references: [id])
+  prospectName    String
+  prospectEmail   String
+  prospectPhone   String?
+  prospectNotes   String?     @db.Text
+  startTime       DateTime
+  endTime         DateTime
+  timezone        String
+  status          String      @default("CONFIRMED")
+  googleEventId   String?
+  cancelToken     String      @unique @default(uuid())
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([coachUserId])
+  @@index([startTime])
+  @@index([status])
+}
+
+model CoachAvailabilityRule {
+  id         String  @id @default(uuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dayOfWeek  Int
+  startTime  String
+  endTime    String
+  isActive   Boolean @default(true)
+
+  @@unique([userId, dayOfWeek])
+  @@index([userId])
 }

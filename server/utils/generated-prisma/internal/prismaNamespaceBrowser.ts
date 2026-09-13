@@ -164,7 +164,11 @@ export const ModelName = {
   CoachFeedback: 'CoachFeedback',
   ScheduledTaskConfig: 'ScheduledTaskConfig',
   PasswordResetToken: 'PasswordResetToken',
-  WeeklyCheckIn: 'WeeklyCheckIn'
+  WeeklyCheckIn: 'WeeklyCheckIn',
+  CoachCalendarAccount: 'CoachCalendarAccount',
+  MeetingType: 'MeetingType',
+  Booking: 'Booking',
+  CoachAvailabilityRule: 'CoachAvailabilityRule'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2608,6 +2612,73 @@ export const WeeklyCheckInScalarFieldEnum = {
 
 export type WeeklyCheckInScalarFieldEnum =
   (typeof WeeklyCheckInScalarFieldEnum)[keyof typeof WeeklyCheckInScalarFieldEnum]
+
+export const CoachCalendarAccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  googleEmail: 'googleEmail',
+  accountLabel: 'accountLabel',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiresAt: 'expiresAt',
+  scope: 'scope',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type CoachCalendarAccountScalarFieldEnum =
+  (typeof CoachCalendarAccountScalarFieldEnum)[keyof typeof CoachCalendarAccountScalarFieldEnum]
+
+export const MeetingTypeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  durationMins: 'durationMins',
+  bufferMins: 'bufferMins',
+  leadTimeHours: 'leadTimeHours',
+  conferenceUrl: 'conferenceUrl',
+  color: 'color',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type MeetingTypeScalarFieldEnum =
+  (typeof MeetingTypeScalarFieldEnum)[keyof typeof MeetingTypeScalarFieldEnum]
+
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  meetingTypeId: 'meetingTypeId',
+  coachUserId: 'coachUserId',
+  prospectName: 'prospectName',
+  prospectEmail: 'prospectEmail',
+  prospectPhone: 'prospectPhone',
+  prospectNotes: 'prospectNotes',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  timezone: 'timezone',
+  status: 'status',
+  googleEventId: 'googleEventId',
+  cancelToken: 'cancelToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BookingScalarFieldEnum =
+  (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+export const CoachAvailabilityRuleScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  dayOfWeek: 'dayOfWeek',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isActive: 'isActive'
+} as const
+
+export type CoachAvailabilityRuleScalarFieldEnum =
+  (typeof CoachAvailabilityRuleScalarFieldEnum)[keyof typeof CoachAvailabilityRuleScalarFieldEnum]
 
 export const SortOrder = {
   asc: 'asc',
