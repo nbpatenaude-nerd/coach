@@ -39,8 +39,11 @@
             <MistBackground />
           </div>
           <div class="relative z-10 -mt-[100vh]">
-            <LandingQuestSelection />
+            <LandingCoachingMethodology />
+            <LandingTestimonials />
+            <LandingWhyCoaching />
             <LandingPricingJourney />
+            <LandingQuestSelection />
             <LandingPathsForged />
 
             <!-- Closing Call to Action -->

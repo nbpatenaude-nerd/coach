@@ -37,9 +37,11 @@
           <div class="flex flex-col items-center gap-4 max-w-2xl">
             <!-- Uppercase Bold Subtitle -->
             <span
-              class="font-sans text-[0.65rem] md:text-[0.75rem] font-bold tracking-[0.2em] md:tracking-[0.25em] uppercase text-cyan-400 leading-relaxed text-center drop-shadow-md"
+              class="font-sans text-[0.65rem] md:text-[0.75rem] font-bold tracking-[0.2em] md:tracking-[0.25em] uppercase text-cyan-400 leading-relaxed text-center drop-shadow-md max-w-prose"
             >
-              Science backed coaching for your next endurance adventure
+              Science backed coaching to guide you through your next Endurance adventure. We
+              eliminate the guesswork and apply research-based coaching methodologies to ensure
+              you're not wasting your time. Make every moment count.
             </span>
 
             <!-- Standard Subtitle -->
