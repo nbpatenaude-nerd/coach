@@ -1,5 +1,5 @@
 import { google } from 'googleapis'
-import { prisma } from '../../utils/db'
+import { prisma } from './db'
 
 const SCOPES = ['https://www.googleapis.com/auth/calendar.freebusy']
 
