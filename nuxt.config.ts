@@ -268,7 +268,8 @@ export default defineNuxtConfig({
     externals: {
       // @vue-email/compiler dynamically loads vue-email at runtime.
       // Inline both so Nitro always ships them in production output.
-      inline: ['unhead', '@vue-email/compiler', 'vue-email']
+      inline: ['unhead', '@vue-email/compiler', 'vue-email'],
+      external: ['papaparse']
     },
     // Rate limit storage
     storage: {
