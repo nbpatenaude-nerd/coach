@@ -131,7 +131,6 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
-  import Papa from 'papaparse'
 
   definePageMeta({
     middleware: 'auth'
@@ -165,13 +164,13 @@
 
     // Parse just the first few lines to get headers
     if (!selectedFile.value) return
-    Papa.parse(selectedFile.value as any, {
-      header: true,
-      preview: 1, // Only need header, but let's parse 1 line to ensure it has data
-      skipEmptyLines: true,
-      complete: (results) => {
-        if (results.meta && results.meta.fields) {
-          csvColumns.value = results.meta.fields
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const text = e.target?.result as string
+      if (text) {
+        const firstLine = text.split('\n')[0]
+        if (firstLine) {
+          csvColumns.value = firstLine.split(',').map((s) => s.trim().replace(/^"|"$/g, ''))
           fileParsed.value = true
 
           // Auto-guess mapping
@@ -184,14 +183,14 @@
             )
             mapping.value[field.id] = guess || ''
           }
-        } else {
-          errorMsg.value = 'Could not read CSV headers.'
         }
-      },
-      error: (err) => {
-        errorMsg.value = err.message
       }
-    })
+    }
+    reader.onerror = () => {
+      errorMsg.value = 'Error reading file.'
+    }
+    // Read the first 1KB
+    reader.readAsText(selectedFile.value.slice(0, 1024))
   }
 
   const reset = () => {
