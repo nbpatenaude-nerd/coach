@@ -1,4 +1,4 @@
-import { prisma } from '~/server/utils/db'
+import { prisma } from '../../../utils/db'
 import { addDays, addHours } from 'date-fns'
 
 export default defineEventHandler(async (event) => {

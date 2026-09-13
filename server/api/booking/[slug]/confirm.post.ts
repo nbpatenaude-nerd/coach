@@ -1,4 +1,4 @@
-﻿import { prisma } from '~/server/utils/db'
+import { prisma } from '../../../utils/db'
 import { tasks } from '@trigger.dev/sdk/v3'
 
 export default defineEventHandler(async (event) => {
