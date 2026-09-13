@@ -330,7 +330,7 @@
   const connectedBanner = ref(route.query.connected === 'true')
   setTimeout(() => (connectedBanner.value = false), 6000)
 
-  const publicUrl = computed(() => /book/aelooprrtxy - call)
+  const publicUrl = computed(() => `/book/exploratory-call`)
 
   const tabs = [
     { label: 'Connected Calendars', slot: 'calendars' },
