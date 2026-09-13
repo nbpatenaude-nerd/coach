@@ -42,9 +42,8 @@
             <LandingCoachingMethodology />
             <LandingTestimonials />
             <LandingWhyCoaching />
-            <LandingPricingJourney />
+            <LandingUnifiedOffering />
             <LandingQuestSelection />
-            <LandingPathsForged />
 
             <!-- Closing Call to Action -->
             <section class="bg-transparent px-6 py-24 sm:py-32 lg:px-8 relative z-10">

@@ -21,9 +21,10 @@
             <li class="flex items-start gap-4">
               <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
               <div>
-                <strong class="text-white block mb-1">Learn to contextualize your training</strong>
+                <strong class="text-white block mb-1">Train based on YOUR Physiology</strong>
                 <span class="text-slate-400"
-                  >Every step in your journey brings you closer to the person you want to be.</span
+                  >Don't waste time on calculations that don't take your personal physiology into
+                  consideration. Measure and track based on your own unique self.</span
                 >
               </div>
             </li>
@@ -40,22 +41,22 @@
             <li class="flex items-start gap-4">
               <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
               <div>
-                <strong class="text-white block mb-1">Train based on YOUR Physiology</strong>
-                <span class="text-slate-400"
-                  >Don't waste time on calculations that don't take your personal physiology into
-                  consideration. Measure and track based on your own unique self.</span
-                >
-              </div>
-            </li>
-            <li class="flex items-start gap-4">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
-              <div>
                 <strong class="text-white block mb-1"
                   >Improve your longevity, in health and sport</strong
                 >
                 <span class="text-slate-400"
                   >Train and make decisions that support your health and that allow you to
                   participate in your life and sport for longer.</span
+                >
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-500 shrink-0 mt-1" />
+              <div>
+                <strong class="text-white block mb-1">Find meaning in your training</strong>
+                <span class="text-slate-400"
+                  >Every step in your journey brings you closer to the person you want to be,
+                  uncovering the deeper purpose behind your efforts.</span
                 >
               </div>
             </li>
