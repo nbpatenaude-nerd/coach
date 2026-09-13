@@ -33,7 +33,8 @@ export default defineEventHandler(async (event) => {
 
   const csvString = filePart.data.toString('utf-8')
 
-  const Papa = (await import('papaparse')).default
+  const pkgName = 'papaparse'
+  const Papa = (await import(pkgName)).default
   const parsed = Papa.parse(csvString, { header: true, skipEmptyLines: true })
 
   if (parsed.errors.length > 0) {

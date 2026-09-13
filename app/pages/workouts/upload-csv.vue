@@ -131,7 +131,7 @@
 
 <script setup lang="ts">
   import { ref } from 'vue'
-  // Dynamically imported below
+  import Papa from 'papaparse'
 
   definePageMeta({
     middleware: 'auth'
@@ -165,7 +165,6 @@
 
     // Parse just the first few lines to get headers
     if (!selectedFile.value) return
-    const Papa = (await import('papaparse')).default
     Papa.parse(selectedFile.value as any, {
       header: true,
       preview: 1, // Only need header, but let's parse 1 line to ensure it has data
