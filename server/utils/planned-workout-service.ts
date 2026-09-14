@@ -1,5 +1,6 @@
 import { prisma } from './db'
 import { tasks } from '@trigger.dev/sdk/v3'
+import { dispatchTask } from './task-dispatcher'
 import {
   createIntervalsPlannedWorkout,
   deleteIntervalsPlannedWorkout,
@@ -432,7 +433,7 @@ export async function fanoutIfProgramAccount(
   })
   if (user?.isProgramAccount) {
     try {
-      await tasks.trigger('fanout-program-workout', { programId: userId, workoutId, mode })
+      await dispatchTask('fanout-program-workout', { programId: userId, workoutId, mode })
     } catch (err) {
       console.error('[FanoutProgramWorkout] Failed to trigger fanout:', err)
     }

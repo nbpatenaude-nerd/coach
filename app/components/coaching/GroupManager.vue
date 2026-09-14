@@ -175,6 +175,7 @@
               <USelect
                 v-model="selectedAthleteId"
                 :items="availableAthleteOptions"
+                value-key="value"
                 placeholder="Select an athlete..."
                 class="flex-1"
               />
@@ -327,9 +328,10 @@
     if (!selectedAthleteId.value || !editingGroup.value) return
     addingMember.value = true
     try {
+      const athleteId = typeof selectedAthleteId.value === 'object' ? (selectedAthleteId.value as any).value : selectedAthleteId.value
       await ($fetch as any)(`/api/coaching/groups/${editingGroup.value.id}/members`, {
         method: 'POST',
-        body: { athleteId: selectedAthleteId.value }
+        body: { athleteId }
       })
       toast.add({ title: 'Athlete added to group', color: 'success' })
       selectedAthleteId.value = ''
