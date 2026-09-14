@@ -248,6 +248,34 @@
     }
   }
 
+  const togglingRoles = ref(false)
+  async function toggleRole(role: 'isAdmin' | 'isCoach', currentValue: boolean) {
+    if (togglingRoles.value) return
+    togglingRoles.value = true
+    try {
+      await $fetch(`/api/admin/users/${userId}/roles`, {
+        method: 'POST',
+        body: {
+          [role]: !currentValue
+        }
+      })
+      toast.add({
+        title: 'Role Updated',
+        description: `User is ${!currentValue ? 'now' : 'no longer'} a ${role === 'isAdmin' ? 'System Admin' : 'Coach'}.`,
+        color: 'success'
+      })
+      await refresh()
+    } catch (error: any) {
+      toast.add({
+        title: 'Error',
+        description: error?.data?.statusMessage || error?.message || 'Failed to update role',
+        color: 'error'
+      })
+    } finally {
+      togglingRoles.value = false
+    }
+  }
+
   useHead({
     title: computed(() => `User: ${data.value?.profile.name || 'Unknown'}`)
   })
@@ -443,12 +471,24 @@
                       <dt class="text-gray-500">Reg. Country</dt>
                       <dd>{{ data.profile.registrationCountry || 'Unknown' }}</dd>
                     </div>
-                    <div class="flex justify-between">
-                      <dt class="text-gray-500">Role</dt>
+                    <div class="flex justify-between items-center h-6">
+                      <dt class="text-gray-500">System Admin</dt>
                       <dd>
-                        <UBadge :color="data.profile.isAdmin ? 'primary' : 'neutral'" size="xs">
-                          {{ data.profile.isAdmin ? 'Admin' : 'User' }}
-                        </UBadge>
+                        <UToggle
+                          :model-value="data.profile.isAdmin"
+                          :disabled="togglingRoles || isOwnAdminAccount"
+                          @update:model-value="() => toggleRole('isAdmin', data.profile.isAdmin)"
+                        />
+                      </dd>
+                    </div>
+                    <div class="flex justify-between items-center h-6">
+                      <dt class="text-gray-500">Coach Status</dt>
+                      <dd>
+                        <UToggle
+                          :model-value="data.profile.isCoach"
+                          :disabled="togglingRoles"
+                          @update:model-value="() => toggleRole('isCoach', data.profile.isCoach)"
+                        />
                       </dd>
                     </div>
                     <div class="flex justify-between">
