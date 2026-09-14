@@ -18,7 +18,8 @@
    */
   const joinUrl = computed(() => {
     const base = import.meta.client ? window.location.origin : 'https://coachwatts.com'
-    return `${base}/join/${props.code.toUpperCase()}`
+    const cleanBase = base.replace(/\/$/, '')
+    return `${cleanBase}/join/${props.code.toUpperCase()}`
   })
 
   function copyUrl() {
