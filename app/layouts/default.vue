@@ -405,6 +405,14 @@
                   onSelect: () => {
                     open.value = false
                   }
+                },
+                {
+                  label: 'Team Training',
+                  icon: 'i-lucide-users',
+                  to: '/coaching/team-training',
+                  onSelect: () => {
+                    open.value = false
+                  }
                 }
               ]
             }
@@ -726,6 +734,11 @@
                       label: label('navigation_coaching_team', 'My Coaches'),
                       icon: 'i-lucide-building-2',
                       to: '/coaching/team'
+                    },
+                    {
+                      label: label('navigation_coaching_team_training', 'Team Training'),
+                      icon: 'i-lucide-users',
+                      to: '/coaching/team-training'
                     }
                   ]
                 }
