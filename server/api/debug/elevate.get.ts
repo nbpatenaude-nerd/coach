@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
   await prisma.user.updateMany({
     where: { email },
-    data: { role, isCoach: role === 'ADMIN' }
+    data: { role, isCoach: role === 'ADMIN', isAdmin: role === 'ADMIN' }
   })
 
   return { success: true, message: `Elevated ${email} to ${role}` }

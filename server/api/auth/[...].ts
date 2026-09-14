@@ -41,8 +41,8 @@ export default NuxtAuthHandler({
         if (dbUser) {
           ;(session.user as any).termsAcceptedAt = dbUser.termsAcceptedAt
           ;(session.user as any).deactivatedAt = dbUser.deactivatedAt
-          ;(session.user as any).isAdmin = dbUser.isAdmin
-          ;(session.user as any).isCoach = dbUser.isCoach
+          ;(session.user as any).isAdmin = dbUser.isAdmin || dbUser.role === 'ADMIN'
+          ;(session.user as any).isCoach = dbUser.isCoach || dbUser.isAdmin || dbUser.role === 'ADMIN'
           ;(session.user as any).role = dbUser.role
           ;(session.user as any).subscriptionStatus = dbUser.subscriptionStatus
           ;(session.user as any).subscriptionTier = dbUser.subscriptionTier
