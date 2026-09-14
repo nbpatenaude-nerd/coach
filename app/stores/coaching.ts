@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, skipHydrate } from 'pinia'
 
 const ACT_AS_COOKIE_NAME = 'coach_wattz_act_as_user'
 const ACT_AS_DASHBOARD_PATH = '/dashboard'
@@ -75,8 +75,8 @@ export const useCoachingStore = defineStore('coaching', () => {
   }
 
   return {
-    actingAsUserId,
-    actingAsUserName,
+    actingAsUserId: skipHydrate(actingAsUserId),
+    actingAsUserName: skipHydrate(actingAsUserName),
     isCoachingMode,
     startActingAs,
     clearActingAs,
