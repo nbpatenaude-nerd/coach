@@ -1422,8 +1422,6 @@
     <ClientOnly>
       <AiQuickCapture />
       <DashboardTriggerMonitor v-model="showTriggerMonitor" />
-      <ImpersonationBanner />
-      <CoachingBanner />
     </ClientOnly>
   </UDashboardGroup>
 </template>
