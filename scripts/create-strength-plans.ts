@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { prisma } from '../server/utils/db'
+import { applyStrengthLibraryDefaultsToWorkout } from '../server/utils/strength-exercise-matching'
 
 // Helper to format unique IDs
 function makeId(prefix: string) {
@@ -1483,16 +1484,16 @@ function get4DayWorkoutSpecs(blockNum: 1 | 2 | 3, isDeload: boolean): { day1: Wo
 async function main() {
   console.log('🚀 Starting generation of 12-Week Progressive Strength Training Plans...')
 
-  // 1. Locate user info@trinerds.com
+  // 1. Locate user
   const user = await prisma.user.findUnique({
     where: { email: 'info@trinerds.com' },
     select: { id: true, email: true, name: true }
   })
-
   if (!user) {
     console.error('❌ User info@trinerds.com not found!')
     process.exit(1)
   }
+  const libraryExercises = await prisma.strengthExerciseLibraryItem.findMany()
 
   console.log(`✅ Found user: ${user.name} (${user.email}) - ID: ${user.id}`)
 
@@ -1710,7 +1711,18 @@ async function main() {
             stretching
           ]
 
-          const structuredWorkout = buildStructuredWorkout(workoutBlocks, 3600)
+          const baseStructuredWorkout = buildStructuredWorkout(workoutBlocks, 3600)
+          
+          // Apply matching to inject library IDs and video URLs
+          const { structuredWorkout } = await applyStrengthLibraryDefaultsToWorkout({
+            structuredWorkout: baseStructuredWorkout,
+            libraryExercises,
+            userId: user.id,
+            entityType: 'Seed',
+            entityId: plan.id,
+            operation: 'seed-strength-plans'
+          })
+          
           const workoutTitle = `${spec.title} (W${globalWeekNumber})`
 
           // Create PlannedWorkout in the week
@@ -1743,25 +1755,28 @@ async function main() {
               where: { userId: user.id, title: templateKey }
             })
 
-            if (!existingTemplate) {
-              await prisma.workoutTemplate.create({
-                data: {
-                  userId: user.id,
-                  folderId: templateFolder.id,
-                  title: templateKey,
-                  description: `${spec.description} Designed for ${bMeta.name}.`,
-                  type: 'Strength',
-                  sport: 'Strength',
-                  category: 'Strength',
-                  durationSec: 3600,
-                  tss: 45,
-                  workIntensity: 0.75,
-                  tags: ['Endurance Strength', 'Base Building', `Block ${blockNum}`, `${config.daysPerWeek} Days/Wk`],
-                  isPublic: false,
-                  structuredWorkout: structuredWorkout as any
-                }
-              })
+            if (existingTemplate) {
+              console.log(`  Overwriting template: ${templateKey}`)
+              await prisma.workoutTemplate.delete({ where: { id: existingTemplate.id } })
             }
+
+            await prisma.workoutTemplate.create({
+              data: {
+                userId: user.id,
+                folderId: templateFolder.id,
+                title: templateKey,
+                description: `${spec.description} Designed for ${bMeta.name}.`,
+                type: 'Strength',
+                sport: 'Strength',
+                category: 'Strength',
+                durationSec: 3600,
+                tss: 45,
+                workIntensity: 0.75,
+                tags: ['Endurance Strength', 'Base Building', `Block ${blockNum}`, `${config.daysPerWeek} Days/Wk`],
+                isPublic: false,
+                structuredWorkout: structuredWorkout as any
+              }
+            })
           }
         }
       }
