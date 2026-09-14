@@ -37,6 +37,14 @@
       }
     },
     {
+      label: 'Booking System',
+      icon: 'i-heroicons-calendar-days',
+      to: '/admin/booking',
+      onSelect: () => {
+        isOpen.value = false
+      }
+    },
+    {
       label: 'Subscriptions',
       icon: 'i-heroicons-banknotes',
       to: '/admin/subscriptions',
