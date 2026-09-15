@@ -186,6 +186,7 @@ export function usePlanArchitect(planId: string) {
       athleteNotes: plan.athleteNotes || '',
       strategy: plan.strategy || 'LINEAR',
       recoveryRhythm: plan.recoveryRhythm || 4,
+      startDate: plan.startDate ? new Date(plan.startDate).toISOString() : null,
       visibility: plan.visibility || 'PRIVATE',
       accessState: plan.accessState || 'PRIVATE',
       primarySport: plan.primarySport || '',
@@ -248,6 +249,7 @@ export function usePlanArchitect(planId: string) {
       difficulty: Number(plan.difficulty) || 1,
       strategy: plan.strategy,
       recoveryRhythm: Number(plan.recoveryRhythm) || 4,
+      startDate: plan.startDate ? new Date(plan.startDate).toISOString() : null,
       isPublic: Boolean(plan.isPublic),
       blocks: sortedPayloadBlocks(plan.blocks || [])
     }

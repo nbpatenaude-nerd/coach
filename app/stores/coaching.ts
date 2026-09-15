@@ -2,7 +2,7 @@ import { defineStore, skipHydrate } from 'pinia'
 
 const ACT_AS_COOKIE_NAME = 'coach_wattz_act_as_user'
 const ACT_AS_DASHBOARD_PATH = '/dashboard'
-const CALENDAR_PATH = '/calendar'
+const CALENDAR_PATH = '/dashboard'
 
 function persistActAsCookie(userId: string | null) {
   if (!import.meta.client) return

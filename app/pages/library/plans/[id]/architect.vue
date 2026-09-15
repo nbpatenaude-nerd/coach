@@ -486,7 +486,45 @@
                 <UInput v-model.number="draftPlan.recoveryRhythm" type="number" min="1" max="6" />
               </UFormField>
             </div>
-            <UFormField label="Difficulty (1-10)" help="Perceived exertion over the entire plan.">
+
+            <div class="grid gap-4 sm:grid-cols-2 mt-4">
+              <UFormField
+                label="Tie to specific dates?"
+                help="Enable to see real dates in the architect instead of 'Day 1'."
+              >
+                <UCheckbox
+                  :model-value="!!draftPlan.startDate"
+                  label="Fixed Dates"
+                  @update:model-value="
+                    (v) => {
+                      draftPlan.startDate = v ? new Date().toISOString().split('T')[0] : null
+                    }
+                  "
+                />
+              </UFormField>
+              <UFormField v-if="draftPlan.startDate" label="Start Date">
+                <UInput
+                  type="date"
+                  :model-value="
+                    draftPlan.startDate
+                      ? new Date(draftPlan.startDate).toISOString().split('T')[0]
+                      : ''
+                  "
+                  class="w-full"
+                  @update:model-value="
+                    (val) => {
+                      draftPlan.startDate = val ? new Date(val).toISOString() : null
+                    }
+                  "
+                />
+              </UFormField>
+            </div>
+
+            <UFormField
+              label="Difficulty (1-10)"
+              help="Perceived exertion over the entire plan."
+              class="mt-4"
+            >
               <div class="flex items-center gap-4">
                 <USlider v-model.number="draftPlan.difficulty" :min="1" :max="10" class="flex-1" />
                 <span class="text-sm font-bold text-highlighted w-4 text-center">{{

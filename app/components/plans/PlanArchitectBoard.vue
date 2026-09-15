@@ -165,7 +165,11 @@
               >
                 <div class="flex items-center justify-between gap-2">
                   <span class="text-[11px] font-black uppercase tracking-[0.18em] text-muted">
-                    {{ days[dayIndex - 1] }}
+                    {{
+                      props.startDate
+                        ? getCellDate(week.weekNumber, dayIndex - 1)
+                        : days[dayIndex - 1]
+                    }}
                   </span>
                   <UBadge
                     v-if="getWorkouts(week, dayIndex - 1).length"
@@ -326,7 +330,9 @@
               >
                 <div class="flex items-center justify-between gap-2">
                   <span class="text-[11px] font-black uppercase tracking-[0.18em] text-muted">{{
-                    days[dayIndex - 1]
+                    props.startDate
+                      ? getCellDate(week.weekNumber, dayIndex - 1)
+                      : days[dayIndex - 1]
                   }}</span>
                   <UBadge
                     v-if="getWorkouts(week, dayIndex - 1).length"
@@ -423,6 +429,7 @@
     activeWeekId: string | null
     collapsedIds: string[]
     dragOverKey: string | null
+    startDate?: string | null
     isWorkoutInLibrary: (w: any) => boolean
   }>()
 
@@ -448,7 +455,16 @@
   }
 
   function orderedWeeks(block: any) {
-    return [...(block.weeks || [])].sort((a, b) => a.weekNumber - b.weekNumber)
+    return (block.weeks || []).slice().sort((a: any, b: any) => a.weekNumber - b.weekNumber)
+  }
+
+  function getCellDate(weekNumber: number, dayIndex: number): string {
+    if (!props.startDate) return props.days[dayIndex] || ''
+    const date = new Date(props.startDate)
+    // weekNumber is 1-indexed, dayIndex is 0-indexed (Monday = 0)
+    const offset = (weekNumber - 1) * 7 + dayIndex
+    date.setDate(date.getDate() + offset)
+    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
   }
 
   function getWorkouts(week: any, dayIndex: number) {

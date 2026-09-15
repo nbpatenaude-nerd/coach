@@ -22,7 +22,10 @@ const stepBaseSchema = z.object({
   target: z
     .object({
       type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
-      value: z.number().describe('Target value (e.g. Watts, BPM, min/km)'),
+      units: z
+        .enum(['%FTP', '%LTHR', 'zone', 'W', 'BPM'])
+        .describe('Use %FTP or zone (1-7) for Power. Use %LTHR or zone (1-5) for HR.'),
+      value: z.number().describe('Target value based on units (e.g. 90 for 90% FTP, 3 for zone 3)'),
       min: z.number().optional(),
       max: z.number().optional()
     })
@@ -77,9 +80,9 @@ Follow these principles:
 - **Specificity:** Match the workout structure to the requested energy system (e.g., VO2 Max intervals should be 2-5m with 1:1 or 1:0.5 recovery).
 - **Target Type:** STRICTLY respect the user's requested target type (Power, HeartRate, Pace). If they ask for Pace, use Pace.
 - **Intervals/Repeats:** For repeated intervals (e.g. "8x 400m" or "3x 5min"), you MUST use nested steps. Set \`reps\` on the parent step to the number of repeats (e.g. 8), and place the active interval step and the recovery step inside the parent's \`steps\` array.
-- **Targets:** Provide realistic target values if the user did not specify them (e.g., sweet spot at 88-93% FTP). For target ranges, use min and max.
+- **Targets:** Provide realistic target values if the user did not specify them (e.g., sweet spot at 88-93% FTP). ALWAYS use relative units like %FTP, %LTHR, or zone (e.g. zone 3). DO NOT use absolute Watts or BPM unless the user explicitly demanded a specific number. For target ranges, use min and max.
 - **TSS & Duration:** Ensure the total TSS and duration accurately reflect the cumulative intensity and time of the steps.
-- **Valid Enums:** Strictly adhere to the allowed schema enums for step types (Warmup, Active, Recovery, Cooldown), duration (Time, Distance), and targets (Power, HeartRate, Pace, None).`
+- **Valid Enums:** Strictly adhere to the allowed schema enums.`
 
   const workoutData = await generateStructuredAnalysis<any>(
     `${systemInstruction}\n\nCreate a structured workout based on this request: ${prompt}`,
@@ -98,6 +101,21 @@ Follow these principles:
         step.durationSeconds = step.duration.value
         step.distance = 0
       }
+
+      if (step.target) {
+        const t = step.target
+        const targetObj: any = { units: t.units }
+        if (t.min !== undefined && t.max !== undefined) {
+          targetObj.range = { start: t.min, end: t.max }
+        } else {
+          targetObj.value = t.value
+        }
+
+        if (t.type === 'Power') step.power = targetObj
+        else if (t.type === 'HeartRate') step.heartRate = targetObj
+        else if (t.type === 'Pace') step.pace = targetObj
+      }
+
       if (Array.isArray(step.steps)) {
         step.steps = mapSteps(step.steps)
       }

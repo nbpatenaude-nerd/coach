@@ -14,6 +14,7 @@
             <DashboardReleaseNotification />
 
             <UButton
+              v-if="!coachingStore.isProgramMode"
               to="/workouts/upload"
               icon="i-heroicons-cloud-arrow-up"
               color="neutral"
@@ -23,6 +24,7 @@
               Upload FIT
             </UButton>
             <UButton
+              v-if="!coachingStore.isProgramMode"
               to="/workouts/upload-csv"
               icon="i-heroicons-table-cells"
               color="neutral"
@@ -33,7 +35,7 @@
             </UButton>
 
             <UButton
-              v-if="canUseDashboardActions"
+              v-if="canUseDashboardActions && !coachingStore.isProgramMode"
               :loading="integrationStore.syncingData"
               :disabled="integrationStore.syncingData"
               color="neutral"
@@ -50,6 +52,24 @@
             >
               <span class="hidden md:inline">{{ t('header_sync_data') }}</span>
             </UButton>
+
+            <UButton
+              v-if="coachingStore.isProgramMode"
+              :loading="syncingProgramWorkouts"
+              :disabled="syncingProgramWorkouts"
+              color="primary"
+              variant="outline"
+              icon="i-heroicons-arrow-up-on-square-stack"
+              size="sm"
+              class="font-bold"
+              @click="
+                () => {
+                  void handleSyncProgramWorkouts()
+                }
+              "
+            >
+              <span class="hidden md:inline">Export Workouts</span>
+            </UButton>
             <UButton
               to="/chat"
               icon="i-heroicons-chat-bubble-left-right"
@@ -64,7 +84,7 @@
 
             <template #mobile>
               <LayoutNavbarIconButton
-                v-if="canUseDashboardActions"
+                v-if="canUseDashboardActions && !coachingStore.isProgramMode"
                 icon="i-heroicons-arrow-path"
                 :label="t('header_sync_data')"
                 :loading="integrationStore.syncingData"
@@ -635,6 +655,32 @@
   const toast = useToast()
 
   const integrationStore = useIntegrationStore()
+  const coachingStore = useCoachingStore()
+  const syncingProgramWorkouts = ref(false)
+
+  async function handleSyncProgramWorkouts() {
+    if (!coachingStore.isProgramMode || !coachingStore.actingAsUserId) return
+    syncingProgramWorkouts.value = true
+    try {
+      await $fetch(`/api/coaching/programs/${coachingStore.actingAsUserId}/sync`, {
+        method: 'POST'
+      })
+      toast.add({
+        title: 'Workouts Syncing',
+        description: 'Program workouts are syncing to subscribers in the background.',
+        color: 'success'
+      })
+    } catch (e: any) {
+      toast.add({
+        title: 'Sync Failed',
+        description: e?.data?.message || 'Please try again.',
+        color: 'red'
+      })
+    } finally {
+      syncingProgramWorkouts.value = false
+    }
+  }
+
   const {
     status: onboardingStatus,
     isLoading: onboardingStatusLoading,
