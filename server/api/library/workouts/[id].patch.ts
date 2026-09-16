@@ -98,11 +98,10 @@ export default defineEventHandler(async (event) => {
       source: 'TEMPLATE',
       zoneProfileSnapshot: (existing.structuredWorkout as any)?.zoneProfileSnapshot
     })
-    if (!canonical || canonical.diagnostics?.length) {
+    if (!canonical) {
       throw createError({
         statusCode: 422,
-        message: 'Template structure has unresolved target units.',
-        data: { diagnostics: canonical?.diagnostics || [] }
+        message: 'Failed to adapt structured workout.'
       })
     }
     data.structuredWorkout = canonical

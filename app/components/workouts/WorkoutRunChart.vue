@@ -1318,10 +1318,19 @@
     }
 
     if (normalizedPace.range) {
+      if (normalizedPace.units === 'zone' || normalizedPace.units === 'pace_zone') {
+        return (
+          paceZoneLabel ||
+          `Z${Math.round(normalizedPace.range.start)}-Z${Math.round(normalizedPace.range.end)}`
+        )
+      }
       const str = `${Math.round(normalizedPace.range.start * 100)}-${Math.round(normalizedPace.range.end * 100)}% Pace`
       return paceZoneLabel ? `${paceZoneLabel} ${str}` : str
     }
     if (typeof normalizedPace.value === 'number') {
+      if (normalizedPace.units === 'zone' || normalizedPace.units === 'pace_zone') {
+        return paceZoneLabel || `Z${Math.round(normalizedPace.value)}`
+      }
       const str = `${Math.round(normalizedPace.value * 100)}% Pace`
       return paceZoneLabel ? `${paceZoneLabel} ${str}` : str
     }

@@ -115,11 +115,10 @@ export default defineEventHandler(async (event) => {
         }
         if (!workout.structuredWorkout) continue
         const canonical = adaptStructuredWorkout(workout.structuredWorkout, { source: 'TEMPLATE' })
-        if (!canonical || canonical.diagnostics?.length) {
+        if (!canonical) {
           throw createError({
             statusCode: 422,
-            message: `Workout "${workout.title}" has unresolved target units.`,
-            data: { diagnostics: canonical?.diagnostics || [] }
+            message: `Workout "${workout.title}" failed to adapt structured workout.`
           })
         }
         workout.structuredWorkout = canonical
