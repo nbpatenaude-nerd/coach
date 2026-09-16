@@ -41,7 +41,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     const isActive = user?.subscriptionStatus === 'ACTIVE'
     const hasValidPeriodEnd = periodEnd > now
     const hasValidTrial = trialEnd > now
-    const isAdmin = user?.role === 'ADMIN'
+    const isAdmin = user?.role === 'ADMIN' || user?.isAdmin === true
 
     const isGoodStanding =
       isContributor || isActive || hasValidPeriodEnd || hasValidTrial || isAdmin

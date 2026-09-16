@@ -1,14 +1,21 @@
 <template>
   <div id="pricing" class="relative isolate overflow-hidden bg-transparent py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div v-if="route.query.upgrade_required === 'true'" class="mx-auto max-w-2xl mb-12">
+        <UAlert
+          color="amber"
+          variant="soft"
+          icon="i-heroicons-exclamation-triangle"
+          title="Active Subscription Required"
+          description="Your account requires an active subscription to access this area. Please select a plan below."
+        />
+      </div>
+
       <div
         ref="headerRef"
         class="mx-auto mb-16 max-w-2xl text-center transition-all duration-700 transform relative bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] pointer-events-auto"
         :class="[isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
       >
-        <div
-          class="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.9)] z-20"
-        ></div>
         <h2
           class="font-athletic text-3xl font-bold uppercase tracking-tight sm:text-4xl text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-pink-500"
         >
@@ -226,6 +233,7 @@
   import { ref } from 'vue'
   import { useIntersectionObserver } from '@vueuse/core'
 
+  const route = useRoute()
   const headerRef = ref(null)
   const isHeaderVisible = ref(false)
 
