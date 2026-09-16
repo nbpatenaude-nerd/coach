@@ -10,9 +10,9 @@
         <UFormField label="Select Athletes" name="athletes">
           <USelectMenu
             v-model="selectedAthletes"
-            :options="athletes"
-            option-attribute="name"
-            value-attribute="id"
+            :items="athletes"
+            label-key="displayName"
+            value-key="id"
             multiple
             placeholder="Select athletes..."
             :loading="loadingAthletes"
@@ -68,7 +68,13 @@
 
   const athletes = computed(() => {
     if (!athletesData.value) return []
-    return athletesData.value.map((rel: any) => rel.athlete || rel)
+    return athletesData.value.map((rel: any) => {
+      const a = rel.athlete || rel
+      return {
+        ...a,
+        displayName: a.name || a.email || 'Unknown Athlete'
+      }
+    })
   })
 
   watch(
