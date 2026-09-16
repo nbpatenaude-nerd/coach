@@ -53,8 +53,14 @@ export default defineEventHandler(async (event) => {
 
   // Queue Health
   const [webhookPaused, pingPaused] = await Promise.all([
-    webhookQueue.isPaused().catch(() => true),
-    pingQueue.isPaused().catch(() => true)
+    Promise.race([
+      webhookQueue.isPaused().catch(() => true),
+      new Promise<boolean>((resolve) => setTimeout(() => resolve(true), 1500))
+    ]),
+    Promise.race([
+      pingQueue.isPaused().catch(() => true),
+      new Promise<boolean>((resolve) => setTimeout(() => resolve(true), 1500))
+    ])
   ])
 
   const systemStatus = {
