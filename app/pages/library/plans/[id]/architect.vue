@@ -263,6 +263,7 @@
                     :weeks="weekAnalytics"
                     :block-ranges="chartBlockRanges"
                     :selected-week-id="selectedChartWeekId"
+                    :start-date="draftPlan?.startDate"
                     @select-week="handleChartWeekSelect"
                   />
                 </div>
@@ -277,6 +278,7 @@
                     :expanded-ids="expandedAnalyticsBlockIds"
                     :selected-week-id="selectedChartWeekId"
                     :sorted-blocks="sortedBlocks"
+                    :start-date="draftPlan?.startDate"
                     @toggle-expanded="toggleAnalyticsBlockExpanded"
                     @edit-block="(id) => openBlockEditor(findBlock(id))"
                     @select-week="handleChartWeekSelect"
@@ -406,6 +408,7 @@
                 :active-week-id="activeWeekId"
                 :collapsed-ids="collapsedBlockIds"
                 :drag-over-key="dragOverDayKey"
+                :start-date="draftPlan?.startDate"
                 :is-workout-in-library="isWorkoutInLibrary"
                 @toggle-collapsed="toggleBlockCollapsed"
                 @edit-block="openBlockEditor"
