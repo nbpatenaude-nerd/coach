@@ -174,6 +174,25 @@ export async function createPlannedWorkoutForUser(userId: string, body: any) {
     console.error('[PlannedWorkoutCreate] Failed to trigger regeneration:', err)
   }
 
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { isProgramAccount: true }
+    })
+    if (user?.isProgramAccount) {
+      const subscribers = await prisma.coachingRelationship.findMany({
+        where: { coachId: userId, status: 'ACTIVE' }
+      })
+      for (const sub of subscribers) {
+        await createPlannedWorkoutForUser(sub.athleteId, body).catch((err) =>
+          console.error('[PlannedWorkoutCreate] Fanout failed for athlete', sub.athleteId, err)
+        )
+      }
+    }
+  } catch (err) {
+    console.error('[PlannedWorkoutCreate] Failed fanout to program subscribers:', err)
+  }
+
   return {
     success: true,
     workout: plannedWorkout
