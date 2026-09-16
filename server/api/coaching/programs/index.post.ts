@@ -1,4 +1,4 @@
-﻿import { requireAuth } from '../../../utils/auth-guard'
+import { requireAuth } from '../../../utils/auth-guard'
 import { prisma } from '../../../utils/db'
 import { z } from 'zod/v3'
 
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   const programAccount = await prisma.user.create({
     data: {
       name: body.name,
-      email: `program_${Date.now()}@coachwattz.test`,
+      email: `program_${Date.now()}@journey.test`,
       isProgramAccount: true,
       programOwnerId: user.id,
       // Minimal defaults for a valid account
