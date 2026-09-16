@@ -313,7 +313,7 @@
                             Week {{ week.weekNumber }}
                           </div>
                           <div class="mt-1 text-xs text-muted">
-                            {{ formatDateRange(week.startDate, week.endDate) }}
+                            {{ getWeekDateRange(week) }}
                           </div>
                         </div>
                         <UBadge
@@ -755,9 +755,18 @@
       .join(' ')
   }
 
-  function formatDateRange(start?: string | Date | null, end?: string | Date | null) {
-    if (!start || !end) return 'Dates not set'
-    return `${formatDateUTC(start, 'MMM d')} - ${formatDateUTC(end, 'MMM d')}`
+  function getWeekDateRange(week: any) {
+    if (plan.value?.startDate) {
+      const start = new Date(plan.value.startDate)
+      const end = new Date(plan.value.startDate)
+      const offsetStart = (week.weekNumber - 1) * 7
+      const offsetEnd = offsetStart + 6
+      start.setUTCDate(start.getUTCDate() + offsetStart)
+      end.setUTCDate(end.getUTCDate() + offsetEnd)
+      return `${formatDateUTC(start, 'MMM d')} - ${formatDateUTC(end, 'MMM d')}`
+    }
+    // If plan has no fixed start date, we don't display arbitrary 'Jan 1' epoch dates
+    return 'Dates not set'
   }
 
   function getWeekDuration(week: any) {

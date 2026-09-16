@@ -80,9 +80,9 @@ Given a user request, design a comprehensive, realistic single structured workou
 Follow these principles:
 - **Warmup & Cooldown:** Always include an appropriate Warmup (10-20m) and Cooldown (5-15m).
 - **Specificity:** Match the workout structure to the requested energy system (e.g., VO2 Max intervals should be 2-5m with 1:1 or 1:0.5 recovery).
-- **Target Type:** STRICTLY respect the user's requested target type (Power, HeartRate, Pace). If they ask for Pace, use Pace.
+- **Target Type:** STRICTLY respect the user's requested target type (Power, HeartRate, Pace). If the user asks for "Pace", "pace zones", or a "track workout", you MUST set target.type to 'Pace'. Do not guess HeartRate if they imply Pace.
 - **Intervals/Repeats:** For repeated intervals (e.g. "8x 400m" or "3x 5min"), you MUST use nested steps. Set \`reps\` on the parent step to the number of repeats (e.g. 8), and place the active interval step and the recovery step inside the parent's \`steps\` array.
-- **Targets:** Provide realistic target values if the user did not specify them (e.g., sweet spot at 88-93% FTP). ALWAYS use relative units. For Power, use '%FTP' or 'zone'. For HeartRate, use '%LTHR' or 'zone'. For Pace, use '%ThresholdPace', 'min/km', 'min/mi', or 'zone'. DO NOT use absolute Watts or BPM unless the user explicitly demanded a specific number. For target ranges, use min and max.
+- **Targets:** Provide realistic target values if the user did not specify them. ALWAYS use relative units. For Power, use '%FTP' or 'zone'. For HeartRate, use '%LTHR' or 'zone'. For Pace, use '%ThresholdPace', 'min/km', 'min/mi', or 'zone'. DO NOT use absolute Watts or BPM. For target ranges, use min and max. Note: if the unit is "zone", you MUST provide a single integer in 'value' (e.g. 2 for Zone 2) and NOT use min/max.
 - **TSS & Duration:** Ensure the total TSS and duration accurately reflect the cumulative intensity and time of the steps.
 - **Valid Enums:** Strictly adhere to the allowed schema enums.`
 
@@ -113,9 +113,16 @@ Follow these principles:
           targetObj.value = t.value
         }
 
-        if (t.type === 'Power') step.power = targetObj
-        else if (t.type === 'HeartRate') step.heartRate = targetObj
-        else if (t.type === 'Pace') step.pace = targetObj
+        if (t.type === 'Power') {
+          step.power = targetObj
+          step.primaryTarget = 'power'
+        } else if (t.type === 'HeartRate') {
+          step.heartRate = targetObj
+          step.primaryTarget = 'heartRate'
+        } else if (t.type === 'Pace') {
+          step.pace = targetObj
+          step.primaryTarget = 'pace'
+        }
       }
 
       if (Array.isArray(step.steps)) {

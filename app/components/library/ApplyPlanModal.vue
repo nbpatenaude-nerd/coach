@@ -67,7 +67,9 @@
   })
 
   const athletes = computed(() => {
-    return athletesData.value || []
+    if (!athletesData.value) return []
+    // athletesData returns coaching relationships, the actual user object is nested in .athlete
+    return athletesData.value.map((rel: any) => rel.athlete || rel)
   })
 
   watch(

@@ -67,7 +67,8 @@
   })
 
   const athletes = computed(() => {
-    return athletesData.value || []
+    if (!athletesData.value) return []
+    return athletesData.value.map((rel: any) => rel.athlete || rel)
   })
 
   watch(
