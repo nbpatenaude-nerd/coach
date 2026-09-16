@@ -1,4 +1,5 @@
 import { createHmac, randomBytes, timingSafeEqual } from 'crypto'
+import { getInternalApiToken } from './internal-api-token'
 
 const DEFAULT_UNSUB_TOKEN_TTL_SECONDS = 60 * 60 * 24 * 30 // 30 days
 
@@ -15,7 +16,7 @@ type UnsubscribeTokenPayload = {
  * Encodes the userId and signs it with the INTERNAL_API_TOKEN.
  */
 export function generateUnsubscribeToken(userId: string): string {
-  const secret = process.env.INTERNAL_API_TOKEN
+  const secret = getInternalApiToken()
   if (!secret) {
     throw new Error('INTERNAL_API_TOKEN is not defined')
   }
@@ -45,7 +46,7 @@ export function generateUnsubscribeToken(userId: string): string {
  */
 export function verifyUnsubscribeToken(token: string): string | null {
   try {
-    const secret = process.env.INTERNAL_API_TOKEN
+    const secret = getInternalApiToken()
     if (!secret) return null
 
     const [payloadB64, signature] = token.split('.')

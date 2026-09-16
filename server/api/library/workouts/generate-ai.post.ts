@@ -23,8 +23,10 @@ const stepBaseSchema = z.object({
     .object({
       type: z.enum(['Power', 'HeartRate', 'Pace', 'None']),
       units: z
-        .enum(['%FTP', '%LTHR', 'zone', 'W', 'BPM'])
-        .describe('Use %FTP or zone (1-7) for Power. Use %LTHR or zone (1-5) for HR.'),
+        .string()
+        .describe(
+          'Relative units preferred. Power: %FTP or zone (1-7). HR: %LTHR or zone (1-5). Pace: %ThresholdPace or zone (1-6).'
+        ),
       value: z.number().describe('Target value based on units (e.g. 90 for 90% FTP, 3 for zone 3)'),
       min: z.number().optional(),
       max: z.number().optional()
@@ -80,14 +82,14 @@ Follow these principles:
 - **Specificity:** Match the workout structure to the requested energy system (e.g., VO2 Max intervals should be 2-5m with 1:1 or 1:0.5 recovery).
 - **Target Type:** STRICTLY respect the user's requested target type (Power, HeartRate, Pace). If they ask for Pace, use Pace.
 - **Intervals/Repeats:** For repeated intervals (e.g. "8x 400m" or "3x 5min"), you MUST use nested steps. Set \`reps\` on the parent step to the number of repeats (e.g. 8), and place the active interval step and the recovery step inside the parent's \`steps\` array.
-- **Targets:** Provide realistic target values if the user did not specify them (e.g., sweet spot at 88-93% FTP). ALWAYS use relative units like %FTP, %LTHR, or zone (e.g. zone 3). DO NOT use absolute Watts or BPM unless the user explicitly demanded a specific number. For target ranges, use min and max.
+- **Targets:** Provide realistic target values if the user did not specify them (e.g., sweet spot at 88-93% FTP). ALWAYS use relative units. For Power, use '%FTP' or 'zone'. For HeartRate, use '%LTHR' or 'zone'. For Pace, use '%ThresholdPace', 'min/km', 'min/mi', or 'zone'. DO NOT use absolute Watts or BPM unless the user explicitly demanded a specific number. For target ranges, use min and max.
 - **TSS & Duration:** Ensure the total TSS and duration accurately reflect the cumulative intensity and time of the steps.
 - **Valid Enums:** Strictly adhere to the allowed schema enums.`
 
   const workoutData = await generateStructuredAnalysis<any>(
     `${systemInstruction}\n\nCreate a structured workout based on this request: ${prompt}`,
     generatedWorkoutSchema,
-    'flash',
+    'pro',
     { operation: 'generate_workout_template', userId: authUser.id }
   )
 
