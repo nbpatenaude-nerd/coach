@@ -463,8 +463,13 @@
     const date = new Date(props.startDate)
     // weekNumber is 1-indexed, dayIndex is 0-indexed (Monday = 0)
     const offset = (weekNumber - 1) * 7 + dayIndex
-    date.setDate(date.getDate() + offset)
-    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+    date.setUTCDate(date.getUTCDate() + offset)
+    return date.toLocaleDateString('en-US', {
+      timeZone: 'UTC',
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
+    })
   }
 
   function getWorkouts(week: any, dayIndex: number) {

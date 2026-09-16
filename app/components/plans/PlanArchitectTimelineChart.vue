@@ -129,8 +129,8 @@
       const wNum = week.displayWeekNumber ?? index + 1
       if (!props.startDate) return `W${wNum}`
       const date = new Date(props.startDate)
-      date.setDate(date.getDate() + (wNum - 1) * 7)
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      date.setUTCDate(date.getUTCDate() + (wNum - 1) * 7)
+      return date.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
     })
     const targetData = props.weeks.map((week) =>
       props.metric === 'tss' ? week.targetTss : week.targetMinutes

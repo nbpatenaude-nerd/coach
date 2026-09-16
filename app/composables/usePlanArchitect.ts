@@ -1,4 +1,4 @@
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, toRaw } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useToast } from '#imports'
 
@@ -180,7 +180,7 @@ export function usePlanArchitect(planId: string) {
   function normalizePlan(plan: any) {
     const raw = toRaw(plan)
     return {
-      ...structuredClone(raw),
+      ...JSON.parse(JSON.stringify(toRaw(raw))),
 
       coachNotes: plan.coachNotes || '',
       athleteNotes: plan.athleteNotes || '',
@@ -440,7 +440,7 @@ export function usePlanArchitect(planId: string) {
     const block = draftPlan.value.blocks.find((entry: any) => entry.id === blockId)
     const source = block?.weeks.find((entry: any) => entry.id === weekId)
     if (!block || !source) return
-    const clone = structuredClone(source)
+    const clone = JSON.parse(JSON.stringify(toRaw(source)))
     clone.id = `temp-week-${Date.now()}`
     clone.weekNumber = source.weekNumber + 1
     clone.focus = source.focus ? `${source.focus} Copy` : 'Duplicated week'
@@ -545,7 +545,7 @@ export function usePlanArchitect(planId: string) {
 
   function openWorkoutEditor(weekId: string, _dayIndex: number, workout: any) {
     workoutEditorMode.value = 'edit'
-    workoutEditorSnapshot.value = structuredClone(workout)
+    workoutEditorSnapshot.value = JSON.parse(JSON.stringify(toRaw(workout)))
     editingWorkoutTarget.value = { weekId, workoutId: workout.id }
     editingWorkout.value = {
       ...workout,

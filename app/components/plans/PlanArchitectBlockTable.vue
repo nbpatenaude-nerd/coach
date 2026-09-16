@@ -367,28 +367,35 @@
   function getBlockDateRange(startWeek: number, endWeek: number) {
     if (!props.startDate) return `W${startWeek}-W${endWeek}`
     const start = new Date(props.startDate)
-    start.setDate(start.getDate() + (startWeek - 1) * 7)
+    start.setUTCDate(start.getUTCDate() + (startWeek - 1) * 7)
     const end = new Date(props.startDate)
-    end.setDate(end.getDate() + endWeek * 7 - 1)
-    const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    end.setUTCDate(end.getUTCDate() + endWeek * 7 - 1)
+    const fmt = (d: Date) =>
+      d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
     return `${fmt(start)} - ${fmt(end)}`
   }
 
   function getWeekDateRange(weekNum: number) {
     if (!props.startDate) return `W${weekNum}`
     const start = new Date(props.startDate)
-    start.setDate(start.getDate() + (weekNum - 1) * 7)
+    start.setUTCDate(start.getUTCDate() + (weekNum - 1) * 7)
     const end = new Date(start)
-    end.setDate(end.getDate() + 6)
-    const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    end.setUTCDate(end.getUTCDate() + 6)
+    const fmt = (d: Date) =>
+      d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
     return `${fmt(start)} - ${fmt(end)}`
   }
 
   function getDayDate(weekNum: number, dayIdx: number) {
     if (!props.startDate) return DAY_LABELS[dayIdx]
     const date = new Date(props.startDate)
-    date.setDate(date.getDate() + (weekNum - 1) * 7 + dayIdx)
-    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+    date.setUTCDate(date.getUTCDate() + (weekNum - 1) * 7 + dayIdx)
+    return date.toLocaleDateString('en-US', {
+      timeZone: 'UTC',
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
+    })
   }
 
   function toggleWeekExpanded(weekId: string) {
