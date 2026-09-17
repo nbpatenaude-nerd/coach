@@ -279,6 +279,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
+    originEnvKey: 'IGNORE_THIS_BUGGY_LOGIC',
     baseURL: '/api/auth',
     provider: {
       type: 'authjs'
