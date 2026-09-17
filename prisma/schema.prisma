@@ -618,6 +618,7 @@ model Event {
 }
 
 model Account {
+  id                String   @id @default(uuid())
   userId            String
   type              String
   provider          String
@@ -633,7 +634,7 @@ model Account {
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@id([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
