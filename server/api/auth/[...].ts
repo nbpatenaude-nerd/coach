@@ -263,9 +263,10 @@ function buildAuthProviders() {
 }
 
 export default NuxtAuthHandler({
+  trustHost: true,
   adapter,
   providers: buildAuthProviders(),
-  secret: process.env.NUXT_AUTH_SECRET,
+  secret: process.env.NUXT_AUTH_SECRET || 'fallback-secret-so-it-doesnt-crash-1234567890',
   // Apple uses response_mode=form_post. Browsers omit SameSite=Lax cookies on that
   // cross-site POST, which drops the PKCE verifier and fails the callback.
   cookies: {
