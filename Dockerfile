@@ -60,7 +60,7 @@ COPY --from=builder /app/start.sh ./start.sh
 # Make start.sh executable
 RUN chmod +x ./start.sh
 
-ENV PORT=3000
+ENV PORT=8080
 ENV HOST=0.0.0.0
 
 # Default command

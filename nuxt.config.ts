@@ -280,7 +280,7 @@ export default defineNuxtConfig({
 
   auth: {
     baseURL: process.env.NODE_ENV === 'production' && process.server 
-      ? 'http://127.0.0.1:3000/api/auth' 
+      ? 'http://127.0.0.1:8080/api/auth'
       : '/api/auth',
     provider: {
       type: 'authjs'
