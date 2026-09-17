@@ -194,6 +194,35 @@ model User {
   partnerCampaignRedemptions         PartnerCampaignRedemption[]
   providerSubscriptions              ProviderSubscription[]
   subscriptionLifecycleEvents        SubscriptionLifecycleEvent[]
+  role                               Role                            @default(FREE)
+  intervalsApiKey                    String?
+  intervalsAthleteId                 String?
+  hashedPassword                     String?
+  aiWorkoutAutonomyLimit             Int                             @default(10)
+  isCoach                            Boolean                         @default(false)
+  crmTags                            String[]                        @default([])
+  driveFolderId                      String?
+  hasDashboardAccess                 Boolean                         @default(true)
+  pipelineStage                      String?                         @default("Lead")
+  churnRisk                          String?                         @default("LOW")
+  leadSource                         String?
+  lifetimeValue                      Float?                          @default(0)
+  trackedCheckinMetrics              String[]                        @default(["bloodGlucose"])
+  isProgramAccount                   Boolean                         @default(false)
+  programOwnerId                     String?
+  Booking                            Booking[]
+  CheckIn                            CheckIn[]
+  CoachAvailabilityRule              CoachAvailabilityRule[]
+  CoachCalendarAccount               CoachCalendarAccount[]
+  CoachFeedback                      CoachFeedback[]
+  CoachNote                          CoachNote[]
+  CrmDeal                            CrmDeal[]
+  CrmEmailDraft                      CrmEmailDraft[]
+  CrmTask                            CrmTask[]
+  EventMessage                       EventMessage[]
+  EventParticipant                   EventParticipant[]
+  MeetingType                        MeetingType[]
+  WeeklyCheckIn                      WeeklyCheckIn[]
 
   @@index([createdAt])
   @@index([deactivatedAt])
@@ -521,37 +550,39 @@ model CoachingRequest {
 }
 
 model Goal {
-  id            String         @id @default(uuid())
-  userId        String
-  type          String
-  title         String
-  description   String?
-  metric        String?
-  currentValue  Float?
-  targetValue   Float?
-  startValue    Float?
-  targetDate    DateTime?
-  eventDate     DateTime?
-  eventType     String?
-  status        String         @default("ACTIVE")
-  priority      String         @default("MEDIUM")
-  aiContext     String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  distance      Float?
-  duration      Float?
-  elevation     Int?
-  phase         String?
-  terrain       String?
-  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  trainingPlans TrainingPlan[]
-  events        Event[]        @relation("EventToGoal")
+  id              String         @id @default(uuid())
+  userId          String
+  type            String
+  title           String
+  description     String?
+  metric          String?
+  currentValue    Float?
+  targetValue     Float?
+  startValue      Float?
+  targetDate      DateTime?
+  eventDate       DateTime?
+  eventType       String?
+  status          String         @default("ACTIVE")
+  priority        String         @default("MEDIUM")
+  aiContext       String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  distance        Float?
+  duration        Float?
+  elevation       Int?
+  phase           String?
+  terrain         String?
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trainingPlans   TrainingPlan[]
+  events          Event[]        @relation("EventToGoal")
+  completionLevel String?
+  completionNotes String?
 
   @@index([userId])
 }
 
 model Event {
-  id               String   @id @default(uuid())
+  id               String             @id @default(uuid())
   userId           String
   externalId       String?
   source           String?
@@ -564,20 +595,22 @@ model Event {
   elevation        Int?
   expectedDuration Float?
   terrain          String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
   city             String?
   country          String?
-  isPublic         Boolean  @default(false)
-  isVirtual        Boolean  @default(false)
+  isPublic         Boolean            @default(false)
+  isVirtual        Boolean            @default(false)
   location         String?
-  priority         String?  @default("B")
+  priority         String?            @default("B")
   websiteUrl       String?
   startTime        String?
-  syncStatus       String?  @default("SYNCED")
+  syncStatus       String?            @default("SYNCED")
   syncError        String?
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  goals            Goal[]   @relation("EventToGoal")
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goals            Goal[]             @relation("EventToGoal")
+  EventMessage     EventMessage[]
+  EventParticipant EventParticipant[]
 
   @@unique([userId, source, externalId])
   @@index([userId])
@@ -1676,20 +1709,23 @@ model Recommendation {
 }
 
 model DailyCheckin {
-  id            String   @id @default(uuid())
-  userId        String
-  date          DateTime @db.Date
-  questions     Json
-  status        String   @default("PENDING")
-  modelVersion  String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  llmUsageId    String?
-  feedback      String?
-  feedbackText  String?
-  userNotes     String?
-  openingRemark String?
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                           String   @id @default(uuid())
+  userId                       String
+  date                         DateTime @db.Date
+  questions                    Json
+  status                       String   @default("PENDING")
+  modelVersion                 String?
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
+  llmUsageId                   String?
+  feedback                     String?
+  feedbackText                 String?
+  userNotes                    String?
+  openingRemark                String?
+  user                         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  proposedAdjustmentPercentage Int?
+  proposedAdjustmentReasoning  String?
+  adjustmentStatus             String?  @default("PENDING")
 
   @@unique([userId, date])
   @@index([userId, date])
@@ -2096,6 +2132,9 @@ enum SubscriptionTier {
   FREE
   SUPPORTER
   PRO
+  UNCOVER
+  UNLOCK
+  UNLEASH
 }
 
 enum TeamVisibility {
@@ -2424,6 +2463,7 @@ model EmailDelivery {
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   user              User?               @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ccEmail           String?
 
   @@index([userId, createdAt])
   @@index([eventKey, createdAt])
@@ -2683,4 +2723,293 @@ model FavoriteTrainingPlan {
   @@unique([userId, planId])
   @@index([userId])
   @@index([planId])
+}
+
+model Booking {
+  id            String      @id
+  meetingTypeId String
+  coachUserId   String
+  prospectName  String
+  prospectEmail String
+  prospectPhone String?
+  prospectNotes String?
+  startTime     DateTime
+  endTime       DateTime
+  timezone      String
+  status        String      @default("CONFIRMED")
+  googleEventId String?
+  cancelToken   String      @unique
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime
+  User          User        @relation(fields: [coachUserId], references: [id])
+  MeetingType   MeetingType @relation(fields: [meetingTypeId], references: [id])
+
+  @@index([coachUserId])
+  @@index([startTime])
+  @@index([status])
+}
+
+model CheckIn {
+  id                 String          @id
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime
+  userId             String
+  personalChallenges String?
+  personalGoals      String?
+  personalHighlights String?
+  personalNotes      String?
+  wellnessInjury     String?
+  wellnessPain       String?
+  personalFatigue    Int?
+  trainingDifficulty Int?
+  trainingHydration  Int?
+  trainingLoad       Int?
+  trainingNutrition  Int?
+  trainingRecovery   Int?
+  wellnessSleep      Int?
+  wellnessStress     Int?
+  wellnessPainScore  Int?            @default(1)
+  User               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  CoachFeedback      CoachFeedback[]
+
+  @@index([userId])
+}
+
+model CoachAvailabilityRule {
+  id        String  @id
+  userId    String
+  dayOfWeek Int
+  startTime String
+  endTime   String
+  isActive  Boolean @default(true)
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dayOfWeek])
+  @@index([userId])
+}
+
+model CoachCalendarAccount {
+  id           String    @id
+  userId       String
+  googleEmail  String
+  accountLabel String?
+  accessToken  String
+  refreshToken String?
+  expiresAt    DateTime?
+  scope        String?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  User         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CoachFeedback {
+  id         String   @id
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  userId     String
+  checkInId  String?
+  komodoUrl  String?
+  coachNotes String?
+  CheckIn    CheckIn? @relation(fields: [checkInId], references: [id])
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([checkInId])
+  @@index([userId])
+}
+
+model CoachNote {
+  id          String   @id
+  userId      String
+  text        String
+  isAiSummary Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CrmDeal {
+  id               String           @id
+  userId           String
+  pipelineId       String
+  stageId          String
+  name             String?
+  value            Float?
+  status           String           @default("OPEN")
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime
+  CrmPipeline      CrmPipeline      @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  CrmPipelineStage CrmPipelineStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  User             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  CrmTask          CrmTask[]
+
+  @@index([pipelineId])
+  @@index([stageId])
+  @@index([userId])
+}
+
+model CrmEmailDraft {
+  id        String   @id
+  userId    String
+  subject   String
+  body      String
+  status    String   @default("PENDING")
+  promptId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CrmPipeline {
+  id               String             @id
+  name             String
+  description      String?
+  isActive         Boolean            @default(true)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  CrmDeal          CrmDeal[]
+  CrmPipelineStage CrmPipelineStage[]
+}
+
+model CrmPipelineStage {
+  id          String      @id
+  pipelineId  String
+  name        String
+  order       Int
+  color       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime
+  CrmDeal     CrmDeal[]
+  CrmPipeline CrmPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+
+  @@index([pipelineId])
+}
+
+model CrmTask {
+  id          String    @id
+  dealId      String?
+  userId      String?
+  title       String
+  description String?
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  CrmDeal     CrmDeal?  @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  User        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([dealId])
+  @@index([userId])
+}
+
+model EventMessage {
+  id        String   @id
+  eventId   String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  Event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([userId])
+}
+
+model EventParticipant {
+  id             String   @id
+  eventId        String
+  userId         String
+  priority       String?  @default("B")
+  createdAt      DateTime @default(now())
+  isCompleted    Boolean  @default(false)
+  photoUrl       String?
+  raceReport     String?
+  resultPosition Int?
+  resultTime     Int?
+  notes          String?
+  targetTime     Int?
+  Event          Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  User           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([userId])
+}
+
+model MeetingType {
+  id            String    @id
+  userId        String
+  name          String
+  slug          String    @unique
+  description   String?
+  durationMins  Int
+  bufferMins    Int       @default(15)
+  leadTimeHours Int       @default(24)
+  conferenceUrl String?
+  color         String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  Booking       Booking[]
+  User          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String   @id
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([email, token])
+}
+
+model ScheduledTaskConfig {
+  id             String    @id
+  taskName       String    @unique
+  displayName    String
+  cronExpression String
+  enabled        Boolean   @default(true)
+  lastRunAt      DateTime?
+  lastStatus     String?
+  lastError      String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime
+}
+
+model WeeklyCheckIn {
+  id              String    @id
+  athleteId       String
+  coachId         String?
+  weekStartDate   DateTime
+  submittedAt     DateTime  @default(now())
+  feelingScore    Int?
+  fatigueScore    Int?
+  stressScore     Int?
+  sleepQuality    Int?
+  notes           String?
+  coachFeedback   String?
+  coachReviewedAt DateTime?
+  User            User      @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+
+  @@unique([athleteId, weekStartDate])
+  @@index([athleteId])
+  @@index([coachId])
+}
+
+enum Role {
+  ADMIN
+  ONE_ON_ONE
+  GROUP
+  BASIC
+  FREE
+  UNCOVER
+  UNLOCK
+  UNLEASH
 }
