@@ -60,8 +60,5 @@ COPY --from=builder /app/start.sh ./start.sh
 # Make start.sh executable
 RUN chmod +x ./start.sh
 
-# Expose the port the app runs on
-EXPOSE 3000
-
 # Default command
 CMD ["./start.sh"]
