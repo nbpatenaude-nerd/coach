@@ -10,6 +10,7 @@ allowBuilds:
   prisma: true
   unrs-resolver: true
   vue-demi: true
+  webgl-fluid: set this to true or false
 overrides:
   ai: $ai
 minimumReleaseAgeExclude:

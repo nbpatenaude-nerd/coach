@@ -272,6 +272,9 @@ importers:
       vuedraggable:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.5.41(typescript@5.9.3))
+      webgl-fluid:
+        specifier: ^0.4.0
+        version: 0.4.0
       xmlbuilder2:
         specifier: ^4.0.3
         version: 4.0.3
@@ -12148,6 +12151,9 @@ packages:
 
   webdriver-bidi-protocol@0.4.1:
     resolution: {integrity: sha512-ARrjNjtWRRs2w4Tk7nqrf2gBI0QXWuOmMCx2hU+1jUt6d00MjMxURrhxhGbrsoiZKJrhTSTzbIrc554iKI10qw==}
+
+  webgl-fluid@0.4.0:
+    resolution: {integrity: sha512-j/GMExSlSRYxNwFBAs5ogA9Xe6iXuYX+GiSERov4+dsTpcINFKesM6ObV0qiEk0RYZ0umYI6mFu8mY4BX15UxQ==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -26136,6 +26142,8 @@ snapshots:
   web-namespaces@2.0.1: {}
 
   webdriver-bidi-protocol@0.4.1: {}
+
+  webgl-fluid@0.4.0: {}
 
   webidl-conversions@3.0.1: {}
 
