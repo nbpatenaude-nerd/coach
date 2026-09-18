@@ -19,13 +19,6 @@
           class="flex shrink-0 items-center transition-opacity hover:opacity-90 relative z-50"
         >
           <img
-            v-if="route.path === '/tri-nerds'"
-            src="/media/Tri%20Nerd%20Logos/TriNerds_pixelbadge_logo.png"
-            alt="Tri Nerds"
-            class="h-10 w-auto object-contain sm:h-12"
-          />
-          <img
-            v-else
             src="/media/logo.webp"
             alt="Journey Endurance"
             class="w-auto object-contain drop-shadow-lg transition-all duration-300"
