@@ -6,7 +6,7 @@
         <div class="max-w-md">
           <NuxtLink to="/" class="mb-4 inline-flex transition-opacity hover:opacity-90">
             <img
-              src="/media/coach_watts_text_cropped.webp"
+              src="/media/logo_with_text_cropped.webp"
               alt="Coach Watts"
               width="702"
               height="135"

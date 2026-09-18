@@ -1202,7 +1202,7 @@
         >
           <img
             v-if="!collapsed"
-            src="/media/coach_watts_text_cropped.webp"
+            src="/media/logo_with_text_cropped.webp"
             alt="Coach Watts"
             width="702"
             height="135"

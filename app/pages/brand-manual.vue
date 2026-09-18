@@ -12,7 +12,7 @@
   const logoDownloads = [
     {
       label: 'WebP (Full Wordmark)',
-      url: '/media/coach_watts_text_cropped.webp',
+      url: '/media/logo_with_text_cropped.webp',
       icon: 'i-heroicons-paper-clip'
     },
     {
@@ -260,7 +260,7 @@
                   >Primary Wordmark</span
                 >
                 <img
-                  src="/media/coach_watts_text_cropped.webp"
+                  src="/media/logo_with_text_cropped.webp"
                   alt="Wordmark"
                   class="h-16 mx-auto object-contain"
                 />

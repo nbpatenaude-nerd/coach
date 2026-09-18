@@ -8,7 +8,7 @@
       >
         <NuxtLink to="/" class="flex shrink-0 items-center transition-opacity hover:opacity-90">
           <img
-            src="/media/coach_watts_text_cropped.webp"
+            src="/media/logo_with_text_cropped.webp"
             alt="Journey Endurance Coaching"
             class="h-10 w-auto object-contain sm:h-12"
           />
