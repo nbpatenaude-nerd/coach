@@ -30,11 +30,11 @@
       <div
         class="bg-slate-950/95 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex flex-col items-center relative z-20 w-full max-w-4xl mx-auto pointer-events-auto"
       >
-        <img
-          src="/media/Tri%20Nerd%20Logos/TriNerds_pixelbadge_logo.png"
-          alt="Tri Nerds"
-          class="w-32 h-auto mb-8 drop-shadow-[0_0_15px_rgba(236,72,153,0.5)]"
-        />
+          <img
+            src="/media/logo_square.webp"
+            alt="Journey Endurance Coaching"
+            class="w-32 h-auto mb-8 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+          />
 
         <h1
           class="font-athletic mt-6 text-balance text-3xl font-bold uppercase leading-[1.2] tracking-tight text-white sm:text-4xl xl:text-5xl max-w-4xl"
