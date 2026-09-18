@@ -65,6 +65,7 @@
       startIndex: number
       endIndex: number
     }>
+    startDate?: string | null
   }>()
 
   const emit = defineEmits<{
@@ -107,16 +108,16 @@
     return 'rgba(148, 163, 184, 0.16)'
   }
 
-  function activityColor(label: string) {
-    if (label === 'Run') return 'rgba(16, 185, 129, 0.22)'
-    if (label === 'Ride') return 'rgba(14, 165, 233, 0.22)'
-    if (label === 'Gym') return 'rgba(217, 70, 239, 0.22)'
-    if (label === 'Rest/Recovery') return 'rgba(245, 158, 11, 0.22)'
-    return 'rgba(148, 163, 184, 0.22)'
+  function activityBorder(label: string) {
+    if (label === 'Run') return 'rgba(34, 197, 94, 0.9)'
+    if (label === 'Ride') return 'rgba(14, 165, 233, 0.9)'
+    if (label === 'Gym') return 'rgba(217, 70, 239, 0.9)'
+    if (label === 'Rest/Recovery') return 'rgba(245, 158, 11, 0.9)'
+    return 'rgba(148, 163, 184, 0.85)'
   }
 
-  function activityBorder(label: string) {
-    if (label === 'Run') return 'rgba(16, 185, 129, 0.5)'
+  function activityColor(label: string) {
+    if (label === 'Run') return 'rgba(34, 197, 94, 0.5)'
     if (label === 'Ride') return 'rgba(14, 165, 233, 0.5)'
     if (label === 'Gym') return 'rgba(217, 70, 239, 0.5)'
     if (label === 'Rest/Recovery') return 'rgba(245, 158, 11, 0.5)'
@@ -124,7 +125,13 @@
   }
 
   const chartData = computed(() => {
-    const labels = props.weeks.map((week, index) => `W${week.displayWeekNumber ?? index + 1}`)
+    const labels = props.weeks.map((week, index) => {
+      const wNum = week.displayWeekNumber ?? index + 1
+      if (!props.startDate) return `W${wNum}`
+      const date = new Date(props.startDate)
+      date.setUTCDate(date.getUTCDate() + (wNum - 1) * 7)
+      return date.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
+    })
     const targetData = props.weeks.map((week) =>
       props.metric === 'tss' ? week.targetTss : week.targetMinutes
     )

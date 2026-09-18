@@ -1,3 +1,4 @@
+import { Prisma } from '~~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 import { getResend } from '../email'
 import { registerTaskHandler } from '../task-registry'
@@ -5,9 +6,7 @@ import { generateUnsubscribeToken } from '../unsubscribe-token'
 import { EMAIL_TEMPLATE_REGISTRY, getEmailTemplateDefinition } from '../email-template-registry'
 import { getInternalApiToken } from '../internal-api-token'
 import { resolveEmailSubject } from '../email-i18n'
-import type { EmailAudience, EmailDeliveryStatus } from '@prisma/client'
-
-/**
+import type { EmailAudience, EmailDeliveryStatus } from '../generated-prisma/client' /**
  * Statuses that mean Resend already accepted/processed the send. A delivery
  * in one of these states must never be re-dispatched, even if the caller
  * retries (e.g. via a Trigger.dev retry hitting the same idempotency key).
@@ -153,12 +152,15 @@ export const EmailDeliveryService = {
 
     try {
       const from =
-        delivery.fromEmail || process.env.MAIL_FROM_ADDRESS || 'Coach Watts <onboarding@resend.dev>'
+        delivery.fromEmail ||
+        process.env.MAIL_FROM_ADDRESS ||
+        'Journey Endurance Coaching <onboarding@resend.dev>'
 
       const response = await resend.emails.send(
         {
           from,
           to: delivery.toEmail,
+          cc: delivery.ccEmail || undefined,
           subject: delivery.subject,
           html: delivery.htmlBody,
           text: delivery.textBody || undefined,
@@ -204,6 +206,7 @@ export const EmailDeliveryService = {
     payload: {
       userId?: string
       toEmail?: string
+      ccEmail?: string
       templateKey: string
       eventKey: string
       audience: EmailAudience
@@ -216,6 +219,7 @@ export const EmailDeliveryService = {
     const {
       userId,
       toEmail,
+      ccEmail,
       templateKey,
       eventKey,
       audience,
@@ -301,7 +305,7 @@ export const EmailDeliveryService = {
 
     if (isSuppressed && audience !== 'TRANSACTIONAL') return
 
-    const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'
+    const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.ca'
     const unsubToken = user ? generateUnsubscribeToken(user.id) : ''
     const unsubscribeUrl = unsubToken
       ? `${baseUrl}/unsubscribe?token=${unsubToken}`
@@ -312,7 +316,7 @@ export const EmailDeliveryService = {
     let utmQuery = ''
     if (template) {
       const params = new URLSearchParams({
-        utm_source: 'coachwatts_email',
+        utm_source: 'journey_email',
         utm_medium: template.utmMedium,
         utm_campaign: template.utmCampaign
       })
@@ -363,6 +367,7 @@ export const EmailDeliveryService = {
         data: {
           userId: user?.id || null,
           toEmail: recipientEmail,
+          ccEmail,
           templateKey,
           eventKey,
           audience,

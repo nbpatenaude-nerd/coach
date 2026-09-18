@@ -63,7 +63,7 @@
                 </div>
               </td>
               <td class="px-3 py-2.5 text-[11px] text-muted whitespace-nowrap">
-                W{{ block.startWeekNumber }}-W{{ block.endWeekNumber }}
+                {{ getBlockDateRange(block.startWeekNumber, block.endWeekNumber) }}
               </td>
               <td class="px-3 py-2.5 text-[12px] text-highlighted whitespace-nowrap">
                 {{ block.weekCount }}
@@ -132,7 +132,7 @@
                                 "
                                 class="h-3 w-3 shrink-0 text-muted"
                               />
-                              <span>Week {{ week.weekNumber }}</span>
+                              <span>{{ getWeekDateRange(week.weekNumber) }}</span>
                             </div>
                           </td>
                           <td class="px-3 py-2 text-muted truncate max-w-[12rem]">
@@ -215,7 +215,7 @@
                                   <td
                                     class="px-12 py-1.5 font-bold text-highlighted whitespace-nowrap"
                                   >
-                                    {{ DAY_LABELS[dayIdx - 1] }}
+                                    {{ getDayDate(week.weekNumber, dayIdx - 1) }}
                                   </td>
                                   <td class="px-3 py-1.5">
                                     <div class="flex items-center justify-between gap-2">
@@ -346,6 +346,7 @@
     expandedIds: string[]
     selectedWeekId: string | null
     sortedBlocks: any[]
+    startDate?: string | null
   }>()
 
   const emit = defineEmits<{
@@ -362,6 +363,40 @@
   // Local state for week-level expansion
   const expandedWeekIds = ref<string[]>([])
   const dragOverKey = ref<string | null>(null)
+
+  function getBlockDateRange(startWeek: number, endWeek: number) {
+    if (!props.startDate) return `W${startWeek}-W${endWeek}`
+    const start = new Date(props.startDate)
+    start.setUTCDate(start.getUTCDate() + (startWeek - 1) * 7)
+    const end = new Date(props.startDate)
+    end.setUTCDate(end.getUTCDate() + endWeek * 7 - 1)
+    const fmt = (d: Date) =>
+      d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
+    return `${fmt(start)} - ${fmt(end)}`
+  }
+
+  function getWeekDateRange(weekNum: number) {
+    if (!props.startDate) return `W${weekNum}`
+    const start = new Date(props.startDate)
+    start.setUTCDate(start.getUTCDate() + (weekNum - 1) * 7)
+    const end = new Date(start)
+    end.setUTCDate(end.getUTCDate() + 6)
+    const fmt = (d: Date) =>
+      d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' })
+    return `${fmt(start)} - ${fmt(end)}`
+  }
+
+  function getDayDate(weekNum: number, dayIdx: number) {
+    if (!props.startDate) return DAY_LABELS[dayIdx]
+    const date = new Date(props.startDate)
+    date.setUTCDate(date.getUTCDate() + (weekNum - 1) * 7 + dayIdx)
+    return date.toLocaleDateString('en-US', {
+      timeZone: 'UTC',
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
+    })
+  }
 
   function toggleWeekExpanded(weekId: string) {
     expandedWeekIds.value = expandedWeekIds.value.includes(weekId)

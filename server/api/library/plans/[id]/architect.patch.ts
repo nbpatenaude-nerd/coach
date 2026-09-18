@@ -13,6 +13,7 @@ const architectPatchSchema = z.object({
   difficulty: z.number().int().min(1).max(10).optional(),
   strategy: z.string().optional(),
   recoveryRhythm: z.number().int().min(1).optional(),
+  startDate: z.string().nullable().optional(),
   isPublic: z.boolean().optional(),
   blocks: z.array(
     z.object({
@@ -114,11 +115,10 @@ export default defineEventHandler(async (event) => {
         }
         if (!workout.structuredWorkout) continue
         const canonical = adaptStructuredWorkout(workout.structuredWorkout, { source: 'TEMPLATE' })
-        if (!canonical || canonical.diagnostics?.length) {
+        if (!canonical) {
           throw createError({
             statusCode: 422,
-            message: `Workout "${workout.title}" has unresolved target units.`,
-            data: { diagnostics: canonical?.diagnostics || [] }
+            message: `Workout "${workout.title}" failed to adapt structured workout.`
           })
         }
         workout.structuredWorkout = canonical
@@ -137,6 +137,11 @@ export default defineEventHandler(async (event) => {
         athleteNotes: athleteNotes !== undefined ? athleteNotes : undefined,
         difficulty: difficulty !== undefined ? difficulty : undefined,
         strategy: strategy !== undefined ? strategy : undefined,
+        startDate: validation.data.startDate
+          ? new Date(validation.data.startDate)
+          : validation.data.startDate === null
+            ? null
+            : undefined,
         recoveryRhythm: recoveryRhythm !== undefined ? recoveryRhythm : undefined,
         isPublic: isPublic !== undefined ? isPublic : undefined
       }
@@ -230,9 +235,14 @@ export default defineEventHandler(async (event) => {
         // 6. Handle Workout Deletions for this week
         const existingWeek = existingBlock?.weeks.find((w: any) => w.id === weekId)
         const existingWorkoutIds = existingWeek?.workouts.map((wo: any) => wo.id) || []
-        const incomingWorkoutIds = wData.workouts.map((wo) => wo.id).filter(Boolean) as string[]
+
+        const allIncomingWorkoutIds = new Set(
+          incomingBlocks.flatMap((b) =>
+            b.weeks.flatMap((w) => w.workouts.map((wo) => wo.id).filter(Boolean))
+          )
+        )
         const workoutsToDelete = existingWorkoutIds.filter(
-          (woid: string) => !incomingWorkoutIds.includes(woid)
+          (woid: string) => !allIncomingWorkoutIds.has(woid)
         )
 
         if (workoutsToDelete.length > 0) {
@@ -261,6 +271,7 @@ export default defineEventHandler(async (event) => {
             await tx.plannedWorkout.update({
               where: { id: woData.id },
               data: {
+                trainingWeekId: weekId,
                 dayIndex: woData.dayIndex,
                 weekIndex: woData.weekIndex,
                 title: woData.title,

@@ -64,11 +64,10 @@ export default defineEventHandler(async (event) => {
   }
   if (data.structuredWorkout) {
     const canonical = adaptStructuredWorkout(data.structuredWorkout, { source: 'TEMPLATE' })
-    if (!canonical || canonical.diagnostics?.length) {
+    if (!canonical) {
       throw createError({
         statusCode: 422,
-        message: 'Template structure has unresolved target units.',
-        data: { diagnostics: canonical?.diagnostics || [] }
+        message: 'Failed to adapt structured workout.'
       })
     }
     data.structuredWorkout = canonical

@@ -36,7 +36,7 @@
         </div>
 
         <div v-else-if="data" class="space-y-12">
-          <TrophyCase :personal-bests="data.personalBests || []" />
+          <ProfileTrophyCase :personal-bests="data.personalBests || []" />
         </div>
 
         <div v-else class="text-center py-24">
@@ -56,11 +56,11 @@
   })
 
   useHead({
-    title: 'Personal Bests | Coach Watts',
+    title: 'Personal Bests | Journey Endurance Coaching',
     meta: [
       {
         name: 'description',
-        content: 'View your all-time records and peak performances detected by Coach Watts.'
+        content: 'View your all-time records and peak performances detected by Journey.'
       }
     ]
   })
