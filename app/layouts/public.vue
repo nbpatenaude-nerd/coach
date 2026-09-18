@@ -8,12 +8,8 @@
       >
         <NuxtLink to="/" class="flex shrink-0 items-center transition-opacity hover:opacity-90">
           <img
-            src="/media/logo_with_text_cropped.webp"
-            alt="Journey Endurance"
-            width="702"
-            height="135"
-            loading="eager"
-            decoding="async"
+            src="/media/coach_watts_text_cropped.webp"
+            alt="Journey Endurance Coaching"
             class="h-10 w-auto object-contain sm:h-12"
           />
         </NuxtLink>
@@ -92,12 +88,7 @@
           </div>
 
           <UPopover class="lg:hidden">
-            <UButton
-              icon="i-heroicons-bars-3"
-              color="neutral"
-              variant="ghost"
-              aria-label="Open menu"
-            />
+            <UButton icon="i-heroicons-bars-3" color="neutral" variant="ghost" />
             <template #content>
               <div class="flex w-48 flex-col gap-4 p-4">
                 <NuxtLink

@@ -79,8 +79,8 @@
     </div>
 
     <div
-      class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-7xl mx-auto"
-      :class="props.conversionGoal === 'pro' ? 'lg:[grid-template-columns:1fr_1.1fr_1fr]' : ''"
+      class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-stretch max-w-360 mx-auto"
+      :class="props.conversionGoal === 'unleash' ? 'lg:grid-cols-[1fr_1fr_1.1fr_1fr]' : ''"
     >
       <div
         v-for="plan in displayedPlans"
@@ -108,31 +108,50 @@
           </h3>
 
           <div class="flex items-baseline gap-2 mb-2 font-athletic">
-            <span class="text-6xl font-black text-white leading-none">
-              {{ formatPrice(priceFor(plan, billingInterval, currency), currency) }}
-            </span>
-            <span
-              class="text-xs font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
+            <template
+              v-if="
+                priceFor(plan, billingInterval === 'monthly' ? '1-phase' : '12-phase', currency) !==
+                null
+              "
             >
-              {{
-                plan.key === 'free'
-                  ? ''
-                  : billingInterval === 'annual'
-                    ? t('billing.per_year')
-                    : t('billing.per_month')
-              }}
-            </span>
+              <span class="text-6xl font-black text-white leading-none">
+                {{
+                  formatPrice(
+                    priceFor(
+                      plan,
+                      billingInterval === 'monthly' ? '1-phase' : '12-phase',
+                      currency
+                    ) as number,
+                    currency
+                  )
+                }}
+              </span>
+              <span
+                class="text-xs font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
+              >
+                {{ billingInterval === 'annual' ? t('billing.per_year') : t('billing.per_month') }}
+              </span>
+            </template>
+            <template v-else>
+              <span class="text-4xl font-black text-white leading-none"> Apply to Join </span>
+            </template>
           </div>
 
-          <div class="min-h-[2.5rem]">
-            <template v-if="billingInterval === 'annual' && plan.annualPrice">
+          <div class="min-h-10">
+            <template
+              v-if="
+                billingInterval === 'annual' &&
+                plan.phase12Price &&
+                monthlyEquivalent(plan, currency) !== null
+              "
+            >
               <div class="text-xs font-black text-primary-500 uppercase tracking-widest mb-1">
-                {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
+                {{ formatPrice(monthlyEquivalent(plan, currency) as number, currency) }} /
                 {{ t('billing.per_month') }}
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-xs font-bold text-gray-600 line-through tracking-wider">
-                  {{ formatPrice(priceFor(plan, 'monthly', currency), currency) }}/mo
+                  {{ formatPrice(priceFor(plan, '1-phase', currency) as number, currency) }}/mo
                 </span>
                 <span
                   v-if="annualSavings(plan, currency)"
@@ -150,11 +169,11 @@
           </div>
         </div>
 
-        <p class="text-lg text-gray-400 font-medium leading-relaxed mb-10 min-h-[4rem]">
+        <p class="text-lg text-gray-400 font-medium leading-relaxed mb-10 min-h-16">
           {{ t(`plan.${plan.key}.description`) }}
         </p>
 
-        <ul class="space-y-4 mb-10 flex-grow">
+        <ul class="space-y-4 mb-10 grow">
           <li
             v-for="(feature, fIndex) in plan.features"
             :key="fIndex"
@@ -162,7 +181,7 @@
           >
             <UIcon
               name="i-heroicons-check-circle-solid"
-              class="w-5 h-5 flex-shrink-0 mt-0.5 text-primary-500"
+              class="w-5 h-5 shrink-0 mt-0.5 text-primary-500"
             />
             <span class="leading-tight">{{ t(`plan.${plan.key}.feature_${fIndex + 1}`) }}</span>
           </li>
@@ -263,7 +282,7 @@
       conversionGoal?: ConversionGoal
     }>(),
     {
-      conversionGoal: 'supporter'
+      conversionGoal: 'unlock'
     }
   )
 
@@ -281,7 +300,7 @@
   // while the cards below it showed the actual (different) figures.
   const toggleSavings = computed(() => bestAnnualSavings(PRICING_PLANS, currency.value))
 
-  const billingInterval = ref<BillingInterval>('monthly')
+  const billingInterval = ref<'monthly' | 'annual'>('monthly')
   const loading = ref(false)
   const selectedPlan = ref<string | null>(null)
   const showDowngradeModal = ref(false)
@@ -290,7 +309,9 @@
   const displayedPlans = computed(() => {
     const planByKey = new Map(PRICING_PLANS.map((plan) => [plan.key, plan]))
     const orderedKeys: PricingTier[] =
-      props.conversionGoal === 'pro' ? ['pro', 'supporter', 'free'] : ['free', 'supporter', 'pro']
+      props.conversionGoal === 'unleash'
+        ? ['unleash', 'unlock', 'uncover', 'free']
+        : ['free', 'uncover', 'unlock', 'unleash']
 
     return orderedKeys
       .map((key) => planByKey.get(key))
@@ -309,7 +330,7 @@
 
   function getPlanBadge(plan: PricingPlan): string | null {
     if (isPrimaryPlan(plan)) {
-      return props.conversionGoal === 'pro'
+      return props.conversionGoal === 'unleash'
         ? translate('badge.best_value')
         : translate('badge.most_popular')
     }
@@ -327,32 +348,32 @@
   }
 
   function getPlanOrderClass(plan: PricingPlan): string {
-    if (props.conversionGoal !== 'pro') return ''
-    if (plan.key === 'supporter') return 'lg:order-1'
-    if (plan.key === 'pro') return 'lg:order-2'
-    return 'lg:order-3'
+    if (props.conversionGoal !== 'unleash') return ''
+    if (plan.key === 'uncover') return 'lg:order-1'
+    if (plan.key === 'unlock') return 'lg:order-2'
+    if (plan.key === 'unleash') return 'lg:order-3'
+    return 'lg:order-4'
   }
 
   function getButtonLabel(plan: PricingPlan): string {
     if (isCurrentPlan(plan)) return translate('btn.current_plan')
     if (status.value !== 'authenticated') {
       if (plan.key === 'free') return translate('btn.start_free')
-      if (plan.key === 'supporter') return translate('btn.get_supporter')
-      return translate('btn.get_pro')
+      if (plan.key === 'uncover') return translate('btn.get_uncover')
+      if (plan.key === 'unlock') return translate('btn.get_unlock')
+      return translate('btn.get_unleash')
     }
 
     const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-    const tiers = ['FREE', 'SUPPORTER', 'PRO']
+    const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
     const currentLevel = tiers.indexOf(currentTier)
     const planLevel = tiers.indexOf(plan.key.toUpperCase())
 
     if (planLevel > currentLevel) {
-      return plan.key === 'pro' ? translate('btn.upgrade_pro') : translate('btn.choose_supporter')
+      return translate('btn.upgrade')
     }
     if (planLevel < currentLevel) {
-      return plan.key === 'free'
-        ? translate('btn.downgrade_free')
-        : translate('btn.switch_supporter')
+      return translate('btn.downgrade')
     }
     return translate('btn.current_plan')
   }
@@ -361,10 +382,14 @@
     loading.value = true
     selectedPlan.value = plan.key
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const priceId = getStripePriceId(
+      plan,
+      billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+      currency.value
+    )
     if (priceId) {
       const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-      const tiers = ['FREE', 'SUPPORTER', 'PRO']
+      const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
       const currentLevel = tiers.indexOf(currentTier)
       const planLevel = tiers.indexOf(plan.key.toUpperCase())
       const direction = planLevel > currentLevel ? 'upgrade' : 'downgrade'
@@ -383,9 +408,14 @@
   }
 
   async function handlePlanSelect(plan: PricingPlan) {
+    if (plan.isApplication) {
+      window.open('https://app.reclaim.ai/m/Coach-Nick/journey-begins', '_blank')
+      return
+    }
+
     if (userStore.user?.stripeCustomerId && userStore.user?.subscriptionTier !== 'FREE') {
       const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-      const tiers = ['FREE', 'SUPPORTER', 'PRO']
+      const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
       const currentLevel = tiers.indexOf(currentTier)
       const planLevel = tiers.indexOf(plan.key.toUpperCase())
 
@@ -418,7 +448,11 @@
       return
     }
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const priceId = getStripePriceId(
+      plan,
+      billingInterval.value === 'monthly' ? '1-phase' : '12-phase',
+      currency.value
+    )
     if (!priceId) return
 
     loading.value = true

@@ -1,51 +1,87 @@
 <template>
-  <div
-    class="relative min-h-screen overflow-x-clip bg-[oklch(12%_0.015_155)] selection:bg-primary-500/30"
-  >
-    <div class="pointer-events-none fixed inset-0 z-10 opacity-[0.02] grain-overlay" />
-    <LandingHero class="mb-8 sm:mb-12" />
-    <LandingNutritionExplainer class="py-16 sm:py-20" />
-    <LandingHowItWorks class="py-20 sm:py-28" />
-    <LandingIntegrations class="py-16 sm:py-20" />
-    <LandingDeepDiveArchitecture class="py-20 sm:py-24" />
-    <LandingFeatureBento class="py-16 sm:py-24" />
-    <LandingFeatureGoals class="py-20 sm:py-28" />
-    <LandingCommunity class="py-16 sm:py-20" />
-    <LandingPricing class="py-20 sm:py-24" />
+  <div class="relative min-h-screen overflow-x-clip bg-transparent selection:bg-cyan-500/30">
+    <!-- Subtle background texture -->
+    <div class="pointer-events-none fixed inset-0 z-10 opacity-[0.03] grain-overlay" />
 
-    <!-- Closing band — left-biased, not another centered SaaS CTA -->
-    <section class="border-t border-white/8 bg-[oklch(14%_0.018_155)] px-6 py-16 sm:py-20 lg:px-8">
-      <div
-        class="mx-auto flex max-w-[88rem] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
-      >
-        <div class="max-w-xl">
-          <h2
-            class="font-athletic text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl"
-          >
-            {{ t('cta.headline') }}
-          </h2>
-          <p class="mt-4 text-lg leading-8 text-gray-400">
-            {{ t('cta.description') }}
-          </p>
-        </div>
-        <div class="flex flex-wrap items-center gap-4">
-          <UButton size="xl" to="/join" color="primary" class="whitespace-nowrap">{{
-            t('cta.primary')
-          }}</UButton>
-          <UButton size="xl" to="/stories" color="neutral" variant="ghost" class="whitespace-nowrap"
-            >{{ t('cta.secondary') }} <span aria-hidden="true">→</span></UButton
-          >
+    <div class="relative">
+      <LandingHeroJourney />
+
+      <!-- Smooth Parallax Transition (Dark Cloud Effect) -->
+      <div class="relative z-20">
+        <div
+          class="absolute bottom-full left-0 w-full h-[25vh] pointer-events-none"
+          style="
+            background: linear-gradient(
+              to bottom,
+              transparent 0%,
+              rgba(2, 6, 23, 0.15) 20%,
+              rgba(2, 6, 23, 0.4) 45%,
+              rgba(2, 6, 23, 0.7) 70%,
+              rgb(2, 6, 23) 100%
+            );
+          "
+        ></div>
+        <div
+          class="absolute bottom-full left-0 w-full h-[35vh] pointer-events-none"
+          style="
+            background: linear-gradient(
+              to bottom,
+              transparent 0%,
+              transparent 30%,
+              rgba(2, 6, 23, 0.3) 60%,
+              rgb(2, 6, 23) 100%
+            );
+          "
+        ></div>
+
+        <div class="relative z-10 bg-slate-950 shadow-[0_-10px_30px_rgba(2,6,23,1)]">
+          <div class="sticky top-0 w-full h-screen overflow-hidden z-0">
+            <MistBackground />
+          </div>
+          <div class="relative z-10 -mt-[100vh]">
+            <LandingTheProblem />
+            <LandingCoachingMethodology />
+            <LandingTestimonials />
+            <LandingWhyCoaching />
+            <LandingUnifiedOffering />
+            <LandingQuestSelection />
+
+            <!-- Closing Call to Action -->
+            <section class="bg-transparent px-6 py-24 sm:py-32 lg:px-8 relative z-10">
+              <div
+                class="mx-auto flex max-w-4xl flex-col items-center text-center gap-8 relative z-10"
+              >
+                <h2
+                  class="font-athletic text-4xl font-bold uppercase tracking-tight text-white sm:text-5xl"
+                >
+                  The most important step is always the next one.
+                </h2>
+                <p class="mt-4 text-lg leading-8 text-cyan-100/70 max-w-2xl">
+                  Designed specifically for endurance athletes (ages 40 to 60) with baseline
+                  experience looking to level up to a half Ironman or optimize their performance.
+                  Let's assess your readiness and fit.
+                </p>
+                <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
+                  <UButton
+                    size="xl"
+                    to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
+                    target="_blank"
+                    class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold whitespace-nowrap px-10 shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(34,211,238,0.6)]"
+                    >Start Your Journey</UButton
+                  >
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { useTranslate } from '@tolgee/vue'
-
-  const { t } = useTranslate('common')
   const { status } = useAuth()
+  const route = useRoute()
 
   definePageMeta({
     layout: 'home',
@@ -53,21 +89,14 @@
   })
 
   useSeoMeta({
-    title: () => t.value('seo.home_title'),
-    ogTitle: () => t.value('seo.home_og_title'),
-    description: () => t.value('seo.home_description'),
-    ogDescription: () => t.value('seo.home_description'),
-    ogImage: '/images/og-image.png',
-    twitterCard: 'summary_large_image',
-    twitterTitle: () => t.value('seo.home_og_title'),
-    twitterDescription: () => t.value('seo.home_description'),
-    twitterImage: '/images/og-image.png'
+    title: 'Journey Endurance Coaching',
+    ogTitle: 'Journey Endurance Coaching',
+    description:
+      'Science-backed coaching for Triathlon, Ironman, and Hyrox. Masters-level expertise from Victoria, BC.',
+    ogDescription:
+      'Science-backed coaching for Triathlon, Ironman, and Hyrox. Masters-level expertise from Victoria, BC.'
   })
 
-  const route = useRoute()
-
-  // Only redirect if authenticated, otherwise stay on landing page.
-  // ?preview=1 keeps the marketing page visible under AUTH_BYPASS_USER.
   watchEffect(() => {
     if (status.value === 'authenticated' && route.query.preview !== '1') {
       navigateTo('/dashboard')
