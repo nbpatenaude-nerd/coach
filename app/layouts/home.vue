@@ -9,8 +9,8 @@
       >
         <NuxtLink to="/" class="flex shrink-0 items-center transition-opacity hover:opacity-90">
           <img
-            src="/media/coach_watts_text_cropped.webp"
-            alt="Coach Watts"
+            src="/media/logo_with_text_cropped.webp"
+            alt="Journey Endurance"
             width="702"
             height="135"
             loading="eager"
