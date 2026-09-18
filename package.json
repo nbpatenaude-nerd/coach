@@ -57,6 +57,7 @@
     "dotenv": "^17.2.3",
     "fit-file-parser": "^2.1.0",
     "geoip-lite": "^1.4.10",
+    "googleapis": "^181.0.0",
     "import-in-the-middle": "^2.0.6",
     "ioredis": "^5.11.1",
     "jimp": "0.22.12",
