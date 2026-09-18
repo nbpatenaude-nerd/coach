@@ -7,7 +7,12 @@ import {
 import { sendToUserLocal } from '../utils/ws-state'
 
 export default defineNitroPlugin((nitroApp) => {
-  if (process.env.NITRO_BUILD || import.meta.prerender) {
+  const isBuild = process.argv.some(arg => arg.endsWith('build') || arg.endsWith('generate')) || process.env.npm_lifecycle_event === 'build'
+  if (
+    process.env.NITRO_BUILD ||
+    import.meta.prerender ||
+    isBuild
+  ) {
     return
   }
 
