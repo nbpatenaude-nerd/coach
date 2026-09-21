@@ -1,17 +1,22 @@
+import { requireAuth } from '../../utils/auth-guard'
 import { startOfWeek } from 'date-fns'
+import { prisma } from '../../utils/db'
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
+  const user = await requireAuth(event, [])
 
   // Get the Sunday of the current week
   const weekStartDate = startOfWeek(new Date(), { weekStartsOn: 0 })
 
-  const checkIn = await prisma.weeklyCheckIn.findUnique({
+  const checkIn = await prisma.checkIn.findFirst({
     where: {
-      athleteId_weekStartDate: {
-        athleteId: user.id,
-        weekStartDate
+      userId: user.id,
+      createdAt: {
+        gte: weekStartDate
       }
+    },
+    orderBy: {
+      createdAt: 'desc'
     }
   })
 

@@ -210,7 +210,10 @@
                 :missing-fields="missingFields"
               />
 
-              <DashboardCheckIn />
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 mb-8">
+                <DashboardLegacyCheckInForm />
+                <DashboardCoachFeedback />
+              </div>
 
               <!-- Row 1: Athlete Profile / Today's Training / Performance Overview & Comparison -->
               <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8 items-stretch">
