@@ -22,10 +22,7 @@ import { isWithinPreferredEmailTime } from '../server/utils/email-schedule'
 import { getCurrentFitnessSummary } from '../server/utils/training-stress'
 import { evaluateFitbitRecoveryAlert } from '../server/utils/wellness'
 import { dispatchTask } from '../server/utils/task-dispatcher'
-import {
-  formatPromptHeight,
-  formatPromptWeight
-} from '../server/utils/ai-prompt-format'
+import { formatPromptHeight, formatPromptWeight } from '../server/utils/ai-prompt-format'
 
 const suggestionSchema = {
   type: 'object',

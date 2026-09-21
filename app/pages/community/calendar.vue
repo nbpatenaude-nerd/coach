@@ -136,8 +136,6 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth } from '~/composables/useAuth'
-
 definePageMeta({
   middleware: 'auth',
   layout: 'default'
@@ -149,7 +147,7 @@ useHead({
 })
 
 const toast = useToast()
-const auth = useAuth()
+const { data: session } = useAuth()
 const loading = ref(true)
 const events = ref<any[]>([])
 const viewMode = ref<'list' | 'calendar'>('list')
@@ -181,8 +179,8 @@ function formatDate(dateStr: string) {
 }
 
 function isAttending(event: any) {
-  if (!auth.user.value) return false
-  return event.EventParticipant?.some((p: any) => p.userId === auth.user.value?.id)
+  if (!(session.value as any)?.user) return false
+  return event.EventParticipant?.some((p: any) => p.userId === (session.value as any)?.user?.id)
 }
 
 async function toggleAttendance(event: any) {
@@ -197,9 +195,9 @@ async function toggleAttendance(event: any) {
     
     // Optimistic update
     if (currentlyAttending) {
-      event.EventParticipant = event.EventParticipant.filter((p: any) => p.userId !== auth.user.value?.id)
+      event.EventParticipant = event.EventParticipant.filter((p: any) => p.userId !== (session.value as any)?.user?.id)
     } else {
-      event.EventParticipant.push({ userId: auth.user.value?.id })
+      event.EventParticipant.push({ userId: (session.value as any)?.user?.id })
     }
     
     toast.add({
