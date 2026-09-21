@@ -24,7 +24,18 @@
           <UIcon name="i-lucide-video" class="w-5 h-5 text-primary-500" />
           Coach Video Reply
         </h4>
-        <video :src="currentCheckIn.coachVideoUrl" controls class="w-full rounded-md shadow-sm mb-3"></video>
+        <template v-if="isDirectVideo(currentCheckIn.coachVideoUrl)">
+          <video :src="currentCheckIn.coachVideoUrl" controls class="w-full rounded-md shadow-sm mb-3"></video>
+        </template>
+        <template v-else>
+          <iframe
+            :src="getEmbedUrl(currentCheckIn.coachVideoUrl)"
+            class="w-full aspect-video rounded-md shadow-sm mb-3"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </template>
         <p class="text-sm text-neutral-700 dark:text-neutral-300" v-if="currentCheckIn.coachFeedback">{{ currentCheckIn.coachFeedback }}</p>
       </div>
       <div v-else-if="currentCheckIn.coachFeedback" class="mt-4 p-4 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg">
@@ -90,6 +101,37 @@
   function formatFullDate(d: string | Date) {
     if (!d) return ''
     return format(new Date(d), 'MMM d, yyyy')
+  }
+
+  function isDirectVideo(url: string | null) {
+    if (!url) return false
+    return url.match(/\.(mp4|webm|ogg|mov)$/i) !== null
+  }
+
+  function getEmbedUrl(url: string) {
+    if (!url) return ''
+    
+    // YouTube
+    const ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i)
+    if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`
+    
+    // Vimeo
+    const vimeoMatch = url.match(/vimeo\.com\/(?:.*#|.*\/videos\/)?([0-9]+)/i)
+    if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`
+    
+    // Loom
+    const loomMatch = url.match(/loom\.com\/share\/([a-z0-9]+)/i)
+    if (loomMatch) return `https://www.loom.com/embed/${loomMatch[1]}`
+
+    // Komodo
+    // Komodo URLs typically look like: https://komodo.ai/recordings/xxxxx or https://komodo.ai/embed/xxxxx
+    if (url.includes('komodo.ai')) {
+      if (url.includes('/embed/')) return url
+      return url.replace('/recordings/', '/embed/')
+    }
+
+    // Default fallback
+    return url
   }
 
   const scoreOptions = [
