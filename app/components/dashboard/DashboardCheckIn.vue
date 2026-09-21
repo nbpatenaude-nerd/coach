@@ -60,31 +60,34 @@
         This resets every Sunday.
       </p>
 
-      <UForm :state="state" class="space-y-4" @submit="submitCheckIn">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <UFormGroup label="Feeling Score (1-10)" help="1 = Exhausted, 10 = Amazing">
-            <USelect v-model="state.feelingScore" :options="scoreOptions" />
-          </UFormGroup>
-          <UFormGroup label="Fatigue Score (1-10)" help="1 = Fresh, 10 = Heavy Fatigue">
-            <USelect v-model="state.fatigueScore" :options="scoreOptions" />
-          </UFormGroup>
-          <UFormGroup label="Stress Level (1-10)" help="1 = Low Stress, 10 = High Stress">
-            <USelect v-model="state.stressScore" :options="scoreOptions" />
-          </UFormGroup>
-          <UFormGroup label="Sleep Quality (1-10)" help="1 = Terrible, 10 = Perfect">
-            <USelect v-model="state.sleepQuality" :options="scoreOptions" />
-          </UFormGroup>
+      <UForm :state="state" class="space-y-6" @submit="submitCheckIn">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <UFormField label="Feeling Score (1-10)" help="1 = Exhausted, 10 = Amazing">
+            <USelect v-model="state.feelingScore" :items="scoreOptions" class="w-full" />
+          </UFormField>
+          <UFormField label="Fatigue Score (1-10)" help="1 = Fresh, 10 = Heavy Fatigue">
+            <USelect v-model="state.fatigueScore" :items="scoreOptions" class="w-full" />
+          </UFormField>
+          <UFormField label="Stress Level (1-10)" help="1 = Low Stress, 10 = High Stress">
+            <USelect v-model="state.stressScore" :items="scoreOptions" class="w-full" />
+          </UFormField>
+          <UFormField label="Sleep Quality (1-10)" help="1 = Terrible, 10 = Perfect">
+            <USelect v-model="state.sleepQuality" :items="scoreOptions" class="w-full" />
+          </UFormField>
         </div>
 
-        <UFormGroup label="Additional Notes for Coach">
+        <UFormField label="Additional Notes for Coach">
           <UTextarea
             v-model="state.notes"
             placeholder="Any injuries, schedule changes, or comments?"
             :rows="3"
+            class="w-full"
           />
-        </UFormGroup>
+        </UFormField>
 
-        <UButton type="submit" color="primary" label="Submit Check-In" :loading="submitting" />
+        <div class="flex justify-end pt-2">
+          <UButton type="submit" color="primary" label="Submit Check-In" :loading="submitting" />
+        </div>
       </UForm>
     </div>
   </UCard>
