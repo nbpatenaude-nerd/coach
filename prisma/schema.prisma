@@ -2996,6 +2996,7 @@ model WeeklyCheckIn {
   sleepQuality    Int?
   notes           String?
   coachFeedback   String?
+  coachVideoUrl   String?
   coachReviewedAt DateTime?
   User            User      @relation(fields: [athleteId], references: [id], onDelete: Cascade)
 

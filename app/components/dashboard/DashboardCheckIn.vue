@@ -18,7 +18,23 @@
           Submitted {{ formatFullDate(currentCheckIn.submittedAt) }}
         </p>
       </div>
-      <p class="text-sm text-neutral-600 dark:text-neutral-400">
+      
+      <div v-if="currentCheckIn.coachVideoUrl" class="mt-4 p-4 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg">
+        <h4 class="font-bold mb-2 flex items-center gap-2">
+          <UIcon name="i-lucide-video" class="w-5 h-5 text-primary-500" />
+          Coach Video Reply
+        </h4>
+        <video :src="currentCheckIn.coachVideoUrl" controls class="w-full rounded-md shadow-sm mb-3"></video>
+        <p class="text-sm text-neutral-700 dark:text-neutral-300" v-if="currentCheckIn.coachFeedback">{{ currentCheckIn.coachFeedback }}</p>
+      </div>
+      <div v-else-if="currentCheckIn.coachFeedback" class="mt-4 p-4 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 rounded-lg">
+        <h4 class="font-bold mb-2 flex items-center gap-2">
+          <UIcon name="i-lucide-message-square" class="w-5 h-5 text-primary-500" />
+          Coach Feedback
+        </h4>
+        <p class="text-sm text-neutral-700 dark:text-neutral-300">{{ currentCheckIn.coachFeedback }}</p>
+      </div>
+      <p v-else class="text-sm text-neutral-600 dark:text-neutral-400">
         You're all set for this week. Your coach will review your responses.
       </p>
     </div>

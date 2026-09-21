@@ -49,9 +49,31 @@
           </div>
         </div>
 
-        <div v-if="checkIn.notes" class="bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg">
+        <div v-if="checkIn.notes" class="bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-lg mb-4">
           <p class="text-xs text-neutral-500 uppercase font-bold mb-1">Notes</p>
           <p class="text-sm">{{ checkIn.notes }}</p>
+        </div>
+
+        <div v-if="checkIn.coachReviewedAt" class="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg border border-primary-200 dark:border-primary-800">
+          <div class="flex justify-between items-center mb-2">
+            <p class="text-xs text-primary-600 dark:text-primary-400 uppercase font-bold">Your Reply</p>
+            <UButton size="xs" variant="ghost" color="primary" @click="checkIn.coachReviewedAt = null">Edit Reply</UButton>
+          </div>
+          <div v-if="checkIn.coachVideoUrl" class="mb-3">
+            <video :src="checkIn.coachVideoUrl" controls class="w-full max-w-md rounded-md shadow-sm"></video>
+          </div>
+          <p class="text-sm">{{ checkIn.coachFeedback }}</p>
+        </div>
+
+        <div v-else class="border-t border-neutral-200 dark:border-neutral-800 mt-4 pt-4">
+          <p class="text-sm font-bold mb-2">Reply to Check-In</p>
+          <UFormGroup label="Video URL (optional)" class="mb-3">
+            <UInput v-model="replyDrafts[checkIn.id].videoUrl" placeholder="https://..." icon="i-lucide-video" />
+          </UFormGroup>
+          <UFormGroup label="Feedback" class="mb-3">
+            <UTextarea v-model="replyDrafts[checkIn.id].feedback" placeholder="Write your response to the athlete..." :rows="3" />
+          </UFormGroup>
+          <UButton color="primary" :loading="submitting === checkIn.id" @click="submitReply(checkIn)">Send Reply</UButton>
         </div>
       </UCard>
     </div>
@@ -66,8 +88,11 @@
   }>()
 
   const loading = ref(true)
+  const submitting = ref<string | null>(null)
   const error = ref<string | null>(null)
   const checkIns = ref<any[]>([])
+  const replyDrafts = ref<Record<string, { feedback: string, videoUrl: string }>>({})
+  const toast = useToast()
 
   function formatFullDate(d: string | Date) {
     if (!d) return ''
@@ -79,10 +104,44 @@
     try {
       const res = await $fetch(`/api/coaching/athletes/${props.athleteId}/check-ins`)
       checkIns.value = res
+      
+      // Initialize drafts
+      res.forEach((ci: any) => {
+        if (!replyDrafts.value[ci.id]) {
+          replyDrafts.value[ci.id] = { feedback: ci.coachFeedback || '', videoUrl: ci.coachVideoUrl || '' }
+        }
+      })
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch check-ins'
     } finally {
       loading.value = false
+    }
+  }
+
+  async function submitReply(checkIn: any) {
+    const draft = replyDrafts.value[checkIn.id]
+    if (!draft.feedback && !draft.videoUrl) {
+      toast.add({ title: 'Please provide feedback or a video URL', color: 'error' })
+      return
+    }
+
+    submitting.value = checkIn.id
+    try {
+      const updated = await $fetch(`/api/coaching/check-ins/${checkIn.id}/reply`, {
+        method: 'POST',
+        body: {
+          coachFeedback: draft.feedback,
+          coachVideoUrl: draft.videoUrl
+        }
+      })
+      checkIn.coachFeedback = updated.coachFeedback
+      checkIn.coachVideoUrl = updated.coachVideoUrl
+      checkIn.coachReviewedAt = updated.coachReviewedAt
+      toast.add({ title: 'Reply sent successfully', color: 'success' })
+    } catch (err: any) {
+      toast.add({ title: 'Failed to send reply', color: 'error' })
+    } finally {
+      submitting.value = null
     }
   }
 
