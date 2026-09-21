@@ -70,6 +70,7 @@
     "nuxt-gtag": "^4.1.0",
     "ofetch": "^1.5.1",
     "pg": "^8.22.0",
+    "pg-copy-streams": "^7.0.0",
     "pinia": "^3.0.4",
     "prisma": "^7.9.1",
     "qrcode": "^1.5.4",
