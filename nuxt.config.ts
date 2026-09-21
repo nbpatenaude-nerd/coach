@@ -279,7 +279,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
-    baseURL: '/api/auth',
+    baseURL: process.env.NUXT_AUTH_ORIGIN ? `${process.env.NUXT_AUTH_ORIGIN}/api/auth` : '/api/auth',
     provider: {
       type: 'authjs'
     },
