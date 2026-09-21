@@ -310,6 +310,11 @@ export default NuxtAuthHandler({
         session.user.language = user.language || 'English'
         session.user.uiLanguage = user.uiLanguage || 'en'
         session.user.termsAcceptedAt = user.termsAcceptedAt || null
+        session.user.role = user.role || 'FREE'
+        session.user.subscriptionStatus = user.subscriptionStatus || 'NONE'
+        session.user.subscriptionPeriodEnd = user.subscriptionPeriodEnd || null
+        session.user.trialEndsAt = user.trialEndsAt || null
+        session.user.stripeSubscriptionId = user.stripeSubscriptionId || null
         // Surface deactivatedAt so client middleware can force sign-out with a
         // message; server middleware invalidates the cookie/DB session.
         session.user.deactivatedAt = user.deactivatedAt
