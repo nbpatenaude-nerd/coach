@@ -116,7 +116,6 @@ export default defineNuxtConfig({
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' },
         {
-          hid: 'description',
           name: 'description',
           content: 'Journey Endurance: Trinerds AI endurance coaching platform.'
         },
@@ -269,7 +268,7 @@ export default defineNuxtConfig({
     imports: {
       imports: [
         {
-          from: fileURLToPath(new URL('./server/utils/define-route-meta', import.meta.url)),
+          from: fileURLToPath(new URL('./server/utils/define-route-meta', import.meta.url)).replace(/\\/g, '/'),
           name: 'defineRouteMeta',
           priority: 100
         }

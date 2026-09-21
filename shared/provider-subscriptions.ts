@@ -17,7 +17,7 @@ export type ProviderSubscriptionState = {
   entitlementEnd: Date | null
 }
 
-const rank: Record<SubscriptionTier, number> = { FREE: 0, SUPPORTER: 1, PRO: 2 }
+const rank: Record<SubscriptionTier, number> = { FREE: 0, SUPPORTER: 1, PRO: 2, UNCOVER: 3, UNLOCK: 4, UNLEASH: 5 }
 
 /** Prefer the Stripe subscription id so Stripe webhooks and RevenueCat share one row. */
 export function pickStripeSubscriptionId(

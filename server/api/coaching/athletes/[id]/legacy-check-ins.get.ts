@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
   // If coach, verify relationship
   if (user.role === 'COACH') {
-    const hasAccess = await prisma.coachAthlete.findFirst({
+    const hasAccess = await prisma.coachingRelationship.findFirst({
       where: {
         coachId: user.id,
         athleteId

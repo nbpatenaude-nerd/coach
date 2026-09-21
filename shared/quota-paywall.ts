@@ -21,7 +21,10 @@ export type QuotaPaywallOperation =
 const TIER_RANK: Record<SubscriptionTier, number> = {
   FREE: 0,
   SUPPORTER: 1,
-  PRO: 2
+  PRO: 2,
+  UNCOVER: 3,
+  UNLOCK: 4,
+  UNLEASH: 5
 }
 
 export function resolveRecommendedUpgradeTier(
