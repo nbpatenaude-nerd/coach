@@ -182,6 +182,14 @@
           open.value = false
         }
       },
+      {
+        label: 'Community Calendar',
+        icon: 'i-lucide-users',
+        to: '/community/calendar',
+        onSelect: () => {
+          open.value = false
+        }
+      },
       ...(nutritionEnabled.value
         ? [
             {
@@ -499,6 +507,11 @@
             label: label('navigation_activities', 'Activities'),
             icon: 'i-lucide-calendar-days',
             to: '/activities'
+          },
+          {
+            label: 'Community Calendar',
+            icon: 'i-lucide-users',
+            to: '/community/calendar'
           },
           ...(nutritionEnabled.value
             ? [
