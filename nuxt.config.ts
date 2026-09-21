@@ -111,19 +111,20 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      titleTemplate: '%s - Coach Watts',
-      title: 'Coach Watts',
+      titleTemplate: '%s - Journey Endurance',
+      title: 'Journey Endurance',
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' },
         {
+          hid: 'description',
           name: 'description',
-          content: 'AI-powered endurance coaching platform that adapts to your training.'
+          content: 'Journey Endurance: Trinerds AI endurance coaching platform.'
         },
-        { name: 'apple-mobile-web-app-title', content: 'Coach Watts' },
-        { name: 'application-name', content: 'Coach Watts' },
-        { property: 'og:site_name', content: 'Coach Watts' },
+        { name: 'apple-mobile-web-app-title', content: 'Journey Endurance' },
+        { name: 'application-name', content: 'Journey Endurance' },
+        { property: 'og:site_name', content: 'Journey Endurance' },
         { property: 'og:type', content: 'website' },
+        { property: 'og:locale', content: 'en_US' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@coachwatts' },
         { name: 'mobile-web-app-capable', content: 'yes' },
