@@ -55,6 +55,13 @@ export const LOCALIZED_SUBJECTS: Record<string, Record<string, string>> = {
     es: 'Tu prueba de rendimiento en Coach Watts termina pronto',
     fr: "Votre période d'essai Coach Watts se termine bientôt"
   },
+  WeeklyCheckInReminder: {
+    en: 'Your weekly check-in is open',
+    hu: 'Elérhető a heti check-in',
+    de: 'Dein wöchentlicher Check-in ist geöffnet',
+    es: 'Tu check-in semanal está abierto',
+    fr: 'Votre check-in hebdomadaire est ouvert'
+  },
   PaymentFailed: {
     en: 'Action Required: Payment failed for your Coach Watts subscription',
     hu: 'Intézkedés szükséges: Sikertelen fizetés a Coach Watts előfizetésednél',
