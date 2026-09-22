@@ -104,6 +104,17 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
     utmCampaign: 'trial_ending_soon',
     utmMedium: 'lifecycle'
   },
+  WeeklyCheckInReminder: {
+    templateKey: 'WeeklyCheckInReminder',
+    defaultSubject: 'Your weekly check-in is open',
+    audience: 'ENGAGEMENT',
+    preferenceKey: 'planUpdates',
+    requiredProps: ['dayLabel', 'deadlineHint', 'checkInUrl'],
+    utmCampaign: 'weekly_check_in_reminder',
+    utmMedium: 'engagement',
+    throttleGroup: 'WEEKLY_CHECK_IN_REMINDER',
+    cooldownHours: 20
+  },
   PaymentFailed: {
     templateKey: 'PaymentFailed',
     defaultSubject: 'Action Required: Payment failed for your Coach Watts subscription',

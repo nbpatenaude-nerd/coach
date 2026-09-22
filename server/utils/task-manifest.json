@@ -109,6 +109,13 @@
     }
   },
   {
+    "id": "weekly-check-in-reminder-cron",
+    "schedule": {
+      "cron": "0 15 * * 1,2",
+      "timezone": "UTC"
+    }
+  },
+  {
     "id": "adapt-training-plan",
     "maxDuration": 600,
     "queue": {
