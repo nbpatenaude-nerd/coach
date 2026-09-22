@@ -17,6 +17,11 @@
       to: '/coaching/athletes'
     },
     {
+      label: 'Check-ins',
+      icon: 'i-lucide-clipboard-check',
+      to: '/coaching/check-in-analysis'
+    },
+    {
       label: 'Analytics',
       icon: 'i-lucide-bar-chart-3',
       to: '/analytics'
