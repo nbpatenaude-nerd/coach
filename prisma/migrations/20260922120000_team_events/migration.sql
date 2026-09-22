@@ -1,8 +1,55 @@
--- CreateEnum
-CREATE TYPE "TeamEventShareLevel" AS ENUM ('FULL', 'SUMMARY');
+-- Team Calendar: TeamEvent + participants.
+-- Idempotent so a partially applied / failed deploy can be recovered cleanly.
+-- Also creates EventParticipant if missing (present in schema but never migrated).
 
--- CreateTable
-CREATE TABLE "TeamEvent" (
+-- CreateEnum
+DO $$ BEGIN
+  CREATE TYPE "TeamEventShareLevel" AS ENUM ('FULL', 'SUMMARY');
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END $$;
+
+-- Ensure legacy EventParticipant exists (schema had it; some DBs never got a migration)
+CREATE TABLE IF NOT EXISTS "EventParticipant" (
+    "id" TEXT NOT NULL,
+    "eventId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "priority" TEXT DEFAULT 'B',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "isCompleted" BOOLEAN NOT NULL DEFAULT false,
+    "photoUrl" TEXT,
+    "raceReport" TEXT,
+    "resultPosition" INTEGER,
+    "resultTime" INTEGER,
+    "notes" TEXT,
+    "targetTime" INTEGER,
+
+    CONSTRAINT "EventParticipant_pkey" PRIMARY KEY ("id")
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS "EventParticipant_eventId_userId_key"
+  ON "EventParticipant"("eventId", "userId");
+CREATE INDEX IF NOT EXISTS "EventParticipant_userId_idx"
+  ON "EventParticipant"("userId");
+
+DO $$ BEGIN
+  ALTER TABLE "EventParticipant"
+    ADD CONSTRAINT "EventParticipant_eventId_fkey"
+    FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  ALTER TABLE "EventParticipant"
+    ADD CONSTRAINT "EventParticipant_userId_fkey"
+    FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END $$;
+
+-- CreateTable TeamEvent
+CREATE TABLE IF NOT EXISTS "TeamEvent" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
@@ -26,13 +73,12 @@ CREATE TABLE "TeamEvent" (
     "pinnedById" TEXT,
     "createdById" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "TeamEvent_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "TeamEventParticipant" (
+CREATE TABLE IF NOT EXISTS "TeamEventParticipant" (
     "id" TEXT NOT NULL,
     "teamEventId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -42,46 +88,54 @@ CREATE TABLE "TeamEventParticipant" (
     CONSTRAINT "TeamEventParticipant_pkey" PRIMARY KEY ("id")
 );
 
--- AlterTable
-ALTER TABLE "Event" ADD COLUMN "teamEventId" TEXT;
+-- AlterTable Event.teamEventId
+ALTER TABLE "Event" ADD COLUMN IF NOT EXISTS "teamEventId" TEXT;
 
--- CreateIndex
-CREATE INDEX "TeamEvent_date_idx" ON "TeamEvent"("date");
+CREATE INDEX IF NOT EXISTS "TeamEvent_date_idx" ON "TeamEvent"("date");
+CREATE INDEX IF NOT EXISTS "TeamEvent_isPinned_date_idx" ON "TeamEvent"("isPinned", "date");
+CREATE INDEX IF NOT EXISTS "TeamEvent_createdById_idx" ON "TeamEvent"("createdById");
+CREATE INDEX IF NOT EXISTS "TeamEventParticipant_userId_idx" ON "TeamEventParticipant"("userId");
+CREATE UNIQUE INDEX IF NOT EXISTS "TeamEventParticipant_teamEventId_userId_key"
+  ON "TeamEventParticipant"("teamEventId", "userId");
+CREATE INDEX IF NOT EXISTS "Event_teamEventId_idx" ON "Event"("teamEventId");
+CREATE INDEX IF NOT EXISTS "Event_isPublic_date_idx" ON "Event"("isPublic", "date");
 
--- CreateIndex
-CREATE INDEX "TeamEvent_isPinned_date_idx" ON "TeamEvent"("isPinned", "date");
+DO $$ BEGIN
+  ALTER TABLE "TeamEvent"
+    ADD CONSTRAINT "TeamEvent_createdById_fkey"
+    FOREIGN KEY ("createdById") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
--- CreateIndex
-CREATE INDEX "TeamEvent_createdById_idx" ON "TeamEvent"("createdById");
+DO $$ BEGIN
+  ALTER TABLE "TeamEvent"
+    ADD CONSTRAINT "TeamEvent_pinnedById_fkey"
+    FOREIGN KEY ("pinnedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
--- CreateIndex
-CREATE INDEX "TeamEventParticipant_userId_idx" ON "TeamEventParticipant"("userId");
+DO $$ BEGIN
+  ALTER TABLE "TeamEventParticipant"
+    ADD CONSTRAINT "TeamEventParticipant_teamEventId_fkey"
+    FOREIGN KEY ("teamEventId") REFERENCES "TeamEvent"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
--- CreateIndex
-CREATE UNIQUE INDEX "TeamEventParticipant_teamEventId_userId_key" ON "TeamEventParticipant"("teamEventId", "userId");
+DO $$ BEGIN
+  ALTER TABLE "TeamEventParticipant"
+    ADD CONSTRAINT "TeamEventParticipant_userId_fkey"
+    FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
--- CreateIndex
-CREATE INDEX "Event_teamEventId_idx" ON "Event"("teamEventId");
+DO $$ BEGIN
+  ALTER TABLE "Event"
+    ADD CONSTRAINT "Event_teamEventId_fkey"
+    FOREIGN KEY ("teamEventId") REFERENCES "TeamEvent"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
--- CreateIndex
-CREATE INDEX "Event_isPublic_date_idx" ON "Event"("isPublic", "date");
-
--- AddForeignKey
-ALTER TABLE "TeamEvent" ADD CONSTRAINT "TeamEvent_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "TeamEvent" ADD CONSTRAINT "TeamEvent_pinnedById_fkey" FOREIGN KEY ("pinnedById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "TeamEventParticipant" ADD CONSTRAINT "TeamEventParticipant_teamEventId_fkey" FOREIGN KEY ("teamEventId") REFERENCES "TeamEvent"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "TeamEventParticipant" ADD CONSTRAINT "TeamEventParticipant_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Event" ADD CONSTRAINT "Event_teamEventId_fkey" FOREIGN KEY ("teamEventId") REFERENCES "TeamEvent"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- Backfill: one TeamEvent per existing public Event (earliest wins for same day+title later via app grouping)
+-- Backfill TeamEvent from public Events (skip rows already present)
 INSERT INTO "TeamEvent" (
   "id", "title", "description", "date", "startTime", "type", "subType",
   "distance", "elevation", "expectedDuration", "terrain", "city", "country",
@@ -112,18 +166,23 @@ SELECT
   e."createdAt",
   e."updatedAt"
 FROM "Event" e
-WHERE e."isPublic" = true;
+WHERE e."isPublic" = true
+ON CONFLICT ("id") DO NOTHING;
 
 UPDATE "Event" e
 SET "teamEventId" = e."id"
-WHERE e."isPublic" = true;
+WHERE e."isPublic" = true
+  AND e."teamEventId" IS NULL
+  AND EXISTS (SELECT 1 FROM "TeamEvent" t WHERE t."id" = e."id");
 
+-- Creator as team participant
 INSERT INTO "TeamEventParticipant" ("id", "teamEventId", "userId", "priority", "createdAt")
 SELECT e."id", e."teamEventId", e."userId", e."priority", NOW()
 FROM "Event" e
 WHERE e."isPublic" = true AND e."teamEventId" IS NOT NULL
 ON CONFLICT ("teamEventId", "userId") DO NOTHING;
 
+-- Optional legacy RSVP rows (table now guaranteed to exist)
 INSERT INTO "TeamEventParticipant" ("id", "teamEventId", "userId", "priority", "createdAt")
 SELECT ep."id", e."id", ep."userId", ep."priority", ep."createdAt"
 FROM "EventParticipant" ep
