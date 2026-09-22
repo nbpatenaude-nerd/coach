@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export default defineEventHandler(async (event) => {
-  const user = await requireUser(event)
+  const user = await requireAuth(event)
   if (!user.isCoach) {
     throw createError({ statusCode: 403, message: 'Forbidden' })
   }

@@ -13,7 +13,7 @@
   })
 
   useHead({
-    title: 'Charts | Coach Watts',
+    title: 'Charts | Journey Endurance',
     meta: [
       {
         name: 'description',

@@ -25,7 +25,7 @@
       <div v-else-if="app" class="space-y-6">
         <div class="flex flex-col items-center gap-4 text-center">
           <div class="flex items-center gap-3">
-            <img src="/media/logo.webp" alt="Coach Watts" class="size-10 object-contain" />
+            <img src="/media/logo.webp" alt="Journey Endurance" class="size-10 object-contain" />
             <UIcon name="i-heroicons-plus" class="text-gray-400 w-4 h-4" />
             <UAvatar
               :src="app.logoUrl || undefined"
@@ -39,7 +39,7 @@
               Authorize {{ app.name }}
             </h1>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">
-              would like to access your Coach Watts account.
+              would like to access your Journey Endurance account.
             </p>
           </div>
         </div>
@@ -246,7 +246,7 @@
     meta: [
       {
         name: 'description',
-        content: 'Authorize a third-party application to access your Coach Watts data.'
+        content: 'Authorize a third-party application to access your Journey Endurance data.'
       }
     ]
   })

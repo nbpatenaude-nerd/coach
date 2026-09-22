@@ -38,7 +38,7 @@
   })
 
   useHead({
-    title: 'Workout Explorer | Coach Watts',
+    title: 'Workout Explorer | Journey Endurance',
     meta: [
       {
         name: 'description',

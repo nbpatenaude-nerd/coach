@@ -45,6 +45,8 @@ export interface PeakEffort {
   duration_label: string
   start_time: number
   end_time: number
+  start_index?: number
+  end_index?: number
   value: number
   metric: 'power' | 'heartrate' | 'pace'
 }
@@ -1208,6 +1210,8 @@ export function findPeakEfforts(
           duration_label: dur.label,
           start_time: startTimeValue,
           end_time: endTimeValue,
+          start_index: bestStartIdx,
+          end_index: bestEndIdx,
           // Pace is a velocity in m/s (typically 2-6), so whole-number rounding
           // would destroy the curve. Watts and bpm stay integers.
           value: metric === 'pace' ? Math.round(maxAvg * 100) / 100 : Math.round(maxAvg),

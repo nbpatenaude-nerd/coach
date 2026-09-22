@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Meeting type not found' })
   }
 
-  const coachUserId = meetingType.user.id
+  const coachUserId = meetingType.User.id
   const now = new Date()
   const leadTimeCutoff = addHours(now, meetingType.leadTimeHours)
   const rangeEnd = addDays(now, daysAhead)

@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     pipeline = await prisma.crmPipeline.create({
       data: {
         name: 'Sales Pipeline',
-        stages: {
+        CrmPipelineStage: {
           create: [
             { name: 'Lead', order: 1 },
             { name: 'Contacted', order: 2 }

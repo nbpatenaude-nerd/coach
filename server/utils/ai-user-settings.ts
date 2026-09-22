@@ -61,9 +61,8 @@ export async function getUserAiSettings(userId: string): Promise<AiSettings> {
       aiTtsStyle: true,
       aiTtsVoiceName: true,
       aiTtsSpeed: true,
-      aiTtsSpeed: true,
       aiTtsAutoReadMessages: true,
-      subscriptionStatus: true
+      subscriptionTier: true
     }
   })
 
@@ -72,7 +71,7 @@ export async function getUserAiSettings(userId: string): Promise<AiSettings> {
   }
 
   let dynamicModelPreference: GeminiModel = 'flash'
-  if (user.subscriptionStatus === 'SUPPORTER' || user.subscriptionStatus === 'PRO') {
+  if (user.subscriptionTier !== 'FREE') {
     dynamicModelPreference = 'pro'
   }
 

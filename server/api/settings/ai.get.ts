@@ -30,8 +30,8 @@ defineRouteMeta({
                 updateWorkoutNotesEnabled: { type: 'boolean' },
                 nickname: { type: 'string', nullable: true },
                 aiTtsStyle: { type: 'string' },
-                aiTtsVoiceName: { type: 'string' },
-                aiTtsSpeed: { type: 'string' },
+                // aiTtsVoiceName: { type: 'string' },
+                // aiTtsSpeed: { type: 'string' },
                 aiTtsAutoReadMessages: { type: 'boolean' }
               }
             }
@@ -92,8 +92,8 @@ export default defineEventHandler(async (event) => {
     updateWorkoutNotesEnabled: user.updateWorkoutNotesEnabled ?? true,
     nickname: user.nickname,
     aiTtsStyle: user.aiTtsStyle || 'coach',
-    aiTtsVoiceName: user.aiTtsVoiceName || 'Kore',
-    aiTtsSpeed: user.aiTtsSpeed || 'normal',
+    // aiTtsVoiceName: user.aiTtsVoiceName || 'Kore',
+    // aiTtsSpeed: user.aiTtsSpeed || 'normal',
     aiTtsAutoReadMessages: user.aiTtsAutoReadMessages ?? false,
     aiWorkoutAutonomyLimit: 50
   }

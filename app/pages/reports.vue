@@ -423,7 +423,7 @@
             'Generate and view AI-powered coaching reports, including weekly analysis, workout insights, and nutrition reviews.'
           )
         },
-        { property: 'og:title', content: t.value('list_og_title', 'Reports | Coach Watts') },
+        { property: 'og:title', content: t.value('list_og_title', 'Reports | Journey Endurance') },
         {
           property: 'og:description',
           content: t.value(

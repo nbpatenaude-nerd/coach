@@ -2,7 +2,7 @@ import type { SubscriptionStatus, SubscriptionTier, User } from '@prisma/client'
 import { resolveEffectiveTier } from '../../shared/effective-tier'
 
 export interface UserEntitlements {
-  tier: 'FREE' | 'SUPPORTER' | 'PRO'
+  tier: SubscriptionTier
   autoSync: boolean
   autoAnalysis: boolean
   aiModel: 'flash' | 'pro'
@@ -80,6 +80,6 @@ export function hasMinimumTier(
   minimumTier: 'FREE' | 'SUPPORTER' | 'PRO'
 ): boolean {
   const entitlements = getUserEntitlements(user)
-  const tierHierarchy = { FREE: 0, SUPPORTER: 1, PRO: 2 }
+  const tierHierarchy = { FREE: 0, SUPPORTER: 1, PRO: 2, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
   return tierHierarchy[entitlements.tier] >= tierHierarchy[minimumTier]
 }

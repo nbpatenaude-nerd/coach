@@ -60,7 +60,7 @@
 
   useHead({
     title: 'Audit Logs',
-    meta: [{ name: 'description', content: 'Coach Watts system audit logs administration.' }]
+    meta: [{ name: 'description', content: 'Journey Endurance system audit logs administration.' }]
   })
 </script>
 

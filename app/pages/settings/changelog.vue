@@ -40,6 +40,6 @@
 
   useHead({
     title: 'Changelog',
-    meta: [{ name: 'description', content: 'Coach Watts version history and new features.' }]
+    meta: [{ name: 'description', content: 'Journey Endurance version history and new features.' }]
   })
 </script>

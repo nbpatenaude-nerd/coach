@@ -263,7 +263,6 @@ function buildAuthProviders() {
 }
 
 export default NuxtAuthHandler({
-  trustHost: true,
   adapter,
   providers: buildAuthProviders(),
   secret: process.env.NUXT_AUTH_SECRET || 'fallback-secret-so-it-doesnt-crash-1234567890',

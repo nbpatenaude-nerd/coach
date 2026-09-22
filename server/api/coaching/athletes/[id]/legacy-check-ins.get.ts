@@ -10,12 +10,12 @@ export default defineEventHandler(async (event) => {
   }
 
   // Verify coach has access to this athlete OR is admin
-  if (user.role !== 'ADMIN' && user.role !== 'COACH') {
+  if (user.role !== 'ADMIN' && !user.isCoach) {
     throw createError({ statusCode: 403, message: 'Not authorized to view check-ins' })
   }
 
   // If coach, verify relationship
-  if (user.role === 'COACH') {
+  if (user.isCoach) {
     const hasAccess = await prisma.coachingRelationship.findFirst({
       where: {
         coachId: user.id,

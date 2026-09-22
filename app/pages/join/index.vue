@@ -178,11 +178,11 @@
   const joinSeoTitle = translateOrFallback('join.seo_title', 'Create your account')
   const joinSeoOgTitle = translateOrFallback(
     'join.seo_og_title',
-    'Join Coach Watts - AI Endurance Coaching'
+    'Join Journey Endurance - AI Endurance Coaching'
   )
   const joinSeoDescription = translateOrFallback(
     'join.seo_description',
-    'Create your Coach Watts account and get personalized AI training, recovery analytics, and daily coaching insights.'
+    'Create your Journey Endurance account and get personalized AI training, recovery analytics, and daily coaching insights.'
   )
 
   useSeoMeta({
@@ -211,7 +211,7 @@
   const joinFormSubtitle = translateOrFallback(
     'join.form_subtitle',
     'Start free with a 14-day full-access trial. No credit card required.',
-    ['Create your Coach Watts account. No credit card required.']
+    ['Create your Journey Endurance account. No credit card required.']
   )
   const joinErrorTitle = translateOrFallback('join.error_title', 'Signup failed')
   const joinErrorApple = translateOrFallback(

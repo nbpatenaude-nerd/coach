@@ -2727,7 +2727,7 @@ model FavoriteTrainingPlan {
 }
 
 model Booking {
-  id            String      @id
+  id String @id @default(uuid())
   meetingTypeId String
   coachUserId   String
   prospectName  String
@@ -2741,7 +2741,7 @@ model Booking {
   googleEventId String?
   cancelToken   String      @unique
   createdAt     DateTime    @default(now())
-  updatedAt     DateTime
+  updatedAt DateTime @updatedAt
   User          User        @relation(fields: [coachUserId], references: [id])
   MeetingType   MeetingType @relation(fields: [meetingTypeId], references: [id])
 
@@ -2751,9 +2751,9 @@ model Booking {
 }
 
 model CheckIn {
-  id                 String          @id
+  id                 String          @id @default(uuid())
   createdAt          DateTime        @default(now())
-  updatedAt          DateTime
+  updatedAt          DateTime        @updatedAt
   userId             String
   personalChallenges String?
   personalGoals      String?
@@ -2777,7 +2777,7 @@ model CheckIn {
 }
 
 model CoachAvailabilityRule {
-  id        String  @id
+  id String @id @default(uuid())
   userId    String
   dayOfWeek Int
   startTime String
@@ -2790,7 +2790,7 @@ model CoachAvailabilityRule {
 }
 
 model CoachCalendarAccount {
-  id           String    @id
+  id String @id @default(uuid())
   userId       String
   googleEmail  String
   accountLabel String?
@@ -2806,9 +2806,9 @@ model CoachCalendarAccount {
 }
 
 model CoachFeedback {
-  id         String   @id
+  id         String   @id @default(uuid())
   createdAt  DateTime @default(now())
-  updatedAt  DateTime
+  updatedAt  DateTime @updatedAt
   userId     String
   checkInId  String?
   komodoUrl  String?
@@ -2821,19 +2821,19 @@ model CoachFeedback {
 }
 
 model CoachNote {
-  id          String   @id
+  id String @id @default(uuid())
   userId      String
   text        String
   isAiSummary Boolean  @default(false)
   createdAt   DateTime @default(now())
-  updatedAt   DateTime
+  updatedAt DateTime @updatedAt
   User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model CrmDeal {
-  id               String           @id
+  id String @id @default(uuid())
   userId           String
   pipelineId       String
   stageId          String
@@ -2841,7 +2841,7 @@ model CrmDeal {
   value            Float?
   status           String           @default("OPEN")
   createdAt        DateTime         @default(now())
-  updatedAt        DateTime
+  updatedAt DateTime @updatedAt
   CrmPipeline      CrmPipeline      @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
   CrmPipelineStage CrmPipelineStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
   User             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -2853,38 +2853,38 @@ model CrmDeal {
 }
 
 model CrmEmailDraft {
-  id        String   @id
+  id String @id @default(uuid())
   userId    String
   subject   String
   body      String
   status    String   @default("PENDING")
   promptId  String?
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model CrmPipeline {
-  id               String             @id
+  id String @id @default(uuid())
   name             String
   description      String?
   isActive         Boolean            @default(true)
   createdAt        DateTime           @default(now())
-  updatedAt        DateTime
+  updatedAt DateTime @updatedAt
   CrmDeal          CrmDeal[]
   CrmPipelineStage CrmPipelineStage[]
 }
 
 model CrmPipelineStage {
-  id          String      @id
+  id String @id @default(uuid())
   pipelineId  String
   name        String
   order       Int
   color       String?
   createdAt   DateTime    @default(now())
-  updatedAt   DateTime
+  updatedAt DateTime @updatedAt
   CrmDeal     CrmDeal[]
   CrmPipeline CrmPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
 
@@ -2892,7 +2892,7 @@ model CrmPipelineStage {
 }
 
 model CrmTask {
-  id          String    @id
+  id String @id @default(uuid())
   dealId      String?
   userId      String?
   title       String
@@ -2900,7 +2900,7 @@ model CrmTask {
   dueDate     DateTime?
   isCompleted Boolean   @default(false)
   createdAt   DateTime  @default(now())
-  updatedAt   DateTime
+  updatedAt DateTime @updatedAt
   CrmDeal     CrmDeal?  @relation(fields: [dealId], references: [id], onDelete: Cascade)
   User        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -2909,12 +2909,12 @@ model CrmTask {
 }
 
 model EventMessage {
-  id        String   @id
+  id String @id @default(uuid())
   eventId   String
   userId    String
   content   String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   Event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -2923,7 +2923,7 @@ model EventMessage {
 }
 
 model EventParticipant {
-  id             String   @id
+  id String @id @default(uuid())
   eventId        String
   userId         String
   priority       String?  @default("B")
@@ -2943,7 +2943,7 @@ model EventParticipant {
 }
 
 model MeetingType {
-  id            String    @id
+  id String @id @default(uuid())
   userId        String
   name          String
   slug          String    @unique
@@ -2962,7 +2962,7 @@ model MeetingType {
 }
 
 model PasswordResetToken {
-  id        String   @id
+  id String @id @default(uuid())
   email     String
   token     String   @unique
   expires   DateTime
@@ -2972,7 +2972,7 @@ model PasswordResetToken {
 }
 
 model ScheduledTaskConfig {
-  id             String    @id
+  id String @id @default(uuid())
   taskName       String    @unique
   displayName    String
   cronExpression String
@@ -2981,28 +2981,69 @@ model ScheduledTaskConfig {
   lastStatus     String?
   lastError      String?
   createdAt      DateTime  @default(now())
-  updatedAt      DateTime
+  updatedAt DateTime @updatedAt
 }
 
+/// Form definition for weekly check-ins. `sections` is the JSON contract in
+/// shared/check-in.ts, stored in the DB so questions can change without a
+/// migration. Submissions reference the form they were answered against.
+model CheckInForm {
+  id          String          @id @default(uuid())
+  slug        String          @unique
+  title       String
+  description String?
+  sections    Json
+  isActive    Boolean         @default(true)
+  version     Int             @default(1)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  checkIns    WeeklyCheckIn[]
+
+  @@index([isActive])
+}
+
+/// One athlete submission for one week. Unique on [athleteId, weekStartDate]
+/// so re-submitting within the window edits rather than duplicates.
 model WeeklyCheckIn {
-  id              String    @id
-  athleteId       String
-  coachId         String?
-  weekStartDate   DateTime
-  submittedAt     DateTime  @default(now())
-  feelingScore    Int?
-  fatigueScore    Int?
-  stressScore     Int?
-  sleepQuality    Int?
-  notes           String?
-  coachFeedback   String?
-  coachVideoUrl   String?
-  coachReviewedAt DateTime?
-  User            User      @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+  id                String              @id @default(uuid())
+  athleteId         String
+  formId            String?
+  /// Monday of the week being reported on, in the athlete's timezone.
+  weekStartDate     DateTime            @db.Date
+  /// Answers keyed by CheckInField.id — see shared/check-in.ts.
+  responses         Json                @default("{}")
+  submittedAt       DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  status            WeeklyCheckInStatus @default(SUBMITTED)
+  coachId           String?
+  coachNotes        String?
+  coachVideoUrl     String?
+  coachVideoAddedAt DateTime?
+  coachReviewedAt   DateTime?
+
+  /// Transitional: the Prisma client deployed in production was generated from
+  /// the pre-rebuild model and selects these columns, so removing them 500s
+  /// /api/coaching/athletes/[id]/check-ins. Nothing writes them. Drop them once
+  /// the form-driven check-in ships (see 20260921130000_weekly_check_in_back_compat).
+  feelingScore      Int?
+  fatigueScore      Int?
+  stressScore       Int?
+  sleepQuality      Int?
+  notes             String?
+  coachFeedback     String?
+
+  athlete           User                @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+  form              CheckInForm?        @relation(fields: [formId], references: [id], onDelete: SetNull)
 
   @@unique([athleteId, weekStartDate])
-  @@index([athleteId])
-  @@index([coachId])
+  @@index([athleteId, weekStartDate])
+  @@index([coachId, status])
+  @@index([weekStartDate, status])
+}
+
+enum WeeklyCheckInStatus {
+  SUBMITTED
+  REVIEWED
 }
 
 enum Role {

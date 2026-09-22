@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
   const meetingType = await prisma.meetingType.findUnique({
     where: { slug },
-    include: { user: { select: { id: true, name: true, email: true } } }
+    include: { User: { select: { id: true, name: true, email: true } } }
   })
 
   if (!meetingType || !meetingType.isActive) {
@@ -68,8 +68,8 @@ export default defineEventHandler(async (event) => {
     await tasks.trigger('book-appointment', {
       bookingId: booking.id,
       coachUserId: meetingType.userId,
-      coachName: meetingType.user.name,
-      coachEmail: meetingType.user.email,
+      coachName: meetingType.User.name,
+      coachEmail: meetingType.User.email,
       meetingTypeName: meetingType.name,
       conferenceUrl: meetingType.conferenceUrl
     })

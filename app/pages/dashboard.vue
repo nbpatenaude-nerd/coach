@@ -210,9 +210,8 @@
                 :missing-fields="missingFields"
               />
 
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 mb-8">
-                <DashboardLegacyCheckInForm />
-                <DashboardCoachFeedback />
+              <div class="mb-8">
+                <DashboardWeeklyCheckIn />
               </div>
 
               <!-- Row 1: Athlete Profile / Today's Training / Performance Overview & Comparison -->
@@ -472,7 +471,7 @@
   <!-- Daily Check-in Modal -->
   <DashboardDailyCheckinModal v-model:open="showCheckinModal" />
 
-  <!-- Share Coach Watts Modal -->
+  <!-- Share Journey Endurance Modal -->
   <DashboardShareCoachWattsModal v-model:open="showShareCoachWattsModal" />
 
   <DashboardTrialEndedModal />
@@ -872,7 +871,7 @@
     { immediate: true }
   )
 
-  // Share Coach Watts modal
+  // Share Journey Endurance modal
   const showShareCoachWattsModal = ref(false)
   const { openReleaseModal } = useReleaseNotes()
   const { toggle: toggleTriggerMonitor } = useTriggerMonitor()
@@ -928,7 +927,7 @@
         content:
           'Your training overview, recovery status, and personalized AI coaching recommendations.'
       },
-      { property: 'og:title', content: 'Dashboard | Coach Watts' },
+      { property: 'og:title', content: 'Dashboard | Journey Endurance' },
       {
         property: 'og:description',
         content:

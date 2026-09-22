@@ -1,60 +1,35 @@
 import { requireAuth } from '../../utils/auth-guard'
-import { z } from 'zod'
-import { prisma } from '../../utils/db'
-
-const checkInSchema = z.object({
-  personalChallenges: z.string().optional().nullable(),
-  personalGoals: z.string().optional().nullable(),
-  personalHighlights: z.string().optional().nullable(),
-  personalNotes: z.string().optional().nullable(),
-  wellnessInjury: z.string().optional().nullable(),
-  wellnessPain: z.string().optional().nullable(),
-  personalFatigue: z.number().optional().nullable(),
-  trainingDifficulty: z.number().optional().nullable(),
-  trainingHydration: z.number().optional().nullable(),
-  trainingLoad: z.number().optional().nullable(),
-  trainingNutrition: z.number().optional().nullable(),
-  trainingRecovery: z.number().optional().nullable(),
-  wellnessSleep: z.number().optional().nullable(),
-  wellnessStress: z.number().optional().nullable()
-})
+import { upsertWeeklyCheckIn, weekStartKey } from '../../utils/services/weeklyCheckInService'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event, [])
-
   const body = await readBody(event)
-  const data = checkInSchema.parse(body)
 
-  try {
-    const checkIn = await prisma.checkIn.create({
-      data: {
-        id: crypto.randomUUID(),
-        updatedAt: new Date(),
-        userId: user.id,
-        ...data
-      }
-    })
+  // Accept either { responses: {...} } or a flat map of field ids (legacy clients).
+  const raw =
+    body?.responses && typeof body.responses === 'object' && !Array.isArray(body.responses)
+      ? (body.responses as Record<string, unknown>)
+      : (body as Record<string, unknown>)
 
-    // Trigger AI analysis asynchronously if Intervals is connected
-    if (user.intervalsApiKey && user.intervalsAthleteId) {
-      $fetch<any>('/api/ai/analyze-athlete', {
-        method: 'POST',
-        headers: {
-          cookie: event.node.req.headers.cookie || '' // Forward auth cookie
-        },
-        body: { checkInId: checkIn.id }
-      }).catch((err) => console.error('Async analyze-athlete failed:', err))
+  // Strip non-field keys that a flat body might include.
+  const { responses: _r, weekStartDate: _w, ...flat } = raw
+  const fieldMap = body?.responses ? raw : flat
+
+  const checkIn = await upsertWeeklyCheckIn(user.id, fieldMap)
+
+  return {
+    status: 'success',
+    data: {
+      id: checkIn.id,
+      weekStartDate: weekStartKey(checkIn.weekStartDate),
+      responses: checkIn.responses,
+      submittedAt: checkIn.submittedAt.toISOString(),
+      updatedAt: checkIn.updatedAt.toISOString(),
+      status: checkIn.status,
+      coachNotes: checkIn.coachNotes,
+      coachVideoUrl: checkIn.coachVideoUrl,
+      coachVideoAddedAt: checkIn.coachVideoAddedAt?.toISOString() ?? null,
+      coachReviewedAt: checkIn.coachReviewedAt?.toISOString() ?? null
     }
-
-    return {
-      status: 'success',
-      data: checkIn
-    }
-  } catch (error) {
-    console.error(error)
-    throw createError({
-      statusCode: 500,
-      message: 'Failed to create check-in'
-    })
   }
 })

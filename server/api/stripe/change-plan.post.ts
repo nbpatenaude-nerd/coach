@@ -18,7 +18,10 @@ const changePlanSchema = z.object({
 const TIER_RANK: Record<SubscriptionTier, number> = {
   FREE: 0,
   SUPPORTER: 1,
-  PRO: 2
+  UNCOVER: 1,
+  UNLOCK: 2,
+  UNLEASH: 3,
+  PRO: 4
 }
 
 /**

@@ -60,7 +60,10 @@ export type PartnerRedemptionResult = {
 const TIER_RANK: Record<SubscriptionTier, number> = {
   FREE: 0,
   SUPPORTER: 1,
-  PRO: 2
+  UNCOVER: 1,
+  UNLOCK: 2,
+  UNLEASH: 3,
+  PRO: 4
 }
 
 export function normalizePartnerCampaignSlug(slug: string): string {

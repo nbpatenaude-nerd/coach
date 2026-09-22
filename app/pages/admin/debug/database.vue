@@ -45,7 +45,10 @@
   useHead({
     title: 'Database Health - Admin',
     meta: [
-      { name: 'description', content: 'Coach Watts database statistics and health monitoring.' }
+      {
+        name: 'description',
+        content: 'Journey Endurance database statistics and health monitoring.'
+      }
     ]
   })
 </script>
