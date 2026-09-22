@@ -290,6 +290,10 @@ export default defineNuxtConfig({
     // makes server-side /session fetch itself via the public proxy and recurses
     // (Sidebase: "Recursion detected at /session"). OAuth callback URLs still come
     // from runtimeConfig.authOrigin / NUXT_AUTH_ORIGIN.
+    //
+    // originEnvKey REPLACES baseURL on the server. start.sh sets
+    // NUXT_AUTH_ORIGIN_UNUSED=http://127.0.0.1:$PORT/api/auth (must include /api/auth;
+    // a bare origin collapses pathname to "/" and fetches /session → recursion).
     baseURL: '/api/auth',
     originEnvKey: 'NUXT_AUTH_ORIGIN_UNUSED',
     provider: {
