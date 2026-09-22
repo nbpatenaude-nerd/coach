@@ -447,3 +447,31 @@ export function checkInNormalizedScore(
   const clamped = Math.min(Math.max(ratio, 0), 1)
   return field.direction === 'lower_is_better' ? 1 - clamped : clamped
 }
+
+/** Domains allowed for coach response videos (Komodo + legacy Trinerds). */
+export const ALLOWED_COACH_VIDEO_HOSTS = ['komodo.ai', 'video.trinerds.com'] as const
+
+export function isAllowedCoachVideoUrl(raw: string | null | undefined): boolean {
+  if (!raw || !raw.trim()) return true // empty is fine (optional)
+  let parsed: URL
+  try {
+    parsed = new URL(raw.trim())
+  } catch {
+    return false
+  }
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return false
+  const host = parsed.hostname.toLowerCase()
+  return ALLOWED_COACH_VIDEO_HOSTS.some(
+    (allowed) => host === allowed || host.endsWith(`.${allowed}`)
+  )
+}
+
+/** Convert a stored Komodo recording URL into an embeddable iframe src when needed. */
+export function coachVideoEmbedUrl(url: string): string {
+  if (!url) return ''
+  if (url.includes('komodo.ai')) {
+    if (url.includes('/embed/')) return url
+    return url.replace('/recordings/', '/embed/')
+  }
+  return url
+}

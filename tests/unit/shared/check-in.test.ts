@@ -8,7 +8,9 @@ import {
   checkInSectionForField,
   getCheckInWeekStart,
   weekStartKey,
-  validateCheckInResponses
+  validateCheckInResponses,
+  isAllowedCoachVideoUrl,
+  coachVideoEmbedUrl
 } from '../../../shared/check-in'
 
 describe('shared/check-in form contract', () => {
@@ -76,5 +78,27 @@ describe('validateCheckInResponses', () => {
   it('rejects missing required ratings', () => {
     const result = validateCheckInResponses(DEFAULT_CHECK_IN_FORM, {})
     expect(result.ok).toBe(false)
+  })
+})
+
+describe('coach video URL helpers', () => {
+  it('allows Komodo and Trinerds hosts', () => {
+    expect(isAllowedCoachVideoUrl('https://komodo.ai/embed/abc')).toBe(true)
+    expect(isAllowedCoachVideoUrl('https://app.komodo.ai/recordings/abc')).toBe(true)
+    expect(isAllowedCoachVideoUrl('https://video.trinerds.com/v/abc')).toBe(true)
+  })
+
+  it('rejects empty-optional and foreign hosts', () => {
+    expect(isAllowedCoachVideoUrl('')).toBe(true)
+    expect(isAllowedCoachVideoUrl(null)).toBe(true)
+    expect(isAllowedCoachVideoUrl('https://youtube.com/watch?v=1')).toBe(false)
+    expect(isAllowedCoachVideoUrl('not-a-url')).toBe(false)
+  })
+
+  it('rewrites Komodo recordings to embed paths', () => {
+    expect(coachVideoEmbedUrl('https://komodo.ai/recordings/abc')).toBe(
+      'https://komodo.ai/embed/abc'
+    )
+    expect(coachVideoEmbedUrl('https://komodo.ai/embed/abc')).toBe('https://komodo.ai/embed/abc')
   })
 })
