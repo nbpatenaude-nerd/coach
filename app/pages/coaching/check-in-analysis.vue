@@ -147,7 +147,7 @@
   } from '~~/shared/check-in'
 
   definePageMeta({
-    middleware: ['auth', 'coach'] as any
+    middleware: 'auth'
   })
 
   interface AthleteRow {
