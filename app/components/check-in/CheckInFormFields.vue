@@ -1,73 +1,87 @@
 <template>
-  <form class="space-y-8" @submit.prevent="$emit('submit')">
-    <div v-for="section in sections" :key="section.key" class="space-y-5">
-      <div>
-        <h4 class="text-lg font-bold tracking-tight" :style="{ color: accent(section.key) }">
-          {{ section.heading }}
-        </h4>
-        <p v-if="section.description" class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          {{ section.description }}
-        </p>
-      </div>
-
-      <div class="space-y-6">
-        <div v-for="(field, idx) in section.fields" :key="field.id">
-          <template v-if="field.type === 'rating' || field.type === 'number'">
-            <div class="flex justify-center items-center gap-2 mb-1">
-              <span
-                class="text-xs font-bold tracking-widest uppercase"
-                :style="{ color: fieldColor(section.key, idx) }"
-              >
-                {{ field.shortTitle }}
-              </span>
-            </div>
-            <p class="text-xs text-center text-gray-500 dark:text-gray-400 mb-2">
-              {{ field.label }}
-            </p>
-            <div class="flex justify-between text-[11px] uppercase text-gray-400 mb-1 px-1">
-              <span>{{ field.minLabel || 'Low' }}</span>
-              <span
-                class="font-bold text-sm normal-case"
-                :style="{ color: fieldColor(section.key, idx) }"
-              >
-                [ {{ modelValue[field.id] ?? '—' }} / {{ field.max ?? 10 }} ]
-              </span>
-              <span>{{ field.maxLabel || 'High' }}</span>
-            </div>
-            <URange
-              :model-value="Number(modelValue[field.id] ?? field.min ?? 1)"
-              :min="field.min ?? 1"
-              :max="field.max ?? 10"
-              :step="1"
-              class="w-full"
-              @update:model-value="setField(field.id, $event)"
-            />
-          </template>
-
-          <UFormField v-else :label="field.label" :name="field.id">
-            <UTextarea
-              :model-value="String(modelValue[field.id] ?? '')"
-              :placeholder="field.placeholder"
-              :rows="3"
-              class="w-full"
-              @update:model-value="setField(field.id, $event)"
-            />
-          </UFormField>
+  <form class="space-y-4" @submit.prevent="$emit('submit')">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+      <section
+        v-for="section in sections"
+        :key="section.key"
+        class="rounded-lg border border-gray-200/80 dark:border-gray-800 bg-gray-50/40 dark:bg-gray-900/30 p-3 sm:p-4 space-y-3"
+      >
+        <div class="border-b border-gray-200/80 dark:border-gray-800 pb-2">
+          <h4
+            class="text-xs font-semibold uppercase tracking-wider"
+            :style="{ color: accent(section.key) }"
+          >
+            {{ section.heading }}
+          </h4>
+          <p
+            v-if="section.description"
+            class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2"
+          >
+            {{ section.description }}
+          </p>
         </div>
-      </div>
+
+        <div class="space-y-3">
+          <div v-for="(field, idx) in section.fields" :key="field.id">
+            <template v-if="field.type === 'rating' || field.type === 'number'">
+              <div class="flex items-baseline justify-between gap-2 mb-1">
+                <span
+                  class="text-[11px] font-semibold uppercase tracking-wide truncate"
+                  :style="{ color: fieldColor(section.key, idx) }"
+                >
+                  {{ field.shortTitle }}
+                </span>
+                <span
+                  class="text-sm font-bold tabular-nums shrink-0"
+                  :style="{ color: fieldColor(section.key, idx) }"
+                >
+                  {{ modelValue[field.id] ?? '—' }}
+                  <span class="text-[10px] font-normal text-gray-400">/{{ field.max ?? 10 }}</span>
+                </span>
+              </div>
+              <URange
+                :model-value="Number(modelValue[field.id] ?? field.min ?? 1)"
+                :min="field.min ?? 1"
+                :max="field.max ?? 10"
+                :step="1"
+                class="w-full"
+                @update:model-value="setField(field.id, $event)"
+              />
+              <div
+                class="flex justify-between text-[10px] uppercase tracking-wide text-gray-400 mt-0.5"
+              >
+                <span>{{ field.minLabel || 'Low' }}</span>
+                <span>{{ field.maxLabel || 'High' }}</span>
+              </div>
+            </template>
+
+            <UFormField v-else :label="field.label" :name="field.id" size="sm">
+              <UTextarea
+                :model-value="String(modelValue[field.id] ?? '')"
+                :placeholder="field.placeholder"
+                :rows="2"
+                autoresize
+                class="w-full"
+                @update:model-value="setField(field.id, $event)"
+              />
+            </UFormField>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <div class="flex justify-end gap-3 pt-2">
+    <div class="flex justify-end gap-2 pt-1">
       <UButton
         v-if="showCancel"
         type="button"
         color="neutral"
         variant="ghost"
+        size="sm"
         @click="$emit('cancel')"
       >
         Cancel
       </UButton>
-      <UButton type="submit" color="primary" size="lg" :loading="submitting" icon="i-lucide-send">
+      <UButton type="submit" color="primary" size="sm" :loading="submitting" icon="i-lucide-send">
         {{ submitLabel }}
       </UButton>
     </div>

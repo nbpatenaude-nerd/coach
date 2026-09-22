@@ -58,11 +58,43 @@ export async function getCurrentWeeklyCheckIn(athleteId: string) {
   const weekStartDate = getCheckInWeekStart(timezone)
   const form = await getActiveCheckInForm()
 
-  const checkIn = await prisma.weeklyCheckIn.findUnique({
-    where: {
-      athleteId_weekStartDate: { athleteId, weekStartDate }
-    }
-  })
+  const [checkIn, lastCompleted, latestCoachFeedback] = await Promise.all([
+    prisma.weeklyCheckIn.findUnique({
+      where: {
+        athleteId_weekStartDate: { athleteId, weekStartDate }
+      }
+    }),
+    prisma.weeklyCheckIn.findFirst({
+      where: { athleteId },
+      orderBy: { submittedAt: 'desc' },
+      select: {
+        id: true,
+        submittedAt: true,
+        weekStartDate: true,
+        status: true
+      }
+    }),
+    prisma.weeklyCheckIn.findFirst({
+      where: {
+        athleteId,
+        OR: [{ coachVideoUrl: { not: null } }, { coachNotes: { not: null } }]
+      },
+      orderBy: [
+        { coachVideoAddedAt: 'desc' },
+        { coachReviewedAt: 'desc' },
+        { submittedAt: 'desc' }
+      ],
+      select: {
+        id: true,
+        weekStartDate: true,
+        submittedAt: true,
+        coachNotes: true,
+        coachVideoUrl: true,
+        coachVideoAddedAt: true,
+        coachReviewedAt: true
+      }
+    })
+  ])
 
   const now = new Date()
   const deadline = getCheckInDeadline(weekStartDate, timezone)
@@ -75,6 +107,8 @@ export async function getCurrentWeeklyCheckIn(athleteId: string) {
   const localWeekday = localNow.getDay() // 0=Sun … 1=Mon
   const isPromptWindow = localWeekday >= 1 && localWeekday <= 2 // Mon–Tue
   const isPastDeadline = now >= deadline
+  // Athlete should act: Mon–Tue window, or overdue with nothing submitted this week.
+  const needsAction = !checkIn && (isPromptWindow || isPastDeadline)
 
   return {
     weekStartDate: weekStartKey(weekStartDate),
@@ -82,6 +116,7 @@ export async function getCurrentWeeklyCheckIn(athleteId: string) {
     deadline: deadline.toISOString(),
     isPromptWindow,
     isPastDeadline,
+    needsAction,
     form: {
       id: form.id,
       slug: form.slug,
@@ -101,6 +136,25 @@ export async function getCurrentWeeklyCheckIn(athleteId: string) {
           coachVideoUrl: checkIn.coachVideoUrl,
           coachVideoAddedAt: checkIn.coachVideoAddedAt?.toISOString() ?? null,
           coachReviewedAt: checkIn.coachReviewedAt?.toISOString() ?? null
+        }
+      : null,
+    lastCompleted: lastCompleted
+      ? {
+          id: lastCompleted.id,
+          submittedAt: lastCompleted.submittedAt.toISOString(),
+          weekStartDate: weekStartKey(lastCompleted.weekStartDate),
+          status: lastCompleted.status
+        }
+      : null,
+    latestCoachFeedback: latestCoachFeedback
+      ? {
+          id: latestCoachFeedback.id,
+          weekStartDate: weekStartKey(latestCoachFeedback.weekStartDate),
+          submittedAt: latestCoachFeedback.submittedAt.toISOString(),
+          coachNotes: latestCoachFeedback.coachNotes,
+          coachVideoUrl: latestCoachFeedback.coachVideoUrl,
+          coachVideoAddedAt: latestCoachFeedback.coachVideoAddedAt?.toISOString() ?? null,
+          coachReviewedAt: latestCoachFeedback.coachReviewedAt?.toISOString() ?? null
         }
       : null
   }

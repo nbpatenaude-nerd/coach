@@ -210,7 +210,7 @@
                 :missing-fields="missingFields"
               />
 
-              <div class="mb-8">
+              <div class="mb-4">
                 <DashboardWeeklyCheckIn />
               </div>
 
