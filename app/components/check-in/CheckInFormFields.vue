@@ -39,14 +39,16 @@
                   <span class="text-[10px] font-normal text-gray-400">/{{ field.max ?? 10 }}</span>
                 </span>
               </div>
-              <URange
-                :model-value="Number(modelValue[field.id] ?? field.min ?? 1)"
-                :min="field.min ?? 1"
-                :max="field.max ?? 10"
-                :step="1"
-                class="w-full"
-                @update:model-value="setField(field.id, $event)"
-              />
+              <div class="px-0.5">
+                <USlider
+                  :model-value="Number(modelValue[field.id] ?? field.min ?? 1)"
+                  :min="field.min ?? 1"
+                  :max="field.max ?? 10"
+                  :step="1"
+                  color="primary"
+                  @update:model-value="setField(field.id, $event)"
+                />
+              </div>
               <div
                 class="flex justify-between text-[10px] uppercase tracking-wide text-gray-400 mt-0.5"
               >
@@ -122,7 +124,8 @@
     return palette[index % palette.length]!
   }
 
-  function setField(id: string, value: string | number) {
-    emit('update:modelValue', { ...props.modelValue, [id]: value })
+  function setField(id: string, value: string | number | number[]) {
+    const next = Array.isArray(value) ? (value[0] ?? 0) : value
+    emit('update:modelValue', { ...props.modelValue, [id]: next })
   }
 </script>
