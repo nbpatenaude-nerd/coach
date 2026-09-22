@@ -20,174 +20,189 @@
       </div>
     </div>
 
-    <div v-else class="space-y-3">
-      <div
-        v-for="checkIn in checkIns"
-        :key="checkIn.id"
-        class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden"
-      >
-        <button
-          type="button"
-          class="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-gray-50/80 dark:hover:bg-gray-900/40 transition-colors"
-          @click="toggle(checkIn.id)"
-        >
-          <div class="min-w-0 flex-1">
-            <div class="flex flex-wrap items-center gap-2">
-              <h3 class="text-sm font-semibold text-gray-900 dark:text-white">
-                Week of {{ formatWeek(checkIn.weekStartDate) }}
-              </h3>
-              <UBadge
-                :color="checkIn.status === 'REVIEWED' ? 'success' : 'warning'"
-                variant="subtle"
-                size="sm"
-                :label="checkIn.status === 'REVIEWED' ? 'Reviewed' : 'Needs reply'"
-              />
-            </div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Submitted {{ formatDate(checkIn.submittedAt) }}
-              <span v-if="checkIn.coachVideoUrl"> · Video attached</span>
-            </p>
-          </div>
-          <UIcon
-            name="i-lucide-chevron-down"
-            class="w-4 h-4 text-gray-400 shrink-0 transition-transform"
-            :class="{ 'rotate-180': expanded.has(checkIn.id) }"
-          />
-        </button>
+    <div v-else class="space-y-4">
+      <CoachingCheckInTrendChart
+        v-if="showTrends"
+        :rows="checkIns"
+        title="Athlete trends"
+        subtitle="Ratings across their weekly check-ins"
+      />
 
+      <div class="space-y-3">
         <div
-          v-if="expanded.has(checkIn.id)"
-          class="px-4 pb-4 pt-3 border-t border-gray-100 dark:border-gray-800/80 space-y-4"
+          v-for="checkIn in checkIns"
+          :key="checkIn.id"
+          class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden"
         >
-          <!-- Responses -->
-          <div v-if="checkIn.form?.sections?.length" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <button
+            type="button"
+            class="w-full text-left px-4 py-3 flex items-center gap-3 hover:bg-gray-50/80 dark:hover:bg-gray-900/40 transition-colors"
+            @click="toggle(checkIn.id)"
+          >
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">
+                  Week of {{ formatWeek(checkIn.weekStartDate) }}
+                </h3>
+                <UBadge
+                  :color="checkIn.status === 'REVIEWED' ? 'success' : 'warning'"
+                  variant="subtle"
+                  size="sm"
+                  :label="checkIn.status === 'REVIEWED' ? 'Reviewed' : 'Needs reply'"
+                />
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                Submitted {{ formatDate(checkIn.submittedAt) }}
+                <span v-if="checkIn.coachVideoUrl"> · Video attached</span>
+              </p>
+            </div>
+            <UIcon
+              name="i-lucide-chevron-down"
+              class="w-4 h-4 text-gray-400 shrink-0 transition-transform"
+              :class="{ 'rotate-180': expanded.has(checkIn.id) }"
+            />
+          </button>
+
+          <div
+            v-if="expanded.has(checkIn.id)"
+            class="px-4 pb-4 pt-3 border-t border-gray-100 dark:border-gray-800/80 space-y-4"
+          >
+            <!-- Responses -->
             <div
-              v-for="section in checkIn.form.sections"
-              :key="section.key"
-              class="rounded-lg border border-gray-200/80 dark:border-gray-800 p-3 space-y-2"
+              v-if="checkIn.form?.sections?.length"
+              class="grid grid-cols-1 md:grid-cols-3 gap-3"
             >
-              <h4
-                class="text-[11px] font-semibold uppercase tracking-wider"
-                :style="{ color: sectionAccent(section.key) }"
+              <div
+                v-for="section in checkIn.form.sections"
+                :key="section.key"
+                class="rounded-lg border border-gray-200/80 dark:border-gray-800 p-3 space-y-2"
               >
-                {{ section.heading }}
-              </h4>
-              <div class="grid grid-cols-2 gap-1.5">
-                <div
-                  v-for="field in ratingFields(section)"
-                  :key="field.id"
-                  class="rounded-md bg-gray-50 dark:bg-gray-900/50 px-2 py-1.5"
+                <h4
+                  class="text-[11px] font-semibold uppercase tracking-wider"
+                  :style="{ color: sectionAccent(section.key) }"
                 >
-                  <p class="text-[10px] text-gray-500 truncate">{{ field.shortTitle }}</p>
-                  <p class="text-sm font-semibold tabular-nums">
+                  {{ section.heading }}
+                </h4>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div
+                    v-for="field in ratingFields(section)"
+                    :key="field.id"
+                    class="rounded-md bg-gray-50 dark:bg-gray-900/50 px-2 py-1.5"
+                  >
+                    <p class="text-[10px] text-gray-500 truncate">{{ field.shortTitle }}</p>
+                    <p class="text-sm font-semibold tabular-nums">
+                      {{ displayValue(checkIn.responses[field.id]) }}
+                    </p>
+                  </div>
+                </div>
+                <div v-for="field in textFields(section)" :key="field.id" class="text-xs">
+                  <p class="text-[10px] uppercase tracking-wide text-gray-400 mb-0.5">
+                    {{ field.shortTitle }}
+                  </p>
+                  <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap line-clamp-4">
                     {{ displayValue(checkIn.responses[field.id]) }}
                   </p>
                 </div>
               </div>
-              <div v-for="field in textFields(section)" :key="field.id" class="text-xs">
-                <p class="text-[10px] uppercase tracking-wide text-gray-400 mb-0.5">
-                  {{ field.shortTitle }}
-                </p>
-                <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap line-clamp-4">
-                  {{ displayValue(checkIn.responses[field.id]) }}
-                </p>
-              </div>
             </div>
-          </div>
 
-          <div v-else class="text-xs text-gray-500">
-            Responses on file, but no form definition is attached to this check-in.
-          </div>
-
-          <!-- Existing coach reply -->
-          <div
-            v-if="checkIn.coachReviewedAt && !editing[checkIn.id]"
-            class="rounded-lg border border-primary-200/70 dark:border-primary-900/50 bg-primary-50/40 dark:bg-primary-950/20 p-3 space-y-2"
-          >
-            <div class="flex items-center justify-between gap-2">
-              <p
-                class="text-xs font-semibold flex items-center gap-1.5 text-primary-900 dark:text-primary-100"
-              >
-                <UIcon name="i-lucide-video" class="w-3.5 h-3.5" />
-                Your reply
-                <span class="font-normal text-primary-700/70 dark:text-primary-300/70">
-                  · {{ formatDate(checkIn.coachReviewedAt) }}
-                </span>
-              </p>
-              <UButton size="xs" color="primary" variant="ghost" @click="startEdit(checkIn)">
-                Edit
-              </UButton>
+            <div v-else class="text-xs text-gray-500">
+              Responses on file, but no form definition is attached to this check-in.
             </div>
+
+            <!-- Existing coach reply -->
             <div
-              v-if="checkIn.coachVideoUrl"
-              class="relative w-full max-w-md aspect-video rounded-lg overflow-hidden bg-gray-900"
+              v-if="checkIn.coachReviewedAt && !editing[checkIn.id]"
+              class="rounded-lg border border-primary-200/70 dark:border-primary-900/50 bg-primary-50/40 dark:bg-primary-950/20 p-3 space-y-2"
             >
-              <iframe
-                :src="embedUrl(checkIn.coachVideoUrl)"
-                class="absolute inset-0 w-full h-full border-0"
-                allow="
-                  accelerometer;
-                  autoplay;
-                  clipboard-write;
-                  encrypted-media;
-                  gyroscope;
-                  picture-in-picture;
-                  fullscreen;
-                "
-                allowfullscreen
-              />
+              <div class="flex items-center justify-between gap-2">
+                <p
+                  class="text-xs font-semibold flex items-center gap-1.5 text-primary-900 dark:text-primary-100"
+                >
+                  <UIcon name="i-lucide-video" class="w-3.5 h-3.5" />
+                  Your reply
+                  <span class="font-normal text-primary-700/70 dark:text-primary-300/70">
+                    · {{ formatDate(checkIn.coachReviewedAt) }}
+                  </span>
+                </p>
+                <UButton size="xs" color="primary" variant="ghost" @click="startEdit(checkIn)">
+                  Edit
+                </UButton>
+              </div>
+              <div
+                v-if="checkIn.coachVideoUrl"
+                class="relative w-full max-w-md aspect-video rounded-lg overflow-hidden bg-gray-900"
+              >
+                <iframe
+                  :src="embedUrl(checkIn.coachVideoUrl)"
+                  class="absolute inset-0 w-full h-full border-0"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    fullscreen;
+                  "
+                  allowfullscreen
+                />
+              </div>
+              <p
+                v-if="checkIn.coachNotes"
+                class="text-sm text-primary-900 dark:text-primary-100 whitespace-pre-wrap"
+              >
+                {{ checkIn.coachNotes }}
+              </p>
             </div>
-            <p
-              v-if="checkIn.coachNotes"
-              class="text-sm text-primary-900 dark:text-primary-100 whitespace-pre-wrap"
-            >
-              {{ checkIn.coachNotes }}
-            </p>
-          </div>
 
-          <!-- Reply form -->
-          <div v-else class="space-y-3 rounded-lg border border-gray-200 dark:border-gray-800 p-3">
-            <p class="text-sm font-semibold text-gray-900 dark:text-white">
-              {{ checkIn.coachReviewedAt ? 'Update reply' : 'Reply to check-in' }}
-            </p>
-            <UFormField
-              label="Coach video URL"
-              hint="komodo.ai or video.trinerds.com"
-              name="videoUrl"
+            <!-- Reply form -->
+            <div
+              v-else
+              class="space-y-3 rounded-lg border border-gray-200 dark:border-gray-800 p-3"
             >
-              <UInput
-                v-model="replyDrafts[checkIn.id].videoUrl"
-                placeholder="https://komodo.ai/embed/…"
-                icon="i-lucide-video"
-              />
-            </UFormField>
-            <UFormField label="Notes" name="notes">
-              <UTextarea
-                v-model="replyDrafts[checkIn.id].notes"
-                placeholder="What you changed in their plan this week…"
-                :rows="3"
-                autoresize
-              />
-            </UFormField>
-            <div class="flex justify-end gap-2">
-              <UButton
-                v-if="editing[checkIn.id]"
-                size="sm"
-                color="neutral"
-                variant="ghost"
-                @click="cancelEdit(checkIn)"
+              <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                {{ checkIn.coachReviewedAt ? 'Update reply' : 'Reply to check-in' }}
+              </p>
+              <UFormField
+                label="Coach video URL"
+                hint="komodo.ai or video.trinerds.com"
+                name="videoUrl"
               >
-                Cancel
-              </UButton>
-              <UButton
-                size="sm"
-                color="primary"
-                icon="i-lucide-send"
-                :loading="submitting === checkIn.id"
-                @click="submitReply(checkIn)"
-              >
-                {{ checkIn.coachReviewedAt ? 'Save reply' : 'Send reply' }}
-              </UButton>
+                <UInput
+                  v-model="replyDrafts[checkIn.id].videoUrl"
+                  placeholder="https://komodo.ai/embed/…"
+                  icon="i-lucide-video"
+                />
+              </UFormField>
+              <UFormField label="Notes" name="notes">
+                <UTextarea
+                  v-model="replyDrafts[checkIn.id].notes"
+                  placeholder="What you changed in their plan this week…"
+                  :rows="3"
+                  autoresize
+                />
+              </UFormField>
+              <div class="flex justify-end gap-2">
+                <UButton
+                  v-if="editing[checkIn.id]"
+                  size="sm"
+                  color="neutral"
+                  variant="ghost"
+                  @click="cancelEdit(checkIn)"
+                >
+                  Cancel
+                </UButton>
+                <UButton
+                  size="sm"
+                  color="primary"
+                  icon="i-lucide-send"
+                  :loading="submitting === checkIn.id"
+                  @click="submitReply(checkIn)"
+                >
+                  {{ checkIn.coachReviewedAt ? 'Save reply' : 'Send reply' }}
+                </UButton>
+              </div>
             </div>
           </div>
         </div>
@@ -216,9 +231,13 @@
     } | null
   }
 
-  const props = defineProps<{
-    athleteId: string
-  }>()
+  const props = withDefaults(
+    defineProps<{
+      athleteId: string
+      showTrends?: boolean
+    }>(),
+    { showTrends: true }
+  )
 
   const loading = ref(true)
   const submitting = ref<string | null>(null)

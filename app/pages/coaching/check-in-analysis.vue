@@ -1,178 +1,224 @@
 <template>
   <div class="flex h-[calc(100vh-4rem)]">
-    <!-- Sidebar / Athlete Selector -->
-    <div class="w-64 border-r border-border bg-muted/10 p-4 flex flex-col gap-4 overflow-y-auto">
-      <h2 class="font-semibold text-foreground uppercase tracking-wider text-sm mb-2">
+    <aside
+      class="w-64 shrink-0 border-r border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950/40 p-4 flex flex-col gap-3 overflow-y-auto"
+    >
+      <h2 class="font-semibold text-gray-900 dark:text-white uppercase tracking-wider text-xs">
         Select Athlete
       </h2>
-      <div v-if="pendingAthletes" class="text-sm text-muted-foreground text-center">Loading...</div>
-      <div v-else-if="athletes?.length === 0" class="text-sm text-muted-foreground">
-        No athletes found.
-      </div>
-      <div v-else class="flex flex-col gap-2">
+      <div v-if="pendingAthletes" class="text-sm text-gray-500 text-center py-6">Loading…</div>
+      <div v-else-if="!athletes?.length" class="text-sm text-gray-500">No athletes found.</div>
+      <div v-else class="flex flex-col gap-1">
         <button
           v-for="athlete in athletes"
           :key="athlete.id"
+          type="button"
           class="flex items-center gap-3 w-full text-left p-2 rounded-lg transition-colors border"
           :class="
             selectedAthleteId === athlete.id
-              ? 'bg-primary/10 border-primary text-primary'
-              : 'bg-transparent border-transparent hover:bg-muted text-foreground'
+              ? 'bg-primary-50 dark:bg-primary-950/40 border-primary-300 dark:border-primary-800 text-primary-700 dark:text-primary-200'
+              : 'bg-transparent border-transparent hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-800 dark:text-gray-200'
           "
           @click="selectedAthleteId = athlete.id"
         >
           <div
-            class="w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-inner"
+            class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shrink-0"
             :class="
               selectedAthleteId === athlete.id
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted-foreground/20'
+                ? 'bg-primary-500 text-white'
+                : 'bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300'
             "
           >
             {{ athlete.name ? athlete.name.charAt(0).toUpperCase() : 'U' }}
           </div>
-          <div class="flex-1 overflow-hidden">
-            <div class="font-medium text-sm truncate">{{ athlete.name || 'Unnamed' }}</div>
-          </div>
+          <span class="text-sm font-medium truncate">{{ athlete.name || 'Unnamed' }}</span>
         </button>
       </div>
-    </div>
+    </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto p-6 bg-background">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 bg-white dark:bg-gray-950">
       <div
         v-if="!selectedAthleteId"
-        class="h-full flex flex-col items-center justify-center text-muted-foreground"
+        class="h-full flex flex-col items-center justify-center text-gray-500"
       >
-        <UIcon name="i-lucide-line-chart" class="w-16 h-16 mb-4 opacity-50" />
-        <p class="text-lg">Select an athlete to view Check-In Analysis</p>
+        <UIcon name="i-lucide-line-chart" class="w-14 h-14 mb-3 opacity-40" />
+        <p class="text-lg">Select an athlete to view check-in trends</p>
       </div>
 
-      <div v-else class="space-y-8">
-        <div>
-          <h1 class="text-3xl font-bold tracking-tight text-foreground">The Road of Trials</h1>
-          <p class="text-muted-foreground mt-1">Check-in metrics and analysis over time.</p>
+      <div v-else class="space-y-6 max-w-6xl">
+        <div class="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              The Road of Trials
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              Weekly check-in metrics for
+              {{ selectedAthleteName }}
+            </p>
+          </div>
+          <UButton
+            size="sm"
+            color="neutral"
+            variant="ghost"
+            icon="i-lucide-refresh-cw"
+            :loading="pendingCheckins"
+            @click="refreshCheckins()"
+          >
+            Refresh
+          </UButton>
+        </div>
+
+        <div v-if="pendingCheckins" class="py-16 flex flex-col items-center text-gray-500 gap-3">
+          <UIcon name="i-lucide-loader-2" class="w-8 h-8 animate-spin text-primary-500" />
+          <p>Loading check-ins…</p>
         </div>
 
         <div
-          v-if="pendingCheckins"
-          class="p-12 text-center text-muted-foreground flex flex-col items-center"
+          v-else-if="!checkIns.length"
+          class="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 px-6 py-12 text-center text-gray-500"
         >
-          <UIcon name="i-lucide-loader-2" class="w-8 h-8 animate-spin mb-4 text-primary" />
-          <p>Loading check-ins...</p>
+          <UIcon name="i-lucide-inbox" class="w-10 h-10 mx-auto mb-2 opacity-50" />
+          <p>No weekly check-ins for this athlete yet.</p>
         </div>
 
-        <div
-          v-else-if="!checkins || checkins.length === 0"
-          class="bg-card border border-border rounded-xl p-8 text-center text-muted-foreground shadow-sm"
-        >
-          <UIcon name="i-lucide-inbox" class="w-12 h-12 mb-3 mx-auto opacity-50" />
-          <p>No check-ins found for this athlete.</p>
-        </div>
+        <template v-else>
+          <CoachingCheckInTrendChart :rows="checkIns" />
 
-        <div v-else class="space-y-6">
-          <!-- Submission History -->
-          <div class="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-            <div class="p-4 border-b border-border bg-muted/20">
-              <h2 class="font-semibold text-lg text-foreground">Recent Submissions</h2>
+          <div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+            <div
+              class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between"
+            >
+              <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                Recent submissions
+              </h2>
+              <span class="text-xs text-gray-500">{{ checkIns.length }}</span>
             </div>
-            <div class="divide-y divide-border">
-              <div v-for="checkin in checkins" :key="checkin.id" class="p-4">
-                <div class="flex justify-between items-center mb-3">
-                  <span class="font-medium text-foreground"
-                    >Submitted {{ new Date(checkin.createdAt).toLocaleDateString() }}</span
-                  >
+            <div class="divide-y divide-gray-100 dark:divide-gray-800">
+              <div
+                v-for="row in checkInsNewestFirst"
+                :key="row.id"
+                class="px-4 py-3 flex flex-wrap items-center justify-between gap-2"
+              >
+                <div>
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">
+                    Week of {{ formatWeek(row.weekStartDate) }}
+                  </p>
+                  <p class="text-xs text-gray-500 mt-0.5">
+                    Submitted {{ formatDate(row.submittedAt) }}
+                    <span v-if="row.status === 'REVIEWED'"> · Reviewed</span>
+                    <span v-else-if="row.coachVideoUrl"> · Video attached</span>
+                  </p>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
                   <span
-                    class="text-xs font-semibold text-muted-foreground bg-muted px-2 py-1 rounded-full uppercase tracking-wider"
+                    v-for="stat in previewRatings(row)"
+                    :key="stat.id"
+                    class="inline-flex items-center gap-1 rounded-md bg-gray-50 dark:bg-gray-900 px-2 py-1 text-[11px] tabular-nums"
                   >
-                    {{ new Date(checkin.createdAt).toLocaleString() }}
+                    <span class="text-gray-400">{{ stat.label }}</span>
+                    <span class="font-semibold text-gray-800 dark:text-gray-100">{{
+                      stat.value
+                    }}</span>
                   </span>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-                  <div class="bg-background rounded-lg p-3 border border-border">
-                    <p class="text-xs text-muted-foreground mb-1">Fatigue</p>
-                    <p class="font-bold text-foreground">
-                      {{ checkin.personalFatigue || '--' }}/10
-                    </p>
-                  </div>
-                  <div class="bg-background rounded-lg p-3 border border-border">
-                    <p class="text-xs text-muted-foreground mb-1">Stress</p>
-                    <p class="font-bold text-foreground">{{ checkin.wellnessStress || '--' }}/10</p>
-                  </div>
-                  <div class="bg-background rounded-lg p-3 border border-border">
-                    <p class="text-xs text-muted-foreground mb-1">Sleep Quality</p>
-                    <p class="font-bold text-foreground">{{ checkin.wellnessSleep || '--' }}/10</p>
-                  </div>
-                  <div class="bg-background rounded-lg p-3 border border-border">
-                    <p class="text-xs text-muted-foreground mb-1">Nutrition</p>
-                    <p class="font-bold text-foreground">
-                      {{ checkin.trainingNutrition || '--' }}/10
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  v-if="
-                    checkin.personalNotes ||
-                    checkin.personalChallenges ||
-                    checkin.personalHighlights ||
-                    checkin.wellnessInjury ||
-                    checkin.wellnessPain
-                  "
-                  class="mt-4 bg-muted/30 p-4 rounded-lg space-y-3 border border-border/50"
-                >
-                  <div v-if="checkin.personalNotes">
-                    <p class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider">Notes</p>
-                    <p class="text-sm text-foreground whitespace-pre-wrap">{{ checkin.personalNotes }}</p>
-                  </div>
-                  <div v-if="checkin.personalChallenges">
-                    <p class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider">Challenges</p>
-                    <p class="text-sm text-foreground whitespace-pre-wrap">{{ checkin.personalChallenges }}</p>
-                  </div>
-                  <div v-if="checkin.personalHighlights">
-                    <p class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider">Highlights</p>
-                    <p class="text-sm text-foreground whitespace-pre-wrap">{{ checkin.personalHighlights }}</p>
-                  </div>
-                  <div v-if="checkin.wellnessInjury">
-                    <p class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider">Injuries</p>
-                    <p class="text-sm text-foreground whitespace-pre-wrap">{{ checkin.wellnessInjury }}</p>
-                  </div>
-                  <div v-if="checkin.wellnessPain">
-                    <p class="text-xs text-muted-foreground mb-1 uppercase font-bold tracking-wider">Pain</p>
-                    <p class="text-sm text-foreground whitespace-pre-wrap">{{ checkin.wellnessPain }}</p>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+
+          <div>
+            <h2 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+              Reply &amp; video feedback
+            </h2>
+            <CoachingAthleteCheckIns :athlete-id="selectedAthleteId" :show-trends="false" />
+          </div>
+        </template>
       </div>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
+  import {
+    checkInNumericFields,
+    checkInNumericValue,
+    resolveCheckInFormFromRows,
+    type CheckInResponses
+  } from '~~/shared/check-in'
 
   definePageMeta({
     middleware: ['auth', 'coach'] as any
   })
 
-  // We are fetching athletes for the current coach (or all if admin)
-  const { data: athletes, pending: pendingAthletes } = await useFetch<any[]>('/api/coaching/crm/athletes')
+  interface AthleteRow {
+    id: string
+    name?: string | null
+  }
+
+  interface CheckInRow {
+    id: string
+    weekStartDate: string
+    submittedAt: string
+    status: string
+    responses: CheckInResponses
+    coachVideoUrl: string | null
+    form: { sections: any[] } | null
+  }
+
+  const { data: athletes, pending: pendingAthletes } = await useFetch<AthleteRow[]>(
+    '/api/coaching/crm/athletes'
+  )
   const selectedAthleteId = ref<string | null>(null)
 
-  const { data: checkinsResponse, pending: pendingCheckins, refresh: refreshCheckins } = await useFetch<any>(() => selectedAthleteId.value ? `/api/coaching/athletes/${selectedAthleteId.value}/legacy-check-ins` : '', {
-    immediate: false,
-    lazy: true
-  })
-
-  const checkins = computed(() => checkinsResponse.value?.data || [])
-
-  watch(selectedAthleteId, (newId) => {
-    if (newId) {
-      refreshCheckins()
+  const {
+    data: checkInsData,
+    pending: pendingCheckins,
+    refresh: refreshCheckins
+  } = await useFetch<CheckInRow[]>(
+    () =>
+      selectedAthleteId.value ? `/api/coaching/athletes/${selectedAthleteId.value}/check-ins` : '',
+    {
+      immediate: false,
+      lazy: true
     }
+  )
+
+  const checkIns = computed(() => checkInsData.value ?? [])
+  const checkInsNewestFirst = computed(() => checkIns.value)
+
+  const selectedAthleteName = computed(() => {
+    const a = athletes.value?.find((x) => x.id === selectedAthleteId.value)
+    return a?.name || 'this athlete'
   })
+
+  watch(selectedAthleteId, (id) => {
+    if (id) refreshCheckins()
+  })
+
+  function formatWeek(isoDate: string) {
+    return new Date(`${isoDate}T12:00:00`).toLocaleDateString(undefined, {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    })
+  }
+
+  function formatDate(iso: string) {
+    return new Date(iso).toLocaleDateString(undefined, {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
+    })
+  }
+
+  function previewRatings(row: CheckInRow) {
+    const form = resolveCheckInFormFromRows([row])
+    return checkInNumericFields(form)
+      .slice(0, 4)
+      .map((field) => ({
+        id: field.id,
+        label: field.shortTitle,
+        value: checkInNumericValue(row.responses[field.id]) ?? '—'
+      }))
+  }
 </script>

@@ -475,3 +475,99 @@ export function coachVideoEmbedUrl(url: string): string {
   }
   return url
 }
+
+/** Minimal submission shape needed for coach/athlete trend charts. */
+export interface CheckInChartRow {
+  weekStartDate: string
+  submittedAt: string
+  responses: CheckInResponses
+  form?: { sections: CheckInSection[] } | null
+}
+
+export interface CheckInFieldStat {
+  fieldId: string
+  label: string
+  shortTitle: string
+  avg: number
+  min: number
+  max: number
+  color: string
+  sampleCount: number
+}
+
+export type CheckInTimelinePoint = {
+  weekStartDate: string
+  label: string
+} & Record<string, string | number | null>
+
+/** Prefer the newest row that carries form sections; otherwise the seeded default. */
+export function resolveCheckInFormFromRows(
+  rows: CheckInChartRow[],
+  fallback: CheckInFormDefinition = DEFAULT_CHECK_IN_FORM
+): CheckInFormDefinition {
+  for (const row of rows) {
+    if (row.form?.sections?.length) {
+      return { sections: row.form.sections }
+    }
+  }
+  return fallback
+}
+
+/**
+ * Per-field avg/min/max across submissions, for the coach “stat strip”.
+ * Only numeric/rating fields are included.
+ */
+export function aggregateCheckInFieldStats(
+  rows: CheckInChartRow[],
+  form: CheckInFormDefinition = resolveCheckInFormFromRows(rows)
+): CheckInFieldStat[] {
+  const numeric = checkInNumericFields(form)
+  return numeric.map((field) => {
+    const values: number[] = []
+    for (const row of rows) {
+      const n = checkInNumericValue(row.responses[field.id])
+      if (n !== null) values.push(n)
+    }
+    const avg = values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0
+    return {
+      fieldId: field.id,
+      label: field.label,
+      shortTitle: field.shortTitle,
+      avg,
+      min: values.length ? Math.min(...values) : 0,
+      max: values.length ? Math.max(...values) : 0,
+      color: checkInFieldColor(form, field.id),
+      sampleCount: values.length
+    }
+  })
+}
+
+/**
+ * Chronological points keyed by field id for a multi-series line chart.
+ * Sorted oldest → newest by weekStartDate (fallback submittedAt).
+ */
+export function buildCheckInTimeline(
+  rows: CheckInChartRow[],
+  form: CheckInFormDefinition = resolveCheckInFormFromRows(rows)
+): CheckInTimelinePoint[] {
+  const numeric = checkInNumericFields(form)
+  const sorted = [...rows].sort((a, b) => {
+    const ak = a.weekStartDate || a.submittedAt
+    const bk = b.weekStartDate || b.submittedAt
+    return ak.localeCompare(bk)
+  })
+
+  return sorted.map((row) => {
+    const labelDate = row.weekStartDate
+      ? new Date(`${row.weekStartDate}T12:00:00`)
+      : new Date(row.submittedAt)
+    const point: CheckInTimelinePoint = {
+      weekStartDate: row.weekStartDate,
+      label: labelDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+    }
+    for (const field of numeric) {
+      point[field.id] = checkInNumericValue(row.responses[field.id])
+    }
+    return point
+  })
+}

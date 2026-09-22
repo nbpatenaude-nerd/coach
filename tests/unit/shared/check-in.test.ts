@@ -10,7 +10,9 @@ import {
   weekStartKey,
   validateCheckInResponses,
   isAllowedCoachVideoUrl,
-  coachVideoEmbedUrl
+  coachVideoEmbedUrl,
+  buildCheckInTimeline,
+  aggregateCheckInFieldStats
 } from '../../../shared/check-in'
 
 describe('shared/check-in form contract', () => {
@@ -100,5 +102,42 @@ describe('coach video URL helpers', () => {
       'https://komodo.ai/embed/abc'
     )
     expect(coachVideoEmbedUrl('https://komodo.ai/embed/abc')).toBe('https://komodo.ai/embed/abc')
+  })
+})
+
+describe('check-in trend aggregation', () => {
+  const rows = [
+    {
+      weekStartDate: '2026-09-07',
+      submittedAt: '2026-09-08T12:00:00Z',
+      responses: { training_load: 4, personal_fatigue: 6 } as Record<string, number>
+    },
+    {
+      weekStartDate: '2026-09-14',
+      submittedAt: '2026-09-15T12:00:00Z',
+      responses: { training_load: 6, personal_fatigue: 4 } as Record<string, number>
+    },
+    {
+      weekStartDate: '2026-09-21',
+      submittedAt: '2026-09-22T12:00:00Z',
+      responses: { training_load: 8, personal_fatigue: 3 } as Record<string, number>
+    }
+  ]
+
+  it('builds chronological timeline points', () => {
+    const timeline = buildCheckInTimeline(rows, DEFAULT_CHECK_IN_FORM)
+    expect(timeline).toHaveLength(3)
+    expect(timeline[0]!.weekStartDate).toBe('2026-09-07')
+    expect(timeline[2]!.training_load).toBe(8)
+    expect(timeline[1]!.personal_fatigue).toBe(4)
+  })
+
+  it('averages field stats across submissions', () => {
+    const stats = aggregateCheckInFieldStats(rows, DEFAULT_CHECK_IN_FORM)
+    const load = stats.find((s) => s.fieldId === 'training_load')!
+    expect(load.avg).toBeCloseTo(6)
+    expect(load.min).toBe(4)
+    expect(load.max).toBe(8)
+    expect(load.sampleCount).toBe(3)
   })
 })
