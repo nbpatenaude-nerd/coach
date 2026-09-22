@@ -114,7 +114,11 @@ export default defineNuxtConfig({
       titleTemplate: '%s - Journey Endurance',
       title: 'Journey Endurance',
       meta: [
-        { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover' },
+        {
+          name: 'viewport',
+          content:
+            'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'
+        },
         {
           name: 'description',
           content: 'Journey Endurance: Trinerds AI endurance coaching platform.'
@@ -268,7 +272,10 @@ export default defineNuxtConfig({
     imports: {
       imports: [
         {
-          from: fileURLToPath(new URL('./server/utils/define-route-meta', import.meta.url)).replace(/\\/g, '/'),
+          from: fileURLToPath(new URL('./server/utils/define-route-meta', import.meta.url)).replace(
+            /\\/g,
+            '/'
+          ),
           name: 'defineRouteMeta',
           priority: 100
         }
@@ -279,7 +286,11 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
-    baseURL: process.env.NUXT_AUTH_ORIGIN ? `${process.env.NUXT_AUTH_ORIGIN}/api/auth` : '/api/auth',
+    // Always relative. An absolute baseURL (e.g. https://*.up.railway.app/api/auth)
+    // makes server-side /session fetch itself via the public proxy and recurses
+    // (Sidebase: "Recursion detected at /session"). OAuth callback URLs still come
+    // from runtimeConfig.authOrigin / NUXT_AUTH_ORIGIN.
+    baseURL: '/api/auth',
     originEnvKey: 'NUXT_AUTH_ORIGIN_UNUSED',
     provider: {
       type: 'authjs'
@@ -291,7 +302,8 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    authOrigin: process.env.NUXT_AUTH_ORIGIN || 'http://localhost:3099',
+    authOrigin:
+      process.env.NUXT_AUTH_ORIGIN || process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3099',
     // E2E stack must exercise real auth redirects; ignore local AUTH_BYPASS_USER.
     authBypassEnabled: process.env.E2E_MODE === 'true' ? false : !!process.env.AUTH_BYPASS_USER,
     authBypassUser: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_USER || '',
