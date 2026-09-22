@@ -210,10 +210,6 @@
                 :missing-fields="missingFields"
               />
 
-              <div class="mb-4">
-                <DashboardWeeklyCheckIn />
-              </div>
-
               <!-- Row 1: Athlete Profile / Today's Training / Performance Overview & Comparison -->
               <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8 items-stretch">
                 <!-- Athlete Profile Card - shown when connected -->
@@ -470,6 +466,9 @@
 
   <!-- Daily Check-in Modal -->
   <DashboardDailyCheckinModal v-model:open="showCheckinModal" />
+
+  <!-- Weekly Check-in Modal -->
+  <DashboardWeeklyCheckIn v-model:open="showWeeklyCheckinModal" />
 
   <!-- Share Journey Endurance Modal -->
   <DashboardShareCoachWattsModal v-model:open="showShareCoachWattsModal" />
@@ -853,15 +852,24 @@
     showCheckinModal.value = true
   }
 
+  // Weekly Check-in Modal (sidebar → focus=weekly-checkin)
+  const showWeeklyCheckinModal = ref(false)
+  function openWeeklyCheckinModal() {
+    trackWidgetClick('dashboard', 'open_weekly_checkin')
+    showWeeklyCheckinModal.value = true
+  }
+
   watch(
     () => route.query.focus,
     async (focus) => {
-      if (focus !== 'checkin' && focus !== 'wellness') return
+      if (focus !== 'checkin' && focus !== 'wellness' && focus !== 'weekly-checkin') return
 
       if (focus === 'checkin') {
         openCheckinModal()
-      } else {
+      } else if (focus === 'wellness') {
         openWellnessModal()
+      } else {
+        openWeeklyCheckinModal()
       }
 
       const nextQuery = { ...route.query }

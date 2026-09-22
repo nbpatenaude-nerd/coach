@@ -183,7 +183,7 @@
                   autoresize
                 />
               </UFormField>
-              <div class="flex justify-end gap-2">
+              <div class="flex flex-wrap justify-end gap-2">
                 <UButton
                   v-if="editing[checkIn.id]"
                   size="sm"
@@ -192,6 +192,16 @@
                   @click="cancelEdit(checkIn)"
                 >
                   Cancel
+                </UButton>
+                <UButton
+                  size="sm"
+                  color="neutral"
+                  variant="soft"
+                  icon="i-lucide-sparkles"
+                  :loading="drafting === checkIn.id"
+                  @click="suggestDraft(checkIn)"
+                >
+                  Suggest reply
                 </UButton>
                 <UButton
                   size="sm"
@@ -241,6 +251,7 @@
 
   const loading = ref(true)
   const submitting = ref<string | null>(null)
+  const drafting = ref<string | null>(null)
   const error = ref<string | null>(null)
   const checkIns = ref<CoachCheckInRow[]>([])
   const expanded = ref(new Set<string>())
@@ -334,6 +345,42 @@
       error.value = err?.data?.message || err?.message || 'Failed to fetch check-ins'
     } finally {
       loading.value = false
+    }
+  }
+
+  async function suggestDraft(checkIn: CoachCheckInRow) {
+    ensureDraft(checkIn)
+    const existing = replyDrafts.value[checkIn.id]?.notes?.trim()
+    if (existing) {
+      const ok = window.confirm('Replace your current notes with an AI draft?')
+      if (!ok) return
+    }
+
+    drafting.value = checkIn.id
+    try {
+      const res = await $fetch<{ draftNotes: string }>(
+        `/api/coaching/check-ins/${checkIn.id}/draft-reply`,
+        { method: 'POST' }
+      )
+      replyDrafts.value[checkIn.id] = {
+        ...replyDrafts.value[checkIn.id],
+        notes: res.draftNotes
+      }
+      toast.add({
+        title: 'Draft ready',
+        description: 'Review and edit before sending — nothing was saved yet.',
+        color: 'success',
+        icon: 'i-lucide-sparkles'
+      })
+    } catch (err: any) {
+      toast.add({
+        title: 'Could not generate draft',
+        description: err?.data?.message || err?.message || 'Please try again.',
+        color: 'error',
+        icon: 'i-lucide-alert-circle'
+      })
+    } finally {
+      drafting.value = null
     }
   }
 

@@ -1,21 +1,11 @@
 import { requireAuth } from '../../../utils/auth-guard'
-import { prisma } from '../../../utils/db'
+import { listCommunityEventsForUser } from '../../../utils/community-events'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
 
   try {
-    const events = await prisma.event.findMany({
-      where: { 
-        isPublic: true 
-      },
-      orderBy: { date: 'asc' },
-      include: { 
-        EventParticipant: true 
-      }
-    })
-
-    return events
+    return await listCommunityEventsForUser(user.id)
   } catch (error) {
     console.error('Error fetching community events:', error)
     throw createError({

@@ -7,12 +7,21 @@
           Your weekly self-reports and coach video feedback.
         </p>
       </div>
-      <UButton to="/dashboard" color="neutral" variant="ghost" icon="i-lucide-arrow-left">
-        Dashboard
-      </UButton>
+      <div class="flex flex-wrap items-center gap-2">
+        <UButton
+          color="primary"
+          icon="i-lucide-clipboard-list"
+          @click="showWeeklyCheckinModal = true"
+        >
+          This week’s check-in
+        </UButton>
+        <UButton to="/dashboard" color="neutral" variant="ghost" icon="i-lucide-arrow-left">
+          Dashboard
+        </UButton>
+      </div>
     </div>
 
-    <DashboardWeeklyCheckIn />
+    <DashboardWeeklyCheckIn v-model:open="showWeeklyCheckinModal" />
 
     <UCard>
       <template #header>
@@ -121,6 +130,7 @@
   }
 
   const expanded = ref(new Set<string>())
+  const showWeeklyCheckinModal = ref(false)
 
   const { data, pending, refresh } = await useFetch<{ data: HistoryRow[] }>(
     '/api/check-ins/history',

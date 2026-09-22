@@ -543,6 +543,76 @@ export function aggregateCheckInFieldStats(
 }
 
 /**
+ * Human-readable check-in answers for LLM coach-draft prompts.
+ * Blank answers are included as `(blank)` so the model knows what's missing.
+ */
+export function formatCheckInResponsesForPrompt(
+  form: CheckInFormDefinition,
+  responses: CheckInResponses
+): string {
+  const blocks: string[] = []
+
+  for (const section of form.sections) {
+    const lines: string[] = [`### ${section.heading}`]
+    for (const field of section.fields) {
+      const raw = responses[field.id]
+      if (raw === null || raw === undefined || raw === '') {
+        lines.push(`- ${field.label}: (blank)`)
+        continue
+      }
+      if (field.type === 'rating' || field.type === 'number') {
+        const max = field.max ?? CHECK_IN_RATING_MAX
+        const directionHint = field.direction ? ` [${field.direction}]` : ''
+        lines.push(`- ${field.label}: ${raw}/${max}${directionHint}`)
+      } else {
+        lines.push(`- ${field.label}: ${String(raw)}`)
+      }
+    }
+    blocks.push(lines.join('\n'))
+  }
+
+  return blocks.join('\n\n').trim()
+}
+
+/**
+ * Flag ratings near the "bad" end of their scale for draft emphasis.
+ * Neutral fields: flag both extremes (≤3 or ≥8 on a 1–10 scale).
+ */
+export function listCheckInOutliers(
+  form: CheckInFormDefinition,
+  responses: CheckInResponses,
+  options: { lowThreshold?: number; highThreshold?: number } = {}
+): string[] {
+  const low = options.lowThreshold ?? 3
+  const high = options.highThreshold ?? 8
+  const flags: string[] = []
+
+  for (const field of checkInNumericFields(form)) {
+    const value = checkInNumericValue(responses[field.id])
+    if (value === null) continue
+    const min = field.min ?? CHECK_IN_RATING_MIN
+    const max = field.max ?? CHECK_IN_RATING_MAX
+    // Scale thresholds to the field's range.
+    const span = max - min
+    const lowCut =
+      min + (span * (low - CHECK_IN_RATING_MIN)) / (CHECK_IN_RATING_MAX - CHECK_IN_RATING_MIN)
+    const highCut =
+      min + (span * (high - CHECK_IN_RATING_MIN)) / (CHECK_IN_RATING_MAX - CHECK_IN_RATING_MIN)
+
+    if (field.direction === 'higher_is_better' && value <= lowCut) {
+      flags.push(`${field.label} is low (${value}/${max})`)
+    } else if (field.direction === 'lower_is_better' && value >= highCut) {
+      flags.push(`${field.label} is elevated (${value}/${max})`)
+    } else if (field.direction === 'neutral' || !field.direction) {
+      if (value <= lowCut) flags.push(`${field.label} is low (${value}/${max})`)
+      else if (value >= highCut) flags.push(`${field.label} is high (${value}/${max})`)
+    }
+  }
+
+  return flags
+}
+
+/**
  * Chronological points keyed by field id for a multi-series line chart.
  * Sorted oldest → newest by weekStartDate (fallback submittedAt).
  */

@@ -221,6 +221,9 @@ model User {
   CrmTask                            CrmTask[]
   EventMessage                       EventMessage[]
   EventParticipant                   EventParticipant[]
+  TeamEventCreated                   TeamEvent[]                     @relation("TeamEventCreatedBy")
+  TeamEventPinned                    TeamEvent[]                     @relation("TeamEventPinnedBy")
+  TeamEventParticipant               TeamEventParticipant[]
   MeetingType                        MeetingType[]
   WeeklyCheckIn                      WeeklyCheckIn[]
 
@@ -607,7 +610,10 @@ model Event {
   startTime        String?
   syncStatus       String?            @default("SYNCED")
   syncError        String?
+  /// Canonical Team Calendar row when this personal event is linked to a shared race.
+  teamEventId      String?
   user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamEvent        TeamEvent?         @relation(fields: [teamEventId], references: [id], onDelete: SetNull)
   goals            Goal[]             @relation("EventToGoal")
   EventMessage     EventMessage[]
   EventParticipant EventParticipant[]
@@ -615,6 +621,8 @@ model Event {
   @@unique([userId, source, externalId])
   @@index([userId])
   @@index([date])
+  @@index([teamEventId])
+  @@index([isPublic, date])
 }
 
 model Account {
@@ -2940,6 +2948,61 @@ model EventParticipant {
 
   @@unique([eventId, userId])
   @@index([userId])
+}
+
+/// Canonical shared race on the Team Calendar. Personal `Event` rows link via teamEventId.
+model TeamEvent {
+  id                String                 @id @default(uuid())
+  title             String
+  description       String?
+  date              DateTime
+  startTime         String?
+  type              String?
+  subType           String?
+  distance          Float?
+  elevation         Int?
+  expectedDuration  Float?
+  terrain           String?
+  city              String?
+  country           String?
+  location          String?
+  isVirtual         Boolean                @default(false)
+  websiteUrl        String?
+  /// FULL = all details visible; SUMMARY = title/date/(optional city) only on Team Calendar.
+  shareLevel        TeamEventShareLevel    @default(FULL)
+  hideAttendeeNames Boolean                @default(false)
+  isPinned          Boolean                @default(false)
+  pinnedAt          DateTime?
+  pinnedById        String?
+  createdById       String
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  createdBy         User                   @relation("TeamEventCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+  pinnedBy          User?                  @relation("TeamEventPinnedBy", fields: [pinnedById], references: [id], onDelete: SetNull)
+  events            Event[]
+  participants      TeamEventParticipant[]
+
+  @@index([date])
+  @@index([isPinned, date])
+  @@index([createdById])
+}
+
+model TeamEventParticipant {
+  id          String    @id @default(uuid())
+  teamEventId String
+  userId      String
+  priority    String?   @default("B")
+  createdAt   DateTime  @default(now())
+  teamEvent   TeamEvent @relation(fields: [teamEventId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamEventId, userId])
+  @@index([userId])
+}
+
+enum TeamEventShareLevel {
+  FULL
+  SUMMARY
 }
 
 model MeetingType {

@@ -55,17 +55,35 @@
       </UFormField>
 
       <!-- Options -->
-      <div class="flex items-center gap-6 pt-4">
-        <UCheckbox
-          v-model="state.isVirtual"
-          label="Virtual Event"
-          :ui="{ label: 'whitespace-nowrap' }"
-        />
-        <UCheckbox
-          v-model="state.isPublic"
-          label="Public Event"
-          :ui="{ label: 'whitespace-nowrap' }"
-        />
+      <div class="flex flex-col gap-3 pt-4 md:col-span-2">
+        <div class="flex flex-wrap items-center gap-6">
+          <UCheckbox
+            v-model="state.isVirtual"
+            label="Virtual Event"
+            :ui="{ label: 'whitespace-nowrap' }"
+          />
+          <UCheckbox
+            v-model="state.isPublic"
+            label="Share on Team Calendar"
+            :ui="{ label: 'whitespace-nowrap' }"
+          />
+        </div>
+        <div
+          v-if="state.isPublic"
+          class="rounded-lg border border-gray-200 dark:border-gray-800 p-3 space-y-3 bg-gray-50/80 dark:bg-gray-900/40"
+        >
+          <UFormField label="What teammates see" name="shareLevel">
+            <USelect
+              v-model="state.shareLevel"
+              :items="shareLevelOptions"
+              class="w-full max-w-md"
+            />
+          </UFormField>
+          <UCheckbox
+            v-model="state.hideAttendeeNames"
+            label="Hide attendee names on Team Calendar"
+          />
+        </div>
       </div>
     </div>
 
@@ -141,10 +159,69 @@
       />
     </div>
   </UForm>
+
+  <UModal v-model:open="showMatchModal" title="Teammates already doing this?">
+    <template #body>
+      <div class="space-y-4">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          We found similar events on the Team Calendar. Join one to share the attendee list, or
+          create yours separately.
+        </p>
+        <div class="space-y-2">
+          <button
+            v-for="match in matchCandidates"
+            :key="match.id"
+            type="button"
+            class="w-full text-left rounded-lg border p-3 transition-colors"
+            :class="
+              selectedMatchId === match.id
+                ? 'border-primary bg-primary/5'
+                : 'border-gray-200 dark:border-gray-800 hover:border-primary/40'
+            "
+            @click="selectedMatchId = match.id"
+          >
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">{{ match.title }}</p>
+                <p class="text-xs text-gray-500 mt-0.5">
+                  {{ formatMatchDate(match.date) }}
+                  <span v-if="match.city"> · {{ match.city }}</span>
+                </p>
+              </div>
+              <div class="text-right shrink-0">
+                <UBadge v-if="match.isPinned" color="warning" variant="subtle" size="xs"
+                  >Pinned</UBadge
+                >
+                <p class="text-xs text-gray-500 mt-1">{{ match.attendeeCount }} attending</p>
+                <p class="text-[10px] text-gray-400">{{ Math.round(match.score * 100) }}% match</p>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </template>
+    <template #footer>
+      <div class="flex flex-wrap justify-end gap-2 w-full">
+        <UButton color="neutral" variant="ghost" @click="showMatchModal = false">Cancel</UButton>
+        <UButton color="neutral" variant="soft" :loading="loading" @click="createSeparately">
+          Create separately
+        </UButton>
+        <UButton
+          color="primary"
+          :disabled="!selectedMatchId"
+          :loading="loading"
+          @click="joinSelectedMatch"
+        >
+          Join selected
+        </UButton>
+      </div>
+    </template>
+  </UModal>
 </template>
 
 <script setup lang="ts">
   import { z } from 'zod'
+  import type { CommunityEventMatchCandidate } from '~~/shared/community-events'
 
   const props = defineProps<{
     initialData?: any
@@ -154,7 +231,11 @@
 
   const loading = ref(false)
   const toast = useToast()
-  const { getUserLocalDate, getUserDateFromLocal, formatUserDate, timezone } = useFormat()
+  const { getUserLocalDate, formatUserDate, timezone } = useFormat()
+
+  const showMatchModal = ref(false)
+  const matchCandidates = ref<CommunityEventMatchCandidate[]>([])
+  const selectedMatchId = ref<string | null>(null)
 
   const state = reactive({
     title: '',
@@ -174,8 +255,15 @@
     terrain: 'Rolling',
     isVirtual: false,
     isPublic: false,
+    shareLevel: 'FULL' as 'FULL' | 'SUMMARY',
+    hideAttendeeNames: false,
     goalIds: [] as string[]
   })
+
+  const shareLevelOptions = [
+    { label: 'Full details (course, links, description)', value: 'FULL' },
+    { label: 'Title & date only', value: 'SUMMARY' }
+  ]
 
   const isEditing = computed(() => !!props.initialData)
 
@@ -203,10 +291,10 @@
         state.terrain = newData.terrain || 'Rolling'
         state.isVirtual = newData.isVirtual || false
         state.isPublic = newData.isPublic || false
-        // Handle goals if they come as objects
+        state.shareLevel = newData.shareLevel || 'FULL'
+        state.hideAttendeeNames = newData.hideAttendeeNames || false
         state.goalIds = newData.goals ? newData.goals.map((g: any) => g.id || g) : []
       } else {
-        // Reset to defaults
         state.title = ''
         state.description = ''
         state.date = getUserLocalDate().toISOString().split('T')[0]
@@ -224,6 +312,8 @@
         state.terrain = 'Rolling'
         state.isVirtual = false
         state.isPublic = false
+        state.shareLevel = 'FULL'
+        state.hideAttendeeNames = false
         state.goalIds = []
       }
     },
@@ -285,13 +375,10 @@
     return subTypesByMainType[state.type] || subTypesByMainType['Other']
   })
 
-  // Watch type change to reset subType if not compatible
   watch(
     () => state.type,
     (newType) => {
       if (!newType) return
-      // Only reset if not editing or if type actually changed by user interaction
-      // We check if current subType is valid for new type
       const options = subTypesByMainType[newType] || []
       if (!options.find((o) => o.value === state.subType)) {
         state.subType = options[0]?.value || ''
@@ -322,36 +409,114 @@
     }
   }
 
+  function buildEventDateIso() {
+    const [year, month, day] = state.date.split('-').map(Number)
+    if (year === undefined || month === undefined || day === undefined) {
+      throw new Error('Invalid date format')
+    }
+    return new Date(Date.UTC(year, month - 1, day)).toISOString()
+  }
+
+  function formatMatchDate(iso: string) {
+    return new Date(iso).toLocaleDateString(undefined, {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric'
+    })
+  }
+
+  async function saveEvent(extra: Record<string, unknown> = {}) {
+    const payload = {
+      ...state,
+      date: buildEventDateIso(),
+      ...extra
+    }
+
+    if (isEditing.value && props.initialData?.id) {
+      await $fetch(`/api/events/${props.initialData.id}`, {
+        method: 'PUT',
+        body: payload
+      })
+    } else {
+      await $fetch('/api/events', {
+        method: 'POST',
+        body: payload
+      })
+    }
+    showMatchModal.value = false
+    emit('success')
+  }
+
   async function onSubmit() {
     if (!state.date) return
 
     loading.value = true
     try {
-      const [year, month, day] = state.date.split('-').map(Number)
-      if (year === undefined || month === undefined || day === undefined) {
-        throw new Error('Invalid date format')
-      }
-      const eventDate = new Date(Date.UTC(year, month - 1, day)).toISOString()
+      if (!isEditing.value) {
+        const { matches } = await $fetch<{ matches: CommunityEventMatchCandidate[] }>(
+          '/api/community/events/match',
+          {
+            method: 'POST',
+            body: {
+              title: state.title,
+              date: buildEventDateIso(),
+              city: state.city || null,
+              location: state.location || null,
+              country: state.country || null
+            }
+          }
+        )
 
-      const payload = {
-        ...state,
-        date: eventDate
+        if (matches.length > 0) {
+          matchCandidates.value = matches
+          selectedMatchId.value = matches[0]?.id ?? null
+          showMatchModal.value = true
+          return
+        }
       }
 
-      if (isEditing.value && props.initialData?.id) {
-        await $fetch<any, string & {}>(`/api/events/${props.initialData.id}`, {
-          method: 'PUT',
-          body: payload
-        })
-      } else {
-        await $fetch<any, string & {}>('/api/events', {
-          method: 'POST',
-          body: payload
-        })
-      }
-      emit('success')
+      await saveEvent()
     } catch (error: any) {
       console.error('Error saving event:', error)
+      toast.add({
+        title: 'Error',
+        description: error.data?.message || 'Failed to save event',
+        color: 'error'
+      })
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function joinSelectedMatch() {
+    if (!selectedMatchId.value) return
+    loading.value = true
+    try {
+      await saveEvent({
+        joinTeamEventId: selectedMatchId.value,
+        isPublic: false
+      })
+      toast.add({
+        title: 'Joined team event',
+        description: 'It’s on your calendar and you’re on the attendee list.',
+        color: 'success'
+      })
+    } catch (error: any) {
+      toast.add({
+        title: 'Error',
+        description: error.data?.message || 'Failed to join event',
+        color: 'error'
+      })
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function createSeparately() {
+    loading.value = true
+    try {
+      await saveEvent({ skipCommunityDedupe: true })
+    } catch (error: any) {
       toast.add({
         title: 'Error',
         description: error.data?.message || 'Failed to save event',

@@ -3,6 +3,7 @@ import { requireAuth } from '../../utils/auth-guard'
 import { eventRepository } from '../../utils/repositories/eventRepository'
 import { syncEventToIntervals } from '../../utils/intervals-sync'
 import { prisma } from '../../utils/db'
+import { afterPersonalEventCreated } from '../../utils/community-events'
 
 const eventSchema = z.object({
   title: z.string().min(1),
@@ -14,6 +15,10 @@ const eventSchema = z.object({
   priority: z.enum(['A', 'B', 'C']).or(z.literal('')).nullable().optional(),
   isVirtual: z.boolean().default(false),
   isPublic: z.boolean().default(false),
+  shareLevel: z.enum(['FULL', 'SUMMARY']).optional(),
+  hideAttendeeNames: z.boolean().optional(),
+  joinTeamEventId: z.string().min(1).optional().nullable(),
+  skipCommunityDedupe: z.boolean().optional(),
   country: z.string().optional(),
   city: z.string().optional(),
   location: z.string().optional(),
@@ -29,24 +34,7 @@ defineRouteMeta({
   openAPI: {
     tags: ['Events'],
     summary: 'Create a new racing event',
-    description: 'Creates an event for the authenticated user (session or Bearer with goal:write).',
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            required: ['title', 'date'],
-            properties: {
-              title: { type: 'string' },
-              date: { type: 'string', format: 'date-time' },
-              priority: { type: 'string', enum: ['A', 'B', 'C'] },
-              isVirtual: { type: 'boolean' },
-              isPublic: { type: 'boolean' }
-            }
-          }
-        }
-      }
-    }
+    description: 'Creates an event for the authenticated user (session or Bearer with goal:write).'
   }
 })
 
@@ -61,31 +49,40 @@ export default defineEventHandler(async (event) => {
   }
 
   const userId = user.id
+  const { joinTeamEventId, skipCommunityDedupe, shareLevel, hideAttendeeNames, ...eventFields } =
+    result.data
 
   try {
-    // 1. Determine initial sync status
     const integration = await prisma.integration.findFirst({
       where: { userId, provider: 'intervals' }
     })
 
     const initialSyncStatus = integration ? 'PENDING' : 'LOCAL_ONLY'
 
-    // 2. Create local event
+    // If joining an existing team event, create as private then fold.
+    const createIsPublic = joinTeamEventId ? false : eventFields.isPublic
+
     const newEvent = await eventRepository.create(userId, {
-      ...result.data,
-      priority: result.data.priority || null,
-      date: new Date(result.data.date),
+      ...eventFields,
+      isPublic: createIsPublic,
+      priority: eventFields.priority || null,
+      date: new Date(eventFields.date),
       syncStatus: initialSyncStatus
     })
 
-    let finalEvent = newEvent
+    const community = await afterPersonalEventCreated(userId, newEvent, {
+      joinTeamEventId: joinTeamEventId ?? null,
+      skipCommunityDedupe: skipCommunityDedupe ?? false,
+      shareLevel,
+      hideAttendeeNames
+    })
+    let finalEvent = community.event
 
-    // 3. Attempt sync if integration exists
-    if (integration) {
-      const syncResult = await syncEventToIntervals('CREATE', newEvent, userId)
+    if (integration && finalEvent.id === newEvent.id && !finalEvent.externalId) {
+      const syncResult = await syncEventToIntervals('CREATE', finalEvent, userId)
 
       if (syncResult.synced && syncResult.result?.id) {
-        finalEvent = await eventRepository.update(newEvent.id, userId, {
+        finalEvent = await eventRepository.update(finalEvent.id, userId, {
           externalId: String(syncResult.result.id),
           source: 'intervals',
           syncStatus: 'SYNCED'
@@ -93,8 +90,17 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    return { success: true, event: finalEvent }
+    return {
+      success: true,
+      event: finalEvent,
+      community: {
+        teamEventId: community.teamEventId,
+        linkedRootId: community.linkedRootId,
+        deduped: community.deduped
+      }
+    }
   } catch (error: any) {
+    if (error?.statusCode) throw error
     throw createError({ statusCode: 500, message: error.message })
   }
 })

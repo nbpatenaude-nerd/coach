@@ -12,7 +12,9 @@ import {
   isAllowedCoachVideoUrl,
   coachVideoEmbedUrl,
   buildCheckInTimeline,
-  aggregateCheckInFieldStats
+  aggregateCheckInFieldStats,
+  formatCheckInResponsesForPrompt,
+  listCheckInOutliers
 } from '../../../shared/check-in'
 
 describe('shared/check-in form contract', () => {
@@ -139,5 +141,29 @@ describe('check-in trend aggregation', () => {
     expect(load.min).toBe(4)
     expect(load.max).toBe(8)
     expect(load.sampleCount).toBe(3)
+  })
+})
+
+describe('check-in draft prompt formatting', () => {
+  it('formats sections with ratings and blanks', () => {
+    const text = formatCheckInResponsesForPrompt(DEFAULT_CHECK_IN_FORM, {
+      training_load: 9,
+      personal_notes: 'Busy travel week'
+    })
+    expect(text).toContain('### Training')
+    expect(text).toContain('Training Load: 9/10')
+    expect(text).toContain('Personal Notes: Busy travel week')
+    expect(text).toContain('Sleep Quality: (blank)')
+  })
+
+  it('flags low higher_is_better and high lower_is_better ratings', () => {
+    const flags = listCheckInOutliers(DEFAULT_CHECK_IN_FORM, {
+      training_hydration: 2,
+      personal_fatigue: 9,
+      training_load: 5
+    })
+    expect(flags.some((f) => /Hydration is low/i.test(f))).toBe(true)
+    expect(flags.some((f) => /Fatigue is elevated/i.test(f))).toBe(true)
+    expect(flags.some((f) => /Load/i.test(f))).toBe(false)
   })
 })

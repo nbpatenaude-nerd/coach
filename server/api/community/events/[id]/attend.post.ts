@@ -1,7 +1,11 @@
+import { z } from 'zod'
 import { requireAuth } from '../../../../utils/auth-guard'
-import { prisma } from '../../../../utils/db'
-import { randomUUID } from 'crypto'
+import { joinTeamEvent, leaveTeamEvent } from '../../../../utils/community-events'
 
+/**
+ * Add / remove Team Calendar attendance.
+ * `id` is the TeamEvent id. Attending clones onto the athlete's personal calendar.
+ */
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
   const eventId = getRouterParam(event, 'id')
@@ -10,46 +14,21 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Event ID is required' })
   }
 
-  const body = await readBody(event)
-  const isAttending = body?.attending === true
+  const body = await readValidatedBody(
+    event,
+    z.object({
+      attending: z.boolean(),
+      priority: z.enum(['A', 'B', 'C']).optional().nullable()
+    }).parse
+  )
 
   try {
-    const targetEvent = await prisma.event.findUnique({
-      where: { id: eventId }
-    })
-
-    if (!targetEvent || !targetEvent.isPublic) {
-      throw createError({ statusCode: 404, message: 'Event not found or not public' })
+    if (body.attending) {
+      return await joinTeamEvent(user.id, eventId, { priority: body.priority })
     }
-
-    if (isAttending) {
-      // Create participant if not exists
-      await prisma.eventParticipant.upsert({
-        where: {
-          eventId_userId: {
-            eventId,
-            userId: user.id
-          }
-        },
-        update: {},
-        create: {
-          id: randomUUID(),
-          eventId,
-          userId: user.id
-        }
-      })
-    } else {
-      // Remove participant
-      await prisma.eventParticipant.deleteMany({
-        where: {
-          eventId,
-          userId: user.id
-        }
-      })
-    }
-
-    return { success: true, attending: isAttending }
-  } catch (error) {
+    return await leaveTeamEvent(user.id, eventId)
+  } catch (error: any) {
+    if (error?.statusCode) throw error
     console.error('Error updating event attendance:', error)
     throw createError({
       statusCode: 500,
