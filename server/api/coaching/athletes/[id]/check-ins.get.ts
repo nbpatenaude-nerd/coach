@@ -1,5 +1,5 @@
-import { weekStartKey, type CheckInResponses } from '../../../../shared/check-in'
-import { parseFormDefinition } from '../../../utils/services/weeklyCheckInService'
+import { weekStartKey, type CheckInResponses } from '../../../../../shared/check-in'
+import { parseFormDefinition } from '../../../../utils/services/weeklyCheckInService'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)

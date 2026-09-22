@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { isAllowedCoachVideoUrl } from '../../../../shared/check-in'
+import { isAllowedCoachVideoUrl } from '../../../../../shared/check-in'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
