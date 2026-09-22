@@ -93,14 +93,13 @@
     Legend,
     Filler
   } from 'chart.js'
-  import type {
-    CheckInFormDefinition,
+  import type { CheckInFormDefinition, CheckInChartRow } from '~~/shared/check-in'
+  import {
     aggregateCheckInFieldStats,
     buildCheckInTimeline,
     checkInFieldColor,
     checkInNumericFields,
-    resolveCheckInFormFromRows,
-    type CheckInChartRow
+    resolveCheckInFormFromRows
   } from '~~/shared/check-in'
 
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Filler)
