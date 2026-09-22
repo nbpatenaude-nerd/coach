@@ -11,19 +11,29 @@ else
 fi
 
 # Sidebase originEnvKey (NUXT_AUTH_ORIGIN_UNUSED) REPLACES auth.baseURL entirely.
-# It must be public-origin + /api/auth (not bare origin, not loopback):
-#   bare origin          → pathname "/"         → fetches /session → recursion
-#   loopback + /api/auth → OAuth redirect_uri becomes http://127.0.0.1/... (Google 400)
-#   public + /api/auth   → pathname "/api/auth" → internal /api/auth/session + correct OAuth ✓
-# Session $fetch uses pathname only (no public hairpin). Auth.js host uses the full URL.
+# Must be the *public* https origin + /api/auth (Auth.js builds Google redirect_uri from it).
+# Session $fetch uses pathname only (/api/auth/session) — no public hairpin.
+# Never use 127.0.0.1 here: the browser would be sent to the user's machine after OAuth.
 PORT="${PORT:-3000}"
 PUBLIC_ORIGIN="${NUXT_AUTH_ORIGIN:-${NUXT_PUBLIC_SITE_URL:-}}"
-PUBLIC_ORIGIN="${PUBLIC_ORIGIN%/}"
-if [ -n "$PUBLIC_ORIGIN" ]; then
-  export NUXT_AUTH_ORIGIN_UNUSED="${PUBLIC_ORIGIN}/api/auth"
-else
-  export NUXT_AUTH_ORIGIN_UNUSED="http://127.0.0.1:${PORT}/api/auth"
+if [ -z "$PUBLIC_ORIGIN" ] && [ -n "$RAILWAY_PUBLIC_DOMAIN" ]; then
+  PUBLIC_ORIGIN="https://${RAILWAY_PUBLIC_DOMAIN}"
 fi
+PUBLIC_ORIGIN="${PUBLIC_ORIGIN%/}"
+
+case "$PUBLIC_ORIGIN" in
+  http://127.0.0.1*|http://localhost*|https://127.0.0.1*|https://localhost*)
+    echo "⚠️ Refusing loopback auth origin ($PUBLIC_ORIGIN); need a public https host for OAuth."
+    PUBLIC_ORIGIN=""
+    ;;
+esac
+
+if [ -z "$PUBLIC_ORIGIN" ]; then
+  echo "❌ Set NUXT_AUTH_ORIGIN or NUXT_PUBLIC_SITE_URL to your public https origin (e.g. https://….up.railway.app)."
+  exit 1
+fi
+
+export NUXT_AUTH_ORIGIN_UNUSED="${PUBLIC_ORIGIN}/api/auth"
 echo "auth baseURL (Sidebase): $NUXT_AUTH_ORIGIN_UNUSED"
 
 echo "        Starting application..."

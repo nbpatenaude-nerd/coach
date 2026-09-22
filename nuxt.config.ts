@@ -287,9 +287,9 @@ export default defineNuxtConfig({
 
   auth: {
     // Relative default for local. On the server, originEnvKey REPLACES baseURL.
-    // start.sh sets NUXT_AUTH_ORIGIN_UNUSED=$NUXT_AUTH_ORIGIN/api/auth (public host +
-    // /api/auth). Bare origin → pathname "/" → /session recursion; loopback → Google
-    // redirect_uri_mismatch. Session $fetch uses pathname only (/api/auth/session).
+    // start.sh sets NUXT_AUTH_ORIGIN_UNUSED=<public https origin>/api/auth (never
+    // loopback — Auth.js uses that host for Google redirect_uri). Session $fetch
+    // uses pathname only (/api/auth/session).
     baseURL: '/api/auth',
     originEnvKey: 'NUXT_AUTH_ORIGIN_UNUSED',
     provider: {
