@@ -9,7 +9,9 @@ import { formatErrorForLog } from '../utils/errorFormatter'
 
 export default defineWebSocketHandler({
   open(peer) {
-    peer.send(JSON.stringify({ type: 'welcome', message: 'Connected to Journey Endurance WebSocket' }))
+    peer.send(
+      JSON.stringify({ type: 'welcome', message: 'Connected to Journey Endurance WebSocket' })
+    )
     peerContext.set(peer, {})
   },
 

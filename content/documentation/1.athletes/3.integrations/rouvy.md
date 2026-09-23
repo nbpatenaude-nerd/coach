@@ -15,7 +15,7 @@ ROUVY exports completed rides to connected platforms. To get ROUVY activities in
 
 ## Recommended setup
 
-| ROUVY syncs to | Journey Endurance connection                                            |
+| ROUVY syncs to | Journey Endurance connection                                      |
 | -------------- | ----------------------------------------------------------------- |
 | Strava         | [Strava Integration](/documentation/athletes/integrations/strava) |
 | Garmin Connect | [Garmin Integration](/documentation/athletes/integrations/garmin) |

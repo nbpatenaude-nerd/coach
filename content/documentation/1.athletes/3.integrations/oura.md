@@ -12,7 +12,7 @@ The [Oura Ring](https://ouraring.com) is our most detailed source for recovery a
 
 ## What Syncs?
 
-| Metric        | Frequency | Usage in Journey Endurance                           |
+| Metric        | Frequency | Usage in Journey Endurance                     |
 | :------------ | :-------- | :--------------------------------------------- |
 | **Readiness** | Daily     | Adjusts today's recommended activity.          |
 | **Sleep**     | Nightly   | Tracks overall recovery trends.                |

@@ -1,9 +1,6 @@
 import { prisma } from '../db'
 import { updateIntervalsActivityDescription } from '../intervals'
-import {
-  PRODUCT_ATTRIBUTION,
-  WORKOUT_SUMMARY_BLOCK_HEADER
-} from '../../../shared/branding'
+import { PRODUCT_ATTRIBUTION, WORKOUT_SUMMARY_BLOCK_HEADER } from '../../../shared/branding'
 
 export const SUMMARY_BLOCK_HEADER = WORKOUT_SUMMARY_BLOCK_HEADER
 export const SUMMARY_ATTRIBUTION_URL = PRODUCT_ATTRIBUTION

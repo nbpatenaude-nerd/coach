@@ -203,7 +203,9 @@ function buildAuthProviders() {
         })
 
         const email =
-          existingIntegration?.user?.email || profile.email || `${profile.id}@strava.journeyendurance.ca`
+          existingIntegration?.user?.email ||
+          profile.email ||
+          `${profile.id}@strava.journeyendurance.ca`
 
         console.log(`[Auth] Strava profile mapping for ${profile.id}: using email ${email}`)
 

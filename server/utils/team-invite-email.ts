@@ -24,7 +24,8 @@ export async function sendTeamInviteEmail(options: {
   const teamName = options.teamName.trim() || 'A team'
   const roleLabel = formatRoleLabel(options.role)
   const template = getEmailTemplateDefinition('TeamInvite')
-  const subject = template?.defaultSubject || `You're invited to join ${teamName} on Journey Endurance`
+  const subject =
+    template?.defaultSubject || `You're invited to join ${teamName} on Journey Endurance`
 
   return await EmailDeliveryService.runSendEmail({
     toEmail: options.to,
