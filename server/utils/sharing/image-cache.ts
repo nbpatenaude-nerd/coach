@@ -3,7 +3,7 @@ import IORedis from 'ioredis'
 import type { WorkoutImageRatio, WorkoutImageStyle, WorkoutImageVariant } from './image-generator'
 
 const REDIS_URL = process.env.REDIS_URL
-const CACHE_VERSION = 'share-image-v3-composer'
+const CACHE_VERSION = 'share-image-v4-png-logos'
 const DEFAULT_TTL_SECONDS = 60 * 60 * 6
 
 let client: IORedis | null = null

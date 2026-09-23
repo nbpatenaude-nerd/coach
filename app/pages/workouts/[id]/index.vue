@@ -3528,12 +3528,16 @@
         :loading="generatingShareLink"
         :expiry-value="shareExpiryValue"
         resource-label="workout"
+        :workout-id="String(route.params.id || workout?.id || '')"
         :share-title="
-          workout?.title ? `Workout: ${workout.title}` : 'Workout shared from Coach Watts'
+          workout?.title
+            ? `${workout.title} — Journey Endurance`
+            : 'Workout shared from Journey Endurance'
         "
         @update:expiry-value="shareExpiryValue = $event"
         @generate="generateShareLink"
         @copy="copyToClipboard"
+        @customize="isShareModalOpen = false"
       />
     </template>
     <template #footer>

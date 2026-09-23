@@ -50,13 +50,14 @@ export const SHARE_LOGO_OPTIONS: ShareLogoOption[] = [
     id: 'mark',
     label: 'Mark',
     description: 'Icon only',
-    publicPath: '/media/logo_square.webp'
+    // PNG only — @resvg/resvg-js does not decode WebP images in <image>.
+    publicPath: '/media/logo_square.png'
   },
   {
     id: 'lockup',
     label: 'Lockup',
     description: 'Logo + text (stacked)',
-    publicPath: '/media/logo_with_text_cropped.webp'
+    publicPath: '/media/logo_with_text_cropped.png'
   },
   {
     id: 'horizontal',

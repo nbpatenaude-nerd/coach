@@ -269,7 +269,7 @@ function renderWorkoutSvg(input: {
     width: ratio.width,
     height: ratio.height,
     fill: theme.watermark,
-    opacity: variant === 'transparent' ? 0.7 : 0.45
+    opacity: data.logoId === 'wordmark' ? (variant === 'transparent' ? 0.7 : 0.45) : 0.98
   })
 
   const body =
@@ -284,7 +284,7 @@ function renderWorkoutSvg(input: {
             : renderMapCard(ratio, theme, variant, data, mapSvg, watermark)
 
   return [
-    `<svg viewBox="0 0 ${ratio.width} ${ratio.height}" width="${ratio.width}" height="${ratio.height}" xmlns="http://www.w3.org/2000/svg">`,
+    `<svg viewBox="0 0 ${ratio.width} ${ratio.height}" width="${ratio.width}" height="${ratio.height}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">`,
     defs,
     background,
     body,

@@ -578,24 +578,24 @@
 
   const pageTitle = computed(() =>
     workout.value
-      ? `${workout.value.title} - Shared Workout | Coach Wattz`
-      : 'Shared Workout | Coach Wattz'
+      ? `${workout.value.title} - Shared Workout | Journey Endurance`
+      : 'Shared Workout | Journey Endurance'
   )
   const pageDescription = computed(() => {
     if (workout.value) {
       const dateStr = formatDate(workout.value.date)
       const summary = workout.value.aiAnalysisJson?.executive_summary || ''
-      return `Check out this ${workout.value.type || ''} workout on Coach Wattz: ${workout.value.title} (${dateStr}). ${summary}`.substring(
+      return `Check out this ${workout.value.type || ''} workout on Journey Endurance: ${workout.value.title} (${dateStr}). ${summary}`.substring(
         0,
         160
       )
     }
-    return 'View shared workout analysis and performance metrics on Coach Wattz.'
+    return 'View shared workout analysis and performance metrics on Journey Endurance.'
   })
 
   const config = useRuntimeConfig()
   const siteUrl = config.public.siteUrl || 'http://localhost:3000'
-  const imageUrl = `${siteUrl}/api/share/workouts/${token}/image`
+  const imageUrl = `${siteUrl}/api/share/workouts/${token}/image?logo=lockup`
 
   useHead({
     title: pageTitle,

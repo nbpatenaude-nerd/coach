@@ -1,4 +1,4 @@
-import { pathToFileURL } from 'node:url'
+import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { formatPace } from '../pacing'
 import { metresPerSecondToKmh } from '../../../shared/units'
@@ -40,11 +40,33 @@ export interface FormattedShareMetric {
   unit: string
 }
 
-export function resolveShareLogoFileUrl(logoId: ShareLogoId): string | null {
+const logoDataUriCache = new Map<ShareLogoId, string | null>()
+
+export function resolveShareLogoDataUri(logoId: ShareLogoId): string | null {
+  if (logoDataUriCache.has(logoId)) {
+    return logoDataUriCache.get(logoId) ?? null
+  }
+
   const option = SHARE_LOGO_OPTIONS.find((item) => item.id === logoId)
-  if (!option?.publicPath) return null
+  if (!option?.publicPath) {
+    logoDataUriCache.set(logoId, null)
+    return null
+  }
+
   const absolute = path.resolve(process.cwd(), `public${option.publicPath}`)
-  return pathToFileURL(absolute).href
+  if (!existsSync(absolute)) {
+    console.warn(`[ShareMetrics] Logo file missing: ${absolute}`)
+    logoDataUriCache.set(logoId, null)
+    return null
+  }
+
+  const bytes = readFileSync(absolute)
+  const ext = path.extname(absolute).slice(1).toLowerCase()
+  const mime =
+    ext === 'png' ? 'image/png' : ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : `image/${ext}`
+  const dataUri = `data:${mime};base64,${bytes.toString('base64')}`
+  logoDataUriCache.set(logoId, dataUri)
+  return dataUri
 }
 
 export function formatShareMetric(
@@ -198,29 +220,31 @@ export function buildBrandMarkSvg(options: {
   const logoId = normalizeShareLogoId(options.logoId)
   if (logoId === 'none') return ''
 
-  const opacity = options.opacity ?? 0.55
   const y = options.height - 48
 
   if (logoId === 'wordmark') {
+    const opacity = options.opacity ?? 0.55
     const fontSize = options.width <= 1080 && options.height === 1080 ? 18 : 24
     const letterSpacing = options.width <= 1080 && options.height === 1080 ? 3 : 4
     return `<text x="${options.width / 2}" y="${y}" text-anchor="middle" fill="${options.fill}" opacity="${opacity}" font-family="Inter" font-size="${fontSize}" font-weight="700" letter-spacing="${letterSpacing}">JOURNEY ENDURANCE</text>`
   }
 
-  const href = resolveShareLogoFileUrl(logoId)
+  // PNG data URIs only — Resvg does not decode WebP, and file:// hrefs often render blank.
+  const href = resolveShareLogoDataUri(logoId)
   if (!href) return ''
 
   const dims =
     logoId === 'mark'
-      ? { w: 96, h: 96 }
+      ? { w: 120, h: 120 }
       : logoId === 'horizontal'
-        ? { w: 360, h: 72 }
-        : { w: 220, h: 96 }
+        ? { w: 420, h: 96 }
+        : { w: 280, h: 120 }
 
   const x = (options.width - dims.w) / 2
-  const imageY = options.height - dims.h - 28
+  const imageY = options.height - dims.h - 24
+  const opacity = options.opacity ?? 0.95
 
-  return `<image href="${href}" x="${x}" y="${imageY}" width="${dims.w}" height="${dims.h}" opacity="${opacity}" preserveAspectRatio="xMidYMid meet" />`
+  return `<image href="${href}" xlink:href="${href}" x="${x}" y="${imageY}" width="${dims.w}" height="${dims.h}" opacity="${opacity}" preserveAspectRatio="xMidYMid meet" />`
 }
 
 function formatDuration(totalSeconds: number) {
