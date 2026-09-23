@@ -11,6 +11,10 @@ import {
 } from '../../../../utils/sharing/image-cache'
 import { workoutRepository } from '../../../../utils/repositories/workoutRepository'
 import { attachStreamToWorkout } from '../../../../utils/repositories/workoutStreamRepository'
+import {
+  normalizeShareLogoId,
+  normalizeShareMetrics
+} from '../../../../../shared/workout-share-composer'
 
 defineRouteMeta({
   openAPI: {
@@ -52,6 +56,15 @@ export default defineEventHandler(async (event) => {
   )
   const style = normalizeWorkoutImageStyle(typeof query.style === 'string' ? query.style : null)
   const ratio = normalizeWorkoutImageRatio(typeof query.ratio === 'string' ? query.ratio : null)
+  const metrics = normalizeShareMetrics(
+    typeof query.metrics === 'string'
+      ? query.metrics
+      : Array.isArray(query.metrics)
+        ? query.metrics.map(String)
+        : null
+  )
+  const logo = normalizeShareLogoId(typeof query.logo === 'string' ? query.logo : null)
+  const showTitle = query.showTitle === '0' || query.showTitle === 'false' ? false : true
 
   const shareToken = await prisma.shareToken.findUnique({
     where: { token }
@@ -61,7 +74,6 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Workout share link not found' })
   }
 
-  // Check expiration if needed
   if (shareToken.expiresAt && new Date() > shareToken.expiresAt) {
     throw createError({ statusCode: 410, message: 'Share link has expired' })
   }
@@ -79,7 +91,10 @@ export default defineEventHandler(async (event) => {
       workout: workout as any,
       style,
       variant,
-      ratio
+      ratio,
+      metrics,
+      logo,
+      showTitle
     })
     const cachedPngBuffer = await getCachedWorkoutImage(cacheKey)
 
@@ -93,11 +108,13 @@ export default defineEventHandler(async (event) => {
     const pngBuffer = await imageGenerator.generateWorkoutImage(workout as any, {
       variant,
       style,
-      ratio
+      ratio,
+      metrics,
+      logo,
+      showTitle
     })
     await setCachedWorkoutImage(cacheKey, pngBuffer)
 
-    // Set cache headers (1 day)
     setResponseHeader(event, 'Content-Type', 'image/png')
     setResponseHeader(event, 'Cache-Control', 'public, max-age=86400')
     setResponseHeader(event, 'X-Share-Image-Cache', 'miss')

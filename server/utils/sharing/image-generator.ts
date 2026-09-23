@@ -1,23 +1,16 @@
 import path from 'node:path'
 import { Resvg } from '@resvg/resvg-js'
-import { formatPace } from '../pacing'
+import {
+  normalizeShareLogoId,
+  normalizeShareMetrics,
+  type ShareLogoId,
+  type ShareMetricId
+} from '../../../shared/workout-share-composer'
 import { buildHeartRateChartSvg } from './hr-chart'
+import { buildBrandMarkSvg, buildShareMetricLayout, type ShareWorkoutFields } from './share-metrics'
 import { buildStaticMapSvg } from './static-map'
 
-interface WorkoutData {
-  title: string
-  type: string | null
-  date: Date
-  durationSec: number
-  distanceMeters: number | null
-  averageHr: number | null
-  averageWatts: number | null
-  averageSpeed: number | null
-  streams?: {
-    latlng?: Array<[number, number] | { lat: number; lng: number } | null> | null
-    heartrate?: Array<number | null | undefined> | null
-  } | null
-}
+type WorkoutData = ShareWorkoutFields
 
 export type WorkoutImageVariant = 'default' | 'flat' | 'transparent'
 export type WorkoutImageStyle = 'map' | 'poster' | 'crest' | 'pulse'
@@ -28,24 +21,21 @@ interface GenerateWorkoutImageOptions {
   variant?: WorkoutImageVariant
   style?: WorkoutImageStyle
   ratio?: WorkoutImageRatio
+  metrics?: ShareMetricId[] | string | null
+  logo?: ShareLogoId | string | null
+  showTitle?: boolean
 }
 
 interface WorkoutImageTextData {
   titleLine1: string
   titleLine2: string
   subtitle: string
+  showTitle: boolean
+  logoId: ShareLogoId
   heroLabel: string
   heroValue: string
   heroUnit: string
-  stat1Label: string
-  stat1Value: string | number
-  stat1Unit: string
-  stat2Label: string
-  stat2Value: string | number
-  stat2Unit: string
-  stat3Label: string
-  stat3Value: string | number
-  stat3Unit: string
+  metrics: Array<[string, string, string]>
   titleFontSizeMap: string
   titleFontSizeModern: string
   titleFontSizePoster: string
@@ -168,9 +158,12 @@ export const imageGenerator = {
     const style = normalizeWorkoutImageStyle(options.style)
     const variant = normalizeWorkoutImageVariant(options.variant)
     const ratio = normalizeWorkoutImageRatio(options.ratio)
+    const metrics = normalizeShareMetrics(options.metrics)
+    const logo = normalizeShareLogoId(options.logo)
+    const showTitle = options.showTitle !== false
     const spec = RATIO_SPECS[ratio]
     const renderStyle = style === 'map' && !hasWorkoutMap(workout) ? 'map-fallback' : style
-    const data = this.prepareImageData(workout, ratio)
+    const data = this.prepareImageData(workout, ratio, { metrics, logo, showTitle })
     const theme = THEMES[style]
     const mapSvg = getWorkoutMapMarkup(workout, variant, style, ratio)
     const hrChartSvg = getHeartRateChartMarkup(workout, variant, style, ratio)
@@ -201,29 +194,31 @@ export const imageGenerator = {
     return resvg.render().asPng()
   },
 
-  prepareImageData(workout: WorkoutData, ratio: WorkoutImageRatio = 'story'): WorkoutImageTextData {
+  prepareImageData(
+    workout: WorkoutData,
+    ratio: WorkoutImageRatio = 'story',
+    options: {
+      metrics?: ShareMetricId[] | string | null
+      logo?: ShareLogoId | string | null
+      showTitle?: boolean
+    } = {}
+  ): WorkoutImageTextData {
     const ratioScale = ratio === 'square' ? 0.74 : ratio === 'post' ? 0.86 : 1
-    const distanceKm = workout.distanceMeters ? (workout.distanceMeters / 1000).toFixed(1) : '0.0'
-    const paceStr = getPaceString(workout)
     const fittedTitle = fitTitle(workout.title || 'Untitled Activity')
-    const heroScale = getHeroScale(distanceKm)
+    const layout = buildShareMetricLayout(workout, options.metrics)
+    const heroValue = layout.hero?.value || '--'
+    const heroScale = getHeroScale(heroValue)
 
     return {
       titleLine1: fittedTitle.line1,
       titleLine2: fittedTitle.line2,
       subtitle: workout.type || 'Activity',
-      heroLabel: 'Total Distance',
-      heroValue: distanceKm,
-      heroUnit: 'KM',
-      stat1Label: 'Avg Pace',
-      stat1Value: paceStr,
-      stat1Unit: '/KM',
-      stat2Label: 'Heart Rate',
-      stat2Value: workout.averageHr ? Math.round(workout.averageHr) : '--',
-      stat2Unit: 'BPM',
-      stat3Label: 'Avg Power',
-      stat3Value: workout.averageWatts ? Math.round(workout.averageWatts) : '--',
-      stat3Unit: 'W',
+      showTitle: options.showTitle !== false,
+      logoId: normalizeShareLogoId(options.logo),
+      heroLabel: layout.hero?.label || 'Workout',
+      heroValue,
+      heroUnit: layout.hero?.unit || '',
+      metrics: layout.stats.map((stat) => [stat.label, stat.value, stat.unit]),
       titleFontSizeMap: scaleFontByRatio(
         getTitleFontSize(72, fittedTitle.longestLine, fittedTitle.hasSecondLine),
         ratioScale
@@ -269,7 +264,13 @@ function renderWorkoutSvg(input: {
   const { ratio, variant, style, renderStyle, theme, data, mapSvg, hrChartSvg } = input
   const defs = renderBaseDefs(theme, variant)
   const background = renderBackground(ratio, theme, variant)
-  const watermark = renderWatermark(ratio, theme)
+  const watermark = buildBrandMarkSvg({
+    logoId: data.logoId,
+    width: ratio.width,
+    height: ratio.height,
+    fill: theme.watermark,
+    opacity: variant === 'transparent' ? 0.7 : 0.45
+  })
 
   const body =
     renderStyle === 'poster'
@@ -367,22 +368,25 @@ function renderMapCard(
     mapY + mapHeight - (ratio.ratio === 'square' ? 170 : ratio.ratio === 'post' ? 190 : 220)
   const heroY = heroPlateY + (ratio.ratio === 'square' ? 120 : ratio.ratio === 'post' ? 136 : 150)
   const statsY = ratio.height - (ratio.ratio === 'square' ? 118 : 220)
-  const statGap = contentWidth / 3
 
   return [
     renderOuterShell(ratio, variant),
-    text(data.subtitle, ratio.width / 2, titleY - 54, {
-      anchor: 'middle',
-      fill: theme.accentStrong,
-      size: ratio.ratio === 'square' ? 20 : 28,
-      weight: 700,
-      letterSpacing: 6,
-      uppercase: true
-    }),
-    renderTitle(data, ratio.width / 2, titleY, 'middle', {
-      fontSize: Number(data.titleFontSizeMap),
-      lineHeight: Number(data.titleLineHeightMap)
-    }),
+    data.showTitle
+      ? text(data.subtitle, ratio.width / 2, titleY - 54, {
+          anchor: 'middle',
+          fill: theme.accentStrong,
+          size: ratio.ratio === 'square' ? 20 : 28,
+          weight: 700,
+          letterSpacing: 6,
+          uppercase: true
+        })
+      : '',
+    data.showTitle
+      ? renderTitle(data, ratio.width / 2, titleY, 'middle', {
+          fontSize: Number(data.titleFontSizeMap),
+          lineHeight: Number(data.titleLineHeightMap)
+        })
+      : '',
     renderMapAmbientGlow(ratio, theme, mapY, mapHeight, variant, styleMapGlowOpacity(variant)),
     mapSvg
       ? `<g transform="translate(${round((ratio.width - mapSize.width) / 2)}, ${round(mapY)})">${mapSvg}</g>`
@@ -401,14 +405,10 @@ function renderMapCard(
       unitSize: Number(data.heroUnitFontSizeMap)
     }),
     renderMetricRow(
-      [
-        [data.stat1Label, String(data.stat1Value), data.stat1Unit],
-        [data.stat2Label, String(data.stat2Value), data.stat2Unit],
-        [data.stat3Label, String(data.stat3Value), data.stat3Unit]
-      ],
+      data.metrics,
       contentX,
       statsY,
-      statGap,
+      contentWidth / Math.max(data.metrics.length, 1),
       theme,
       ratio
     ),
@@ -435,18 +435,22 @@ function renderModernCard(
     `<circle cx="${round(ratio.width * 0.52)}" cy="${round(ratio.ratio === 'square' ? 150 : 220)}" r="${round(ratio.width * 0.28)}" fill="${theme.accentGlow}" filter="url(#softBlur)" />`,
     `<path d="M ${round(ratio.width * 0.18)} ${round(ratio.ratio === 'square' ? 230 : ratio.ratio === 'post' ? 320 : 520)} L ${round(ratio.width * 0.31)} ${round(ratio.ratio === 'square' ? 120 : ratio.ratio === 'post' ? 210 : 380)} L ${round(ratio.width * 0.46)} ${round(ratio.ratio === 'square' ? 180 : ratio.ratio === 'post' ? 270 : 440)} L ${round(ratio.width * 0.57)} ${round(ratio.ratio === 'square' ? 80 : ratio.ratio === 'post' ? 120 : 220)} L ${round(ratio.width * 0.7)} ${round(ratio.ratio === 'square' ? 145 : ratio.ratio === 'post' ? 220 : 320)} L ${round(ratio.width * 0.83)} ${round(ratio.ratio === 'square' ? 42 : ratio.ratio === 'post' ? 78 : 140)}" fill="none" stroke="${theme.accent}" stroke-width="${ratio.ratio === 'square' ? 10 : 12}" stroke-linecap="round" stroke-linejoin="round" filter="${variant === 'transparent' ? '' : 'url(#textShadow)'}" />`,
     '</g>',
-    text(data.subtitle, ratio.width / 2, titleY - 80, {
-      anchor: 'middle',
-      fill: theme.accentSoft,
-      size: ratio.ratio === 'square' ? 22 : 30,
-      weight: 700,
-      letterSpacing: 6,
-      uppercase: true
-    }),
-    renderTitle(data, ratio.width / 2, titleY, 'middle', {
-      fontSize: Number(data.titleFontSizeModern),
-      lineHeight: Number(data.titleLineHeightModern)
-    }),
+    data.showTitle
+      ? text(data.subtitle, ratio.width / 2, titleY - 80, {
+          anchor: 'middle',
+          fill: theme.accentSoft,
+          size: ratio.ratio === 'square' ? 22 : 30,
+          weight: 700,
+          letterSpacing: 6,
+          uppercase: true
+        })
+      : '',
+    data.showTitle
+      ? renderTitle(data, ratio.width / 2, titleY, 'middle', {
+          fontSize: Number(data.titleFontSizeModern),
+          lineHeight: Number(data.titleLineHeightModern)
+        })
+      : '',
     text(data.heroLabel, ratio.width / 2, heroY - 92, {
       anchor: 'middle',
       fill: theme.textSoft,
@@ -460,14 +464,10 @@ function renderModernCard(
       unitSize: Number(data.heroUnitFontSizeModern)
     }),
     renderMetricRow(
-      [
-        [data.stat1Label, String(data.stat1Value), data.stat1Unit],
-        [data.stat2Label, String(data.stat2Value), data.stat2Unit],
-        [data.stat3Label, String(data.stat3Value), data.stat3Unit]
-      ],
+      data.metrics,
       contentX,
       statsY,
-      ratio.width * 0.27,
+      ratio.width * (data.metrics.length > 3 ? 0.22 : 0.27),
       theme,
       ratio
     ),
@@ -490,7 +490,8 @@ function renderPosterCard(
   const centerY =
     ratio.height * (ratio.ratio === 'square' ? 0.56 : ratio.ratio === 'post' ? 0.55 : 0.58)
   const metricBaseY = ratio.height - (ratio.ratio === 'square' ? 142 : 168)
-  const statGap = ratio.width * 0.29
+  const metricCount = Math.max(data.metrics.length, 1)
+  const statGap = ratio.width * (metricCount > 3 ? 0.22 : 0.29)
 
   return [
     renderOuterShell(ratio, variant),
@@ -500,17 +501,21 @@ function renderPosterCard(
     variant === 'transparent'
       ? ''
       : `<rect x="0" y="${round(bottomFadeY)}" width="${ratio.width}" height="${ratio.height - bottomFadeY}" fill="url(#fadeMask)" opacity="0.92" />`,
-    text(data.subtitle, contentX, titleY - 42, {
-      fill: theme.accentSoft,
-      size: ratio.ratio === 'square' ? 18 : 24,
-      weight: 700,
-      letterSpacing: 7,
-      uppercase: true
-    }),
-    renderTitle(data, contentX, titleY, 'start', {
-      fontSize: Number(data.titleFontSizePoster),
-      lineHeight: Number(data.titleLineHeightPoster)
-    }),
+    data.showTitle
+      ? text(data.subtitle, contentX, titleY - 42, {
+          fill: theme.accentSoft,
+          size: ratio.ratio === 'square' ? 18 : 24,
+          weight: 700,
+          letterSpacing: 7,
+          uppercase: true
+        })
+      : '',
+    data.showTitle
+      ? renderTitle(data, contentX, titleY, 'start', {
+          fontSize: Number(data.titleFontSizePoster),
+          lineHeight: Number(data.titleLineHeightPoster)
+        })
+      : '',
     text(data.heroLabel, ratio.width / 2, centerY - 96, {
       anchor: 'middle',
       fill: theme.textSoft,
@@ -524,26 +529,8 @@ function renderPosterCard(
       unitSize: Number(data.heroUnitFontSizePoster),
       tracking: 4
     }),
-    renderMetricColumn(
-      [data.stat1Label, String(data.stat1Value), data.stat1Unit],
-      contentX,
-      metricBaseY,
-      theme,
-      ratio
-    ),
-    renderMetricColumn(
-      [data.stat2Label, String(data.stat2Value), data.stat2Unit],
-      contentX + statGap,
-      metricBaseY,
-      theme,
-      ratio
-    ),
-    renderMetricColumn(
-      [data.stat3Label, String(data.stat3Value), data.stat3Unit],
-      contentX + statGap * 2,
-      metricBaseY,
-      theme,
-      ratio
+    ...data.metrics.map((metric, index) =>
+      renderMetricColumn(metric, contentX + statGap * index, metricBaseY, theme, ratio)
     ),
     watermark
   ].join('')
@@ -581,18 +568,22 @@ function renderCrestCard(
     mapSvg
       ? `<g transform="translate(${round(centerX - mapSize.width / 2)}, ${round(ringCenterY - mapSize.height / 2)})">${mapSvg}</g>`
       : '',
-    text(data.subtitle, centerX, titleY - 48, {
-      anchor: 'middle',
-      fill: theme.accentSoft,
-      size: ratio.ratio === 'square' ? 18 : 24,
-      weight: 700,
-      letterSpacing: 8,
-      uppercase: true
-    }),
-    renderTitle(data, centerX, titleY, 'middle', {
-      fontSize: Number(data.titleFontSizeCrest),
-      lineHeight: Number(data.titleLineHeightCrest)
-    }),
+    data.showTitle
+      ? text(data.subtitle, centerX, titleY - 48, {
+          anchor: 'middle',
+          fill: theme.accentSoft,
+          size: ratio.ratio === 'square' ? 18 : 24,
+          weight: 700,
+          letterSpacing: 8,
+          uppercase: true
+        })
+      : '',
+    data.showTitle
+      ? renderTitle(data, centerX, titleY, 'middle', {
+          fontSize: Number(data.titleFontSizeCrest),
+          lineHeight: Number(data.titleLineHeightCrest)
+        })
+      : '',
     text(data.heroLabel, centerX, labelY, {
       anchor: 'middle',
       fill: theme.textSoft,
@@ -613,14 +604,10 @@ function renderCrestCard(
       unitSize: Number(data.heroUnitFontSizeCrest)
     }),
     renderMetricRow(
-      [
-        [data.stat1Label, String(data.stat1Value), data.stat1Unit],
-        [data.stat2Label, String(data.stat2Value), data.stat2Unit],
-        [data.stat3Label, String(data.stat3Value), data.stat3Unit]
-      ],
+      data.metrics,
       ratio.width * 0.12,
       metricsY,
-      ratio.width * 0.26,
+      ratio.width * (data.metrics.length > 3 ? 0.2 : 0.26),
       theme,
       ratio
     ),
@@ -648,7 +635,8 @@ function renderPulseCard(
   const heroPlateY = chartY + (ratio.ratio === 'square' ? 210 : ratio.ratio === 'post' ? 234 : 264)
   const heroY = heroPlateY + (ratio.ratio === 'square' ? 98 : ratio.ratio === 'post' ? 110 : 126)
   const metricsY = ratio.height - (ratio.ratio === 'square' ? 108 : 150)
-  const statGap = ratio.width * 0.29
+  const metricCount = Math.max(data.metrics.length, 1)
+  const statGap = ratio.width * (metricCount > 3 ? 0.22 : 0.29)
 
   return [
     renderOuterShell(ratio, variant),
@@ -666,17 +654,21 @@ function renderPulseCard(
     hrChartSvg
       ? `<g transform="translate(${round((ratio.width - chartSize.width) / 2)}, ${round(chartY)})">${hrChartSvg}</g>`
       : '',
-    text(data.subtitle, contentX, titleY - 40, {
-      fill: theme.accentSoft,
-      size: ratio.ratio === 'square' ? 18 : 24,
-      weight: 700,
-      letterSpacing: 8,
-      uppercase: true
-    }),
-    renderTitle(data, contentX, titleY, 'start', {
-      fontSize: Number(data.titleFontSizePoster),
-      lineHeight: Number(data.titleLineHeightPoster)
-    }),
+    data.showTitle
+      ? text(data.subtitle, contentX, titleY - 40, {
+          fill: theme.accentSoft,
+          size: ratio.ratio === 'square' ? 18 : 24,
+          weight: 700,
+          letterSpacing: 8,
+          uppercase: true
+        })
+      : '',
+    data.showTitle
+      ? renderTitle(data, contentX, titleY, 'start', {
+          fontSize: Number(data.titleFontSizePoster),
+          lineHeight: Number(data.titleLineHeightPoster)
+        })
+      : '',
     renderMapHeroFade(ratio, contentX, ratio.width * 0.5, heroPlateY - 94, variant),
     text(data.heroLabel, contentX, heroY - 82, {
       fill: theme.textSoft,
@@ -689,26 +681,8 @@ function renderPulseCard(
       valueSize: Number(data.heroFontSizePoster),
       unitSize: Number(data.heroUnitFontSizePoster)
     }),
-    renderMetricColumn(
-      [data.stat1Label, String(data.stat1Value), data.stat1Unit],
-      contentX,
-      metricsY,
-      theme,
-      ratio
-    ),
-    renderMetricColumn(
-      [data.stat2Label, String(data.stat2Value), data.stat2Unit],
-      contentX + statGap,
-      metricsY,
-      theme,
-      ratio
-    ),
-    renderMetricColumn(
-      [data.stat3Label, String(data.stat3Value), data.stat3Unit],
-      contentX + statGap * 2,
-      metricsY,
-      theme,
-      ratio
+    ...data.metrics.map((metric, index) =>
+      renderMetricColumn(metric, contentX + statGap * index, metricsY, theme, ratio)
     ),
     watermark
   ].join('')
@@ -797,6 +771,7 @@ function renderMetricRow(
   theme: ThemeSpec,
   ratio: RatioSpec
 ) {
+  if (!items.length) return ''
   return items
     .map(([label, value, unit], index) =>
       renderMetricColumn([label, value, unit], startX + gap * index, baselineY, theme, ratio)
@@ -844,10 +819,6 @@ function text(
   }
 ) {
   return `<text x="${round(x)}" y="${round(y)}" text-anchor="${options.anchor || 'start'}" fill="${options.fill || '#FFFFFF'}" font-family="'${FONT_FAMILY_BODY}'" font-size="${options.size || 24}" font-weight="${options.weight || 600}" letter-spacing="${options.letterSpacing || 0}"${options.uppercase ? ' text-transform="uppercase"' : ''}>${escapeSvgText(options.uppercase ? value.toUpperCase() : value)}</text>`
-}
-
-function renderWatermark(ratio: RatioSpec, theme: ThemeSpec) {
-  return `<text x="${round(ratio.width / 2)}" y="${round(ratio.height - 48)}" text-anchor="middle" fill="${theme.watermark}" opacity="0.4" font-family="'${FONT_FAMILY_BODY}'" font-size="${ratio.ratio === 'square' ? 20 : 26}" font-weight="700" letter-spacing="6" text-transform="uppercase">CoachWatts.com</text>`
 }
 
 function fitTitle(title: string) {
@@ -902,20 +873,6 @@ function scaleFont(base: number, scale: number, ratioScale = 1): string {
 
 function scaleFontByRatio(value: number, ratioScale = 1) {
   return String(Math.round(value * ratioScale))
-}
-
-function getPaceString(workout: WorkoutData) {
-  if (workout.averageSpeed && workout.averageSpeed > 0) {
-    const paceMinPerKm = 16.666667 / workout.averageSpeed
-    return formatPace(paceMinPerKm).replace('/km', '')
-  }
-
-  if (workout.durationSec > 0 && workout.distanceMeters && workout.distanceMeters > 0) {
-    const paceMinPerKm = workout.durationSec / 60 / (workout.distanceMeters / 1000)
-    return formatPace(paceMinPerKm).replace('/km', '')
-  }
-
-  return 'N/A'
 }
 
 function hasWorkoutMap(workout: WorkoutData) {

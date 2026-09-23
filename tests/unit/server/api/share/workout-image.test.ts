@@ -98,7 +98,10 @@ describe('GET /api/share/workouts/[token]/image', () => {
     expect(imageGenerator.generateWorkoutImage).toHaveBeenCalledWith(expect.anything(), {
       variant: 'default',
       style: 'map',
-      ratio: 'story'
+      ratio: 'story',
+      metrics: expect.any(Array),
+      logo: 'wordmark',
+      showTitle: true
     })
     expect(buildWorkoutImageCacheKey).toHaveBeenCalled()
     expect(setCachedWorkoutImage).toHaveBeenCalledWith('share:image:test-key', pngBuffer)
@@ -147,7 +150,14 @@ describe('GET /api/share/workouts/[token]/image', () => {
     expect(result).toBe(pngBuffer)
     expect(imageGenerator.generateWorkoutImage).toHaveBeenCalledWith(
       expect.objectContaining({ streams: null }),
-      { variant: 'transparent', style: 'pulse', ratio: 'square' }
+      {
+        variant: 'transparent',
+        style: 'pulse',
+        ratio: 'square',
+        metrics: expect.any(Array),
+        logo: 'wordmark',
+        showTitle: true
+      }
     )
   })
 
