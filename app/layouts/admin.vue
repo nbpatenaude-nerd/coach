@@ -315,7 +315,7 @@
           <img
             v-if="!collapsed"
             src="/media/logo_with_text_cropped.webp"
-            alt="Coach Watts"
+            alt="Journey Endurance"
             width="702"
             height="135"
             loading="eager"
@@ -325,7 +325,7 @@
           <img
             v-else
             src="/media/logo.webp"
-            alt="Coach Watts"
+            alt="Journey Endurance"
             width="537"
             height="537"
             loading="eager"

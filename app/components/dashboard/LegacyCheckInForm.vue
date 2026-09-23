@@ -76,7 +76,7 @@
 
       toast.add({
         title: 'Check-In Submitted!',
-        description: 'Coach Watts is analyzing your data...',
+        description: 'Journey Endurance is analyzing your data...',
         icon: 'i-lucide-check-circle',
         color: 'success'
       })
@@ -121,10 +121,7 @@
 
     <div v-else>
       <div class="text-center mb-8">
-        <UIcon
-          name="i-lucide-clipboard-check"
-          class="w-12 h-12 text-primary-500 mb-4 mx-auto"
-        />
+        <UIcon name="i-lucide-clipboard-check" class="w-12 h-12 text-primary-500 mb-4 mx-auto" />
         <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
           Ready for your weekly review?
         </h2>
@@ -172,7 +169,11 @@
             <div class="text-center font-semibold mt-1">{{ state.trainingLoad }}</div>
           </UFormField>
 
-          <UFormField label="Training Difficulty" name="trainingDifficulty" :description="scaleHelp">
+          <UFormField
+            label="Training Difficulty"
+            name="trainingDifficulty"
+            :description="scaleHelp"
+          >
             <div class="flex items-center gap-4 mt-2">
               <span class="text-xs text-gray-500 font-bold">1</span>
               <URange v-model="state.trainingDifficulty" :min="1" :max="10" class="flex-1" />
@@ -237,7 +238,10 @@
           </UFormField>
 
           <UFormField label="Reported Injuries" name="wellnessInjury">
-            <UTextarea v-model="state.wellnessInjury" placeholder="Describe any specific injuries..." />
+            <UTextarea
+              v-model="state.wellnessInjury"
+              placeholder="Describe any specific injuries..."
+            />
           </UFormField>
 
           <UFormField label="Reported Pain / Soreness" name="wellnessPain">

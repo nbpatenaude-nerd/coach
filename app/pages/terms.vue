@@ -193,10 +193,10 @@
           <p>
             Your use of the Service is also governed by our Privacy Policy, available at
             <a
-              href="https://coachwatts.com/privacy"
+              href="https://journeyendurance.ca/privacy"
               class="text-primary-600 dark:text-primary-400 hover:underline"
               target="_blank"
-              >https://coachwatts.com/privacy</a
+              >https://journeyendurance.ca/privacy</a
             >.
           </p>
           <p class="mt-2">
@@ -248,7 +248,7 @@
           <p>If you have any questions about these Terms, please contact us at:</p>
           <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <p><strong>Watt Mind Kft.</strong></p>
-            <p>Email: support@coachwatts.com</p>
+            <p>Email: support@journeyendurance.ca</p>
           </div>
         </div>
       </div>

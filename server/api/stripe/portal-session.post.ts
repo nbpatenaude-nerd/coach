@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
   if (isLifetimeSubscriber(user)) {
     throw createError({
       statusCode: 409,
-      message: 'Lifetime access is managed by Coach Watts, not the Stripe billing portal.'
+      message: 'Lifetime access is managed by Journey Endurance, not the Stripe billing portal.'
     })
   }
 

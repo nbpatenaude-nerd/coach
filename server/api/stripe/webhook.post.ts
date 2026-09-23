@@ -104,11 +104,11 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription, event
           templateKey: 'SubscriptionStarted',
           eventKey: `SUBSCRIPTION_STARTED_${tier}`,
           audience: 'TRANSACTIONAL',
-          subject: `Welcome to Coach Watts ${tier}!`,
+          subject: `Welcome to Journey Endurance ${tier}!`,
           props: {
             name: user.name || 'Athlete',
             tier,
-            unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'}/profile/settings?tab=communication`
+            unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.ca'}/profile/settings?tab=communication`
           }
         })
       } catch (error) {
@@ -168,7 +168,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription, even
         templateKey: 'SubscriptionCanceled',
         eventKey: `SUBSCRIPTION_CANCELED_${user.id}`,
         audience: 'TRANSACTIONAL',
-        subject: 'Your Coach Watts subscription has been canceled',
+        subject: 'Your Journey Endurance subscription has been canceled',
         props: {
           name: user.name || 'Athlete',
           tier: user.subscriptionTier
@@ -310,7 +310,7 @@ export default defineEventHandler(async (event) => {
                 templateKey: 'PaymentFailed',
                 eventKey: `INVOICE_PAYMENT_FAILED_${failedInvoice.id}`,
                 audience: 'TRANSACTIONAL',
-                subject: 'Action Required: Payment failed for your Coach Watts subscription',
+                subject: 'Action Required: Payment failed for your Journey Endurance subscription',
                 props: {
                   name: user.name || 'Athlete',
                   tier: user.subscriptionTier,
@@ -342,7 +342,7 @@ export default defineEventHandler(async (event) => {
                 templateKey: 'PaymentSucceeded',
                 eventKey: `INVOICE_PAYMENT_SUCCEEDED_${successInvoice.id}`,
                 audience: 'TRANSACTIONAL',
-                subject: 'Receipt for your Coach Watts subscription payment',
+                subject: 'Receipt for your Journey Endurance subscription payment',
                 props: {
                   name: user.name || 'Athlete',
                   tier: user.subscriptionTier,

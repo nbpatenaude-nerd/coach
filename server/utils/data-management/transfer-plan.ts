@@ -1,5 +1,5 @@
 /**
- * Declarative plan for a selective user-data transfer between two Coach Watts
+ * Declarative plan for a selective user-data transfer between two Journey Endurance
  * databases (typically production → testing).
  *
  * Every table is described once, in dependency order, with:

@@ -160,7 +160,7 @@ function buildAuthProviders() {
               profile.email?.split('@')[0] ||
               'Athlete'
             // Returning Apple sign-ins may omit email; Account.providerAccountId (sub) is the stable key.
-            const email = profile.email || `${profile.sub}@apple.coachwatts.com`
+            const email = profile.email || `${profile.sub}@apple.journeyendurance.ca`
             console.log(`[Auth] Apple profile mapping for ${profile.sub}: using email ${email}`)
             return {
               id: profile.sub,
@@ -203,7 +203,7 @@ function buildAuthProviders() {
         })
 
         const email =
-          existingIntegration?.user?.email || profile.email || `${profile.id}@strava.coachwatts.com`
+          existingIntegration?.user?.email || profile.email || `${profile.id}@strava.journeyendurance.ca`
 
         console.log(`[Auth] Strava profile mapping for ${profile.id}: using email ${email}`)
 
@@ -245,7 +245,7 @@ function buildAuthProviders() {
         const email =
           existingIntegration?.user?.email ||
           profile.email ||
-          `${profile.id}@intervals.coachwatts.com`
+          `${profile.id}@intervals.journeyendurance.ca`
 
         console.log(`[Auth] Intervals profile mapping for ${profile.id}: using email ${email}`)
 
@@ -348,10 +348,10 @@ export default NuxtAuthHandler({
           templateKey: 'Welcome',
           eventKey: 'USER_SIGNED_UP_FOLLOWUP',
           audience: 'TRANSACTIONAL',
-          subject: 'Welcome to Coach Watts!',
+          subject: 'Welcome to Journey Endurance!',
           props: {
             name: user.name || 'Athlete',
-            unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'}/profile/settings?tab=communication`
+            unsubscribeUrl: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.ca'}/profile/settings?tab=communication`
           }
         })
 

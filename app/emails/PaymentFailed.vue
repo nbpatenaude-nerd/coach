@@ -25,8 +25,8 @@
       utmQuery?: string
     }>(),
     {
-      siteUrl: 'https://coachwatts.com',
-      logoUrl: 'https://coachwatts.com/icon.png'
+      siteUrl: 'https://journeyendurance.ca',
+      logoUrl: 'https://journeyendurance.ca/icon.png'
     }
   )
 </script>
@@ -46,7 +46,7 @@
       />
     </EHead>
     <EPreview
-      >Payment failed for your Coach Watts subscription. Please update your payment
+      >Payment failed for your Journey Endurance subscription. Please update your payment
       method.</EPreview
     >
     <EBody
@@ -76,7 +76,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Coach Watts"
+              alt="Journey Endurance"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -99,8 +99,8 @@
           </EText>
           <EText style="font-size: 15px; line-height: 1.6; color: #71717a; margin-bottom: 20px">
             We were unable to process the payment {{ amount ? '(' + amount + ')' : '' }} for your
-            {{ tier || 'Coach Watts' }} subscription. Please update your payment method to ensure
-            uninterrupted access.
+            {{ tier || 'Journey Endurance' }} subscription. Please update your payment method to
+            ensure uninterrupted access.
           </EText>
           <div style="text-align: center; margin-bottom: 24px">
             <EButton
@@ -125,7 +125,7 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Coach Watts
+            Journey Endurance
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0">
             AI-powered endurance coaching that adapts to you.

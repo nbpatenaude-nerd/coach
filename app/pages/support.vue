@@ -74,7 +74,7 @@
 
           <template #footer>
             <UButton
-              to="mailto:support@coachwatts.com"
+              to="mailto:support@journeyendurance.ca"
               color="neutral"
               variant="solid"
               block

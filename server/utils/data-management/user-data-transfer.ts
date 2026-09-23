@@ -8,7 +8,7 @@ import {
 } from './transfer-plan'
 
 /**
- * Copies one user's data between two Coach Watts databases, section by section,
+ * Copies one user's data between two Journey Endurance databases, section by section,
  * remapping it onto a user that already exists in the target database.
  *
  * Unlike `UserUniverseImporter` (which creates a brand new user from an export

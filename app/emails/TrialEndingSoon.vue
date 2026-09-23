@@ -27,8 +27,8 @@
       utmQuery?: string
     }>(),
     {
-      siteUrl: 'https://coachwatts.com',
-      logoUrl: 'https://coachwatts.com/icon.png'
+      siteUrl: 'https://journeyendurance.ca',
+      logoUrl: 'https://journeyendurance.ca/icon.png'
     }
   )
 </script>
@@ -91,7 +91,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Coach Watts"
+              alt="Journey Endurance"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>

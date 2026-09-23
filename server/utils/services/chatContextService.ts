@@ -837,7 +837,7 @@ Do not publish when \`sync_conflict\` is true or \`structure_generation_in_fligh
 For date/time moves, **do not** delete + recreate unless the user explicitly asks for replacement.`
     : ''
 
-  const systemInstruction = `You are Coach Watts. Your coaching style and personality is **${persona}**.
+  const systemInstruction = `You are Journey Endurance. Your coaching style and personality is **${persona}**.
 Address the athlete as **${preferredName}**.
 Adopt this persona fully in your interactions.
 

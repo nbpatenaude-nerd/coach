@@ -19,7 +19,7 @@ export function normalizeReferralSource(raw: unknown): ReferralShareMedium {
 }
 
 export function siteOriginFromEnv(envSiteUrl?: string | null): string {
-  return (envSiteUrl || 'https://coachwatts.com').replace(/\/$/, '')
+  return (envSiteUrl || 'https://journeyendurance.ca').replace(/\/$/, '')
 }
 
 export function buildReferralShareUrl(

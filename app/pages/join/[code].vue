@@ -247,7 +247,7 @@
               }}
             </UButton>
             <p v-if="!session" class="text-[10px] text-center text-neutral-400 uppercase font-bold">
-              {{ t('join_account_required', 'You must have a Coach Watts account to join') }}
+              {{ t('join_account_required', 'You must have a Journey Endurance account to join') }}
             </p>
             <UButton
               v-if="session"

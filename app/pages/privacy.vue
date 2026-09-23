@@ -284,7 +284,9 @@
               any time.
             </li>
           </ul>
-          <p class="mt-4">To exercise these rights, please contact us at support@coachwatts.com.</p>
+          <p class="mt-4">
+            To exercise these rights, please contact us at support@journeyendurance.ca.
+          </p>
 
           <h4 class="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-2">
             Supervisory Authority
@@ -335,9 +337,9 @@
             <p class="mt-2">
               Email:
               <a
-                href="mailto:support@coachwatts.com"
+                href="mailto:support@journeyendurance.ca"
                 class="text-primary-600 dark:text-primary-400 hover:underline"
-                >support@coachwatts.com</a
+                >support@journeyendurance.ca</a
               >
             </p>
           </div>

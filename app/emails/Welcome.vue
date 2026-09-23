@@ -25,8 +25,8 @@
       utmQuery?: string
     }>(),
     {
-      siteUrl: 'https://coachwatts.com',
-      logoUrl: 'https://coachwatts.com/icon.png'
+      siteUrl: 'https://journeyendurance.ca',
+      logoUrl: 'https://journeyendurance.ca/icon.png'
     }
   )
   const connectSourceUrl = computed(() => `${props.siteUrl}/settings/apps`)
@@ -48,7 +48,8 @@
       />
     </EHead>
     <EPreview
-      >Step 1 complete. Connect your first data source and join the Coach Watts community.</EPreview
+      >Step 1 complete. Connect your first data source and join the Journey Endurance
+      community.</EPreview
     >
     <EBody
       style="
@@ -93,7 +94,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Coach Watts"
+              alt="Journey Endurance"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -119,8 +120,8 @@
           >
 
           <EText style="font-size: 16px; line-height: 1.6; color: #71717a; margin-bottom: 16px"
-            >Welcome to Coach Watts. Your account is ready, and we're excited to help you optimize
-            your training with AI-driven insights tailored specifically for you.</EText
+            >Welcome to Journey Endurance. Your account is ready, and we're excited to help you
+            optimize your training with AI-driven insights tailored specifically for you.</EText
           >
 
           <EContainer
@@ -233,7 +234,7 @@
                 :href="discordUrl + (utmQuery || '') + '&utm_content=join_discord'"
                 style="color: #00c16a; text-decoration: underline"
               >
-                Join Coach Watts on Discord
+                Join Journey Endurance on Discord
               </ELink>
             </EText>
           </EContainer>
@@ -244,13 +245,13 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Coach Watts
+            Journey Endurance
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0 0 16px">
             AI-powered endurance coaching that adapts to you.
           </EText>
           <EText style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0">
-            You're receiving this because you registered at Coach Watts.
+            You're receiving this because you registered at Journey Endurance.
             <br />
             You can
             <ELink

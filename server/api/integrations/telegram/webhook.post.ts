@@ -67,7 +67,7 @@ export default defineEventHandler(async (event) => {
 
         await sendTelegramMessage(
           chatId,
-          "🚴 **Connected!** I'm Coach Watts.\n\nI'm ready to analyze your data and help you crush your goals. Ask me anything about your training, nutrition, or recovery.",
+          "🚴 **Connected!** I'm Journey Endurance.\n\nI'm ready to analyze your data and help you crush your goals. Ask me anything about your training, nutrition, or recovery.",
           'Markdown'
         )
         return { status: 'linked' }
@@ -90,7 +90,7 @@ export default defineEventHandler(async (event) => {
       } else {
         await sendTelegramMessage(
           chatId,
-          'Welcome to Coach Watts! 🚴\n\nPlease link your account via the Dashboard to start chatting.'
+          'Welcome to Journey Endurance! 🚴\n\nPlease link your account via the Dashboard to start chatting.'
         )
       }
       return { status: 'welcome' }
@@ -163,7 +163,7 @@ export default defineEventHandler(async (event) => {
   // 4. Handle Authenticated Commands
   if (text === '/help') {
     const helpText = [
-      '⚡ **Coach Watts Telegram Help**',
+      '⚡ **Journey Endurance Telegram Help**',
       '',
       '/help - Show this help message',
       '/roominfo - Get the current chat room ID',

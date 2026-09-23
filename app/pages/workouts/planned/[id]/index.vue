@@ -1426,7 +1426,7 @@
           variant="soft"
           icon="i-heroicons-exclamation-triangle"
           title="You can still continue"
-          description="This is only a warning. Coach Watts can still generate or regenerate the structure, but some targets may be less accurate than expected."
+          description="This is only a warning. Journey Endurance can still generate or regenerate the structure, but some targets may be less accurate than expected."
         />
 
         <div class="rounded-xl border border-warning/30 bg-warning/5 p-4">
@@ -2337,7 +2337,7 @@
       plannedWorkout?.lastStructureEditSource === 'REMOTE_IMPORT'
     ) {
       note =
-        'Imported workout: regenerate or adjust this workout locally if you want Coach Watts to rebuild it from your current target policy and sport settings.'
+        'Imported workout: regenerate or adjust this workout locally if you want Journey Endurance to rebuild it from your current target policy and sport settings.'
     }
 
     return {

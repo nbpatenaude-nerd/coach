@@ -26,7 +26,7 @@ export interface EmailTemplateDefinition {
 export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = {
   Welcome: {
     templateKey: 'Welcome',
-    defaultSubject: 'Welcome to Coach Watts!',
+    defaultSubject: 'Welcome to Journey Endurance!',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
     requiredProps: [],
@@ -79,7 +79,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   SubscriptionStarted: {
     templateKey: 'SubscriptionStarted',
-    defaultSubject: 'Welcome to Coach Watts Pro!',
+    defaultSubject: 'Welcome to Journey Endurance Pro!',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
     requiredProps: ['tier'],
@@ -88,7 +88,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   AccountDeletionScheduled: {
     templateKey: 'AccountDeletionScheduled',
-    defaultSubject: 'Your Coach Watts account deletion has been scheduled',
+    defaultSubject: 'Your Journey Endurance account deletion has been scheduled',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
     requiredProps: ['initiatedBy', 'requestedAt'],
@@ -97,7 +97,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   TrialEndingSoon: {
     templateKey: 'TrialEndingSoon',
-    defaultSubject: 'Your Coach Watts performance trial ends soon',
+    defaultSubject: 'Your Journey Endurance performance trial ends soon',
     audience: 'ENGAGEMENT',
     preferenceKey: 'retentionNudges',
     requiredProps: ['trialEndsAt', 'pricingUrl'],
@@ -117,7 +117,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   PaymentFailed: {
     templateKey: 'PaymentFailed',
-    defaultSubject: 'Action Required: Payment failed for your Coach Watts subscription',
+    defaultSubject: 'Action Required: Payment failed for your Journey Endurance subscription',
     audience: 'TRANSACTIONAL',
     preferenceKey: 'billing',
     requiredProps: [],
@@ -126,7 +126,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   PaymentSucceeded: {
     templateKey: 'PaymentSucceeded',
-    defaultSubject: 'Receipt for your Coach Watts subscription payment',
+    defaultSubject: 'Receipt for your Journey Endurance subscription payment',
     audience: 'TRANSACTIONAL',
     preferenceKey: 'billing',
     requiredProps: [],
@@ -135,7 +135,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   SubscriptionCanceled: {
     templateKey: 'SubscriptionCanceled',
-    defaultSubject: 'Your Coach Watts subscription has been canceled',
+    defaultSubject: 'Your Journey Endurance subscription has been canceled',
     audience: 'TRANSACTIONAL',
     preferenceKey: 'billing',
     requiredProps: [],
@@ -144,7 +144,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   CoachInvite: {
     templateKey: 'CoachInvite',
-    defaultSubject: 'You have been invited to Coach Watts',
+    defaultSubject: 'You have been invited to Journey Endurance',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
     requiredProps: ['coachName', 'joinUrl', 'code'],
@@ -153,7 +153,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   TeamInvite: {
     templateKey: 'TeamInvite',
-    defaultSubject: 'You have been invited to join a team on Coach Watts',
+    defaultSubject: 'You have been invited to join a team on Journey Endurance',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
     requiredProps: ['teamName', 'joinUrl', 'code'],
@@ -162,7 +162,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   MarketingBroadcast: {
     templateKey: 'MarketingBroadcast',
-    defaultSubject: 'Coach Watts Update',
+    defaultSubject: 'Journey Endurance Update',
     audience: 'MARKETING',
     preferenceKey: 'marketing',
     requiredProps: ['headline', 'bodyContent'],
@@ -171,7 +171,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   OnboardingDripDay2: {
     templateKey: 'OnboardingDripDay2',
-    defaultSubject: 'Connect your training apps to unlock Coach Watts',
+    defaultSubject: 'Connect your training apps to unlock Journey Endurance',
     audience: 'ENGAGEMENT',
     preferenceKey: 'onboarding',
     requiredProps: [],
@@ -180,7 +180,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   OnboardingDripDay7: {
     templateKey: 'OnboardingDripDay7',
-    defaultSubject: 'How was your first week with Coach Watts?',
+    defaultSubject: 'How was your first week with Journey Endurance?',
     audience: 'ENGAGEMENT',
     preferenceKey: 'onboarding',
     requiredProps: [],

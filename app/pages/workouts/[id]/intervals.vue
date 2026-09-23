@@ -166,7 +166,7 @@
             <template #engine>
               <IntervalTable
                 :intervals="data.audit?.detected || []"
-                title="Coach Watts Engine Detection"
+                title="Journey Endurance Engine Detection"
                 color="amber"
                 @interval-hover="onIntervalHover"
                 @interval-leave="onIntervalLeave"

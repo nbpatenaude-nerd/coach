@@ -2,11 +2,13 @@ import { describe, expect, it } from 'vitest'
 import {
   hasWorkoutSummaryBlock,
   removeWorkoutSummaryBlock,
+  SUMMARY_ATTRIBUTION_URL,
+  SUMMARY_BLOCK_HEADER,
   upsertWorkoutSummaryBlock
 } from '../../../../../server/utils/services/workout-summary-publish'
 
 describe('workout summary publish helpers', () => {
-  it('detects and removes CoachWatts summary blocks while preserving athlete notes', () => {
+  it('detects and removes legacy CoachWatts summary blocks while preserving athlete notes', () => {
     const description = `CoachWatts Workout Analysis
 
 Strong aerobic execution with good pacing.
@@ -32,7 +34,10 @@ User note.`
 
     expect(updated).toContain('New summary.')
     expect(updated).toContain('User note.')
-    expect(updated.match(/CoachWatts Workout Analysis/g)).toHaveLength(1)
+    expect(updated).toContain(SUMMARY_BLOCK_HEADER)
+    expect(updated).toContain(SUMMARY_ATTRIBUTION_URL)
+    expect(updated.match(/CoachWatts Workout Analysis/g)).toBeNull()
+    expect(updated.match(new RegExp(SUMMARY_BLOCK_HEADER, 'g'))).toHaveLength(1)
   })
 
   it('returns false when no summary block exists', () => {

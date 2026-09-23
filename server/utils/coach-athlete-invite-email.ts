@@ -9,7 +9,7 @@ export async function sendCoachAthleteInviteEmail(options: {
 }) {
   const coachName = options.coachName.trim() || 'A coach'
   const template = getEmailTemplateDefinition('CoachInvite')
-  const subject = template?.defaultSubject || `${coachName} invited you to Coach Watts`
+  const subject = template?.defaultSubject || `${coachName} invited you to Journey Endurance`
 
   return await EmailDeliveryService.runSendEmail({
     toEmail: options.to,

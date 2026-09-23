@@ -220,7 +220,7 @@ export function normalizeFoodItem(item: any): FoodItem {
 }
 
 function getFeederConfig() {
-  let feederUrl = process.env.NUTRITION_FEEDER_URL || 'https://feeds.coachwatts.com'
+  let feederUrl = process.env.NUTRITION_FEEDER_URL || 'https://feeds.journeyendurance.ca'
   let feederApiKey = process.env.NUTRITION_FEEDER_API_KEY || ''
 
   try {

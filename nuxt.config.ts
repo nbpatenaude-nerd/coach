@@ -197,7 +197,7 @@ export default defineNuxtConfig({
   },
 
   vueEmail: {
-    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://app.coachwatts.com',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://app.journeyendurance.ca',
     emailsDir: 'app/emails'
   },
 
@@ -239,7 +239,7 @@ export default defineNuxtConfig({
             production: 'runtime',
             route: '/_openapi.json',
             meta: {
-              title: 'Coach Watts API',
+              title: 'Journey Endurance API',
               description: 'AI-powered endurance coaching platform API',
               version: pkg.version
             },
@@ -325,7 +325,7 @@ export default defineNuxtConfig({
     redisUrl: process.env.REDIS_URL || '',
 
     // Nutrition Feeder Service
-    nutritionFeederUrl: process.env.NUTRITION_FEEDER_URL || 'https://feeds.coachwatts.com',
+    nutritionFeederUrl: process.env.NUTRITION_FEEDER_URL || 'https://feeds.journeyendurance.ca',
     nutritionFeederApiKey: process.env.NUTRITION_FEEDER_API_KEY || '',
 
     // Resend

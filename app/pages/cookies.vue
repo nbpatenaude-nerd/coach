@@ -123,9 +123,9 @@
             <p>
               Email:
               <a
-                href="mailto:support@coachwatts.com"
+                href="mailto:support@journeyendurance.ca"
                 class="text-primary-600 dark:text-primary-400 hover:underline"
-                >support@coachwatts.com</a
+                >support@journeyendurance.ca</a
               >
             </p>
           </div>

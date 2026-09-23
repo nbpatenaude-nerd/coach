@@ -50,7 +50,10 @@
               icon="i-heroicons-exclamation-triangle"
               :title="p('disabled_title', 'WHOOP integration is temporarily unavailable')"
               :description="
-                p('disabled_desc', 'WHOOP connections are currently disabled on coachwatts.com.')
+                p(
+                  'disabled_desc',
+                  'WHOOP connections are currently disabled on journeyendurance.ca.'
+                )
               "
             />
 
@@ -160,7 +163,7 @@
   const connecting = ref(false)
   const isWhoopDisabled = computed(() => {
     const hostname = import.meta.client ? window.location.hostname : useRequestURL().hostname
-    return hostname === 'coachwatts.com' || hostname === 'www.coachwatts.com'
+    return hostname === 'journeyendurance.ca' || hostname === 'www.journeyendurance.ca'
   })
 
   const goBack = () => {

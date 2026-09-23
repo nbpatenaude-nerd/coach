@@ -1230,10 +1230,15 @@
       class="bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 print:hidden"
       :ui="{ footer: 'lg:border-t lg:border-default', body: 'flex min-h-0 flex-col' }"
       :title="navLabel('navigation_sidebar_title', 'Navigation')"
-      :description="navLabel('navigation_sidebar_description', 'Browse Coach Watts destinations')"
+      :description="
+        navLabel('navigation_sidebar_description', 'Browse Journey Endurance destinations')
+      "
       :menu="{
         title: navLabel('navigation_sidebar_title', 'Navigation'),
-        description: navLabel('navigation_sidebar_description', 'Browse Coach Watts destinations')
+        description: navLabel(
+          'navigation_sidebar_description',
+          'Browse Journey Endurance destinations'
+        )
       }"
     >
       <template #header="{ collapsed }">
@@ -1245,7 +1250,7 @@
           <img
             v-if="!collapsed"
             src="/media/logo_with_text_cropped.webp"
-            alt="Coach Watts"
+            alt="Journey Endurance"
             width="702"
             height="135"
             loading="eager"
@@ -1255,7 +1260,7 @@
           <img
             v-else
             src="/media/logo.webp"
-            alt="Coach Watts"
+            alt="Journey Endurance"
             width="537"
             height="537"
             loading="eager"

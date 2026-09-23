@@ -20,7 +20,7 @@
    * public invite only — may not match this code).
    */
   const joinUrl = computed(() => {
-    const base = import.meta.client ? window.location.origin : 'https://coachwatts.com'
+    const base = import.meta.client ? window.location.origin : 'https://journeyendurance.ca'
     return `${base}/join/${props.code.toUpperCase()}`
   })
 
