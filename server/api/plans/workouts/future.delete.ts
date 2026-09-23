@@ -24,8 +24,8 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  // 1. Delete LOCAL CoachWatts workouts
-  // We only delete workouts explicitly managed by CoachWatts
+  // 1. Delete LOCAL app-managed workouts
+  // We only delete workouts explicitly Managed by Journey Endurance (COACH_WATTS)
   const localWorkouts = await prisma.plannedWorkout.findMany({
     where: {
       userId,
@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
   })
 
   // 2. Remote Cleanup (Extended Range)
-  // Fetch future events from Intervals to find and delete CoachWatts events
+  // Fetch future events from Intervals to find and delete app-managed Intervals events
   // that might not be in our local DB (beyond sync horizon or synced incorrectly)
   let remoteDeleteCount = 0
 
@@ -77,13 +77,13 @@ export default defineEventHandler(async (event) => {
 
       const remoteEvents = await fetchIntervalsPlannedWorkouts(integration, startDate, endDate)
 
-      // Identify events created by CoachWatts via description tag
+      // Identify events created by the app via description tag
       const cwEvents = remoteEvents.filter(
         (e) => e.description && e.description.includes('[CoachWatts]')
       )
 
       if (cwEvents.length > 0) {
-        console.log(`Found ${cwEvents.length} orphaned CoachWatts events on Intervals.icu`)
+        console.log(`Found ${cwEvents.length} orphaned app-managed events on Intervals.icu`)
 
         await Promise.allSettled(
           cwEvents.map(async (e) => {

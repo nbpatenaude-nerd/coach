@@ -13,7 +13,7 @@ To link your Journey Endurance account to Telegram:
 2. Navigate to **Settings → Apps**.
 3. Locate the **Telegram** section and click **Link Account**.
 4. A unique, temporary link or token will be generated.
-5. Click the link to open Telegram, or send the `/start [your-token]` command directly to the **@CoachWattsBot**.
+5. Click the link to open Telegram, or send the `/start [your-token]` command directly to the **@JourneyEnduranceBot** (or the username set in `TELEGRAM_BOT_USERNAME`).
 
 ::alert{type="success"}
 Success: Once linked, the bot will welcome you, and you can start chatting immediately.

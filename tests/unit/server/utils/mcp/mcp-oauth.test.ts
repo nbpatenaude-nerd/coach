@@ -11,24 +11,20 @@ import {
 } from '../../../../../server/utils/mcp/tool-manifest'
 import { isMcpToolAvailable } from '../../../../../server/utils/mcp/tool-availability'
 import { validateMcpToolManifest } from '../../../../../server/utils/mcp/manifest-validation'
-import { buildCoachWattsOAuthMetadata } from '../../../../../server/utils/oauth/metadata'
+import { buildProductOAuthMetadata } from '../../../../../server/utils/oauth/metadata'
+
+const SITE = 'https://journeyendurance.ca'
 
 describe('oauth/resource', () => {
   it('normalizes MCP resource URLs', () => {
-    expect(getMcpResourceUrl('https://app.coachwatts.com')).toBe('https://app.coachwatts.com/mcp')
-    expect(normalizeResourceUrl('https://app.coachwatts.com/mcp/')).toBe(
-      'https://app.coachwatts.com/mcp'
-    )
-    expect(normalizeResourceUrl('https://app.coachwatts.com/mcp#frag')).toBeNull()
+    expect(getMcpResourceUrl(SITE)).toBe(`${SITE}/mcp`)
+    expect(normalizeResourceUrl(`${SITE}/mcp/`)).toBe(`${SITE}/mcp`)
+    expect(normalizeResourceUrl(`${SITE}/mcp#frag`)).toBeNull()
   })
 
   it('detects MCP resource requests', () => {
-    expect(
-      isMcpResourceRequest('https://app.coachwatts.com/mcp', 'https://app.coachwatts.com')
-    ).toBe(true)
-    expect(
-      isMcpResourceRequest('https://app.coachwatts.com/api/mcp', 'https://app.coachwatts.com')
-    ).toBe(false)
+    expect(isMcpResourceRequest(`${SITE}/mcp`, SITE)).toBe(true)
+    expect(isMcpResourceRequest(`${SITE}/api/mcp`, SITE)).toBe(false)
   })
 })
 
@@ -46,7 +42,7 @@ describe('oauth/scopes', () => {
 
 describe('oauth/metadata', () => {
   it('advertises MCP scopes and S256 PKCE', () => {
-    const metadata = buildCoachWattsOAuthMetadata('https://app.coachwatts.com')
+    const metadata = buildProductOAuthMetadata(SITE)
     expect(metadata.scopes_supported).toContain('planning:read')
     expect(metadata.scopes_supported).toContain('ai:generate')
     expect(metadata.registration_endpoint).toBeUndefined()
@@ -54,7 +50,7 @@ describe('oauth/metadata', () => {
   })
 
   it('advertises registration when DCR is enabled', () => {
-    const metadata = buildCoachWattsOAuthMetadata('https://app.coachwatts.com', {
+    const metadata = buildProductOAuthMetadata(SITE, {
       includeRegistrationEndpoint: true
     })
     expect(String(metadata.registration_endpoint)).toContain('/api/oauth/register')

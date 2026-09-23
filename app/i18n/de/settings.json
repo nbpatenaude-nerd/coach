@@ -209,7 +209,7 @@
   "danger_modal_clear_future_body": "Bist du sicher? Dadurch werden ALLE zukünftig geplanten Workouts aus deinem Zeitplan gelöscht UND aus Intervals.icu entfernt.",
   "danger_modal_clear_future_desc": "Bestätigen Sie das Entfernen anstehender Trainingseinheiten.",
   "danger_modal_clear_future_title": "Zukünftigen Zeitplan löschen",
-  "danger_modal_clear_past_body": "Bist du sicher? Dies löscht ALLE vergangenen geplanten Workouts, die NICHT abgeschlossen wurden. Dies betrifft nur Workouts, die von CoachWatts verwaltet werden.",
+  "danger_modal_clear_past_body": "Bist du sicher? Dies löscht ALLE vergangenen geplanten Workouts, die NICHT abgeschlossen wurden. Dies betrifft nur Workouts, die von Journey Endurance verwaltet werden.",
   "danger_modal_clear_past_desc": "Bestätigen Sie das Entfernen nicht abgeschlossener vergangener Trainingseinheiten.",
   "danger_modal_clear_past_title": "Vergangenen Zeitplan löschen",
   "danger_modal_delete_account_body": "Alle deine Daten, einschließlich Workouts, Metriken und Berichte, werden dauerhaft gelöscht.",

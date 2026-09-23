@@ -471,7 +471,7 @@
   <DashboardWeeklyCheckIn v-model:open="showWeeklyCheckinModal" />
 
   <!-- Share Journey Endurance Modal -->
-  <DashboardShareCoachWattsModal v-model:open="showShareCoachWattsModal" />
+  <DashboardShareJourneyModal v-model:open="showShareJourneyModal" />
 
   <DashboardTrialEndedModal />
 </template>
@@ -880,7 +880,7 @@
   )
 
   // Share Journey Endurance modal
-  const showShareCoachWattsModal = ref(false)
+  const showShareJourneyModal = ref(false)
   const { openReleaseModal } = useReleaseNotes()
   const { toggle: toggleTriggerMonitor } = useTriggerMonitor()
 
@@ -895,7 +895,7 @@
         label: t.value('share_footer_button'),
         icon: 'i-lucide-heart',
         onSelect: () => {
-          showShareCoachWattsModal.value = true
+          showShareJourneyModal.value = true
         }
       },
       {

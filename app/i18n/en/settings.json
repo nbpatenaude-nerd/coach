@@ -229,7 +229,7 @@
   "danger_modal_clear_future_body": "Are you sure? This will delete ALL future planned workouts from your schedule AND remove them from Intervals.icu.",
   "danger_modal_clear_future_desc": "Confirm the removal of upcoming training sessions.",
   "danger_modal_clear_future_title": "Clear Future Schedule",
-  "danger_modal_clear_past_body": "Are you sure? This will delete ALL past planned workouts that were NOT completed. This only affects workouts managed by CoachWatts.",
+  "danger_modal_clear_past_body": "Are you sure? This will delete ALL past planned workouts that were NOT completed. This only affects workouts managed by Journey Endurance.",
   "danger_modal_clear_past_desc": "Confirm the removal of non-completed past training sessions.",
   "danger_modal_clear_past_title": "Clear Past Schedule",
   "danger_modal_delete_account_body": "All your data including workouts, metrics, and reports will be permanently deleted.",

@@ -108,7 +108,7 @@
       </template>
     </UAlert>
 
-    <DashboardShareCoachWattsModal
+    <DashboardShareJourneyModal
       v-model:open="isShareModalOpen"
       :reward-enabled="true"
       :message-id="message.id"

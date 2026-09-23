@@ -209,7 +209,7 @@
   "danger_modal_clear_future_body": "¿Estás seguro? Esto eliminará todos los entrenamientos futuros planificados de tu agenda y los eliminará de Intervals.icu.",
   "danger_modal_clear_future_desc": "Confirmar la eliminación de las próximas sesiones de entrenamiento.",
   "danger_modal_clear_future_title": "Programación futura clara",
-  "danger_modal_clear_past_body": "¿Estás seguro? Esto eliminará todos los entrenamientos planificados que no se hayan completado. Esto solo afecta a los entrenamientos gestionados por CoachWatts.",
+  "danger_modal_clear_past_body": "¿Estás seguro? Esto eliminará todos los entrenamientos planificados que no se hayan completado. Esto solo afecta a los entrenamientos gestionados por Journey Endurance.",
   "danger_modal_clear_past_desc": "Confirmar la eliminación de sesiones de capacitación pasadas no completadas.",
   "danger_modal_clear_past_title": "Borrar programación pasada",
   "danger_modal_delete_account_body": "Todos tus datos, incluidos entrenamientos, métricas e informes, se eliminarán de forma permanente.",

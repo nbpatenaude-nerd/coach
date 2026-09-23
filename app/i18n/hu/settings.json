@@ -209,7 +209,7 @@
   "danger_modal_clear_future_body": "Biztos benne? Ez törli az ÖSSZES jövőbeli tervezett edzést az ütemezéséből ÉS eltávolítja őket az Intervals.icu-ból.",
   "danger_modal_clear_future_desc": "Erősítse meg a jövőbeli edzések törlését.",
   "danger_modal_clear_future_title": "Jövőbeli ütemezés törlése",
-  "danger_modal_clear_past_body": "Biztos vagy benne? Ez törölni fogja az ÖSSZES korábbi tervezett edzést, amely NEM lett befejezve. Ez csak a CoachWatts által kezelt edzéseket érinti.",
+  "danger_modal_clear_past_body": "Biztos vagy benne? Ez törölni fogja az ÖSSZES korábbi tervezett edzést, amely NEM lett befejezve. Ez csak a Journey Endurance által kezelt edzéseket érinti.",
   "danger_modal_clear_past_desc": "Erősítse meg a be nem fejezett múltbeli edzések törlését.",
   "danger_modal_clear_past_title": "Múltbeli ütemezés törlése",
   "danger_modal_delete_account_body": "Minden adata, beleértve az edzéseket, a mérőszámokat és a jelentéseket, véglegesen törlésre kerül.",

@@ -1,6 +1,6 @@
 import {
-  buildCoachWattsOAuthMetadata,
-  buildCoachWattsProtectedResourceMetadata
+  buildProductOAuthMetadata,
+  buildProductProtectedResourceMetadata
 } from '../../utils/oauth/metadata'
 
 export default defineEventHandler((event) => {
@@ -15,11 +15,11 @@ export default defineEventHandler((event) => {
   setHeader(event, 'Cache-Control', 'public, max-age=300')
 
   if (pathParam === 'oauth-protected-resource/mcp' || pathParam === 'oauth-protected-resource') {
-    return buildCoachWattsProtectedResourceMetadata(siteUrl, metadataOptions)
+    return buildProductProtectedResourceMetadata(siteUrl, metadataOptions)
   }
 
   if (pathParam === 'oauth-authorization-server') {
-    return buildCoachWattsOAuthMetadata(siteUrl, metadataOptions)
+    return buildProductOAuthMetadata(siteUrl, metadataOptions)
   }
 
   throw createError({ statusCode: 404, message: 'Not found' })

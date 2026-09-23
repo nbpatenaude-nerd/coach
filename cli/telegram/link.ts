@@ -32,7 +32,7 @@ const linkCommand = new Command('link')
         }
       })
 
-      const botUsername = process.env.TELEGRAM_BOT_USERNAME || 'CoachWattsBot'
+      const botUsername = process.env.TELEGRAM_BOT_USERNAME || 'JourneyEnduranceBot'
       const url = `https://t.me/${botUsername}?start=${token}`
 
       console.log(chalk.green('✅ Link generated successfully!'))

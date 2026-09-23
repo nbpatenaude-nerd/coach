@@ -30,12 +30,12 @@ function isClientAllowed(clientId: string, config: RuntimeConfig): boolean {
   return allowlist.includes(clientId)
 }
 
-export function createCoachWattsMcpServerFactory(config: RuntimeConfig) {
+export function createProductMcpServerFactory(config: RuntimeConfig) {
   const enabledPhases = getEnabledMcpPhases(getMcpRuntimeFlags(config))
 
   return async (ctx: McpRequestContext) => {
     const server = new McpServer({
-      name: 'coach-watts',
+      name: 'journey-endurance',
       version: config.public.version || '0.0.0'
     })
 

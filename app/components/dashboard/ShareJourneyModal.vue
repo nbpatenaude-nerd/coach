@@ -287,7 +287,7 @@
       }
 
       trackShareRewardClaim(response.daysGranted)
-      trackModalComplete('share_coach_watts', 'reward_claim')
+      trackModalComplete('share_journey', 'reward_claim')
       await userStore.fetchUser(true)
       toast.add({
         title: t.value('share_modal_reward_claimed_title'),
@@ -328,10 +328,10 @@
           await generateQrCode()
         }
         trackShareModalOpen()
-        trackModalOpen('share_coach_watts')
+        trackModalOpen('share_journey')
       } else {
         if (!shareCompleted.value) {
-          trackModalDismiss('share_coach_watts')
+          trackModalDismiss('share_journey')
         }
         hasShareIntent.value = false
       }

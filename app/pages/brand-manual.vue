@@ -636,7 +636,7 @@
                 <h4
                   class="text-lg font-medium text-zinc-500 uppercase mb-6 line-through opacity-50"
                 >
-                  CoachWatts, CW, Wattz
+                  Former names: CoachWatts, CW, Wattz
                 </h4>
                 <p class="text-sm text-zinc-500 leading-relaxed max-w-sm">
                   Avoid camel-case, informal abbreviations, or misspelling the brand name in

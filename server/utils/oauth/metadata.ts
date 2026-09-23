@@ -10,7 +10,7 @@ export function getOAuthIssuer(siteUrl: string): string {
   return siteUrl.replace(/\/$/, '')
 }
 
-export function buildCoachWattsOAuthMetadata(
+export function buildProductOAuthMetadata(
   siteUrl: string,
   options: { includeRegistrationEndpoint?: boolean } = {}
 ): OAuthMetadata {
@@ -35,13 +35,13 @@ export function buildCoachWattsOAuthMetadata(
   return metadata
 }
 
-export function buildCoachWattsProtectedResourceMetadata(
+export function buildProductProtectedResourceMetadata(
   siteUrl: string,
   options: { includeRegistrationEndpoint?: boolean } = {}
 ) {
   const resourceServerUrl = new URL(getMcpResourceUrl(siteUrl))
   return buildOAuthProtectedResourceMetadata({
-    oauthMetadata: buildCoachWattsOAuthMetadata(siteUrl, options),
+    oauthMetadata: buildProductOAuthMetadata(siteUrl, options),
     resourceServerUrl,
     resourceName: 'Journey Endurance MCP',
     serviceDocumentationUrl: new URL('/docs/developer/scopes', siteUrl),

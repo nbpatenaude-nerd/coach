@@ -42,7 +42,7 @@ export const WorkoutParser = {
       const trimmedLine = line.trim()
       if (!trimmedLine) continue
 
-      // Skip CoachWatts signature
+      // Skip legacy [CoachWatts] signature
       if (trimmedLine === '[CoachWatts]') continue
 
       // Detect Section Headers

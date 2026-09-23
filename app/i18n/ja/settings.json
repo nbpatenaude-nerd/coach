@@ -209,7 +209,7 @@
   "danger_modal_clear_future_body": "よろしいですか？これにより、今後予定されているすべてのワークアウトがスケジュールから削除され、Intervals.icu からも削除されます。",
   "danger_modal_clear_future_desc": "今後のトレーニング セッションの削除を確認します。",
   "danger_modal_clear_future_title": "将来のスケジュールを明確にする",
-  "danger_modal_clear_past_body": "よろしいですか？これにより、過去に計画した未完了のワークアウトがすべて削除されます。これはCoachWattsが管理するワークアウトにのみ影響します。",
+  "danger_modal_clear_past_body": "よろしいですか？これにより、過去に計画した未完了のワークアウトがすべて削除されます。これはJourney Enduranceが管理するワークアウトにのみ影響します。",
   "danger_modal_clear_past_desc": "完了していない過去のトレーニング セッションの削除を確認します。",
   "danger_modal_clear_past_title": "過去のスケジュールをクリア",
   "danger_modal_delete_account_body": "ワークアウト、メトリック、レポートを含むすべてのデータが完全に削除されます。",
