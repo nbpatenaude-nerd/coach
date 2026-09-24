@@ -1,5 +1,10 @@
 <template>
-  <UModal v-model:open="isOpen" :dismissible="!loading" :close="loading ? false : undefined">
+  <UModal
+    v-model:open="isOpen"
+    :dismissible="!loading"
+    :close="loading ? false : undefined"
+    :ui="modalUi"
+  >
     <template #title>
       <h3
         class="text-base font-black text-gray-900 dark:text-white uppercase tracking-tight truncate"
@@ -939,6 +944,17 @@
   const allowStructureEdit = computed(() => props.allowStructureEdit)
   const showViewDetails = computed(() => props.showViewDetails)
   const showSaveToLibrary = computed(() => props.showSaveToLibrary)
+  const modalUi = computed(() =>
+    allowStructureEdit.value
+      ? {
+          content:
+            'w-[calc(100vw-1.5rem)] sm:max-w-5xl md:max-w-6xl lg:max-w-[1280px] max-h-[92vh]',
+          body: 'max-h-[min(78vh,820px)] overflow-y-auto'
+        }
+      : {
+          content: 'sm:max-w-2xl'
+        }
+  )
   const structureSaveUrl = computed(() => {
     const workoutId = props.plannedWorkout?.id
     if (!workoutId) return null

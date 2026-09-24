@@ -5,7 +5,7 @@
     >
       <!-- Desktop Layout -->
       <div
-        class="hidden sm:grid items-start gap-4 grid-cols-[32px_1fr_48px_70px_80px_150px_70px_32px]"
+        class="hidden sm:grid items-start gap-3 grid-cols-[32px_minmax(140px,1.4fr)_48px_72px_minmax(128px,150px)_minmax(170px,210px)_80px_32px]"
       >
         <!-- Col 0: Drag Handle -->
         <div
