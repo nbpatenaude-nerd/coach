@@ -20,6 +20,11 @@ if [ -z "$PUBLIC_ORIGIN" ] && [ -n "$RAILWAY_PUBLIC_DOMAIN" ]; then
   PUBLIC_ORIGIN="https://${RAILWAY_PUBLIC_DOMAIN}"
 fi
 PUBLIC_ORIGIN="${PUBLIC_ORIGIN%/}"
+# Accept either bare origin or origin+/api/auth (prod often sets the latter).
+case "$PUBLIC_ORIGIN" in
+  */api/auth) PUBLIC_ORIGIN="${PUBLIC_ORIGIN%/api/auth}" ;;
+esac
+PUBLIC_ORIGIN="${PUBLIC_ORIGIN%/}"
 
 case "$PUBLIC_ORIGIN" in
   http://127.0.0.1*|http://localhost*|https://127.0.0.1*|https://localhost*)
