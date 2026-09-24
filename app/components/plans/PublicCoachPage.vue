@@ -187,9 +187,11 @@
 
   useSeoMeta({
     title: () =>
-      author.value ? `${author.value.displayName} | Coach Wattz` : 'Coach | Coach Wattz',
+      author.value
+        ? `${author.value.displayName} | Journey Endurance`
+        : 'Coach | Journey Endurance',
     description: () =>
-      author.value?.bio || 'Browse published training plans from this Coach Wattz coach.'
+      author.value?.bio || 'Browse published training plans from this Journey Endurance coach.'
   })
 
   useHead({

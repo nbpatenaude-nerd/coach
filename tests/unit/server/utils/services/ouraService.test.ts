@@ -27,11 +27,9 @@ vi.mock('../../../../../server/utils/db', () => ({
 
 vi.mock('../../../../../server/utils/repositories/wellnessRepository', () => ({
   wellnessRepository: {
-    upsert: vi
-      .fn()
-      .mockResolvedValue({
-        record: { id: 'w1', date: new Date(), weight: null, bodyFat: null, rawJson: {} }
-      })
+    upsert: vi.fn().mockResolvedValue({
+      record: { id: 'w1', date: new Date(), weight: null, bodyFat: null, rawJson: {} }
+    })
   }
 }))
 

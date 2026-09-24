@@ -5,7 +5,7 @@ import {
   quotaFeatureCode,
   resolveUpgradeForOperation
 } from '../../utils/quotas/registry'
-import type { SubscriptionTier } from '@prisma/client'
+import type { SubscriptionTier } from '~/server/utils/generated-prisma/client'
 import type { QuotaStatus } from '~~/app/types/quotas'
 
 function resolveEffectiveTier(user: {
@@ -13,7 +13,7 @@ function resolveEffectiveTier(user: {
   trialEndsAt: Date | null
 }): SubscriptionTier {
   const isTrialActive = user.trialEndsAt && new Date(user.trialEndsAt) > new Date()
-  return user.subscriptionTier === 'FREE' && isTrialActive ? 'SUPPORTER' : user.subscriptionTier
+  return user.subscriptionTier === 'FREE' && isTrialActive ? 'UNCOVER' : user.subscriptionTier
 }
 
 function enrichQuotasWithNextTier(

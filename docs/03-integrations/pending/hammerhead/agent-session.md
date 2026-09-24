@@ -1,6 +1,6 @@
 # Hammerhead — agent credentials session
 
-**Goal:** Create a Hammerhead developer app for Coach Watts, accept the API
+**Goal:** Create a Hammerhead developer app for Journey Endurance Coaching Platform, accept the API
 licence, and capture Client ID / Secret / webhook secret into
 `.secrets/hammerhead.md`.
 
@@ -10,7 +10,7 @@ licence, and capture Client ID / Secret / webhook secret into
 
 - [ ] Email for developer account (prefer `laszlo.racz@coachwatts.com` or a dedicated
       `dev@…` alias that you control)
-- [ ] Coach Watts SVG logo available (repo has brand assets; or
+- [ ] Journey Endurance Coaching Platform SVG logo available (repo has brand assets; or
       https://coachwatts.com/media/logo-240.png — convert to SVG if dashboard requires SVG)
 - [ ] Copy [credentials.template.md](./credentials.template.md) → `.secrets/hammerhead.md`
 - [ ] Optional: download OpenAPI for offline use:
@@ -38,9 +38,9 @@ Fill:
 
 | Field         | Value                                                                                                                          |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| App name      | Coach Watts                                                                                                                    |
+| App name      | Journey Endurance Coaching Platform                                                                                            |
 | Description   | AI endurance coaching platform. Imports consented Karoo activities and can deliver structured workouts for execution on Karoo. |
-| SVG logo      | Upload Coach Watts mark                                                                                                        |
+| SVG logo      | Upload Journey Endurance Coaching Platform mark                                                                                |
 | Redirect URLs | `http://localhost:3099/api/integrations/hammerhead/callback` and `https://coachwatts.com/api/integrations/hammerhead/callback` |
 | Webhook URLs  | `https://coachwatts.com/api/integrations/hammerhead/webhook` (add local tunnel later if needed)                                |
 

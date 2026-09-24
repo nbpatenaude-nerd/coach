@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // Exchange code for token at Coach Watts IdP
+    // Exchange code for token at Journey Endurance Coaching Platform IdP
     const data: any = await $fetch(`${config.public.coachWattsUrl}/api/oauth/token`, {
       method: 'POST',
       body: {

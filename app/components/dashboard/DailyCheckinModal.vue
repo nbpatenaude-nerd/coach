@@ -214,6 +214,18 @@
                 autoresize
                 class="w-full"
               />
+
+              <div class="border-t border-gray-100 dark:border-gray-800 pt-4 mt-4">
+                <label class="text-sm font-medium text-gray-900 dark:text-white block mb-2">
+                  {{ tr('daily_checkin_blood_glucose', 'Blood Glucose (mg/dL)') }}
+                </label>
+                <UInput
+                  v-model.number="bloodGlucose"
+                  type="number"
+                  placeholder="e.g. 95"
+                  class="w-full max-w-50"
+                />
+              </div>
             </div>
           </UCard>
 
@@ -415,6 +427,7 @@
   const checkin = ref<any>(null)
   const answers = ref<Record<string, string>>({})
   const userNotes = ref('')
+  const bloodGlucose = ref<number | undefined>(undefined)
   const localQuestions = ref<any[]>([])
   const expandedQuestions = ref<Set<string>>(new Set())
   const recentCheckins = ref<any[]>([])
@@ -651,7 +664,8 @@
         body: {
           checkinId: checkin.value.id,
           answers: filteredAnswers,
-          userNotes: userNotes.value
+          userNotes: userNotes.value,
+          bloodGlucose: bloodGlucose.value
         }
       })
       await useCheckinStore().fetchToday()

@@ -6,7 +6,7 @@ Last Updated: 2026-07-24
 
 ## 1. Purpose
 
-Define the product and technical baseline for a native iOS / Android **activation companion** for Coach Watts.
+Define the product and technical baseline for a native iOS / Android **activation companion** for Journey Endurance Coaching Platform.
 
 This document is the source of truth for:
 
@@ -39,7 +39,7 @@ It should be updated as implementation decisions land. It does **not** replace f
 
 ## 2. Product positioning
 
-**Coach Watts web** remains the control room for **leftovers**: plan templates / save-as-template / public share, Intervals.icu publish, analytics/explorer, coaching teams, library editing, billing administration, admin.
+**Journey Endurance Coaching Platform web** remains the control room for **leftovers**: plan templates / save-as-template / public share, Intervals.icu publish, analytics/explorer, coaching teams, library editing, billing administration, admin.
 
 **The mobile app** is an **activation companion + Plan companion**. It answers:
 
@@ -77,7 +77,7 @@ See also [new-user onboarding conversion plan](./new-user-onboarding-conversion-
 
 ## 3. Recommended stack
 
-Prefer one shared TypeScript client over separate Swift/Kotlin apps, so the Coach Watts team stays in one language ecosystem.
+Prefer one shared TypeScript client over separate Swift/Kotlin apps, so the Journey Endurance Coaching Platform team stays in one language ecosystem.
 
 | Layer          | Choice                                                            | Notes                                                                   |
 | -------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
@@ -267,7 +267,7 @@ Simple list rows:
 
 ## 7. Auth & security baseline
 
-Coach Watts already exposes OAuth 2.0 + PKCE as an identity provider. The companion app **must** use that path (Bearer tokens), not browser cookie sessions alone.
+Journey Endurance Coaching Platform already exposes OAuth 2.0 + PKCE as an identity provider. The companion app **must** use that path (Bearer tokens), not browser cookie sessions alone.
 
 ### Required flow
 
@@ -394,16 +394,16 @@ Reuse the existing notification taxonomy where possible; extend rather than inve
 
 ## 10. Non-functional requirements
 
-| Area          | Baseline                                                                                       |
-| ------------- | ---------------------------------------------------------------------------------------------- |
-| Platforms     | iOS + Android via Expo                                                                         |
-| Offline       | Read last cached Today; queue wellness check-in when offline (v1 soft; harden in v1.5)         |
-| Perf          | Today usable interaction target &lt; 2s on warm cache; show skeleton immediately               |
-| i18n          | Reuse Tolgee keys / same locales as web where practical                                        |
-| Accessibility | Dynamic type, VoiceOver/TalkBack labels on primary CTAs                                        |
-| Privacy       | Health data only with granted scopes; no health metrics in analytics events                    |
-| Branding      | Follow [BRANDING.md](../../BRANDING.md); companion is Coach Watts, not a generic fitness shell |
-| Observability | Sentry + minimal product analytics events (open Today, accept rec, check-in saved)             |
+| Area          | Baseline                                                                                                               |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Platforms     | iOS + Android via Expo                                                                                                 |
+| Offline       | Read last cached Today; queue wellness check-in when offline (v1 soft; harden in v1.5)                                 |
+| Perf          | Today usable interaction target &lt; 2s on warm cache; show skeleton immediately                                       |
+| i18n          | Reuse Tolgee keys / same locales as web where practical                                                                |
+| Accessibility | Dynamic type, VoiceOver/TalkBack labels on primary CTAs                                                                |
+| Privacy       | Health data only with granted scopes; no health metrics in analytics events                                            |
+| Branding      | Follow [BRANDING.md](../../BRANDING.md); companion is Journey Endurance Coaching Platform, not a generic fitness shell |
+| Observability | Sentry + minimal product analytics events (open Today, accept rec, check-in saved)                                     |
 
 ---
 

@@ -1,6 +1,6 @@
-# Coach Watts CLI
+# Journey Endurance Coaching Platform CLI
 
-This CLI provides a set of tools for development, debugging, and maintenance of the Coach Watts application. It is designed to be modular and easy to extend.
+This CLI provides a set of tools for development, debugging, and maintenance of the Journey Endurance Coaching Platform application. It is designed to be modular and easy to extend.
 
 ## Installation
 

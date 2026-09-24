@@ -39,7 +39,8 @@
                 size="xs"
               />
               <span class="text-sm text-gray-500 dark:text-gray-400">
-                {{ user?.displayName || user?.name || 'Coach Wattz User' }} shared a training plan
+                {{ user?.displayName || user?.name || 'Journey Endurance User' }} shared a training
+                plan
               </span>
             </div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -199,9 +200,9 @@
   // Meta tags
   const pageTitle = computed(() => {
     if (plan.value?.name) {
-      return `${plan.value.name} - Shared Training Plan | Coach Wattz`
+      return `${plan.value.name} - Shared Training Plan | Journey Endurance`
     }
-    return 'Shared Training Plan | Coach Wattz'
+    return 'Shared Training Plan | Journey Endurance'
   })
   const pageDescription = computed(() => {
     if (plan.value) {
@@ -210,7 +211,7 @@
         160
       )
     }
-    return 'View shared training plan details on Coach Wattz.'
+    return 'View shared training plan details on Journey Endurance.'
   })
 
   useHead({

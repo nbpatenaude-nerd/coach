@@ -7,7 +7,7 @@
 
 ## 1. Outcome
 
-Expose a deliberately selected subset of Coach Watts chat tools as a remote MCP server. A user should be able to add the URL to a supported client, authenticate with authorization code + PKCE, consent to explicit scopes, and call only the tools allowed by those scopes.
+Expose a deliberately selected subset of Journey Endurance Coaching Platform chat tools as a remote MCP server. A user should be able to add the URL to a supported client, authenticate with authorization code + PKCE, consent to explicit scopes, and call only the tools allowed by those scopes.
 
 The first production release is read-only. Write and AI/async tools are separate releases and require their own safety review.
 

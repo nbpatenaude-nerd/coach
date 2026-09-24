@@ -1,8 +1,8 @@
-# Business Intelligence & Project Essence: Coach Watts
+# Business Intelligence & Project Essence: Journey Endurance Coaching Platform
 
 ## 1. Project Essence
 
-**Coach Watts** is an open-source, AI-powered endurance coaching platform (Digital Twin) for cyclists, runners, and triathletes. It solves the "Data Overload" problem by aggregating metrics from various platforms (Intervals.icu, Strava, Whoop, etc.) and using Google Gemini AI to act as a professional coach that understands both physiological data and life context.
+**Journey Endurance Coaching Platform** is an open-source, AI-powered endurance coaching platform (Digital Twin) for cyclists, runners, and triathletes. It solves the "Data Overload" problem by aggregating metrics from various platforms (Intervals.icu, Strava, Whoop, etc.) and using Google Gemini AI to act as a professional coach that understands both physiological data and life context.
 
 ### Core Value Proposition
 

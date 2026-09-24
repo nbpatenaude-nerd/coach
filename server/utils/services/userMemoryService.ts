@@ -1,11 +1,10 @@
 import type {
-  Prisma,
   UserMemory,
   UserMemoryCategory,
   UserMemoryScope,
   UserMemorySource,
   UserMemoryStatus
-} from '@prisma/client'
+} from '~/server/utils/generated-prisma/client'
 import { prisma } from '../db'
 
 export type MemoryCandidate = {

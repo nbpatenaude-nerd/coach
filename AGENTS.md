@@ -4,7 +4,7 @@ Primary context for AI agents (Claude Code, Gemini CLI, Cursor) working in this 
 
 ## Project
 
-**Coach Watts** — AI endurance coaching platform. Nuxt 3 + Nuxt UI, Vercel AI SDK, Prisma, Trigger.dev.
+**Journey Endurance Coaching Platform** — AI endurance coaching platform. Nuxt 3 + Nuxt UI, Vercel AI SDK, Prisma, Trigger.dev.
 
 ## Issue tracking
 
@@ -80,7 +80,14 @@ See [`docs/04-guides/`](docs/04-guides/) for typechecking, e2e testing, chat dev
 
 ## Scope
 
-This repository is Coach Watts product development only. Do not reference internal corporate teams, internal financial namespaces, or client engagements in code, commits, PR descriptions, or issue comments here.
+This repository is Journey Endurance Coaching Platform product development only. Do not reference internal corporate teams, internal financial namespaces, or client engagements in code, commits, PR descriptions, or issue comments here.
+
+<!-- TRIGGER.DEV SKILLS START -->
+
+## Trigger.dev agent skills
+
+This project has Trigger.dev agent skills installed in `.agents/skills/`. Before writing or changing Trigger.dev code (background tasks, scheduled tasks, realtime, or chat.agent AI agents), load the most relevant skill: `trigger-authoring-tasks`, `trigger-chat-agent-advanced`, `trigger-cost-savings`, `trigger-getting-started`, `trigger-realtime-and-frontend`, `trigger-authoring-chat-agent`.
+<!-- TRIGGER.DEV SKILLS END -->
 
 ## Cursor Cloud specific instructions
 

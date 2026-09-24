@@ -148,7 +148,7 @@
       : {}
   )
 
-  const { data, pending, refresh } = await useFetch(publicEndpoint, {
+  const { data, pending, refresh } = await (useFetch as any)(publicEndpoint, {
     key: () => `${props.role}-public-profile-${slug.value}`
   })
 
@@ -221,11 +221,11 @@
   useSeoMeta({
     title: () =>
       resolvedProfile.value?.settings?.seoTitle ||
-      `${resolvedProfile.value?.settings?.displayName || author.value?.name || 'Profile'} | Coach Wattz`,
+      `${resolvedProfile.value?.settings?.displayName || author.value?.name || 'Profile'} | Journey Endurance`,
     description: () =>
       resolvedProfile.value?.settings?.seoDescription ||
       resolvedProfile.value?.settings?.bio ||
-      `Explore this public ${props.role} page on Coach Wattz.`
+      `Explore this public ${props.role} page on Journey Endurance.`
   })
 
   useHead({

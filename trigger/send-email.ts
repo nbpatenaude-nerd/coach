@@ -15,6 +15,8 @@ export const sendEmailTask = task({
   run: async (
     payload: {
       userId: string
+      toEmail?: string
+      ccEmail?: string
       templateKey: string
       eventKey: string
       audience: EmailAudience

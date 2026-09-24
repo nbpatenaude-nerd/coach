@@ -1,8 +1,8 @@
-# Coach Watts - System Architecture
+# Journey Endurance Coaching Platform - System Architecture
 
 ## Overview
 
-Coach Watts is an AI-powered cycling coach that analyzes training data from multiple sources (Intervals.icu, Whoop) and provides personalized coaching insights using Google Gemini AI.
+Journey Endurance Coaching Platform is an AI-powered cycling coach that analyzes training data from multiple sources (Intervals.icu, Whoop) and provides personalized coaching insights using Google Gemini AI.
 
 ## 1. High-Level Stack
 
@@ -82,7 +82,7 @@ graph LR
 #### Garmin Push-First Policy (CW-90)
 
 Garmin's partner guidance prefers Ping/Push-driven delivery over ad-hoc
-polling. Coach Watts follows that guidance:
+polling. Journey Endurance Coaching Platform follows that guidance:
 
 - **Push is the primary, routine channel.** `server/api/webhooks/garmin.post.ts`
   receives Garmin's Push notifications continuously and is the mechanism
@@ -91,7 +91,7 @@ polling. Coach Watts follows that guidance:
 - **Ad-hoc pull (`trigger/ingest-garmin.ts`, driven by the Sync UI via
   `server/api/integrations/sync.post.ts`) is recovery-only.** It exists to
   catch up after a missed or delayed Push notification (e.g. a brief Garmin
-  or Coach Watts outage), not as a primary or routine sync mechanism.
+  or Journey Endurance Coaching Platform outage), not as a primary or routine sync mechanism.
   Two bounds enforce that role in code, applied at both the HTTP endpoint
   (for immediate user feedback) and the `ingest-garmin` task itself
   (defense-in-depth, since the batch "Sync All" path reaches the task

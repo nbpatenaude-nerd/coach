@@ -7,7 +7,7 @@
 
 ## Context & Objectives
 
-Lighthouse CI (`@lhci/cli`) is integrated into the Coach Watts E2E pipeline to run automated performance, accessibility, SEO, and best-practice audits against 22 core application routes across public marketing pages, authenticated athlete workspaces, and admin control panels.
+Lighthouse CI (`@lhci/cli`) is integrated into the Journey Endurance Coaching Platform E2E pipeline to run automated performance, accessibility, SEO, and best-practice audits against 22 core application routes across public marketing pages, authenticated athlete workspaces, and admin control panels.
 
 ---
 

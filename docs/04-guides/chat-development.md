@@ -1,6 +1,6 @@
 # Chat Development Guide
 
-This guide describes the current rules for modifying Coach Watts chat.
+This guide describes the current rules for modifying Journey Endurance Coaching Platform chat.
 
 The main constraint is simple: chat is no longer a single HTTP request/response flow. It is a durable workflow built around persisted `ChatTurn` state, in-app execution, websocket delivery, and database-backed recovery.
 

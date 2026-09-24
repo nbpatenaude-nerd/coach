@@ -29,7 +29,7 @@ Track progress by checking items off in [Session checklist](#session-checklist-2
 
 ## Executive summary
 
-Coach Watts currently has two experiences called onboarding:
+Journey Endurance Coaching Platform currently has two experiences called onboarding:
 
 1. A mandatory legal/health-consent gate at `/onboarding`.
 2. A dashboard replacement shown until the user has an integration or any imported data.
@@ -220,7 +220,7 @@ This review combines inspection of the rendered consent page at desktop and 390�
 
 The onboarding surfaces are individually polished, but they do not feel like one continuous experience. Signup uses a highly stylized, dark “digital twin” presentation; consent switches to a conventional centered legal card; dashboard onboarding then becomes a large integration marketplace. Copy, hierarchy, progress, and visual language change at each transition.
 
-The most important UX issue is not visual quality—it is state communication. The interface is attractive at rest but does not reliably tell users what they have completed, what Coach Watts is doing, how long it will take, or what outcome they will see next.
+The most important UX issue is not visual quality—it is state communication. The interface is attractive at rest but does not reliably tell users what they have completed, what Journey Endurance Coaching Platform is doing, how long it will take, or what outcome they will see next.
 
 ### Signup screen
 
@@ -420,7 +420,7 @@ Why: OAuth success is not value. Background work with no progress creates uncert
 
 When usable data is ready, route to one focused insight rather than dropping the user into a dense dashboard. The screen should answer:
 
-1. What did Coach Watts learn?
+1. What did Journey Endurance Coaching Platform learn?
 2. Why does it matter today?
 3. What should the athlete do next?
 
@@ -526,7 +526,7 @@ Deliverable: a trustworthy end-to-end funnel segmented by method/provider/source
 - Retain a compact setup card until first value; do not replace the entire dashboard once partial data exists.
 - Add FIT/manual fallback and “connect another source” recovery where supported.
 
-Deliverable: users always know their current state, next action, and whether Coach Watts is still working.
+Deliverable: users always know their current state, next action, and whether Journey Endurance Coaching Platform is still working.
 
 ### Phase 3 — First-value reveal and lifecycle recovery (4–7 days)
 

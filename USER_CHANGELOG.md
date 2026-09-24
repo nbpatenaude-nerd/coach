@@ -1,6 +1,6 @@
-## Coach Watts v0.5.25: Performance Analytics, Strength Tools, and Smoother Coaching! 🚀
+## Journey Endurance Coaching Platform v0.5.25: Performance Analytics, Strength Tools, and Smoother Coaching! 🚀
 
-We’ve been hard at work behind the scenes to make Coach Watts faster, more insightful, and more reliable. This release is packed with upgrades designed to help you crush your goals, whether you're building a training plan or analyzing your latest ride.
+We’ve been hard at work behind the scenes to make Journey Endurance Coaching Platform faster, more insightful, and more reliable. This release is packed with upgrades designed to help you crush your goals, whether you're building a training plan or analyzing your latest ride.
 
 Here’s what’s new in **v0.5.25**:
 
@@ -22,7 +22,7 @@ Training is about more than just cardio. We’ve added new tools to help you man
 
 ### 🚲 Smarter Coaching & Planning
 
-We’re making the "coach" in Coach Watts smarter and more helpful:
+We’re making the "coach" in Journey Endurance Coaching Platform smarter and more helpful:
 
 - **Seamless Integrations:** We’ve hardened our syncs with Garmin, Strava, and Rouvy, ensuring your data flows effortlessly and your planned workouts show up exactly when they should.
 - **AI-Powered Assistance:** Our AI now uses better context and "guardrails" to suggest workouts that match your calendar and personal goals, while preventing errors.
@@ -38,11 +38,11 @@ We’re making the "coach" in Coach Watts smarter and more helpful:
 
 **Ready to explore?** Head over to the new **Charts** menu item in your navigation sidebar to check out the updated analytics, or jump into your **Library** to build out your new strength sessions.
 
-Keep pushing the pedals and thanks for being part of the Coach Watts community! ⚡️
+Keep pushing the pedals and thanks for being part of the Journey Endurance Coaching Platform community! ⚡️
 
-Hey Coach Watts community! 👋
+Hey Journey Endurance Coaching Platform community! 👋
 
-We've been hard at work behind the scenes, and we're thrilled to unveil our latest update, v0.5.24! This release is packed with incredible new features and improvements designed to supercharge your training and coaching experience. Get ready for a smoother, more powerful, and more intuitive Coach Watts! ✨
+We've been hard at work behind the scenes, and we're thrilled to unveil our latest update, v0.5.24! This release is packed with incredible new features and improvements designed to supercharge your training and coaching experience. Get ready for a smoother, more powerful, and more intuitive Journey Endurance Coaching Platform! ✨
 
 Here's what's new:
 
@@ -107,12 +107,12 @@ Managing your workouts just got a whole lot easier.
 - **Workout Chart Fixes:** Resolved issues in workout run charts for accurate data display.
 - **Drag & Drop Reliability:** Fixed minor glitches for a smoother drag-and-drop experience in the Plan Architect.
 
-We're incredibly excited for you to explore all these enhancements and elevate your Coach Watts experience. Thank you for being a part of our journey!
+We're incredibly excited for you to explore all these enhancements and elevate your Journey Endurance Coaching Platform experience. Thank you for being a part of our journey!
 
 Happy Training (and Coaching!),
-The Coach Watts Team 🚴‍♀️🏃‍♂️🏊
+The Journey Endurance Coaching Platform Team 🚴‍♀️🏃‍♂️🏊
 
-Hey Coach Watts athletes and coaches! 👋
+Hey Journey Endurance Coaching Platform athletes and coaches! 👋
 
 We're thrilled to announce the latest update, **v0.5.24**, introducing the **Training Architect & Blueprint Library**! This is a major leap forward in how you plan your season and manage your workouts.
 
@@ -129,7 +129,7 @@ Take control of your training with a dedicated space for drafting professional-g
 
 ---
 
-Hey Coach Watts athletes and coaches! 👋
+Hey Journey Endurance Coaching Platform athletes and coaches! 👋
 
 We're thrilled to announce the latest update, **v0.5.23**, packed with powerful new features and significant improvements designed to make your training even smarter, more personalized, and easier to manage! We've been working hard behind the scenes, and you'll notice big changes, especially around understanding your recovery and fine-tuning your workouts.
 
@@ -142,7 +142,7 @@ This release brings a whole new level of understanding to your recovery!
 - **Personalized Recovery Context:** Your dashboards now show integrated recovery insights, helping you understand how ready you are for your next session. We've added a dedicated **Recovery History page** so you can track your trends over time.
 - **Smarter AI Analysis:** Our AI now considers your wellness events (like stress, sleep, and mood) in its analysis and recommendations, leading to advice that's even more tailored to _you_.
 - **Enhanced Wellness Tracking:** We've improved how we track and display key metrics like stress score, sleep hours, and SpO2 (blood oxygen saturation) from connected devices.
-- **Ultrahuman & Fitbit Integration:** Connect your Ultrahuman and Fitbit devices to seamlessly bring sleep, HRV, HR, and other wellness data into Coach Watts, fueling more accurate recovery and readiness assessments!
+- **Ultrahuman & Fitbit Integration:** Connect your Ultrahuman and Fitbit devices to seamlessly bring sleep, HRV, HR, and other wellness data into Journey Endurance Coaching Platform, fueling more accurate recovery and readiness assessments!
 
 ### 💪 **Smarter Training & Workout Control**
 
@@ -178,14 +178,14 @@ We've given many parts of the app a fresh look and feel!
 
 - **New Interface Languages:** We've added **Spanish, Russian, Japanese, and Chinese** to our growing list of supported languages, along with extensive updates to our existing translations (French, German, Dutch, Italian, Hungarian). You can now choose your preferred interface language in settings!
 
-And as always, many **under-the-hood performance enhancements and bug fixes** ensure Coach Watts runs smoothly and reliably for all your training needs.
+And as always, many **under-the-hood performance enhancements and bug fixes** ensure Journey Endurance Coaching Platform runs smoothly and reliably for all your training needs.
 
 We hope you love these updates! We're always striving to provide you with the best possible coaching experience. If you have any questions or feedback, don't hesitate to reach out!
 
 Happy cycling! 🚴‍♀️
-The Coach Watts Team
+The Journey Endurance Coaching Platform Team
 
-Hey Coach Watts Athletes and Coaches! 👋
+Hey Journey Endurance Coaching Platform Athletes and Coaches! 👋
 
 Get ready to supercharge your training! We're thrilled to announce the release of **v0.5.22**, packed with exciting new features and significant improvements to make your coaching experience even more powerful and personal.
 
@@ -196,7 +196,7 @@ Here’s what’s new and improved:
 ### 🚀 New Features & Deeper Insights
 
 - **Body Measurements Tracking** 📏
-  You can now easily track your weight and other body measurements directly in Coach Watts! These measurements will seamlessly integrate into your training and nutrition analysis, providing you with even more personalized and accurate recommendations. You can even choose your preferred weight source for ultimate control!
+  You can now easily track your weight and other body measurements directly in Journey Endurance Coaching Platform! These measurements will seamlessly integrate into your training and nutrition analysis, providing you with even more personalized and accurate recommendations. You can even choose your preferred weight source for ultimate control!
 - **More Integrations Than Ever!** 🔗
   We’ve expanded our connections to bring all your data into one place:
   - **Wahoo Cloud Integration!** 🤩 Sync your Wahoo activities with ease.
@@ -207,11 +207,11 @@ Here’s what’s new and improved:
 - **Smarter AI Coach** 🧠
   Our AI is more intelligent than ever! It now understands temporal context better for planning, offers more accurate forecasts, and provides sport-specific zone distribution. Plus, you can now use webcam photos/videos and voice transcription for a truly multi-modal conversation with your coach! 🗣️📸
 - **Automated Threshold Detection** ⚡
-  Get automatically notified when Coach Watts detects new performance thresholds (like FTP or LTHR) based on your activities. This helps you keep your training zones perfectly dialed in without manual updates!
+  Get automatically notified when Journey Endurance Coaching Platform detects new performance thresholds (like FTP or LTHR) based on your activities. This helps you keep your training zones perfectly dialed in without manual updates!
 - **Multi-Language Support** 🌐
-  Coach Watts is going global! We've added support for French, Italian, Dutch, German, and Hungarian languages, making the app accessible to more athletes around the world.
+  Journey Endurance Coaching Platform is going global! We've added support for French, Italian, Dutch, German, and Hungarian languages, making the app accessible to more athletes around the world.
 - **Share & Earn Rewards** 🎁
-  Love Coach Watts? Now you can share your unique referral link with friends and unlock special rewards when they join our community!
+  Love Journey Endurance Coaching Platform? Now you can share your unique referral link with friends and unlock special rewards when they join our community!
 
 ---
 
@@ -220,7 +220,7 @@ Here’s what’s new and improved:
 - **Workout Map Upgrades** ❤️⛰️
   Dive deeper into your workouts with exciting new visualizations! See your heart rate zones directly on your route, get smarter lap highlighting, and even detect climbs. You can also export your workouts as GPX files!
 - **Improved Mobile Experience** 📱
-  We've made significant improvements to how Coach Watts looks and feels on mobile devices, especially on our landing and join pages. Enjoy a more responsive and consistent interface!
+  We've made significant improvements to how Journey Endurance Coaching Platform looks and feels on mobile devices, especially on our landing and join pages. Enjoy a more responsive and consistent interface!
 - **Updated Athlete Profile** 📊
   Your profile now includes enhanced wellness metrics for a more comprehensive view of your health and performance.
 - **Streamlined Account Management**
@@ -237,22 +237,22 @@ Here’s what’s new and improved:
 
 ---
 
-We're constantly working to make Coach Watts the best cycling coaching app out there, empowering you to reach your full potential. Thank you for being a part of our community!
+We're constantly working to make Journey Endurance Coaching Platform the best cycling coaching app out there, empowering you to reach your full potential. Thank you for being a part of our community!
 
 **Happy Training!**
 
-The Coach Watts Team
+The Journey Endurance Coaching Platform Team
 
-Here's a friendly update from Coach Watts, outlining all the exciting new features and improvements in our latest release, v0.5.21!
+Here's a friendly update from Journey Endurance Coaching Platform, outlining all the exciting new features and improvements in our latest release, v0.5.21!
 
 ---
 
 ## 🚀 What's New & Exciting!
 
-We've been hard at work adding some fantastic new capabilities to help you train smarter and get even more out of Coach Watts!
+We've been hard at work adding some fantastic new capabilities to help you train smarter and get even more out of Journey Endurance Coaching Platform!
 
 - **Garmin Workout Publishing!** 🎉
-  You can now publish your planned workouts directly from Coach Watts to Garmin Connect! Get your structured workouts seamlessly onto your device, ready to go.
+  You can now publish your planned workouts directly from Journey Endurance Coaching Platform to Garmin Connect! Get your structured workouts seamlessly onto your device, ready to go.
 - **Deeper Garmin Integration** 🔌
   We've completely re-engineered our Garmin connection for better reliability, real-time updates, and smarter handling of disconnects. Syncing your activities and wellness data is smoother than ever.
 - **All-Time Performance & Trends** 📈
@@ -272,7 +272,7 @@ We've been hard at work adding some fantastic new capabilities to help you train
 - **Advanced Calendar Notes** 🗓️
   Add notes to your calendar with specific start and end dates, perfect for planning recovery periods, travel, or other multi-day events.
 - **Support for External Apps** 🔗
-  Easily see which public applications you've connected to Coach Watts and their status right in your app settings.
+  Easily see which public applications you've connected to Journey Endurance Coaching Platform and their status right in your app settings.
 - **Workout Sharing & Deep Linking** 🤝
   Share your amazing workouts! We've added a share button and deep-linking to workout detail pages, making it easy to show off your progress.
 - **Conversational AI Engagement Toggle** 🤖
@@ -347,9 +347,9 @@ We've squashed some bugs to ensure a smoother experience for everyone!
 We hope you enjoy these updates! Your feedback helps us continue to build the best cycling coaching app.
 
 Happy training!
-The Coach Watts Team 🚴‍♀️
+The Journey Endurance Coaching Platform Team 🚴‍♀️
 
-Hey Team Coach Watts! 👋
+Hey Team Journey Endurance Coaching Platform! 👋
 
 Get ready to supercharge your training and nutrition! We've just rolled out a massive update (v0.5.20) packed with exciting new features, powerful improvements, and some crucial fixes to make your experience smoother and more insightful than ever.
 
@@ -407,16 +407,16 @@ Here's what's new in your app:
 
 ---
 
-We're always working to make Coach Watts the best possible tool for your cycling journey. We hope you enjoy these updates!
+We're always working to make Journey Endurance Coaching Platform the best possible tool for your cycling journey. We hope you enjoy these updates!
 
 Happy Cycling!
-The Coach Watts Team
+The Journey Endurance Coaching Platform Team
 
 # ✨ Release Notes: v0.5.19 – Deeper Insights, Smarter Fueling, and Structured Training Mastery
 
 We've shipped a massive update focused on bringing you unparalleled control over your metabolic health, structured training, and overall recovery. This release introduces a new layer of personalization, safety, and visual polish.
 
-Here’s what’s new in Coach Watts:
+Here’s what’s new in Journey Endurance Coaching Platform:
 
 ---
 
@@ -425,7 +425,7 @@ Here’s what’s new in Coach Watts:
 Your body is unique, and your coaching should be too. We've integrated powerful new systems to make your fueling strategy safer and more responsive than ever.
 
 - **Metabolic Safety Floors (NEW!):** You can now set a **Metabolic Safety Floor** in your profile. This personalized failsafe ensures your daily calorie or carbohydrate availability never drops below a secure threshold, even during intense training blocks. We've set the default floor lower (to 70%) for safer, more conservative fallbacks.
-- **Symptom-Based Fueling Overrides:** Coach Watts now integrates your tracked symptoms and "journey events" directly into your fueling strategy. If the AI detects signs of fatigue or metabolic strain, it will automatically override standard recommendations to prioritize recovery.
+- **Symptom-Based Fueling Overrides:** Journey Endurance Coaching Platform now integrates your tracked symptoms and "journey events" directly into your fueling strategy. If the AI detects signs of fatigue or metabolic strain, it will automatically override standard recommendations to prioritize recovery.
 - **Fueling Strategy Dashboard:** A new, centralized dashboard gives you a deep dive into your metabolic strategy, including multi-day energy charts and a **weekly fueling grid** with analysis modals.
 - **Carb Absorption Control:** Gain control over your fueling strategy by selecting personalized **carbohydrate absorption profiles** and visualizing your total Carb Balance directly in the UI.
 - **Enhanced Glycogen Insight:** Glycogen projections now include contextual coach tips and improved advice based on new calibration signals.
@@ -459,9 +459,9 @@ We’ve refreshed key parts of the app for a sleeker, faster experience, especia
 - **AI Tool Approval Toggle:** Gain full transparency and control over the AI. You can now enable/disable the requirement for **tool approval** before the AI executes actions (like scheduling a workout or updating nutrition settings).
 - **Smarter Chat Context:** The AI is now proactively condensing and summarizing your chat history in the background, ensuring it always has the most relevant context for its recommendations.
 
-# What’s New in Coach Watts (v0.5.18) 🚀
+# What’s New in Journey Endurance Coaching Platform (v0.5.18) 🚀
 
-Hello, athletes and coaches! We’ve been busy under the hood making Coach Watts smarter, faster, and more personalized. This update is packed with features to help you nail your fueling and manage your training schedule with ease.
+Hello, athletes and coaches! We’ve been busy under the hood making Journey Endurance Coaching Platform smarter, faster, and more personalized. This update is packed with features to help you nail your fueling and manage your training schedule with ease.
 
 Here are the highlights:
 
@@ -471,7 +471,7 @@ We’ve overhauled our nutrition system to help you stay fueled and avoid the dr
 
 - **Live Energy Visualization:** See your energy availability in real-time on your dashboard.
 - **Glycogen Tank Simulation:** We’ve added a new simulation model that shows your estimated glycogen levels based on your workouts and food intake.
-- **Adaptive Fueling Plans:** Coach Watts now generates proactive fueling strategies, including support for rest days and days with multiple workouts.
+- **Adaptive Fueling Plans:** Journey Endurance Coaching Platform now generates proactive fueling strategies, including support for rest days and days with multiple workouts.
 - **Easy Food Logging:** Use the new quick-capture tools and modal components to log your meals and track macros effortlessly.
 
 ### 📅 Smarter Scheduling & Flexibility
@@ -487,7 +487,7 @@ Life doesn't always happen in one-hour blocks. We’ve made it easier to fit tra
 
 We’re expanding the ecosystem to support more of the gear you use.
 
-- **Polar Support:** Polar users, rejoice! You can now sync your activities and data directly with Coach Watts. ⌚
+- **Polar Support:** Polar users, rejoice! You can now sync your activities and data directly with Journey Endurance Coaching Platform. ⌚
 - **Improved Oura Sync:** We’ve stabilized biometric syncing and corrected recovery score calculations for a more accurate picture of your readiness.
 - **Telegram Enhancements:** Our Telegram bot is now smarter with session-based chat rooms, better formatting, and new commands.
 
@@ -509,17 +509,17 @@ We’re expanding the ecosystem to support more of the gear you use.
 **Ready to get started?** Log in now to check out your new Fueling Card and update your training availability!
 
 _Stay fast,_
-**The Coach Watts Team** 🚴‍♂️💨
+**The Journey Endurance Coaching Platform Team** 🚴‍♂️💨
 
-# 🚴‍♂️ What’s New in Coach Watts v0.5.17
+# 🚴‍♂️ What’s New in Journey Endurance Coaching Platform v0.5.17
 
-Hello, Team! We’ve been busy under the hood making Coach Watts faster, smarter, and more connected. This update brings major upgrades to your AI coaching experience and expands how you sync your data.
+Hello, Team! We’ve been busy under the hood making Journey Endurance Coaching Platform faster, smarter, and more connected. This update brings major upgrades to your AI coaching experience and expands how you sync your data.
 
 Here is the breakdown of what’s new in v0.5.17:
 
 ### 🧠 A Smarter AI Coach
 
-We’ve upgraded the "brain" of Coach Watts to give you more accurate and personalized training advice.
+We’ve upgraded the "brain" of Journey Endurance Coaching Platform to give you more accurate and personalized training advice.
 
 - **Upgraded AI Models:** We are now using the latest **Gemini 3.0** technology for faster and more insightful workout analysis.
 - **Better Context:** The AI now understands your specific injury status and your preferred training metrics (like whether you prefer Power or Heart Rate) to give you better advice.
@@ -528,7 +528,7 @@ We’ve upgraded the "brain" of Coach Watts to give you more accurate and person
 
 ### 🔗 More Ways to Connect
 
-We want your data to flow seamlessly into Coach Watts, no matter what devices you use.
+We want your data to flow seamlessly into Journey Endurance Coaching Platform, no matter what devices you use.
 
 - **Polar Integration is Here!** You can now fully sync your Polar activities and data directly into the platform. ⌚
 - **Enhanced Intervals.icu Sync:** We’ve improved how planned workouts sync back and forth, including a new "Readiness Scale" to help align your training load with how you actually feel.
@@ -540,7 +540,7 @@ Your health off the bike is just as important as your power on it.
 
 - **New Health Metrics:** You can now track your **Weight** and **Blood Pressure** directly within the app.
 - **Clearer Wellness Labels:** Instead of just numbers, you’ll now see descriptive labels for things like **Mood, Stress, Hydration, and Injury status** so you can understand your data at a glance. 💧
-- **Auto-Analysis:** Coach Watts now automatically analyzes your nutrition and readiness data as soon as it arrives, giving you instant feedback.
+- **Auto-Analysis:** Journey Endurance Coaching Platform now automatically analyzes your nutrition and readiness data as soon as it arrives, giving you instant feedback.
 
 ### 📱 Improved Experience & Dashboard
 
@@ -558,12 +558,12 @@ We’ve refined the look and feel of the app to make it easier to use on the go.
 
 ---
 
-**Ready to get started?** Log in to [Coach Watts](https://coachwatts.com) and check out your updated dashboard!
+**Ready to get started?** Log in to [Journey Endurance Coaching Platform](https://coachwatts.com) and check out your updated dashboard!
 
 _Happy Training!_
-**The Coach Watts Team** ⚡🚴‍♀️
+**The Journey Endurance Coaching Platform Team** ⚡🚴‍♀️
 
-# 🚀 Coach Watts v0.5.16 Release: Deeper Insights & Enhanced Coaching Tools
+# 🚀 Journey Endurance Coaching Platform v0.5.16 Release: Deeper Insights & Enhanced Coaching Tools
 
 Hello Athletes and Coaches! We've just shipped a major update focusing on deeper performance metrics, new integrations, and powerful tools for athlete management. Get ready for smarter analysis and a much smoother user experience!
 
@@ -575,7 +575,7 @@ Here’s what’s new in v0.5.16:
 
 ### Oura Ring Integration is Here! 🌙
 
-Connect your Oura Ring to Coach Watts to bring sleep, readiness, and recovery data directly into your performance analysis. This gives the AI and your coach a complete picture of your total training load and recovery status.
+Connect your Oura Ring to Journey Endurance Coaching Platform to bring sleep, readiness, and recovery data directly into your performance analysis. This gives the AI and your coach a complete picture of your total training load and recovery status.
 
 - **Benefit:** Smarter training decisions based on genuine recovery data.
 
@@ -583,7 +583,7 @@ Connect your Oura Ring to Coach Watts to bring sleep, readiness, and recovery da
 
 We've significantly upgraded the depth of our analysis:
 
-- **Optimal Cadence Calculation:** Coach Watts now calculates your optimal cycling cadence based on anthropometric factors (your body measurements). Get more precise targets for efficiency!
+- **Optimal Cadence Calculation:** Journey Endurance Coaching Platform now calculates your optimal cycling cadence based on anthropometric factors (your body measurements). Get more precise targets for efficiency!
 - **Enhanced Training Load (CTL/ATL):** We've improved how training load is calculated and recorded, ensuring the charts and summary metrics (like your weekly intensity) are consistent and highly accurate.
 - **Smarter Workout Adherence:** The AI is now better than ever at analyzing your completed workouts. It uses highly detailed structured plan steps to give you precise feedback on where you nailed the effort and where you missed the targets.
 
@@ -604,7 +604,7 @@ Coaches, your dashboard just got a major upgrade to make athlete management clea
 We spent a lot of time tightening the screws and polishing the interface:
 
 - **Improved Billing & Plans:** We've introduced a clean, dedicated Billing page. Upgrading, downgrading, or managing your subscription is now much clearer and easier.
-- **Better Mobile Experience:** If you save Coach Watts to your iOS home screen (as a Progressive Web App), you'll now see the proper app icon and enjoy a better full-screen experience. 📱
+- **Better Mobile Experience:** If you save Journey Endurance Coaching Platform to your iOS home screen (as a Progressive Web App), you'll now see the proper app icon and enjoy a better full-screen experience. 📱
 - **Consistent Chart Tooltips:** All performance charts now feature standardized, immediate feedback tooltips for better data comprehension.
 - **Fitbit Reliability:** We’ve made the Fitbit integration more robust, especially when dealing with rate limits, ensuring your data syncs reliably.
 - **Workout Acceptance Fixed:** We resolved an issue that occasionally prevented workout acceptance or incorrectly handled rest days. Training plan execution is now much smoother!
@@ -613,9 +613,9 @@ We spent a lot of time tightening the screws and polishing the interface:
 
 Happy Training!
 
-— The Coach Watts Team ⚡️
+— The Journey Endurance Coaching Platform Team ⚡️
 
-## 🎉 Coach Watts Release v0.5.15: The Planning & Integration Update!
+## 🎉 Journey Endurance Coaching Platform Release v0.5.15: The Planning & Integration Update!
 
 We've shipped one of our biggest updates yet, focused on giving you more control over your training plans, deeper data integration, and a smarter AI experience. Get ready for better planning, improved sync, and brand new connections!
 
@@ -669,9 +669,9 @@ Thank you to the community and our supporters, including **red_one**, for helpin
 
 Happy training!
 
-— The Coach Watts Team 🚀
+— The Journey Endurance Coaching Platform Team 🚀
 
-✨ Coach Watts v0.5.14 Release: Smarter AI, Sharper Charts, and Bulletproof Data! ✨
+✨ Journey Endurance Coaching Platform v0.5.14 Release: Smarter AI, Sharper Charts, and Bulletproof Data! ✨
 
 We've shipped a major update focusing on perfecting our data foundation, enhancing the AI experience, and polishing the user interface on all devices.
 
@@ -717,10 +717,10 @@ We've standardized the visuals to make data easier to understand, especially on 
 
 ---
 
-Thank you for being part of the Coach Watts community! If you have any questions or feedback on these new changes, please reach out to us!
+Thank you for being part of the Journey Endurance Coaching Platform community! If you have any questions or feedback on these new changes, please reach out to us!
 
 Happy Cycling! 🚴‍♀️
-The Coach Watts Team
+The Journey Endurance Coaching Platform Team
 
 ## 📣 Watts Release v0.5.13: More Control, Real-Time Insights, and Smarter Plans!
 
@@ -795,7 +795,7 @@ Enjoy the update, and happy cycling! 🚴‍♀️💨
 
 ## 🎉 App Update: v0.5.11 is Live! Smarter Coaching and Better Metrics
 
-Coach Watts is rolling out our latest update focused on deeper AI intelligence, enhanced reporting, and a fresh look! Get ready for a more intuitive and powerful training experience.
+Journey Endurance Coaching Platform is rolling out our latest update focused on deeper AI intelligence, enhanced reporting, and a fresh look! Get ready for a more intuitive and powerful training experience.
 
 ### 🧠 Smarter AI Coaching & Recovery Insights
 
@@ -866,7 +866,7 @@ Our AI Coach is getting smarter, offering more tailored and impactful advice:
 - **Garmin Data Attribution:** We have implemented clear branding and attribution across the app. You'll see explicit indicators confirming when data has been synchronized and processed from providers like Garmin. Trust and clarity are paramount! ✅
 - **Clean Layouts:** Fixed several layout issues on the Settings page and ensured planned workout descriptions preserve line breaks, making them much easier to read.
 
-## 🎉 Coach Watts v0.5.9 Release: The Smart Coach Upgrade!
+## 🎉 Journey Endurance Coaching Platform v0.5.9 Release: The Smart Coach Upgrade!
 
 We are thrilled to announce our latest release, v0.5.9, which focuses heavily on introducing a brand-new, highly intelligent **Recommendation System** and making our AI Coach smarter, faster, and more transparent.
 
@@ -899,7 +899,7 @@ We've made significant quality-of-life updates to how you manage and interact wi
 
 - **🗓️ Drag-and-Drop Rescheduling:** Simply **drag and drop** planned workouts directly on the calendar to reschedule them instantly!
 - **External Calendar Fix:** Clearing your future schedule now correctly removes those workouts from your linked external calendars (fixes a known sync issue).
-- **Workout Source Tracking:** We now clearly mark workouts that were generated by the Coach Watts AI versus those synced from external sources like Intervals.icu.
+- **Workout Source Tracking:** We now clearly mark workouts that were generated by the Journey Endurance Coaching Platform AI versus those synced from external sources like Intervals.icu.
 
 ---
 
@@ -919,7 +919,7 @@ We believe trust comes from clarity. This release gives you more control and vis
 - **Performance Optimization:** We’ve optimized data stream fetching to improve the loading speed and responsiveness of charts and calendar views.
 - **Foundation Updates:** We've upgraded our core infrastructure, including storage integration and dependencies, for enhanced long-term platform stability and security.
 
-## 🎉 Coach Watts v0.5.8 is Here! More Insights, Better Reliability.
+## 🎉 Journey Endurance Coaching Platform v0.5.8 is Here! More Insights, Better Reliability.
 
 We're excited to announce v0.5.8, a major release focused on unlocking deeper wellness insights, improving data accuracy, and giving the entire app a big tune-up for speed and stability!
 
@@ -955,9 +955,9 @@ We fixed several issues to make your data more consistent and accurate.
 
 ---
 
-Thank you for using Coach Watts! Happy cycling! 🚴‍♀️💨
+Thank you for using Journey Endurance Coaching Platform! Happy cycling! 🚴‍♀️💨
 
-# 🚀 Coach Watts Update: v0.5.7 is Live!
+# 🚀 Journey Endurance Coaching Platform Update: v0.5.7 is Live!
 
 We've been hard at work behind the scenes to make your training analysis smarter, faster, and easier to understand. This release focuses heavily on improving the workout recommendation engine, enhancing data clarity, and strengthening overall platform stability.
 
@@ -984,17 +984,17 @@ Understanding complex performance metrics shouldn't require a textbook. We've in
 
 ### ⚠️ Important Note: Temporary Strava Integration Pause
 
-For stability and security purposes related to some underlying architecture updates, we have temporarily **disabled the Strava integration** on the main hosted version of Coach Watts (v0.5.7).
+For stability and security purposes related to some underlying architecture updates, we have temporarily **disabled the Strava integration** on the main hosted version of Journey Endurance Coaching Platform (v0.5.7).
 
 - **What this means:** You will not be able to sync new activities directly from Strava until we re-enable the feature in a subsequent update.
-- **Workaround:** Please continue to use your preferred platform (Garmin, Wahoo, etc.) to upload activities, or manually upload .FIT files directly to Coach Watts.
+- **Workaround:** Please continue to use your preferred platform (Garmin, Wahoo, etc.) to upload activities, or manually upload .FIT files directly to Journey Endurance Coaching Platform.
 - We prioritize reliable data synchronization and expect to restore Strava functionality soon!
 
 ---
 
 Happy Training!
 
-# Coach Watts App Update: v0.5.6 is Live! 🚀
+# Journey Endurance Coaching Platform App Update: v0.5.6 is Live! 🚀
 
 Hello athletes and coaches! We've just pushed a major update focused on powerful new data connections, stability, and a polished look.
 
@@ -1004,7 +1004,7 @@ Here’s what’s new in v0.5.6:
 
 The biggest news is the full integration with **Intervals.icu**!
 
-- **New Connection:** You can now connect your Coach Watts account directly with Intervals.icu using OAuth for secure and seamless data sharing.
+- **New Connection:** You can now connect your Journey Endurance Coaching Platform account directly with Intervals.icu using OAuth for secure and seamless data sharing.
 - **Rock-Solid Stability:** We have made significant improvements to ensure your connection remains reliable. If Intervals.icu is busy, our system is now smart enough to automatically retry syncing your data later without errors.
 - **Clean Disconnects:** If you ever need to unlink your account, the disconnection process is now instant and complete.
 
@@ -1018,14 +1018,14 @@ We’ve fine-tuned several areas to make your daily experience faster and smooth
 
 ## ✨ Polished Look & Transparency
 
-We've focused on making the Coach Watts platform look even better:
+We've focused on making the Journey Endurance Coaching Platform platform look even better:
 
 - **Fresh Look:** You'll notice updated branding and logos throughout the sidebar and home page.
 - **Changelog Page:** Want to know what's new anytime? We've added a dedicated **Changelog page** within your Settings, so you can always review the latest app updates!
 
 Update your app or refresh your browser to see all the improvements! Happy cycling! 🚴‍♀️💨
 
-# ✨ Coach Watts Release v0.5.5: Did You Hit Your Plan?
+# ✨ Journey Endurance Coaching Platform Release v0.5.5: Did You Hit Your Plan?
 
 We're thrilled to announce v0.5.5, a major update focused on helping you bridge the gap between planning and execution. This release introduces a powerful new layer of analytics to track exactly how well you adhered to your training plan!
 
@@ -1067,9 +1067,9 @@ We took time to stabilize the application by addressing several technical debt i
 - **Backend Stability:** General improvements were made to ensure a smoother, more reliable experience across the app. 🪲
 
 Update your app and check out your new Plan Adherence scores! Happy training!
-— The Coach Watts Team
+— The Journey Endurance Coaching Platform Team
 
-# 🚀 Coach Watts Update: v0.5.5 is Here!
+# 🚀 Journey Endurance Coaching Platform Update: v0.5.5 is Here!
 
 Hello Athletes and Coaches!
 
@@ -1122,7 +1122,7 @@ We squashed several small bugs and improved component stability for a better use
 
 Happy riding!
 
-— The Coach Watts Team 🚴‍♀️💨
+— The Journey Endurance Coaching Platform Team 🚴‍♀️💨
 
 👋 Hello Athletes and Coaches!
 
@@ -1130,7 +1130,7 @@ We've just pushed **v0.5.4**, bringing some powerful new visualizations and impo
 
 ---
 
-## What’s New in Coach Watts (v0.5.4) ✨
+## What’s New in Journey Endurance Coaching Platform (v0.5.4) ✨
 
 ### 1. New Visual Training Insights 📈
 
@@ -1147,7 +1147,7 @@ We believe in clear, accurate data you can trust.
 
 ### 3. Stability & Reliability Improvements 🛠️
 
-We've been busy tidying up behind the scenes to keep Coach Watts running smoothly.
+We've been busy tidying up behind the scenes to keep Journey Endurance Coaching Platform running smoothly.
 
 - **Smoother Workouts:** We fixed a bug that occasionally caused duplicate lines or errors during workout processing and conversion, ensuring your structured workouts load cleanly every time.
 - **System Health:** We’ve implemented new internal monitoring tools to help us detect and address performance issues faster, keeping the entire platform reliable as we scale.
@@ -1156,9 +1156,9 @@ We've been busy tidying up behind the scenes to keep Coach Watts running smoothl
 
 Happy Training!
 
-The Coach Watts Team 🚴‍♀️
+The Journey Endurance Coaching Platform Team 🚴‍♀️
 
-# 🎉 Coach Watts v0.5.3: Syncing, Stats, and Smarter Updates!
+# 🎉 Journey Endurance Coaching Platform v0.5.3: Syncing, Stats, and Smarter Updates!
 
 Hey team! We've just rolled out a fantastic new update focused on integrating with your favorite tools and providing you with instant performance insights.
 
@@ -1168,9 +1168,9 @@ Here’s what’s new in v0.5.3:
 
 ## 🔗 Major Integration: Intervals.icu Workout Sync!
 
-This is the feature you’ve been asking for! Coach Watts now plays nicely with Intervals.icu, making your planning workflow smoother than ever.
+This is the feature you’ve been asking for! Journey Endurance Coaching Platform now plays nicely with Intervals.icu, making your planning workflow smoother than ever.
 
-- **Instant Publishing:** You can now instantly sync your planned workouts from your Coach Watts dashboard directly onto your Intervals.icu calendar.
+- **Instant Publishing:** You can now instantly sync your planned workouts from your Journey Endurance Coaching Platform dashboard directly onto your Intervals.icu calendar.
 - **How it Works:** Just look for the new **'Publish' button** on your plan dashboard. A quick click is all it takes to push your training plan over! 🔄
 
 ## 📈 Enhanced Performance Metrics
@@ -1184,16 +1184,16 @@ Get a clearer picture of your current fitness and fatigue level right on your pr
 
 We've improved how we communicate new features and updates to you.
 
-- **In-App Release Notes:** You will now receive a dedicated notification on your dashboard when a new version of Coach Watts is released.
+- **In-App Release Notes:** You will now receive a dedicated notification on your dashboard when a new version of Journey Endurance Coaching Platform is released.
 - **Stay Updated:** Read all the exciting changes and new features in a simple pop-up modal, without ever having to leave the application. 📰
 
 Happy Cycling!
 
-— The Coach Watts Team 🚴‍♀️💨
+— The Journey Endurance Coaching Platform Team 🚴‍♀️💨
 
-# 🎉 Coach Watts v0.5.3: Sync Your Plan & Track Your Form!
+# 🎉 Journey Endurance Coaching Platform v0.5.3: Sync Your Plan & Track Your Form!
 
-Hey Coach Watts Community!
+Hey Journey Endurance Coaching Platform Community!
 
 We're thrilled to launch v0.5.3, focused entirely on streamlining your workflow and giving you better insights into your fitness. This update includes a major integration many of you have been waiting for!
 
@@ -1205,7 +1205,7 @@ Here are the highlights of what’s new:
 
 For athletes and coaches who rely on Intervals.icu for tracking and analysis, your workflow just became _much_ easier!
 
-- **One-Click Publishing:** You can now publish your planned workouts from Coach Watts directly onto your Intervals.icu calendar with a single button press on the plan dashboard. No more manual exports or data entry!
+- **One-Click Publishing:** You can now publish your planned workouts from Journey Endurance Coaching Platform directly onto your Intervals.icu calendar with a single button press on the plan dashboard. No more manual exports or data entry!
 - **Optimized Format:** We handle all the technical conversions to ensure your structured workouts display perfectly inside Intervals.icu.
 
 ## 📈 Enhanced Performance Metrics
@@ -1224,9 +1224,9 @@ We want to make sure you never miss out on new features or critical updates.
 
 Log in today and try out the new **Publish** button on your training plan dashboard! Happy cycling! 🚴💨
 
-— The Coach Watts Team
+— The Journey Endurance Coaching Platform Team
 
-# 🎉 Coach Watts v0.5.2 is Live! More Precision, More Control
+# 🎉 Journey Endurance Coaching Platform v0.5.2 is Live! More Precision, More Control
 
 We’re excited to roll out v0.5.2, focusing on bringing a key performance metric to your profile and giving you greater control over your automatic settings. Update your app now to check out the improvements!
 
@@ -1236,18 +1236,18 @@ We’re excited to roll out v0.5.2, focusing on bringing a key performance metri
 
 You asked, and we delivered! You can now input and track your **Lactate Threshold Heart Rate (LTHR)** directly in your Profile Settings.
 
-This crucial metric allows Coach Watts to calculate your personalized heart rate training zones with much greater accuracy, helping you dial in your workouts for maximum benefit!
+This crucial metric allows Journey Endurance Coaching Platform to calculate your personalized heart rate training zones with much greater accuracy, helping you dial in your workouts for maximum benefit!
 
 ## 🧠 Smarter Profile Updates
 
 ### **You're in Control of Auto-Detection**
 
-Coach Watts often uses your activity data to detect new performance benchmarks (like a change in FTP or Weight). We’ve made this process clearer and safer than ever:
+Journey Endurance Coaching Platform often uses your activity data to detect new performance benchmarks (like a change in FTP or Weight). We’ve made this process clearer and safer than ever:
 
 - **Confirmation Modal:** If we detect a potential update to your profile settings, you will now see a clear confirmation screen.
 - **Diff Detection:** This screen explicitly shows you _exactly_ what the change is (e.g., "FTP changing from 250W to 255W") before you approve it.
 
-This ensures you are always aware of, and in full control of, the settings Coach Watts uses for your training plans. ✅
+This ensures you are always aware of, and in full control of, the settings Journey Endurance Coaching Platform uses for your training plans. ✅
 
 ## ⚙️ Stability & Chart Improvements
 
@@ -1260,9 +1260,9 @@ We’ve ironed out a couple of technical kinks to ensure a smoother experience:
 
 Happy Cycling!
 
-— The Coach Watts Team
+— The Journey Endurance Coaching Platform Team
 
-# 🚀 Coach Watts v0.5.1 is Here! Faster, Cleaner, and More Reliable 📈
+# 🚀 Journey Endurance Coaching Platform v0.5.1 is Here! Faster, Cleaner, and More Reliable 📈
 
 We’ve just rolled out a fresh update focused on providing a smoother planning experience and ensuring your training data is perfectly accurate.
 
@@ -1300,7 +1300,7 @@ We took a deep dive into the engine room to squash some bugs that were throwing 
 
 Happy Cycling! 🚴‍♀️💨
 
-— The Coach Watts Team
+— The Journey Endurance Coaching Platform Team
 
 # Watts App Release v0.5.0: The Planning & Personalization Update! 🚀
 
@@ -1347,9 +1347,9 @@ We’ve improved the experience across the board with several key updates:
 
 Update to v0.5.0 today and unlock a new level of coaching power! Happy training! 🚴‍♀️💨
 
-# Major Update Alert! Coach Watts v0.5.0: Smarter Plans, Multi-Sport, and Workout Sharing! 🚀
+# Major Update Alert! Journey Endurance Coaching Platform v0.5.0: Smarter Plans, Multi-Sport, and Workout Sharing! 🚀
 
-We've been hard at work making Coach Watts the most powerful and flexible training partner, and this release is packed with features focused on dynamic, event-driven planning.
+We've been hard at work making Journey Endurance Coaching Platform the most powerful and flexible training partner, and this release is packed with features focused on dynamic, event-driven planning.
 
 Here’s what’s new in v0.5.0:
 
@@ -1359,7 +1359,7 @@ Here’s what’s new in v0.5.0:
 
 Your training is no longer a static calendar. We've introduced advanced event management so your plan works backward from your most important goals:
 
-- **Event-Driven Periodization:** You can now add key races, events, or trips to your schedule. Coach Watts will automatically structure your training blocks (base, build, peak) to ensure you hit peak fitness exactly when you need it. 🎯
+- **Event-Driven Periodization:** You can now add key races, events, or trips to your schedule. Journey Endurance Coaching Platform will automatically structure your training blocks (base, build, peak) to ensure you hit peak fitness exactly when you need it. 🎯
 - **Goal Wizard:** Easily set up and manage all your upcoming competitive and target events with dedicated new pages and tools.
 
 ## 🧠 Smarter AI Coaching & Customization
@@ -1372,7 +1372,7 @@ The AI planner is now highly flexible, giving you more control over your week-to
 
 ## 🏊‍♂️ Multi-Sport Support Has Arrived!
 
-For all our triathletes, runners, and swimmers—or anyone who cross-trains—Coach Watts now fully supports managing multiple disciplines:
+For all our triathletes, runners, and swimmers—or anyone who cross-trains—Journey Endurance Coaching Platform now fully supports managing multiple disciplines:
 
 - **Activity Type Management:** Specify the sport (cycling, running, swimming, strength, etc.) for each workout and manage your volume across all activities.
 - **Sport-Specific Views:** Workouts now render dynamic, sport-specific views, including heart rate zone tracking and stats for all activities, and pace/speed calculations for running and swimming.
@@ -1380,7 +1380,7 @@ For all our triathletes, runners, and swimmers—or anyone who cross-trains—Co
 
 ## 💾 Sharing & Downloads for Any Platform
 
-Get your structured workouts out of Coach Watts and onto your favorite device or platform:
+Get your structured workouts out of Journey Endurance Coaching Platform and onto your favorite device or platform:
 
 - **Workout Download:** Instantly download any structured workout in industry-standard **ZWO** (Zwift, TrainerRoad compatible) and **FIT** formats. 📤
 - **Easy Sharing:** Share individual planned workouts or entire training plans via a simple public link. Perfect for showing off a great session or getting feedback from a third-party coach.
@@ -1392,7 +1392,7 @@ Get your structured workouts out of Coach Watts and onto your favorite device or
 - **UI Consistency:** We've enforced a consistent dark mode theme for a smoother visual experience. 🌙
 - **Better Plan Management:** Improved cleanup and removal of old workouts when you abandon or regenerate training blocks.
 
-# 🚀 Coach Watts Release v0.3.1: Introducing Advanced Analytics and FIT File Uploads!
+# 🚀 Journey Endurance Coaching Platform Release v0.3.1: Introducing Advanced Analytics and FIT File Uploads!
 
 Hey team!
 
@@ -1406,7 +1406,7 @@ Here is what's new in this powerhouse release:
 
 ## 🔬 Next-Level Workout Analysis
 
-We've fundamentally upgraded how Coach Watts analyzes your efforts, moving beyond basic metrics to provide actionable insights into your physiological performance during a ride.
+We've fundamentally upgraded how Journey Endurance Coaching Platform analyzes your efforts, moving beyond basic metrics to provide actionable insights into your physiological performance during a ride.
 
 - **Automatic Interval Detection:** We now automatically detect and analyze your hard efforts and recovery segments within any workout. View detailed stats for every interval right inside the app!
 - **Deep Fatigue & Stability Metrics:** Understand exactly how your body responds to stress with new metrics like **Fatigue Sensitivity**, **Endurance Fade**, **Recovery Rate**, **Decoupling**, **Coasting**, and **Surge Detection**.
@@ -1416,9 +1416,9 @@ We've fundamentally upgraded how Coach Watts analyzes your efforts, moving beyon
 
 ## 🔗 Data Connectivity and Integrations
 
-Bringing your data into Coach Watts has never been easier or more comprehensive.
+Bringing your data into Journey Endurance Coaching Platform has never been easier or more comprehensive.
 
-- **Direct FIT File Uploads!** 🚴‍♂️ You can now upload your cycling computer's `.fit` files directly to Coach Watts from the Data page.
+- **Direct FIT File Uploads!** 🚴‍♂️ You can now upload your cycling computer's `.fit` files directly to Journey Endurance Coaching Platform from the Data page.
 - **Withings Integration:** Seamlessly sync your weight, body composition, and wellness data from your Withings smart scale straight into your profile for holistic tracking.
 - **Enhanced Intervals.icu Sync:** Our connection to Intervals.icu now supports syncing planned workouts and tracking your Training Stress Balance (TSB) more accurately.
 - **Weight & Wellness Tracking:** Your user profile now tracks weight evolution and other key wellness metrics over time.
@@ -1432,9 +1432,9 @@ Want to show off a new personal best or share a complex training session with a 
 ## ⚙️ Platform & User Experience Improvements
 
 - **Improved Onboarding:** New users will find a smoother, more guided introduction to the app.
-- **Developer API Access:** For the highly technical user or integrated coach, we’ve added API Key management and OpenAPI documentation to allow secure, custom integration with your Coach Watts data.
+- **Developer API Access:** For the highly technical user or integrated coach, we’ve added API Key management and OpenAPI documentation to allow secure, custom integration with your Journey Endurance Coaching Platform data.
 - **Goal and Profile Setup:** Easier management of your custom heart rate/power zones and new features for managing your training goals.
-- **Pricing Update:** Coach Watts is now officially in **Free Early Access**!
+- **Pricing Update:** Journey Endurance Coaching Platform is now officially in **Free Early Access**!
 
 ## 🛠️ Key Fixes
 
@@ -1445,11 +1445,11 @@ We squashed some bugs to ensure your data is always reliable:
 
 Happy Riding (and Analyzing)!
 
-— The Coach Watts Team 💡
+— The Journey Endurance Coaching Platform Team 💡
 
-# Coach Watts v0.3.1 Release: Unleash Your Performance Potential! 🚀
+# Journey Endurance Coaching Platform v0.3.1 Release: Unleash Your Performance Potential! 🚀
 
-We are thrilled to announce a massive update to Coach Watts! This release significantly deepens your workout analysis, introduces powerful new integrations, and makes sharing your achievements easier than ever.
+We are thrilled to announce a massive update to Journey Endurance Coaching Platform! This release significantly deepens your workout analysis, introduces powerful new integrations, and makes sharing your achievements easier than ever.
 
 Here’s what’s new and improved in the app:
 
@@ -1469,7 +1469,7 @@ Your activity data is now more insightful than ever, thanks to new algorithms th
 
 ## 🔗 Seamless Data Integration
 
-Getting your training and wellness data into Coach Watts is now simpler and more comprehensive.
+Getting your training and wellness data into Journey Endurance Coaching Platform is now simpler and more comprehensive.
 
 - **Upload FIT Files Directly!** 📤 Have a raw file from your head unit? You can now manually upload `.fit` files directly to the app for immediate processing and analysis.
 - **Withings Integration (Wellness Data):** Connect your Withings scale and devices to automatically track your weight and wellness metrics, giving the AI coach a complete picture of your health.
@@ -1492,7 +1492,7 @@ We've added key tools for long-term tracking and planning.
 
 ## 🛠️ Quality of Life & Developer Tools
 
-- **Free Early Access!** Coach Watts is now available in Free Early Access.
+- **Free Early Access!** Journey Endurance Coaching Platform is now available in Free Early Access.
 - **New User Onboarding:** New athletes and coaches will now enjoy a guided introduction to the app's powerful features.
 - **Developer Settings & API Access:** For advanced users or coaches managing external tools, we have introduced API Key management and OpenAPI documentation, allowing you to build custom integrations.
 
@@ -1501,11 +1501,11 @@ We've added key tools for long-term tracking and planning.
 We believe these updates will transform how you interact with your training data. Log in now and dive into your new advanced metrics!
 
 Happy cycling! 🚴
-**— The Coach Watts Team**
+**— The Journey Endurance Coaching Platform Team**
 
 ## Massive Release: v0.3.1 is Here! 🚀 New Data, Deeper Analytics, and Public Sharing!
 
-We've been busy under the hood, and we are thrilled to announce our largest feature release yet! This update fundamentally transforms how Coach Watts analyzes your training, handles your data, and connects with your favorite devices.
+We've been busy under the hood, and we are thrilled to announce our largest feature release yet! This update fundamentally transforms how Journey Endurance Coaching Platform analyzes your training, handles your data, and connects with your favorite devices.
 
 Here’s what’s new and improved in this exciting release:
 
@@ -1525,7 +1525,7 @@ We’ve made it easier than ever to get all your performance and wellness data i
 This release brings truly advanced, granular analysis to every workout. Prepare for deep insights previously only available to elite athletes.
 
 - **Advanced Workout Metrics Dashboard:** Every workout detail page now features a comprehensive dashboard displaying new metrics.
-- **Interval Detection Algorithm:** Coach Watts now automatically detects and analyzes structured and unstructured intervals within your ride, giving you specific performance feedback on each effort block.
+- **Interval Detection Algorithm:** Journey Endurance Coaching Platform now automatically detects and analyzes structured and unstructured intervals within your ride, giving you specific performance feedback on each effort block.
 - **Cutting-Edge Training Metrics:** We calculate and display advanced metrics, including:
   - **Fatigue Sensitivity:** How much your power drops off during repeated efforts.
   - **Stability Metrics:** Analysis of how consistent you are in power and heart rate.
@@ -1538,7 +1538,7 @@ This release brings truly advanced, granular analysis to every workout. Prepare 
 
 Want to show off that incredible FTP test or epic group ride? Now you can share your workouts instantly.
 
-- **Public Workout Sharing:** Generate a unique, read-only public link for any completed workout. Share it with friends, family, or your social network—they don't need a Coach Watts account to view the full timeline, stats, and advanced analysis!
+- **Public Workout Sharing:** Generate a unique, read-only public link for any completed workout. Share it with friends, family, or your social network—they don't need a Journey Endurance Coaching Platform account to view the full timeline, stats, and advanced analysis!
 
 ### 4. A Smarter AI Coach & Planning Tools 🗣️
 
@@ -1551,11 +1551,11 @@ The AI experience is faster, more informed, and comes with new features.
 
 ### 5. Platform Updates & Quality of Life ✨
 
-- **Free Early Access:** We've updated our pricing structure to reflect that Coach Watts is currently in **Free Early Access**. Enjoy all these powerful features at no cost!
-- **New User Onboarding:** New users will find a much smoother, guided experience getting started with Coach Watts.
+- **Free Early Access:** We've updated our pricing structure to reflect that Journey Endurance Coaching Platform is currently in **Free Early Access**. Enjoy all these powerful features at no cost!
+- **New User Onboarding:** New users will find a much smoother, guided experience getting started with Journey Endurance Coaching Platform.
 - **Enhanced Calendars:** The Activities Calendar now clearly highlights your **Goal Days** and integrates wellness indicators.
 - **Improved Navigation:** We’ve refined the app layout and navigation for faster access to your Goals, Performance dashboards, and Coaching chat rooms.
 
 We hope you enjoy this massive update! Happy training!
 
-— The Coach Watts Team 🚴‍♀️
+— The Journey Endurance Coaching Platform Team 🚴‍♀️

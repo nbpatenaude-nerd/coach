@@ -163,7 +163,7 @@
               :share-title="
                 activePlan?.goal?.title
                   ? `Training Plan: ${activePlan.goal.title}`
-                  : 'Training plan shared from Coach Wattz'
+                  : 'Training plan shared from Journey Endurance'
               "
               @update:expiry-value="shareExpiryValue = $event"
               @generate="generateShareLink"

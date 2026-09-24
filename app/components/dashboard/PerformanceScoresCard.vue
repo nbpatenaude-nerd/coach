@@ -44,7 +44,7 @@
     </template>
 
     <!-- Loading skeleton -->
-    <div v-if="loadingScores" class="space-y-4 animate-pulse flex-grow">
+    <div v-if="loadingScores" class="space-y-4 animate-pulse grow">
       <div
         v-for="i in 4"
         :key="i"
@@ -56,7 +56,7 @@
     </div>
 
     <!-- Actual scores data -->
-    <div v-else-if="profileScores || pmcSummary" class="grid grid-cols-2 gap-3 flex-grow p-4">
+    <div v-else-if="profileScores || pmcSummary" class="grid grid-cols-2 gap-3 grow p-4">
       <UTooltip
         v-for="(score, key) in visibleScoreOptions"
         :key="key"
@@ -134,7 +134,7 @@
     </div>
 
     <!-- No scores yet -->
-    <div v-else class="text-center py-4 flex-grow">
+    <div v-else class="text-center py-4 grow">
       <p class="text-sm text-muted">{{ t('performance_scores_empty_message') }}</p>
     </div>
 
@@ -266,55 +266,59 @@
     return defaultSettings
   })
 
+  const safeT = (key: string) => {
+    return typeof t.value === 'function' ? t.value(key) : key
+  }
+
   // Computed visible scores
   const allScoreConfigs = computed(() => ({
     currentFitness: {
-      label: t.value('score_label_fitness'),
+      label: safeT('score_label_fitness'),
       color: 'bg-amber-50 dark:bg-amber-900/20 ring-amber-500/10',
-      sublabel: t.value('score_sublabel_fitness'),
-      description: t.value('score_desc_fitness')
+      sublabel: safeT('score_sublabel_fitness'),
+      description: safeT('score_desc_fitness')
     },
     recoveryCapacity: {
-      label: t.value('score_label_recovery'),
+      label: safeT('score_label_recovery'),
       color: 'bg-emerald-50 dark:bg-emerald-900/20 ring-emerald-500/10',
-      sublabel: t.value('score_sublabel_recovery'),
-      description: t.value('score_desc_recovery')
+      sublabel: safeT('score_sublabel_recovery'),
+      description: safeT('score_desc_recovery')
     },
     nutritionCompliance: {
-      label: t.value('score_label_nutrition'),
+      label: safeT('score_label_nutrition'),
       color: 'bg-purple-50 dark:bg-purple-900/20 ring-purple-500/10',
-      sublabel: t.value('score_sublabel_nutrition'),
-      description: t.value('score_desc_nutrition')
+      sublabel: safeT('score_sublabel_nutrition'),
+      description: safeT('score_desc_nutrition')
     },
     trainingConsistency: {
-      label: t.value('score_label_consistency'),
+      label: safeT('score_label_consistency'),
       color: 'bg-blue-50 dark:bg-blue-900/20 ring-blue-500/10',
-      sublabel: t.value('score_sublabel_consistency'),
-      description: t.value('score_desc_consistency')
+      sublabel: safeT('score_sublabel_consistency'),
+      description: safeT('score_desc_consistency')
     },
     ctl: {
-      label: t.value('score_label_ctl'),
+      label: safeT('score_label_ctl'),
       color: 'bg-purple-50 dark:bg-purple-900/20 ring-purple-500/10',
-      sublabel: t.value('score_sublabel_ctl'),
-      description: t.value('score_desc_ctl')
+      sublabel: safeT('score_sublabel_ctl'),
+      description: safeT('score_desc_ctl')
     },
     atl: {
-      label: t.value('score_label_atl'),
+      label: safeT('score_label_atl'),
       color: 'bg-yellow-50 dark:bg-yellow-900/20 ring-yellow-500/10',
-      sublabel: t.value('score_sublabel_atl'),
-      description: t.value('score_desc_atl')
+      sublabel: safeT('score_sublabel_atl'),
+      description: safeT('score_desc_atl')
     },
     tsb: {
-      label: t.value('score_label_tsb'),
+      label: safeT('score_label_tsb'),
       color: 'bg-indigo-50 dark:bg-indigo-900/20 ring-indigo-500/10',
-      sublabel: t.value('score_sublabel_tsb'),
-      description: t.value('score_desc_tsb')
+      sublabel: safeT('score_sublabel_tsb'),
+      description: safeT('score_desc_tsb')
     },
     avgTss: {
-      label: t.value('score_label_avg_tss'),
+      label: safeT('score_label_avg_tss'),
       color: 'bg-blue-50 dark:bg-blue-900/20 ring-blue-500/10',
-      sublabel: t.value('score_sublabel_avg_tss'),
-      description: t.value('score_desc_avg_tss')
+      sublabel: safeT('score_sublabel_avg_tss'),
+      description: safeT('score_desc_avg_tss')
     }
   }))
 
@@ -367,8 +371,8 @@
     const tStr = formatDateUTC(today, 'yyyy-MM-dd')
     const yStr = formatDateUTC(yesterday, 'yyyy-MM-dd')
 
-    if (dStr === tStr) return t.value('navigation_search_nutrition_today').toLowerCase()
-    if (dStr === yStr) return t.value('navigation_search_nutrition_yesterday').toLowerCase()
+    if (dStr === tStr) return safeT('navigation_search_nutrition_today').toLowerCase()
+    if (dStr === yStr) return safeT('navigation_search_nutrition_yesterday').toLowerCase()
 
     const diffDays = Math.floor((today.getTime() - scoreDate.getTime()) / (1000 * 60 * 60 * 24))
     if (diffDays > 1 && diffDays < 7) return `${diffDays} days ago`
@@ -408,28 +412,28 @@
 
     const scoreConfig = {
       currentFitness: {
-        title: t.value('score_label_fitness'),
+        title: safeT('score_label_fitness'),
         score: profileScores.value.currentFitness,
         explanation: profileScores.value.currentFitnessExplanation,
         analysisData: profileScores.value.currentFitnessExplanationJson,
         color: 'blue' as const
       },
       recoveryCapacity: {
-        title: t.value('score_label_recovery'),
+        title: safeT('score_label_recovery'),
         score: profileScores.value.recoveryCapacity,
         explanation: profileScores.value.recoveryCapacityExplanation,
         analysisData: profileScores.value.recoveryCapacityExplanationJson,
         color: 'green' as const
       },
       nutritionCompliance: {
-        title: t.value('score_label_nutrition'),
+        title: safeT('score_label_nutrition'),
         score: profileScores.value.nutritionCompliance,
         explanation: profileScores.value.nutritionComplianceExplanation,
         analysisData: profileScores.value.nutritionComplianceExplanationJson,
         color: 'purple' as const
       },
       trainingConsistency: {
-        title: t.value('score_label_consistency'),
+        title: safeT('score_label_consistency'),
         score: profileScores.value.trainingConsistency,
         explanation: profileScores.value.trainingConsistencyExplanation,
         analysisData: profileScores.value.trainingConsistencyExplanationJson,

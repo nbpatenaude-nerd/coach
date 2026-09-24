@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '~/server/utils/generated-prisma/client'
 import { attachStreamsToWorkouts } from '../repositories/workoutStreamRepository'
 
 /**

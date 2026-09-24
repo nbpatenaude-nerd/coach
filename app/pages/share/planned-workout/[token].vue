@@ -34,7 +34,7 @@
             <div class="flex items-center gap-3 mb-2">
               <UAvatar v-if="user?.image" :src="user.image" :alt="user.name || 'User'" size="xs" />
               <span class="text-sm text-gray-500 dark:text-gray-400">
-                {{ user?.name || 'Coach Wattz User' }} shared a planned workout
+                {{ user?.name || 'Journey Endurance User' }} shared a planned workout
               </span>
             </div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -214,8 +214,8 @@
   // Meta tags for social sharing
   const pageTitle = computed(() =>
     workout.value
-      ? `${workout.value.title} - Shared Workout | Coach Wattz`
-      : 'Shared Workout | Coach Wattz'
+      ? `${workout.value.title} - Shared Workout | Journey Endurance`
+      : 'Shared Workout | Journey Endurance'
   )
   const pageDescription = computed(() => {
     if (workout.value) {
@@ -225,7 +225,7 @@
         160
       )
     }
-    return 'View shared workout details on Coach Wattz.'
+    return 'View shared workout details on Journey Endurance.'
   })
 
   useHead({

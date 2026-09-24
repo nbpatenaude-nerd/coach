@@ -4,8 +4,8 @@
 
 Global SEO defaults are managed in `nuxt.config.ts`. Always ensure these are present:
 
-- `titleTemplate`: Use `%s - Coach Watts` for consistent branding.
-- `og:site_name`: Set to `Coach Watts`.
+- `titleTemplate`: Use `%s - Journey Endurance Coaching Platform` for consistent branding.
+- `og:site_name`: Set to `Journey Endurance Coaching Platform`.
 - `twitter:card`: Set to `summary_large_image` for rich social previews.
 
 ## 2. Page-Specific SEO (`useHead`)
@@ -26,7 +26,7 @@ Publicly shareable pages **MUST** use `await useFetch` at the top level (setup s
 <script setup lang="ts">
 const { data: profile } = await useFetch('/api/share/profile/...')
 
-const title = computed(() => profile.value?.name + ' | Coach Watts')
+const title = computed(() => profile.value?.name + ' | Journey Endurance Coaching Platform')
 
 useHead({
   title,

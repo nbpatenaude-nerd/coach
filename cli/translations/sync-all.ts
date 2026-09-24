@@ -61,7 +61,7 @@ const syncAllCommand = new Command('sync-all')
       .map((f) => basename(f, '.json'))
       .sort()
 
-    console.log(chalk.bold(`\n🌐 Coach Watts — Full Translation Sync\n`))
+    console.log(chalk.bold(`\n🌐 Journey Endurance Coaching Platform — Full Translation Sync\n`))
     console.log(chalk.gray(`Found ${namespaces.length} namespace(s): ${namespaces.join(', ')}\n`))
 
     if (dryRun) {

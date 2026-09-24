@@ -48,8 +48,6 @@
 </template>
 
 <script setup lang="ts">
-  import EfficiencyTrendChart from '~/components/EfficiencyTrendChart.vue'
-
   defineProps<{
     settings: any
     scopeOptions: any[]

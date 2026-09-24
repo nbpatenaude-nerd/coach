@@ -1,6 +1,6 @@
 # Background Task Monitoring Guide
 
-Coach Watts uses a hybrid realtime + polling system for monitoring long-running Trigger.dev jobs.
+Journey Endurance Coaching Platform uses a hybrid realtime + polling system for monitoring long-running Trigger.dev jobs.
 
 The canonical transport is documented in [Realtime Message Bus](../01-architecture/realtime-message-bus.md). This guide focuses on how task monitoring works in the UI.
 

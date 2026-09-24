@@ -56,7 +56,7 @@ Example structure:
 
 Create a specialized layout focused on content consumption.
 
-- **Header**: Contains the Coach Watts logo, a Documentation label, Global Search, and links to the Dashboard and GitHub.
+- **Header**: Contains the Journey Endurance Coaching Platform logo, a Documentation label, Global Search, and links to the Dashboard and GitHub.
 - **Main Area**: A three-column grid for desktop:
   - **Left Sidebar**: `DocsAside` for hierarchical navigation.
   - **Center**: Main content viewport.
@@ -126,7 +126,7 @@ This page handles all routes under `/documentation/`.
 ### Phase 6: Comprehensive Integration Guides
 
 1. **Source Syncing**: Step-by-step setup for Strava, Garmin, Oura, Whoop, and Intervals.icu.
-2. **Intervals.icu Two-Way Sync**: Detailed behavior of how Coach Watts pushes/pulls from Intervals.
+2. **Intervals.icu Two-Way Sync**: Detailed behavior of how Journey Endurance Coaching Platform pushes/pulls from Intervals.
 
 ### Phase 7: Coaching & Groups
 

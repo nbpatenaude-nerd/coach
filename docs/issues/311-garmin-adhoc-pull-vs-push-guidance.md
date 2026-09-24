@@ -7,7 +7,7 @@
 
 ## Description
 
-Garmin Start Guide / Health tips prefer Ping or Push driven delivery; summary GETs after callback. Coach Watts uses Push as primary realtime path and also supports on-demand pull via `ingest-garmin` / Sync UI (`/dailies`, `/sleeps`, `/hrv`, `/activities`) for recovery and manual sync.
+Garmin Start Guide / Health tips prefer Ping or Push driven delivery; summary GETs after callback. Journey Endurance Coaching Platform uses Push as primary realtime path and also supports on-demand pull via `ingest-garmin` / Sync UI (`/dailies`, `/sleeps`, `/hrv`, `/activities`) for recovery and manual sync.
 
 This is operationally valuable and already live for users. Strict Ping-only partners may flag ad-hoc polling in a compliance review. No code change planned until Garmin feedback or endpoint config requires it.
 

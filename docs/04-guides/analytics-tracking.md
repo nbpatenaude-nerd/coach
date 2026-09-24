@@ -1,6 +1,6 @@
 # Google Analytics & Tracking Specification
 
-This document outlines the Google Analytics 4 (GA4) and Google Tag Manager (GTM) implementation for Coach Watts.
+This document outlines the Google Analytics 4 (GA4) and Google Tag Manager (GTM) implementation for Journey Endurance Coaching Platform.
 
 > **Onboarding funnel (Phase 1 shipped):** Signup and activation events use the canonical names below. Legacy `sign_up`, `onboarding_view`, `onboarding_complete`, `integration_connect_start`, and `integration_connect_success` are replaced by `signup_started`, `consent_viewed`, `consent_completed`, `integration_connect_started`, and `integration_connected`. `account_created` is recorded server-side on first OAuth link, with optional GA4 Measurement Protocol delivery when `NUXT_GA_MEASUREMENT_API_SECRET` is set, and a one-time client claim fallback.
 

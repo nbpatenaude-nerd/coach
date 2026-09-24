@@ -14,7 +14,7 @@ an `activityFiles` notification containing records for different `userId` values
 loads one integration, and processes all summary lists and activity files using that integration.
 Consequences include:
 
-- activity summaries for later users can be stored on the first Coach Watts account;
+- activity summaries for later users can be stored on the first Journey Endurance Coaching Platform account;
 - activity files for later users are searched under the wrong account and dropped;
 - mixed-type payloads can be attributed according to whichever list is checked first.
 
@@ -41,4 +41,4 @@ any persistence or file retrieval occurs.
 - [ ] Each partition resolves exactly one Garmin integration
 - [ ] Unknown users do not prevent valid users in the same payload from processing
 - [ ] Multi-user activity, wellness, and activity-file payloads have unit coverage
-- [ ] No record can be persisted to a different Garmin user's Coach Watts account
+- [ ] No record can be persisted to a different Garmin user's Journey Endurance Coaching Platform account

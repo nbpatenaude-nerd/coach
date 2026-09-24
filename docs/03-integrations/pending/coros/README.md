@@ -1,6 +1,6 @@
 # COROS API — integration brief
 
-**Status:** not in Coach Watts codebase (2026-07-22). No `coros` provider.
+**Status:** not in Journey Endurance Coaching Platform codebase (2026-07-22). No `coros` provider.
 **Goal:** Direct COROS activity ingest; explore planned-workout delivery if API allows.
 **Agent credentials session:** [agent-session.md](./agent-session.md)
 
@@ -26,7 +26,7 @@ Until COROS shares docs, treat endpoint lists and scopes as **TBD — fill after
 
 ## What we believe we need (hypothesis)
 
-Based on Coach Watts needs and how peers integrate COROS (not official COROS docs):
+Based on Journey Endurance Coaching Platform needs and how peers integrate COROS (not official COROS docs):
 
 | Capability                      | Priority       | Notes                                    |
 | ------------------------------- | -------------- | ---------------------------------------- |
@@ -36,7 +36,7 @@ Based on Coach Watts needs and how peers integrate COROS (not official COROS doc
 | Planned workout push to watch   | Desired        | Confirm in private docs before promising |
 | Sleep / recovery metrics        | Optional       | Only if documented                       |
 
-## Coach Watts product scope (proposed)
+## Journey Endurance Coaching Platform product scope (proposed)
 
 ### Phase A — after credentials + private docs arrive
 
@@ -62,7 +62,7 @@ Have these ready to paste into the COROS form:
 | Field                          | Suggested content                                                                                                   |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
 | Company                        | Watt Mind Kft.                                                                                                      |
-| Product                        | Coach Watts — https://coachwatts.com                                                                                |
+| Product                        | Journey Endurance Coaching Platform — https://coachwatts.com                                                        |
 | Contact                        | László Rácz — `laszlo.racz@coachwatts.com`                                                                          |
 | Category                       | AI endurance coaching / training platform                                                                           |
 | Users / market                 | Growing international endurance base; cite current registered-user count from prod if asked (verify before stating) |

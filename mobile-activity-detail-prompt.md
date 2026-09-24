@@ -162,7 +162,7 @@ are explicitly out of scope here.
 
 ## Product framing
 
-`docs/product-baseline.md` and the Coach Watts spec
+`docs/product-baseline.md` and the Journey Endurance Coaching Platform spec
 (`/Users/hdkiller/Develop/coach-wattz/docs/06-plans/mobile-companion-app.md:203`)
 describe this screen as a **"lightweight completed-session view"**, with analytics
 builder and performance explorer as explicit non-goals. Respect that.

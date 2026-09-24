@@ -362,7 +362,7 @@ Planning Context: ${profile?.planning_context?.current_focus || 'N/A'}`
           : effectiveWeight.value
 
       // Build comprehensive prompt
-      const prompt = `You are a **${aiSettings.aiPersona}** expert endurance sports coach analyzing an athlete's data to suggest personalized, achievable goals.
+      const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing an athlete's data to suggest personalized, achievable goals.
 Adapt your suggestions and rationale to match your **${aiSettings.aiPersona}** persona.
 Preferred Language: ${user.language || 'English'} (ALL analysis and text responses MUST be in this language)
 

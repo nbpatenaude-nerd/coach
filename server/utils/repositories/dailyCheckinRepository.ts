@@ -1,6 +1,4 @@
 import { prisma } from '../db'
-import type { Prisma } from '@prisma/client'
-
 export const dailyCheckinRepository = {
   async getByDate(userId: string, date: Date) {
     return prisma.dailyCheckin.findUnique({

@@ -34,7 +34,7 @@ interface User {
 }
 
 interface UserEntitlements {
-  tier: 'FREE' | 'SUPPORTER' | 'PRO'
+  tier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH'
   autoSync: boolean
   autoAnalysis: boolean
   aiModel: 'flash' | 'pro'
@@ -122,7 +122,7 @@ export const useUserStore = defineStore('user', () => {
     // If Stripe is not configured (self-hosted mode), everyone is PRO
     if (!config.public.stripePublishableKey) {
       return {
-        tier: 'PRO',
+        tier: 'UNLEASH',
         autoSync: true,
         autoAnalysis: true,
         aiModel: 'pro',
@@ -147,7 +147,7 @@ export const useUserStore = defineStore('user', () => {
     let effectiveTier: SubscriptionTier = 'FREE'
 
     if (isContributor) {
-      effectiveTier = 'PRO'
+      effectiveTier = 'UNLEASH'
     } else if (isEffectivePremium) {
       effectiveTier = user.value.subscriptionTier
     }
@@ -158,12 +158,12 @@ export const useUserStore = defineStore('user', () => {
       user.value.subscriptionTier === 'FREE'
     )
     if (isTrialActive && !isEffectivePremium) {
-      effectiveTier = effectiveTier === 'PRO' ? 'PRO' : 'SUPPORTER'
+      effectiveTier = effectiveTier === 'UNLEASH' ? 'UNLEASH' : 'UNCOVER'
     }
 
     const promotionalTier = user.value.activePromotionalGrant?.tier
     if (promotionalTier) {
-      const rank = { FREE: 0, SUPPORTER: 1, PRO: 2 }
+      const rank = { FREE: 0, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
       effectiveTier = rank[promotionalTier] > rank[effectiveTier] ? promotionalTier : effectiveTier
     }
 
@@ -171,9 +171,9 @@ export const useUserStore = defineStore('user', () => {
       tier: effectiveTier,
       autoSync: effectiveTier !== 'FREE',
       autoAnalysis: effectiveTier !== 'FREE',
-      aiModel: effectiveTier === 'PRO' ? 'pro' : 'flash',
+      aiModel: effectiveTier === 'UNLOCK' || effectiveTier === 'UNLEASH' ? 'pro' : 'flash',
       priorityProcessing: effectiveTier !== 'FREE',
-      proactivity: effectiveTier === 'PRO'
+      proactivity: effectiveTier === 'UNLOCK' || effectiveTier === 'UNLEASH'
     }
   })
 
@@ -195,9 +195,9 @@ export const useUserStore = defineStore('user', () => {
   }
 
   // Check if user has minimum tier
-  function hasMinimumTier(minimumTier: 'FREE' | 'SUPPORTER' | 'PRO'): boolean {
+  function hasMinimumTier(minimumTier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH'): boolean {
     if (!entitlements.value) return false
-    const tierHierarchy = { FREE: 0, SUPPORTER: 1, PRO: 2 }
+    const tierHierarchy = { FREE: 0, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
     return tierHierarchy[entitlements.value.tier] >= tierHierarchy[minimumTier]
   }
 

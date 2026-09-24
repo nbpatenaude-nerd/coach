@@ -3,7 +3,7 @@
 **Started:** 2026-07-08  
 **Last updated:** 2026-07-22 (364–365 push prefs + send gates fixed; inbox path hygiene)
 
-**Goal:** Comprehensive bug/UI/security audit across the full Coach Watts codebase. Documentation only — no refactors.
+**Goal:** Comprehensive bug/UI/security audit across the full Journey Endurance Coaching Platform codebase. Documentation only — no refactors.
 
 ## Summary
 

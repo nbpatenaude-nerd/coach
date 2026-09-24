@@ -11,7 +11,7 @@ import {
 
 const bodySchema = z.object({
   action: z.enum(['grant', 'revoke']),
-  tier: z.enum(['PRO', 'SUPPORTER']).optional()
+  tier: z.enum(['UNCOVER', 'UNLOCK', 'UNLEASH']).optional()
 })
 
 export default defineEventHandler(async (event) => {
@@ -61,7 +61,7 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    const updatedUser = await grantLifetimeSubscription(userId, body.tier ?? 'PRO')
+    const updatedUser = await grantLifetimeSubscription(userId, body.tier ?? 'UNLEASH')
 
     await logAction({
       userId,

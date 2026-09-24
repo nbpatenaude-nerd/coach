@@ -1,6 +1,6 @@
 # Email Communication System
 
-The Coach Watts Email Communication System is a centralized, compliant, and branded platform for lifecycle, product, and transactional notifications. It leverages Nuxt 3, Trigger.dev v3, and Resend for efficient and reliable delivery.
+The Journey Endurance Coaching Platform Email Communication System is a centralized, compliant, and branded platform for lifecycle, product, and transactional notifications. It leverages Nuxt 3, Trigger.dev v3, and Resend for efficient and reliable delivery.
 
 ## Key Features
 

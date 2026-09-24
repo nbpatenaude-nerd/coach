@@ -3,13 +3,13 @@
 ## Status
 
 - Scope: phases 1-5 (connection, workout import, provider wiring, settings, measurements)
-- Out of scope: publishing Coach Watts planned workouts or programs to Liftosaur
+- Out of scope: publishing Journey Endurance Coaching Platform planned workouts or programs to Liftosaur
 - API documentation: <https://www.liftosaur.com/doc/api>
 
 ## Goals
 
 1. Let a user connect a Liftosaur Premium account with a personal API key.
-2. Import completed Liftosaur strength workouts into the canonical Coach Watts workout models.
+2. Import completed Liftosaur strength workouts into the canonical Journey Endurance Coaching Platform workout models.
 3. Preserve the original Liftoscript Workout text so parsing can be audited and improved safely.
 4. Import bodyweight and body-fat measurements when the user explicitly enables that setting.
 5. Participate in manual sync, Sync All, sync guards, task monitoring, deduplication, and athlete-profile refreshes like existing integrations.
@@ -20,11 +20,11 @@
 - The API requires an active Liftosaur Premium subscription.
 - Workout history is returned as Liftoscript Workout text rather than structured JSON.
 - History and measurements are cursor-paginated with a maximum page size of 200.
-- The public documentation does not describe webhooks or rate limits, so Coach Watts uses manual/batch polling, conservative pagination, bounded retries, and `Retry-After` when supplied.
+- The public documentation does not describe webhooks or rate limits, so Journey Endurance Coaching Platform uses manual/batch polling, conservative pagination, bounded retries, and `Retry-After` when supplied.
 
 ## Data mapping
 
-| Liftosaur                     | Coach Watts                                                            |
+| Liftosaur                     | Journey Endurance Coaching Platform                                    |
 | ----------------------------- | ---------------------------------------------------------------------- |
 | API key                       | `Integration.accessToken`, provider `liftosaur`                        |
 | History record ID             | `Workout.externalId`                                                   |

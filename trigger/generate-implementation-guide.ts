@@ -29,7 +29,7 @@ export const generateImplementationGuideTask = task({
     }
 
     // 2. Construct Prompt
-    const prompt = `You are an expert endurance sports coach. Create a detailed, actionable implementation guide for the following recommendation.
+    const prompt = `You are an AI assistant coach at Journey Endurance, specializing in exercise physiology. Create a detailed, actionable implementation guide for the following recommendation.
 
 RECOMMENDATION:
 Title: "${recommendation.title}"

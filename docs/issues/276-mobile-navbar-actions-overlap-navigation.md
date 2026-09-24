@@ -19,7 +19,7 @@ Page-specific navbar actions do not collapse or move into an overflow menu on na
 ## Actual Behavior
 
 - At 390px, the sidebar control and Share Coach action occupy the same 32px area.
-- Clicking the visible `Open sidebar` area at 390px opens the **Help Coach Watts Grow** share dialog instead of the sidebar because the heart action is painted over the hamburger. This is a functional navigation failure, not only a visual collision.
+- Clicking the visible `Open sidebar` area at 390px opens the **Help Journey Endurance Coaching Platform Grow** share dialog instead of the sidebar because the heart action is painted over the hamburger. This is a functional navigation failure, not only a visual collision.
 - At 360px, the Chat action extends to approximately x=391 and is clipped by the viewport.
 - The visible header contains as many as seven actions, all kept on one line.
 - The same crowded pattern is present on `/activities`, `/nutrition`, `/workouts`, and `/chat`, with a different number and ordering of actions on each page.

@@ -1,4 +1,4 @@
-# Coach Watts MCP Server
+# Journey Endurance Coaching Platform MCP Server
 
 Remote MCP endpoint: `{siteUrl}/mcp`
 

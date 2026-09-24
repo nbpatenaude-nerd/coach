@@ -1,6 +1,6 @@
 # Localization Guide
 
-This document explains how internationalization (i18n) and localization are implemented in Coach Watts using **Tolgee** and **Nuxt UI**.
+This document explains how internationalization (i18n) and localization are implemented in Journey Endurance Coaching Platform using **Tolgee** and **Nuxt UI**.
 
 ## 1. Core Technologies
 

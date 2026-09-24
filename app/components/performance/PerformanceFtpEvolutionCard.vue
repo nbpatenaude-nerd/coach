@@ -49,8 +49,6 @@
 </template>
 
 <script setup lang="ts">
-  import FTPEvolutionChart from '~/components/FTPEvolutionChart.vue'
-
   defineProps<{
     settings: any
     scopeOptions: any[]

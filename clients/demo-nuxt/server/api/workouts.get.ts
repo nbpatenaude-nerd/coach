@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    // Proxy request to Coach Watts API
+    // Proxy request to Journey Endurance Coaching Platform API
     const workouts = await $fetch(`${config.public.coachWattsUrl}/api/workouts`, {
       headers: {
         Authorization: authHeader

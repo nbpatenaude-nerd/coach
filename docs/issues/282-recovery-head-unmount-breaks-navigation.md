@@ -22,7 +22,7 @@ Navigating away from `/recovery` can throw from the page's head cleanup hook. Th
 - The workout-detail header renders, but the body remains a skeleton with ten loading alerts after several seconds.
 - Opening that workout URL in a fresh tab loads normally.
 
-The Recovery page also produces a document title of `- Coach Watts`, indicating that the same reactive head setup is not providing a stable title value.
+The Recovery page also produces a document title of `- Journey Endurance Coaching Platform`, indicating that the same reactive head setup is not providing a stable title value.
 
 ## Affected Files
 
@@ -36,5 +36,5 @@ Initialize translation dependencies before registering `useHead`, and pass a sta
 
 - [x] Leaving `/recovery` produces no `beforeUnmount` or Unhead disposal error.
 - [x] The destination page completes loading in the same tab.
-- [x] Recovery's document title is `Recovery History - Coach Watts`.
+- [x] Recovery's document title is `Recovery History - Journey Endurance Coaching Platform`.
 - [x] Repeated Recovery ↔ workout navigation remains stable.

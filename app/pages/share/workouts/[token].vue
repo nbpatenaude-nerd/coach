@@ -36,7 +36,7 @@
                     size="xs"
                   />
                   <span class="text-sm text-gray-500 dark:text-gray-400">
-                    {{ workout.user?.name || 'Coach Wattz User' }} shared a workout
+                    {{ workout.user?.name || 'Journey Endurance User' }} shared a workout
                   </span>
                 </div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -625,7 +625,7 @@
             datePublished: workout.value?.date,
             author: {
               '@type': 'Person',
-              name: workout.value?.user?.name || 'Coach Wattz User'
+              name: workout.value?.user?.name || 'Journey Endurance User'
             }
           })
         )

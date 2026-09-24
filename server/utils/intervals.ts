@@ -1,4 +1,4 @@
-import type { Integration } from '@prisma/client'
+import type { Integration } from '~/server/utils/generated-prisma/client'
 import { formatUserDate } from './date'
 import { roundToTwoDecimals } from './number'
 import { mergeWorkoutTags } from './workout-tags'
@@ -1517,7 +1517,7 @@ export function normalizeIntervalsPlannedWorkout(
 function mapIntervalsMood(val: number | undefined | null): number | null {
   if (!val) return null
   // Intervals: 1=Great, 2=Good, 3=OK, 4=Grumpy
-  // Coach Watts (1-10): 10=Great, 1=Grumpy
+  // Journey Endurance Coaching Platform (1-10): 10=Great, 1=Grumpy
   const map: Record<number, number> = { 1: 10, 2: 7, 3: 4, 4: 1 }
   return map[val] || null
 }
@@ -1525,7 +1525,7 @@ function mapIntervalsMood(val: number | undefined | null): number | null {
 function mapIntervalsSoreness(val: number | undefined | null): number | null {
   if (!val) return null
   // Intervals: 1=Low, 2=Avg, 3=High, 4=Extreme
-  // Coach Watts (1-10): 10=Extreme (High Soreness)
+  // Journey Endurance Coaching Platform (1-10): 10=Extreme (High Soreness)
   const map: Record<number, number> = { 1: 1, 2: 4, 3: 7, 4: 10 }
   return map[val] || null
 }
@@ -1533,7 +1533,7 @@ function mapIntervalsSoreness(val: number | undefined | null): number | null {
 function mapIntervalsFatigue(val: number | undefined | null): number | null {
   if (!val) return null
   // Intervals: 1=Low, 2=Avg, 3=High, 4=Extreme
-  // Coach Watts (1-10): 10=Extreme (High Fatigue)
+  // Journey Endurance Coaching Platform (1-10): 10=Extreme (High Fatigue)
   const map: Record<number, number> = { 1: 1, 2: 4, 3: 7, 4: 10 }
   return map[val] || null
 }
@@ -1541,7 +1541,7 @@ function mapIntervalsFatigue(val: number | undefined | null): number | null {
 function mapIntervalsStress(val: number | undefined | null): number | null {
   if (!val) return null
   // Intervals: 1=Low, 2=Avg, 3=High, 4=Extreme
-  // Coach Watts (1-10): 10=Extreme (High Stress)
+  // Journey Endurance Coaching Platform (1-10): 10=Extreme (High Stress)
   const map: Record<number, number> = { 1: 1, 2: 4, 3: 7, 4: 10 }
   return map[val] || null
 }
@@ -1549,7 +1549,7 @@ function mapIntervalsStress(val: number | undefined | null): number | null {
 function mapIntervalsSleepQuality(val: number | undefined | null): number | null {
   if (!val) return null
   // Intervals: 1=Great, 2=Good, 3=Avg, 4=Poor
-  // Coach Watts (1-10): 10=Great, 1=Poor
+  // Journey Endurance Coaching Platform (1-10): 10=Great, 1=Poor
   const map: Record<number, number> = { 1: 10, 2: 7, 3: 4, 4: 1 }
   return map[val] || null
 }
@@ -1557,7 +1557,7 @@ function mapIntervalsSleepQuality(val: number | undefined | null): number | null
 function mapIntervalsMotivation(val: number | undefined | null): number | null {
   if (!val) return null
   // Intervals: 1=Extreme (High), 2=High, 3=Avg, 4=Low
-  // Coach Watts (1-10): 10=High, 1=Low
+  // Journey Endurance Coaching Platform (1-10): 10=High, 1=Low
   const map: Record<number, number> = { 1: 10, 2: 7, 3: 4, 4: 1 }
   return map[val] || null
 }
@@ -1895,4 +1895,34 @@ function convertIntervalsZones(
   }
 
   return result
+}
+
+export async function fetchAthleteIntervalsData(apiKey: string, athleteId: string) {
+  const auth = Buffer.from(`API_KEY:${apiKey}`).toString('base64')
+  const headers = { Authorization: `Basic ${auth}` }
+
+  // Fetch wellness (CTL, ATL, TSB)
+  const wellnessRes = await fetch(`https://intervals.icu/api/v1/athlete/${athleteId}/wellness`, {
+    headers
+  })
+  const wellnessData = await wellnessRes.json()
+  const latestWellness =
+    Array.isArray(wellnessData) && wellnessData.length > 0 ? wellnessData[0] : null
+
+  // Fetch last 7 days of activities
+  const oldest = new Date()
+  oldest.setDate(oldest.getDate() - 7)
+  const oldestStr = oldest.toISOString().split('T')[0]
+  const newestStr = new Date().toISOString().split('T')[0]
+
+  const activitiesRes = await fetch(
+    `https://intervals.icu/api/v1/athlete/${athleteId}/activities?oldest=${oldestStr}&newest=${newestStr}`,
+    { headers }
+  )
+  const activitiesData = await activitiesRes.json()
+
+  return {
+    wellness: latestWellness,
+    recentActivities: activitiesData
+  }
 }

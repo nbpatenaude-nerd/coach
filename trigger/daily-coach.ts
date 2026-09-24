@@ -255,7 +255,7 @@ ${activeGoals
     })
 
     // Build prompt with comprehensive context
-    const prompt = `You are a **${aiSettings.aiPersona}** cycling coach providing daily workout guidance.
+    const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology providing daily workout guidance.
 Adapt your tone and style to match your persona.
 Preferred Language: ${user?.language || 'English'} (ALL analysis and text responses MUST be in this language)
 

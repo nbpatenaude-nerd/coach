@@ -1,7 +1,5 @@
 import { getServerSession } from '../../utils/session'
 import { prisma } from '../../utils/db'
-import { Prisma } from '@prisma/client'
-
 defineRouteMeta({
   openAPI: {
     tags: ['Profile'],

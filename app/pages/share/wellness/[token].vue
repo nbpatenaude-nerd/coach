@@ -29,7 +29,7 @@
             <div class="flex items-center gap-3 mb-2">
               <UAvatar :src="user?.image || undefined" :alt="user?.name || 'User'" size="xs" />
               <span class="text-sm text-gray-500 dark:text-gray-400">
-                {{ user?.name || 'Coach Wattz User' }} shared their wellness
+                {{ user?.name || 'Journey Endurance User' }} shared their wellness
               </span>
             </div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Daily Wellness</h1>
@@ -342,10 +342,10 @@
 
   const pageTitle = computed(() =>
     wellness.value
-      ? `Daily Wellness - ${formatDate(wellness.value.date)} | Coach Wattz`
-      : 'Shared Wellness | Coach Wattz'
+      ? `Daily Wellness - ${formatDate(wellness.value.date)} | Journey Endurance`
+      : 'Shared Wellness | Journey Endurance'
   )
-  const pageDescription = computed(() => 'View shared wellness data on Coach Wattz.')
+  const pageDescription = computed(() => 'View shared wellness data on Journey Endurance.')
 
   useHead({
     title: pageTitle,

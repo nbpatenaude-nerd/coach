@@ -1,12 +1,14 @@
 import { z } from 'zod'
+import { tasks } from '@trigger.dev/sdk/v3'
 import { requireAuth } from '../../utils/auth-guard'
 import { dailyCheckinRepository } from '../../utils/repositories/dailyCheckinRepository'
+import { wellnessRepository } from '../../utils/repositories/wellnessRepository'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event, ['health:write'])
 
   const body = await readBody(event)
-  const { checkinId, answers, userNotes } = body
+  const { checkinId, answers, userNotes, bloodGlucose } = body
   // answers: Record<string, "YES" | "NO">
 
   if (!checkinId || !answers) {
@@ -36,6 +38,25 @@ export default defineEventHandler(async (event) => {
     questions: updatedQuestions,
     userNotes: userNotes || undefined
   })
+
+  // Update Wellness if bloodGlucose is provided
+  if (bloodGlucose !== undefined && bloodGlucose !== null) {
+    const checkinDate = new Date(checkin.date)
+    await wellnessRepository.upsert(
+      user.id,
+      checkinDate,
+      { bloodGlucose }, // createData
+      { bloodGlucose }, // updateData
+      'daily_checkin' // source
+    )
+  }
+
+  if (['UNCOVER', 'UNLOCK', 'UNLEASH'].includes(user.subscriptionTier)) {
+    await tasks.trigger('analyze-daily-checkin', {
+      checkinId: updatedCheckin.id,
+      userId: user.id
+    })
+  }
 
   return updatedCheckin
 })

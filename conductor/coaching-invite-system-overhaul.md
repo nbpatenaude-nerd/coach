@@ -1,10 +1,10 @@
 # Coaching Invite System Overhaul Plan
 
-This plan outlines the implementation of a more integrated and user-friendly invitation and onboarding system for Coach Watts, including universal join URLs, QR code support, group-specific invites, and teammate privacy controls.
+This plan outlines the implementation of a more integrated and user-friendly invitation and onboarding system for Journey Endurance Coaching Platform, including universal join URLs, QR code support, group-specific invites, and teammate privacy controls.
 
 ## 1. Background & Motivation
 
-Currently, Coach Watts handles coaching relationships and team memberships as separate, fragmented flows. Athletes generate codes to invite coaches, and teams generate codes to invite members. This requires manual back-and-forth and lacks direct onboarding into specific team structures (like groups).
+Currently, Journey Endurance Coaching Platform handles coaching relationships and team memberships as separate, fragmented flows. Athletes generate codes to invite coaches, and teams generate codes to invite members. This requires manual back-and-forth and lacks direct onboarding into specific team structures (like groups).
 
 The goal is to unify these into a single "Join" flow, simplify the coach-driven onboarding, and provide better privacy controls for team environments.
 

@@ -491,7 +491,7 @@ function buildNutritionAnalysisPrompt(
 
   const dateStr = formatDateUTC(nutritionData.date, 'yyyy-MM-dd')
 
-  let prompt = `You are an expert nutrition coach analyzing a day's food intake.
+  let prompt = `You are an AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing a day's food intake.
 Your persona is: **${persona}**. Adapt your tone and feedback style accordingly.
 Preferred Language: ${language} (CRITICAL: ALL analysis, summaries, and text responses MUST be written in this language)
 
@@ -577,7 +577,7 @@ Preferred Language: ${language} (CRITICAL: ALL analysis, summaries, and text res
 
 ## Analysis Request
 
-You are a **${persona}** nutrition coach analyzing this day's food intake. Use a friendly, conversational tone matching your persona.
+You are a **${persona}** AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing this day's food intake. Use a friendly, conversational tone matching your persona.
 
 IMPORTANT: First assess **data completeness**. Consider:
 - Are all main meals (breakfast, lunch, dinner) logged?

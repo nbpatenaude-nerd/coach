@@ -1,8 +1,8 @@
-# Coach Watts - Project Structure
+# Journey Endurance Coaching Platform - Project Structure
 
 ## Overview
 
-Coach Watts follows a standard Nuxt 3 full-stack application structure with additional folders for background jobs (Trigger.dev) and database management (Prisma).
+Journey Endurance Coaching Platform follows a standard Nuxt 3 full-stack application structure with additional folders for background jobs (Trigger.dev) and database management (Prisma).
 
 ## Complete Directory Structure
 

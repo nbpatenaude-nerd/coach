@@ -129,7 +129,7 @@ export function buildAnalysisPrompt(nutritionDays: any[], user: any, timezone: s
       ? `${formatDateUTC(nutritionDays[nutritionDays.length - 1].date)} - ${formatDateUTC(nutritionDays[0].date)}`
       : 'Unknown'
 
-  return `You are a friendly, supportive nutrition coach analyzing your athlete's weekly dietary intake.
+  return `You are a friendly, supportive AI assistant coach at Journey Endurance, specializing in exercise physiology analyzing your athlete's weekly dietary intake.
 Preferred Language: ${user?.language || 'English'} (ALL analysis and text responses MUST be in this language)
 
 USER PROFILE:

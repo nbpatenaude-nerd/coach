@@ -1,6 +1,6 @@
 # Suunto Cloud API — integration brief
 
-**Status:** not in Coach Watts codebase (2026-07-22). No `suunto` provider.
+**Status:** not in Journey Endurance Coaching Platform codebase (2026-07-22). No `suunto` provider.
 **Goal:** Direct OAuth so Suunto athletes do not need Strava/Garmin/Intervals as a bridge.
 **Agent credentials session:** [agent-session.md](./agent-session.md)
 
@@ -61,7 +61,7 @@ map webhook notifications).
 **Environments:** One API Zone account = one app. Use separate partner accounts /
 emails for staging vs production if both must be registered.
 
-## Coach Watts product scope (proposed)
+## Journey Endurance Coaching Platform product scope (proposed)
 
 ### Phase A — MVP (read)
 
@@ -96,7 +96,7 @@ Mirror ROUVY:
 
 ## Partner application talking points
 
-- Entity: Watt Mind Kft. / Coach Watts
+- Entity: Watt Mind Kft. / Journey Endurance Coaching Platform
 - Audience: endurance athletes already on Suunto watches
 - Data use: athlete-consented workout import for AI coaching; least privilege
 - Marketing: interested in partner directory listing after production readiness

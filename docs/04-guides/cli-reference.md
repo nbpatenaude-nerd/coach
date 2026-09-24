@@ -1,6 +1,6 @@
-# Coach Watts CLI Reference
+# Journey Endurance Coaching Platform CLI Reference
 
-The Coach Watts project provides two primary CLI tools for development, debugging, and operational tasks: `cw:cli` for general administration and `cw:worker` for background process management.
+The Journey Endurance Coaching Platform project provides two primary CLI tools for development, debugging, and operational tasks: `cw:cli` for general administration and `cw:worker` for background process management.
 
 ## Philosophy
 

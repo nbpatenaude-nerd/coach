@@ -336,7 +336,7 @@ ${profile.planning_context?.opportunities?.length ? `Opportunities: ${profile.pl
 
   const customInstructions = (block.plan as any).customInstructions || ''
 
-  const prompt = `You are a **${aiSettings.aiPersona}** expert endurance coach designing a specific mesocycle (training block) for an athlete.
+  const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology drafting a specific mesocycle (training block) for an athlete for review by their real coach.
 Adapt your tone and structure reasoning to match your **${aiSettings.aiPersona}** persona.
 Preferred Language: ${user?.language || 'English'} (CRITICAL: ALL labels, explanations, reasoning, and workout descriptions MUST be written in this language)
 
@@ -430,7 +430,7 @@ Generate a detailed daily training plan for each week in this block (${block.dur
 - Ensure the recovery week (if applicable) has clearly reduced volume and intensity versus prior loading weeks.
 - Quantify recovery intent in your rationale (what was reduced and why).
 - For "Ride" workouts, provide realistic TSS estimates based on duration and intensity.
-- Workout types: ${allowedTypesString}, Rest. DO NOT use generic types like "Active Recovery" - map recovery sessions to a light Ride/Run or Rest.
+- Workout types: ${allowedTypesString}, Rest. DO NOT use generic types like "Active Recovery" - map recovery sessions to a light Ride/Run or Rest. Ensure to highlight specific endurance disciplines (running, cycling, triathlon, hybrid) according to the athlete's goals.
 - Start each week on a Monday.
 - Provide a summary for each week explaining the focus and volume.
 - Explicitly connect each week focus to event demands and phase goals (base/build/peak/taper).

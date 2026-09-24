@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-This document defines the subscription tiers, entitlements, and technical implementation for Coach Watts monetization.
+This document defines the subscription tiers, entitlements, and technical implementation for Journey Endurance Coaching Platform monetization.
 
 ## 2. Subscription Tiers
 

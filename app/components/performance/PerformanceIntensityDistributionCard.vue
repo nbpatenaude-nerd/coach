@@ -49,8 +49,6 @@
 </template>
 
 <script setup lang="ts">
-  import WeeklyZoneChart from '~/components/WeeklyZoneChart.vue'
-
   defineProps<{
     settings: any
     scopeOptions: any[]

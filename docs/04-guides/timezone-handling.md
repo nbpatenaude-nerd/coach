@@ -1,6 +1,6 @@
 # Timezone Handling Guide
 
-This document outlines the strategy and best practices for handling dates, times, and timezones across the Coach Watts application.
+This document outlines the strategy and best practices for handling dates, times, and timezones across the Journey Endurance Coaching Platform application.
 
 ## 1. Core Principles
 

@@ -158,7 +158,7 @@
     data,
     status,
     refresh: refreshData
-  } = await useFetch('/api/analytics/llm-usage/history', {
+  } = await (useFetch as any)('/api/analytics/llm-usage/history', {
     query: computed(() => ({
       page: currentPage.value,
       pageSize: pageSize.value
@@ -221,7 +221,7 @@
             color: isFlash ? 'info' : 'secondary',
             size: 'xs'
           },
-          () => (isFlash ? t.value('usage_model_flash') : t.value('billing_tier_pro'))
+          () => (isFlash ? t.value('usage_model_flash') : t.value('billing_tier_unleash'))
         )
       }
     },

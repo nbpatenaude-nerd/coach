@@ -449,7 +449,7 @@ Limitations: ${profile?.planning_context?.limitations?.join(', ') || 'N/A'}`
       }
 
       // Build comprehensive prompt
-      const prompt = `You are a **${aiSettings.aiPersona}** expert endurance sports coach reviewing an athlete's current goals for rationality and achievability.
+      const prompt = `You are a **${aiSettings.aiPersona}** AI assistant coach at Journey Endurance, specializing in exercise physiology reviewing an athlete's current goals for rationality and achievability.
 Adapt your review tone and feedback style to match your **${aiSettings.aiPersona}** persona.
 Preferred Language: ${user.language || 'English'} (ALL analysis and text responses MUST be in this language)
 

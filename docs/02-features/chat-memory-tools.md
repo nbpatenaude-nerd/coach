@@ -2,7 +2,7 @@
 
 ## User Experience
 
-Coach Watts should feel like a human coach who learns about the athlete over time. This feature enables "persistent awareness" across all chat rooms.
+Journey Endurance Coaching Platform should feel like a human coach who learns about the athlete over time. This feature enables "persistent awareness" across all chat rooms.
 
 ### Examples of "Learned" Information:
 

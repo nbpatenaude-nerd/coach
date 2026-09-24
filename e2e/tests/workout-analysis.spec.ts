@@ -71,7 +71,7 @@ test.describe('PR #255 & Smoke Test 1: Workout Analysis & Enqueue', () => {
     await expect(authedPage).toHaveURL(/\/chat/)
 
     const input = authedPage.getByPlaceholder(
-      'Ask Coach Watts, add a meal photo, or dictate a note...'
+      'Ask Journey Endurance Coaching Platform, add a meal photo, or dictate a note...'
     )
     await expect(input).toBeVisible()
     await input.fill('How did I do on my last workout?')

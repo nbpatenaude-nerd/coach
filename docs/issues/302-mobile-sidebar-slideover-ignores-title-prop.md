@@ -35,7 +35,8 @@ Provide localized strings via the `:menu` prop:
 
 ```vue
 :menu="{ title: navLabel('navigation_sidebar_title', 'Navigation'), description:
-navLabel('navigation_sidebar_description', 'Browse Coach Watts destinations') }"
+navLabel('navigation_sidebar_description', 'Browse Journey Endurance Coaching Platform
+destinations') }"
 ```
 
 Alternatively add `dashboardSidebar.title` / `dashboardSidebar.description` to every locale file.

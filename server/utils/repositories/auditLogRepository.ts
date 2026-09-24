@@ -1,6 +1,4 @@
 import { prisma } from '../db'
-import type { Prisma } from '@prisma/client'
-
 export const auditLogRepository = {
   /**
    * Create a new audit log entry

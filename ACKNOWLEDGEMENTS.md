@@ -4,7 +4,7 @@ This project would not be possible without the support and contributions of the 
 
 ## 🌟 Contributors
 
-Special thanks to everyone who has contributed code, documentation, or feedback to Coach Watts.
+Special thanks to everyone who has contributed code, documentation, or feedback to Journey Endurance Coaching Platform.
 
 - **Gomes** - Testing, bug reporting for workout generation and MTB plans, and race-specific feature ideas.
 - **dvto2** - Bug reporting for data migration, metrics loading, and dashboard synchronization.
@@ -37,7 +37,7 @@ Special thanks to everyone who has contributed code, documentation, or feedback 
 
 ## 🛠️ Built With
 
-We would also like to acknowledge the open-source projects and platforms that form the foundation of Coach Watts:
+We would also like to acknowledge the open-source projects and platforms that form the foundation of Journey Endurance Coaching Platform:
 
 - **[Nuxt](https://nuxt.com)** - The intuitive Vue framework.
 - **[Nuxt UI](https://ui.nuxt.com)** - For our beautiful and accessible components.

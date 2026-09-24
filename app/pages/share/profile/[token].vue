@@ -40,7 +40,7 @@
                     size="xs"
                   />
                   <span class="text-sm text-gray-500 dark:text-gray-400">
-                    {{ sharedData?.user?.name || 'Coach Wattz User' }}'s Profile
+                    {{ sharedData?.user?.name || 'Journey Endurance User' }}'s Profile
                   </span>
                 </div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -438,14 +438,14 @@
 
   const pageTitle = computed(() =>
     profile.value
-      ? `${sharedData.value?.user?.name || 'Athlete'}'s Profile | Coach Wattz`
-      : 'Shared Athlete Profile | Coach Wattz'
+      ? `${sharedData.value?.user?.name || 'Athlete'}'s Profile | Journey Endurance`
+      : 'Shared Athlete Profile | Journey Endurance'
   )
   const pageDescription = computed(() => {
     if (profile.value?.analysisJson?.executive_summary) {
       return profile.value.analysisJson.executive_summary.substring(0, 160)
     }
-    return 'View personalized AI endurance coaching analysis and athlete profile on Coach Wattz.'
+    return 'View personalized AI endurance coaching analysis and athlete profile on Journey Endurance.'
   })
 
   useHead({

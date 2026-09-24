@@ -1,6 +1,6 @@
 # Flexible Reporting System
 
-The Flexible Reporting System is a template-driven architecture that allows Coach Watts to generate various types of AI-powered analysis reports without hardcoded logic for each type. It supports both system-defined standard reports (like "Weekly Analysis") and future user-defined custom templates.
+The Flexible Reporting System is a template-driven architecture that allows Journey Endurance Coaching Platform to generate various types of AI-powered analysis reports without hardcoded logic for each type. It supports both system-defined standard reports (like "Weekly Analysis") and future user-defined custom templates.
 
 ## Architecture Overview
 

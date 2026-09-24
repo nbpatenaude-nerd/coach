@@ -1,5 +1,7 @@
 import { prisma } from './db'
 import { resolveModelId, type GeminiModel } from './ai-config'
+import { getUserEntitlements } from './entitlements'
+import { getActivePromotionalGrant } from './partner-campaigns'
 
 export interface LlmOperationSettings {
   model: GeminiModel
@@ -44,12 +46,29 @@ export async function getLlmOperationSettings(
     const user = await prisma.user.findUnique({
       where: { id: userId },
       select: {
-        aiModelPreference: true
+        aiModelPreference: true,
+        subscriptionTier: true,
+        subscriptionStatus: true,
+        subscriptionPeriodEnd: true,
+        trialEndsAt: true
       }
     })
 
-    if (user?.aiModelPreference) {
-      level = user.aiModelPreference
+    if (user) {
+      const grant = await getActivePromotionalGrant(userId)
+      const entitlementsUser = {
+        ...user,
+        promotionalGrantTier: grant?.tier ?? null
+      }
+      const entitlements = getUserEntitlements(entitlementsUser as any)
+
+      // If the user has a preference, try to honor it, otherwise default to their entitlement
+      level = user.aiModelPreference || entitlements.aiModel
+
+      // Restrict FREE/UNCOVER to flash only
+      if (entitlements.aiModel === 'flash' && level !== 'flash') {
+        level = 'flash'
+      }
     }
   }
 

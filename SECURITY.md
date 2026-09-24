@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-The following versions of Coach Watts are currently being supported with security updates:
+The following versions of Journey Endurance Coaching Platform are currently being supported with security updates:
 
 | Version                     | Supported          |
 | --------------------------- | ------------------ |
@@ -10,7 +10,7 @@ The following versions of Coach Watts are currently being supported with securit
 
 ## Reporting a Vulnerability
 
-We take the security of Coach Watts seriously. If you believe you have found a security vulnerability, please report it responsibly rather than opening a public issue.
+We take the security of Journey Endurance Coaching Platform seriously. If you believe you have found a security vulnerability, please report it responsibly rather than opening a public issue.
 
 ### How to Report
 

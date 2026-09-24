@@ -6,9 +6,9 @@
 
 ## 1. Executive Summary
 
-This plan outlines the transformation of Coach Watts into an OAuth 2.0 Identity Provider (IdP). This enables:
+This plan outlines the transformation of Journey Endurance Coaching Platform into an OAuth 2.0 Identity Provider (IdP). This enables:
 
-1.  **Third-Party Integration:** Developers can build apps that access Coach Watts user data (workouts, profile, health metrics) securely.
+1.  **Third-Party Integration:** Developers can build apps that access Journey Endurance Coaching Platform user data (workouts, profile, health metrics) securely.
 2.  **Ecosystem Growth:** Allows for community-built tools, visualizations, and importers/exporters.
 3.  **Security:** Moves away from API Keys or password sharing towards standard, revocable tokens.
 
@@ -192,7 +192,7 @@ We will use a resource-namespaced scope system. This allows for future extensibi
 
 Existing endpoints (e.g., `/api/workouts`) must be upgraded to support **Dual Authentication**:
 
-1.  **Session Cookie:** For the Coach Watts frontend (existing).
+1.  **Session Cookie:** For the Journey Endurance Coaching Platform frontend (existing).
 2.  **Bearer Token:** For OAuth apps (new).
 
 **Middleware Strategy (`server/utils/auth-guard.ts`):**
@@ -238,9 +238,9 @@ Target Audience: Users connecting an app.
 
 - **Layout:** `layouts/auth.vue` (Minimal, focused).
 - **Components:**
-  - **Header:** Coach Watts Logo + "Connects with" + App Logo.
+  - **Header:** Journey Endurance Coaching Platform Logo + "Connects with" + App Logo.
   - **Body:**
-    - "**[App Name]** would like to access your Coach Watts account."
+    - "**[App Name]** would like to access your Journey Endurance Coaching Platform account."
     - **Scope List:** `UCard` with list of permissions.
       - Icon (e.g., `i-heroicons-heart`) + "Read your heart rate data".
   - **Footer Actions:**
@@ -300,8 +300,8 @@ Extend the CLI for administrative tasks.
 
 Create `examples/oauth-client-demo/`:
 
-- A minimal Nuxt app that consumes the Coach Watts API.
-- Demonstrates the "Login with Coach Watts" button and Token Exchange.
+- A minimal Nuxt app that consumes the Journey Endurance Coaching Platform API.
+- Demonstrates the "Login with Journey Endurance Coaching Platform" button and Token Exchange.
 
 ---
 

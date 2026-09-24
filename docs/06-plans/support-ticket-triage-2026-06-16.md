@@ -108,7 +108,7 @@ Representative tickets:
 - `dacd72e1-fc2d-42ca-baec-629f14806fa5` `Incorrect AI Workout Analysis`
 - `015fb174-0957-4d1d-aadb-d11127507b83` `ERG Mode Not Recognized in Workout Analysis`
 - `e95af730-3322-4dbd-a4e9-98558a993211` `Bug de raisonnement temporel - Confusion événement passé/futur`
-- `c98c8a28-181f-43c0-b760-8ac0d76bfbf4` `Feedback sur Coach Watts : Rétention du contexte et proactivité des ajustements`
+- `c98c8a28-181f-43c0-b760-8ac0d76bfbf4` `Feedback sur Journey Endurance Coaching Platform : Rétention du contexte et proactivité des ajustements`
 - `13b95016-2b92-4414-9bbf-ce56b903b7f1` `Problème d'utilisation du bot Telegram - Slyder`
 
 Assessment:

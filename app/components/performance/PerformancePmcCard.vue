@@ -39,8 +39,6 @@
 </template>
 
 <script setup lang="ts">
-  import PMCChart from '~/components/PMCChart.vue'
-
   defineProps<{
     settings: any
     periodOptions: any[]

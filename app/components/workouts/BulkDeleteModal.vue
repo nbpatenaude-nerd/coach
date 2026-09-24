@@ -173,7 +173,7 @@
   const sourceOptions = [
     { label: 'All Sources', value: 'all' },
     { label: 'Intervals.icu (Synced)', value: 'intervals' },
-    { label: 'Coach Wattz (Local)', value: 'coach-wattz' }
+    { label: 'Journey Endurance (Local)', value: 'coach-wattz' }
   ]
 
   function closeModal() {

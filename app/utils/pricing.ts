@@ -1,28 +1,31 @@
-export type BillingInterval = 'monthly' | 'annual'
-export type PricingTier = 'free' | 'supporter' | 'pro'
+export type BillingInterval = '1-phase' | '6-phase' | '12-phase'
+export type PricingTier = 'free' | 'uncover' | 'unlock' | 'unleash'
 export type SupportedCurrency = 'usd' | 'eur'
 
 export interface PricingPlan {
   key: PricingTier
   name: string
-  monthlyPrice: number
-  annualPrice: number | null
+  phase1Price: number
+  phase6Price: number | null
+  phase12Price: number | null
   description: string
   mobileDescription?: string
   features: string[]
   popular: boolean
   stripePriceIds?: {
-    monthly?: string
-    annual?: string
+    phase1?: string
+    phase6?: string
+    phase12?: string
   }
 }
 
 export const PRICING_PLANS: PricingPlan[] = [
   {
     key: 'free',
-    name: 'Free',
-    monthlyPrice: 0,
-    annualPrice: null,
+    name: 'Tri Nerds',
+    phase1Price: 0,
+    phase6Price: null,
+    phase12Price: null,
     description: "The smartest logbook you've ever used.",
     mobileDescription: 'Essential activity tracking and analysis.',
     features: [
@@ -34,10 +37,11 @@ export const PRICING_PLANS: PricingPlan[] = [
     popular: false
   },
   {
-    key: 'supporter',
-    name: 'Supporter',
-    monthlyPrice: 8.99,
-    annualPrice: 89.99,
+    key: 'uncover',
+    name: 'Uncover',
+    phase1Price: 8.99,
+    phase6Price: null,
+    phase12Price: 89.99,
     description: 'Automated insights for the self-coached athlete.',
     mobileDescription: 'Automated insights and reliable sync.',
     features: [
@@ -46,21 +50,35 @@ export const PRICING_PLANS: PricingPlan[] = [
       'Priority processing during peak usage',
       'Reliable trend tracking and weekly summaries'
     ],
+    popular: false
+  },
+  {
+    key: 'unlock',
+    name: 'Unlock',
+    phase1Price: 14.99,
+    phase6Price: null,
+    phase12Price: 119.0,
+    description: 'Unlock your true potential with detailed planning.',
+    mobileDescription: 'Adaptive planning and AI-assisted coaching.',
+    features: [
+      'Adaptive race strategy and periodized planning',
+      'Thoughtful AI-assisted coaching with scenario analysis',
+      'Advanced trend intelligence with forecasting'
+    ],
     popular: true
   },
   {
-    key: 'pro',
-    name: 'Pro',
-    monthlyPrice: 14.99,
-    annualPrice: 119.0,
+    key: 'unleash',
+    name: 'Unleash',
+    phase1Price: 24.99,
+    phase6Price: null,
+    phase12Price: 199.0,
     description: 'Your full-service Digital Twin and Coach.',
-    mobileDescription: 'Adaptive planning and elite AI coaching.',
+    mobileDescription: 'Elite AI-assisted coaching.',
     features: [
-      'Adaptive race strategy and periodized planning',
-      'Thoughtful AI coaching with scenario analysis',
       'Proactive alerts for readiness and overreaching risk',
-      'Advanced trend intelligence with long-horizon forecasting',
-      'Fast-lane priority processing and response'
+      'Fast-lane priority processing and response',
+      'Premium access to new models'
     ],
     popular: false
   }
@@ -68,26 +86,24 @@ export const PRICING_PLANS: PricingPlan[] = [
 
 /**
  * Real annual saving from two amounts, or null when there is nothing to claim.
- * Never assert a discount the prices do not support: the pricing toggle used to
- * promise a flat 33% while the plans below it saved 17% and 34%.
  */
 export function computeSavingsPercent(
-  monthlyAmount: number | null | undefined,
-  annualAmount: number | null | undefined
+  phase1Amount: number | null | undefined,
+  phase12Amount: number | null | undefined
 ): number | null {
-  if (!monthlyAmount || !annualAmount || monthlyAmount <= 0 || annualAmount <= 0) return null
-  const yearAtMonthlyRate = monthlyAmount * 12
-  const saving = Math.round(((yearAtMonthlyRate - annualAmount) / yearAtMonthlyRate) * 100)
+  if (!phase1Amount || !phase12Amount || phase1Amount <= 0 || phase12Amount <= 0) return null
+  const yearAtPhase1Rate = phase1Amount * 12
+  const saving = Math.round(((yearAtPhase1Rate - phase12Amount) / yearAtPhase1Rate) * 100)
   return saving >= 1 && saving < 100 ? saving : null
 }
 
 /**
- * Calculate savings percentage for annual plans
+ * Calculate savings percentage for 12-phase (annual) plans
  */
 export function calculateAnnualSavings(plan: PricingPlan): number {
-  if (!plan.annualPrice) return 0
-  const monthlyTotal = plan.monthlyPrice * 12
-  const savings = ((monthlyTotal - plan.annualPrice) / monthlyTotal) * 100
+  if (!plan.phase12Price) return 0
+  const monthlyTotal = plan.phase1Price * 12
+  const savings = ((monthlyTotal - plan.phase12Price) / monthlyTotal) * 100
   return Math.round(savings)
 }
 
@@ -107,7 +123,9 @@ export function formatPrice(price: number, currency: 'usd' | 'eur' = 'usd'): str
  * Get price for a specific interval
  */
 export function getPrice(plan: PricingPlan, interval: BillingInterval): number {
-  return interval === 'annual' && plan.annualPrice ? plan.annualPrice : plan.monthlyPrice
+  if (interval === '12-phase' && plan.phase12Price) return plan.phase12Price
+  if (interval === '6-phase' && plan.phase6Price) return plan.phase6Price
+  return plan.phase1Price
 }
 
 /**
@@ -119,24 +137,23 @@ export function getStripePriceId(
   currency: 'usd' | 'eur' = 'usd'
 ): string | undefined {
   const config = useRuntimeConfig()
-  const eur = currency === 'eur'
 
-  if (plan.key === 'supporter') {
-    if (interval === 'monthly') {
-      return eur
-        ? config.public.stripeSupporterMonthlyEurPriceId
-        : config.public.stripeSupporterMonthlyPriceId
-    }
-    return eur
-      ? config.public.stripeSupporterAnnualEurPriceId
-      : config.public.stripeSupporterAnnualPriceId
+  if (plan.key === 'uncover') {
+    if (interval === '1-phase') return config.public.stripeUncover1PhasePriceId as string
+    if (interval === '6-phase') return config.public.stripeUncover6PhasePriceId as string
+    if (interval === '12-phase') return config.public.stripeUncover12PhasePriceId as string
   }
 
-  if (plan.key === 'pro') {
-    if (interval === 'monthly') {
-      return eur ? config.public.stripeProMonthlyEurPriceId : config.public.stripeProMonthlyPriceId
-    }
-    return eur ? config.public.stripeProAnnualEurPriceId : config.public.stripeProAnnualPriceId
+  if (plan.key === 'unlock') {
+    if (interval === '1-phase') return config.public.stripeUnlock1PhasePriceId as string
+    if (interval === '6-phase') return config.public.stripeUnlock6PhasePriceId as string
+    if (interval === '12-phase') return config.public.stripeUnlock12PhasePriceId as string
+  }
+
+  if (plan.key === 'unleash') {
+    if (interval === '1-phase') return config.public.stripeUnleash1PhasePriceId as string
+    if (interval === '6-phase') return config.public.stripeUnleash6PhasePriceId as string
+    if (interval === '12-phase') return config.public.stripeUnleash12PhasePriceId as string
   }
 
   return undefined

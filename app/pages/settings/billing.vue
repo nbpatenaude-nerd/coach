@@ -236,10 +236,11 @@
     polling.value = false
   }
 
-  // Computed
   const isPremium = computed(() => {
     return (
-      userStore.user?.subscriptionTier === 'SUPPORTER' || userStore.user?.subscriptionTier === 'PRO'
+      userStore.user?.subscriptionTier === 'UNCOVER' ||
+      userStore.user?.subscriptionTier === 'UNLOCK' ||
+      userStore.user?.subscriptionTier === 'UNLEASH'
     )
   })
 
@@ -296,26 +297,30 @@
         {
           feature: t.value('billing_compare_row_coaching_feature'),
           free: t.value('billing_compare_row_coaching_free'),
-          supporter: t.value('billing_compare_row_coaching_supporter'),
-          pro: t.value('billing_compare_row_coaching_pro')
+          uncover: t.value('billing_compare_row_coaching_supporter'),
+          unlock: t.value('billing_compare_row_coaching_pro'),
+          unleash: t.value('billing_compare_row_coaching_pro')
         },
         {
           feature: t.value('billing_compare_row_analysis_feature'),
           free: t.value('billing_compare_row_analysis_free'),
-          supporter: t.value('billing_compare_row_analysis_supporter'),
-          pro: t.value('billing_compare_row_analysis_pro')
+          uncover: t.value('billing_compare_row_analysis_supporter'),
+          unlock: t.value('billing_compare_row_analysis_pro'),
+          unleash: t.value('billing_compare_row_analysis_pro')
         },
         {
           feature: t.value('billing_compare_row_planning_feature'),
           free: t.value('billing_compare_row_planning_free'),
-          supporter: t.value('billing_compare_row_planning_supporter'),
-          pro: t.value('billing_compare_row_planning_pro')
+          uncover: t.value('billing_compare_row_planning_supporter'),
+          unlock: t.value('billing_compare_row_planning_pro'),
+          unleash: t.value('billing_compare_row_planning_pro')
         },
         {
           feature: t.value('billing_compare_row_insights_feature'),
           free: t.value('billing_compare_row_insights_free'),
-          supporter: t.value('billing_compare_row_insights_supporter'),
-          pro: t.value('billing_compare_row_insights_pro')
+          uncover: t.value('billing_compare_row_insights_supporter'),
+          unlock: t.value('billing_compare_row_insights_pro'),
+          unleash: t.value('billing_compare_row_insights_pro')
         }
       ] as const
   )
@@ -332,8 +337,8 @@
           answer: t.value('billing_faq_downgrade_a')
         },
         {
-          question: t.value('billing_faq_pro_supporter_q'),
-          answer: t.value('billing_faq_pro_supporter_a')
+          question: t.value('billing_faq_unlock_uncover_q'),
+          answer: t.value('billing_faq_unlock_uncover_a')
         },
         {
           question: t.value('billing_faq_upgrade_immediate_q'),
@@ -373,16 +378,19 @@
   }
   function formatTier(tier: SubscriptionTier | undefined): string {
     if (!tier) return t.value('billing_tier_free')
-    if (tier === 'PRO') return t.value('billing_tier_pro')
-    if (tier === 'SUPPORTER') return t.value('billing_tier_supporter')
+    if (tier === 'UNLEASH') return t.value('billing_tier_unleash')
+    if (tier === 'UNLOCK') return t.value('billing_tier_unlock')
+    if (tier === 'UNCOVER') return t.value('billing_tier_uncover')
     return t.value('billing_tier_free')
   }
 
   function getTierIcon(tier: SubscriptionTier | undefined): string {
     switch (tier) {
-      case 'PRO':
+      case 'UNLEASH':
         return 'i-heroicons-star'
-      case 'SUPPORTER':
+      case 'UNLOCK':
+        return 'i-heroicons-sparkles'
+      case 'UNCOVER':
         return 'i-heroicons-heart'
       default:
         return 'i-heroicons-user'
@@ -391,10 +399,12 @@
 
   function getTierDescription(tier: SubscriptionTier | undefined): string {
     switch (tier) {
-      case 'PRO':
-        return t.value('billing_tier_desc_pro')
-      case 'SUPPORTER':
-        return t.value('billing_tier_desc_supporter')
+      case 'UNLEASH':
+        return t.value('billing_tier_desc_unleash')
+      case 'UNLOCK':
+        return t.value('billing_tier_desc_unlock')
+      case 'UNCOVER':
+        return t.value('billing_tier_desc_uncover')
       default:
         return t.value('billing_tier_desc_free')
     }
@@ -1002,7 +1012,7 @@
             {{ t('billing_plans_title') }}
           </h3>
           <p
-            v-if="userStore.user?.subscriptionTier !== 'PRO'"
+            v-if="userStore.user?.subscriptionTier !== 'UNLEASH'"
             class="text-sm text-primary font-medium"
           >
             {{ t('billing_button_upgrade') }}
@@ -1043,8 +1053,9 @@
                   <tr class="text-left border-b border-gray-200 dark:border-gray-800">
                     <th class="py-2 font-semibold">{{ t('billing_compare_feature') }}</th>
                     <th class="py-2 font-semibold">{{ t('billing_tier_free') }}</th>
-                    <th class="py-2 font-semibold">{{ t('billing_tier_supporter') }}</th>
-                    <th class="py-2 font-semibold text-primary">{{ t('billing_tier_pro') }}</th>
+                    <th class="py-2 font-semibold">{{ t('billing_tier_uncover') }}</th>
+                    <th class="py-2 font-semibold">{{ t('billing_tier_unlock') }}</th>
+                    <th class="py-2 font-semibold text-primary">{{ t('billing_tier_unleash') }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1055,8 +1066,9 @@
                   >
                     <td class="py-2 font-medium">{{ row.feature }}</td>
                     <td class="py-2 text-gray-600 dark:text-gray-300">{{ row.free }}</td>
-                    <td class="py-2 text-gray-600 dark:text-gray-300">{{ row.supporter }}</td>
-                    <td class="py-2 text-primary font-medium">{{ row.pro }}</td>
+                    <td class="py-2 text-gray-600 dark:text-gray-300">{{ row.uncover }}</td>
+                    <td class="py-2 text-gray-600 dark:text-gray-300">{{ row.unlock }}</td>
+                    <td class="py-2 text-primary font-medium">{{ row.unleash }}</td>
                   </tr>
                 </tbody>
               </table>

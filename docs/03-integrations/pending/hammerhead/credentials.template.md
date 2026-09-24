@@ -10,7 +10,7 @@ Copy to **`.secrets/hammerhead.md`** (gitignored). Never commit the filled file.
 
 ## App
 
-- App name: Coach Watts
+- App name: Journey Endurance Coaching Platform
 - Client ID:
 - Client secret:
 - Webhook secret:

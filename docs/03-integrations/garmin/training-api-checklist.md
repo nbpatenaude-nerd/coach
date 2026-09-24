@@ -58,7 +58,7 @@ Athlete-facing docs (`content/documentation/.../garmin.md`) cover ingest only. T
 
 Connect web (`gc-api/workout-service`) and Partner Training API use **different ID spaces**. Training API workouts may not appear like native library workouts in the browser; deep links can 404.
 
-1. Publish from Coach Watts → expect `SYNCED` publish target with numeric `externalId`.
+1. Publish from Journey Endurance Coaching Platform → expect `SYNCED` publish target with numeric `externalId`.
 2. Confirm structure via Training API GET (CLI: `pnpm cw:cli debug garmin-training-inspect <email> --prod --workout-id <id>`).
 3. Sync calendar to a physical Garmin device and confirm step targets / repeats there.
 

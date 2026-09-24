@@ -1,6 +1,6 @@
 # Typechecking
 
-Coach Watts has a large generated Nitro route map, so request typing can dominate TypeScript's work when a call site asks the compiler to compare a general string against every internal route. Use the commands and request boundaries below to keep feedback predictable without disabling strict checking.
+Journey Endurance Coaching Platform has a large generated Nitro route map, so request typing can dominate TypeScript's work when a call site asks the compiler to compare a general string against every internal route. Use the commands and request boundaries below to keep feedback predictable without disabling strict checking.
 
 ## Commands
 

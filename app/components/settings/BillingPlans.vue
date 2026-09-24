@@ -80,15 +80,15 @@
 
     <div
       :class="[
-        'grid grid-cols-1 lg:grid-cols-3 items-stretch max-w-7xl mx-auto gap-5 xl:gap-6',
-        props.conversionGoal === 'pro' ? 'lg:[grid-template-columns:1fr_1.08fr_1fr]' : ''
+        'grid grid-cols-1 lg:grid-cols-4 items-stretch max-w-360 mx-auto gap-5 xl:gap-6',
+        props.conversionGoal === 'unleash' ? 'lg:grid-cols-[1fr_1fr_1.08fr_1fr]' : ''
       ]"
     >
       <div
         v-for="plan in displayedPlans"
         :key="plan.key"
         :class="[
-          'flex flex-col relative overflow-hidden rounded-[2rem] p-6 sm:p-7 floating-card-base grain-overlay transition-all duration-500 group border-white/10',
+          'flex flex-col relative overflow-hidden rounded-4xl p-6 sm:p-7 floating-card-base grain-overlay transition-all duration-500 group border-white/10',
           getCardClass(plan),
           getPlanOrderClass(plan),
           isPrimaryPlan(plan) ? 'shadow-2xl shadow-primary-500/10' : ''
@@ -96,7 +96,7 @@
       >
         <div
           v-if="isPrimaryPlan(plan)"
-          class="absolute inset-0 pointer-events-none ring-2 ring-primary-500/50 animate-pulse-border rounded-[2rem]"
+          class="absolute inset-0 pointer-events-none ring-2 ring-primary-500/50 animate-pulse-border rounded-4xl"
         />
 
         <div
@@ -130,7 +130,7 @@
             </span>
           </div>
 
-          <div class="min-h-[2rem]">
+          <div class="min-h-8">
             <template v-if="billingInterval === 'annual' && plan.annualPrice">
               <div class="text-[10px] font-black text-primary-500 uppercase tracking-widest mb-1">
                 {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
@@ -156,11 +156,11 @@
           </div>
         </div>
 
-        <p class="mb-6 min-h-[3.25rem] text-base text-gray-400 font-medium leading-relaxed">
+        <p class="mb-6 min-h-13 text-base text-gray-400 font-medium leading-relaxed">
           {{ t(`plan.${plan.key}.description`) }}
         </p>
 
-        <ul class="flex-grow space-y-3 mb-6">
+        <ul class="grow space-y-3 mb-6">
           <li
             v-for="(feature, fIndex) in getVisibleFeatures(plan)"
             :key="fIndex"
@@ -168,7 +168,7 @@
           >
             <UIcon
               name="i-heroicons-check-circle-solid"
-              class="w-[1.125rem] h-[1.125rem] flex-shrink-0 mt-0.5 text-primary-500"
+              class="w-4.5 h-4.5 shrink-0 mt-0.5 text-primary-500"
             />
             <span class="leading-tight">{{ t(`plan.${plan.key}.feature_${fIndex + 1}`) }}</span>
           </li>
@@ -178,7 +178,7 @@
           <UButton
             block
             size="lg"
-            class="h-[3.25rem] rounded-2xl text-[12px] font-black uppercase tracking-[0.2em] transition-all"
+            class="h-13 rounded-2xl text-[12px] font-black uppercase tracking-[0.2em] transition-all"
             :color="isPrimaryPlan(plan) ? 'primary' : 'neutral'"
             :variant="isPrimaryPlan(plan) ? 'solid' : 'outline'"
             :disabled="isCurrentPlan(plan) || loading"
@@ -266,7 +266,7 @@
       conversionGoal?: ConversionGoal
     }>(),
     {
-      conversionGoal: 'pro'
+      conversionGoal: 'unlock'
     }
   )
 
@@ -293,7 +293,7 @@
   /** Matches server proration: upgrade → always_invoice; interval/downgrade → next invoice. */
   type PlanChangeKind = 'upgrade' | 'interval' | 'downgrade'
 
-  const PLAN_TIERS = ['FREE', 'SUPPORTER', 'PRO'] as const
+  const PLAN_TIERS = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH'] as const
 
   const billingInterval = ref<BillingInterval>('monthly')
   const loading = ref(false)
@@ -355,7 +355,9 @@
   const displayedPlans = computed(() => {
     const planByKey = new Map(PRICING_PLANS.map((plan) => [plan.key, plan]))
     const orderedKeys: PricingTier[] =
-      props.conversionGoal === 'pro' ? ['pro', 'supporter', 'free'] : ['free', 'supporter', 'pro']
+      props.conversionGoal === 'unleash'
+        ? ['unleash', 'unlock', 'uncover', 'free']
+        : ['free', 'uncover', 'unlock', 'unleash']
 
     return orderedKeys
       .map((key) => planByKey.get(key))
@@ -389,7 +391,7 @@
 
   function getPlanBadge(plan: PricingPlan): string | null {
     if (isPrimaryPlan(plan)) {
-      return props.conversionGoal === 'pro'
+      return props.conversionGoal === 'unleash'
         ? translate('badge.best_value')
         : translate('badge.most_popular')
     }
@@ -404,32 +406,32 @@
   }
 
   function getPlanOrderClass(plan: PricingPlan): string {
-    if (props.conversionGoal !== 'pro') return ''
-    if (plan.key === 'supporter') return 'lg:order-1'
-    if (plan.key === 'pro') return 'lg:order-2'
-    return 'lg:order-3'
+    if (props.conversionGoal !== 'unleash') return ''
+    if (plan.key === 'uncover') return 'lg:order-1'
+    if (plan.key === 'unlock') return 'lg:order-2'
+    if (plan.key === 'unleash') return 'lg:order-3'
+    return 'lg:order-4'
   }
 
   function getButtonLabel(plan: PricingPlan): string {
     if (isCurrentPlan(plan)) return translate('btn.current_plan')
     if (status.value !== 'authenticated') {
       if (plan.key === 'free') return translate('btn.start_free')
-      if (plan.key === 'supporter') return translate('btn.get_supporter')
-      return translate('btn.get_pro')
+      if (plan.key === 'uncover') return translate('btn.get_uncover')
+      if (plan.key === 'unlock') return translate('btn.get_unlock')
+      return translate('btn.get_unleash')
     }
 
     const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-    const tiers = ['FREE', 'SUPPORTER', 'PRO']
+    const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
     const currentLevel = tiers.indexOf(currentTier)
     const planLevel = tiers.indexOf(plan.key.toUpperCase())
 
     if (planLevel > currentLevel) {
-      return plan.key === 'pro' ? translate('btn.upgrade_pro') : translate('btn.choose_supporter')
+      return translate('btn.upgrade')
     }
     if (planLevel < currentLevel) {
-      return plan.key === 'free'
-        ? translate('btn.downgrade_free')
-        : translate('btn.switch_supporter')
+      return translate('btn.downgrade')
     }
     // Same tier, different interval — a switch, not a no-op.
     return billingInterval.value === 'annual'

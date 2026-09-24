@@ -110,7 +110,11 @@ test.describe('Billing & Entitlements Suite', () => {
                 id: 'si_test_1',
                 price: {
                   id: 'price_pro_monthly',
-                  product: { id: 'prod_pro', name: 'Coach Watts Pro', metadata: { tier: 'pro' } },
+                  product: {
+                    id: 'prod_pro',
+                    name: 'Journey Endurance Coaching Platform Pro',
+                    metadata: { tier: 'pro' }
+                  },
                   lookup_key: 'pro',
                   nickname: 'Pro'
                 }
@@ -166,7 +170,11 @@ test.describe('Billing & Entitlements Suite', () => {
                 id: 'si_test_1',
                 price: {
                   id: 'price_pro_monthly',
-                  product: { id: 'prod_pro', name: 'Coach Watts Pro', metadata: { tier: 'pro' } },
+                  product: {
+                    id: 'prod_pro',
+                    name: 'Journey Endurance Coaching Platform Pro',
+                    metadata: { tier: 'pro' }
+                  },
                   lookup_key: 'pro',
                   nickname: 'Pro'
                 }
@@ -218,7 +226,11 @@ test.describe('Billing & Entitlements Suite', () => {
                 id: 'si_test_1',
                 price: {
                   id: 'price_pro_monthly',
-                  product: { id: 'prod_pro', name: 'Coach Watts Pro', metadata: { tier: 'pro' } },
+                  product: {
+                    id: 'prod_pro',
+                    name: 'Journey Endurance Coaching Platform Pro',
+                    metadata: { tier: 'pro' }
+                  },
                   lookup_key: 'pro',
                   nickname: 'Pro'
                 }
@@ -279,7 +291,11 @@ test.describe('Billing & Entitlements Suite', () => {
                 id: 'si_test_1',
                 price: {
                   id: 'price_pro_monthly',
-                  product: { id: 'prod_pro', name: 'Coach Watts Pro', metadata: { tier: 'pro' } },
+                  product: {
+                    id: 'prod_pro',
+                    name: 'Journey Endurance Coaching Platform Pro',
+                    metadata: { tier: 'pro' }
+                  },
                   lookup_key: 'pro',
                   nickname: 'Pro'
                 }

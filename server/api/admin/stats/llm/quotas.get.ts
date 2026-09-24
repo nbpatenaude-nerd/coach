@@ -2,8 +2,7 @@ import { defineEventHandler, createError } from 'h3'
 import { getServerSession } from '../../../../utils/session'
 import { prisma } from '../../../../utils/db'
 import { QUOTA_REGISTRY, type QuotaOperation } from '../../../../utils/quotas/registry'
-import type { SubscriptionTier } from '@prisma/client'
-
+import type { SubscriptionTier } from '~/server/utils/generated-prisma/client'
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
 
@@ -15,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const showAll = query.all === 'true'
   const results: any[] = []
 
-  const validDbTiers = ['FREE', 'SUPPORTER', 'PRO']
+  const validDbTiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
 
   // Iterate through tiers and operations to find users near limits
   for (const tier of Object.keys(QUOTA_REGISTRY) as SubscriptionTier[]) {

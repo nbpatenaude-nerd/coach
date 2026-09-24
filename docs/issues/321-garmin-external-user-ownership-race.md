@@ -7,17 +7,17 @@
 
 ## Description
 
-The Garmin callback checks whether `externalUserId` belongs to another Coach Watts user and then
+The Garmin callback checks whether `externalUserId` belongs to another Journey Endurance Coaching Platform user and then
 performs an upsert keyed by `(userId, provider)`.
 
 There is no database uniqueness constraint on `(provider, externalUserId)`. Two concurrent callbacks
-for different Coach Watts users can both pass the ownership check and create duplicate mappings for
+for different Journey Endurance Coaching Platform users can both pass the ownership check and create duplicate mappings for
 the same Garmin account. The webhook processor detects duplicates later and throws, preventing data
 delivery for that Garmin user.
 
 ## Steps to Reproduce
 
-1. Run concurrent Garmin callbacks for two Coach Watts users using the same Garmin account.
+1. Run concurrent Garmin callbacks for two Journey Endurance Coaching Platform users using the same Garmin account.
 2. Allow both ownership queries to complete before either upsert commits.
 3. Observe two Garmin integrations with the same `externalUserId`.
 4. Process a webhook for that Garmin ID and observe duplicate-mapping failure.

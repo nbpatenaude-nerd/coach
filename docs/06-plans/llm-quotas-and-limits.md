@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-This document outlines the architecture for a centralized, subscription-based quota system for LLM-related features in Coach Watts. The system is designed to prevent abuse of expensive AI resources while providing a clear path for user upgrades.
+This document outlines the architecture for a centralized, subscription-based quota system for LLM-related features in Journey Endurance Coaching Platform. The system is designed to prevent abuse of expensive AI resources while providing a clear path for user upgrades.
 
 ## 2. Core Objectives
 

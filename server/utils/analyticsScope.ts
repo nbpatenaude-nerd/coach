@@ -2,8 +2,7 @@ import { analyticsRepository } from './repositories/analyticsRepository'
 import { coachingRepository } from './repositories/coachingRepository'
 import { teamRepository } from './repositories/teamRepository'
 import { prisma } from './db'
-import type { Prisma, Workout } from '@prisma/client'
-
+import type { Workout, Prisma } from './generated-prisma/client'
 export interface AnalyticsScopeInput {
   target: 'self' | 'athlete' | 'athletes' | 'athlete_group' | 'team'
   targetId?: string
