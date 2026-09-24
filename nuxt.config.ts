@@ -212,6 +212,15 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
+    // Custom Prisma output lives under server/utils/generated-prisma. Value imports
+    // of `@prisma/client` resolve to the stock CJS stub and crash Node ESM at
+    // runtime (`Named export 'Prisma' not found`). Alias exact `@prisma/client`
+    // only — `@prisma/client/runtime/*` must keep resolving to the package.
+    alias: {
+      '@prisma/client': fileURLToPath(
+        new URL('./server/utils/generated-prisma/client.ts', import.meta.url)
+      ).replace(/\\/g, '/')
+    },
     routeRules: {
       '/media/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
       '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },

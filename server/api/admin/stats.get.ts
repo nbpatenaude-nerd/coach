@@ -5,7 +5,7 @@ import { prisma } from '../../utils/db'
 import type { SubscriptionTier } from '@prisma/client'
 import { webhookQueue, pingQueue } from '../../utils/queue'
 import { QUOTA_REGISTRY } from '../../utils/quotas/registry'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '../../utils/generated-prisma/client'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
