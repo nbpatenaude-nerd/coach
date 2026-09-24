@@ -186,6 +186,14 @@
           ]
         : []),
       {
+        label: navLabel('navigation_weekly_checkin', 'Weekly Check-In'),
+        icon: 'i-lucide-clipboard-list',
+        to: '/check-in',
+        onSelect: () => {
+          open.value = false
+        }
+      },
+      {
         label: navLabel('navigation_activities', 'Activities'),
         icon: 'i-lucide-calendar-days',
         to: '/activities',
@@ -580,7 +588,10 @@
       {
         id: 'today',
         label: label('navigation_section_today', 'Today'),
-        defaultOpen: route.query.focus === 'checkin' || route.query.focus === 'wellness',
+        defaultOpen:
+          route.query.focus === 'checkin' ||
+          route.query.focus === 'wellness' ||
+          route.path.startsWith('/check-in'),
         items: sectionItems([
           {
             label: label('navigation_morning_checkin', 'Morning Check-in'),
@@ -591,6 +602,11 @@
             label: label('navigation_todays_wellness', "Today's Wellness"),
             icon: 'i-lucide-heart-pulse',
             to: { path: '/dashboard', query: { focus: 'wellness' } }
+          },
+          {
+            label: label('navigation_weekly_checkin', 'Weekly Check-In'),
+            icon: 'i-lucide-clipboard-list',
+            to: '/check-in'
           }
         ])
       },
@@ -923,6 +939,13 @@
             path: '/dashboard',
             query: { focus: 'wellness' }
           },
+          onSelect: () => (open.value = false)
+        },
+        {
+          id: 'weekly-checkin',
+          label: navLabel('navigation_weekly_checkin', 'Weekly Check-In'),
+          icon: 'i-lucide-clipboard-list',
+          to: '/check-in',
           onSelect: () => (open.value = false)
         }
       ]
