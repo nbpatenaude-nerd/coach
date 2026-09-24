@@ -458,15 +458,29 @@
   originalSteps.value = JSON.parse(JSON.stringify(props.steps))
   editedSteps.value = initializeSteps(originalSteps.value)
 
-  // Watch for external changes if not currently saving
+  const applyingExternalSteps = ref(false)
+
+  function stepsSignature(steps: any[]) {
+    try {
+      return JSON.stringify(cleanForOutput(JSON.parse(JSON.stringify(steps || []))))
+    } catch {
+      return ''
+    }
+  }
+
+  // Watch for external changes if not currently saving (skip echo from our own emits)
   watch(
     () => props.steps,
     (newSteps) => {
-      if (!props.saving) {
-        originalSteps.value = JSON.parse(JSON.stringify(newSteps))
-        if (durationFactor.value === 1) {
-          editedSteps.value = initializeSteps(originalSteps.value)
-        }
+      if (props.saving || applyingExternalSteps.value) return
+      if (stepsSignature(newSteps) === stepsSignature(editedSteps.value)) return
+      originalSteps.value = JSON.parse(JSON.stringify(newSteps))
+      if (durationFactor.value === 1) {
+        applyingExternalSteps.value = true
+        editedSteps.value = initializeSteps(originalSteps.value)
+        void nextTick(() => {
+          applyingExternalSteps.value = false
+        })
       }
     },
     { deep: true }
@@ -586,6 +600,7 @@
   watch(
     editedSteps,
     (newVal) => {
+      if (applyingExternalSteps.value) return
       emit('update:steps', cleanForOutput(newVal))
     },
     { deep: true }

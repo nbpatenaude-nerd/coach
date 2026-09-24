@@ -6,7 +6,12 @@
       </UFormField>
 
       <UFormField label="Type">
-        <USelect v-model="localTemplate.type" :items="WORKOUT_TYPES" />
+        <USelect
+          v-model="localTemplate.type"
+          :items="workoutTypeOptions"
+          value-key="value"
+          class="w-full"
+        />
       </UFormField>
 
       <UFormField label="Category">
@@ -16,7 +21,9 @@
       <UFormField label="Sport">
         <USelect
           v-model="localTemplate.sport"
-          :items="['Cycling', 'Running', 'Swimming', 'Strength']"
+          :items="sportOptions"
+          value-key="value"
+          class="w-full"
         />
       </UFormField>
 
@@ -38,7 +45,7 @@
     <div class="space-y-4">
       <h3 class="text-sm font-black uppercase tracking-widest text-primary">Workout Structure</h3>
       <WorkoutStepsEditor
-        :steps="localTemplate.structuredWorkout?.steps || []"
+        :steps="editorSteps"
         :saving="saving"
         @update:steps="onStepsUpdate"
         @save="onStepsSave"
@@ -90,6 +97,13 @@
   })
 
   const WORKOUT_TYPES = ['Ride', 'VirtualRide', 'Run', 'Swim', 'WeightTraining', 'Hike', 'Walk']
+  const workoutTypeOptions = WORKOUT_TYPES.map((type) => ({ label: type, value: type }))
+  const sportOptions = [
+    { label: 'Cycling', value: 'Cycling' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Swimming', value: 'Swimming' },
+    { label: 'Strength', value: 'Strength' }
+  ]
 
   function normalizeIncomingSteps(steps: any[] | undefined) {
     if (!Array.isArray(steps)) return []
@@ -141,6 +155,14 @@
         }
   )
 
+  // Stable steps ref so the editor does not receive a fresh `[]` each render
+  // and so parent↔child updates do not wipe in-progress edits.
+  const editorSteps = ref<any[]>(
+    Array.isArray(localTemplate.value.structuredWorkout?.steps)
+      ? localTemplate.value.structuredWorkout.steps
+      : []
+  )
+
   const folderOptions = computed(() => [
     { label: 'Unfiled', value: null },
     ...flat.value.map((folder) => ({
@@ -154,6 +176,7 @@
   })
 
   function onStepsUpdate(steps: any[]) {
+    editorSteps.value = steps
     if (!localTemplate.value.structuredWorkout) {
       localTemplate.value.structuredWorkout = { steps: [] }
     }
@@ -170,6 +193,11 @@
       toast.add({ title: 'Title required', color: 'error' })
       return
     }
+
+    if (!localTemplate.value.structuredWorkout) {
+      localTemplate.value.structuredWorkout = { steps: [] }
+    }
+    localTemplate.value.structuredWorkout.steps = editorSteps.value
 
     saving.value = true
     try {
