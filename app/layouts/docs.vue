@@ -31,8 +31,8 @@
           />
 
           <NuxtLink to="/" class="flex items-center gap-2 shrink-0">
-            <img src="/media/logo.webp" alt="Journey Endurance Coaching" class="h-8 w-8" />
-            <span class="font-bold text-xl hidden sm:inline-block">Journey Endurance Coaching</span>
+            <img src="/media/logo.webp" alt="Journey Endurance" class="h-8 w-8" />
+            <span class="font-bold text-xl hidden sm:inline-block">Journey Endurance</span>
             <span class="text-gray-400 dark:text-gray-600 hidden sm:inline-block">/</span>
             <span class="font-medium text-gray-600 dark:text-gray-400">Documentation</span>
           </NuxtLink>

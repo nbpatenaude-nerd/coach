@@ -1,4 +1,4 @@
-import type { Integration } from '~/server/utils/generated-prisma/client'
+import type { Integration } from '@prisma/client'
 import { ensureValidGarminToken } from './garmin'
 
 export type GarminTargetThresholds = {
@@ -661,7 +661,7 @@ export async function createGarminCourse(integration: Integration, payload: any)
 }
 
 /**
- * Map Journey Endurance Coaching Platform sport types to Training API V2 sport enums.
+ * Map Journey Endurance sport types to Training API V2 sport enums.
  * V2 single-segment sports: RUNNING, CYCLING, LAP_SWIMMING, STRENGTH_TRAINING,
  * CARDIO_TRAINING, GENERIC, YOGA, PILATES.
  */

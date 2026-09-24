@@ -5,7 +5,7 @@ import { activityRecommendationRepository } from '../../utils/repositories/activ
 import { reportRepository } from '../../utils/repositories/reportRepository'
 import { recommendationRepository } from '../../utils/repositories/recommendationRepository'
 import { scoreTrendExplanationRepository } from '../../utils/repositories/scoreTrendExplanationRepository'
-import { Prisma  } from '../../utils/generated-prisma/client'
+import { Prisma } from '../../utils/generated-prisma/client'
 
 defineRouteMeta({
   openAPI: {

@@ -1,10 +1,32 @@
 import { requireAuth } from '../../utils/auth-guard'
 import { z } from 'zod'
-import { getAnalyzeAthleteSystemPrompt } from '../../utils/analyzeAthletePrompt'
-import { fetchAthleteIntervalsData } from '../../utils/intervals'
+import { analyzeAthleteSystemPrompt } from '../../utils/analyzeAthletePrompt'
 import { generateCoachAnalysis, buildWorkoutSummary } from '../../utils/gemini'
 import { prisma } from '../../utils/db'
-import { getUserEntitlements } from '../../utils/entitlements'
+
+async function fetchAthleteIntervalsData(apiKey: string, athleteId: string) {
+  const auth = Buffer.from(`API_KEY:${apiKey}`).toString('base64')
+  const headers = { Authorization: `Basic ${auth}` }
+
+  // Fetch wellness (CTL, ATL, TSB)
+  const wellnessRes = await fetch(`https://intervals.icu/api/v1/athlete/${athleteId}/wellness`, { headers })
+  const wellnessData = await wellnessRes.json()
+  const latestWellness = Array.isArray(wellnessData) && wellnessData.length > 0 ? wellnessData[0] : null
+
+  // Fetch last 7 days of activities
+  const oldest = new Date()
+  oldest.setDate(oldest.getDate() - 7)
+  const oldestStr = oldest.toISOString().split('T')[0]
+  const newestStr = new Date().toISOString().split('T')[0]
+
+  const activitiesRes = await fetch(
+    `https://intervals.icu/api/v1/athlete/${athleteId}/activities?oldest=${oldestStr}&newest=${newestStr}`,
+    { headers }
+  )
+  const recentActivities = await activitiesRes.json()
+
+  return { wellness: latestWellness, recentActivities }
+}
 
 const analyzeAthleteSchema = z.object({
   checkInId: z.string()
@@ -35,15 +57,6 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // Determine entitlements
-  const entitlements = getUserEntitlements({
-    subscriptionTier: user.subscriptionTier,
-    subscriptionStatus: user.subscriptionStatus,
-    subscriptionPeriodEnd: user.subscriptionPeriodEnd,
-    trialEndsAt: user.trialEndsAt,
-    promotionalGrantTier: null
-  })
-
   // Fetch Intervals data
   const intervalsData = await fetchAthleteIntervalsData(
     user.intervalsApiKey,
@@ -52,10 +65,10 @@ export default defineEventHandler(async (event) => {
 
   // Format prompt
   const workoutSummary = intervalsData.recentActivities
-    ? buildWorkoutSummary(intervalsData.recentActivities)
+    ? buildWorkoutSummary(intervalsData.recentActivities, 'UTC', 'km')
     : 'No recent workouts recorded.'
 
-  const prompt = `${getAnalyzeAthleteSystemPrompt(entitlements.tier)}
+  const prompt = `${analyzeAthleteSystemPrompt}
 
 ## Athlete Data
 Subjective Check-In Metrics:
@@ -75,7 +88,7 @@ ${workoutSummary}
 Provide a short, punchy analysis (2-3 sentences) integrating the kinesiology framework and plant-based fueling directives based on this data. Do not include any JSON wrappers, just the raw text.`
 
   try {
-    const analysis = await generateCoachAnalysis(prompt, entitlements.aiModel, {
+    const analysis = await generateCoachAnalysis(prompt, 'flash', {
       userId: user.id,
       operation: 'digital_twin_analyze_athlete'
     })

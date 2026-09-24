@@ -1,4 +1,4 @@
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, toRaw } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useToast } from '#imports'
 
@@ -180,12 +180,13 @@ export function usePlanArchitect(planId: string) {
   function normalizePlan(plan: any) {
     const raw = toRaw(plan)
     return {
-      ...structuredClone(raw),
+      ...JSON.parse(JSON.stringify(toRaw(raw))),
 
       coachNotes: plan.coachNotes || '',
       athleteNotes: plan.athleteNotes || '',
       strategy: plan.strategy || 'LINEAR',
       recoveryRhythm: plan.recoveryRhythm || 4,
+      startDate: plan.startDate ? new Date(plan.startDate).toISOString() : null,
       visibility: plan.visibility || 'PRIVATE',
       accessState: plan.accessState || 'PRIVATE',
       primarySport: plan.primarySport || '',
@@ -248,6 +249,7 @@ export function usePlanArchitect(planId: string) {
       difficulty: Number(plan.difficulty) || 1,
       strategy: plan.strategy,
       recoveryRhythm: Number(plan.recoveryRhythm) || 4,
+      startDate: plan.startDate ? new Date(plan.startDate).toISOString() : null,
       isPublic: Boolean(plan.isPublic),
       blocks: sortedPayloadBlocks(plan.blocks || [])
     }
@@ -438,7 +440,7 @@ export function usePlanArchitect(planId: string) {
     const block = draftPlan.value.blocks.find((entry: any) => entry.id === blockId)
     const source = block?.weeks.find((entry: any) => entry.id === weekId)
     if (!block || !source) return
-    const clone = structuredClone(source)
+    const clone = JSON.parse(JSON.stringify(toRaw(source)))
     clone.id = `temp-week-${Date.now()}`
     clone.weekNumber = source.weekNumber + 1
     clone.focus = source.focus ? `${source.focus} Copy` : 'Duplicated week'
@@ -543,7 +545,7 @@ export function usePlanArchitect(planId: string) {
 
   function openWorkoutEditor(weekId: string, _dayIndex: number, workout: any) {
     workoutEditorMode.value = 'edit'
-    workoutEditorSnapshot.value = structuredClone(workout)
+    workoutEditorSnapshot.value = JSON.parse(JSON.stringify(toRaw(workout)))
     editingWorkoutTarget.value = { weekId, workoutId: workout.id }
     editingWorkout.value = {
       ...workout,
@@ -607,7 +609,8 @@ export function usePlanArchitect(planId: string) {
         type: editingWorkout.value.type,
         category: editingWorkout.value.category,
         durationSec: isNote ? 0 : (Number(editingWorkout.value.durationMinutes) || 0) * 60,
-        tss: isNote ? 0 : Number(editingWorkout.value.tss) || 0
+        tss: isNote ? 0 : Number(editingWorkout.value.tss) || 0,
+        structuredWorkout: isNote ? null : (editingWorkout.value.structuredWorkout ?? null)
       })
       closeWorkoutEditor()
       toast.add({ title: isNote ? 'Note added' : 'Workout added', color: 'success' })
@@ -630,7 +633,9 @@ export function usePlanArchitect(planId: string) {
       editingWorkout.value.type === 'Note'
     workout.durationSec = isNote ? 0 : (Number(editingWorkout.value.durationMinutes) || 0) * 60
     workout.tss = isNote ? 0 : Number(editingWorkout.value.tss) || 0
-    workout.structuredWorkout = isNote ? null : (workout.structuredWorkout ?? null)
+    workout.structuredWorkout = isNote
+      ? null
+      : (editingWorkout.value.structuredWorkout ?? workout.structuredWorkout ?? null)
     closeWorkoutEditor()
     toast.add({ title: isNote ? 'Note updated' : 'Workout updated', color: 'success' })
   }

@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <DashboardShareCoachWattsModal v-model:open="isOpen" />
+    <DashboardShareJourneyModal v-model:open="isOpen" />
   </div>
 </template>
 

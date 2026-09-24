@@ -1,4 +1,4 @@
-import type { SubscriptionTier } from '../server/utils/generated-prisma/client'
+import type { SubscriptionTier } from '@prisma/client'
 
 export type ProviderSubscriptionState = {
   provider: 'STRIPE' | 'APPLE' | 'GOOGLE'
@@ -17,14 +17,7 @@ export type ProviderSubscriptionState = {
   entitlementEnd: Date | null
 }
 
-const rank: Record<SubscriptionTier, number> = {
-  FREE: 0,
-  SUPPORTER: 1,
-  PRO: 2,
-  UNCOVER: 1,
-  UNLOCK: 2,
-  UNLEASH: 3
-}
+const rank: Record<SubscriptionTier, number> = { FREE: 0, SUPPORTER: 1, PRO: 2, UNCOVER: 3, UNLOCK: 4, UNLEASH: 5 }
 
 /** Prefer the Stripe subscription id so Stripe webhooks and RevenueCat share one row. */
 export function pickStripeSubscriptionId(

@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'
+  const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.ca'
   const joinUrl = `${baseUrl}/join/${invite.code}`
 
   if (invite.email) {

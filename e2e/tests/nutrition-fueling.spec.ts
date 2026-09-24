@@ -1,4 +1,4 @@
-import { startOfWeek } from 'date-fns'
+import { differenceInCalendarDays, startOfWeek } from 'date-fns'
 import { test, expect } from '../fixtures/test-fixtures.ts'
 import { E2E_ATHLETE_EMAIL } from '../seed.ts'
 import { createE2ePrisma } from '../helpers/db.ts'
@@ -28,14 +28,34 @@ test.describe('Nutrition fueling plan', () => {
     return startOfWeek(new Date(), { weekStartsOn: 1 })
   }
 
-  const dayOffset = (offset: number) => new Date(getWeekStart().getTime() + offset * 86400000)
-  const dateKey = (date: Date) => date.toISOString().slice(0, 10)
+  const dayOffset = (offset: number) => {
+    const date = new Date(getWeekStart().getTime() + offset * 86400000)
+    // The API queries UTC calendar days while the calendar renders local date parts.
+    // Noon keeps the fixture on the same day in both representations.
+    date.setHours(12, 0, 0, 0)
+    return date
+  }
+  const dateKey = (date: Date) =>
+    [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, '0'),
+      String(date.getDate()).padStart(2, '0')
+    ].join('-')
 
   // Keep this suite away from the current and next day. Other parallel E2E specs create
   // workouts there, which would otherwise change the number of generated fueling windows.
-  const STACKED_DAY = () => dayOffset(4) // two sessions back to back
-  const SPLIT_DAY = () => dayOffset(5) // morning and evening sessions
-  const REST_DAY = () => dayOffset(6) // no training at all
+  // A fixed offset (e.g. "Monday + 6") lands on a different weekday depending on which day the
+  // suite actually runs, so it can silently collide with "today" - pick offsets fresh each run,
+  // excluding whichever two of the week's seven days are today/tomorrow.
+  const todayOffset = ((differenceInCalendarDays(new Date(), getWeekStart()) % 7) + 7) % 7
+  const excludedOffsets = new Set([todayOffset, (todayOffset + 1) % 7])
+  const [stackedOffset, splitOffset, restOffset] = [0, 1, 2, 3, 4, 5, 6].filter(
+    (offset) => !excludedOffsets.has(offset)
+  )
+
+  const STACKED_DAY = () => dayOffset(stackedOffset) // two sessions back to back
+  const SPLIT_DAY = () => dayOffset(splitOffset) // morning and evening sessions
+  const REST_DAY = () => dayOffset(restOffset) // no training at all
 
   async function clearDay(date: Date) {
     const key = dateKey(date)

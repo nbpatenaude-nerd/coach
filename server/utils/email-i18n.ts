@@ -1,10 +1,10 @@
 export const LOCALIZED_SUBJECTS: Record<string, Record<string, string>> = {
   Welcome: {
-    en: 'Welcome to Journey Endurance Coaching Platform!',
-    hu: 'Üdvözlünk a Journey Endurance Coaching Platform platformon!',
-    de: 'Willkommen bei Journey Endurance Coaching Platform!',
-    es: '¡Bienvenido a Journey Endurance Coaching Platform!',
-    fr: 'Bienvenue sur Journey Endurance Coaching Platform !'
+    en: 'Welcome to Journey Endurance!',
+    hu: 'Üdvözlünk a Journey Endurance platformon!',
+    de: 'Willkommen bei Journey Endurance!',
+    es: '¡Bienvenido a Journey Endurance!',
+    fr: 'Bienvenue sur Journey Endurance !'
   },
   WorkoutReceived: {
     en: 'Great shift: your workout is in the books',
@@ -35,81 +35,88 @@ export const LOCALIZED_SUBJECTS: Record<string, Record<string, string>> = {
     fr: 'Entraînement du jour'
   },
   SubscriptionStarted: {
-    en: 'Welcome to Journey Endurance Coaching Platform Pro!',
-    hu: 'Üdvözlünk a Journey Endurance Coaching Platform Pro-ban!',
-    de: 'Willkommen bei Journey Endurance Coaching Platform Pro!',
-    es: '¡Bienvenido a Journey Endurance Coaching Platform Pro!',
-    fr: 'Bienvenue sur Journey Endurance Coaching Platform Pro !'
+    en: 'Welcome to Journey Endurance Pro!',
+    hu: 'Üdvözlünk a Journey Endurance Pro-ban!',
+    de: 'Willkommen bei Journey Endurance Pro!',
+    es: '¡Bienvenido a Journey Endurance Pro!',
+    fr: 'Bienvenue sur Journey Endurance Pro !'
   },
   AccountDeletionScheduled: {
-    en: 'Your Journey Endurance Coaching Platform account deletion has been scheduled',
-    hu: 'Fiókod törlése ütemezve lett a Journey Endurance Coaching Platform rendszerében',
-    de: 'Löschung Deines Journey Endurance Coaching Platform Kontos wurde geplant',
-    es: 'Se ha programado la eliminación de tu cuenta en Journey Endurance Coaching Platform',
-    fr: 'La suppression de votre compte Journey Endurance Coaching Platform a été programmée'
+    en: 'Your Journey Endurance account deletion has been scheduled',
+    hu: 'Fiókod törlése ütemezve lett a Journey Endurance rendszerében',
+    de: 'Löschung Deines Journey Endurance Kontos wurde geplant',
+    es: 'Se ha programado la eliminación de tu cuenta en Journey Endurance',
+    fr: 'La suppression de votre compte Journey Endurance a été programmée'
   },
   TrialEndingSoon: {
-    en: 'Your Journey Endurance Coaching Platform performance trial ends soon',
-    hu: 'Hamarosan véget ér a Journey Endurance Coaching Platform próbaidőszakod',
-    de: 'Dein Journey Endurance Coaching Platform Testzeitraum endet bald',
-    es: 'Tu prueba de rendimiento en Journey Endurance Coaching Platform termina pronto',
-    fr: "Votre période d'essai Journey Endurance Coaching Platform se termine bientôt"
+    en: 'Your Journey Endurance performance trial ends soon',
+    hu: 'Hamarosan véget ér a Journey Endurance próbaidőszakod',
+    de: 'Dein Journey Endurance Testzeitraum endet bald',
+    es: 'Tu prueba de rendimiento en Journey Endurance termina pronto',
+    fr: "Votre période d'essai Journey Endurance se termine bientôt"
+  },
+  WeeklyCheckInReminder: {
+    en: 'Your weekly check-in is open',
+    hu: 'Elérhető a heti check-in',
+    de: 'Dein wöchentlicher Check-in ist geöffnet',
+    es: 'Tu check-in semanal está abierto',
+    fr: 'Votre check-in hebdomadaire est ouvert'
   },
   PaymentFailed: {
-    en: 'Action Required: Payment failed for your Journey Endurance Coaching Platform subscription',
-    hu: 'Intézkedés szükséges: Sikertelen fizetés a Journey Endurance Coaching Platform előfizetésednél',
-    de: 'Handlungsbedarf: Zahlung für Dein Journey Endurance Coaching Platform Abonnement fehlgeschlagen',
-    es: 'Acción requerida: Pago fallido para tu suscripción de Journey Endurance Coaching Platform',
-    fr: 'Action requise : Échec du paiement de votre abonnement Journey Endurance Coaching Platform'
+    en: 'Action Required: Payment failed for your Journey Endurance subscription',
+    hu: 'Intézkedés szükséges: Sikertelen fizetés a Journey Endurance előfizetésednél',
+    de: 'Handlungsbedarf: Zahlung für Dein Journey Endurance Abonnement fehlgeschlagen',
+    es: 'Acción requerida: Pago fallido para tu suscripción de Journey Endurance',
+    fr: 'Action requise : Échec du paiement de votre abonnement Journey Endurance'
   },
   PaymentSucceeded: {
-    en: 'Receipt for your Journey Endurance Coaching Platform subscription payment',
-    hu: 'Bizonylat a Journey Endurance Coaching Platform előfizetési fizetésedről',
-    de: 'Quittung für Deine Journey Endurance Coaching Platform Abonnementzahlung',
-    es: 'Recibo de tu pago de suscripción a Journey Endurance Coaching Platform',
-    fr: 'Reçu de paiement pour votre abonnement Journey Endurance Coaching Platform'
+    en: 'Receipt for your Journey Endurance subscription payment',
+    hu: 'Bizonylat a Journey Endurance előfizetési fizetésedről',
+    de: 'Quittung für Deine Journey Endurance Abonnementzahlung',
+    es: 'Recibo de tu pago de suscripción a Journey Endurance',
+    fr: 'Reçu de paiement pour votre abonnement Journey Endurance'
   },
   SubscriptionCanceled: {
-    en: 'Your Journey Endurance Coaching Platform subscription has been canceled',
-    hu: 'Journey Endurance Coaching Platform előfizetésed törölve lett',
-    de: 'Dein Journey Endurance Coaching Platform Abonnement wurde gekündigt',
-    es: 'Tu suscripción a Journey Endurance Coaching Platform ha sido cancelada',
-    fr: 'Votre abonnement Journey Endurance Coaching Platform a été annulé'
+    en: 'Your Journey Endurance subscription has been canceled',
+    hu: 'Journey Endurance előfizetésed törölve lett',
+    de: 'Dein Journey Endurance Abonnement wurde gekündigt',
+    es: 'Tu suscripción a Journey Endurance ha sido cancelada',
+    fr: 'Votre abonnement Journey Endurance a été annulé'
   },
   CoachInvite: {
-    en: 'You have been invited to Journey Endurance Coaching Platform',
-    hu: 'Meghívást kaptál a Journey Endurance Coaching Platform platformra',
-    de: 'Du wurdest zu Journey Endurance Coaching Platform eingeladen',
-    es: 'Has sido invitado a Journey Endurance Coaching Platform',
-    fr: 'Vous avez été invité sur Journey Endurance Coaching Platform'
+    en: 'You have been invited to Journey Endurance',
+    hu: 'Meghívást kaptál a Journey Endurance platformra',
+    de: 'Du wurdest zu Journey Endurance eingeladen',
+    es: 'Has sido invitado a Journey Endurance',
+    fr: 'Vous avez été invité sur Journey Endurance'
   },
   TeamInvite: {
-    en: 'You have been invited to join a team on Journey Endurance Coaching Platform',
-    hu: 'Meghívást kaptál egy csapathoz a Journey Endurance Coaching Platform rendszerében',
-    de: 'Du wurdest eingeladen, einem Team auf Journey Endurance Coaching Platform beizutreten',
-    es: 'Has sido invitado a unirte a un equipo en Journey Endurance Coaching Platform',
-    fr: 'Vous avez été invité à rejoindre une équipe sur Journey Endurance Coaching Platform'
+    en: 'You have been invited to join a team on Journey Endurance',
+    hu: 'Meghívást kaptál egy csapathoz a Journey Endurance rendszerében',
+    de: 'Du wurdest eingeladen, einem Team auf Journey Endurance beizutreten',
+    es: 'Has sido invitado a unirte a un equipo en Journey Endurance',
+    fr: 'Vous avez été invité à rejoindre une équipe sur Journey Endurance'
   },
   OnboardingDripDay2: {
-    en: 'Connect your training apps to unlock Journey Endurance Coaching Platform',
-    hu: 'Csatlakoztasd az edzésalkalmazásaidat a Journey Endurance Coaching Platform használatához',
-    de: 'Verbinde Deine Trainings-Apps, um Journey Endurance Coaching Platform freizuschalten',
-    es: 'Conecta tus aplicaciones de entrenamiento para desbloquear Journey Endurance Coaching Platform',
-    fr: "Connectez vos applications d'entraînement pour débloquer Journey Endurance Coaching Platform"
+    en: 'Connect your training apps to unlock Journey Endurance',
+    hu: 'Csatlakoztasd az edzésalkalmazásaidat a Journey Endurance használatához',
+    de: 'Verbinde Deine Trainings-Apps, um Journey Endurance freizuschalten',
+    es: 'Conecta tus aplicaciones de entrenamiento para desbloquear Journey Endurance',
+    fr: "Connectez vos applications d'entraînement pour débloquer Journey Endurance"
   },
   OnboardingDripDay7: {
-    en: 'How was your first week with Journey Endurance Coaching Platform?',
-    hu: 'Hogy telt az első heted a Journey Endurance Coaching Platform-szal?',
-    de: 'Wie war Deine erste Woche bei Journey Endurance Coaching Platform?',
-    es: '¿Cómo fue tu primera semana con Journey Endurance Coaching Platform?',
-    fr: "Comment s'est passée votre première semaine avec Journey Endurance Coaching Platform ?"
+    en: 'How was your first week with Journey Endurance?',
+    hu: 'Hogy telt az első heted a Journey Endurance-szal?',
+    de: 'Wie war Deine erste Woche bei Journey Endurance?',
+    es: '¿Cómo fue tu primera semana con Journey Endurance?',
+    fr: "Comment s'est passée votre première semaine avec Journey Endurance ?"
   },
   MarketingBroadcast: {
-    en: 'Journey Endurance Coaching Platform Update',
-    hu: 'Journey Endurance Coaching Platform frissítés',
-    de: 'Journey Endurance Coaching Platform Update',
-    es: 'Actualización de Journey Endurance Coaching Platform',
-    fr: 'Mise à jour Journey Endurance Coaching Platform'
+    en: 'Journey Endurance Update',
+    hu: 'Journey Endurance frissítés',
+    de: 'Journey Endurance Update',
+    es: 'Actualización de Journey Endurance',
+    fr: 'Mise à jour Journey Endurance'
   }
 }
 
@@ -129,5 +136,5 @@ export function resolveEmailSubject(
     return templateSubjects.en
   }
 
-  return fallbackSubject || 'Journey Endurance Coaching Platform'
+  return fallbackSubject || 'Journey Endurance'
 }

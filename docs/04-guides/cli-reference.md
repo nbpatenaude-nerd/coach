@@ -68,6 +68,8 @@ Manage user accounts, statistics, and quotas.
 - `location`: Manage user countries based on last login IP.
 - `quota`: View or manage user AI/API usage quotas.
 - `reset-quota`: Reset usage quotas for specific users.
+- `data export|api-pull|import`: Export a user universe to a file and import it as a new user.
+- `data transfer`: Selectively copy a user's data from one instance's database onto an existing user in another (prod → testing). See [Data Management](./data-management.md#developer-workflow-prod-to-testing-transfer).
 
 #### 2b. Subscriptions (`subscriptions`)
 
@@ -161,6 +163,20 @@ The worker CLI manages the background process that listens to incoming webhooks 
 - `start`: Starts the webhook listener process.
 - `status`: Displays the current state of the processing queues (pending, active, completed jobs).
 - `ping [--count <n>] [--concurrency <c>]`: Adds test jobs to the queue to verify the worker is active.
+
+### Local development
+
+Use `pnpm dev:worker` rather than `pnpm cw:worker start` while developing — it is the same
+entrypoint with file watching and an explicit `NODE_ENV=development`.
+
+`cw:worker` still works: `cli/worker/cli.ts` defaults `NODE_ENV` to `development` when it is
+unset and warns on stderr when it does. That default exists because the realtime and chat
+Redis pub/sub channels are namespaced per instance only when `NODE_ENV=development` — a
+worker with an unset `NODE_ENV` would publish to the shared `app:realtime` channel while the
+dev server listens on the namespaced one, and every event would be dropped silently with no
+log. An explicit `NODE_ENV` is never overridden, so deployed workers (`NODE_ENV=production`
+via the `Dockerfile` / compose files) are unaffected. Set `REALTIME_CHANNEL_NAMESPACE` in
+`.env` to pin the namespace regardless of `NODE_ENV`.
 
 ---
 

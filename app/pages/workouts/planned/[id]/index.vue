@@ -1201,8 +1201,8 @@
           <div class="text-red-800 dark:text-red-200">
             <p class="font-medium">Are you sure you want to delete this workout?</p>
             <p class="mt-1">
-              This will permanently remove the planned workout from Journey Endurance. If it was
-              synced to Intervals.icu, it will also be deleted from there.
+              This will permanently remove the planned workout from Coach Wattz. If it was synced to
+              Intervals.icu, it will also be deleted from there.
             </p>
           </div>
         </div>
@@ -1248,7 +1248,7 @@
         :share-title="
           workout?.title
             ? `Planned Workout: ${workout.title}`
-            : 'Planned workout shared from Journey Endurance'
+            : 'Planned workout shared from Coach Wattz'
         "
         @update:expiry-value="shareExpiryValue = $event"
         @generate="generateShareLink"
@@ -1426,7 +1426,7 @@
           variant="soft"
           icon="i-heroicons-exclamation-triangle"
           title="You can still continue"
-          description="This is only a warning. Journey can still generate or regenerate the structure, but some targets may be less accurate than expected."
+          description="This is only a warning. Journey Endurance can still generate or regenerate the structure, but some targets may be less accurate than expected."
         />
 
         <div class="rounded-xl border border-warning/30 bg-warning/5 p-4">
@@ -2337,7 +2337,7 @@
       plannedWorkout?.lastStructureEditSource === 'REMOTE_IMPORT'
     ) {
       note =
-        'Imported workout: regenerate or adjust this workout locally if you want Journey to rebuild it from your current target policy and sport settings.'
+        'Imported workout: regenerate or adjust this workout locally if you want Journey Endurance to rebuild it from your current target policy and sport settings.'
     }
 
     return {

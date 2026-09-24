@@ -587,109 +587,142 @@
 
   <UModal
     v-model:open="isWorkoutEditorOpen"
+    fullscreen
+    :ui="{ content: 'sm:max-w-7xl h-[90vh]' }"
     :title="editingWorkout?.category === 'Note' ? 'Edit note' : 'Edit workout'"
   >
     <template #body>
-      <div v-if="editingWorkout" class="space-y-6">
-        <div
-          class="-mx-4 flex items-start gap-3 rounded-none border-y border-default/70 bg-muted/15 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:p-4"
-          :class="isEditingNote ? 'border-amber-500/20 bg-amber-500/5' : ''"
-        >
+      <div v-if="editingWorkout" class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full min-h-[70vh]">
+        <div class="space-y-6 overflow-y-auto pr-2">
           <div
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
-            :class="isEditingNote ? 'bg-amber-500/10 text-amber-300' : 'bg-primary/10 text-primary'"
+            class="-mx-4 flex items-start gap-3 rounded-none border-y border-default/70 bg-muted/15 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:p-4"
+            :class="isEditingNote ? 'border-amber-500/20 bg-amber-500/5' : ''"
           >
-            <UIcon
-              :name="isEditingNote ? 'i-heroicons-document-text' : 'i-tabler-bike'"
-              class="h-5 w-5"
-            />
-          </div>
-          <div class="min-w-0">
-            <div class="text-sm font-bold text-highlighted">
-              {{ isEditingNote ? 'Plan note' : 'Planned workout' }}
+            <div
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+              :class="
+                isEditingNote ? 'bg-amber-500/10 text-amber-300' : 'bg-primary/10 text-primary'
+              "
+            >
+              <UIcon
+                :name="isEditingNote ? 'i-heroicons-document-text' : 'i-tabler-bike'"
+                class="h-5 w-5"
+              />
             </div>
-            <div class="mt-1 text-[12px] leading-5 text-muted">
-              {{
-                isEditingNote
-                  ? 'Use notes for reminders, logistics, race cues, or coach instructions that should sit beside workouts in the week.'
-                  : 'Edit the scheduled workout details, training load, and activity metadata for this day.'
-              }}
+            <div class="min-w-0">
+              <div class="text-sm font-bold text-highlighted">
+                {{ isEditingNote ? 'Plan note' : 'Planned workout' }}
+              </div>
+              <div class="mt-1 text-[12px] leading-5 text-muted">
+                {{
+                  isEditingNote
+                    ? 'Use notes for reminders, logistics, race cues, or coach instructions that should sit beside workouts in the week.'
+                    : 'Edit the scheduled workout details, training load, and activity metadata for this day.'
+                }}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div
-          v-if="isEditingNote"
-          class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
-        >
-          <UFormField label="Title" help="Keep it short so it scans well in the week view.">
-            <UInput v-model="editingWorkout.title" placeholder="Race week reminder" />
-          </UFormField>
-          <UFormField label="Body" help="This text is shown directly on the note card.">
-            <UTextarea
-              v-model="editingWorkout.description"
-              :rows="8"
-              autoresize
-              placeholder="Add context, reminders, travel details, cues, or coaching notes..."
-            />
-          </UFormField>
-        </div>
-
-        <div v-else class="space-y-5">
-          <section
+          <div
+            v-if="isEditingNote"
             class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
           >
-            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-muted">Identity</div>
-            <UFormField label="Workout title" help="This is what appears on the weekly board.">
-              <UInput v-model="editingWorkout.title" placeholder="Tempo builder" />
+            <UFormField label="Title" help="Keep it short so it scans well in the week view.">
+              <UInput v-model="editingWorkout.title" placeholder="Race week reminder" />
             </UFormField>
-            <UFormField label="Description" help="Optional context or execution notes.">
+            <UFormField label="Body" help="This text is shown directly on the note card.">
               <UTextarea
                 v-model="editingWorkout.description"
-                :rows="4"
+                :rows="8"
                 autoresize
-                placeholder="Add focus, interval goals, or execution notes..."
+                placeholder="Add context, reminders, travel details, cues, or coaching notes..."
               />
             </UFormField>
-          </section>
+          </div>
 
-          <section
-            class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
-          >
-            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-muted">Metadata</div>
-            <div class="grid gap-4 sm:grid-cols-2">
-              <UFormField label="Type">
-                <USelect v-model="editingWorkout.type" :items="workoutTypeItems" />
+          <div v-else class="space-y-5">
+            <section
+              class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
+            >
+              <div class="text-[10px] font-black uppercase tracking-[0.2em] text-muted">
+                Identity
+              </div>
+              <UFormField label="Workout title" help="This is what appears on the weekly board.">
+                <UInput v-model="editingWorkout.title" placeholder="Tempo builder" />
               </UFormField>
-              <UFormField label="Category">
-                <UInput v-model="editingWorkout.category" placeholder="Workout" />
-              </UFormField>
-            </div>
-          </section>
-
-          <section
-            class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
-          >
-            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-muted">Load</div>
-            <div class="grid gap-4 sm:grid-cols-2">
-              <UFormField label="Minutes">
-                <UInput
-                  v-model.number="editingWorkout.durationMinutes"
-                  type="number"
-                  min="0"
-                  placeholder="60"
+              <UFormField label="Description" help="Optional context or execution notes.">
+                <UTextarea
+                  v-model="editingWorkout.description"
+                  :rows="4"
+                  autoresize
+                  placeholder="Add focus, interval goals, or execution notes..."
                 />
               </UFormField>
-              <UFormField label="TSS">
-                <UInput
-                  v-model.number="editingWorkout.tss"
-                  type="number"
-                  min="0"
-                  placeholder="50"
-                />
-              </UFormField>
-            </div>
-          </section>
+            </section>
+
+            <section
+              class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
+            >
+              <div class="text-[10px] font-black uppercase tracking-[0.2em] text-muted">
+                Metadata
+              </div>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <UFormField label="Type">
+                  <USelect v-model="editingWorkout.type" :items="workoutTypeItems" />
+                </UFormField>
+                <UFormField label="Category">
+                  <UInput v-model="editingWorkout.category" placeholder="Workout" />
+                </UFormField>
+              </div>
+            </section>
+
+            <section
+              class="-mx-4 space-y-4 rounded-none border-y border-default/70 bg-default/70 px-4 py-4 sm:mx-0 sm:rounded-2xl sm:border sm:bg-default sm:p-4"
+            >
+              <div class="text-[10px] font-black uppercase tracking-[0.2em] text-muted">Load</div>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <UFormField label="Minutes">
+                  <UInput
+                    v-model.number="editingWorkout.durationMinutes"
+                    type="number"
+                    min="0"
+                    placeholder="60"
+                  />
+                </UFormField>
+                <UFormField label="TSS">
+                  <UInput
+                    v-model.number="editingWorkout.tss"
+                    type="number"
+                    min="0"
+                    placeholder="50"
+                  />
+                </UFormField>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div
+          v-if="!isEditingNote"
+          class="h-full border-l border-default/40 pl-6 flex flex-col overflow-hidden"
+        >
+          <div
+            class="text-[10px] font-black uppercase tracking-[0.2em] text-muted mb-4 flex-shrink-0"
+          >
+            Workout Structure
+          </div>
+          <div class="flex-1 overflow-y-auto pr-2">
+            <WorkoutStepsEditor
+              :steps="editingWorkout.structuredWorkout?.steps || []"
+              @update:steps="
+                (s) => {
+                  if (!editingWorkout.structuredWorkout)
+                    editingWorkout.structuredWorkout = { schemaVersion: 1, steps: [] }
+                  editingWorkout.structuredWorkout.steps = s
+                }
+              "
+            />
+          </div>
         </div>
       </div>
     </template>
@@ -793,6 +826,8 @@
   import PlanArchitectBoard from '~/components/plans/PlanArchitectBoard.vue'
   import PlanPublicationSettings from '~/components/plans/PlanPublicationSettings.vue'
   import PlanArchitectUtilityPanel from '~/components/plans/PlanArchitectUtilityPanel.vue'
+  import AiWorkoutGeneratorModal from '~/components/activities/AiWorkoutGeneratorModal.vue'
+  import WorkoutStepsEditor from '~/components/workouts/planned/WorkoutStepsEditor.vue'
   import { usePlanArchitect } from '~/composables/usePlanArchitect'
   import { useLibrarySource } from '~/composables/useLibrarySource'
 

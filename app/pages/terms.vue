@@ -21,9 +21,9 @@
           <p>
             These Terms of Service ("Terms") constitute a legally binding agreement between you and
             <strong>Watt Mind Kft.</strong> ("Watt Mind," "we," "us," or "our") governing your
-            access to and use of the Journey Endurance Coaching application and website (the
-            "Service"). By accessing or using the Service, you agree to be bound by these Terms. If
-            you do not agree to these Terms, you must not use the Service.
+            access to and use of the Journey Endurance application and website (the "Service"). By
+            accessing or using the Service, you agree to be bound by these Terms. If you do not
+            agree to these Terms, you must not use the Service.
           </p>
         </div>
 
@@ -33,7 +33,7 @@
           </h3>
           <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 my-2">
             <p class="font-semibold text-yellow-800 dark:text-yellow-200">
-              Journey Endurance Coaching is NOT a doctor, medical service provider, or nutritionist.
+              Journey Endurance is NOT a doctor, medical service provider, or nutritionist.
             </p>
             <p class="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
               The insights, analysis, and coaching advice provided by our AI are for informational
@@ -69,10 +69,10 @@
             3. Description of Service and AI Disclaimer
           </h3>
           <p>
-            Journey Endurance Coaching provides an AI-powered analytics and coaching platform that
-            aggregates data from various third-party fitness applications (e.g., Strava, Whoop,
-            Intervals.icu) to provide personalized training insights. We reserve the right to
-            modify, suspend, or discontinue any part of the Service at any time without notice.
+            Journey Endurance provides an AI-powered analytics and coaching platform that aggregates
+            data from various third-party fitness applications (e.g., Strava, Whoop, Intervals.icu)
+            to provide personalized training insights. We reserve the right to modify, suspend, or
+            discontinue any part of the Service at any time without notice.
           </p>
           <p class="mt-2">
             <strong>Artificial Intelligence Disclaimer:</strong> The Service utilizes artificial
@@ -193,10 +193,10 @@
           <p>
             Your use of the Service is also governed by our Privacy Policy, available at
             <a
-              href="https://coachwatts.com/privacy"
+              href="https://journeyendurance.ca/privacy"
               class="text-primary-600 dark:text-primary-400 hover:underline"
               target="_blank"
-              >https://coachwatts.com/privacy</a
+              >https://journeyendurance.ca/privacy</a
             >.
           </p>
           <p class="mt-2">
@@ -248,7 +248,7 @@
           <p>If you have any questions about these Terms, please contact us at:</p>
           <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
             <p><strong>Watt Mind Kft.</strong></p>
-            <p>Email: support@coachwatts.com</p>
+            <p>Email: support@journeyendurance.ca</p>
           </div>
         </div>
       </div>
@@ -268,7 +268,7 @@
       {
         name: 'description',
         content:
-          'Journey Endurance Coaching Terms of Service. User agreement, medical disclaimer, and liability limitations for Watt Mind Kft. services.'
+          'Journey Endurance Terms of Service. User agreement, medical disclaimer, and liability limitations for Watt Mind Kft. services.'
       }
     ]
   })

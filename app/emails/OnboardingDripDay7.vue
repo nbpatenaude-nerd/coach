@@ -23,8 +23,8 @@
       utmQuery?: string
     }>(),
     {
-      siteUrl: 'https://coachwatts.com',
-      logoUrl: 'https://coachwatts.com/icon.png'
+      siteUrl: 'https://journeyendurance.ca',
+      logoUrl: 'https://journeyendurance.ca/icon.png'
     }
   )
 </script>
@@ -43,7 +43,7 @@
         font-style="normal"
       />
     </EHead>
-    <EPreview>How was your first week with Journey Endurance Coaching Platform?</EPreview>
+    <EPreview>How was your first week with Journey Endurance?</EPreview>
     <EBody
       style="
         background-color: #f4f4f5;
@@ -77,7 +77,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Journey Endurance Coaching Platform"
+              alt="Journey Endurance"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -99,9 +99,8 @@
             Hi {{ name || 'Athlete' }},
           </EText>
           <EText style="font-size: 15px; line-height: 1.6; color: #71717a; margin-bottom: 20px">
-            You've been with Journey Endurance Coaching Platform for one week! Check out your
-            updated athlete profile, fitness trends, and personalized recommendations on your
-            dashboard.
+            You've been with Journey Endurance for one week! Check out your updated athlete profile,
+            fitness trends, and personalized recommendations on your dashboard.
           </EText>
           <div style="text-align: center; margin-bottom: 24px">
             <EButton
@@ -125,10 +124,10 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Journey Endurance Coaching Platform
+            Journey Endurance
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0 0 12px">
-            Real coaching and community, powered by an AI assistant that adapts to your life.
+            AI-powered endurance coaching that adapts to you.
           </EText>
           <EText v-if="unsubscribeUrl" style="font-size: 12px; color: #a1a1aa; margin: 0">
             Don't want these emails?

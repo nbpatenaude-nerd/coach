@@ -34,13 +34,12 @@ export default defineEventHandler(async (event) => {
 
     // Trigger AI analysis asynchronously if Intervals is connected
     if (user.intervalsApiKey && user.intervalsAthleteId) {
-      fetch(`http://localhost:${process.env.PORT || 3000}/api/ai/analyze-athlete`, {
+      $fetch('/api/ai/analyze-athlete' as any, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           cookie: event.node.req.headers.cookie || '' // Forward auth cookie
         },
-        body: JSON.stringify({ checkInId: checkIn.id })
+        body: { checkInId: checkIn.id }
       }).catch((err) => console.error('Async analyze-athlete failed:', err))
     }
 

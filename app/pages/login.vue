@@ -9,9 +9,7 @@
         <aside
           class="relative hidden flex-col justify-center border-r border-white/8 p-10 lg:col-span-5 lg:flex lg:p-12"
         >
-          <p class="text-xs font-bold uppercase tracking-widest text-primary-400">
-            Journey Endurance Coaching
-          </p>
+          <p class="text-xs font-bold uppercase tracking-widest text-primary-400">Journey Endurance</p>
           <h2
             class="font-athletic mt-6 text-3xl font-bold uppercase leading-[0.95] tracking-tight text-white"
           >
@@ -44,51 +42,6 @@
             <p class="mt-4 text-base font-medium text-gray-400 sm:text-lg">
               {{ t('login.form_subtitle') }}
             </p>
-
-            <form class="mt-8 space-y-4" @submit.prevent="handleCredentialsLogin">
-              <div>
-                <UInput
-                  v-model="email"
-                  type="email"
-                  placeholder="Email"
-                  required
-                  class="w-full"
-                  size="xl"
-                />
-              </div>
-              <div>
-                <UInput
-                  v-model="password"
-                  type="password"
-                  placeholder="Password"
-                  required
-                  class="w-full"
-                  size="xl"
-                />
-              </div>
-              <UButton
-                type="submit"
-                block
-                size="xl"
-                color="primary"
-                variant="solid"
-                class="h-14 min-w-full rounded-xl text-xs font-bold uppercase tracking-[0.15em]"
-                :loading="loadingCredentials || isInitializing"
-              >
-                Sign In with Email
-              </UButton>
-            </form>
-
-            <div class="mt-4 text-center">
-              <NuxtLink
-                to="/auth/forgot-password"
-                class="text-sm font-medium text-gray-400 hover:text-white transition-colors"
-              >
-                Legacy Athlete? Forgot your password? Click here to claim your account.
-              </NuxtLink>
-            </div>
-
-            <UDivider class="mt-8" label="OR" />
 
             <div class="mt-8 space-y-3">
               <UButton
@@ -143,6 +96,25 @@
                   <UIcon name="i-simple-icons-strava" class="h-5 w-5 text-[#FC4C02]" />
                 </template>
                 {{ isInitializing ? t('login.connecting') : t('login.strava') }}
+              </UButton>
+
+              <UButton
+                block
+                size="xl"
+                color="neutral"
+                variant="outline"
+                class="h-14 min-w-full rounded-xl border-white/10 text-xs font-bold uppercase tracking-[0.12em]"
+                :loading="loadingIntervals || isInitializing"
+                @click="
+                  () => {
+                    void handleIntervalsLogin()
+                  }
+                "
+              >
+                <template #leading>
+                  <img src="/images/logos/intervals.png" alt="" class="h-5 w-5" />
+                </template>
+                {{ isInitializing ? t('login.connecting') : t('login.intervals') }}
               </UButton>
             </div>
 
@@ -227,11 +199,7 @@
   const loadingApple = ref(false)
   const loadingStrava = ref(false)
   const loadingIntervals = ref(false)
-  const loadingCredentials = ref(false)
   const isInitializing = ref(false)
-
-  const email = ref('')
-  const password = ref('')
 
   async function handleAppleLogin() {
     trackLogin('apple')
@@ -284,20 +252,20 @@
     }
   }
 
-  async function handleCredentialsLogin() {
-    trackLogin('credentials')
+  async function handleIntervalsLogin() {
+    trackLogin('intervals')
     isInitializing.value = true
-    loadingCredentials.value = true
+    loadingIntervals.value = true
     try {
-      await signIn('credentials', { email: email.value, password: password.value, callbackUrl })
+      await signIn('intervals', { callbackUrl })
     } catch (error: any) {
       toast.add({
         title: t.value('login.error_title'),
-        description: error.message || 'Invalid email or password',
+        description: error.message || t.value('login.error_intervals'),
         color: 'error'
       })
       isInitializing.value = false
-      loadingCredentials.value = false
+      loadingIntervals.value = false
     }
   }
 </script>

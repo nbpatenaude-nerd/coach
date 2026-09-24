@@ -104,7 +104,7 @@
 
           <!-- Dashboard Grid -->
           <template v-else>
-            <div class="p-0 sm:p-6 pt-0! space-y-4 sm:space-y-8">
+            <div class="p-0 sm:p-6 !pt-0 space-y-4 sm:space-y-8">
               <DashboardSetupProgressCard
                 v-if="showCompactSetupCard && onboardingStatus"
                 :status="onboardingStatus"
@@ -112,9 +112,6 @@
                 @complete="handleCompleteSetup"
                 @dismiss="handleCompleteSetup"
               />
-
-              <!-- Weekly Check-In (For All Athletes) -->
-              <DashboardCheckIn />
 
               <!-- Garmin Attribution -->
               <div v-if="isGarminConnected" class="flex justify-end px-4 sm:px-0">
@@ -213,40 +210,6 @@
                 :missing-fields="missingFields"
               />
 
-              <!-- Free Tier Upgrades -->
-              <div v-if="isFree" class="grid gap-4 mb-4 sm:mb-8">
-                <UAlert
-                  icon="i-heroicons-lock-closed"
-                  color="primary"
-                  variant="subtle"
-                  title="Unleash the Journey Endurance AI Assistant"
-                  description="Upgrade your account to get the AI Exercise Physiologist and deeper physiological insights."
-                />
-                <UCard>
-                  <h3 class="font-bold">12-Week Intro Plan</h3>
-                  <p class="text-gray-500 text-sm">Your free plan is active.</p>
-                </UCard>
-              </div>
-
-              <!-- Row: Coach Interaction (Feedback) -->
-              <div class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2">
-                <!-- "Ask Coach" launcher -->
-                <DashboardCoachFeedback />
-              </div>
-
-              <div class="grid grid-cols-1 gap-4 sm:gap-8 items-start mb-4 sm:mb-8 lg:grid-cols-2">
-                <UCard>
-                  <h3 class="font-bold mb-1">Active Recovery Context</h3>
-                  <p class="text-sm text-gray-500">
-                    Recovery algorithms are analyzing your sleep data.
-                  </p>
-                </UCard>
-                <UCard>
-                  <h3 class="font-bold mb-1">Glycogen Fuel Tank</h3>
-                  <p class="text-sm text-gray-500">Fuel status optimal.</p>
-                </UCard>
-              </div>
-
               <!-- Row 1: Athlete Profile / Today's Training / Performance Overview & Comparison -->
               <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8 items-stretch">
                 <!-- Athlete Profile Card - shown when connected -->
@@ -268,16 +231,9 @@
                   <!-- Performance Overview Card -->
                   <DashboardPerformanceScoresCard
                     ref="performanceScoresCard"
-                    @open-score="openScoreModal"
+                    @open-score-modal="openScoreModal"
+                    @open-training-load="openTrainingLoadModal"
                   />
-                  <UCard class="mt-4">
-                    <h3 class="font-bold mb-1">Telemetry Radar</h3>
-                    <p class="text-sm text-gray-500">ACWR, EF, Biomechanical Risk</p>
-                  </UCard>
-                  <UCard class="mt-4">
-                    <h3 class="font-bold mb-1">Live Energy Availability</h3>
-                    <p class="text-sm text-gray-500">Tracking calorie deficit.</p>
-                  </UCard>
                 </div>
               </div>
 
@@ -511,8 +467,11 @@
   <!-- Daily Check-in Modal -->
   <DashboardDailyCheckinModal v-model:open="showCheckinModal" />
 
-  <!-- Share Journey Modal -->
-  <DashboardShareCoachWattsModal v-model:open="showShareCoachWattsModal" />
+  <!-- Weekly Check-in Modal -->
+  <DashboardWeeklyCheckIn v-model:open="showWeeklyCheckinModal" />
+
+  <!-- Share Journey Endurance Modal -->
+  <DashboardShareJourneyModal v-model:open="showShareJourneyModal" />
 
   <DashboardTrialEndedModal />
 </template>
@@ -527,10 +486,10 @@
   } from '~/utils/activity-types'
   import { getCalendarActivities } from '~/utils/calendar'
   import { showDashboardProgressToast } from '~/utils/dashboard-progress-toast'
+  import DashboardTrialEndedModal from '~/components/dashboard/TrialEndedModal.vue'
 
   const { t } = useTranslate('dashboard')
   const { trackWidgetClick } = useAnalytics()
-  const { isFree } = useNavigation()
 
   const { formatDate, formatDateUTC, getUserLocalDate } = useFormat()
 
@@ -893,15 +852,24 @@
     showCheckinModal.value = true
   }
 
+  // Weekly Check-in Modal (sidebar → focus=weekly-checkin)
+  const showWeeklyCheckinModal = ref(false)
+  function openWeeklyCheckinModal() {
+    trackWidgetClick('dashboard', 'open_weekly_checkin')
+    showWeeklyCheckinModal.value = true
+  }
+
   watch(
     () => route.query.focus,
     async (focus) => {
-      if (focus !== 'checkin' && focus !== 'wellness') return
+      if (focus !== 'checkin' && focus !== 'wellness' && focus !== 'weekly-checkin') return
 
       if (focus === 'checkin') {
         openCheckinModal()
-      } else {
+      } else if (focus === 'wellness') {
         openWellnessModal()
+      } else {
+        openWeeklyCheckinModal()
       }
 
       const nextQuery = { ...route.query }
@@ -911,8 +879,8 @@
     { immediate: true }
   )
 
-  // Share Journey Modal
-  const showShareCoachWattsModal = ref(false)
+  // Share Journey Endurance modal
+  const showShareJourneyModal = ref(false)
   const { openReleaseModal } = useReleaseNotes()
   const { toggle: toggleTriggerMonitor } = useTriggerMonitor()
 
@@ -927,7 +895,7 @@
         label: t.value('share_footer_button'),
         icon: 'i-lucide-heart',
         onSelect: () => {
-          showShareCoachWattsModal.value = true
+          showShareJourneyModal.value = true
         }
       },
       {
@@ -965,13 +933,13 @@
       {
         name: 'description',
         content:
-          'Your training overview, recovery status, and personalized AI-assisted recommendations to keep you on track.'
+          'Your training overview, recovery status, and personalized AI coaching recommendations.'
       },
-      { property: 'og:title', content: 'Dashboard | Journey Endurance Coaching' },
+      { property: 'og:title', content: 'Dashboard | Journey Endurance' },
       {
         property: 'og:description',
         content:
-          'Your training overview, recovery status, and personalized AI-assisted recommendations to keep you on track.'
+          'Your training overview, recovery status, and personalized AI coaching recommendations.'
       }
     ]
   })

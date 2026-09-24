@@ -12,7 +12,7 @@
   })
 
   useHead({
-    title: 'Workout Comparison | Journey Endurance Coaching',
+    title: 'Workout Comparison | Journey Endurance',
     meta: [
       {
         name: 'description',

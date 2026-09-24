@@ -11,7 +11,7 @@ import type { QuotaStatus } from '~~/app/types/quotas'
 import { getUserTimezone, getStartOfDayUTC, getEndOfDayUTC } from '../date'
 import { resolveEffectiveTier } from '../../../shared/effective-tier'
 import { getActivePromotionalGrant } from '../partner-campaigns'
-import { Prisma  } from '../generated-prisma/client'
+import { Prisma } from '../generated-prisma/client'
 
 async function resolveEffectiveTierForUser(userId: string): Promise<SubscriptionTier | null> {
   const user = await prisma.user.findUnique({

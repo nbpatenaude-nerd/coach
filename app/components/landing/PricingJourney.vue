@@ -1,199 +1,292 @@
 <template>
-  <section class="py-24 relative z-10">
+  <section id="pricing" class="py-24 relative z-10">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="font-athletic text-4xl sm:text-5xl font-bold uppercase text-white mb-6">
-          Invest in your
-          <span class="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-teal-400"
-            >Journey</span
+      <div class="text-center max-w-3xl mx-auto mb-20">
+        <h2
+          class="font-athletic text-4xl sm:text-6xl font-bold uppercase text-white mb-6 tracking-wide drop-shadow-sm"
+        >
+          The Journey
+          <span class="text-transparent bg-clip-text bg-linear-to-r from-slate-200 to-slate-400"
+            >Ecosystem</span
           >
         </h2>
-        <p class="text-lg text-slate-300">
-          Transparent pricing. No hidden fees. Select the coaching package that fits your goals and
-          commitment level.
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+          From community support to elite telemetry and performance analysis. Select the coaching
+          module that fits your commitment level.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         <!-- Tier 1: UNCOVER -->
         <div
-          class="pricing-card bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-700 p-8 flex flex-col transition-all duration-300 hover:border-slate-500 shadow-sm group relative overflow-hidden"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/40 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] shadow-xl group relative overflow-hidden"
         >
           <div
-            class="absolute inset-0 bg-linear-to-b from-cyan-400/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity z-0"
-          ></div>
-          <div
-            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
-                600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(34, 211, 238, 0.1),
+                1000px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(200, 220, 240, 0.02),
                 transparent 40%
               );
+              mix-blend-mode: screen;
             "
           ></div>
-          <div class="mb-6 relative z-10">
-            <span class="text-cyan-400 font-semibold text-sm uppercase tracking-wide"
-              >Foundational</span
-            >
-            <div class="mt-4 flex items-baseline gap-2 mb-2">
-              <span class="text-4xl font-bold text-white">$200</span>
-              <span class="text-slate-400">/mo</span>
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"
+            style="
+              background: radial-gradient(
+                400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(255, 255, 255, 0.01),
+                transparent 50%
+              );
+              mix-blend-mode: overlay;
+            "
+          ></div>
+
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-6">
+              <span class="text-slate-400 font-bold text-xs tracking-[0.2em] font-mono"
+                >TIER 01</span
+              >
+              <span
+                class="text-xs text-slate-400 border border-slate-700/50 rounded-full px-3 py-1 bg-slate-800/30"
+                >FOUNDATIONAL</span
+              >
             </div>
-            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">UNCOVER</h3>
-            <p class="text-sm text-slate-400">
-              Perfect for athletes looking for structured programming and community support.
+
+            <h3
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+              style="
+                font-family:
+                  system-ui,
+                  -apple-system,
+                  sans-serif;
+                font-stretch: expanded;
+              "
+            >
+              UNCOVER
+            </h3>
+            <div class="flex items-baseline gap-2 mb-6">
+              <span class="text-2xl font-bold text-slate-200"></span
+              ><span class="text-sm text-slate-500">/mo</span>
+            </div>
+
+            <p class="text-sm text-slate-400 leading-relaxed mb-10">
+              Perfect for athletes looking for structured programming and community support. Get the
+              baseline you need to succeed.
             </p>
+
+            <div class="flex flex-col gap-4 mb-12 text-sm grow">
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Focus</span
+                >
+                <span class="text-slate-300">Structured Team Program</span>
+              </div>
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Support</span
+                >
+                <span class="text-slate-300">Weekly Check-In & Group Q&A</span>
+              </div>
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Tools</span
+                >
+                <span class="text-slate-300">Team Dashboard Access</span>
+              </div>
+            </div>
+
+            <UButton
+              block
+              size="xl"
+              class="rounded-full bg-slate-800 text-slate-200 font-bold border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest py-4 mt-auto"
+              @click="startUncover"
+              >Start Uncover &rarr;</UButton
+            >
           </div>
-          <ul class="space-y-4 mb-8 grow relative z-10">
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Team Program</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Weekly Check-In</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Team Dashboard</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-cyan-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Group Q&A</span>
-            </li>
-          </ul>
-          <UButton
-            block
-            size="xl"
-            variant="outline"
-            color="neutral"
-            class="text-white border-slate-600 hover:bg-slate-800 font-bold uppercase bg-slate-900/50 relative z-10"
-          >
-            Start Uncover
-          </UButton>
         </div>
 
-        <!-- Tier 2: UNLOCK (Highlighted) -->
+        <!-- Tier 2: UNLOCK -->
         <div
-          class="pricing-card bg-slate-900 rounded-3xl border-2 border-pink-500 p-8 flex flex-col relative transform md:-translate-y-4 shadow-[0_0_30px_rgba(236,72,153,0.15)] group z-20"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-cyan-900/40 p-8 flex flex-col transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_50px_rgba(0,0,0,0.4)] hover:border-cyan-700/50 group relative overflow-hidden md:-translate-y-4"
         >
-          <div class="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-0">
-            <div
-              class="absolute inset-0 bg-linear-to-b from-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-            ></div>
-            <div
-              class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              style="
-                background: radial-gradient(
-                  600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                  rgba(236, 72, 153, 0.15),
-                  transparent 40%
-                );
-              "
-            ></div>
-          </div>
-          <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-            <span
-              class="bg-pink-500 text-white text-xs font-bold uppercase tracking-widest py-1 px-3 rounded-full"
-              >Most Popular</span
-            >
-          </div>
-          <div class="mb-6 relative z-10">
-            <span class="text-pink-400 font-semibold text-sm uppercase tracking-wide"
-              >Custom Coaching</span
-            >
-            <div class="mt-4 flex items-baseline gap-2 mb-2">
-              <span class="text-4xl font-bold text-white">$350</span>
-              <span class="text-slate-400">/mo</span>
+          <div
+            class="absolute inset-0 opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
+            style="
+              background: radial-gradient(
+                1000px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(186, 230, 253, 0.02),
+                transparent 50%
+              );
+              mix-blend-mode: screen;
+            "
+          ></div>
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"
+            style="
+              background: radial-gradient(
+                500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(255, 255, 255, 0.02),
+                transparent 50%
+              );
+              mix-blend-mode: overlay;
+            "
+          ></div>
+
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-6">
+              <span class="text-cyan-500/70 font-bold text-xs tracking-[0.2em] font-mono"
+                >TIER 02</span
+              >
+              <span
+                class="text-xs text-cyan-500/70 border border-cyan-800/50 rounded-full px-3 py-1 bg-cyan-900/20"
+                >MOST POPULAR</span
+              >
             </div>
-            <h3 class="text-xl font-bold text-pink-400 mb-2 uppercase tracking-wide">UNLOCK</h3>
-            <p class="text-sm text-slate-400">
-              Comprehensive daily coaching, data analysis, and direct access to your coach.
+
+            <h3
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+              style="
+                font-family:
+                  system-ui,
+                  -apple-system,
+                  sans-serif;
+                font-stretch: expanded;
+              "
+            >
+              UNLOCK
+            </h3>
+            <div class="flex items-baseline gap-2 mb-6">
+              <span class="text-2xl font-bold text-cyan-50">Apply to Join</span>
+            </div>
+
+            <p class="text-sm text-slate-300 leading-relaxed mb-10">
+              Comprehensive daily coaching, deep data analysis, and direct access to your dedicated
+              AI and human coach.
             </p>
+
+            <div class="flex flex-col gap-4 mb-12 text-sm grow">
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Focus</span
+                >
+                <span class="text-slate-200">Individualized Training Plan</span>
+              </div>
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Support</span
+                >
+                <span class="text-slate-200">1:1 Coach & Daily AI Chat</span>
+              </div>
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-cyan-600/70 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Tools</span
+                >
+                <span class="text-slate-200">AI Analysis & Fuel Tracking</span>
+              </div>
+            </div>
+
+            <UButton
+              to="/apply/unlock"
+              block
+              size="xl"
+              class="rounded-full bg-slate-800 text-cyan-100 font-bold border border-cyan-900/50 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest py-4 mt-auto"
+            >
+              Apply for Unlock &rarr;
+            </UButton>
           </div>
-          <ul class="space-y-4 mb-8 grow relative z-10">
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-pink-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Custom 1:1 Coaching</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-pink-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Daily Check-In & AI Chat</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-pink-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Daily Digital Twin AI</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-pink-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Glycogen Fuel Tank</span>
-            </li>
-          </ul>
-          <UButton
-            block
-            size="xl"
-            class="bg-pink-500 hover:bg-pink-400 text-white font-bold uppercase shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-all relative z-10"
-          >
-            Apply for Unlock
-          </UButton>
         </div>
 
         <!-- Tier 3: UNLEASH -->
         <div
-          class="pricing-card bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-700 p-8 flex flex-col transition-all duration-300 hover:border-slate-500 shadow-sm group relative overflow-hidden"
+          class="pricing-card bg-[rgba(15,20,30,0.6)] backdrop-blur-2xl rounded-[2rem] border border-slate-700/40 p-8 flex flex-col transition-all duration-700 hover:border-slate-500/50 hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] shadow-xl group relative overflow-hidden"
         >
           <div
-            class="absolute inset-0 bg-linear-to-b from-purple-500/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity z-0"
-          ></div>
-          <div
-            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0"
             style="
               background: radial-gradient(
-                600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(168, 85, 247, 0.1),
+                1000px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(200, 220, 240, 0.02),
                 transparent 40%
               );
+              mix-blend-mode: screen;
             "
           ></div>
-          <div class="mb-6 relative z-10">
-            <span class="text-purple-400 font-semibold text-sm uppercase tracking-wide">Elite</span>
-            <div class="mt-4 flex items-baseline gap-2 mb-2">
-              <span class="text-4xl font-bold text-white">$550</span>
-              <span class="text-slate-400">/mo</span>
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0"
+            style="
+              background: radial-gradient(
+                400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(255, 255, 255, 0.01),
+                transparent 50%
+              );
+              mix-blend-mode: overlay;
+            "
+          ></div>
+
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="flex items-center gap-4 mb-6">
+              <span class="text-slate-400 font-bold text-xs tracking-[0.2em] font-mono"
+                >TIER 03</span
+              >
+              <span
+                class="text-xs text-slate-400 border border-slate-700/50 rounded-full px-3 py-1 bg-slate-800/30"
+                >APPLICATION ONLY</span
+              >
             </div>
-            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">UNLEASH</h3>
-            <p class="text-sm text-slate-400">
-              For those pushing the absolute limits of human endurance.
+
+            <h3
+              class="font-black text-4xl sm:text-5xl text-white mb-2 tracking-wide uppercase transition-all duration-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+              style="
+                font-family:
+                  system-ui,
+                  -apple-system,
+                  sans-serif;
+                font-stretch: expanded;
+              "
+            >
+              UNLEASH
+            </h3>
+            <div class="flex items-baseline gap-2 mb-6">
+              <span class="text-2xl font-bold text-slate-200">Waitlist</span>
+            </div>
+
+            <p class="text-sm text-slate-400 leading-relaxed mb-10">
+              For those pushing the absolute limits of human endurance. Elite performance
+              monitoring.
             </p>
+
+            <div class="flex flex-col gap-4 mb-12 text-sm grow">
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Focus</span
+                >
+                <span class="text-slate-300">Advanced Performance Metrics</span>
+              </div>
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Support</span
+                >
+                <span class="text-slate-300">Advanced Coach Analysis and Race Briefings</span>
+              </div>
+              <div class="grid grid-cols-[100px_1fr] items-start">
+                <span class="text-slate-500 tracking-widest text-[10px] font-bold uppercase mt-1"
+                  >Tools</span
+                >
+                <span class="text-slate-300">Live Telemetry & Energy Sync</span>
+              </div>
+            </div>
+
+            <UButton
+              to="/apply/unleash"
+              block
+              size="xl"
+              class="rounded-full bg-slate-800/50 text-slate-300 font-bold border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300 uppercase tracking-widest py-4 mt-auto"
+              >Apply for Unleash &rarr;
+            </UButton>
           </div>
-          <ul class="space-y-4 mb-8 grow relative z-10">
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-purple-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Elite Telemetry</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-purple-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Live Energy Availability</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-purple-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Performance Scores</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-purple-400 shrink-0" />
-              <span class="text-slate-300 text-sm">Executive AI Reports</span>
-            </li>
-          </ul>
-          <UButton
-            block
-            size="xl"
-            variant="outline"
-            color="neutral"
-            class="text-white border-slate-600 hover:bg-slate-800 font-bold uppercase bg-slate-900/50 relative z-10"
-          >
-            Apply for Unleash
-          </UButton>
         </div>
       </div>
     </div>
@@ -202,6 +295,15 @@
 
 <script setup lang="ts">
   import { onMounted, onUnmounted } from 'vue'
+  import { useStripe } from '~/composables/useStripe'
+  const config = useRuntimeConfig()
+  const { createCheckoutSession } = useStripe()
+
+  const startUncover = () => {
+    if (config.public.stripeUncover1PhasePriceId) {
+      createCheckoutSession(config.public.stripeUncover1PhasePriceId as string)
+    }
+  }
 
   const handleMouseMove = (e: MouseEvent) => {
     if (typeof document === 'undefined') return
@@ -210,8 +312,8 @@
       const rect = card.getBoundingClientRect()
       const x = e.clientX - rect.left
       const y = e.clientY - rect.top
-      ;(card as HTMLElement).style.setProperty('--mouse-x', `${x}px`)
-      ;(card as HTMLElement).style.setProperty('--mouse-y', `${y}px`)
+      ;(card as HTMLElement).style.setProperty('--mouse-x', x + 'px')
+      ;(card as HTMLElement).style.setProperty('--mouse-y', y + 'px')
     }
   }
 
@@ -227,3 +329,10 @@
     }
   })
 </script>
+
+<style scoped>
+  .font-athletic {
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+</style>

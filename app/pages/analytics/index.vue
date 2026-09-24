@@ -9,7 +9,7 @@
   })
 
   useHead({
-    title: 'Analytics | Journey Endurance Coaching',
+    title: 'Analytics | Journey Endurance',
     meta: [
       {
         name: 'description',

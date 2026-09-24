@@ -1,4 +1,5 @@
-import type { EmailAudience } from './generated-prisma/client'
+import type { EmailAudience } from '@prisma/client'
+
 export type EmailPreferenceKey =
   | 'onboarding'
   | 'workoutAnalysis'
@@ -25,12 +26,12 @@ export interface EmailTemplateDefinition {
 export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = {
   Welcome: {
     templateKey: 'Welcome',
-    defaultSubject: 'Welcome to Journey Endurance Coaching!',
-    audience: 'ENGAGEMENT',
-    preferenceKey: 'onboarding',
+    defaultSubject: 'Welcome to Journey Endurance!',
+    audience: 'TRANSACTIONAL',
+    preferenceKey: null,
     requiredProps: [],
     utmCampaign: 'welcome_onboarding',
-    utmMedium: 'lifecycle'
+    utmMedium: 'transactional'
   },
   WorkoutReceived: {
     templateKey: 'WorkoutReceived',
@@ -78,7 +79,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   SubscriptionStarted: {
     templateKey: 'SubscriptionStarted',
-    defaultSubject: 'Welcome to Journey Endurance Coaching Pro!',
+    defaultSubject: 'Welcome to Journey Endurance Pro!',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
     requiredProps: ['tier'],
@@ -87,7 +88,7 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   AccountDeletionScheduled: {
     templateKey: 'AccountDeletionScheduled',
-    defaultSubject: 'Your Journey Endurance Coaching account deletion has been scheduled',
+    defaultSubject: 'Your Journey Endurance account deletion has been scheduled',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
     requiredProps: ['initiatedBy', 'requestedAt'],
@@ -96,28 +97,95 @@ export const EMAIL_TEMPLATE_REGISTRY: Record<string, EmailTemplateDefinition> = 
   },
   TrialEndingSoon: {
     templateKey: 'TrialEndingSoon',
-    defaultSubject: 'Your Journey Endurance Coaching performance trial ends soon',
+    defaultSubject: 'Your Journey Endurance performance trial ends soon',
     audience: 'ENGAGEMENT',
     preferenceKey: 'retentionNudges',
     requiredProps: ['trialEndsAt', 'pricingUrl'],
     utmCampaign: 'trial_ending_soon',
     utmMedium: 'lifecycle'
   },
-  ManualReviewRequired: {
-    templateKey: 'ManualReviewRequired',
-    defaultSubject: 'Manual Review Required: Athlete Morning Check-In',
+  WeeklyCheckInReminder: {
+    templateKey: 'WeeklyCheckInReminder',
+    defaultSubject: 'Your weekly check-in is open',
+    audience: 'ENGAGEMENT',
+    preferenceKey: 'planUpdates',
+    requiredProps: ['dayLabel', 'deadlineHint', 'checkInUrl'],
+    utmCampaign: 'weekly_check_in_reminder',
+    utmMedium: 'engagement',
+    throttleGroup: 'WEEKLY_CHECK_IN_REMINDER',
+    cooldownHours: 20
+  },
+  PaymentFailed: {
+    templateKey: 'PaymentFailed',
+    defaultSubject: 'Action Required: Payment failed for your Journey Endurance subscription',
+    audience: 'TRANSACTIONAL',
+    preferenceKey: 'billing',
+    requiredProps: [],
+    utmCampaign: 'payment_failed',
+    utmMedium: 'transactional'
+  },
+  PaymentSucceeded: {
+    templateKey: 'PaymentSucceeded',
+    defaultSubject: 'Receipt for your Journey Endurance subscription payment',
+    audience: 'TRANSACTIONAL',
+    preferenceKey: 'billing',
+    requiredProps: [],
+    utmCampaign: 'payment_succeeded',
+    utmMedium: 'transactional'
+  },
+  SubscriptionCanceled: {
+    templateKey: 'SubscriptionCanceled',
+    defaultSubject: 'Your Journey Endurance subscription has been canceled',
+    audience: 'TRANSACTIONAL',
+    preferenceKey: 'billing',
+    requiredProps: [],
+    utmCampaign: 'subscription_canceled',
+    utmMedium: 'transactional'
+  },
+  CoachInvite: {
+    templateKey: 'CoachInvite',
+    defaultSubject: 'You have been invited to Journey Endurance',
     audience: 'TRANSACTIONAL',
     preferenceKey: null,
-    requiredProps: [
-      'coachEmail',
-      'coachName',
-      'athleteEmail',
-      'reasoning',
-      'adjustmentPercentage',
-      'checkinDate'
-    ],
-    utmCampaign: 'manual_review_required',
+    requiredProps: ['coachName', 'joinUrl', 'code'],
+    utmCampaign: 'coach_invite',
     utmMedium: 'transactional'
+  },
+  TeamInvite: {
+    templateKey: 'TeamInvite',
+    defaultSubject: 'You have been invited to join a team on Journey Endurance',
+    audience: 'TRANSACTIONAL',
+    preferenceKey: null,
+    requiredProps: ['teamName', 'joinUrl', 'code'],
+    utmCampaign: 'team_invite',
+    utmMedium: 'transactional'
+  },
+  MarketingBroadcast: {
+    templateKey: 'MarketingBroadcast',
+    defaultSubject: 'Journey Endurance Update',
+    audience: 'MARKETING',
+    preferenceKey: 'marketing',
+    requiredProps: ['headline', 'bodyContent'],
+    utmCampaign: 'product_announcement',
+    utmMedium: 'marketing'
+  },
+  OnboardingDripDay2: {
+    templateKey: 'OnboardingDripDay2',
+    defaultSubject: 'Connect your training apps to unlock Journey Endurance',
+    audience: 'ENGAGEMENT',
+    preferenceKey: 'onboarding',
+    requiredProps: [],
+    utmCampaign: 'onboarding_drip_day2',
+    utmMedium: 'lifecycle'
+  },
+  OnboardingDripDay7: {
+    templateKey: 'OnboardingDripDay7',
+    defaultSubject: 'How was your first week with Journey Endurance?',
+    audience: 'ENGAGEMENT',
+    preferenceKey: 'onboarding',
+    requiredProps: [],
+    utmCampaign: 'onboarding_drip_day7',
+    utmMedium: 'lifecycle'
   }
 }
 

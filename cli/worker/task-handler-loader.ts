@@ -167,7 +167,8 @@ async function loadTriggerModules() {
     import('../../trigger/sentry-error-test'),
     import('../../trigger/suggest-goals'),
     import('../../trigger/summarize-chat'),
-    import('../../trigger/trial-ending-reminder')
+    import('../../trigger/trial-ending-reminder'),
+    import('../../trigger/weekly-check-in-reminder')
   ])
 
   for (const manifest of resourceCatalog.listTaskManifests()) {

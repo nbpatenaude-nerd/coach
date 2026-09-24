@@ -12,12 +12,25 @@
           >
             Share Images
           </p>
-          <div
-            v-if="loading"
-            class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
-          >
-            <UIcon name="i-heroicons-arrow-path" class="h-4 w-4 animate-spin" />
-            Refreshing link
+          <div class="flex items-center gap-2">
+            <div
+              v-if="loading"
+              class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400"
+            >
+              <UIcon name="i-heroicons-arrow-path" class="h-4 w-4 animate-spin" />
+              Refreshing link
+            </div>
+            <UButton
+              v-if="customizeTo"
+              size="xs"
+              color="primary"
+              variant="soft"
+              icon="i-heroicons-paint-brush"
+              :to="customizeTo"
+              @click="emit('customize')"
+            >
+              Customize
+            </UButton>
           </div>
         </div>
 
@@ -204,6 +217,8 @@
     shareTitle: string
     expiryValue: string
     mode?: 'generated' | 'static'
+    /** When set, shows Customize linking to the share composer. */
+    workoutId?: string | null
   }
 
   const props = defineProps<Props>()
@@ -212,6 +227,7 @@
     generate: [payload?: { expiresIn?: number | null; forceNew?: boolean }]
     copy: []
     networkClick: [network: string]
+    customize: []
     'update:expiryValue': [value: string]
   }>()
 
@@ -227,76 +243,51 @@
   const networks = ['x', 'facebook', 'linkedin', 'reddit', 'whatsapp', 'telegram', 'email']
   const isGeneratedMode = computed(() => props.mode !== 'static')
   const isWorkoutShare = computed(() => props.resourceLabel === 'workout')
+  const customizeTo = computed(() =>
+    props.workoutId ? `/workouts/${props.workoutId}/share` : null
+  )
   const shareToken = computed(() => {
     if (!props.link) return ''
 
     const parts = props.link.split('/').filter(Boolean)
     return parts[parts.length - 1] || ''
   })
+
+  // Quick-share presets with Journey Endurance lockup branding.
   const imageVariants = computed(() => {
     if (!isWorkoutShare.value || !shareToken.value) return []
+
+    const checkerboard =
+      'bg-[linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6),linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6)] bg-[length:24px_24px] bg-[position:0_0,12px_12px] dark:bg-[linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06)),linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06))] dark:bg-[length:24px_24px] dark:bg-[position:0_0,12px_12px]'
 
     return [
       {
         id: 'default',
-        label: 'Standard',
-        previewUrl: buildImageUrl({ variant: 'default', style: 'map' }),
+        label: 'Story',
+        previewUrl: buildImageUrl({ variant: 'default', style: 'map', ratio: 'story' }),
         previewClass: ''
       },
       {
-        id: 'flat',
-        label: 'Flat',
-        previewUrl: buildImageUrl({ variant: 'flat', style: 'map' }),
+        id: 'square',
+        label: 'Square',
+        previewUrl: buildImageUrl({ variant: 'default', style: 'map', ratio: 'square' }),
         previewClass: ''
-      },
-      {
-        id: 'transparent',
-        label: 'Transparent',
-        previewUrl: buildImageUrl({ variant: 'transparent', style: 'map' }),
-        previewClass:
-          'bg-[linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6),linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6)] bg-[length:24px_24px] bg-[position:0_0,12px_12px] dark:bg-[linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06)),linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06))] dark:bg-[length:24px_24px] dark:bg-[position:0_0,12px_12px]'
       },
       {
         id: 'poster',
         label: 'Poster',
-        previewUrl: buildImageUrl({ variant: 'default', style: 'poster' }),
+        previewUrl: buildImageUrl({ variant: 'default', style: 'poster', ratio: 'story' }),
         previewClass: ''
       },
       {
-        id: 'poster-transparent',
-        label: 'Poster Clear',
-        previewUrl: buildImageUrl({ variant: 'transparent', style: 'poster' }),
-        previewClass:
-          'bg-[linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6),linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6)] bg-[length:24px_24px] bg-[position:0_0,12px_12px] dark:bg-[linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06)),linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06))] dark:bg-[length:24px_24px] dark:bg-[position:0_0,12px_12px]'
-      },
-      {
-        id: 'crest',
-        label: 'Crest',
-        previewUrl: buildImageUrl({ variant: 'default', style: 'crest' }),
-        previewClass: ''
-      },
-      {
-        id: 'crest-transparent',
-        label: 'Crest Clear',
-        previewUrl: buildImageUrl({ variant: 'transparent', style: 'crest' }),
-        previewClass:
-          'bg-[linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6),linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6)] bg-[length:24px_24px] bg-[position:0_0,12px_12px] dark:bg-[linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06)),linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06))] dark:bg-[length:24px_24px] dark:bg-[position:0_0,12px_12px]'
-      },
-      {
-        id: 'pulse',
-        label: 'Pulse',
-        previewUrl: buildImageUrl({ variant: 'default', style: 'pulse' }),
-        previewClass: ''
-      },
-      {
-        id: 'pulse-transparent',
-        label: 'Pulse Clear',
-        previewUrl: buildImageUrl({ variant: 'transparent', style: 'pulse' }),
-        previewClass:
-          'bg-[linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6),linear-gradient(45deg,#f3f4f6_25%,transparent_25%,transparent_75%,#f3f4f6_75%,#f3f4f6)] bg-[length:24px_24px] bg-[position:0_0,12px_12px] dark:bg-[linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06)),linear-gradient(45deg,rgba(255,255,255,0.06)_25%,transparent_25%,transparent_75%,rgba(255,255,255,0.06)_75%,rgba(255,255,255,0.06))] dark:bg-[length:24px_24px] dark:bg-[position:0_0,12px_12px]'
+        id: 'transparent',
+        label: 'Overlay',
+        previewUrl: buildImageUrl({ variant: 'transparent', style: 'map', ratio: 'story' }),
+        previewClass: checkerboard
       }
     ]
   })
+
   const getNetworkColor = (network: string) => {
     const colors: Record<string, string> = {
       x: '#000000',
@@ -347,55 +338,27 @@
     })
 
   const emitNetworkClick = (network: string) => emit('networkClick', network)
-  const imageRenderVersion = '2026-03-08c'
+  const imageRenderVersion = '2026-09-23-journey'
 
   const buildImageUrl = (options: {
     variant: 'default' | 'flat' | 'transparent'
     style: 'map' | 'poster' | 'crest' | 'pulse'
+    ratio?: 'story' | 'square' | 'post'
   }) => {
     if (!shareToken.value) return ''
     const params = new URLSearchParams()
     if (options.variant !== 'default') params.set('variant', options.variant)
     if (options.style !== 'map') params.set('style', options.style)
+    if (options.ratio && options.ratio !== 'story') params.set('ratio', options.ratio)
+    params.set('logo', 'lockup')
     params.set('v', imageRenderVersion)
-    const query = params.toString()
-    return `/api/share/workouts/${shareToken.value}/image${query ? `?${query}` : ''}`
+    return `/api/share/workouts/${shareToken.value}/image?${params.toString()}`
   }
 
-  const variantConfigById = computed(
-    () =>
-      new Map<
-        string,
-        {
-          variant: 'default' | 'flat' | 'transparent'
-          style: 'map' | 'poster' | 'crest' | 'pulse'
-        }
-      >(
-        imageVariants.value.map((item) => [
-          item.id,
-          {
-            variant: (item.id === 'flat'
-              ? 'flat'
-              : item.id.includes('transparent')
-                ? 'transparent'
-                : item.id === 'transparent'
-                  ? 'transparent'
-                  : 'default') as 'default' | 'flat' | 'transparent',
-            style: (item.id.startsWith('poster')
-              ? 'poster'
-              : item.id.startsWith('crest')
-                ? 'crest'
-                : item.id.startsWith('pulse')
-                  ? 'pulse'
-                  : 'map') as 'map' | 'poster' | 'crest' | 'pulse'
-          }
-        ])
-      )
-  )
-
   const handleOpenImage = async (imageId: string = 'default') => {
-    const config = variantConfigById.value.get(imageId) || { variant: 'default', style: 'map' }
-    const imageUrl = buildImageUrl(config)
+    const item = imageVariants.value.find((entry) => entry.id === imageId)
+    const imageUrl =
+      item?.previewUrl || buildImageUrl({ variant: 'default', style: 'map', ratio: 'story' })
     if (!imageUrl) return
 
     if (

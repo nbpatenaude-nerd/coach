@@ -1,4 +1,4 @@
-import { task, logger } from '@trigger.dev/sdk/v3'
+import { task, logger, AbortTaskRunError } from '@trigger.dev/sdk/v3'
 import { GarminService } from '../server/utils/services/garminService'
 import { userIngestionQueue } from './queues'
 import { waitForTaskSeconds } from '../server/utils/task-runtime'
@@ -18,9 +18,62 @@ export const garminBackfillTask = task({
     logger.log(`Starting sequential Garmin backfill for user ${userId}`)
 
     try {
-      await GarminService.startBackfill(userId)
-      logger.log(`Garmin backfill requests completed for user ${userId}`)
-      return { success: true }
+      const result = await GarminService.startBackfill(userId)
+
+      // CW-95: an incomplete backfill must not look like a complete one.
+      //
+      // Hard failures (throw, so the run is marked failed):
+      //  - `no-integration`: nothing was requested at all; the run did no work. CW-512: this is
+      //    deterministic — the user has no Garmin integration, and no retry can create one — so
+      //    it throws `AbortTaskRunError`, which Trigger.dev treats as terminal and fails without
+      //    consuming the remaining attempts. Retrying it re-ran the `delaySeconds` wait from the
+      //    top of the run on each of the 3 attempts, ~90s of queue time in total; aborting cuts
+      //    that to ~30s. Attempt 1 still pays the initial wait: the wait runs before
+      //    `startBackfill()`, and it is `startBackfill()` that reports the integration is
+      //    missing, so the status is not knowable any earlier. Skipping the wait entirely would
+      //    mean hoisting an integration-existence check above it.
+      //  - `failed`: every backfill request was rejected — almost always a token/registration
+      //    problem that a retry can genuinely resolve (typically the "User not registered with
+      //    consumer" propagation race right after connect). This keeps the plain `Error` throw
+      //    precisely so it still retries; do not collapse it into the aborted case above.
+      //
+      // Partial failure succeeds *with a summary* rather than throwing, deliberately:
+      // each type is an independent Garmin request, so throwing would retry the whole run and
+      // re-request the types that already succeeded, and per-type failures are usually a
+      // permission/scope limitation for that user that no number of retries will fix. Failing
+      // the run would also hide "5 of 6 succeeded" behind a generic task failure. The returned
+      // `failed[]` carries the per-type error so an operator can see exactly which types are
+      // missing from the run output.
+      if (result.status === 'no-integration') {
+        throw new AbortTaskRunError(
+          `Garmin backfill aborted: no Garmin integration found for user ${userId}`
+        )
+      }
+
+      if (result.status === 'failed') {
+        const detail = result.failed.map((f) => `${f.type}: ${f.error}`).join('; ')
+        throw new Error(
+          `Garmin backfill failed for user ${userId}: all ${result.failed.length} backfill requests were rejected (${detail})`
+        )
+      }
+
+      if (result.status === 'partial') {
+        logger.warn(`Garmin backfill partially completed for user ${userId}`, {
+          requested: result.requested,
+          failed: result.failed
+        })
+      } else {
+        logger.log(`Garmin backfill requests completed for user ${userId}`, {
+          requested: result.requested
+        })
+      }
+
+      return {
+        success: true,
+        status: result.status,
+        requested: result.requested,
+        failed: result.failed
+      }
     } catch (error) {
       logger.error(`Garmin backfill task failed for user ${userId}`, { error })
       throw error

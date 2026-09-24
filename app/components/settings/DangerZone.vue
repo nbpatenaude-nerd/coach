@@ -309,7 +309,7 @@
       <template #body>
         <p>
           Are you sure? This will delete ALL past planned workouts that were NOT completed. This
-          only affects workouts managed by Journey.
+          only affects workouts managed by Journey Endurance.
         </p>
       </template>
 
@@ -347,9 +347,9 @@
     >
       <template #body>
         <p>
-          Are you sure? This will delete ALL Journey-managed workouts that belong to deleted or
-          inactive training plans. Standalone recommendations for today and your current active plan
-          will be preserved.
+          Are you sure? This will delete ALL Journey Endurance–managed workouts that belong to
+          deleted or inactive training plans. Standalone recommendations for today and your current
+          active plan will be preserved.
         </p>
       </template>
 

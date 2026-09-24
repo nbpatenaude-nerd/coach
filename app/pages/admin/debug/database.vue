@@ -47,7 +47,7 @@
     meta: [
       {
         name: 'description',
-        content: 'Journey Endurance Coaching database statistics and health monitoring.'
+        content: 'Journey Endurance database statistics and health monitoring.'
       }
     ]
   })

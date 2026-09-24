@@ -36,7 +36,7 @@
         </div>
 
         <div v-else-if="data" class="space-y-12">
-          <TrophyCase :personal-bests="data.personalBests || []" />
+          <ProfileTrophyCase :personal-bests="data.personalBests || []" />
         </div>
 
         <div v-else class="text-center py-24">

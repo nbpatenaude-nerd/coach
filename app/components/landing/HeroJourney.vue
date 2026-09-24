@@ -24,33 +24,26 @@
 
     <!-- Centered Title Layout (SkyClinics Inspired) -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
-      <div class="flex flex-col items-center pointer-events-auto w-full px-4 -mt-16">
+      <div class="flex flex-col items-center pointer-events-auto w-full px-4 mt-24">
         <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6">
-          <UIcon
-            name="i-heroicons-sparkles"
-            class="w-10 h-10 md:w-14 md:h-14 text-cyan-400 opacity-90 drop-shadow-md"
-          />
           <h1
-            class="font-athletic text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.25em] md:tracking-[0.3em] uppercase text-white m-0 leading-none drop-shadow-2xl text-center"
+            class="font-athletic text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-white m-0 leading-tight drop-shadow-2xl text-center max-w-4xl"
           >
-            Journey Endurance
+            Master the Crucible of Endurance Sport:<br /><span class="text-cyan-400"
+              >Science-Backed Coaching to Build Peak Performance and Long-Term Athleticism</span
+            >
           </h1>
         </div>
 
         <div class="relative w-full flex justify-center mt-8 md:mt-10">
-          <div class="flex flex-col items-center gap-4 max-w-2xl">
-            <!-- Uppercase Bold Subtitle -->
+          <div class="flex flex-col items-center gap-6 max-w-3xl">
+            <!-- Uppercase Bold Subtitle (The Hook) -->
             <span
-              class="font-sans text-[0.65rem] md:text-[0.75rem] font-bold tracking-[0.2em] md:tracking-[0.25em] uppercase text-cyan-400 leading-relaxed text-center drop-shadow-md"
+              class="font-sans text-[0.8rem] md:text-[0.95rem] font-semibold tracking-wide text-slate-200 leading-relaxed text-center drop-shadow-md"
             >
-              Science backed coaching for your next endurance adventure
-            </span>
-
-            <!-- Standard Subtitle -->
-            <span
-              class="font-sans text-[0.95rem] md:text-[1.05rem] font-light tracking-[0.05em] text-slate-200 text-center leading-relaxed italic drop-shadow-md"
-            >
-              "The most important step is always the next one."
+              Stop letting random internet plans burn you out or get you injured before you even
+              reach the starting line. Cut through the noise, protect your joints, and build a
+              sustainable, high-performance engine for your next half Ironman.
             </span>
 
             <div
@@ -59,20 +52,21 @@
 
             <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto mt-2">
               <UButton
+                to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
+                target="_blank"
                 size="xl"
-                color="white"
+                color="neutral"
                 class="!bg-white/95 backdrop-blur-md text-slate-950 font-bold whitespace-nowrap px-10 py-3.5 text-[0.8rem] tracking-[0.15em] uppercase hover:!bg-white justify-center transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(34,211,238,0.4)]"
+                >Book Free Consult</UButton
               >
-                Book Free Consult
-              </UButton>
               <UButton
+                to="#pricing"
                 size="xl"
                 variant="outline"
-                color="gray"
+                color="neutral"
                 class="text-white hover:bg-slate-800/80 border-white/20 backdrop-blur-md bg-black/40 px-10 py-3.5 text-[0.8rem] tracking-[0.15em] uppercase justify-center transition-all"
+                >Explore Coaching</UButton
               >
-                Explore Coaching
-              </UButton>
             </div>
           </div>
         </div>

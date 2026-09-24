@@ -277,7 +277,7 @@
               >
                 <img
                   src="/media/logo_square.webp"
-                  alt="Journey Endurance Coaching"
+                  alt="Journey Endurance"
                   class="h-full w-full object-contain"
                 />
               </div>

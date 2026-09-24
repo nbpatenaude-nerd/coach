@@ -20,18 +20,19 @@ export type QuotaPaywallOperation =
 
 const TIER_RANK: Record<SubscriptionTier, number> = {
   FREE: 0,
-  UNCOVER: 1,
-  UNLOCK: 2,
-  UNLEASH: 3
+  SUPPORTER: 1,
+  PRO: 2,
+  UNCOVER: 3,
+  UNLOCK: 4,
+  UNLEASH: 5
 }
 
 export function resolveRecommendedUpgradeTier(
   subscriptionTier: SubscriptionTier = 'FREE'
-): string | undefined {
-  if (subscriptionTier === 'UNLEASH') return undefined
-  if (subscriptionTier === 'UNLOCK') return 'unleash'
-  if (subscriptionTier === 'UNCOVER') return 'unlock'
-  return 'uncover'
+): PricingTier | undefined {
+  if (subscriptionTier === 'PRO') return undefined
+  if (subscriptionTier === 'SUPPORTER') return 'pro'
+  return 'supporter'
 }
 
 export function hasQuotaResetPassed(
@@ -88,7 +89,7 @@ export function buildQuotaFeatureDescription(params: {
 
 export function buildQuotaUpgradeBullets(
   operation: QuotaPaywallOperation,
-  nextTier: 'UNCOVER' | 'UNLOCK' | 'UNLEASH' | null | undefined,
+  nextTier: 'SUPPORTER' | 'PRO' | null | undefined,
   nextTierLimit?: number | null,
   window?: string
 ): string[] {
@@ -164,8 +165,7 @@ export function buildQuotaUpgradeBullets(
     ]
   }
 
-  const tierLabel =
-    nextTier === 'UNLEASH' ? 'Unleash' : nextTier === 'UNLOCK' ? 'Unlock' : 'Uncover'
+  const tierLabel = nextTier === 'PRO' ? 'Pro' : 'Supporter'
   const bullets = defaults[operation] || [`${tierLabel} unlocks ${limitSuffix}`]
 
   if (nextTierLimit && bullets[0]) {

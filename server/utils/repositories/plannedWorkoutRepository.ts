@@ -116,6 +116,19 @@ export const plannedWorkoutRepository = {
 
     if (options.independentOnly) {
       where.trainingWeekId = null
+    } else {
+      where.OR = [
+        { trainingWeekId: null },
+        {
+          trainingWeek: {
+            block: {
+              plan: {
+                isTemplate: false
+              }
+            }
+          }
+        }
+      ]
     }
 
     return prisma.plannedWorkout.findMany({

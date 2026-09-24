@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
   })
 
   // Find past planned workouts that are:
-  // 1. Managed by CoachWatts
+  // 1. Managed by Journey Endurance (COACH_WATTS)
   // 2. In the past
   // 3. Not completed (flag is false)
   // 4. Not linked to any actual workout (double check)
@@ -62,12 +62,15 @@ export default defineEventHandler(async (event) => {
       )
 
       // Log errors if any
-            results.forEach((result, index) => {
-              if (result.status === 'rejected') {
-                const workout = pastWorkouts[index]
-                console.error(`Failed to delete past Intervals workout ${workout?.externalId || 'unknown'}:`, result.reason)
-              }
-            })
+      results.forEach((result, index) => {
+        if (result.status === 'rejected') {
+          const workout = pastWorkouts[index]
+          console.error(
+            `Failed to delete past Intervals workout ${workout?.externalId || 'unknown'}:`,
+            result.reason
+          )
+        }
+      })
     }
 
     // 2. Delete from local DB

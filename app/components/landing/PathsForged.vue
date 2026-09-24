@@ -1,5 +1,5 @@
 <template>
-  <section class="py-24 bg-transparent overflow-hidden">
+  <section id="programs" class="py-24 bg-transparent overflow-hidden">
     <div class="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col sm:flex-row justify-between items-end mb-16 gap-6">
         <div class="max-w-2xl">
@@ -7,8 +7,8 @@
             Featured <span class="text-cyan-400">Programs</span>
           </h2>
           <p class="text-lg text-slate-400">
-            Scientifically structured Training Peaks plans designed for your next PR.
-            {{ interestText }}
+            Scientifically backed, field-tested plans for your next race. Browse our library of
+            Training Peaks programs designed by our elite coaches to help you reach your potential.
           </p>
         </div>
         <UButton

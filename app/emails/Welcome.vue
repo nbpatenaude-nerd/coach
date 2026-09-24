@@ -14,14 +14,22 @@
     EFont
   } from 'vue-email'
 
-  defineProps<{
-    name?: string
-    unsubscribeUrl?: string
-    utmQuery?: string
-  }>()
-  const siteUrl = 'https://journeyendurance.com'
-  const logoUrl = 'https://journeyendurance.com/icon.png'
-  const connectSourceUrl = 'https://journeyendurance.com/settings/apps'
+  import { computed } from 'vue'
+
+  const props = withDefaults(
+    defineProps<{
+      name?: string
+      siteUrl?: string
+      logoUrl?: string
+      unsubscribeUrl?: string
+      utmQuery?: string
+    }>(),
+    {
+      siteUrl: 'https://journeyendurance.ca',
+      logoUrl: 'https://journeyendurance.ca/icon.png'
+    }
+  )
+  const connectSourceUrl = computed(() => `${props.siteUrl}/settings/apps`)
   const discordUrl = 'https://discord.gg/dPYkzg49T9'
 </script>
 
@@ -40,7 +48,7 @@
       />
     </EHead>
     <EPreview
-      >Step 1 complete. Connect your first data source and join the Journey Endurance Coaching
+      >Step 1 complete. Connect your first data source and join the Journey Endurance
       community.</EPreview
     >
     <EBody
@@ -86,7 +94,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Journey Endurance Coaching"
+              alt="Journey Endurance"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -112,8 +120,8 @@
           >
 
           <EText style="font-size: 16px; line-height: 1.6; color: #71717a; margin-bottom: 16px"
-            >Welcome to Journey Endurance Coaching. Your account is ready, and we're excited to help
-            you optimize your training with AI-driven insights tailored specifically for you.</EText
+            >Welcome to Journey Endurance. Your account is ready, and we're excited to help you
+            optimize your training with AI-driven insights tailored specifically for you.</EText
           >
 
           <EContainer
@@ -226,7 +234,7 @@
                 :href="discordUrl + (utmQuery || '') + '&utm_content=join_discord'"
                 style="color: #00c16a; text-decoration: underline"
               >
-                Join Journey Endurance Coaching on Discord
+                Join Journey Endurance on Discord
               </ELink>
             </EText>
           </EContainer>
@@ -237,13 +245,13 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Journey Endurance Coaching
+            Journey Endurance
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0 0 16px">
-            Real coaching and community, powered by an AI assistant that adapts to your life.
+            AI-powered endurance coaching that adapts to you.
           </EText>
           <EText style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0">
-            You're receiving this because you registered at Journey Endurance Coaching.
+            You're receiving this because you registered at Journey Endurance.
             <br />
             You can
             <ELink

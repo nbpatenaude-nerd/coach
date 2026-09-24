@@ -4,15 +4,12 @@
     middleware: ['auth', 'admin']
   })
 
-  const { data: stats } = await (useFetch as any)('/api/admin/stats')
+  const { data: stats } = await useFetch('/api/admin/stats')
 
   useHead({
     title: 'Admin Dashboard',
     meta: [
-      {
-        name: 'description',
-        content: 'Journey Endurance Coaching system administration and overview.'
-      }
+      { name: 'description', content: 'Journey Endurance system administration and overview.' }
     ]
   })
 

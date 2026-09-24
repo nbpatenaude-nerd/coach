@@ -6,6 +6,7 @@ import { generateText, isStepCount } from 'ai'
 import { buildPersistedToolCalls, expandStoredChatMessages } from '../../../utils/chat/history'
 import { transformHistoryToCoreMessages } from '../../../utils/ai-history'
 import { normalizeCoreMessagesForGemini } from '../../../utils/chat/core-message-normalizer'
+import { sanitizeCoreMessagesForToolApprovals } from '../../chat/sanitize-tool-approval'
 
 export default defineEventHandler(async (event) => {
   const secretToken = getHeader(event, 'x-telegram-bot-api-secret-token')
@@ -66,7 +67,7 @@ export default defineEventHandler(async (event) => {
 
         await sendTelegramMessage(
           chatId,
-          "🚴 **Connected!** I'm Journey, your AI endurance coaching assistant.\n\nI'm ready to analyze your data and help you crush your goals. Ask me anything about your training, nutrition, or recovery.",
+          "🚴 **Connected!** I'm Journey Endurance.\n\nI'm ready to analyze your data and help you crush your goals. Ask me anything about your training, nutrition, or recovery.",
           'Markdown'
         )
         return { status: 'linked' }
@@ -89,7 +90,7 @@ export default defineEventHandler(async (event) => {
       } else {
         await sendTelegramMessage(
           chatId,
-          'Welcome to Journey Endurance Coaching! 🚴\n\nPlease link your account via the Dashboard to start chatting.'
+          'Welcome to Journey Endurance! 🚴\n\nPlease link your account via the Dashboard to start chatting.'
         )
       }
       return { status: 'welcome' }
@@ -162,7 +163,7 @@ export default defineEventHandler(async (event) => {
   // 4. Handle Authenticated Commands
   if (text === '/help') {
     const helpText = [
-      '⚡ **Journey Endurance Coaching Telegram Help**',
+      '⚡ **Journey Endurance Telegram Help**',
       '',
       '/help - Show this help message',
       '/roominfo - Get the current chat room ID',
@@ -209,7 +210,19 @@ export default defineEventHandler(async (event) => {
     })
 
     const expandedHistory = expandStoredChatMessages(history.reverse())
-    const coreMessages = await transformHistoryToCoreMessages(expandedHistory)
+    // Parity with the main chat turn executor, which applies this same guard in this same
+    // position. Malformed `tool-approval-response` parts crash `standardizePrompt` with
+    // AI_TypeValidationError (CW-209 / CW-293); no history shape this handler can build
+    // today produces one, so this is defensive — it matters if the Telegram path ever
+    // accepts client-submitted messages or `expandStoredChatMessage` learns to emit
+    // `approval-responded` parts. It is a no-op for valid history. (CW-294)
+    //
+    // The main path's *other* guard, `sanitizeChatMessagesForToolApprovals` (via
+    // `normalizeMessagesForSdk`), covers client-submitted UI messages. Telegram has no
+    // such input — messages come only from the DB — so its absence here is deliberate.
+    const coreMessages = sanitizeCoreMessagesForToolApprovals(
+      await transformHistoryToCoreMessages(expandedHistory)
+    )
     const normalizedMessages = normalizeCoreMessagesForGemini(coreMessages)
 
     // Generate Response

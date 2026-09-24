@@ -1,4 +1,5 @@
-import type { SubscriptionTier } from '~/server/utils/generated-prisma/client'
+import type { SubscriptionTier } from '@prisma/client'
+
 export type QuotaOperation =
   | 'chat'
   | 'workout_analysis'
@@ -45,15 +46,52 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 3, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: {
-      limit: 3,
+    generate_structured_workout: { limit: 4, window: '7 days', enforcement: 'STRICT' },
+    wellness_analysis: { limit: 3, window: '7 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 2, window: '30 days', enforcement: 'STRICT' },
+    weekly_plan_generation: { limit: 1, window: '7 days', enforcement: 'STRICT' }
+  },
+  SUPPORTER: {
+    chat: { limit: 40, window: '4 hours', enforcement: 'STRICT' },
+    workout_analysis: { limit: 20, window: '7 days', enforcement: 'STRICT' },
+    athlete_profile_generation: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    goal_suggestions: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    goal_review: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    daily_checkin: { limit: 2, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
+    unified_report_generation: { limit: 3, window: '30 days', enforcement: 'STRICT' },
+    nutrition_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
+    activity_recommendation: {
+      limit: 4,
       window: '1 day',
       enforcement: 'STRICT',
       resetType: 'CALENDAR'
     },
-    wellness_analysis: { limit: 3, window: '7 days', enforcement: 'STRICT' },
-    custom_report_generation: { limit: 2, window: '30 days', enforcement: 'STRICT' },
-    weekly_plan_generation: { limit: 1, window: '7 days', enforcement: 'STRICT' }
+    meal_recommendation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 8, window: '7 days', enforcement: 'STRICT' },
+    wellness_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
+    weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
+  },
+  PRO: {
+    chat: { limit: 60, window: '4 hours', enforcement: 'STRICT' },
+    workout_analysis: { limit: 40, window: '7 days', enforcement: 'STRICT' },
+    athlete_profile_generation: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
+    goal_suggestions: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
+    goal_review: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
+    daily_checkin: { limit: 2, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
+    unified_report_generation: { limit: 5, window: '30 days', enforcement: 'STRICT' },
+    nutrition_analysis: { limit: 14, window: '7 days', enforcement: 'STRICT' },
+    activity_recommendation: {
+      limit: 6,
+      window: '1 day',
+      enforcement: 'STRICT',
+      resetType: 'CALENDAR'
+    },
+    meal_recommendation: { limit: 10, window: '24 hours', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 12, window: '7 days', enforcement: 'STRICT' },
+    wellness_analysis: { limit: 14, window: '7 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 8, window: '30 days', enforcement: 'STRICT' },
+    weekly_plan_generation: { limit: 4, window: '7 days', enforcement: 'STRICT' }
   },
   UNCOVER: {
     chat: { limit: 40, window: '4 hours', enforcement: 'STRICT' },
@@ -71,41 +109,31 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: {
-      limit: 6,
-      window: '1 day',
-      enforcement: 'STRICT',
-      resetType: 'CALENDAR'
-    },
+    generate_structured_workout: { limit: 8, window: '7 days', enforcement: 'STRICT' },
     wellness_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
   },
   UNLOCK: {
-    chat: { limit: 50, window: '4 hours', enforcement: 'STRICT' },
-    workout_analysis: { limit: 30, window: '7 days', enforcement: 'STRICT' },
-    athlete_profile_generation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
-    goal_suggestions: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
-    goal_review: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
+    chat: { limit: 40, window: '4 hours', enforcement: 'STRICT' },
+    workout_analysis: { limit: 20, window: '7 days', enforcement: 'STRICT' },
+    athlete_profile_generation: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    goal_suggestions: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
+    goal_review: { limit: 4, window: '24 hours', enforcement: 'STRICT' },
     daily_checkin: { limit: 2, window: '1 day', enforcement: 'STRICT', resetType: 'CALENDAR' },
-    unified_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
-    nutrition_analysis: { limit: 10, window: '7 days', enforcement: 'STRICT' },
+    unified_report_generation: { limit: 3, window: '30 days', enforcement: 'STRICT' },
+    nutrition_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
     activity_recommendation: {
-      limit: 5,
+      limit: 4,
       window: '1 day',
       enforcement: 'STRICT',
       resetType: 'CALENDAR'
     },
-    meal_recommendation: { limit: 8, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: {
-      limit: 9,
-      window: '1 day',
-      enforcement: 'STRICT',
-      resetType: 'CALENDAR'
-    },
-    wellness_analysis: { limit: 10, window: '7 days', enforcement: 'STRICT' },
-    custom_report_generation: { limit: 6, window: '30 days', enforcement: 'STRICT' },
-    weekly_plan_generation: { limit: 3, window: '7 days', enforcement: 'STRICT' }
+    meal_recommendation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 8, window: '7 days', enforcement: 'STRICT' },
+    wellness_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
+    custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
+    weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
   },
   UNLEASH: {
     chat: { limit: 60, window: '4 hours', enforcement: 'STRICT' },
@@ -123,12 +151,7 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 10, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: {
-      limit: 12,
-      window: '1 day',
-      enforcement: 'STRICT',
-      resetType: 'CALENDAR'
-    },
+    generate_structured_workout: { limit: 12, window: '7 days', enforcement: 'STRICT' },
     wellness_analysis: { limit: 14, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 8, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 4, window: '7 days', enforcement: 'STRICT' }
@@ -196,10 +219,10 @@ export function quotaFeatureCode(operation: string): string | null {
 }
 
 /** Next paid tier above `tier`, or null when already on the top tier. */
-export function getNextTier(tier: SubscriptionTier): 'UNCOVER' | 'UNLOCK' | 'UNLEASH' | null {
-  if (tier === 'FREE') return 'UNCOVER'
-  if (tier === 'UNCOVER') return 'UNLOCK'
-  if (tier === 'UNLOCK') return 'UNLEASH'
+export function getNextTier(tier: SubscriptionTier): SubscriptionTier | null {
+  if (tier === 'FREE') return 'SUPPORTER'
+  if (tier === 'SUPPORTER' || tier === 'UNCOVER' || tier === 'UNLOCK' || tier === 'UNLEASH')
+    return 'PRO'
   return null
 }
 
@@ -211,19 +234,17 @@ export function getNextTier(tier: SubscriptionTier): 'UNCOVER' | 'UNLOCK' | 'UNL
 export function resolveUpgradeForOperation(
   operation: string,
   tier: SubscriptionTier
-): { nextTier: 'UNCOVER' | 'UNLOCK' | 'UNLEASH'; nextTierLimit: number } | null {
+): { nextTier: SubscriptionTier; nextTierLimit: number } | null {
   const canonical = mapOperationToQuota(operation)
   if (!canonical) return null
 
   const currentLimit = QUOTA_REGISTRY[tier][canonical]?.limit ?? 0
-  const candidates: ('UNCOVER' | 'UNLOCK' | 'UNLEASH')[] =
+  const candidates: SubscriptionTier[] =
     tier === 'FREE'
-      ? ['UNCOVER', 'UNLOCK', 'UNLEASH']
-      : tier === 'UNCOVER'
-        ? ['UNLOCK', 'UNLEASH']
-        : tier === 'UNLOCK'
-          ? ['UNLEASH']
-          : []
+      ? ['SUPPORTER', 'PRO']
+      : tier === 'SUPPORTER' || tier === 'UNCOVER' || tier === 'UNLOCK' || tier === 'UNLEASH'
+        ? ['PRO']
+        : []
 
   for (const candidate of candidates) {
     const limit = QUOTA_REGISTRY[candidate][canonical]?.limit

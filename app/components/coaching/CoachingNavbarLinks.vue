@@ -1,47 +1,37 @@
 <script setup lang="ts">
-  import { computed } from 'vue'
-  import { useNavigation } from '~/composables/useNavigation'
-
-  const { isCoach } = useNavigation()
-
-  const links = computed(() => {
-    const baseLinks = [
-      {
-        label: 'My Coaches',
-        icon: 'i-lucide-building-2',
-        to: '/coaching/team'
-      }
-    ]
-
-    if (isCoach.value) {
-      return [
-        {
-          label: 'Overview',
-          icon: 'i-lucide-layout-dashboard',
-          to: '/coaching',
-          exact: true
-        },
-        {
-          label: 'Calendar',
-          icon: 'i-lucide-calendar-days',
-          to: '/coaching/calendar'
-        },
-        {
-          label: 'Athletes',
-          icon: 'i-lucide-users-round',
-          to: '/coaching/athletes'
-        },
-        {
-          label: 'Analytics',
-          icon: 'i-lucide-bar-chart-3',
-          to: '/analytics'
-        },
-        ...baseLinks
-      ]
+  const links = [
+    {
+      label: 'Overview',
+      icon: 'i-lucide-layout-dashboard',
+      to: '/coaching',
+      exact: true
+    },
+    {
+      label: 'Calendar',
+      icon: 'i-lucide-calendar-days',
+      to: '/coaching/calendar'
+    },
+    {
+      label: 'Athletes',
+      icon: 'i-lucide-users-round',
+      to: '/coaching/athletes'
+    },
+    {
+      label: 'Check-ins',
+      icon: 'i-lucide-clipboard-check',
+      to: '/coaching/check-in-analysis'
+    },
+    {
+      label: 'Analytics',
+      icon: 'i-lucide-bar-chart-3',
+      to: '/analytics'
+    },
+    {
+      label: 'My Coaches',
+      icon: 'i-lucide-building-2',
+      to: '/coaching/team'
     }
-
-    return baseLinks
-  })
+  ]
 </script>
 
 <template>

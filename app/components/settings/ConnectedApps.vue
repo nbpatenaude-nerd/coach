@@ -1337,7 +1337,7 @@
     whoop: {
       provider: 'whoop',
       title: 'WHOOP Settings',
-      description: 'Choose which WHOOP data Journey should import.',
+      description: 'Choose which WHOOP data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1358,7 +1358,7 @@
     oura: {
       provider: 'oura',
       title: 'Oura Settings',
-      description: 'Choose which Oura data Journey should import.',
+      description: 'Choose which Oura data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1379,7 +1379,7 @@
     withings: {
       provider: 'withings',
       title: 'Withings Settings',
-      description: 'Choose which Withings data Journey should import.',
+      description: 'Choose which Withings data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1400,7 +1400,7 @@
     yazio: {
       provider: 'yazio',
       title: 'YAZIO Settings',
-      description: 'Choose which YAZIO data Journey should import.',
+      description: 'Choose which YAZIO data Journey Endurance should import.',
       options: [
         {
           key: 'ingestNutrition',
@@ -1414,7 +1414,7 @@
     fitbit: {
       provider: 'fitbit',
       title: 'Fitbit Settings',
-      description: 'Choose which Fitbit data Journey should import.',
+      description: 'Choose which Fitbit data Journey Endurance should import.',
       options: [
         {
           key: 'ingestNutrition',
@@ -1428,7 +1428,7 @@
     strava: {
       provider: 'strava',
       title: 'Strava Settings',
-      description: 'Choose which Strava data Journey should import.',
+      description: 'Choose which Strava data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1442,7 +1442,7 @@
     hevy: {
       provider: 'hevy',
       title: 'Hevy Settings',
-      description: 'Choose which Hevy data Journey should import.',
+      description: 'Choose which Hevy data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1456,7 +1456,7 @@
     liftosaur: {
       provider: 'liftosaur',
       title: 'Liftosaur Settings',
-      description: 'Choose which Liftosaur data Journey should import.',
+      description: 'Choose which Liftosaur data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1477,7 +1477,7 @@
     polar: {
       provider: 'polar',
       title: 'Polar Settings',
-      description: 'Choose which Polar data Journey should import.',
+      description: 'Choose which Polar data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1498,7 +1498,7 @@
     garmin: {
       provider: 'garmin',
       title: 'Garmin Settings',
-      description: 'Choose which Garmin data Journey should import.',
+      description: 'Choose which Garmin data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWorkouts',
@@ -1519,7 +1519,7 @@
     ultrahuman: {
       provider: 'ultrahuman',
       title: 'Ultrahuman Settings',
-      description: 'Choose which Ultrahuman data Journey should import.',
+      description: 'Choose which Ultrahuman data Journey Endurance should import.',
       options: [
         {
           key: 'ingestWellness',
@@ -1930,6 +1930,6 @@
 
   const isWhoopDisabled = computed(() => {
     const hostname = import.meta.client ? window.location.hostname : useRequestURL().hostname
-    return hostname === 'coachwatts.com' || hostname === 'www.coachwatts.com'
+    return hostname === 'journeyendurance.ca' || hostname === 'www.journeyendurance.ca'
   })
 </script>

@@ -1,10 +1,11 @@
 import { defineEventHandler, createError } from 'h3'
 import { getServerSession } from '../../utils/session'
+import { requireAuth } from '../../utils/auth-guard'
 import { prisma } from '../../utils/db'
-import type { SubscriptionTier } from '../../utils/generated-prisma/client'
+import type { SubscriptionTier } from '@prisma/client'
 import { webhookQueue, pingQueue } from '../../utils/queue'
 import { QUOTA_REGISTRY } from '../../utils/quotas/registry'
-import { Prisma } from '../../utils/generated-prisma/client'
+import { Prisma } from '@prisma/client'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
@@ -53,8 +54,14 @@ export default defineEventHandler(async (event) => {
 
   // Queue Health
   const [webhookPaused, pingPaused] = await Promise.all([
-    webhookQueue.isPaused().catch(() => true),
-    pingQueue.isPaused().catch(() => true)
+    Promise.race([
+      webhookQueue.isPaused().catch(() => true),
+      new Promise<boolean>((resolve) => setTimeout(() => resolve(true), 1500))
+    ]),
+    Promise.race([
+      pingQueue.isPaused().catch(() => true),
+      new Promise<boolean>((resolve) => setTimeout(() => resolve(true), 1500))
+    ])
   ])
 
   const systemStatus = {

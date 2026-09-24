@@ -1,22 +1,22 @@
 # Sign in with Apple (IdP)
 
-Journey Endurance Coaching Platform uses **Sign in with Apple** on the Auth.js login surfaces (`/oauth/login`, `/login`, `/join`) so the official mobile companion satisfies [App Store Guideline 4.8](https://developer.apple.com/app-store/review/guidelines/#login-services) when Google is also offered.
+Coach Watts uses **Sign in with Apple** on the Auth.js login surfaces (`/oauth/login`, `/login`, `/join`) so the official mobile companion satisfies [App Store Guideline 4.8](https://developer.apple.com/app-store/review/guidelines/#login-services) when Google is also offered.
 
-Mobile still uses OAuth 2.0 + PKCE against Journey Endurance Coaching Platform; SIWA runs in the **system browser** on the IdP page (same pattern as Google).
+Mobile still uses OAuth 2.0 + PKCE against Coach Watts; SIWA runs in the **system browser** on the IdP page (same pattern as Google).
 
 ## Apple Developer setup (Watt Mind team)
 
 1. **Identifiers → App IDs → `com.coachwatts.app`**  
    Enable **Sign In with Apple**.
 
-2. **Identifiers → Services IDs → Create** — registered **`com.coachwatts.web`** (Journey Endurance Coaching Platform Web Auth)
+2. **Identifiers → Services IDs → Create** — registered **`com.coachwatts.web`** (Coach Watts Web Auth)
    - Enable **Sign In with Apple** → Configure
    - Primary App ID: `com.coachwatts.app`
    - Domains: `coachwatts.com`
    - Return URL (Auth.js): `https://coachwatts.com/api/auth/callback/apple`
    - Note: Apple requires `https://` return URLs; local Auth.js Apple smoke uses production callback or a TLS tunnel.
 
-3. **Keys → Create** (Sign in with Apple) — registered **Journey Endurance Coaching Platform Sign in with Apple**
+3. **Keys → Create** (Sign in with Apple) — registered **Coach Watts Sign in with Apple**
    - Primary App ID: `com.coachwatts.app` (Services ID grouped)
    - **Key ID:** `4T63PU845X` · **Team ID:** `42K8S6866N`
    - Download the `.p8` once; store in the password manager — never commit
@@ -50,4 +50,17 @@ Apple uses `allowDangerousEmailAccountLinking: true` (same as Google). Stable id
 
 ## App Review
 
-There is **no** Journey Endurance Coaching Platform-native password. ASC Sign-In Information should hold a **dedicated Google** (or Apple ID) demo account. Notes must say: Safari → Sign in with Apple or Google → return via `coachwatts://oauth/callback`.
+There is **no** Coach Watts-native password. ASC Sign-In Information should hold a **dedicated Google** (or Apple ID) demo account. Notes must say: Safari → Sign in with Apple or Google → return via `coachwatts://oauth/callback`.
+
+### Failure and cancellation smoke
+
+Before a mobile store submission, verify all of these against the hosted IdP:
+
+1. New Apple identity creates an account and returns to the mobile callback.
+2. Returning Apple identity reaches the same Coach Watts user when Apple omits name/email.
+3. Hide My Email creates a relay identity that can sign in again.
+4. Cancelling the Apple sheet returns to `/oauth/login` with safe retry/alternate-provider copy.
+5. Cancelling `/oauth/login` itself returns `error=access_denied` plus the original OAuth `state` to the registered mobile redirect.
+6. A provider callback failure shows safe recovery copy and does not expose Auth.js or Apple configuration details.
+
+The mobile and hosted UI may record only stable stages/error codes. Never log the provider response, email, authorization code, OAuth state, PKCE challenge/verifier, access token, refresh token, or the full callback URL.

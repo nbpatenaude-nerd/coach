@@ -19,8 +19,7 @@
             1. Introduction
           </h3>
           <p>
-            Welcome to Journey Endurance Coaching ("we," "our," or "us"). This service is operated
-            by
+            Welcome to Journey Endurance ("we," "our," or "us"). This service is operated by
             <strong>Watt Mind Kft.</strong>, a company headquartered in Gödöllő, Hungary. We are
             committed to protecting the privacy of your personal and physiological information. This
             Privacy Policy explains how we collect, use, and safeguard your data when you use our
@@ -285,7 +284,9 @@
               any time.
             </li>
           </ul>
-          <p class="mt-4">To exercise these rights, please contact us at support@coachwatts.com.</p>
+          <p class="mt-4">
+            To exercise these rights, please contact us at support@journeyendurance.ca.
+          </p>
 
           <h4 class="text-xl font-semibold text-gray-900 dark:text-white mt-6 mb-2">
             Supervisory Authority
@@ -336,9 +337,9 @@
             <p class="mt-2">
               Email:
               <a
-                href="mailto:support@coachwatts.com"
+                href="mailto:support@journeyendurance.ca"
                 class="text-primary-600 dark:text-primary-400 hover:underline"
-                >support@coachwatts.com</a
+                >support@journeyendurance.ca</a
               >
             </p>
           </div>
@@ -360,7 +361,7 @@
       {
         name: 'description',
         content:
-          'Journey Endurance Coaching Privacy Policy. How Watt Mind Kft. collects, uses, and protects your personal fitness and health data.'
+          'Journey Endurance Privacy Policy. How Watt Mind Kft. collects, uses, and protects your personal fitness and health data.'
       }
     ]
   })

@@ -13,7 +13,7 @@
   })
 
   useHead({
-    title: 'Charts | Journey Endurance Coaching',
+    title: 'Charts | Journey Endurance',
     meta: [
       {
         name: 'description',

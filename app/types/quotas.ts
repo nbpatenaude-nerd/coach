@@ -9,6 +9,6 @@ export interface QuotaStatus {
   enforcement: 'STRICT' | 'MEASURE'
   /** Client-facing feature code, matching the 429 payload. */
   feature?: string | null
-  nextTier?: 'UNCOVER' | 'UNLOCK' | 'UNLEASH' | null
+  nextTier?: string | null
   nextTierLimit?: number | null
 }

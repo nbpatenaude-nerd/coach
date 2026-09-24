@@ -14,18 +14,23 @@
     EFont
   } from 'vue-email'
 
-  defineProps<{
-    name?: string
-    trialEndsAt: string
-    usageHighlights?: Array<{ operation: string; count: number }>
-    supporterHighlights?: Array<{ label: string; value: string }>
-    pricingUrl?: string
-    unsubscribeUrl?: string
-    utmQuery?: string
-  }>()
-
-  const siteUrl = 'https://journeyendurance.com'
-  const logoUrl = 'https://journeyendurance.com/icon.png'
+  withDefaults(
+    defineProps<{
+      name?: string
+      trialEndsAt: string
+      usageHighlights?: Array<{ operation: string; count: number }>
+      supporterHighlights?: Array<{ label: string; value: string }>
+      pricingUrl?: string
+      siteUrl?: string
+      logoUrl?: string
+      unsubscribeUrl?: string
+      utmQuery?: string
+    }>(),
+    {
+      siteUrl: 'https://journeyendurance.ca',
+      logoUrl: 'https://journeyendurance.ca/icon.png'
+    }
+  )
 </script>
 
 <template>
@@ -86,7 +91,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Journey Endurance Coaching"
+              alt="Journey Endurance"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>

@@ -296,7 +296,7 @@
 
   const isWhoopDisabled = computed(() => {
     const hostname = import.meta.client ? window.location.hostname : useRequestURL().hostname
-    return hostname === 'coachwatts.com' || hostname === 'www.coachwatts.com'
+    return hostname === 'journeyendurance.ca' || hostname === 'www.journeyendurance.ca'
   })
 
   const secondaryProviders = computed<SecondaryProvider[]>(() => {

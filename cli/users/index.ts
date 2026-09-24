@@ -15,6 +15,7 @@ import quotaCommand from './quota'
 import resetQuotaCommand from './reset-quota'
 import cleanupOrphansCommand from './cleanup-orphans'
 import dataCommand from './data'
+import magicLinkCommand from './magic-link'
 
 const usersCommand = new Command('users').description('User management commands')
 
@@ -29,6 +30,7 @@ usersCommand.addCommand(quotaCommand)
 usersCommand.addCommand(resetQuotaCommand)
 usersCommand.addCommand(cleanupOrphansCommand)
 usersCommand.addCommand(dataCommand)
+usersCommand.addCommand(magicLinkCommand)
 usersCommand
   .command('search')
   .description('Search for users by email or name (partial match)')

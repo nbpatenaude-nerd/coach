@@ -215,7 +215,7 @@
           <UFormField label="Join headline">
             <UInput
               :model-value="coachJoinPage.headline ?? undefined"
-              placeholder="Join Coach Jane inside Journey Endurance Coaching"
+              placeholder="Join Coach Jane inside Journey Endurance"
               class="w-full"
               @update:model-value="coachJoinPage.headline = $event ?? null"
             />
@@ -270,7 +270,7 @@
                 :model-value="coachJoinPage.trustNote ?? undefined"
                 :rows="3"
                 class="w-full"
-                placeholder="Clarify what joining under this coach means inside Journey Endurance Coaching."
+                placeholder="Clarify what joining under this coach means inside Journey Endurance."
                 @update:model-value="coachJoinPage.trustNote = $event ?? null"
               />
             </UFormField>
@@ -560,25 +560,22 @@
   const coachJoinPage = ref(structuredClone(buildDefaultCoachPublicProfile().joinPage))
   const coachStartPage = ref(structuredClone(buildDefaultCoachPublicProfile().startPage))
 
-  const { data: coachData, refresh: refreshCoach } = await (useFetch as any)(
-    '/api/profile/public/coach',
-    {
-      key: 'public-presence-coach'
-    }
-  )
-  const { data: coachJoinData, refresh: refreshCoachJoin } = await (useFetch as any)(
+  const { data: coachData, refresh: refreshCoach } = await useFetch('/api/profile/public/coach', {
+    key: 'public-presence-coach'
+  })
+  const { data: coachJoinData, refresh: refreshCoachJoin } = await useFetch(
     '/api/profile/public/coach/join',
     {
       key: 'public-presence-coach-join'
     }
   )
-  const { data: coachStartData, refresh: refreshCoachStart } = await (useFetch as any)(
+  const { data: coachStartData, refresh: refreshCoachStart } = await useFetch(
     '/api/profile/public/coach/start',
     {
       key: 'public-presence-coach-start'
     }
   )
-  const { data: athleteData, refresh: refreshAthlete } = await (useFetch as any)(
+  const { data: athleteData, refresh: refreshAthlete } = await useFetch(
     '/api/profile/public/athlete',
     {
       key: 'public-presence-athlete'

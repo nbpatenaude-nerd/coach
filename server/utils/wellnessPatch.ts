@@ -4,7 +4,7 @@ import { requireAuth } from './auth-guard'
 import { prisma } from './db'
 import { bodyMeasurementService } from './services/bodyMeasurementService'
 import { normalizeWellnessFields } from './wellnessNormalization'
-import { Prisma  } from './generated-prisma/client'
+import { Prisma } from './generated-prisma/client'
 
 export const wellnessPatchSchema = z.object({
   date: z.string().optional(),

@@ -2,16 +2,6 @@ import pkg from './package.json'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 
-const AUTH_ORIGIN = process.env.NUXT_AUTH_ORIGIN || 'http://localhost:3099/api/auth'
-
-// @sidebase/nuxt-auth consumes this value verbatim (server-side only the pathname is
-// used). Without the /api/auth suffix, session fetches recurse into SSR and OOM the server.
-if (process.env.NODE_ENV === 'production' && !AUTH_ORIGIN.endsWith('/api/auth')) {
-  throw new Error(
-    `NUXT_AUTH_ORIGIN must end with /api/auth, got "${process.env.NUXT_AUTH_ORIGIN}". See docs/04-guides/deployment.md.`
-  )
-}
-
 const TERMS = [
   'negative-split',
   'tempo',
@@ -119,26 +109,25 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  fonts: {
-    provider: 'bunny'
-  },
-
   app: {
     head: {
-      titleTemplate: '%s - Journey Endurance Coaching',
-      title: 'Journey Endurance Coaching',
+      titleTemplate: '%s - Journey Endurance',
+      title: 'Journey Endurance',
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: 'viewport',
+          content:
+            'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover'
+        },
         {
           name: 'description',
-          content:
-            'AI-powered endurance and multisport coaching platform — personalized training, nutrition, and recovery.'
+          content: 'Journey Endurance: Trinerds AI endurance coaching platform.'
         },
-        { name: 'apple-mobile-web-app-title', content: 'Journey Endurance Coaching' },
-        { name: 'application-name', content: 'Journey Endurance Coaching' },
-        { property: 'og:site_name', content: 'Journey Endurance Coaching' },
+        { name: 'apple-mobile-web-app-title', content: 'Journey Endurance' },
+        { name: 'application-name', content: 'Journey Endurance' },
+        { property: 'og:site_name', content: 'Journey Endurance' },
         { property: 'og:type', content: 'website' },
+        { property: 'og:locale', content: 'en_US' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:site', content: '@coachwatts' },
         { name: 'mobile-web-app-capable', content: 'yes' },
@@ -189,7 +178,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-gtag',
     'nuxt-api-shield',
-    // '@sentry/nuxt/module',
+    '@sentry/nuxt/module',
     '@nuxt/eslint',
     '@vue-email/nuxt'
   ],
@@ -208,7 +197,7 @@ export default defineNuxtConfig({
   },
 
   vueEmail: {
-    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://app.coachwatts.com',
+    baseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://app.journeyendurance.ca',
     emailsDir: 'app/emails'
   },
 
@@ -250,8 +239,8 @@ export default defineNuxtConfig({
             production: 'runtime',
             route: '/_openapi.json',
             meta: {
-              title: 'Journey Endurance Coaching API',
-              description: 'AI-powered endurance and multisport coaching platform API',
+              title: 'Journey Endurance API',
+              description: 'AI-powered endurance coaching platform API',
               version: pkg.version
             },
             ui: {
@@ -278,13 +267,9 @@ export default defineNuxtConfig({
     },
     scheduledTasks: {
       '*/15 * * * *': ['shield:cleanBans'],
-      '0 0 * * *': ['shield:cleanIpData'],
-      '0 7 * * *': ['telegram:morning-summary'],
-      '0 19 * * *': ['telegram:evening-reminder'],
-      '0 17 * * 5': ['telegram:weekend-race-broadcast']
+      '0 0 * * *': ['shield:cleanIpData']
     },
     imports: {
-      dirs: ['!server/utils/generated-prisma'],
       imports: [
         {
           from: fileURLToPath(new URL('./server/utils/define-route-meta', import.meta.url)).replace(
@@ -301,19 +286,24 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   auth: {
-    originEnvKey: 'NUXT_AUTH_ORIGIN',
-    baseURL: AUTH_ORIGIN,
+    // Relative default for local. On the server, originEnvKey REPLACES baseURL.
+    // start.sh sets NUXT_AUTH_ORIGIN_UNUSED=<public https origin>/api/auth (never
+    // loopback — Auth.js uses that host for Google redirect_uri). Session $fetch
+    // uses pathname only (/api/auth/session).
+    baseURL: '/api/auth',
+    originEnvKey: 'NUXT_AUTH_ORIGIN_UNUSED',
     provider: {
       type: 'authjs'
     },
-    sessionRefresh: {
-      enablePeriodically: 5 * 60 * 1000,
-      enableOnWindowFocus: true
+    session: {
+      enableRefreshPeriodically: true,
+      enableRefreshOnWindowFocus: true
     }
   },
 
   runtimeConfig: {
-    authOrigin: AUTH_ORIGIN,
+    authOrigin:
+      process.env.NUXT_AUTH_ORIGIN || process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3099',
     // E2E stack must exercise real auth redirects; ignore local AUTH_BYPASS_USER.
     authBypassEnabled: process.env.E2E_MODE === 'true' ? false : !!process.env.AUTH_BYPASS_USER,
     authBypassUser: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_USER || '',
@@ -335,7 +325,7 @@ export default defineNuxtConfig({
     redisUrl: process.env.REDIS_URL || '',
 
     // Nutrition Feeder Service
-    nutritionFeederUrl: process.env.NUTRITION_FEEDER_URL || 'https://feeds.coachwatts.com',
+    nutritionFeederUrl: process.env.NUTRITION_FEEDER_URL || 'https://feeds.journeyendurance.ca',
     nutritionFeederApiKey: process.env.NUTRITION_FEEDER_API_KEY || '',
 
     // Resend
@@ -345,18 +335,16 @@ export default defineNuxtConfig({
     // Stripe Configuration
     stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
     stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
-    stripeUncoverProductId: process.env.STRIPE_UNCOVER_PRODUCT_ID || '',
-    stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID || '',
-    stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID || '',
-    stripeUncover12PhasePriceId: process.env.STRIPE_UNCOVER_12_PHASE_PRICE_ID || '',
-    stripeUnlockProductId: process.env.STRIPE_UNLOCK_PRODUCT_ID || '',
-    stripeUnlock1PhasePriceId: process.env.STRIPE_UNLOCK_1_PHASE_PRICE_ID || '',
-    stripeUnlock6PhasePriceId: process.env.STRIPE_UNLOCK_6_PHASE_PRICE_ID || '',
-    stripeUnlock12PhasePriceId: process.env.STRIPE_UNLOCK_12_PHASE_PRICE_ID || '',
-    stripeUnleashProductId: process.env.STRIPE_UNLEASH_PRODUCT_ID || '',
-    stripeUnleash1PhasePriceId: process.env.STRIPE_UNLEASH_1_PHASE_PRICE_ID || '',
-    stripeUnleash6PhasePriceId: process.env.STRIPE_UNLEASH_6_PHASE_PRICE_ID || '',
-    stripeUnleash12PhasePriceId: process.env.STRIPE_UNLEASH_12_PHASE_PRICE_ID || '',
+    stripeSupporterProductId: process.env.STRIPE_SUPPORTER_PRODUCT_ID || '',
+    stripeSupporterMonthlyPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_PRICE_ID || '',
+    stripeSupporterAnnualPriceId: process.env.STRIPE_SUPPORTER_ANNUAL_PRICE_ID || '',
+    stripeSupporterMonthlyEurPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_EUR_PRICE_ID || '',
+    stripeSupporterAnnualEurPriceId: process.env.STRIPE_SUPPORTER_ANNUAL_EUR_PRICE_ID || '',
+    stripeProProductId: process.env.STRIPE_PRO_PRODUCT_ID || '',
+    stripeProMonthlyPriceId: process.env.STRIPE_PRO_MONTHLY_PRICE_ID || '',
+    stripeProAnnualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
+    stripeProMonthlyEurPriceId: process.env.STRIPE_PRO_MONTHLY_EUR_PRICE_ID || '',
+    stripeProAnnualEurPriceId: process.env.STRIPE_PRO_ANNUAL_EUR_PRICE_ID || '',
 
     // RevenueCat and provider-neutral subscription reconciliation (server-only keys)
     revenueCatApiBaseUrl: process.env.REVENUECAT_API_BASE_URL || 'https://api.revenuecat.com/v1',
@@ -364,18 +352,11 @@ export default defineNuxtConfig({
     revenueCatStripePublicApiKey: process.env.REVENUECAT_STRIPE_APP_PUBLIC_API_KEY || '',
     revenueCatWebhookAuthorization: process.env.REVENUECAT_WEBHOOK_AUTHORIZATION || '',
     revenueCatAcceptSandbox: process.env.REVENUECAT_ACCEPT_SANDBOX || 'false',
-    subscriptionUncoverProductIds: process.env.SUBSCRIPTION_UNCOVER_PRODUCT_IDS || '',
-    subscriptionUnlockProductIds: process.env.SUBSCRIPTION_UNLOCK_PRODUCT_IDS || '',
-    subscriptionUnleashProductIds: process.env.SUBSCRIPTION_UNLEASH_PRODUCT_IDS || '',
-
-    // Telegram
-    telegramBotToken: process.env.TELEGRAM_BOT_TOKEN || '',
-    telegramAdminChatId: process.env.TELEGRAM_ADMIN_CHAT_ID || '',
-    telegramGroupChatId: process.env.TELEGRAM_GROUP_CHAT_ID || '',
-    telegramWebhookSecret: process.env.TELEGRAM_WEBHOOK_SECRET || '',
+    subscriptionSupporterProductIds: process.env.SUBSCRIPTION_SUPPORTER_PRODUCT_IDS || '',
+    subscriptionProProductIds: process.env.SUBSCRIPTION_PRO_PRODUCT_IDS || '',
 
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3099/',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3099',
       version: pkg.version,
       commitHash,
       buildDate,
@@ -388,15 +369,14 @@ export default defineNuxtConfig({
       authBypassUser: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_USER || '',
       authBypassName: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_NAME || '',
       stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
-      stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID || '',
-      stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID || '',
-      stripeUncover12PhasePriceId: process.env.STRIPE_UNCOVER_12_PHASE_PRICE_ID || '',
-      stripeUnlock1PhasePriceId: process.env.STRIPE_UNLOCK_1_PHASE_PRICE_ID || '',
-      stripeUnlock6PhasePriceId: process.env.STRIPE_UNLOCK_6_PHASE_PRICE_ID || '',
-      stripeUnlock12PhasePriceId: process.env.STRIPE_UNLOCK_12_PHASE_PRICE_ID || '',
-      stripeUnleash1PhasePriceId: process.env.STRIPE_UNLEASH_1_PHASE_PRICE_ID || '',
-      stripeUnleash6PhasePriceId: process.env.STRIPE_UNLEASH_6_PHASE_PRICE_ID || '',
-      stripeUnleash12PhasePriceId: process.env.STRIPE_UNLEASH_12_PHASE_PRICE_ID || '',
+      stripeSupporterMonthlyPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_PRICE_ID || '',
+      stripeSupporterAnnualPriceId: process.env.STRIPE_SUPPORTER_ANNUAL_PRICE_ID || '',
+      stripeSupporterMonthlyEurPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_EUR_PRICE_ID || '',
+      stripeSupporterAnnualEurPriceId: process.env.STRIPE_SUPPORTER_ANNUAL_EUR_PRICE_ID || '',
+      stripeProMonthlyPriceId: process.env.STRIPE_PRO_MONTHLY_PRICE_ID || '',
+      stripeProAnnualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
+      stripeProMonthlyEurPriceId: process.env.STRIPE_PRO_MONTHLY_EUR_PRICE_ID || '',
+      stripeProAnnualEurPriceId: process.env.STRIPE_PRO_ANNUAL_EUR_PRICE_ID || '',
       subscriptionsEnabled: process.env.NUXT_PUBLIC_SUBSCRIPTIONS_ENABLED !== 'false',
       nativeSubscriptionsEnabled: process.env.NUXT_PUBLIC_NATIVE_SUBSCRIPTIONS_ENABLED === 'true',
       stravaEnabled: process.env.NUXT_PUBLIC_STRAVA_ENABLED !== 'false',
@@ -486,15 +466,15 @@ export default defineNuxtConfig({
     }
   },
 
-  // sentry: {
-  //   enabled: false,
-  //   org: process.env.SENTRY_ORG || 'watt-mind',
-  //   project: process.env.SENTRY_PROJECT || 'coach-watts-web',
-  //   sourceMapsUploadOptions: {
-  //     enabled: !!process.env.SENTRY_AUTH_TOKEN,
-  //     telemetry: false
-  //   }
-  // },
+  sentry: {
+    enabled: sentryEnabled,
+    org: process.env.SENTRY_ORG || 'watt-mind',
+    project: process.env.SENTRY_PROJECT || 'coach-watts-web',
+    sourceMapsUploadOptions: {
+      enabled: !!process.env.SENTRY_AUTH_TOKEN,
+      telemetry: false
+    }
+  },
 
   sourcemap: {
     client: process.env.SOURCEMAP === 'false' ? false : 'hidden'

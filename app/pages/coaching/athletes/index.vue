@@ -45,6 +45,105 @@
           </p>
         </div>
 
+        <!-- Load failures for the roster and the requests/invites sub-requests, grouped at the top
+             of the page so a coach scanning for "anything wrong" cannot scroll past one. A failure
+             must never be rendered as an empty list — missing a real connection request costs a
+             client, and a roster that failed to load must not read as "you have no athletes". -->
+        <div v-if="listError || requestsError || invitesError" class="px-4 sm:px-0 space-y-3">
+          <UAlert
+            v-if="listError"
+            color="error"
+            variant="soft"
+            icon="i-heroicons-exclamation-triangle"
+            :title="tr('athletes_list_error_title', 'Could not load your athletes')"
+            :description="
+              tr(
+                'athletes_list_error_desc',
+                'We could not reach the server, so your roster, groups and teams are not shown. This is a loading error — your athletes are still connected to you.'
+              )
+            "
+          >
+            <template #actions>
+              <UButton
+                color="error"
+                variant="outline"
+                size="xs"
+                icon="i-heroicons-arrow-path"
+                class="font-bold"
+                :loading="retryingList"
+                :label="tr('athletes_list_error_retry', 'Retry')"
+                @click="
+                  () => {
+                    void retryList()
+                  }
+                "
+              />
+            </template>
+          </UAlert>
+
+          <UAlert
+            v-if="requestsError"
+            color="error"
+            variant="soft"
+            icon="i-heroicons-exclamation-triangle"
+            :title="tr('athletes_requests_error_title', 'Could not load coaching requests')"
+            :description="
+              tr(
+                'athletes_requests_error_desc',
+                'We could not reach the server, so pending requests from your start page are not shown. This is a loading error — you may still have requests waiting.'
+              )
+            "
+          >
+            <template #actions>
+              <UButton
+                color="error"
+                variant="outline"
+                size="xs"
+                icon="i-heroicons-arrow-path"
+                class="font-bold"
+                :loading="retryingRequests"
+                :label="tr('athletes_requests_error_retry', 'Retry')"
+                @click="
+                  () => {
+                    void retryPendingRequests()
+                  }
+                "
+              />
+            </template>
+          </UAlert>
+
+          <UAlert
+            v-if="invitesError"
+            color="error"
+            variant="soft"
+            icon="i-heroicons-exclamation-triangle"
+            :title="tr('athletes_invites_error_title', 'Could not load pending invitations')"
+            :description="
+              tr(
+                'athletes_invites_error_desc',
+                'We could not reach the server, so your pending invites and share links are not shown. This is a loading error — any existing invites are still active.'
+              )
+            "
+          >
+            <template #actions>
+              <UButton
+                color="error"
+                variant="outline"
+                size="xs"
+                icon="i-heroicons-arrow-path"
+                class="font-bold"
+                :loading="retryingInvites"
+                :label="tr('athletes_invites_error_retry', 'Retry')"
+                @click="
+                  () => {
+                    void retryPendingInvites()
+                  }
+                "
+              />
+            </template>
+          </UAlert>
+        </div>
+
         <CoachingGroupManager
           v-if="athletes.length > 0 || groups.length > 0"
           v-model:active-group-id="activeGroupId"
@@ -182,8 +281,10 @@
           </UCard>
         </div>
 
+        <!-- Onboarding empty state is for a confirmed-empty roster only. When the fetch failed we
+             do not know whether the coach has athletes, so the alert above speaks instead. -->
         <div
-          v-else-if="athletes.length === 0"
+          v-else-if="athletes.length === 0 && !listError"
           class="py-12 text-center flex flex-col items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-lg"
         >
           <div class="bg-neutral-100 dark:bg-neutral-800 p-4 rounded-full mb-4">
@@ -254,7 +355,10 @@
           </p>
         </div>
 
+        <!-- Hidden on a failed load: urging a coach to grow their roster is actively misleading
+             when we could not even read the roster we already have. -->
         <UCard
+          v-if="!listError"
           class="overflow-hidden border-2 border-primary-500/20 bg-primary-50/30 dark:bg-primary-950/10"
           :ui="{
             ...mobileListCardUi,
@@ -470,7 +574,7 @@
             </p>
             <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
               Facebook groups, WhatsApp communities, website CTAs, and onboarding posts for athletes
-              who already use Journey Endurance Coaching.
+              who already use Journey Endurance.
             </p>
           </div>
         </div>
@@ -602,6 +706,12 @@
   const inviteEmail = ref('')
   const pendingInvites = ref<any[]>([])
   const pendingRequests = ref<any[]>([])
+  const listError = ref(false)
+  const invitesError = ref(false)
+  const requestsError = ref(false)
+  const retryingList = ref(false)
+  const retryingInvites = ref(false)
+  const retryingRequests = ref(false)
   const revokingInviteId = ref<string | null>(null)
   const reviewingRequestId = ref<string | null>(null)
   const reviewingAction = ref<'approve' | 'decline' | null>(null)
@@ -639,24 +749,115 @@
     return athletes.value.filter((rel) => memberIds.includes(rel.athlete.id))
   })
 
-  async function fetchData() {
-    loading.value = true
+  // Loads pending invites on its own so a transient failure does not take the whole page
+  // down — but it never masquerades as an empty list: `invitesError` drives an explicit
+  // error state with a retry, while a successful empty response clears it.
+  async function loadPendingInvites() {
     try {
-      const [athletesData, groupsData, teamsData, invitesData, requestsData] = await Promise.all([
+      const data = await $fetch<any, string & {}>('/api/coaching/athletes/invites')
+      pendingInvites.value = (data as any[]) || []
+      invitesError.value = false
+      return true
+    } catch (e) {
+      console.error(e)
+      pendingInvites.value = []
+      invitesError.value = true
+      return false
+    }
+  }
+
+  async function loadPendingRequests() {
+    try {
+      const data = await $fetch<any, string & {}>('/api/coaching/athletes/requests')
+      pendingRequests.value = (data as any[]) || []
+      requestsError.value = false
+      return true
+    } catch (e) {
+      console.error(e)
+      pendingRequests.value = []
+      requestsError.value = true
+      return false
+    }
+  }
+
+  async function retryPendingInvites() {
+    retryingInvites.value = true
+    try {
+      const ok = await loadPendingInvites()
+      if (!ok) {
+        toast.add({
+          title: tr('athletes_invites_error_toast', 'Still unable to load pending invitations'),
+          color: 'error'
+        })
+      }
+    } finally {
+      retryingInvites.value = false
+    }
+  }
+
+  async function retryPendingRequests() {
+    retryingRequests.value = true
+    try {
+      const ok = await loadPendingRequests()
+      if (!ok) {
+        toast.add({
+          title: tr('athletes_requests_error_toast', 'Still unable to load coaching requests'),
+          color: 'error'
+        })
+      }
+    } finally {
+      retryingRequests.value = false
+    }
+  }
+
+  // The roster, groups and teams load as one unit because they render as one — a group tab
+  // is meaningless without the athletes behind it, so a partial failure is still a failed
+  // list. Same contract as the loaders above: `listError` drives an explicit error state
+  // with a retry, and a successful empty response clears it so a real "no athletes yet"
+  // roster still reaches the onboarding state.
+  //
+  // Deliberately does NOT blank the arrays on failure, unlike the sub-request loaders. This
+  // also runs on refetch (connect, invite, approve), and dropping a roster the coach is
+  // looking at because a refresh failed is worse than showing it beside an error banner.
+  async function loadAthleteList() {
+    try {
+      const [athletesData, groupsData, teamsData] = await Promise.all([
         $fetch<any, string & {}>('/api/coaching/athletes'),
         $fetch<any, string & {}>('/api/coaching/groups'),
-        $fetch<any, string & {}>('/api/coaching/teams'),
-        $fetch<any, string & {}>('/api/coaching/athletes/invites').catch(() => []),
-        $fetch<any, string & {}>('/api/coaching/athletes/requests').catch(() => [])
+        $fetch<any, string & {}>('/api/coaching/teams')
       ])
       athletes.value = athletesData as any[]
       groups.value = groupsData as any[]
       teams.value = teamsData as any[]
-      pendingInvites.value = invitesData as any[]
-      pendingRequests.value = requestsData as any[]
+      listError.value = false
+      return true
     } catch (e) {
       console.error(e)
-      toast.add({ title: 'Failed to load coaching data', color: 'error' })
+      listError.value = true
+      return false
+    }
+  }
+
+  async function retryList() {
+    retryingList.value = true
+    try {
+      const ok = await loadAthleteList()
+      if (!ok) {
+        toast.add({
+          title: tr('athletes_list_error_toast', 'Still unable to load your athletes'),
+          color: 'error'
+        })
+      }
+    } finally {
+      retryingList.value = false
+    }
+  }
+
+  // Each loader owns its own failure, so one section going down no longer blanks the others.
+  async function fetchData() {
+    loading.value = true
+    try {
+      await Promise.all([loadAthleteList(), loadPendingInvites(), loadPendingRequests()])
     } finally {
       loading.value = false
     }

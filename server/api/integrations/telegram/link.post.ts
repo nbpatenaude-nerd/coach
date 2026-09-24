@@ -25,8 +25,7 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  // Return the deep link
-  const botUsername = 'CoachWattsBot' // Should be in env, but hardcoded for now per user instruction
+  const botUsername = process.env.TELEGRAM_BOT_USERNAME || 'JourneyEnduranceBot'
   return {
     url: `https://t.me/${botUsername}?start=${token}`
   }

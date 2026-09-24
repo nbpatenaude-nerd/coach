@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
 
   // Also include future ones with no week IF they look like plan-fillers (e.g. part of a deleted plan sequence)
   // Standard standalone recommendations usually only happen for "today".
-  // If we have CoachWatts workouts far in the future with no week, they are likely from a deleted plan.
+  // If we have app-managed workouts far in the future with no week, they are likely from a deleted plan.
   const futureNoWeekOrphans = await prisma.plannedWorkout.findMany({
     where: {
       userId,
@@ -66,12 +66,12 @@ export default defineEventHandler(async (event) => {
 
   // For future ones with no week, we only delete them if they don't look like today's recommendation.
   // Actually, to be safe, let's only delete past ones with no week, OR any that belong to a known non-active plan.
-  // If a user has future CoachWatts workouts with no week, they are likely orphans from a deleted plan.
+  // If a user has future app-managed workouts with no week, they are likely orphans from a deleted plan.
   // But we should keep "today".
 
   const allOrphans = [...localOrphans]
   for (const f of futureNoWeekOrphans) {
-    // If it's tomorrow or later and has no week, it's almost certainly a plan orphan (CoachWatts doesn't pre-recommend standalone future days)
+    // If it's tomorrow or later and has no week, it's almost certainly a plan orphan (the app doesn't pre-recommend standalone future days)
     allOrphans.push(f)
   }
 
@@ -90,7 +90,7 @@ export default defineEventHandler(async (event) => {
 
   if (integration) {
     try {
-      // Scan 6 months into the future for any [CoachWatts] tagged workouts
+      // Scan 6 months into the future for any legacy [CoachWatts]-tagged workouts
       const scanNow = new Date()
       const startDate = new Date(scanNow)
       startDate.setDate(startDate.getDate() - 7) // also check last week just in case
@@ -99,7 +99,7 @@ export default defineEventHandler(async (event) => {
 
       const remoteWorkouts = await fetchIntervalsPlannedWorkouts(integration, startDate, endDate)
 
-      // Identify workouts on Intervals that CoachWatts should manage
+      // Identify workouts on Intervals the app should manage
       const remoteCWWorouts = remoteWorkouts.filter(
         (rw) => rw.description && rw.description.includes('[CoachWatts]')
       )

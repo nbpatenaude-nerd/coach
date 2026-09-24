@@ -1,9 +1,9 @@
 ---
 title: Developer Hub
-description: Resources and guides for building on top of the Journey Endurance Coaching Platform platform.
+description: Resources and guides for building on top of the Journey Endurance platform.
 ---
 
-Welcome to the Journey Endurance Coaching Platform developer documentation. This section is designed for integration partners and developers looking to extend the platform or integrate with our API.
+Welcome to the Journey Endurance developer documentation. This section is designed for integration partners and developers looking to extend the platform or integrate with our API.
 
 ## Getting started
 
@@ -29,12 +29,12 @@ Welcome to the Journey Endurance Coaching Platform developer documentation. This
 
 - **Scalar explorer**: [/_docs/scalar](/_docs/scalar)
 - **OpenAPI spec**: [/_openapi.json](/_openapi.json)
-- **MCP endpoint**: `https://coachwatts.com/mcp`
+- **MCP endpoint**: `https://journeyendurance.ca/mcp`
 
 ## Base URL
 
 ```
-https://coachwatts.com/api
+https://journeyendurance.ca/api
 ```
 
 For local development: `http://localhost:3099/api`

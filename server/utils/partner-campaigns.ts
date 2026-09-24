@@ -1,8 +1,4 @@
-import type {
-  PartnerCampaign,
-  PartnerCampaignRedemption,
-  SubscriptionTier
-} from '~/server/utils/generated-prisma/client'
+import type { PartnerCampaign, PartnerCampaignRedemption, SubscriptionTier } from '@prisma/client'
 import { prisma } from './db'
 import { maxSubscriptionTier, resolveEffectiveTier } from '../../shared/effective-tier'
 import { normalizeSlug } from '../../shared/slug'
@@ -63,9 +59,11 @@ export type PartnerRedemptionResult = {
 
 const TIER_RANK: Record<SubscriptionTier, number> = {
   FREE: 0,
+  SUPPORTER: 1,
   UNCOVER: 1,
   UNLOCK: 2,
-  UNLEASH: 3
+  UNLEASH: 3,
+  PRO: 4
 }
 
 export function normalizePartnerCampaignSlug(slug: string): string {

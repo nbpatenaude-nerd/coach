@@ -40,7 +40,7 @@
           Get Started for Free
         </UButton>
         <UButton
-          to="https://coachwatts.com"
+          to="https://journeyendurance.ca"
           target="_blank"
           size="xl"
           color="neutral"

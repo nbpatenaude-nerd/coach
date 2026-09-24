@@ -3,6 +3,7 @@ import { requireAuth } from '../../utils/auth-guard'
 import { eventRepository } from '../../utils/repositories/eventRepository'
 import { syncEventToIntervals } from '../../utils/intervals-sync'
 import { prisma } from '../../utils/db'
+import { afterPersonalEventCreated } from '../../utils/community-events'
 
 const eventSchema = z.object({
   title: z.string().min(1),
@@ -14,6 +15,10 @@ const eventSchema = z.object({
   priority: z.enum(['A', 'B', 'C']).or(z.literal('')).nullable().optional(),
   isVirtual: z.boolean().default(false),
   isPublic: z.boolean().default(false),
+  shareLevel: z.enum(['FULL', 'SUMMARY']).optional(),
+  hideAttendeeNames: z.boolean().optional(),
+  joinTeamEventId: z.string().min(1).optional().nullable(),
+  skipCommunityDedupe: z.boolean().optional(),
   country: z.string().optional(),
   city: z.string().optional(),
   location: z.string().optional(),
@@ -29,24 +34,7 @@ defineRouteMeta({
   openAPI: {
     tags: ['Events'],
     summary: 'Create a new racing event',
-    description: 'Creates an event for the authenticated user (session or Bearer with goal:write).',
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            required: ['title', 'date'],
-            properties: {
-              title: { type: 'string' },
-              date: { type: 'string', format: 'date-time' },
-              priority: { type: 'string', enum: ['A', 'B', 'C'] },
-              isVirtual: { type: 'boolean' },
-              isPublic: { type: 'boolean' }
-            }
-          }
-        }
-      }
-    }
+    description: 'Creates an event for the authenticated user (session or Bearer with goal:write).'
   }
 })
 
@@ -61,101 +49,40 @@ export default defineEventHandler(async (event) => {
   }
 
   const userId = user.id
+  const { joinTeamEventId, skipCommunityDedupe, shareLevel, hideAttendeeNames, ...eventFields } =
+    result.data
 
   try {
-    // Deduplication Logic
-    let existingEvent = null
-    if (result.data.isPublic) {
-      if (result.data.websiteUrl) {
-        existingEvent = await prisma.event.findFirst({
-          where: { isPublic: true, websiteUrl: result.data.websiteUrl }
-        })
-      } else {
-        // Fallback to title and date match
-        const eventDate = new Date(result.data.date)
-        const startOfDay = new Date(eventDate)
-        startOfDay.setHours(0, 0, 0, 0)
-        const endOfDay = new Date(eventDate)
-        endOfDay.setHours(23, 59, 59, 999)
-
-        existingEvent = await prisma.event.findFirst({
-          where: {
-            isPublic: true,
-            title: { equals: result.data.title, mode: 'insensitive' },
-            date: { gte: startOfDay, lte: endOfDay }
-          }
-        })
-      }
-    }
-
-    if (existingEvent) {
-      // Connect to existing event instead of creating a new one
-      const priority = result.data.priority || existingEvent.priority || 'B'
-      await prisma.eventParticipant.upsert({
-        where: { eventId_userId: { eventId: existingEvent.id, userId } },
-        create: { eventId: existingEvent.id, userId, priority },
-        update: { priority }
-      })
-
-      // Fetch the full event to return
-      const finalEvent = await prisma.event.findUnique({
-        where: { id: existingEvent.id },
-        include: {
-          participants: {
-            include: { user: { select: { id: true, name: true, image: true } } }
-          }
-        }
-      })
-
-      if (finalEvent) {
-        const mappedEvent = {
-          ...finalEvent,
-          priority:
-            finalEvent.participants.find((p) => p.userId === userId)?.priority ||
-            finalEvent.priority,
-          participants: finalEvent.participants.map((p) => ({
-            id: p.user.id,
-            name: p.user.name,
-            image: p.user.image,
-            priority: p.priority
-          }))
-        }
-        return { success: true, event: mappedEvent }
-      }
-    }
-
-    // 1. Determine initial sync status
     const integration = await prisma.integration.findFirst({
       where: { userId, provider: 'intervals' }
     })
 
     const initialSyncStatus = integration ? 'PENDING' : 'LOCAL_ONLY'
 
-    // 2. Create local event
+    // If joining an existing team event, create as private then fold.
+    const createIsPublic = joinTeamEventId ? false : eventFields.isPublic
+
     const newEvent = await eventRepository.create(userId, {
-      ...result.data,
-      priority: result.data.priority || null,
-      date: new Date(result.data.date),
+      ...eventFields,
+      isPublic: createIsPublic,
+      priority: eventFields.priority || null,
+      date: new Date(eventFields.date),
       syncStatus: initialSyncStatus
     })
 
-    // Also add the creator as an EventParticipant
-    await prisma.eventParticipant.create({
-      data: {
-        eventId: newEvent.id,
-        userId: userId,
-        priority: result.data.priority || 'B'
-      }
+    const community = await afterPersonalEventCreated(userId, newEvent, {
+      joinTeamEventId: joinTeamEventId ?? null,
+      skipCommunityDedupe: skipCommunityDedupe ?? false,
+      shareLevel,
+      hideAttendeeNames
     })
+    let finalEvent = community.event
 
-    let finalEvent = newEvent
-
-    // 3. Attempt sync if integration exists
-    if (integration) {
-      const syncResult = await syncEventToIntervals('CREATE', newEvent, userId)
+    if (integration && finalEvent.id === newEvent.id && !finalEvent.externalId) {
+      const syncResult = await syncEventToIntervals('CREATE', finalEvent, userId)
 
       if (syncResult.synced && syncResult.result?.id) {
-        finalEvent = await eventRepository.update(newEvent.id, userId, {
+        finalEvent = await eventRepository.update(finalEvent.id, userId, {
           externalId: String(syncResult.result.id),
           source: 'intervals',
           syncStatus: 'SYNCED'
@@ -163,8 +90,17 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    return { success: true, event: finalEvent }
+    return {
+      success: true,
+      event: finalEvent,
+      community: {
+        teamEventId: community.teamEventId,
+        linkedRootId: community.linkedRootId,
+        deduped: community.deduped
+      }
+    }
   } catch (error: any) {
+    if (error?.statusCode) throw error
     throw createError({ statusCode: 500, message: error.message })
   }
 })

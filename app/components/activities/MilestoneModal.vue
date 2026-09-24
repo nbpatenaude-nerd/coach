@@ -92,7 +92,7 @@
     <template #footer>
       <div class="flex justify-between items-center w-full">
         <div class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-          Journey Milestone
+          Journey Endurance Milestone
         </div>
         <UButton
           color="neutral"

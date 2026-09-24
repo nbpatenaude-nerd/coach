@@ -1,30 +1,30 @@
 ---
 title: ROUVY Integration
-description: How indoor cycling activities from ROUVY appear in Journey Endurance Coaching Platform.
+description: How indoor cycling activities from ROUVY appear in Journey Endurance.
 ---
 
-[ROUVY](https://rouvy.com) is a virtual cycling platform for indoor training. Journey Endurance Coaching Platform does not connect to ROUVY directly — activities arrive through your linked activity platform.
+[ROUVY](https://rouvy.com) is a virtual cycling platform for indoor training. Journey Endurance does not connect to ROUVY directly — activities arrive through your linked activity platform.
 
-## How ROUVY data reaches Journey Endurance Coaching Platform
+## How ROUVY data reaches Journey Endurance
 
-ROUVY exports completed rides to connected platforms. To get ROUVY activities into Journey Endurance Coaching Platform:
+ROUVY exports completed rides to connected platforms. To get ROUVY activities into Journey Endurance:
 
 1. Enable sync from ROUVY to **Strava** or **Garmin Connect** in your ROUVY account settings
-2. Connect that platform to Journey Endurance Coaching Platform via **Settings → Apps**
+2. Connect that platform to Journey Endurance via **Settings → Apps**
 3. Completed ROUVY rides appear as regular cycling activities
 
 ## Recommended setup
 
-| ROUVY syncs to | Journey Endurance Coaching Platform connection                    |
+| ROUVY syncs to | Journey Endurance connection                                      |
 | -------------- | ----------------------------------------------------------------- |
 | Strava         | [Strava Integration](/documentation/athletes/integrations/strava) |
 | Garmin Connect | [Garmin Integration](/documentation/athletes/integrations/garmin) |
 
 ::alert{type="info"}
-Connect only one primary activity source. If both Strava and Garmin receive ROUVY exports, pick one for Journey Endurance Coaching Platform to avoid duplicate activities.
+Connect only one primary activity source. If both Strava and Garmin receive ROUVY exports, pick one for Journey Endurance to avoid duplicate activities.
 ::
 
-## What Journey Endurance Coaching Platform analyzes
+## What Journey Endurance analyzes
 
 ROUVY rides sync with the same analysis as outdoor rides:
 

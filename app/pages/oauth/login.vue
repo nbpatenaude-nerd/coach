@@ -10,11 +10,7 @@
         <!-- App Identity -->
         <div class="flex flex-col items-center gap-4 text-center">
           <div class="flex items-center gap-3">
-            <img
-              src="/media/logo.webp"
-              alt="Journey Endurance Coaching"
-              class="size-10 object-contain"
-            />
+            <img src="/media/logo.webp" alt="Journey Endurance" class="size-10 object-contain" />
             <UIcon name="i-heroicons-plus" class="text-gray-400 w-4 h-4" />
             <UAvatar
               :src="app?.logoUrl || undefined"
@@ -25,7 +21,7 @@
           </div>
           <div>
             <h1 class="text-xl font-bold text-gray-900 dark:text-white">
-              Sign in to Journey Endurance Coaching
+              Sign in to Journey Endurance
             </h1>
             <p v-if="app" class="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">
               to continue to
@@ -35,6 +31,27 @@
         </div>
 
         <USeparator />
+
+        <div
+          v-if="providerErrorMessage"
+          role="alert"
+          class="rounded-xl border border-red-200 bg-red-50 p-4 dark:border-red-900/60 dark:bg-red-950/30"
+        >
+          <div class="flex items-start gap-3">
+            <UIcon
+              name="i-heroicons-exclamation-circle"
+              class="mt-0.5 size-5 shrink-0 text-red-600 dark:text-red-400"
+            />
+            <div>
+              <p class="text-sm font-bold text-red-900 dark:text-red-100">
+                Sign-in could not be completed
+              </p>
+              <p class="mt-1 text-xs leading-relaxed text-red-700 dark:text-red-300">
+                {{ providerErrorMessage }}
+              </p>
+            </div>
+          </div>
+        </div>
 
         <!-- Current User (if logged in) -->
         <div v-if="status === 'authenticated' && user" class="space-y-4">
@@ -66,7 +83,7 @@
               class="font-bold"
               @click="
                 () => {
-                  void navigateTo(callbackUrl)
+                  void navigateTo(callbackUrl, { external: true })
                 }
               "
             />
@@ -153,7 +170,7 @@
         <p
           class="text-[10px] text-gray-400 dark:text-gray-500 text-center font-medium leading-relaxed"
         >
-          By continuing, you allow Journey Endurance Coaching to share your identity with
+          By continuing, you allow Journey Endurance to share your identity with
           {{ app?.name || 'this application' }}.
         </p>
       </div>
@@ -173,6 +190,27 @@
 
   const runtimeConfig = useRuntimeConfig()
   const appleSignInEnabled = computed(() => Boolean(runtimeConfig.public.appleSignInEnabled))
+
+  const providerErrorCode = computed(() => {
+    const value = Array.isArray(route.query.error) ? route.query.error[0] : route.query.error
+    return typeof value === 'string' ? value : null
+  })
+  const providerErrorMessage = computed(() => {
+    switch (providerErrorCode.value) {
+      case 'AccessDenied':
+        return 'The provider cancelled the request. Try again or choose another provider.'
+      case 'OAuthAccountNotLinked':
+        return 'This email already belongs to another sign-in method. Choose the provider you used before.'
+      case 'OAuthSignin':
+      case 'OAuthCallback':
+      case 'OAuthCreateAccount':
+        return 'The provider could not finish the request. Try again or choose another provider.'
+      default:
+        return providerErrorCode.value
+          ? 'The provider returned an unexpected response. Try again or choose another provider.'
+          : null
+    }
+  })
 
   const user = computed(() => authData.value?.user)
   const loadingApp = ref(true)
@@ -234,14 +272,26 @@
     }
   }
 
-  function handleCancel() {
-    if (clientId.value) {
-      // If we have a callback URL from OAuth, we should ideally redirect back with an error
-      // But for now, just going to dashboard is safer
-      navigateTo('/dashboard')
-    } else {
-      navigateTo('/dashboard')
+  function oauthCancellationPath(): string | null {
+    try {
+      const url = new URL(callbackUrl, window.location.origin)
+      if (url.origin !== window.location.origin || url.pathname !== '/api/oauth/authorize') {
+        return null
+      }
+      url.searchParams.set('action', 'deny')
+      return `${url.pathname}${url.search}`
+    } catch {
+      return null
     }
+  }
+
+  async function handleCancel() {
+    const cancellationPath = oauthCancellationPath()
+    if (clientId.value && cancellationPath) {
+      await navigateTo(cancellationPath, { external: true })
+      return
+    }
+    await navigateTo('/dashboard')
   }
 
   onMounted(() => {
@@ -249,11 +299,11 @@
   })
 
   useHead({
-    title: 'Sign in - Journey Endurance Coaching',
+    title: 'Sign in - Journey Endurance',
     meta: [
       {
         name: 'description',
-        content: 'Sign in to your Journey Endurance Coaching account to authorize an application.'
+        content: 'Sign in to your Journey Endurance account to authorize an application.'
       }
     ]
   })

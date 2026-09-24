@@ -1,21 +1,28 @@
 <template>
   <div id="pricing" class="relative isolate overflow-hidden bg-transparent py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div v-if="route.query.upgrade_required === 'true'" class="mx-auto max-w-2xl mb-12">
+        <UAlert
+          color="amber"
+          variant="soft"
+          icon="i-heroicons-exclamation-triangle"
+          title="Active Subscription Required"
+          description="Your account requires an active subscription to access this area. Please select a plan below."
+        />
+      </div>
+
       <div
         ref="headerRef"
         class="mx-auto mb-16 max-w-2xl text-center transition-all duration-700 transform relative bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] pointer-events-auto"
         :class="[isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12']"
       >
-        <div
-          class="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.9)] z-20"
-        ></div>
         <h2
           class="font-athletic text-3xl font-bold uppercase tracking-tight sm:text-4xl text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-pink-500"
         >
           The Journey Framework
         </h2>
         <p class="mt-4 text-lg leading-8 text-cyan-100/70">
-          From free community support to elite telemetry and performance analysis.
+          From group community support to elite telemetry and performance analysis.
         </p>
       </div>
 
@@ -34,8 +41,10 @@
               <span class="text-cyan-400 font-semibold text-sm uppercase tracking-wide"
                 >Tri Nerds Guild</span
               >
-              <div class="mt-4 flex items-baseline text-5xl font-extrabold text-white">$0</div>
-              <p class="mt-2 text-sm text-cyan-100/50">FREE</p>
+              <div class="mt-4 flex items-baseline text-5xl font-extrabold text-white">
+                $10<span class="text-lg font-medium text-cyan-100/50 ml-1">/mo</span>
+              </div>
+              <p class="mt-2 text-sm text-cyan-100/50">Includes 14-Day Trial</p>
             </div>
             <ul role="list" class="mt-8 space-y-4 text-sm leading-6 text-cyan-100/80">
               <li class="flex gap-x-3">
@@ -136,8 +145,8 @@
                   >MOST POPULAR</UBadge
                 >
               </span>
-              <div class="mt-4 flex items-baseline text-5xl font-extrabold text-white">
-                $350<span class="text-lg font-medium text-cyan-100/50 ml-1">/mo</span>
+              <div class="mt-4 flex items-baseline text-4xl font-extrabold text-white">
+                Apply to Join
               </div>
               <p class="mt-2 text-sm text-pink-400/80 font-bold tracking-widest">UNLOCK</p>
             </div>
@@ -152,7 +161,7 @@
               </li>
               <li class="flex gap-x-3">
                 <UIcon name="i-heroicons-check" class="h-6 w-5 flex-none text-pink-500" />
-                <span>Daily Digital Twin AI</span>
+                <span>Daily AI Coaching Engine</span>
               </li>
               <li class="flex gap-x-3">
                 <UIcon name="i-heroicons-check" class="h-6 w-5 flex-none text-pink-500" />
@@ -162,7 +171,7 @@
           </div>
           <div class="mt-8 relative z-10">
             <UButton
-              to="/join"
+              to="/apply/unlock"
               block
               class="bg-pink-500 hover:bg-pink-400 text-slate-950 font-bold shadow-[0_0_15px_rgba(236,72,153,0.4)]"
               >Apply for Unlock</UButton
@@ -181,7 +190,7 @@
               <span class="text-purple-400 font-semibold text-sm uppercase tracking-wide"
                 >Elite</span
               >
-              <div class="mt-4 flex items-baseline text-3xl font-extrabold text-white">
+              <div class="mt-4 flex items-baseline text-4xl font-extrabold text-white">
                 Waitlist
               </div>
               <p class="mt-2 text-sm text-cyan-100/50">UNLEASH</p>
@@ -207,11 +216,11 @@
           </div>
           <div class="mt-8">
             <UButton
-              to="/join"
+              to="/apply/unleash"
               block
               variant="outline"
               class="border-purple-500/50 text-purple-400 hover:bg-purple-500/10 hover:border-purple-400"
-              >Join Waitlist</UButton
+              >Apply for Unleash</UButton
             >
           </div>
         </UCard>
@@ -224,6 +233,7 @@
   import { ref } from 'vue'
   import { useIntersectionObserver } from '@vueuse/core'
 
+  const route = useRoute()
   const headerRef = ref(null)
   const isHeaderVisible = ref(false)
 

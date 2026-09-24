@@ -1,19 +1,20 @@
 import { prisma } from '../db'
 import { updateIntervalsActivityDescription } from '../intervals'
+import { PRODUCT_ATTRIBUTION, WORKOUT_SUMMARY_BLOCK_HEADER } from '../../../shared/branding'
 
-export const SUMMARY_BLOCK_HEADER = 'Journey Workout Analysis'
-export const SUMMARY_ATTRIBUTION_URL = '🔗 https://journeyendurance.com - AI Endurance Coaching'
+export const SUMMARY_BLOCK_HEADER = WORKOUT_SUMMARY_BLOCK_HEADER
+export const SUMMARY_ATTRIBUTION_URL = PRODUCT_ATTRIBUTION
 
+/** Strip legacy Coach Watts blocks and current Journey Endurance blocks on republish. */
 const PREVIOUS_SUMMARY_BLOCK_PATTERNS = [
-  /\n?\[Journey Endurance AI Summary\][\s\S]*?\[\/Journey Endurance AI Summary\]\n?/g,
-  /\n?\[Journey Endurance Workout Analysis\][\s\S]*?\[\/Journey Endurance Workout Analysis\]\n?/g,
-  /\n?Journey Endurance Workout Analysis[\s\S]*?🔗 https:\/\/journeyendurance\.com - AI Endurance Coaching\n?/g,
   /\n?\[CoachWatts\.com AI Summary\][\s\S]*?\[\/CoachWatts\.com AI Summary\]\n?/g,
   /\n?\[CoachWatts AI Summary\][\s\S]*?\[\/CoachWatts AI Summary\]\n?/g,
   /\n?\[CoachWatts Workout Analyisis\][\s\S]*?\[\/CoachWatts Workout Analyisis\]\n?/g,
   /\n?\[CoachWatts Workout Analysis\][\s\S]*?\[\/CoachWatts Workout Analysis\]\n?/g,
   /\n?CoachWatts Workout Analyisis[\s\S]*?🔗 https:\/\/CoachWatts\.com - AI Endurance Coaching\n?/g,
   /\n?CoachWatts Workout Analysis[\s\S]*?🔗 https:\/\/CoachWatts\.com - AI Endurance Coaching\n?/g,
+  /\n?Journey Endurance Workout Analysis[\s\S]*?🔗 https:\/\/journeyendurance\.ca - AI Endurance Coaching\n?/g,
+  /\n?Journey Workout Analysis[\s\S]*?🔗 https:\/\/Coach[Ww]atts\.com - AI Endurance Coaching\n?/g,
   /\n?\[AI Workout Summary\][\s\S]*?\[\/AI Workout Summary\]\n?/g
 ]
 

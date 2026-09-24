@@ -28,38 +28,44 @@
 
       <!-- Solid wrapper container -->
       <div
-        class="bg-slate-950/60 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex flex-col items-center relative z-20 w-full max-w-4xl mx-auto pointer-events-auto"
+        class="bg-slate-950/95 backdrop-blur-sm p-8 sm:p-12 rounded-3xl border border-cyan-500/20 shadow-[0_0_30px_rgba(0,0,0,0.5)] flex flex-col items-center relative z-20 w-full max-w-4xl mx-auto pointer-events-auto"
       >
-        <img
-          src="/media/Tri%20Nerd%20Logos/TriNerds_pixelbadge_logo.png"
-          alt="Tri Nerds"
-          class="w-32 h-auto mb-8 drop-shadow-[0_0_15px_rgba(236,72,153,0.5)]"
-        />
+          <img
+            src="/media/logo_square.webp"
+            alt="Journey Endurance Coaching"
+            class="w-32 h-auto mb-8 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+          />
 
         <h1
-          class="font-athletic mt-6 text-balance text-5xl font-bold uppercase leading-[0.9] tracking-tight text-white sm:text-6xl xl:text-[5rem] max-w-4xl"
+          class="font-athletic mt-6 text-balance text-3xl font-bold uppercase leading-[1.2] tracking-tight text-white sm:text-4xl xl:text-5xl max-w-4xl"
         >
-          Level Up Your Endurance.<br />
-          <span
-            class="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-pink-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"
-            >Welcome to the Tri Nerds.</span
-          >
+          Level Up Your Endurance.
         </h1>
-        <p class="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-cyan-100/70 sm:text-xl">
-          We don't just log miles. We value the process. Join a community of multisport geeks
-          powered by an elite AI Coaching Assistant.
-        </p>
+        <h2
+          class="font-athletic mt-4 text-balance text-5xl font-bold uppercase leading-[0.9] tracking-tight sm:text-6xl xl:text-[5rem] max-w-4xl text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-pink-500 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+        >
+          Welcome to the Tri Nerds.
+        </h2>
+        <div class="mt-6 max-w-2xl text-center flex flex-col gap-3">
+          <p class="text-lg font-medium leading-relaxed text-cyan-100/90 sm:text-xl">
+            Hone your triathlon training, become the Master you seek.
+          </p>
+          <p class="text-base italic text-cyan-100/60 drop-shadow-sm font-light">
+            "Your focus determines your reality." — Qui-Gon Jinn
+          </p>
+        </div>
 
         <div class="mt-10 flex flex-wrap items-center justify-center gap-5">
           <UButton
-            to="/join"
+            to="https://app.reclaim.ai/m/Coach-Nick/journey-begins"
+            target="_blank"
             size="xl"
             class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-8 shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all hover:scale-105"
           >
             Take the Next Step
           </UButton>
           <UButton
-            to="#bentoSectionRef"
+            to="/platform-flow"
             size="xl"
             variant="outline"
             class="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 hover:border-pink-400 px-8 transition-all"

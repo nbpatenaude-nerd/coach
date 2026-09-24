@@ -1,43 +1,16 @@
-import { getServerSession } from '#auth'
-import { prisma } from '../../utils/db'
+import { requireAuth } from '../../utils/auth-guard'
+import { getAthleteCheckInHistory } from '../../utils/services/weeklyCheckInService'
 
 export default defineEventHandler(async (event) => {
-  const session = await getServerSession(event)
+  const user = await requireAuth(event, [])
+  const query = getQuery(event)
+  const days = query.days ? Number(query.days) : 90
+  const limit = query.limit ? Number(query.limit) : 52
 
-  if (!session || !session.user || !(session.user as any).id) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: 'Unauthorized'
-    })
-  }
+  const history = await getAthleteCheckInHistory(user.id, {
+    days: Number.isFinite(days) ? days : 90,
+    limit: Number.isFinite(limit) ? limit : 52
+  })
 
-  const userId = (session.user as any).id as string
-
-  try {
-    const history = await prisma.checkIn.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'asc' },
-      select: {
-        id: true,
-        createdAt: true,
-        trainingDifficulty: true,
-        trainingLoad: true,
-        trainingRecovery: true,
-        trainingNutrition: true,
-        trainingHydration: true,
-        wellnessSleep: true,
-        wellnessStress: true,
-        personalFatigue: true,
-        wellnessPainScore: true
-      }
-    })
-
-    return history
-  } catch (error: any) {
-    console.error('Error fetching check-in history:', error)
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Failed to fetch check-in history.'
-    })
-  }
+  return { data: history }
 })

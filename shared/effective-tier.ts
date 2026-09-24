@@ -13,9 +13,11 @@ export type EffectiveTierInput = {
 
 const TIER_RANK: Record<SubscriptionTier, number> = {
   FREE: 0,
-  UNCOVER: 1,
-  UNLOCK: 2,
-  UNLEASH: 3
+  SUPPORTER: 1,
+  PRO: 2,
+  UNCOVER: 3,
+  UNLOCK: 4,
+  UNLEASH: 5
 }
 
 export function maxSubscriptionTier(
@@ -40,7 +42,7 @@ export function resolveEffectiveTier(input: EffectiveTierInput): SubscriptionTie
   let effectiveTier: SubscriptionTier = 'FREE'
 
   if (isContributor) {
-    effectiveTier = 'UNLEASH'
+    effectiveTier = 'PRO'
   } else if (isEffectivePremium) {
     effectiveTier = input.subscriptionTier
   }
@@ -49,7 +51,7 @@ export function resolveEffectiveTier(input: EffectiveTierInput): SubscriptionTie
     input.trialEndsAt && new Date(input.trialEndsAt) > now && input.subscriptionTier === 'FREE'
   )
   if (isTrialActive && !isEffectivePremium) {
-    effectiveTier = maxSubscriptionTier(effectiveTier, 'UNLEASH')
+    effectiveTier = maxSubscriptionTier(effectiveTier, 'SUPPORTER')
   }
 
   if (input.promotionalGrantTier) {
@@ -57,4 +59,8 @@ export function resolveEffectiveTier(input: EffectiveTierInput): SubscriptionTie
   }
 
   return effectiveTier
+}
+
+export function tierMeetsMinimum(tier: SubscriptionTier, minimumTier: SubscriptionTier): boolean {
+  return TIER_RANK[tier] >= TIER_RANK[minimumTier]
 }

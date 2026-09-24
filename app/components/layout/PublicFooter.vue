@@ -1,13 +1,17 @@
 <template>
   <!-- Ft2 statement footer — closes the page, does not catalogue a sitemap -->
-  <footer class="border-t border-white/10 bg-slate-950 py-12 relative z-10">
+  <footer class="border-t border-white/10 bg-[oklch(14%_0.018_155)] py-12">
     <UContainer>
       <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
         <div class="max-w-md">
           <NuxtLink to="/" class="mb-4 inline-flex transition-opacity hover:opacity-90">
             <img
-              src="/media/coach_watts_text_cropped.webp"
-              alt="Journey Endurance Coaching"
+              src="/media/logo_with_text_cropped.webp"
+              alt="Journey Endurance"
+              width="702"
+              height="135"
+              loading="lazy"
+              decoding="async"
               class="h-12 w-auto object-contain"
             />
           </NuxtLink>
@@ -60,7 +64,7 @@
         </nav>
       </div>
 
-      <p class="mt-10 text-sm text-gray-500">
+      <p class="mt-10 text-sm text-gray-400">
         {{ t('footer.copyright') }}
       </p>
     </UContainer>

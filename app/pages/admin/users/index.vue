@@ -63,10 +63,7 @@
   useHead({
     title: 'User Management',
     meta: [
-      {
-        name: 'description',
-        content: 'Journey Endurance Coaching user administration and management.'
-      }
+      { name: 'description', content: 'Journey Endurance user administration and management.' }
     ]
   })
 </script>

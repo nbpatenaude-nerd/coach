@@ -1,46 +1,35 @@
-import { z } from 'zod'
-import { startOfWeek } from 'date-fns'
-
-const bodySchema = z.object({
-  feelingScore: z.number().min(1).max(10),
-  fatigueScore: z.number().min(1).max(10),
-  stressScore: z.number().min(1).max(10),
-  sleepQuality: z.number().min(1).max(10),
-  notes: z.string().optional()
-})
+import { requireAuth } from '../../utils/auth-guard'
+import { upsertWeeklyCheckIn, weekStartKey } from '../../utils/services/weeklyCheckInService'
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-  const body = await readValidatedBody(event, bodySchema.parse)
+  const user = await requireAuth(event, [])
+  const body = await readBody(event)
 
-  // Get the Sunday of the current week
-  const weekStartDate = startOfWeek(new Date(), { weekStartsOn: 0 })
+  // Accept either { responses: {...} } or a flat map of field ids (legacy clients).
+  const raw =
+    body?.responses && typeof body.responses === 'object' && !Array.isArray(body.responses)
+      ? (body.responses as Record<string, unknown>)
+      : (body as Record<string, unknown>)
 
-  // Find the coach to assign this check-in to
-  const coachRel = await prisma.coachAthlete.findFirst({
-    where: { athleteId: user.id },
-    orderBy: { createdAt: 'desc' } // Most recent coach
-  })
+  // Strip non-field keys that a flat body might include.
+  const { responses: _r, weekStartDate: _w, ...flat } = raw
+  const fieldMap = body?.responses ? raw : flat
 
-  // Create or update the check-in for this week
-  const checkIn = await prisma.weeklyCheckIn.upsert({
-    where: {
-      athleteId_weekStartDate: {
-        athleteId: user.id,
-        weekStartDate
-      }
-    },
-    update: {
-      ...body,
-      submittedAt: new Date()
-    },
-    create: {
-      athleteId: user.id,
-      coachId: coachRel?.coachId,
-      weekStartDate,
-      ...body
+  const checkIn = await upsertWeeklyCheckIn(user.id, fieldMap)
+
+  return {
+    status: 'success',
+    data: {
+      id: checkIn.id,
+      weekStartDate: weekStartKey(checkIn.weekStartDate),
+      responses: checkIn.responses,
+      submittedAt: checkIn.submittedAt.toISOString(),
+      updatedAt: checkIn.updatedAt.toISOString(),
+      status: checkIn.status,
+      coachNotes: checkIn.coachNotes,
+      coachVideoUrl: checkIn.coachVideoUrl,
+      coachVideoAddedAt: checkIn.coachVideoAddedAt?.toISOString() ?? null,
+      coachReviewedAt: checkIn.coachReviewedAt?.toISOString() ?? null
     }
-  })
-
-  return checkIn
+  }
 })

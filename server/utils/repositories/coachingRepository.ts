@@ -993,6 +993,48 @@ export const coachingRepository = {
     })
   },
 
+  async connectCoachWithCode(athleteId: string, code: string) {
+    const invite = await (prisma as any).coachAthleteInvite.findUnique({
+      where: { code }
+    })
+
+    if (!invite || invite.status !== 'PENDING' || invite.expiresAt < new Date()) {
+      throw new Error('Invalid or expired invite code')
+    }
+
+    if (invite.coachId === athleteId) {
+      throw new Error('You cannot coach yourself')
+    }
+
+    return await prisma.$transaction(async (tx) => {
+      const relationship = await (tx as any).coachingRelationship.upsert({
+        where: {
+          coachId_athleteId: {
+            coachId: invite.coachId,
+            athleteId
+          }
+        },
+        update: { status: 'ACTIVE' },
+        create: {
+          coachId: invite.coachId,
+          athleteId,
+          status: 'ACTIVE'
+        }
+      })
+
+      await (tx as any).coachAthleteInvite.update({
+        where: { id: invite.id },
+        data: {
+          status: 'ACCEPTED',
+          acceptedBy: athleteId,
+          updatedAt: new Date()
+        }
+      })
+
+      return relationship
+    })
+  },
+
   async connectAthleteWithCode(coachId: string, code: string) {
     const invite = await (prisma as any).coachingInvite.findUnique({
       where: { code }

@@ -1,12 +1,8 @@
-import type {
-  SubscriptionStatus,
-  SubscriptionTier,
-  User
-} from '~/server/utils/generated-prisma/client'
+import type { SubscriptionStatus, SubscriptionTier, User } from '@prisma/client'
 import { resolveEffectiveTier } from '../../shared/effective-tier'
 
 export interface UserEntitlements {
-  tier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH'
+  tier: SubscriptionTier
   autoSync: boolean
   autoAnalysis: boolean
   aiModel: 'flash' | 'pro'
@@ -26,9 +22,9 @@ function entitlementsFromTier(effectiveTier: SubscriptionTier): UserEntitlements
     tier: effectiveTier,
     autoSync: effectiveTier !== 'FREE',
     autoAnalysis: effectiveTier !== 'FREE',
-    aiModel: effectiveTier === 'UNLEASH' || effectiveTier === 'UNLOCK' ? 'pro' : 'flash',
+    aiModel: effectiveTier === 'PRO' ? 'pro' : 'flash',
     priorityProcessing: effectiveTier !== 'FREE',
-    proactivity: effectiveTier === 'UNLEASH'
+    proactivity: effectiveTier === 'PRO'
   }
 }
 
@@ -40,10 +36,12 @@ function entitlementsFromTier(effectiveTier: SubscriptionTier): UserEntitlements
  * 2. Status is CANCELED/PAST_DUE/NONE but current time is before periodEnd
  */
 export function getUserEntitlements(user: EntitlementUser): UserEntitlements {
-  // If Stripe is not configured (self-hosted mode), everyone is UNLEASH
-  if (!process.env.STRIPE_SECRET_KEY) {
+  const config = useRuntimeConfig()
+
+  // If Stripe is not configured (self-hosted mode), everyone is PRO
+  if (!config.stripeSecretKey) {
     return {
-      tier: 'UNLEASH',
+      tier: 'PRO',
       autoSync: true,
       autoAnalysis: true,
       aiModel: 'pro',
@@ -79,9 +77,9 @@ export function hasEntitlement(
  */
 export function hasMinimumTier(
   user: EntitlementUser,
-  minimumTier: 'FREE' | 'UNCOVER' | 'UNLOCK' | 'UNLEASH'
+  minimumTier: 'FREE' | 'SUPPORTER' | 'PRO'
 ): boolean {
   const entitlements = getUserEntitlements(user)
-  const tierHierarchy = { FREE: 0, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
+  const tierHierarchy = { FREE: 0, SUPPORTER: 1, PRO: 2, UNCOVER: 1, UNLOCK: 2, UNLEASH: 3 }
   return tierHierarchy[entitlements.tier] >= tierHierarchy[minimumTier]
 }

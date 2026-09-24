@@ -1,4 +1,5 @@
 import { requireAuth } from '../../utils/auth-guard'
+import { prisma } from '../../utils/db'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event, [])

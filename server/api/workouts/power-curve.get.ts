@@ -1,5 +1,6 @@
 import { defineEventHandler, getQuery, createError } from 'h3'
 import { workoutRepository } from '../../utils/repositories/workoutRepository'
+import { workoutStreamRepository } from '../../utils/repositories/workoutStreamRepository'
 import { getServerSession } from '../../utils/session'
 import { subDays } from 'date-fns'
 import { getUserTimezone, getStartOfYearUTC } from '../../utils/date'
@@ -131,6 +132,8 @@ export default defineEventHandler(async (event) => {
   const sport = query.sport === 'all' ? undefined : (query.sport as string)
   const tags = parseTagQueryParam(query.tags)
 
+  const workoutSelect = { id: true, date: true }
+
   // 1. Fetch workouts for the selected period (Current Curve)
   const currentWorkouts = await workoutRepository.getForUser(userId, {
     startDate,
@@ -138,13 +141,7 @@ export default defineEventHandler(async (event) => {
     tags,
     includeDuplicates: false,
     where: sport ? { type: sport } : undefined,
-    include: {
-      streams: {
-        select: {
-          watts: true
-        }
-      }
-    }
+    select: workoutSelect
   })
 
   // 2. Fetch all-time bests (All-Time Curve)
@@ -155,14 +152,17 @@ export default defineEventHandler(async (event) => {
     tags,
     includeDuplicates: false,
     where: sport ? { type: sport } : undefined,
-    include: {
-      streams: {
-        select: {
-          watts: true
-        }
-      }
-    }
+    select: workoutSelect
   })
+
+  // Power streams live in WorkoutStreamV2 for anything ingested since the
+  // stream migration, with the legacy WorkoutStream table as fallback. Reading
+  // the `streams` relation directly would only ever see the legacy table and
+  // return an empty curve for V2-only athletes. The two workout sets overlap
+  // heavily, so resolve the union once instead of fetching streams twice.
+  const wattsByWorkoutId = await workoutStreamRepository.findWattsByWorkoutIds([
+    ...new Set([...currentWorkouts, ...allTimeWorkouts].map((workout: any) => workout.id))
+  ])
 
   const processWorkoutsToCurve = (
     workouts: any[],
@@ -170,36 +170,58 @@ export default defineEventHandler(async (event) => {
     fallbackLastValidatingByDuration?: Map<number, Date | null>
   ) => {
     const bestByDuration = new Map<number, { watts: number; date: Date | null }>()
-    const lastValidatingByDuration = new Map<number, Date | null>()
+    const effortsByDuration = new Map<number, Array<{ watts: number; date: Date }>>()
 
     DURATIONS.forEach((duration) => {
       bestByDuration.set(duration, { watts: 0, date: null })
-      lastValidatingByDuration.set(duration, null)
+      effortsByDuration.set(duration, [])
     })
 
+    // Pass 1: collect every workout's best effort per duration, and the overall
+    // best for this workout set.
     workouts.forEach((workout) => {
-      const watts = workout.streams?.watts
-      if (!Array.isArray(watts) || watts.length === 0) return
+      const watts = wattsByWorkoutId.get(workout.id)
+      if (!watts || watts.length === 0) return
+
+      const workoutDate = new Date(workout.date)
 
       DURATIONS.forEach((duration) => {
-        const best = calculateBestPowerForDuration(watts as number[], duration)
+        const best = calculateBestPowerForDuration(watts, duration)
         if (best <= 0) return
 
         const current = bestByDuration.get(duration)
         if (current && best > current.watts) {
-          bestByDuration.set(duration, { watts: best, date: new Date(workout.date) })
+          bestByDuration.set(duration, { watts: best, date: workoutDate })
         }
 
-        const referenceBest = allTimeBestByDuration?.get(duration) || best
-        const threshold = referenceBest * VALIDATION_PCT
-        if (best >= threshold) {
-          const existing = lastValidatingByDuration.get(duration)
-          const workoutDate = new Date(workout.date)
-          if (!existing || workoutDate > existing) {
-            lastValidatingByDuration.set(duration, workoutDate)
-          }
-        }
+        effortsByDuration.get(duration)?.push({ watts: best, date: workoutDate })
       })
+    })
+
+    // Pass 2: validate against a *settled* reference best. The all-time curve is
+    // built first, with no `allTimeBestByDuration`, so comparing each effort to a
+    // running/own value would let every workout validate itself (CW-380) and
+    // collapse `lastValidatingDate` to the date of the most recent ride with
+    // power. Falling back to this set's own final best keeps the all-time curve's
+    // freshness meaning "how long since a near-best effort", which is also what
+    // makes it a sound fallback for the current curve.
+    const lastValidatingByDuration = new Map<number, Date | null>()
+
+    DURATIONS.forEach((duration) => {
+      const referenceBest =
+        allTimeBestByDuration?.get(duration) || bestByDuration.get(duration)?.watts || 0
+
+      let lastValidating: Date | null = null
+
+      if (referenceBest > 0) {
+        const threshold = referenceBest * VALIDATION_PCT
+        for (const effort of effortsByDuration.get(duration) || []) {
+          if (effort.watts < threshold) continue
+          if (!lastValidating || effort.date > lastValidating) lastValidating = effort.date
+        }
+      }
+
+      lastValidatingByDuration.set(duration, lastValidating)
     })
 
     return DURATIONS.map((duration) => {

@@ -17,6 +17,7 @@ const create = vi.fn()
 const update = vi.fn()
 const findFirst = vi.fn()
 const syncEventToIntervals = vi.fn()
+const afterPersonalEventCreated = vi.fn()
 
 vi.mock('../../../../../server/utils/auth-guard', () => ({
   requireAuth
@@ -31,6 +32,10 @@ vi.mock('../../../../../server/utils/repositories/eventRepository', () => ({
 
 vi.mock('../../../../../server/utils/intervals-sync', () => ({
   syncEventToIntervals
+}))
+
+vi.mock('../../../../../server/utils/community-events', () => ({
+  afterPersonalEventCreated
 }))
 
 vi.mock('../../../../../server/utils/db', () => ({
@@ -53,6 +58,12 @@ describe('POST /api/events', () => {
       date: new Date('2026-10-15T12:00:00.000Z'),
       syncStatus: 'LOCAL_ONLY'
     })
+    afterPersonalEventCreated.mockImplementation(async (_userId: string, event: any) => ({
+      event,
+      teamEventId: null,
+      linkedRootId: null,
+      deduped: false
+    }))
   })
 
   it('creates an event with goal:write auth', async () => {
@@ -76,7 +87,12 @@ describe('POST /api/events', () => {
         syncStatus: 'LOCAL_ONLY'
       })
     )
-    expect(result).toMatchObject({ success: true, event: { id: 'ev-1' } })
+    expect(afterPersonalEventCreated).toHaveBeenCalled()
+    expect(result).toMatchObject({
+      success: true,
+      event: { id: 'ev-1' },
+      community: { deduped: false }
+    })
   })
 
   it('rejects invalid input', async () => {

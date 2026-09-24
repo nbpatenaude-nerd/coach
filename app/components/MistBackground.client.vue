@@ -23,7 +23,7 @@
   // Start fading in when the user scrolls down 300px, reach max opacity (0.75) by 900px
   const computedOpacity = computed(() => {
     if (y.value < 300) return 0
-    const maxOpacity = 0.75
+    const maxOpacity = 0.4
     const opacity = (y.value - 300) / 600
     return opacity > maxOpacity ? maxOpacity : opacity
   })
@@ -86,20 +86,21 @@
         PRESSURE: 0.2,
         PRESSURE_ITERATIONS: 20,
         CURL: 15,
-        SPLAT_RADIUS: 0.5,
-        SPLAT_FORCE: 4000,
+        SPLAT_RADIUS: 0.8,
+        SPLAT_FORCE: 2000,
         SHADING: true,
-        COLORFUL: true, // Use colors for visible fog
+        COLORFUL: false,
+        COLOR_PALETTE: ['#3b82f6', '#8b5cf6', '#1d4ed8', '#6d28d9'], // Use colors for visible fog
         PAUSED: false,
         BACK_COLOR: { r: 0, g: 0, b: 0 },
         TRANSPARENT: false, // mix-blend-screen handles transparency
-        BLOOM: true,
+        BLOOM: false,
         BLOOM_ITERATIONS: 8,
         BLOOM_RESOLUTION: 256,
-        BLOOM_INTENSITY: 0.8,
+        BLOOM_INTENSITY: 0.3,
         BLOOM_THRESHOLD: 0.4,
         BLOOM_SOFT_KNEE: 0.7,
-        SUNRAYS: true,
+        SUNRAYS: false,
         SUNRAYS_RESOLUTION: 196,
         SUNRAYS_WEIGHT: 0.5
       })

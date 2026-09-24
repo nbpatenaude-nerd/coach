@@ -298,7 +298,7 @@
   })
 
   useSeoMeta({
-    title: () => `${headline.value} | Journey Endurance Coaching`,
+    title: () => `${headline.value} | Journey Endurance`,
     description: () => benefitCopy.value || t.value('meta_partner_fallback'),
     robots: 'noindex, nofollow'
   })

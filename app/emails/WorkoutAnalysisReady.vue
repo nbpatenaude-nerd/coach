@@ -17,28 +17,33 @@
     EFont
   } from 'vue-email'
 
-  defineProps<{
-    name?: string
-    workoutId?: string
-    workoutUrl?: string
-    workoutTitle: string
-    workoutDate?: string
-    workoutType?: string
-    durationMinutes?: number
-    averageHr?: number
-    averageWatts?: number
-    tss?: number
-    overallScore?: number
-    analysisSummary?: string
-    recommendationHighlights?: string[]
-    adherenceSummary?: string
-    adherenceScore?: number
-    unsubscribeUrl?: string
-    utmQuery?: string
-  }>()
-
-  const logoUrl = 'https://journeyendurance.com/icon.png'
-  const siteUrl = 'https://journeyendurance.com'
+  withDefaults(
+    defineProps<{
+      name?: string
+      workoutId?: string
+      workoutUrl?: string
+      workoutTitle: string
+      workoutDate?: string
+      workoutType?: string
+      durationMinutes?: number
+      averageHr?: number
+      averageWatts?: number
+      tss?: number
+      overallScore?: number
+      analysisSummary?: string
+      recommendationHighlights?: string[]
+      adherenceSummary?: string
+      adherenceScore?: number
+      siteUrl?: string
+      logoUrl?: string
+      unsubscribeUrl?: string
+      utmQuery?: string
+    }>(),
+    {
+      siteUrl: 'https://journeyendurance.ca',
+      logoUrl: 'https://journeyendurance.ca/icon.png'
+    }
+  )
 </script>
 
 <template>
@@ -99,7 +104,7 @@
               :src="logoUrl"
               width="64"
               height="64"
-              alt="Journey Endurance Coaching"
+              alt="Journey Endurance"
               style="margin: 0 auto; border-radius: 12px; display: block"
             />
           </ELink>
@@ -358,13 +363,13 @@
           style="background-color: #fafafa; padding: 32px 40px; border-top: 1px solid #e4e4e7"
         >
           <EText style="font-size: 14px; font-weight: 600; color: #09090b; margin: 0 0 8px">
-            Journey Endurance Coaching
+            Journey Endurance
           </EText>
           <EText style="font-size: 12px; color: #71717a; line-height: 1.6; margin: 0 0 16px">
-            Real coaching and community, powered by an AI assistant that adapts to your life.
+            AI-powered endurance coaching that adapts to you.
           </EText>
           <EText style="font-size: 12px; color: #a1a1aa; line-height: 1.6; margin: 0">
-            You're receiving this because you registered at Journey Endurance Coaching.
+            You're receiving this because you registered at Journey Endurance.
             <br />
             You can
             <ELink

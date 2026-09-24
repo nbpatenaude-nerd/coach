@@ -1,23 +1,7 @@
-import { startOfWeek } from 'date-fns'
+import { requireAuth } from '../../utils/auth-guard'
+import { getCurrentWeeklyCheckIn } from '../../utils/services/weeklyCheckInService'
 
 export default defineEventHandler(async (event) => {
-  const user = await requireAuth(event)
-
-  // Get the Sunday of the current week
-  const weekStartDate = startOfWeek(new Date(), { weekStartsOn: 0 })
-
-  const checkIn = await prisma.weeklyCheckIn.findUnique({
-    where: {
-      athleteId_weekStartDate: {
-        athleteId: user.id,
-        weekStartDate
-      }
-    }
-  })
-
-  if (!checkIn) {
-    throw createError({ statusCode: 404, message: 'No check-in for this week yet' })
-  }
-
-  return checkIn
+  const user = await requireAuth(event, [])
+  return getCurrentWeeklyCheckIn(user.id)
 })

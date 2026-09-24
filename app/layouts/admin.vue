@@ -37,6 +37,14 @@
       }
     },
     {
+      label: 'Booking System',
+      icon: 'i-heroicons-calendar-days',
+      to: '/admin/booking',
+      onSelect: () => {
+        isOpen.value = false
+      }
+    },
+    {
       label: 'Subscriptions',
       icon: 'i-heroicons-banknotes',
       to: '/admin/subscriptions',
@@ -306,14 +314,22 @@
         >
           <img
             v-if="!collapsed"
-            src="/media/coach_watts_text_cropped.webp"
-            alt="Journey Endurance Coaching"
+            src="/media/logo_with_text_cropped.webp"
+            alt="Journey Endurance"
+            width="702"
+            height="135"
+            loading="eager"
+            decoding="async"
             class="h-8 lg:h-10 w-auto object-contain"
           />
           <img
             v-else
             src="/media/logo.webp"
-            alt="Journey Endurance Coaching"
+            alt="Journey Endurance"
+            width="537"
+            height="537"
+            loading="eager"
+            decoding="async"
             class="size-12 object-contain"
           />
         </NuxtLink>
@@ -340,11 +356,19 @@
                 <img
                   src="/images/logos/strava_powered_by_black.png"
                   alt="Powered by Strava"
+                  width="176"
+                  height="60"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 dark:hidden"
                 />
                 <img
                   src="/images/logos/strava_powered_by.png"
                   alt="Powered by Strava"
+                  width="176"
+                  height="60"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 hidden dark:block"
                 />
               </NuxtLink>
@@ -356,11 +380,19 @@
                 <img
                   src="/images/logos/WorksWithGarmin-Black.svg"
                   alt="Works with Garmin"
+                  width="221"
+                  height="127"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 dark:hidden"
                 />
                 <img
                   src="/images/logos/WorksWithGarmin-White.svg"
                   alt="Works with Garmin"
+                  width="221"
+                  height="127"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 hidden dark:block"
                 />
               </NuxtLink>
@@ -429,7 +461,7 @@
               color="neutral"
               size="xs"
               :padded="false"
-              class="text-gray-400 dark:text-gray-500 font-normal hover:text-gray-600 dark:hover:text-gray-400 transition-colors text-[10px]"
+              class="text-gray-400 dark:text-gray-400 font-normal hover:text-gray-600 dark:hover:text-gray-300 transition-colors text-[10px]"
             >
               {{ sidebarVersionDisplay }}
             </UButton>
@@ -437,7 +469,7 @@
 
           <div v-if="collapsed" class="flex justify-center pb-0">
             <UTooltip :text="buildVersionDisplay" :popper="{ placement: 'right' }">
-              <span class="text-[10px] text-gray-400 dark:text-gray-500 font-mono cursor-default">
+              <span class="text-[10px] text-gray-400 dark:text-gray-400 font-mono cursor-default">
                 {{ config.public.version }}
               </span>
             </UTooltip>
@@ -450,7 +482,7 @@
 
     <ClientOnly>
       <ImpersonationBanner />
-      <CoachingBanner />
+      <!-- CoachingBanner is mounted once in app/app.vue (CW-541) -->
     </ClientOnly>
   </UDashboardGroup>
 </template>

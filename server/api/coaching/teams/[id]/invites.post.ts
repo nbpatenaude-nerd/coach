@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
 
   if (invite.email) {
     const team = await teamRepository.getTeamDetails(teamId)
-    const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://coachwatts.com'
+    const baseUrl = process.env.NUXT_PUBLIC_SITE_URL || 'https://journeyendurance.ca'
     const joinUrl = `${baseUrl}/join/${invite.code}`
 
     try {

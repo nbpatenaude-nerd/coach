@@ -5,7 +5,7 @@ import {
   verifyBearerToken
 } from '@modelcontextprotocol/server'
 import { toWebRequest } from '@modelcontextprotocol/node'
-import { createCoachWattsMcpServerFactory } from '../utils/mcp/server'
+import { createProductMcpServerFactory } from '../utils/mcp/server'
 import { createMcpTokenVerifier } from '../utils/mcp/auth'
 import { getProtectedResourceMetadataUrl } from '../utils/oauth/metadata'
 import { mcpMetrics } from '../utils/mcp/metrics'
@@ -19,7 +19,7 @@ function getMcpHandler(config: ReturnType<typeof useRuntimeConfig>) {
     return cachedHandler
   }
 
-  const factory = createCoachWattsMcpServerFactory(config)
+  const factory = createProductMcpServerFactory(config)
   cachedHandler = createMcpHandler(factory, { legacy: 'stateless' })
   cachedSiteUrl = siteUrl
   return cachedHandler

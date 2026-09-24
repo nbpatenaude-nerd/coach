@@ -123,9 +123,9 @@
             <p>
               Email:
               <a
-                href="mailto:support@coachwatts.com"
+                href="mailto:support@journeyendurance.ca"
                 class="text-primary-600 dark:text-primary-400 hover:underline"
-                >support@coachwatts.com</a
+                >support@journeyendurance.ca</a
               >
             </p>
           </div>
@@ -147,7 +147,7 @@
       {
         name: 'description',
         content:
-          'Journey Endurance Coaching Cookie Policy. Learn about how Watt Mind Kft. uses cookies to improve your experience and how you can manage them.'
+          'Journey Endurance Cookie Policy. Learn about how Watt Mind Kft. uses cookies to improve your experience and how you can manage them.'
       }
     ]
   })

@@ -3,7 +3,7 @@ import IORedis from 'ioredis'
 import type { WorkoutImageRatio, WorkoutImageStyle, WorkoutImageVariant } from './image-generator'
 
 const REDIS_URL = process.env.REDIS_URL
-const CACHE_VERSION = 'share-image-v1'
+const CACHE_VERSION = 'share-image-v4-png-logos'
 const DEFAULT_TTL_SECONDS = 60 * 60 * 6
 
 let client: IORedis | null = null
@@ -14,6 +14,9 @@ interface CacheKeyInput {
   style: WorkoutImageStyle
   variant: WorkoutImageVariant
   ratio: WorkoutImageRatio
+  metrics?: string[]
+  logo?: string
+  showTitle?: boolean
 }
 
 export function isWorkoutImageCacheEnabled() {
@@ -30,15 +33,24 @@ export function buildWorkoutImageCacheKey(input: CacheKeyInput) {
     durationSec: input.workout.durationSec ?? null,
     distanceMeters: input.workout.distanceMeters ?? null,
     averageHr: input.workout.averageHr ?? null,
+    maxHr: input.workout.maxHr ?? null,
     averageWatts: input.workout.averageWatts ?? null,
+    maxWatts: input.workout.maxWatts ?? null,
+    normalizedPower: input.workout.normalizedPower ?? null,
     averageSpeed: input.workout.averageSpeed ?? null,
+    elevationGain: input.workout.elevationGain ?? null,
+    tss: input.workout.tss ?? null,
+    kilojoules: input.workout.kilojoules ?? null,
     streams: {
       latlng: input.workout.streams?.latlng ?? null,
       heartrate: input.workout.streams?.heartrate ?? null
     },
     style: input.style,
     variant: input.variant,
-    ratio: input.ratio
+    ratio: input.ratio,
+    metrics: input.metrics ?? null,
+    logo: input.logo ?? null,
+    showTitle: input.showTitle !== false
   }
 
   const hash = createHash('sha256').update(JSON.stringify(payload)).digest('hex')

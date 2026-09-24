@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  /* eslint-disable no-constant-condition, no-constant-binary-expression */
   import { useTranslate, useTolgee } from '@tolgee/vue'
   import type { NavigationMenuItem } from '@nuxt/ui'
   import { useAppLogout } from '#imports'
@@ -139,8 +138,6 @@
   }
 
   // Navigation Items
-  const { isAdmin, isCoach } = useNavigation()
-
   const links = computed<NavigationMenuItem[][]>(() => {
     // Force re-evaluation on language change or ready state
     const ready = isTReady.value && typeof t.value === 'function'
@@ -155,36 +152,39 @@
           open.value = false
         }
       },
-      ...(true
-        ? [
-            {
-              label: navLabel('navigation_morning_checkin', 'Morning Check-in'),
-              icon: 'i-lucide-sunrise',
-              to: {
-                path: '/dashboard',
-                query: { focus: 'checkin' }
-              },
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
-      ...(true
-        ? [
-            {
-              label: navLabel('navigation_todays_wellness', "Today's Wellness"),
-              icon: 'i-lucide-heart-pulse',
-              to: {
-                path: '/dashboard',
-                query: { focus: 'wellness' }
-              },
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
+      {
+        label: navLabel('navigation_morning_checkin', 'Morning Check-in'),
+        icon: 'i-lucide-sunrise',
+        to: {
+          path: '/dashboard',
+          query: { focus: 'checkin' }
+        },
+        onSelect: () => {
+          open.value = false
+        }
+      },
+      {
+        label: navLabel('navigation_todays_wellness', "Today's Wellness"),
+        icon: 'i-lucide-heart-pulse',
+        to: {
+          path: '/dashboard',
+          query: { focus: 'wellness' }
+        },
+        onSelect: () => {
+          open.value = false
+        }
+      },
+      {
+        label: navLabel('navigation_weekly_checkin', 'Weekly Check-In'),
+        icon: 'i-lucide-clipboard-list',
+        to: {
+          path: '/dashboard',
+          query: { focus: 'weekly-checkin' }
+        },
+        onSelect: () => {
+          open.value = false
+        }
+      },
       {
         label: navLabel('navigation_activities', 'Activities'),
         icon: 'i-lucide-calendar-days',
@@ -193,7 +193,15 @@
           open.value = false
         }
       },
-      ...(true && nutritionEnabled.value
+      {
+        label: 'Team Calendar',
+        icon: 'i-lucide-users',
+        to: '/community/calendar',
+        onSelect: () => {
+          open.value = false
+        }
+      },
+      ...(nutritionEnabled.value
         ? [
             {
               label: navLabel('navigation_nutrition', 'Nutrition'),
@@ -205,30 +213,22 @@
             }
           ]
         : []),
-      ...(true
-        ? [
-            {
-              label: navLabel('navigation_performance', 'Performance'),
-              icon: 'i-lucide-trending-up',
-              to: '/performance',
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
-      ...(true
-        ? [
-            {
-              label: navLabel('navigation_recommendations', 'Recommendations'),
-              icon: 'i-lucide-sparkles',
-              to: '/recommendations',
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
+      {
+        label: navLabel('navigation_performance', 'Performance'),
+        icon: 'i-lucide-trending-up',
+        to: '/performance',
+        onSelect: () => {
+          open.value = false
+        }
+      },
+      {
+        label: navLabel('navigation_recommendations', 'Recommendations'),
+        icon: 'i-lucide-sparkles',
+        to: '/recommendations',
+        onSelect: () => {
+          open.value = false
+        }
+      },
       {
         label: navLabel('navigation_training_plan', 'Training Plan'),
         icon: 'i-lucide-calendar',
@@ -270,37 +270,21 @@
         }
       },
       {
-        label: navLabel('navigation_community_calendar', 'Community Calendar'),
-        icon: 'i-lucide-calendar-heart',
-        to: '/calendar',
+        label: navLabel('navigation_reports', 'Reports'),
+        icon: 'i-lucide-file-text',
+        to: '/reports',
         onSelect: () => {
           open.value = false
         }
       },
-      ...(true
-        ? [
-            {
-              label: navLabel('navigation_reports', 'Reports'),
-              icon: 'i-lucide-file-text',
-              to: '/reports',
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
-      ...(true
-        ? [
-            {
-              label: navLabel('navigation_chat', 'AI Chat'),
-              icon: 'i-lucide-message-circle',
-              to: '/chat',
-              onSelect: () => {
-                open.value = false
-              }
-            }
-          ]
-        : []),
+      {
+        label: navLabel('navigation_chat', 'AI Chat'),
+        icon: 'i-lucide-message-circle',
+        to: '/chat',
+        onSelect: () => {
+          open.value = false
+        }
+      },
       {
         label: 'Library',
         icon: 'i-lucide-library',
@@ -340,7 +324,7 @@
           }
         ]
       },
-      ...(isCoach.value
+      ...(showFullCoachingSuite.value
         ? [
             {
               label: 'Coaching',
@@ -368,22 +352,6 @@
                   label: 'Athletes',
                   icon: 'i-lucide-users-round',
                   to: '/coaching/athletes',
-                  onSelect: () => {
-                    open.value = false
-                  }
-                },
-                {
-                  label: 'CRM',
-                  icon: 'i-lucide-contact',
-                  to: '/coaching/crm',
-                  onSelect: () => {
-                    open.value = false
-                  }
-                },
-                {
-                  label: 'Check-In Analysis',
-                  icon: 'i-lucide-line-chart',
-                  to: '/coaching/check-in-analysis',
                   onSelect: () => {
                     open.value = false
                   }
@@ -551,6 +519,11 @@
             icon: 'i-lucide-calendar-days',
             to: '/activities'
           },
+          {
+            label: 'Team Calendar',
+            icon: 'i-lucide-users',
+            to: '/community/calendar'
+          },
           ...(nutritionEnabled.value
             ? [
                 {
@@ -580,7 +553,10 @@
       {
         id: 'today',
         label: label('navigation_section_today', 'Today'),
-        defaultOpen: route.query.focus === 'checkin' || route.query.focus === 'wellness',
+        defaultOpen:
+          route.query.focus === 'checkin' ||
+          route.query.focus === 'wellness' ||
+          route.query.focus === 'weekly-checkin',
         items: sectionItems([
           {
             label: label('navigation_morning_checkin', 'Morning Check-in'),
@@ -591,6 +567,11 @@
             label: label('navigation_todays_wellness', "Today's Wellness"),
             icon: 'i-lucide-heart-pulse',
             to: { path: '/dashboard', query: { focus: 'wellness' } }
+          },
+          {
+            label: label('navigation_weekly_checkin', 'Weekly Check-In'),
+            icon: 'i-lucide-clipboard-list',
+            to: { path: '/dashboard', query: { focus: 'weekly-checkin' } }
           }
         ])
       },
@@ -635,11 +616,6 @@
             label: label('navigation_events', 'Events'),
             icon: 'i-lucide-flag',
             to: '/events'
-          },
-          {
-            label: label('navigation_community_calendar', 'Community Calendar'),
-            icon: 'i-lucide-calendar-heart',
-            to: '/calendar'
           }
         ])
       },
@@ -682,7 +658,7 @@
         label: label('navigation_coaching', 'Coaching'),
         defaultOpen: route.path.startsWith('/coaching') || route.path === '/analytics',
         items: sectionItems(
-          isCoach.value
+          showFullCoachingSuite.value
             ? [
                 {
                   label: label('navigation_coaching', 'Coaching'),
@@ -704,16 +680,6 @@
                       label: label('navigation_coaching_athletes', 'Athletes'),
                       icon: 'i-lucide-users-round',
                       to: '/coaching/athletes'
-                    },
-                    {
-                      label: label('navigation_coaching_crm', 'CRM'),
-                      icon: 'i-lucide-contact',
-                      to: '/coaching/crm'
-                    },
-                    {
-                      label: label('navigation_coaching_checkin_analysis', 'Check-In Analysis'),
-                      icon: 'i-lucide-line-chart',
-                      to: '/coaching/check-in-analysis'
                     },
                     {
                       label: label('navigation_analytics', 'Analytics'),
@@ -922,6 +888,16 @@
           to: {
             path: '/dashboard',
             query: { focus: 'wellness' }
+          },
+          onSelect: () => (open.value = false)
+        },
+        {
+          id: 'weekly-checkin',
+          label: navLabel('navigation_weekly_checkin', 'Weekly Check-In'),
+          icon: 'i-lucide-clipboard-list',
+          to: {
+            path: '/dashboard',
+            query: { focus: 'weekly-checkin' }
           },
           onSelect: () => (open.value = false)
         }
@@ -1255,13 +1231,13 @@
       :ui="{ footer: 'lg:border-t lg:border-default', body: 'flex min-h-0 flex-col' }"
       :title="navLabel('navigation_sidebar_title', 'Navigation')"
       :description="
-        navLabel('navigation_sidebar_description', 'Browse Journey Endurance Coaching destinations')
+        navLabel('navigation_sidebar_description', 'Browse Journey Endurance destinations')
       "
       :menu="{
         title: navLabel('navigation_sidebar_title', 'Navigation'),
         description: navLabel(
           'navigation_sidebar_description',
-          'Browse Journey Endurance Coaching destinations'
+          'Browse Journey Endurance destinations'
         )
       }"
     >
@@ -1273,14 +1249,22 @@
         >
           <img
             v-if="!collapsed"
-            src="/media/coach_watts_text_cropped.webp"
-            alt="Journey Endurance Coaching"
+            src="/media/logo_with_text_cropped.webp"
+            alt="Journey Endurance"
+            width="702"
+            height="135"
+            loading="eager"
+            decoding="async"
             class="h-8 lg:h-10 w-auto object-contain"
           />
           <img
             v-else
             src="/media/logo.webp"
-            alt="Journey Endurance Coaching"
+            alt="Journey Endurance"
+            width="537"
+            height="537"
+            loading="eager"
+            decoding="async"
             class="size-12 object-contain"
           />
         </NuxtLink>
@@ -1289,6 +1273,11 @@
       <template #default="{ collapsed }">
         <UDashboardSearchButton
           :collapsed="collapsed"
+          :aria-label="
+            isTReady && t('navigation_search_title') !== 'navigation_search_title'
+              ? t('navigation_search_title')
+              : 'Search'
+          "
           class="mb-4 shrink-0 bg-transparent ring-default"
         />
 
@@ -1333,11 +1322,19 @@
                 <img
                   src="/images/logos/strava_powered_by_black.png"
                   alt="Powered by Strava"
+                  width="176"
+                  height="60"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 dark:hidden"
                 />
                 <img
                   src="/images/logos/strava_powered_by.png"
                   alt="Powered by Strava"
+                  width="176"
+                  height="60"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 hidden dark:block"
                 />
               </NuxtLink>
@@ -1349,11 +1346,19 @@
                 <img
                   src="/images/logos/WorksWithGarmin-Black.svg"
                   alt="Works with Garmin"
+                  width="221"
+                  height="127"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 dark:hidden"
                 />
                 <img
                   src="/images/logos/WorksWithGarmin-White.svg"
                   alt="Works with Garmin"
+                  width="221"
+                  height="127"
+                  loading="lazy"
+                  decoding="async"
                   class="h-6 w-auto opacity-75 hover:opacity-100 hidden dark:block"
                 />
               </NuxtLink>
@@ -1440,7 +1445,7 @@
               color="neutral"
               size="xs"
               :padded="false"
-              class="text-gray-400 dark:text-gray-500 font-normal hover:text-gray-600 dark:hover:text-gray-400 transition-colors text-[10px]"
+              class="text-gray-400 dark:text-gray-400 font-normal hover:text-gray-600 dark:hover:text-gray-300 transition-colors text-[10px]"
             >
               {{ sidebarVersionDisplay }}
             </UButton>
@@ -1448,7 +1453,7 @@
 
           <div v-if="collapsed" class="flex justify-center pb-0">
             <UTooltip :text="buildVersionDisplay" :popper="{ placement: 'right' }">
-              <span class="text-[10px] text-gray-400 dark:text-gray-500 font-mono cursor-default">
+              <span class="text-[10px] text-gray-400 dark:text-gray-400 font-mono cursor-default">
                 {{ config.public.version }}
               </span>
             </UTooltip>
@@ -1472,7 +1477,7 @@
       <AiQuickCapture />
       <DashboardTriggerMonitor v-model="showTriggerMonitor" />
       <ImpersonationBanner />
-      <CoachingBanner />
+      <!-- CoachingBanner is mounted once in app/app.vue (CW-541) -->
     </ClientOnly>
   </UDashboardGroup>
 </template>
