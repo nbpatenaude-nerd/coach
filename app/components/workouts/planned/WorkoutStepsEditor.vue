@@ -525,9 +525,7 @@
         delete news.rpe
       } else {
         const threshold = Number(props.sportSettings?.thresholdPace || 0)
-        if (threshold <= 0) {
-          news.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
-        } else if (target.range) {
+        if (threshold > 0 && target.range) {
           news.pace = {
             metric: 'pace',
             kind: 'relative',
@@ -537,7 +535,7 @@
             units: 'm/s',
             ramp: target.ramp === true
           }
-        } else {
+        } else if (threshold > 0) {
           const value = Number(target.value || 0) * threshold
           news.pace = {
             metric: 'pace',
@@ -546,6 +544,22 @@
             rangeMps: { min: value, max: value },
             range: { start: value, end: value },
             units: 'm/s'
+          }
+        } else if (target.range) {
+          // Declarable relative form — server resolves against athlete threshold.
+          news.pace = {
+            metric: 'pace',
+            kind: 'relative',
+            range: { start: target.range.start, end: target.range.end },
+            units: '%pace',
+            ramp: target.ramp === true
+          }
+        } else {
+          news.pace = {
+            metric: 'pace',
+            kind: 'relative',
+            value: Number(target.value || 0),
+            units: '%pace'
           }
         }
         news.primaryTarget = 'pace'
@@ -651,10 +665,17 @@
       return { ...baseStep, heartRate: { ...target, units: 'LTHR' }, primaryTarget: 'heartRate' }
     } else {
       const threshold = Number(props.sportSettings?.thresholdPace || 0)
-      if (threshold <= 0) {
+      if (threshold > 0) {
         return {
           ...baseStep,
-          pace: { metric: 'pace', kind: 'freeform', unresolved: true },
+          pace: {
+            metric: 'pace',
+            kind: 'relative',
+            relativeToThreshold: { min: 0.7, max: 0.7 },
+            rangeMps: { min: 0.7 * threshold, max: 0.7 * threshold },
+            range: { start: 0.7 * threshold, end: 0.7 * threshold },
+            units: 'm/s'
+          },
           primaryTarget: 'pace'
         }
       }
@@ -663,10 +684,8 @@
         pace: {
           metric: 'pace',
           kind: 'relative',
-          relativeToThreshold: { min: 0.7, max: 0.7 },
-          rangeMps: { min: 0.7 * threshold, max: 0.7 * threshold },
-          range: { start: 0.7 * threshold, end: 0.7 * threshold },
-          units: 'm/s'
+          value: 0.7,
+          units: '%pace'
         },
         primaryTarget: 'pace'
       }

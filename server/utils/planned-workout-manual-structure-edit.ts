@@ -274,10 +274,36 @@ export async function applyManualPlannedWorkoutStructureEdit(options: {
     ...(Array.isArray(providedSteps) || typeof text === 'string' ? { steps } : {}),
     ...(normalizedStrengthStructure || {})
   }
-  const sportSettings = await sportSettingsRepository.getForActivityType(
+  let sportSettings = await sportSettingsRepository.getForActivityType(
     ownerUserId,
     workout.type || ''
   )
+  const structureHasPaceTargets = (nodes: any[]): boolean =>
+    nodes.some((step) => {
+      if (step?.pace) return true
+      if (Array.isArray(step?.steps)) return structureHasPaceTargets(step.steps)
+      return false
+    })
+  if (
+    !(Number(sportSettings?.thresholdPace) > 0) &&
+    structureHasPaceTargets(Array.isArray(steps) ? steps : [])
+  ) {
+    const allSettings = await sportSettingsRepository.getByUserId(ownerUserId)
+    const paceDonor =
+      allSettings.find(
+        (setting: any) =>
+          Number(setting?.thresholdPace) > 0 &&
+          Array.isArray(setting?.types) &&
+          setting.types.some((type: string) => /run/i.test(String(type)))
+      ) || allSettings.find((setting: any) => Number(setting?.thresholdPace) > 0)
+    if (paceDonor) {
+      sportSettings = {
+        ...sportSettings,
+        thresholdPace: paceDonor.thresholdPace,
+        paceZones: paceDonor.paceZones?.length ? paceDonor.paceZones : sportSettings?.paceZones
+      }
+    }
+  }
   const { targetPolicy, targetFormatPolicy } = resolveWorkoutTargeting(sportSettings)
   const refs = {
     ftp: Number(sportSettings?.ftp || (workout.user as any)?.ftp || 250),
@@ -300,9 +326,12 @@ export async function applyManualPlannedWorkoutStructureEdit(options: {
     zoneProfileSnapshot: createZoneProfileSnapshot(sportSettings)
   })
   if (!canonical || canonical.diagnostics?.length) {
+    const missingThreshold = !(refs.thresholdPace > 0)
     throw createError({
       statusCode: 422,
-      message: 'Structure has unresolved targets. Declare target units before saving.',
+      message: missingThreshold
+        ? 'Structure has unresolved pace targets. Set the athlete threshold pace (or enter absolute pace like 4:30/km) before saving.'
+        : 'Structure has unresolved targets. Declare target units before saving.',
       data: { diagnostics: canonical?.diagnostics || [] }
     })
   }

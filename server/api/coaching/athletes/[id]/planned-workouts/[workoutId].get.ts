@@ -2,6 +2,7 @@ import { requireAuth } from '../../../../../utils/auth-guard'
 import { z } from 'zod/v3'
 import { requireCoachAccessToAthlete } from '../../../../../utils/coaching-auth'
 import { plannedWorkoutRepository } from '../../../../../utils/repositories/plannedWorkoutRepository'
+import { sportSettingsRepository } from '../../../../../utils/repositories/sportSettingsRepository'
 
 const paramsSchema = z.object({
   id: z.string(),
@@ -16,5 +17,12 @@ export default defineEventHandler(async (event) => {
   if (!workout) {
     throw createError({ statusCode: 404, message: 'Workout not found' })
   }
-  return workout
+  const sportSettings = await sportSettingsRepository.getForActivityType(
+    athleteId,
+    workout.type || ''
+  )
+  return {
+    ...workout,
+    sportSettings
+  }
 })

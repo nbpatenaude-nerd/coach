@@ -796,9 +796,7 @@
         updatedStep.primaryTarget = 'heartRate'
       } else {
         const threshold = Number(props.sportSettings?.thresholdPace || 0)
-        if (threshold <= 0) {
-          updatedStep.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
-        } else if (target.range) {
+        if (threshold > 0 && target.range) {
           updatedStep.pace = {
             metric: 'pace',
             kind: 'relative',
@@ -808,7 +806,7 @@
             units: 'm/s',
             ramp: target.ramp === true
           }
-        } else {
+        } else if (threshold > 0) {
           const value = Number(target.value || 0) * threshold
           updatedStep.pace = {
             metric: 'pace',
@@ -817,6 +815,21 @@
             rangeMps: { min: value, max: value },
             range: { start: value, end: value },
             units: 'm/s'
+          }
+        } else if (target.range) {
+          updatedStep.pace = {
+            metric: 'pace',
+            kind: 'relative',
+            range: { start: target.range.start, end: target.range.end },
+            units: '%pace',
+            ramp: target.ramp === true
+          }
+        } else {
+          updatedStep.pace = {
+            metric: 'pace',
+            kind: 'relative',
+            value: Number(target.value || 0),
+            units: '%pace'
           }
         }
         updatedStep.primaryTarget = 'pace'
@@ -888,7 +901,12 @@
       interval.heartRate = { value: 1.0, units: 'LTHR' }
       interval.primaryTarget = 'heartRate'
     } else {
-      interval.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
+      interval.pace = {
+        metric: 'pace',
+        kind: 'relative',
+        value: 1.0,
+        units: '%pace'
+      }
       interval.primaryTarget = 'pace'
     }
 
@@ -926,7 +944,12 @@
       next.heartRate = { value: 0.7, units: 'LTHR' }
       next.primaryTarget = 'heartRate'
     } else {
-      next.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
+      next.pace = {
+        metric: 'pace',
+        kind: 'relative',
+        value: 0.7,
+        units: '%pace'
+      }
       next.primaryTarget = 'pace'
     }
     updatedStep.steps.splice(idx + 1, 0, next)

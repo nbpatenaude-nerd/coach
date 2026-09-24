@@ -497,6 +497,8 @@
         v-model="showPlannedWorkoutModal"
         :planned-workout="selectedPlannedWorkout"
         :endpoint-base="selectedPlannedWorkoutEndpointBase"
+        :all-sport-settings="selectedPlannedWorkoutSportSettings"
+        :user-ftp="selectedPlannedWorkoutSportSettings?.[0]?.ftp"
         :show-completion-actions="false"
         :show-structure-actions="false"
         :allow-structure-edit="true"
@@ -717,8 +719,16 @@
   const showPlannedWorkoutModal = ref(false)
   const selectedPlannedWorkout = ref<any | null>(null)
   const selectedPlannedWorkoutAthleteId = ref<string | null>(null)
+  const selectedPlannedWorkoutSportSettings = ref<any[]>([])
   const showWorkoutPreviewModal = ref(false)
   const selectedWorkout = ref<any | null>(null)
+
+  function applySelectedPlannedWorkout(workout: any) {
+    selectedPlannedWorkout.value = workout
+    selectedPlannedWorkoutSportSettings.value = workout?.sportSettings
+      ? [workout.sportSettings]
+      : []
+  }
 
   const athletes = ref<any[]>([])
   const loadingAthletes = ref(true)
@@ -1129,7 +1139,11 @@
       const workout = result?.workout || result
       await refreshAffectedPanel(athleteId)
       selectedPlannedWorkoutAthleteId.value = athleteId
-      selectedPlannedWorkout.value = workout
+      // Re-fetch so coach modal gets athlete sport settings for pace/power resolution.
+      const hydrated = await $fetch<any, string & {}>(
+        `/api/coaching/athletes/${athleteId}/planned-workouts/${workout.id}`
+      )
+      applySelectedPlannedWorkout(hydrated)
       showPlannedWorkoutModal.value = true
       toast.add({
         title: 'Workout created',
@@ -1227,9 +1241,10 @@
     try {
       if (activity.source === 'planned') {
         selectedPlannedWorkoutAthleteId.value = athleteId
-        selectedPlannedWorkout.value = await $fetch<any, string & {}>(
+        const workout = await $fetch<any, string & {}>(
           `/api/coaching/athletes/${athleteId}/planned-workouts/${activity.id}`
         )
+        applySelectedPlannedWorkout(workout)
         showPlannedWorkoutModal.value = true
         return
       }
@@ -1262,7 +1277,10 @@
 
   function onPlannedWorkoutStructureSaved(workout: any) {
     if (workout?.id) {
-      selectedPlannedWorkout.value = workout
+      applySelectedPlannedWorkout({
+        ...workout,
+        sportSettings: workout.sportSettings || selectedPlannedWorkoutSportSettings.value[0] || null
+      })
     }
   }
 

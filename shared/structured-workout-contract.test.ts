@@ -12,6 +12,17 @@ import {
 } from './structured-workout-contract'
 
 describe('structured workout contract', () => {
+  it('resolves relative %pace against a threshold snapshot', () => {
+    const snapshot = createZoneProfileSnapshot({ thresholdPace: 3.33, paceZones: [] })
+    expect(paceTargetToCanonical({ value: 0.75, units: '%pace' }, snapshot)).toMatchObject({
+      target: {
+        kind: 'relative',
+        relativeToThreshold: { min: 0.75, max: 0.75 },
+        units: 'm/s'
+      }
+    })
+  })
+
   it('converts declared metres per minute to canonical m/s', () => {
     expect(paceToMps(240, 'm/min')).toBe(4)
   })
