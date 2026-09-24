@@ -18,15 +18,26 @@
           {{ formatDateUTC(date, compact ? 'd' : 'MMM d') }}
         </div>
       </div>
-      <UBadge
-        v-if="readinessScore != null"
-        size="xs"
-        :color="readinessScore >= 80 ? 'success' : readinessScore >= 60 ? 'primary' : 'warning'"
-        variant="subtle"
-        class="font-bold"
-      >
-        {{ Math.round(readinessScore) }}%
-      </UBadge>
+      <div class="flex items-center gap-1">
+        <UButton
+          size="xs"
+          color="neutral"
+          variant="ghost"
+          icon="i-heroicons-plus"
+          class="h-7 w-7 p-0"
+          title="Add blank workout"
+          @click.stop="$emit('create-blank', date)"
+        />
+        <UBadge
+          v-if="readinessScore != null"
+          size="xs"
+          :color="readinessScore >= 80 ? 'success' : readinessScore >= 60 ? 'primary' : 'warning'"
+          variant="subtle"
+          class="font-bold"
+        >
+          {{ Math.round(readinessScore) }}%
+        </UBadge>
+      </div>
     </div>
 
     <div
@@ -141,6 +152,7 @@
     drop: [event: DragEvent]
     'activity-click': [activity: CalendarActivity]
     'compare-activity': [activity: CalendarActivity]
+    'create-blank': [date: Date]
   }>()
 
   const { formatDateUTC } = useFormat()

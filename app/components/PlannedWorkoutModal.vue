@@ -222,7 +222,7 @@
 
         <!-- Workout Visualization -->
         <div
-          v-if="plannedWorkout.structuredWorkout"
+          v-if="plannedWorkout.structuredWorkout || allowStructureEdit"
           class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800"
         >
           <div class="flex justify-between items-center mb-6">
@@ -356,15 +356,22 @@
           </div>
           <WorkoutRunChart
             v-else-if="isRunWorkout"
-            :workout="plannedWorkout"
+            v-model:steps-tab="structureStepsTab"
+            :workout="structureEditorWorkout"
             :preference="preference"
             :sport-settings="effectiveSportSettings"
+            :user-ftp="effectiveSportSettings?.ftp || userFtp"
+            :allow-edit="allowStructureEdit"
+            @save="handleSaveStructure"
           />
           <WorkoutChart
             v-else
-            :workout="plannedWorkout"
+            v-model:steps-tab="structureStepsTab"
+            :workout="structureEditorWorkout"
             :user-ftp="effectiveSportSettings?.ftp || userFtp"
             :sport-settings="effectiveSportSettings"
+            :allow-edit="allowStructureEdit"
+            @save="handleSaveStructure"
           />
         </div>
 
@@ -896,6 +903,7 @@
       viewPathBase?: string
       showCompletionActions?: boolean
       showStructureActions?: boolean
+      allowStructureEdit?: boolean
       showViewDetails?: boolean
       showSaveToLibrary?: boolean
     }>(),
@@ -906,6 +914,7 @@
       viewPathBase: undefined,
       showCompletionActions: true,
       showStructureActions: true,
+      allowStructureEdit: false,
       showViewDetails: true,
       showSaveToLibrary: true
     }
@@ -916,6 +925,7 @@
     completed: []
     deleted: []
     'save-to-library': [plannedWorkout: any]
+    'structure-saved': [workout: any]
   }>()
 
   const isOpen = computed({
@@ -926,8 +936,27 @@
   const plannedWorkoutViewBase = computed(() => props.viewPathBase || '/workouts/planned')
   const showCompletionActions = computed(() => props.showCompletionActions)
   const showStructureActions = computed(() => props.showStructureActions)
+  const allowStructureEdit = computed(() => props.allowStructureEdit)
   const showViewDetails = computed(() => props.showViewDetails)
   const showSaveToLibrary = computed(() => props.showSaveToLibrary)
+  const structureSaveUrl = computed(() => {
+    const workoutId = props.plannedWorkout?.id
+    if (!workoutId) return null
+    if (props.endpointBase?.includes('/coaching/athletes/')) {
+      return `${props.endpointBase}/${workoutId}/structure`
+    }
+    return `/api/workouts/planned/${workoutId}/structure`
+  })
+  const structureEditorWorkout = computed(() => {
+    if (!props.plannedWorkout) return null
+    if (props.plannedWorkout.structuredWorkout) return props.plannedWorkout
+    return {
+      ...props.plannedWorkout,
+      structuredWorkout: { schemaVersion: 1, steps: [] }
+    }
+  })
+  const structureStepsTab = ref<'view' | 'edit'>('view')
+  const savingStructure = ref(false)
 
   const loading = ref(false)
   const showWorkoutSelector = ref(false)
@@ -1069,6 +1098,36 @@
     }
   }
 
+  async function handleSaveStructure(payload: any) {
+    if (!props.plannedWorkout?.id || !structureSaveUrl.value) return
+    savingStructure.value = true
+    try {
+      const isStrength = ['Gym', 'WeightTraining'].includes(
+        String(props.plannedWorkout?.type || '')
+      )
+      const result = await $fetch<any, string & {}>(structureSaveUrl.value, {
+        method: 'PATCH',
+        body: isStrength ? payload : { steps: payload }
+      })
+      structureStepsTab.value = 'view'
+      toast.add({
+        title: 'Structure Updated',
+        description: 'Workout steps have been saved.',
+        color: 'success'
+      })
+      emit('structure-saved', result?.workout || props.plannedWorkout)
+      emit('completed')
+    } catch (error: any) {
+      toast.add({
+        title: 'Save Failed',
+        description: error?.data?.message || 'Failed to save structure',
+        color: 'error'
+      })
+    } finally {
+      savingStructure.value = false
+    }
+  }
+
   const manualWorkout = ref({
     title: '',
     durationMinutes: '',
@@ -1103,7 +1162,13 @@
       showDeleteConfirm.value = false
       showMarkCompleteConfirm.value = false
       showTimeModal.value = false
+      structureStepsTab.value = 'view'
       resetManualWorkout()
+    } else if (
+      allowStructureEdit.value &&
+      !props.plannedWorkout?.structuredWorkout?.steps?.length
+    ) {
+      structureStepsTab.value = 'edit'
     }
   })
 

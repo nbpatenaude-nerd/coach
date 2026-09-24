@@ -1,10 +1,25 @@
 <template>
   <div class="workout-chart-container">
     <div
-      v-if="!workoutData || !workoutData.steps || workoutData.steps.length === 0"
+      v-if="(!workoutData || !workoutData.steps || workoutData.steps.length === 0) && !allowEdit"
       class="text-center py-8 text-muted text-sm"
     >
       No structured workout data available.
+    </div>
+
+    <div
+      v-else-if="
+        (!workoutData || !workoutData.steps || workoutData.steps.length === 0) && allowEdit
+      "
+      class="space-y-4"
+    >
+      <WorkoutStepsEditor
+        :steps="[]"
+        :user-ftp="userFtp"
+        :sport-settings="sportSettings"
+        :preference="chartPreference"
+        @save="$emit('save', $event)"
+      />
     </div>
 
     <div v-else class="space-y-4">

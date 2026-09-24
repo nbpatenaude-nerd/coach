@@ -85,28 +85,90 @@
           </div>
         </div>
 
-        <!-- Col 4: Duration -->
+        <!-- Col 4: Length (duration or distance) -->
         <div class="text-right pt-0.5">
-          <div v-if="!hasNestedSteps" class="flex items-center justify-end gap-1">
-            <UInput
-              v-model.number="localDurationMin"
-              type="number"
+          <div v-if="!hasNestedSteps" class="flex flex-col items-end gap-0.5">
+            <USelect
+              v-model="localLengthMode"
+              :items="[
+                { label: 'Time', value: 'duration' },
+                { label: 'Dist', value: 'distance' }
+              ]"
               size="xs"
               variant="none"
-              class="w-14 p-0 text-right text-muted font-bold text-[10px]"
+              class="w-16 p-0 text-[8px] font-black uppercase tracking-tighter text-gray-400"
               :ui="{ base: 'px-0 py-0' }"
-              @update:model-value="emitUpdate"
+              @update:model-value="onLengthModeChange"
             />
-            <span class="text-[8px] text-gray-400 uppercase font-bold">MIN</span>
+            <div v-if="localLengthMode === 'duration'" class="flex items-center justify-end gap-1">
+              <UInput
+                v-model.number="localDurationMin"
+                type="number"
+                size="xs"
+                variant="none"
+                class="w-14 p-0 text-right text-muted font-bold text-[10px]"
+                :ui="{ base: 'px-0 py-0' }"
+                @update:model-value="emitUpdate"
+              />
+              <span class="text-[8px] text-gray-400 uppercase font-bold">MIN</span>
+            </div>
+            <div v-else class="flex items-center justify-end gap-1">
+              <UInput
+                v-model.number="localDistanceValue"
+                type="number"
+                size="xs"
+                variant="none"
+                class="w-14 p-0 text-right text-muted font-bold text-[10px]"
+                :ui="{ base: 'px-0 py-0' }"
+                @update:model-value="emitUpdate"
+              />
+              <USelect
+                v-model="localDistanceUnit"
+                :items="[
+                  { label: 'm', value: 'm' },
+                  { label: 'km', value: 'km' },
+                  { label: 'mi', value: 'mi' }
+                ]"
+                size="xs"
+                variant="none"
+                class="w-12 p-0 text-[8px] font-black uppercase text-gray-400"
+                :ui="{ base: 'px-0 py-0' }"
+                @update:model-value="emitUpdate"
+              />
+            </div>
           </div>
         </div>
 
-        <!-- Col 5: Intensity (Ramp Support) -->
+        <!-- Col 5: Intensity (relative / absolute / RPE) -->
         <div class="text-right pt-0.5">
           <div v-if="!hasNestedSteps" class="flex items-center justify-end gap-1">
             <div class="flex flex-col items-end">
+              <USelect
+                v-if="metric !== 'rpe'"
+                v-model="localIntensityMode"
+                :items="[
+                  { label: '%', value: 'relative' },
+                  { label: 'Abs', value: 'absolute' }
+                ]"
+                size="xs"
+                variant="none"
+                class="w-14 p-0 text-[8px] font-black uppercase tracking-tighter text-gray-400"
+                :ui="{ base: 'px-0 py-0' }"
+                @update:model-value="onIntensityModeChange"
+              />
               <div class="flex items-center gap-1">
                 <UInput
+                  v-if="metric === 'pace' && localIntensityMode === 'absolute'"
+                  v-model="localPaceStart"
+                  size="xs"
+                  variant="none"
+                  placeholder="4:30"
+                  class="w-14 p-0 text-right font-black text-sm"
+                  :ui="{ base: 'px-0 py-0' }"
+                  @update:model-value="handlePaceStartChange"
+                />
+                <UInput
+                  v-else
                   v-model.number="localIntensityStart"
                   type="number"
                   size="xs"
@@ -115,9 +177,20 @@
                   :ui="{ base: 'px-0 py-0' }"
                   @update:model-value="handleIntensityStartChange"
                 />
-                <template v-if="localIsRamp">
+                <template v-if="localIsRamp && metric !== 'rpe'">
                   <span class="text-[9px] text-gray-400 font-bold">-</span>
                   <UInput
+                    v-if="metric === 'pace' && localIntensityMode === 'absolute'"
+                    v-model="localPaceEnd"
+                    size="xs"
+                    variant="none"
+                    placeholder="4:00"
+                    class="w-14 p-0 text-right font-black text-sm"
+                    :ui="{ base: 'px-0 py-0' }"
+                    @update:model-value="emitUpdate"
+                  />
+                  <UInput
+                    v-else
                     v-model.number="localIntensityEnd"
                     type="number"
                     size="xs"
@@ -132,7 +205,7 @@
                 }}</span>
               </div>
               <UButton
-                v-if="localType !== 'Rest'"
+                v-if="localType !== 'Rest' && metric !== 'rpe'"
                 variant="ghost"
                 size="xs"
                 class="p-0 h-auto text-[8px] font-black uppercase tracking-tighter"
@@ -352,12 +425,24 @@
 <script setup lang="ts">
   import draggable from 'vuedraggable'
   import { ZONE_COLORS } from '~/utils/zone-colors'
+  import {
+    distanceInputFromMeters,
+    formatMpsAsPacePerKm,
+    metersFromDistanceInput,
+    paceToMps,
+    parsePacePerKmInput,
+    type DistanceEditUnit
+  } from '#shared/structured-workout-contract'
+
+  type EditorMetric = 'power' | 'hr' | 'pace' | 'rpe'
+  type LengthMode = 'duration' | 'distance'
+  type IntensityMode = 'relative' | 'absolute'
 
   const props = defineProps<{
     step: any
     index: number
     depth: number
-    metric: 'power' | 'hr' | 'pace'
+    metric: EditorMetric
     userFtp?: number
     sportSettings?: any
   }>()
@@ -375,11 +460,30 @@
   const localName = ref(props.step.name || '')
   const localType = ref(props.step.type || 'Active')
   const localDurationMin = ref(props.step._durationMin || 0)
+  const localLengthMode = ref<LengthMode>(props.step._lengthMode || 'duration')
+  const localDistanceUnit = ref<DistanceEditUnit>(props.step._distanceUnit || 'm')
+  const localDistanceValue = ref(
+    distanceInputFromMeters(
+      props.step._distanceMeters || props.step.distance,
+      localDistanceUnit.value
+    ) || 0
+  )
+  const localIntensityMode = ref<IntensityMode>(
+    props.metric === 'rpe' ? 'relative' : props.step._intensityMode || 'relative'
+  )
   const localIntensityStart = ref(props.step._intensityStartPct || 0)
   const localIntensityEnd = ref(props.step._intensityEndPct || 0)
+  const localPaceStart = ref('')
+  const localPaceEnd = ref('')
   const localIsRamp = ref(!!props.step._isRamp)
   const localCadence = ref(props.step.cadence || null)
   const localReps = ref(props.step.reps || 1)
+
+  function syncPaceDisplaysFromIntensity() {
+    if (props.metric !== 'pace' || localIntensityMode.value !== 'absolute') return
+    localPaceStart.value = formatMpsAsPacePerKm(localIntensityStart.value) || localPaceStart.value
+    localPaceEnd.value = formatMpsAsPacePerKm(localIntensityEnd.value) || localPaceEnd.value
+  }
 
   // Watch for external changes
   watch(
@@ -388,11 +492,21 @@
       localName.value = newStep.name || ''
       localType.value = newStep.type || 'Active'
       localDurationMin.value = newStep._durationMin || 0
+      localLengthMode.value = newStep._lengthMode || localLengthMode.value
+      localDistanceUnit.value = newStep._distanceUnit || localDistanceUnit.value
+      localDistanceValue.value =
+        distanceInputFromMeters(
+          newStep._distanceMeters || newStep.distance,
+          localDistanceUnit.value
+        ) || localDistanceValue.value
+      localIntensityMode.value =
+        props.metric === 'rpe' ? 'relative' : newStep._intensityMode || localIntensityMode.value
       localIntensityStart.value = newStep._intensityStartPct || 0
       localIntensityEnd.value = newStep._intensityEndPct || 0
       localIsRamp.value = !!newStep._isRamp
       localCadence.value = newStep.cadence || null
       localReps.value = newStep.reps || 1
+      syncPaceDisplaysFromIntensity()
     },
     { deep: true }
   )
@@ -403,28 +517,45 @@
   const indentStyle = computed(() => ({ paddingLeft: `${Math.min(props.depth, 5) * 12}px` }))
 
   const intensityUnit = computed(() => {
+    if (props.metric === 'rpe') return 'RPE'
+    if (localIntensityMode.value === 'absolute') {
+      if (props.metric === 'power') return 'W'
+      if (props.metric === 'hr') return 'BPM'
+      return '/KM'
+    }
     if (props.metric === 'power') return '%'
     if (props.metric === 'hr') return '% LTHR'
     return '% PACE'
   })
 
-  const intensityUnitShort = computed(() => {
-    if (props.metric === 'power') return '%'
-    if (props.metric === 'hr') return '%'
-    return '%'
-  })
+  const intensityUnitShort = computed(() => intensityUnit.value)
 
   const cadenceUnit = computed(() => {
     return props.metric === 'pace' ? 'SPM' : 'RPM'
   })
 
   const valueUnit = computed(() => {
+    if (props.metric === 'rpe') return 'RPE'
     if (props.metric === 'power') return 'W'
     if (props.metric === 'hr') return 'BPM'
     return '/KM'
   })
 
   const currentIntensity = computed(() => {
+    if (props.metric === 'rpe') {
+      return Math.max(0.1, Math.min(1.2, localIntensityStart.value / 10))
+    }
+    if (localIntensityMode.value === 'absolute') {
+      let refValue = 0
+      if (props.metric === 'power') refValue = props.sportSettings?.ftp || props.userFtp || 0
+      else if (props.metric === 'hr') refValue = props.sportSettings?.lthr || 0
+      else refValue = props.sportSettings?.thresholdPace || 0
+      if (!refValue) return 0.7
+      const mid = localIsRamp.value
+        ? (localIntensityStart.value + localIntensityEnd.value) / 2
+        : localIntensityStart.value
+      return mid / refValue
+    }
     return localIsRamp.value
       ? (localIntensityStart.value + localIntensityEnd.value) / 200
       : localIntensityStart.value / 100
@@ -441,9 +572,11 @@
     } else if (props.metric === 'hr') {
       zones = props.sportSettings?.hrZones || []
       refValue = props.sportSettings?.lthr || 0
-    } else {
+    } else if (props.metric === 'pace') {
       zones = props.sportSettings?.paceZones || []
       refValue = props.sportSettings?.thresholdPace || 0
+    } else {
+      return `RPE ${localIntensityStart.value}`
     }
 
     if (zones.length > 0 && refValue > 0) {
@@ -452,7 +585,6 @@
       return idx !== -1 ? `Z${idx + 1}` : 'Z?'
     }
 
-    // Fallback
     if (intensity <= 0.55) return 'Z1'
     else if (intensity <= 0.75) return 'Z2'
     else if (intensity <= 0.9) return 'Z3'
@@ -476,6 +608,13 @@
   })
 
   const formattedValue = computed(() => {
+    if (props.metric === 'rpe') return localIntensityStart.value
+    if (localIntensityMode.value === 'absolute') {
+      if (props.metric === 'pace') {
+        return localPaceStart.value || formatMpsAsPacePerKm(localIntensityStart.value) || '-'
+      }
+      return Math.round(localIntensityStart.value)
+    }
     const intensity = currentIntensity.value
     let refValue = 0
     if (props.metric === 'power') refValue = props.sportSettings?.ftp || props.userFtp || 0
@@ -487,18 +626,64 @@
     if (props.metric === 'pace') {
       const speedMps = intensity * refValue
       if (!speedMps) return '-'
-      const secondsPerKm = 1000 / speedMps
-      const mins = Math.floor(secondsPerKm / 60)
-      const secs = Math.round(secondsPerKm % 60)
-      return `${mins}:${secs.toString().padStart(2, '0')}`
+      return formatMpsAsPacePerKm(speedMps) || '-'
     }
 
     return Math.round(intensity * refValue)
   })
 
+  function onLengthModeChange() {
+    if (localLengthMode.value === 'distance' && !localDistanceValue.value) {
+      localDistanceValue.value = 1000
+      localDistanceUnit.value = 'm'
+    }
+    if (localLengthMode.value === 'duration' && !localDurationMin.value) {
+      localDurationMin.value = 5
+    }
+    emitUpdate()
+  }
+
+  function onIntensityModeChange() {
+    if (localIntensityMode.value === 'absolute') {
+      // Convert displayed % into absolute units using live thresholds.
+      let refValue = 0
+      if (props.metric === 'power') refValue = props.sportSettings?.ftp || props.userFtp || 0
+      else if (props.metric === 'hr') refValue = props.sportSettings?.lthr || 0
+      else refValue = props.sportSettings?.thresholdPace || 0
+      if (refValue > 0) {
+        localIntensityStart.value = Math.round((localIntensityStart.value / 100) * refValue)
+        localIntensityEnd.value = Math.round((localIntensityEnd.value / 100) * refValue)
+      }
+      syncPaceDisplaysFromIntensity()
+    } else {
+      let refValue = 0
+      if (props.metric === 'power') refValue = props.sportSettings?.ftp || props.userFtp || 0
+      else if (props.metric === 'hr') refValue = props.sportSettings?.lthr || 0
+      else refValue = props.sportSettings?.thresholdPace || 0
+      if (refValue > 0) {
+        localIntensityStart.value = Math.round((localIntensityStart.value / refValue) * 100)
+        localIntensityEnd.value = Math.round((localIntensityEnd.value / refValue) * 100)
+      }
+    }
+    emitUpdate()
+  }
+
   function handleIntensityStartChange() {
     if (!localIsRamp.value) {
       localIntensityEnd.value = localIntensityStart.value
+    }
+    emitUpdate()
+  }
+
+  function handlePaceStartChange() {
+    const minutes = parsePacePerKmInput(localPaceStart.value)
+    const mps = minutes != null ? paceToMps(minutes, 'min/km') : null
+    if (mps != null) {
+      localIntensityStart.value = mps
+      if (!localIsRamp.value) {
+        localIntensityEnd.value = mps
+        localPaceEnd.value = localPaceStart.value
+      }
     }
     emitUpdate()
   }
@@ -509,59 +694,133 @@
     updatedStep.type = localType.value
     updatedStep.reps = localReps.value
     updatedStep.cadence = localCadence.value
-    updatedStep.durationSeconds = localDurationMin.value * 60
-    updatedStep.duration = updatedStep.durationSeconds
-
-    // Internal state for editor
-    updatedStep._durationMin = localDurationMin.value
+    updatedStep._lengthMode = localLengthMode.value
+    updatedStep._distanceUnit = localDistanceUnit.value
+    updatedStep._intensityMode = localIntensityMode.value
     updatedStep._intensityStartPct = localIntensityStart.value
     updatedStep._intensityEndPct = localIntensityEnd.value
     updatedStep._isRamp = localIsRamp.value
 
-    const target: any = {}
-    if (localIsRamp.value || localIntensityStart.value !== localIntensityEnd.value) {
-      target.range = {
-        start: localIntensityStart.value / 100,
-        end: localIntensityEnd.value / 100
-      }
-      target.ramp = localIsRamp.value
+    if (localLengthMode.value === 'distance') {
+      const meters = metersFromDistanceInput(localDistanceValue.value, localDistanceUnit.value)
+      updatedStep.distance = meters
+      updatedStep._distanceMeters = meters
+      updatedStep.durationSeconds = 0
+      updatedStep.duration = 0
+      updatedStep._durationMin = 0
     } else {
-      target.value = localIntensityStart.value / 100
+      updatedStep.durationSeconds = localDurationMin.value * 60
+      updatedStep.duration = updatedStep.durationSeconds
+      updatedStep._durationMin = localDurationMin.value
+      delete updatedStep.distance
+      updatedStep._distanceMeters = null
     }
 
-    // Update the correct metric object and CLEAR others to prevent backend confusion
-    if (props.metric === 'power') {
-      updatedStep.power = { ...target, units: '%' }
-      updatedStep.primaryTarget = 'power'
-    } else if (props.metric === 'hr') {
-      updatedStep.heartRate = { ...target, units: 'LTHR' }
-      updatedStep.primaryTarget = 'heartRate'
-    } else {
-      const threshold = Number(props.sportSettings?.thresholdPace || 0)
-      if (threshold <= 0) {
-        updatedStep.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
-      } else if (target.range) {
-        updatedStep.pace = {
-          metric: 'pace',
-          kind: 'relative',
-          relativeToThreshold: { min: target.range.start, max: target.range.end },
-          rangeMps: { min: target.range.start * threshold, max: target.range.end * threshold },
-          range: { start: target.range.start * threshold, end: target.range.end * threshold },
-          units: 'm/s',
-          ramp: target.ramp === true
-        }
+    delete updatedStep.power
+    delete updatedStep.heartRate
+    delete updatedStep.pace
+    delete updatedStep.rpe
+
+    if (props.metric === 'rpe') {
+      const rpe = Math.max(1, Math.min(10, Number(localIntensityStart.value) || 5))
+      updatedStep.rpe = { value: rpe, units: 'rpe' }
+      updatedStep.primaryTarget = 'rpe'
+      updatedStep._intensityStartPct = rpe
+      updatedStep._intensityEndPct = rpe
+    } else if (localIntensityMode.value === 'absolute') {
+      if (props.metric === 'power') {
+        const target: any = localIsRamp.value
+          ? {
+              range: { start: localIntensityStart.value, end: localIntensityEnd.value },
+              units: 'w',
+              ramp: true
+            }
+          : { value: localIntensityStart.value, units: 'w' }
+        updatedStep.power = target
+        updatedStep.primaryTarget = 'power'
+      } else if (props.metric === 'hr') {
+        const target: any = localIsRamp.value
+          ? {
+              range: { start: localIntensityStart.value, end: localIntensityEnd.value },
+              units: 'bpm',
+              ramp: true
+            }
+          : { value: localIntensityStart.value, units: 'bpm' }
+        updatedStep.heartRate = target
+        updatedStep.primaryTarget = 'heartRate'
       } else {
-        const value = Number(target.value || 0) * threshold
-        updatedStep.pace = {
-          metric: 'pace',
-          kind: 'relative',
-          relativeToThreshold: { min: Number(target.value || 0), max: Number(target.value || 0) },
-          rangeMps: { min: value, max: value },
-          range: { start: value, end: value },
-          units: 'm/s'
-        }
+        const startMps =
+          paceToMps(parsePacePerKmInput(localPaceStart.value), 'min/km') ||
+          Number(localIntensityStart.value) ||
+          0
+        const endMps =
+          paceToMps(parsePacePerKmInput(localPaceEnd.value), 'min/km') ||
+          Number(localIntensityEnd.value) ||
+          startMps
+        updatedStep.pace = localIsRamp.value
+          ? {
+              metric: 'pace',
+              kind: 'absolute',
+              rangeMps: { min: startMps, max: endMps },
+              range: { start: startMps, end: endMps },
+              units: 'm/s',
+              ramp: true
+            }
+          : {
+              metric: 'pace',
+              kind: 'absolute',
+              rangeMps: { min: startMps, max: startMps },
+              range: { start: startMps, end: startMps },
+              value: startMps,
+              units: 'm/s'
+            }
+        updatedStep.primaryTarget = 'pace'
       }
-      updatedStep.primaryTarget = 'pace'
+    } else {
+      const target: any = {}
+      if (localIsRamp.value || localIntensityStart.value !== localIntensityEnd.value) {
+        target.range = {
+          start: localIntensityStart.value / 100,
+          end: localIntensityEnd.value / 100
+        }
+        target.ramp = localIsRamp.value
+      } else {
+        target.value = localIntensityStart.value / 100
+      }
+
+      if (props.metric === 'power') {
+        updatedStep.power = { ...target, units: '%' }
+        updatedStep.primaryTarget = 'power'
+      } else if (props.metric === 'hr') {
+        updatedStep.heartRate = { ...target, units: 'LTHR' }
+        updatedStep.primaryTarget = 'heartRate'
+      } else {
+        const threshold = Number(props.sportSettings?.thresholdPace || 0)
+        if (threshold <= 0) {
+          updatedStep.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
+        } else if (target.range) {
+          updatedStep.pace = {
+            metric: 'pace',
+            kind: 'relative',
+            relativeToThreshold: { min: target.range.start, max: target.range.end },
+            rangeMps: { min: target.range.start * threshold, max: target.range.end * threshold },
+            range: { start: target.range.start * threshold, end: target.range.end * threshold },
+            units: 'm/s',
+            ramp: target.ramp === true
+          }
+        } else {
+          const value = Number(target.value || 0) * threshold
+          updatedStep.pace = {
+            metric: 'pace',
+            kind: 'relative',
+            relativeToThreshold: { min: Number(target.value || 0), max: Number(target.value || 0) },
+            rangeMps: { min: value, max: value },
+            range: { start: value, end: value },
+            units: 'm/s'
+          }
+        }
+        updatedStep.primaryTarget = 'pace'
+      }
     }
 
     emit('update:step', updatedStep)
@@ -572,6 +831,7 @@
     localIsRamp.value = !localIsRamp.value
     if (!localIsRamp.value) {
       localIntensityEnd.value = localIntensityStart.value
+      localPaceEnd.value = localPaceStart.value
     }
     emitUpdate()
   }
@@ -605,26 +865,34 @@
     if (!updatedChild.steps) updatedChild.steps = []
     if (!updatedChild.reps) updatedChild.reps = 2
 
-    const defaultTarget = {
-      value: 1.0,
-      units: props.metric === 'power' ? '%' : props.metric === 'hr' ? 'LTHR' : 'Pace'
+    const interval: any = {
+      uid: Math.random().toString(36).substring(7),
+      type: 'Active',
+      name: 'Interval',
+      durationSeconds: 60,
+      duration: 60,
+      _durationMin: 1,
+      _lengthMode: 'duration',
+      _intensityMode: 'relative',
+      _intensityStartPct: props.metric === 'rpe' ? 7 : 100,
+      _intensityEndPct: props.metric === 'rpe' ? 7 : 100,
+      _isRamp: false
+    }
+    if (props.metric === 'rpe') {
+      interval.rpe = { value: 7, units: 'rpe' }
+      interval.primaryTarget = 'rpe'
+    } else if (props.metric === 'power') {
+      interval.power = { value: 1.0, units: '%' }
+      interval.primaryTarget = 'power'
+    } else if (props.metric === 'hr') {
+      interval.heartRate = { value: 1.0, units: 'LTHR' }
+      interval.primaryTarget = 'heartRate'
+    } else {
+      interval.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
+      interval.primaryTarget = 'pace'
     }
 
-    updatedChild.steps = [
-      ...updatedChild.steps,
-      {
-        uid: Math.random().toString(36).substring(7),
-        type: 'Active',
-        name: 'Interval',
-        durationSeconds: 60,
-        duration: 60,
-        _durationMin: 1,
-        [props.metric]: defaultTarget,
-        _intensityStartPct: 100,
-        _intensityEndPct: 100,
-        _isRamp: false
-      }
-    ]
+    updatedChild.steps = [...updatedChild.steps, interval]
 
     const idx = props.step.steps.findIndex((s: any) => s.uid === child.uid)
     if (idx !== -1) {
@@ -635,23 +903,33 @@
   function addStepAfterNested(idx: number) {
     const updatedStep = { ...props.step }
     updatedStep.steps = [...props.step.steps]
-    const defaultTarget = {
-      value: 0.7,
-      units: props.metric === 'power' ? '%' : props.metric === 'hr' ? 'LTHR' : 'Pace'
-    }
-
-    updatedStep.steps.splice(idx + 1, 0, {
+    const next: any = {
       uid: Math.random().toString(36).substring(7),
       type: 'Active',
       name: 'New Step',
       durationSeconds: 300,
       duration: 300,
       _durationMin: 5,
-      [props.metric]: defaultTarget,
-      _intensityStartPct: 70,
-      _intensityEndPct: 70,
+      _lengthMode: 'duration',
+      _intensityMode: 'relative',
+      _intensityStartPct: props.metric === 'rpe' ? 5 : 70,
+      _intensityEndPct: props.metric === 'rpe' ? 5 : 70,
       _isRamp: false
-    })
+    }
+    if (props.metric === 'rpe') {
+      next.rpe = { value: 5, units: 'rpe' }
+      next.primaryTarget = 'rpe'
+    } else if (props.metric === 'power') {
+      next.power = { value: 0.7, units: '%' }
+      next.primaryTarget = 'power'
+    } else if (props.metric === 'hr') {
+      next.heartRate = { value: 0.7, units: 'LTHR' }
+      next.primaryTarget = 'heartRate'
+    } else {
+      next.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
+      next.primaryTarget = 'pace'
+    }
+    updatedStep.steps.splice(idx + 1, 0, next)
     emit('update:step', updatedStep)
     emit('update:duration')
   }

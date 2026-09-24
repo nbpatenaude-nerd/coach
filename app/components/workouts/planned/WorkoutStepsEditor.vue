@@ -20,12 +20,13 @@
           <USelect
             :model-value="activeMetric"
             :items="[
-              { label: 'Power (% FTP)', value: 'power' },
-              { label: 'Heart Rate (% LTHR)', value: 'hr' },
-              { label: 'Pace (% Threshold)', value: 'pace' }
+              { label: 'Power (% FTP / W)', value: 'power' },
+              { label: 'Heart Rate (% LTHR / bpm)', value: 'hr' },
+              { label: 'Pace (% / absolute)', value: 'pace' },
+              { label: 'RPE (1–10)', value: 'rpe' }
             ]"
             size="xs"
-            class="w-36"
+            class="w-48"
             @update:model-value="requestMetricChange"
           />
           <UButton
@@ -179,22 +180,22 @@
   import draggable from 'vuedraggable'
   import WorkoutStepRow from './WorkoutStepRow.vue'
 
+  type EditorMetric = 'power' | 'hr' | 'pace' | 'rpe'
+
   const props = defineProps<{
     steps: any[]
     userFtp?: number
     sportSettings?: any
     saving?: boolean
-    preference?: 'hr' | 'power' | 'pace'
+    preference?: EditorMetric
   }>()
 
   const emit = defineEmits(['save', 'cancel', 'update:steps'])
 
-  const activeMetric = ref<'power' | 'hr' | 'pace'>(
-    props.preference || detectBestMetric(props.steps)
-  )
+  const activeMetric = ref<EditorMetric>(props.preference || detectBestMetric(props.steps))
   const targetPolicyChangeNotice = ref('')
   const showMetricConfirm = ref(false)
-  const pendingMetric = ref<'power' | 'hr' | 'pace' | null>(null)
+  const pendingMetric = ref<EditorMetric | null>(null)
   const metricChangeReport = ref('')
 
   type MetricChangeSummary = {
@@ -206,8 +207,8 @@
   }
 
   function buildMetricChangeReport(
-    fromMetric: 'power' | 'hr' | 'pace',
-    toMetric: 'power' | 'hr' | 'pace'
+    fromMetric: EditorMetric,
+    toMetric: EditorMetric
   ): MetricChangeSummary {
     const preview = migrateStepsToMetric(editedSteps.value, toMetric, { dryRun: true })
     let converted = 0
@@ -219,7 +220,8 @@
         const targets = [
           { key: 'power', metric: 'power' as const },
           { key: 'heartRate', metric: 'hr' as const },
-          { key: 'pace', metric: 'pace' as const }
+          { key: 'pace', metric: 'pace' as const },
+          { key: 'rpe', metric: 'rpe' as const }
         ]
         targets.forEach(({ key, metric }) => {
           const target = step?.[key]
@@ -254,7 +256,14 @@
   }
 
   function requestMetricChange(newMetric: string) {
-    if (newMetric !== 'power' && newMetric !== 'hr' && newMetric !== 'pace') return
+    if (
+      newMetric !== 'power' &&
+      newMetric !== 'hr' &&
+      newMetric !== 'pace' &&
+      newMetric !== 'rpe'
+    ) {
+      return
+    }
     if (newMetric === activeMetric.value) return
     const report = buildMetricChangeReport(activeMetric.value, newMetric)
     if (report.requiresConfirmation) {
@@ -278,7 +287,7 @@
     showMetricConfirm.value = false
   }
 
-  function applyMetricChange(newMetric: 'power' | 'hr' | 'pace', notice: string) {
+  function applyMetricChange(newMetric: EditorMetric, notice: string) {
     const previousMetric = activeMetric.value
     activeMetric.value = newMetric
     targetPolicyChangeNotice.value = notice
@@ -290,8 +299,9 @@
     }
   }
 
-  function detectBestMetric(steps: any[]): 'power' | 'hr' | 'pace' {
+  function detectBestMetric(steps: any[]): EditorMetric {
     for (const step of steps) {
+      if (step.rpe) return 'rpe'
       if (step.heartRate) return 'hr'
       if (step.power) return 'power'
       if (step.pace) return 'pace'
@@ -311,8 +321,12 @@
     return Math.random().toString(36).substring(7)
   }
 
-  function resolveIntensityPct(target: any, metric: 'power' | 'hr' | 'pace'): number {
+  function resolveIntensityPct(target: any, metric: EditorMetric): number {
     if (!target) return 0
+    if (metric === 'rpe') {
+      const val = Number(target.value ?? target ?? 0)
+      return Number.isFinite(val) ? Math.round(val) : 0
+    }
     const val = target.value ?? 0
     const units = String(target.units || '').toLowerCase()
 
@@ -361,9 +375,10 @@
     return val > 3 ? Math.round(val) : Math.round(val * 100)
   }
 
-  function getTargetForMetric(step: any, metric: 'power' | 'hr' | 'pace') {
+  function getTargetForMetric(step: any, metric: EditorMetric) {
     if (metric === 'power') return step.power
     if (metric === 'hr') return step.heartRate
+    if (metric === 'rpe') return step.rpe
     return step.pace
   }
 
@@ -379,23 +394,59 @@
       if (!s.uid) s.uid = generateUid()
       const dur = s.durationSeconds || s.duration || 0
       s._durationMin = Math.round(dur / 60)
+      const distanceMeters = Number(s.distance || 0)
+      if (distanceMeters > 0 && !(dur > 0)) {
+        s._lengthMode = 'distance'
+        s._distanceMeters = distanceMeters
+        s._distanceUnit = distanceMeters >= 1000 ? 'km' : 'm'
+      } else {
+        s._lengthMode = 'duration'
+        s._distanceMeters = distanceMeters > 0 ? distanceMeters : null
+        s._distanceUnit = 'm'
+      }
 
       const target = getTargetForMetric(s, activeMetric.value)
-
-      if (target?.range) {
-        s._intensityStartPct = resolveIntensityPct(
-          { ...target, value: target.range.start },
-          activeMetric.value
-        )
-        s._intensityEndPct = resolveIntensityPct(
-          { ...target, value: target.range.end },
-          activeMetric.value
-        )
-        s._isRamp = isRampRange(s, target)
-      } else {
-        s._intensityStartPct = resolveIntensityPct(target, activeMetric.value)
+      const units = String(target?.units || '').toLowerCase()
+      if (activeMetric.value === 'rpe') {
+        s._intensityMode = 'relative'
+        s._intensityStartPct = resolveIntensityPct(target, 'rpe') || 5
         s._intensityEndPct = s._intensityStartPct
         s._isRamp = false
+      } else if (
+        units === 'w' ||
+        units === 'watts' ||
+        units === 'bpm' ||
+        target?.kind === 'absolute'
+      ) {
+        s._intensityMode = 'absolute'
+        const startRaw =
+          target?.range != null
+            ? Number(target.range.start)
+            : Number(target?.value ?? target?.rangeMps?.min ?? 0)
+        const endRaw =
+          target?.range != null
+            ? Number(target.range.end)
+            : Number(target?.value ?? target?.rangeMps?.max ?? startRaw)
+        s._intensityStartPct = startRaw
+        s._intensityEndPct = endRaw
+        s._isRamp = isRampRange(s, target)
+      } else {
+        s._intensityMode = 'relative'
+        if (target?.range) {
+          s._intensityStartPct = resolveIntensityPct(
+            { ...target, value: target.range.start },
+            activeMetric.value
+          )
+          s._intensityEndPct = resolveIntensityPct(
+            { ...target, value: target.range.end },
+            activeMetric.value
+          )
+          s._isRamp = isRampRange(s, target)
+        } else {
+          s._intensityStartPct = resolveIntensityPct(target, activeMetric.value)
+          s._intensityEndPct = s._intensityStartPct
+          s._isRamp = false
+        }
       }
 
       if (s.steps) s.steps = initializeSteps(s.steps)
@@ -431,14 +482,27 @@
 
   function migrateStepsToMetric(
     steps: any[],
-    metric: 'power' | 'hr' | 'pace',
+    metric: EditorMetric,
     options: { dryRun?: boolean } = {}
   ): any[] {
+    void options
     return steps.map((s) => {
       const news = JSON.parse(JSON.stringify(s))
+      news._intensityMode = news._intensityMode || 'relative'
 
-      // news already has _intensityStartPct and _intensityEndPct from previous edits or initialization
-      // We use these numbers to build the new target object
+      if (metric === 'rpe') {
+        // Map % intensity onto a 1–10 RPE scale when converting from relative targets.
+        const rpeValue = Math.max(1, Math.min(10, Math.round((news._intensityStartPct || 50) / 10)))
+        news.rpe = { value: rpeValue, units: 'rpe' }
+        news.primaryTarget = 'rpe'
+        news._intensityStartPct = rpeValue
+        news._intensityEndPct = rpeValue
+        news._isRamp = false
+        news._intensityMode = 'relative'
+        if (news.steps) news.steps = migrateStepsToMetric(news.steps, metric)
+        return news
+      }
+
       const start = (news._intensityStartPct || 0) / 100
       const end = (news._intensityEndPct || 0) / 100
       const isRamp = !!news._isRamp
@@ -451,18 +515,17 @@
         target.value = start
       }
 
-      // Update the correct metric object and CLEAR others to match StepRow logic
       if (metric === 'power') {
         news.power = { ...target, units: '%' }
         news.primaryTarget = 'power'
+        delete news.rpe
       } else if (metric === 'hr') {
         news.heartRate = { ...target, units: 'LTHR' }
         news.primaryTarget = 'heartRate'
+        delete news.rpe
       } else {
         const threshold = Number(props.sportSettings?.thresholdPace || 0)
         if (threshold <= 0) {
-          // Do not manufacture a pace unit when the editor lacks a canonical
-          // threshold snapshot; the server will report this as unresolved.
           news.pace = { metric: 'pace', kind: 'freeform', unresolved: true }
         } else if (target.range) {
           news.pace = {
@@ -486,6 +549,7 @@
           }
         }
         news.primaryTarget = 'pace'
+        delete news.rpe
       }
 
       if (news.steps) news.steps = migrateStepsToMetric(news.steps, metric)
@@ -567,16 +631,24 @@
       durationSeconds: 300,
       duration: 300,
       _durationMin: 5,
-      _intensityStartPct: 70,
-      _intensityEndPct: 70,
+      _lengthMode: 'duration' as const,
+      _distanceUnit: 'm' as const,
+      _distanceMeters: null as number | null,
+      _intensityMode: 'relative' as const,
+      _intensityStartPct: activeMetric.value === 'rpe' ? 5 : 70,
+      _intensityEndPct: activeMetric.value === 'rpe' ? 5 : 70,
       _isRamp: false
+    }
+
+    if (activeMetric.value === 'rpe') {
+      return { ...baseStep, rpe: { value: 5, units: 'rpe' }, primaryTarget: 'rpe' }
     }
 
     const target: any = { value: 0.7 }
     if (activeMetric.value === 'power') {
-      return { ...baseStep, power: { ...target, units: '%' } }
+      return { ...baseStep, power: { ...target, units: '%' }, primaryTarget: 'power' }
     } else if (activeMetric.value === 'hr') {
-      return { ...baseStep, heartRate: { ...target, units: 'LTHR' } }
+      return { ...baseStep, heartRate: { ...target, units: 'LTHR' }, primaryTarget: 'heartRate' }
     } else {
       const threshold = Number(props.sportSettings?.thresholdPace || 0)
       if (threshold <= 0) {
@@ -624,13 +696,14 @@
     newStep.durationSeconds = 60
     newStep.duration = 60
     newStep._durationMin = 1
-    newStep._intensityStartPct = 100
-    newStep._intensityEndPct = 100
+    newStep._intensityStartPct = activeMetric.value === 'rpe' ? 7 : 100
+    newStep._intensityEndPct = newStep._intensityStartPct
 
-    // Update metric specific target to 100%
-    if (activeMetric.value === 'power') newStep.power.value = 1.0
-    else if (activeMetric.value === 'hr') newStep.heartRate.value = 1.0
-    else {
+    if (activeMetric.value === 'power' && newStep.power) newStep.power.value = 1.0
+    else if (activeMetric.value === 'hr' && newStep.heartRate) newStep.heartRate.value = 1.0
+    else if (activeMetric.value === 'rpe') {
+      newStep.rpe = { value: 7, units: 'rpe' }
+    } else {
       const threshold = Number(props.sportSettings?.thresholdPace || 0)
       if (threshold > 0) {
         newStep.pace = {
@@ -661,9 +734,17 @@
 
   function cleanForOutput(steps: any[]): any[] {
     return steps.map((s) => {
-      // Destructure internal properties to exclude them from output
-      // Note: We KEEP 'uid' now as it's used by the chart for interaction
-      const { _durationMin, _intensityStartPct, _intensityEndPct, _isRamp, ...rest } = s
+      const {
+        _durationMin,
+        _intensityStartPct,
+        _intensityEndPct,
+        _isRamp,
+        _lengthMode,
+        _distanceUnit,
+        _distanceMeters,
+        _intensityMode,
+        ...rest
+      } = s
       const cleaned: any = { ...rest }
       if (cleaned.steps) cleaned.steps = cleanForOutput(cleaned.steps)
       return cleaned

@@ -2,14 +2,36 @@ import { describe, expect, it } from 'vitest'
 import {
   createZoneProfileSnapshot,
   adaptStructuredWorkout,
+  distanceInputFromMeters,
+  formatMpsAsPacePerKm,
+  metersFromDistanceInput,
   paceTargetToCanonical,
   paceToMps,
+  parsePacePerKmInput,
   validateStructuredWorkoutLimits
 } from './structured-workout-contract'
 
 describe('structured workout contract', () => {
   it('converts declared metres per minute to canonical m/s', () => {
     expect(paceToMps(240, 'm/min')).toBe(4)
+  })
+
+  it('converts min/km and min/mi inputs to m/s', () => {
+    expect(paceToMps(4, 'min/km')).toBeCloseTo(1000 / 240, 6)
+    expect(paceToMps(6.5, 'min/mi')).toBeCloseTo(1609.344 / 390, 6)
+  })
+
+  it('formats and parses pace editor helpers', () => {
+    expect(formatMpsAsPacePerKm(1000 / 240)).toBe('4:00')
+    expect(parsePacePerKmInput('4:30')).toBe(4.5)
+    expect(parsePacePerKmInput(4.25)).toBe(4.25)
+  })
+
+  it('round-trips distance editor units through meters', () => {
+    expect(metersFromDistanceInput(1.5, 'km')).toBe(1500)
+    expect(metersFromDistanceInput(1, 'mi')).toBe(1609)
+    expect(distanceInputFromMeters(1500, 'km')).toBe(1.5)
+    expect(distanceInputFromMeters(1609.344, 'mi')).toBe(1)
   })
 
   it('does not guess an undeclared pace unit', () => {

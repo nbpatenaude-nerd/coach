@@ -384,6 +384,7 @@
                 @duplicate-planned-workout="onDuplicatePlannedWorkout"
                 @activity-click="onActivityClick"
                 @compare-activity="addWorkoutToComparison"
+                @create-blank="onCreateBlankPlannedWorkout"
               />
 
               <CoachCalendarPanel
@@ -403,6 +404,7 @@
                 @duplicate-planned-workout="onDuplicatePlannedWorkout"
                 @activity-click="onActivityClick"
                 @compare-activity="addWorkoutToComparison"
+                @create-blank="onCreateBlankPlannedWorkout"
               />
             </div>
 
@@ -497,8 +499,11 @@
         :endpoint-base="selectedPlannedWorkoutEndpointBase"
         :show-completion-actions="false"
         :show-structure-actions="false"
+        :allow-structure-edit="true"
+        :show-view-details="false"
         :show-save-to-library="false"
         @completed="refreshAffectedPanel(selectedPlannedWorkoutAthleteId)"
+        @structure-saved="onPlannedWorkoutStructureSaved"
         @deleted="handlePlannedWorkoutDeleted"
       />
 
@@ -1105,6 +1110,41 @@
     }
   }
 
+  async function onCreateBlankPlannedWorkout(athleteId: string, date: Date) {
+    try {
+      const result = await $fetch<any, string & {}>(
+        `/api/coaching/athletes/${athleteId}/planned-workouts`,
+        {
+          method: 'POST',
+          body: {
+            date: formatDateUTC(date, 'yyyy-MM-dd'),
+            title: 'New Workout',
+            type: 'Ride',
+            category: 'Workout',
+            durationSec: 3600,
+            description: ''
+          }
+        }
+      )
+      const workout = result?.workout || result
+      await refreshAffectedPanel(athleteId)
+      selectedPlannedWorkoutAthleteId.value = athleteId
+      selectedPlannedWorkout.value = workout
+      showPlannedWorkoutModal.value = true
+      toast.add({
+        title: 'Workout created',
+        description: `Blank workout added to ${formatDateUTC(date, 'MMM d')}. Edit the structure to build it.`,
+        color: 'success'
+      })
+    } catch (error: any) {
+      toast.add({
+        title: 'Create failed',
+        description: error.data?.message || 'Could not create blank workout.',
+        color: 'error'
+      })
+    }
+  }
+
   async function onDuplicatePlannedWorkout({
     sourceAthleteId,
     targetAthleteId,
@@ -1218,6 +1258,12 @@
   function handlePlannedWorkoutDeleted() {
     showPlannedWorkoutModal.value = false
     void refreshAffectedPanel(selectedPlannedWorkoutAthleteId.value)
+  }
+
+  function onPlannedWorkoutStructureSaved(workout: any) {
+    if (workout?.id) {
+      selectedPlannedWorkout.value = workout
+    }
   }
 
   function toggleDrawer() {

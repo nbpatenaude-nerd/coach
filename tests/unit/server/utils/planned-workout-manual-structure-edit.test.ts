@@ -4,17 +4,30 @@ import { sportSettingsRepository } from '../../../../server/utils/repositories/s
 import { syncPlannedWorkoutToIntervals } from '../../../../server/utils/intervals-sync'
 import { serializeCanonicalForIntervals } from '../../../../server/utils/canonical-workout-serializer'
 import { hasActiveStructureGenerationRun } from '../../../../server/utils/structure-generation-run'
+import { writeCanonicalPlannedWorkoutStructure } from '../../../../server/utils/canonical-planned-workout-write'
 import {
+  applyManualPlannedWorkoutStructureEdit,
   buildManualStructureEditStatusMessage,
   resolveManualEditZoneProfileSnapshot,
   syncManualPlannedWorkoutStructureToIntervalsIfSynced
 } from '../../../../server/utils/planned-workout-manual-structure-edit'
 
+vi.stubGlobal('createError', (err: any) => {
+  const error = new Error(err.message || err.statusMessage)
+  ;(error as any).statusCode = err.statusCode
+  ;(error as any).data = err.data
+  return error
+})
+
 vi.mock('../../../../server/utils/db', () => ({
   prisma: {
     plannedWorkout: {
+      findUnique: vi.fn(),
       update: vi.fn()
     }
+  },
+  Prisma: {
+    DbNull: Symbol('DbNull')
   }
 }))
 
@@ -36,6 +49,10 @@ vi.mock('../../../../server/utils/structure-generation-run', () => ({
   hasActiveStructureGenerationRun: vi.fn()
 }))
 
+vi.mock('../../../../server/utils/canonical-planned-workout-write', () => ({
+  writeCanonicalPlannedWorkoutStructure: vi.fn()
+}))
+
 describe('planned-workout-manual-structure-edit', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -52,6 +69,112 @@ describe('planned-workout-manual-structure-edit', () => {
       powerZones: [],
       paceZones: []
     } as any)
+  })
+
+  describe('applyManualPlannedWorkoutStructureEdit', () => {
+    const strengthBlocksPayload = [
+      {
+        type: 'single_exercise',
+        title: 'Main Lift',
+        steps: [
+          {
+            name: 'Back Squat',
+            prescriptionMode: 'reps',
+            defaultRest: '2m',
+            setRows: [
+              { index: 1, value: '5' },
+              { index: 2, value: '5' }
+            ]
+          }
+        ]
+      }
+    ]
+
+    beforeEach(() => {
+      vi.mocked(prisma.plannedWorkout.findUnique).mockResolvedValue({
+        id: 'workout-1',
+        userId: 'user-1',
+        type: 'WeightTraining',
+        durationSec: 1800,
+        syncStatus: 'LOCAL_ONLY',
+        structuredWorkout: {},
+        user: { ftp: 250 }
+      } as any)
+      vi.mocked(writeCanonicalPlannedWorkoutStructure).mockResolvedValue({
+        workout: {
+          id: 'workout-1',
+          userId: 'user-1',
+          type: 'WeightTraining',
+          durationSec: 1800,
+          syncStatus: 'LOCAL_ONLY',
+          structuredWorkout: {}
+        }
+      } as any)
+    })
+
+    it('saves strength-only structure payloads without interval steps', async () => {
+      const result = await applyManualPlannedWorkoutStructureEdit({
+        ownerUserId: 'user-1',
+        plannedWorkoutId: 'workout-1',
+        body: {
+          blocks: strengthBlocksPayload,
+          exercises: [
+            {
+              group: 'Main Lift',
+              name: 'Back Squat',
+              sets: 2,
+              reps: '5',
+              rest: '2m'
+            }
+          ],
+          durationSec: 1800
+        }
+      })
+
+      expect(result.success).toBe(true)
+      expect(writeCanonicalPlannedWorkoutStructure).toHaveBeenCalledWith(
+        expect.objectContaining({
+          plannedWorkoutId: 'workout-1',
+          source: 'MANUAL_EDIT',
+          structure: expect.objectContaining({
+            blocks: expect.arrayContaining([
+              expect.objectContaining({
+                title: 'Main Lift',
+                steps: expect.arrayContaining([
+                  expect.objectContaining({
+                    name: 'Back Squat'
+                  })
+                ])
+              })
+            ]),
+            exercises: expect.arrayContaining([
+              expect.objectContaining({
+                name: 'Back Squat'
+              })
+            ])
+          })
+        })
+      )
+    })
+
+    it('rejects edits when the workout belongs to another owner', async () => {
+      vi.mocked(prisma.plannedWorkout.findUnique).mockResolvedValue({
+        id: 'workout-1',
+        userId: 'other-user',
+        type: 'Ride',
+        syncStatus: 'LOCAL_ONLY',
+        structuredWorkout: {},
+        user: { ftp: 250 }
+      } as any)
+
+      await expect(
+        applyManualPlannedWorkoutStructureEdit({
+          ownerUserId: 'user-1',
+          plannedWorkoutId: 'workout-1',
+          body: { steps: [] }
+        })
+      ).rejects.toMatchObject({ statusCode: 403 })
+    })
   })
 
   describe('resolveManualEditZoneProfileSnapshot', () => {

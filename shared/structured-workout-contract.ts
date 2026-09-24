@@ -101,9 +101,69 @@ export function paceToMps(value: unknown, unit: unknown): number | null {
     case 'sec/km':
     case 'seconds/km':
       return 1000 / pace
+    case '/mi':
+    case 'min/mi':
+    case 'minutes/mi':
+    case 'min/mile':
+      return 1609.344 / (pace * 60)
+    case 's/mi':
+    case 'sec/mi':
+    case 'seconds/mi':
+      return 1609.344 / pace
     default:
       return null
   }
+}
+
+/** Converts canonical m/s pace to minutes per kilometre (fractional minutes). */
+export function mpsToMinPerKm(mps: unknown): number | null {
+  const speed = finitePositive(mps)
+  if (speed === null) return null
+  return 1000 / speed / 60
+}
+
+/** Formats m/s as `m:ss` per km for editor display. */
+export function formatMpsAsPacePerKm(mps: unknown): string {
+  const minutes = mpsToMinPerKm(mps)
+  if (minutes === null) return ''
+  const totalSeconds = Math.round(minutes * 60)
+  const mins = Math.floor(totalSeconds / 60)
+  const secs = totalSeconds % 60
+  return `${mins}:${secs.toString().padStart(2, '0')}`
+}
+
+/** Parses `m:ss` or decimal minutes into min/km for paceToMps. */
+export function parsePacePerKmInput(raw: unknown): number | null {
+  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return raw
+  const text = String(raw || '').trim()
+  if (!text) return null
+  if (text.includes(':')) {
+    const [minsRaw, secsRaw] = text.split(':')
+    const mins = Number(minsRaw)
+    const secs = Number(secsRaw)
+    if (!Number.isFinite(mins) || !Number.isFinite(secs) || mins < 0 || secs < 0) return null
+    return mins + secs / 60
+  }
+  const decimal = Number(text)
+  return Number.isFinite(decimal) && decimal > 0 ? decimal : null
+}
+
+export type DistanceEditUnit = 'm' | 'km' | 'mi'
+
+export function metersFromDistanceInput(value: unknown, unit: DistanceEditUnit): number | null {
+  const amount = finitePositive(value)
+  if (amount === null) return null
+  if (unit === 'km') return Math.round(amount * 1000)
+  if (unit === 'mi') return Math.round(amount * 1609.344)
+  return Math.round(amount)
+}
+
+export function distanceInputFromMeters(meters: unknown, unit: DistanceEditUnit): number | null {
+  const amount = finitePositive(meters)
+  if (amount === null) return null
+  if (unit === 'km') return Math.round((amount / 1000) * 1000) / 1000
+  if (unit === 'mi') return Math.round((amount / 1609.344) * 1000) / 1000
+  return Math.round(amount)
 }
 
 export function paceTargetToCanonical(
