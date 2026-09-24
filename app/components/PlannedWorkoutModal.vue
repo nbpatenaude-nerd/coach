@@ -58,11 +58,22 @@
                 </div>
               </div>
 
-              <div class="px-5 py-3.5 flex justify-between items-center group">
+              <div class="px-5 py-3.5 flex justify-between items-center group gap-3">
                 <span class="text-[10px] font-black uppercase tracking-widest text-gray-500"
                   >Type</span
                 >
-                <div class="flex items-center gap-2">
+                <div v-if="allowStructureEdit" class="min-w-[10rem]">
+                  <USelect
+                    :model-value="plannedWorkout.type || 'Ride'"
+                    :items="workoutTypeOptions"
+                    value-key="value"
+                    size="sm"
+                    class="w-full"
+                    :disabled="updatingType"
+                    @update:model-value="onWorkoutTypeChange"
+                  />
+                </div>
+                <div v-else class="flex items-center gap-2">
                   <UIcon
                     :name="getActivityIcon(plannedWorkout.type)"
                     class="w-4 h-4 text-primary-500"
@@ -251,113 +262,129 @@
               Regenerate
             </UButton>
           </div>
-          <div v-if="isStrengthWorkout && strengthBlocks.length" class="space-y-4">
-            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              <div
-                class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
-              >
-                <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  Blocks
-                </div>
-                <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
-                  {{ strengthSummary.blockCount }}
-                </div>
-              </div>
-              <div
-                class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
-              >
-                <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  Exercises
-                </div>
-                <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
-                  {{ strengthSummary.exerciseCount }}
-                </div>
-              </div>
-              <div
-                class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
-              >
-                <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  Sets
-                </div>
-                <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
-                  {{ strengthSummary.totalSets }}
-                </div>
-              </div>
-              <div
-                class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
-              >
-                <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                  Duration
-                </div>
-                <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
-                  {{ formatDuration(plannedWorkout.durationSec || strengthSummary.durationSec) }}
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-3">
-              <div
-                v-for="(block, blockIndex) in strengthBlocks"
-                :key="block.id"
-                class="overflow-hidden rounded-xl border border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-900"
-              >
+          <div v-if="isStrengthWorkout" class="space-y-4">
+            <StrengthExercisesEditor
+              v-if="allowStructureEdit"
+              :structured-workout="strengthEditorStructuredWorkout"
+              :exercises="strengthEditorStructuredWorkout?.exercises || []"
+              :owner-scope="strengthLibraryOwnerScope"
+              :initial-duration-sec="plannedWorkout.durationSec"
+              :initial-tss="plannedWorkout.tss"
+              @save="handleSaveStructure"
+              @cancel="() => {}"
+            />
+            <template v-else-if="strengthBlocks.length">
+              <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <div
-                  class="border-b border-gray-100 bg-gray-50 px-4 py-3 dark:border-gray-800 dark:bg-gray-950"
+                  class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
                 >
-                  <div class="flex items-center justify-between gap-3">
-                    <div>
-                      <div
-                        class="text-[10px] font-black uppercase tracking-widest text-primary-500"
-                      >
-                        {{ strengthBlockTypeLabel(block.type) }}
-                      </div>
-                      <div class="text-sm font-black text-gray-900 dark:text-white">
-                        {{ block.title || `Block ${blockIndex + 1}` }}
-                      </div>
-                      <div v-if="block.notes" class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        {{ block.notes }}
-                      </div>
-                    </div>
-                    <div
-                      v-if="block.durationSec"
-                      class="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400"
-                    >
-                      {{ formatDuration(block.durationSec) }}
-                    </div>
+                  <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                    Blocks
+                  </div>
+                  <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
+                    {{ strengthSummary.blockCount }}
                   </div>
                 </div>
+                <div
+                  class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
+                >
+                  <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                    Exercises
+                  </div>
+                  <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
+                    {{ strengthSummary.exerciseCount }}
+                  </div>
+                </div>
+                <div
+                  class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
+                >
+                  <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                    Sets
+                  </div>
+                  <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
+                    {{ strengthSummary.totalSets }}
+                  </div>
+                </div>
+                <div
+                  class="rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950"
+                >
+                  <div class="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                    Duration
+                  </div>
+                  <div class="mt-1 text-lg font-black text-gray-900 dark:text-white">
+                    {{ formatDuration(plannedWorkout.durationSec || strengthSummary.durationSec) }}
+                  </div>
+                </div>
+              </div>
 
-                <div class="divide-y divide-gray-100 dark:divide-gray-800">
-                  <div v-for="(step, stepIndex) in block.steps" :key="step.id" class="px-4 py-3">
-                    <div class="min-w-0">
-                      <div class="text-sm font-bold text-gray-900 dark:text-white">
-                        {{ blockIndex + 1 }}{{ alphabet(stepIndex) }}. {{ step.name }}
-                      </div>
-                      <div class="mt-1 text-xs font-medium text-gray-500 dark:text-gray-400">
-                        {{ step.setRows.length }} sets
-                        <span v-if="step.defaultRest"> • Rest {{ step.defaultRest }}</span>
+              <div class="space-y-3">
+                <div
+                  v-for="(block, blockIndex) in strengthBlocks"
+                  :key="block.id"
+                  class="overflow-hidden rounded-xl border border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-900"
+                >
+                  <div
+                    class="border-b border-gray-100 bg-gray-50 px-4 py-3 dark:border-gray-800 dark:bg-gray-950"
+                  >
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <div
+                          class="text-[10px] font-black uppercase tracking-widest text-primary-500"
+                        >
+                          {{ strengthBlockTypeLabel(block.type) }}
+                        </div>
+                        <div class="text-sm font-black text-gray-900 dark:text-white">
+                          {{ block.title || `Block ${blockIndex + 1}` }}
+                        </div>
+                        <div
+                          v-if="block.notes"
+                          class="mt-1 text-xs text-gray-500 dark:text-gray-400"
+                        >
+                          {{ block.notes }}
+                        </div>
                       </div>
                       <div
-                        v-if="step.notes"
-                        class="mt-1 text-xs italic text-gray-500 dark:text-gray-400"
+                        v-if="block.durationSec"
+                        class="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400"
                       >
-                        {{ step.notes }}
+                        {{ formatDuration(block.durationSec) }}
                       </div>
                     </div>
+                  </div>
 
-                    <div class="mt-3 flex flex-wrap gap-2">
-                      <div
-                        v-for="setRow in step.setRows"
-                        :key="setRow.id"
-                        class="rounded-lg border border-gray-100 bg-gray-50 px-2.5 py-1.5 text-xs dark:border-gray-800 dark:bg-gray-950"
-                      >
-                        {{ formatStrengthSet(step, setRow) }}
+                  <div class="divide-y divide-gray-100 dark:divide-gray-800">
+                    <div v-for="(step, stepIndex) in block.steps" :key="step.id" class="px-4 py-3">
+                      <div class="min-w-0">
+                        <div class="text-sm font-bold text-gray-900 dark:text-white">
+                          {{ blockIndex + 1 }}{{ alphabet(stepIndex) }}. {{ step.name }}
+                        </div>
+                        <div class="mt-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+                          {{ step.setRows.length }} sets
+                          <span v-if="step.defaultRest"> • Rest {{ step.defaultRest }}</span>
+                        </div>
+                        <div
+                          v-if="step.notes"
+                          class="mt-1 text-xs italic text-gray-500 dark:text-gray-400"
+                        >
+                          {{ step.notes }}
+                        </div>
+                      </div>
+
+                      <div class="mt-3 flex flex-wrap gap-2">
+                        <div
+                          v-for="setRow in step.setRows"
+                          :key="setRow.id"
+                          class="rounded-lg border border-gray-100 bg-gray-50 px-2.5 py-1.5 text-xs dark:border-gray-800 dark:bg-gray-950"
+                        >
+                          {{ formatStrengthSet(step, setRow) }}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </template>
+            <p v-else class="text-sm text-muted">No strength structure yet.</p>
           </div>
           <WorkoutRunChart
             v-else-if="isRunWorkout"
@@ -879,6 +906,7 @@
   import WorkoutChart from '~/components/workouts/WorkoutChart.vue'
   import WorkoutRunChart from '~/components/workouts/WorkoutRunChart.vue'
   import WorkoutMessagesTimeline from '~/components/workouts/WorkoutMessagesTimeline.vue'
+  import StrengthExercisesEditor from '~/components/workouts/planned/StrengthExercisesEditor.vue'
   import {
     normalizeStrengthBlocks,
     summarizeStrengthBlocks,
@@ -911,6 +939,8 @@
       allowStructureEdit?: boolean
       showViewDetails?: boolean
       showSaveToLibrary?: boolean
+      /** Exercise library searched when editing strength structure (coach calendar → coach library). */
+      strengthOwnerScope?: 'athlete' | 'coach'
     }>(),
     {
       userFtp: undefined,
@@ -921,7 +951,8 @@
       showStructureActions: true,
       allowStructureEdit: false,
       showViewDetails: true,
-      showSaveToLibrary: true
+      showSaveToLibrary: true,
+      strengthOwnerScope: undefined
     }
   )
 
@@ -932,6 +963,17 @@
     'save-to-library': [plannedWorkout: any]
     'structure-saved': [workout: any]
   }>()
+
+  const workoutTypeOptions = [
+    { label: 'Ride', value: 'Ride' },
+    { label: 'Run', value: 'Run' },
+    { label: 'Swim', value: 'Swim' },
+    { label: 'Weight Training', value: 'WeightTraining' },
+    { label: 'Gym', value: 'Gym' },
+    { label: 'Hike', value: 'Hike' },
+    { label: 'Walk', value: 'Walk' },
+    { label: 'Other', value: 'Other' }
+  ]
 
   const isOpen = computed({
     get: () => props.modelValue,
@@ -963,16 +1005,39 @@
     }
     return `/api/workouts/planned/${workoutId}/structure`
   })
+  const strengthLibraryOwnerScope = computed<'athlete' | 'coach'>(() => {
+    if (props.strengthOwnerScope) return props.strengthOwnerScope
+    if (props.endpointBase?.includes('/coaching/athletes/')) return 'coach'
+    return 'athlete'
+  })
+  const isStrengthType = (type: unknown) => {
+    const normalized = String(type || '').toLowerCase()
+    return (
+      normalized.includes('gym') ||
+      normalized.includes('weighttraining') ||
+      normalized.includes('strength')
+    )
+  }
   const structureEditorWorkout = computed(() => {
     if (!props.plannedWorkout) return null
     if (props.plannedWorkout.structuredWorkout) return props.plannedWorkout
+    if (isStrengthType(props.plannedWorkout.type)) {
+      return {
+        ...props.plannedWorkout,
+        structuredWorkout: { schemaVersion: 1, blocks: [], exercises: [] }
+      }
+    }
     return {
       ...props.plannedWorkout,
       structuredWorkout: { schemaVersion: 1, steps: [] }
     }
   })
+  const strengthEditorStructuredWorkout = computed(
+    () => structureEditorWorkout.value?.structuredWorkout || { blocks: [], exercises: [] }
+  )
   const structureStepsTab = ref<'view' | 'edit'>('view')
   const savingStructure = ref(false)
+  const updatingType = ref(false)
 
   const loading = ref(false)
   const showWorkoutSelector = ref(false)
@@ -1039,13 +1104,10 @@
       props.plannedWorkout?.type?.toLowerCase().includes('cycle')
   )
   const isStrengthWorkout = computed(() => {
-    const type = String(props.plannedWorkout?.type || '').toLowerCase()
     const structure = props.plannedWorkout?.structuredWorkout || {}
 
     return (
-      type.includes('gym') ||
-      type.includes('weighttraining') ||
-      type.includes('strength') ||
+      isStrengthType(props.plannedWorkout?.type) ||
       (Array.isArray(structure?.blocks) && structure.blocks.length > 0) ||
       (Array.isArray(structure?.exercises) && structure.exercises.length > 0)
     )
@@ -1118,9 +1180,10 @@
     if (!props.plannedWorkout?.id || !structureSaveUrl.value) return
     savingStructure.value = true
     try {
-      const isStrength = ['Gym', 'WeightTraining'].includes(
-        String(props.plannedWorkout?.type || '')
-      )
+      const isStrength =
+        isStrengthWorkout.value ||
+        Array.isArray(payload?.blocks) ||
+        Array.isArray(payload?.exercises)
       const result = await $fetch<any, string & {}>(structureSaveUrl.value, {
         method: 'PATCH',
         body: isStrength ? payload : { steps: payload }
@@ -1128,7 +1191,9 @@
       structureStepsTab.value = 'view'
       toast.add({
         title: 'Structure Updated',
-        description: 'Workout steps have been saved.',
+        description: isStrength
+          ? 'Strength workout structure has been saved.'
+          : 'Workout steps have been saved.',
         color: 'success'
       })
       emit('structure-saved', result?.workout || props.plannedWorkout)
@@ -1141,6 +1206,36 @@
       })
     } finally {
       savingStructure.value = false
+    }
+  }
+
+  async function onWorkoutTypeChange(nextType: string) {
+    if (!props.plannedWorkout?.id || !nextType || nextType === props.plannedWorkout.type) return
+    updatingType.value = true
+    try {
+      const result = await $fetch<any, string & {}>(
+        `${plannedWorkoutEndpointBase.value}/${props.plannedWorkout.id}`,
+        {
+          method: 'PATCH',
+          body: { type: nextType }
+        }
+      )
+      const updated = result?.workout || { ...props.plannedWorkout, type: nextType }
+      emit('structure-saved', updated)
+      emit('completed')
+      toast.add({
+        title: 'Type Updated',
+        description: `Workout type set to ${nextType}.`,
+        color: 'success'
+      })
+    } catch (error: any) {
+      toast.add({
+        title: 'Type Update Failed',
+        description: error?.data?.message || 'Failed to update workout type',
+        color: 'error'
+      })
+    } finally {
+      updatingType.value = false
     }
   }
 
@@ -1434,7 +1529,11 @@
       else parts.push(setRow.value)
     }
 
-    if (setRow.loadValue) parts.push(`@ ${setRow.loadValue}`)
+    if (setRow.loadValue) {
+      if (step.loadMode === 'percent_1rm') parts.push(`@ ${setRow.loadValue}% 1RM`)
+      else if (step.loadMode === 'rir') parts.push(`@ ${setRow.loadValue} RIR`)
+      else parts.push(`@ ${setRow.loadValue}`)
+    }
     if (setRow.restOverride) parts.push(`Rest ${setRow.restOverride}`)
 
     return parts.join(' • ')

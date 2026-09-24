@@ -15,6 +15,8 @@ export type StrengthLoadMode =
   | 'weight_kg'
   | 'weight_per_side_lb'
   | 'weight_per_side_kg'
+  | 'percent_1rm'
+  | 'rir'
 
 export type StrengthSetRow = {
   id: string
@@ -121,6 +123,8 @@ function inferLoadMode(weight: unknown): StrengthLoadMode {
     .toLowerCase()
 
   if (!normalized) return 'none'
+  if (normalized.includes('%') && normalized.includes('1rm')) return 'percent_1rm'
+  if (/\brir\b/.test(normalized) || normalized.includes('reps in reserve')) return 'rir'
   if (normalized.includes('/side') && normalized.includes('lb')) return 'weight_per_side_lb'
   if (normalized.includes('/side') && normalized.includes('kg')) return 'weight_per_side_kg'
   if (normalized.includes('lb')) return 'weight_lb'

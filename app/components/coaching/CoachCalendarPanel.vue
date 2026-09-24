@@ -68,7 +68,7 @@
               :is-drag-target="dragTargetDateKey === day.key"
               @activity-click="$emit('activity-click', athlete.id, $event)"
               @compare-activity="$emit('compare-activity', athlete.id, $event)"
-              @create-blank="$emit('create-blank', athlete.id, $event)"
+              @create-blank="(date, type) => $emit('create-blank', athlete.id, date, type)"
               @dragover="dragTargetDateKey = day.key"
               @drop="onDrop(day.date, $event)"
             />
@@ -94,7 +94,7 @@
               :is-drag-target="dragTargetDateKey === cell.key"
               @activity-click="$emit('activity-click', athlete.id, $event)"
               @compare-activity="$emit('compare-activity', athlete.id, $event)"
-              @create-blank="$emit('create-blank', athlete.id, $event)"
+              @create-blank="(date, type) => $emit('create-blank', athlete.id, date, type)"
               @dragover="dragTargetDateKey = cell.key"
               @drop="onDrop(cell.date, $event)"
             />
@@ -139,7 +139,7 @@
     ]
     'activity-click': [athleteId: string, activity: CalendarActivity]
     'compare-activity': [athleteId: string, activity: CalendarActivity]
-    'create-blank': [athleteId: string, date: Date]
+    'create-blank': [athleteId: string, date: Date, type?: string]
   }>()
 
   const { formatDateUTC } = useFormat()

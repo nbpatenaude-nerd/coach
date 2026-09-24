@@ -956,7 +956,9 @@
     { label: 'Weight (lb)', value: 'weight_lb' },
     { label: 'Weight (kg)', value: 'weight_kg' },
     { label: 'Weight / Side (lb)', value: 'weight_per_side_lb' },
-    { label: 'Weight / Side (kg)', value: 'weight_per_side_kg' }
+    { label: 'Weight / Side (kg)', value: 'weight_per_side_kg' },
+    { label: '% 1RM', value: 'percent_1rm' },
+    { label: 'RIR', value: 'rir' }
   ]
 
   type ParameterToken =
@@ -1559,6 +1561,14 @@
         return 'Weight / Side (lb)'
       case 'weight_per_side_kg':
         return 'Weight / Side (kg)'
+      case 'percent_1rm':
+        return '% 1RM'
+      case 'rir':
+        return 'RIR'
+      case 'generic':
+        return 'Load'
+      case 'none':
+        return 'No Load'
       default:
         return 'Load'
     }
@@ -1595,6 +1605,12 @@
         return 'lb / side'
       case 'weight_per_side_kg':
         return 'kg / side'
+      case 'percent_1rm':
+        return 'e.g. 70'
+      case 'rir':
+        return 'e.g. 2'
+      case 'generic':
+        return 'Load cue'
       default:
         return 'Load'
     }

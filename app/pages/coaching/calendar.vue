@@ -1120,18 +1120,20 @@
     }
   }
 
-  async function onCreateBlankPlannedWorkout(athleteId: string, date: Date) {
+  async function onCreateBlankPlannedWorkout(athleteId: string, date: Date, type = 'Ride') {
     try {
+      const workoutType = type || 'Ride'
+      const isGym = workoutType === 'WeightTraining' || workoutType === 'Gym'
       const result = await $fetch<any, string & {}>(
         `/api/coaching/athletes/${athleteId}/planned-workouts`,
         {
           method: 'POST',
           body: {
             date: formatDateUTC(date, 'yyyy-MM-dd'),
-            title: 'New Workout',
-            type: 'Ride',
+            title: isGym ? 'New Gym Session' : 'New Workout',
+            type: workoutType,
             category: 'Workout',
-            durationSec: 3600,
+            durationSec: isGym ? 2700 : 3600,
             description: ''
           }
         }

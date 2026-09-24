@@ -69,6 +69,40 @@ describe('PATCH /api/coaching/athletes/:id/planned-workouts/:workoutId/structure
     expect(result.success).toBe(true)
   })
 
+  it('allows coach strength block payloads through the same structure route', async () => {
+    const handler = await getHandler()
+    const body = {
+      blocks: [
+        {
+          type: 'single_exercise',
+          title: 'Main',
+          steps: [
+            {
+              name: 'Back Squat',
+              prescriptionMode: 'reps',
+              loadMode: 'percent_1rm',
+              setRows: [{ index: 0, value: '5', loadValue: '70' }]
+            }
+          ]
+        }
+      ],
+      exercises: [],
+      durationSec: 2700
+    }
+
+    const result = await handler({
+      params: { id: 'athlete-1', workoutId: 'workout-1' },
+      body
+    } as any)
+
+    expect(applyManualPlannedWorkoutStructureEdit).toHaveBeenCalledWith({
+      ownerUserId: 'athlete-1',
+      plannedWorkoutId: 'workout-1',
+      body
+    })
+    expect(result.success).toBe(true)
+  })
+
   it('rejects coaches without access to the athlete', async () => {
     vi.mocked(requireCoachAccessToAthlete).mockRejectedValue(
       Object.assign(new Error('Forbidden'), { statusCode: 403 })
