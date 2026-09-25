@@ -553,6 +553,21 @@
             </div>
           </div>
         </template>
+        <template #footer>
+          <div class="flex w-full justify-end gap-2">
+            <UButton color="neutral" variant="ghost" @click="showWorkoutPreviewModal = false">
+              Close
+            </UButton>
+            <UButton
+              color="primary"
+              icon="i-heroicons-chart-bar-square"
+              :disabled="!selectedWorkout?.id || !selectedWorkoutAthleteId"
+              @click="openSelectedWorkoutAnalyzer"
+            >
+              Open Analyzer
+            </UButton>
+          </div>
+        </template>
       </UModal>
 
       <WorkoutsWorkoutComparisonDock />
@@ -722,6 +737,7 @@
   const selectedPlannedWorkoutSportSettings = ref<any[]>([])
   const showWorkoutPreviewModal = ref(false)
   const selectedWorkout = ref<any | null>(null)
+  const selectedWorkoutAthleteId = ref<string | null>(null)
 
   function applySelectedPlannedWorkout(workout: any) {
     selectedPlannedWorkout.value = workout
@@ -1252,6 +1268,7 @@
       }
 
       if (activity.source === 'completed') {
+        selectedWorkoutAthleteId.value = athleteId
         selectedWorkout.value = await $fetch<any, string & {}>(
           `/api/coaching/athletes/${athleteId}/workouts/${activity.id}`
         )
@@ -1270,6 +1287,14 @@
         color: 'error'
       })
     }
+  }
+
+  function openSelectedWorkoutAnalyzer() {
+    if (!selectedWorkout.value?.id || !selectedWorkoutAthleteId.value) return
+    showWorkoutPreviewModal.value = false
+    void navigateTo(
+      `/coaching/athletes/${selectedWorkoutAthleteId.value}/workouts/${selectedWorkout.value.id}/analyze`
+    )
   }
 
   function handlePlannedWorkoutDeleted() {
