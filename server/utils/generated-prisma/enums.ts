@@ -8,6 +8,13 @@
  * 🟢 You can import this file directly.
  */
 
+export const TeamEventShareLevel = {
+  FULL: 'FULL',
+  SUMMARY: 'SUMMARY'
+} as const
+
+export type TeamEventShareLevel = (typeof TeamEventShareLevel)[keyof typeof TeamEventShareLevel]
+
 export const Role = {
   FREE: 'FREE',
   UNCOVER: 'UNCOVER',

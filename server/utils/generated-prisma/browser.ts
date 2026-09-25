@@ -152,6 +152,16 @@ export type Event = Prisma.EventModel
  */
 export type EventParticipant = Prisma.EventParticipantModel
 /**
+ * Model TeamEvent
+ * Canonical shared race on the Team Calendar. Personal `Event` rows link via teamEventId.
+ */
+export type TeamEvent = Prisma.TeamEventModel
+/**
+ * Model TeamEventParticipant
+ *
+ */
+export type TeamEventParticipant = Prisma.TeamEventParticipantModel
+/**
  * Model Account
  *
  */

@@ -157,6 +157,9 @@ model User {
   emailDeliveries                EmailDelivery[]
   emailPreferences               EmailPreference[]
   events                         Event[]
+  TeamEventCreated               TeamEvent[]                     @relation("TeamEventCreatedBy")
+  TeamEventPinned                TeamEvent[]                     @relation("TeamEventPinnedBy")
+  TeamEventParticipant           TeamEventParticipant[]
   favoriteTrainingPlans          FavoriteTrainingPlan[]
   fitFiles                       FitFile[]
   goals                          Goal[]
@@ -668,7 +671,7 @@ model Goal {
 }
 
 model Event {
-  id               String   @id @default(uuid())
+  id               String             @id @default(uuid())
   userId           String
   externalId       String?
   source           String?
@@ -681,25 +684,30 @@ model Event {
   elevation        Int?
   expectedDuration Float?
   terrain          String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
   city             String?
   country          String?
-  isPublic         Boolean  @default(false)
-  isVirtual        Boolean  @default(false)
+  isPublic         Boolean            @default(false)
+  isVirtual        Boolean            @default(false)
   location         String?
-  priority         String?  @default("B")
+  priority         String?            @default("B")
   websiteUrl       String?
   startTime        String?
   syncError        String?
-  syncStatus       String?  @default("SYNCED")
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  syncStatus       String?            @default("SYNCED")
+  /// Canonical Team Calendar row when this personal event is linked to a shared race.
+  teamEventId      String?
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamEvent        TeamEvent?         @relation(fields: [teamEventId], references: [id], onDelete: SetNull)
   participants     EventParticipant[]
-  goals            Goal[]   @relation("EventToGoal")
+  goals            Goal[]             @relation("EventToGoal")
 
   @@unique([userId, source, externalId])
   @@index([userId])
   @@index([date])
+  @@index([teamEventId])
+  @@index([isPublic, date])
 }
 
 model EventParticipant {
@@ -714,6 +722,61 @@ model EventParticipant {
 
   @@unique([eventId, userId])
   @@index([userId])
+}
+
+/// Canonical shared race on the Team Calendar. Personal `Event` rows link via teamEventId.
+model TeamEvent {
+  id                String                 @id @default(uuid())
+  title             String
+  description       String?
+  date              DateTime
+  startTime         String?
+  type              String?
+  subType           String?
+  distance          Float?
+  elevation         Int?
+  expectedDuration  Float?
+  terrain           String?
+  city              String?
+  country           String?
+  location          String?
+  isVirtual         Boolean                @default(false)
+  websiteUrl        String?
+  /// FULL = all details visible; SUMMARY = title/date/(optional city) only on Team Calendar.
+  shareLevel        TeamEventShareLevel    @default(FULL)
+  hideAttendeeNames Boolean                @default(false)
+  isPinned          Boolean                @default(false)
+  pinnedAt          DateTime?
+  pinnedById        String?
+  createdById       String
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  createdBy         User                   @relation("TeamEventCreatedBy", fields: [createdById], references: [id], onDelete: Cascade)
+  pinnedBy          User?                  @relation("TeamEventPinnedBy", fields: [pinnedById], references: [id], onDelete: SetNull)
+  events            Event[]
+  participants      TeamEventParticipant[]
+
+  @@index([date])
+  @@index([isPinned, date])
+  @@index([createdById])
+}
+
+model TeamEventParticipant {
+  id          String    @id @default(uuid())
+  teamEventId String
+  userId      String
+  priority    String?   @default("B")
+  createdAt   DateTime  @default(now())
+  teamEvent   TeamEvent @relation(fields: [teamEventId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamEventId, userId])
+  @@index([userId])
+}
+
+enum TeamEventShareLevel {
+  FULL
+  SUMMARY
 }
 
 model Account {
