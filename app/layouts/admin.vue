@@ -37,6 +37,14 @@
       }
     },
     {
+      label: 'Import Legacy Users',
+      icon: 'i-lucide-user-plus',
+      to: '/admin/legacy-users',
+      onSelect: () => {
+        isOpen.value = false
+      }
+    },
+    {
       label: 'Booking System',
       icon: 'i-heroicons-calendar-days',
       to: '/admin/booking',
