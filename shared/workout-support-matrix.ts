@@ -254,8 +254,20 @@ export function getSupportLevel(
   return WORKOUT_SUPPORT_MATRIX[sport]?.[target]?.[destination] || 'rejected'
 }
 
-export function destinationAllowsExport(level: SupportLevel): boolean {
-  return level === 'canonical' || level === 'converted'
+export function destinationAllowsExport(
+  level: SupportLevel,
+  destination?: WorkoutDestination
+): boolean {
+  if (level === 'canonical' || level === 'converted') return true
+  // FIT / ZWO / Garmin can still emit open steps for notes-only or secondary
+  // targets (cadence, RPE, freeform). Hard-reject only on `rejected`.
+  if (
+    (level === 'display_only' || level === 'provider_raw') &&
+    (destination === 'fit' || destination === 'zwo' || destination === 'garmin')
+  ) {
+    return true
+  }
+  return false
 }
 
 export function detectStepTargetKinds(step: any): TargetKind[] {
@@ -303,7 +315,7 @@ export function validateCanonicalForDestination(
       }
       for (const target of detectStepTargetKinds(step)) {
         const level = getSupportLevel(sport, target, destination)
-        if (!destinationAllowsExport(level)) {
+        if (!destinationAllowsExport(level, destination)) {
           issues.push({
             path: stepPath,
             target,

@@ -3,11 +3,13 @@ import type {
   PricingPlan,
   PricingTier,
   SupportedCurrency,
+  UiBillingInterval
+} from '~/utils/pricing'
+import {
   calculateAnnualSavings,
   computeSavingsPercent,
   getPrice,
-  toStripeBillingInterval,
-  type UiBillingInterval
+  toStripeBillingInterval
 } from '~/utils/pricing'
 
 type StripePriceInfo = {
