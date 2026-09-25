@@ -75,6 +75,8 @@ export const ModelName = {
   Goal: 'Goal',
   Event: 'Event',
   EventParticipant: 'EventParticipant',
+  TeamEvent: 'TeamEvent',
+  TeamEventParticipant: 'TeamEventParticipant',
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
@@ -729,7 +731,8 @@ export const EventScalarFieldEnum = {
   websiteUrl: 'websiteUrl',
   startTime: 'startTime',
   syncError: 'syncError',
-  syncStatus: 'syncStatus'
+  syncStatus: 'syncStatus',
+  teamEventId: 'teamEventId'
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
@@ -744,6 +747,47 @@ export const EventParticipantScalarFieldEnum = {
 
 export type EventParticipantScalarFieldEnum =
   (typeof EventParticipantScalarFieldEnum)[keyof typeof EventParticipantScalarFieldEnum]
+
+export const TeamEventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  date: 'date',
+  startTime: 'startTime',
+  type: 'type',
+  subType: 'subType',
+  distance: 'distance',
+  elevation: 'elevation',
+  expectedDuration: 'expectedDuration',
+  terrain: 'terrain',
+  city: 'city',
+  country: 'country',
+  location: 'location',
+  isVirtual: 'isVirtual',
+  websiteUrl: 'websiteUrl',
+  shareLevel: 'shareLevel',
+  hideAttendeeNames: 'hideAttendeeNames',
+  isPinned: 'isPinned',
+  pinnedAt: 'pinnedAt',
+  pinnedById: 'pinnedById',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamEventScalarFieldEnum =
+  (typeof TeamEventScalarFieldEnum)[keyof typeof TeamEventScalarFieldEnum]
+
+export const TeamEventParticipantScalarFieldEnum = {
+  id: 'id',
+  teamEventId: 'teamEventId',
+  userId: 'userId',
+  priority: 'priority',
+  createdAt: 'createdAt'
+} as const
+
+export type TeamEventParticipantScalarFieldEnum =
+  (typeof TeamEventParticipantScalarFieldEnum)[keyof typeof TeamEventParticipantScalarFieldEnum]
 
 export const AccountScalarFieldEnum = {
   id: 'id',

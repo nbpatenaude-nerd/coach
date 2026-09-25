@@ -400,6 +400,27 @@ export type EnumReferralStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumReferralStatusFilter<$PrismaModel>
 }
 
+export type EnumTeamEventShareLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamEventShareLevel | Prisma.EnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamEventShareLevelFilter<$PrismaModel> | $Enums.TeamEventShareLevel
+}
+
+export type EnumTeamEventShareLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamEventShareLevel | Prisma.EnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  not?:
+    | Prisma.NestedEnumTeamEventShareLevelWithAggregatesFilter<$PrismaModel>
+    | $Enums.TeamEventShareLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamEventShareLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamEventShareLevelFilter<$PrismaModel>
+}
+
 export type BoolNullableFilter<$PrismaModel = never> = {
   equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel> | null
   not?: Prisma.NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -1244,6 +1265,27 @@ export type NestedEnumReferralStatusWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumReferralStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumReferralStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumTeamEventShareLevelFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamEventShareLevel | Prisma.EnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamEventShareLevelFilter<$PrismaModel> | $Enums.TeamEventShareLevel
+}
+
+export type NestedEnumTeamEventShareLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamEventShareLevel | Prisma.EnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.TeamEventShareLevel[] | Prisma.ListEnumTeamEventShareLevelFieldRefInput<$PrismaModel>
+  not?:
+    | Prisma.NestedEnumTeamEventShareLevelWithAggregatesFilter<$PrismaModel>
+    | $Enums.TeamEventShareLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamEventShareLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamEventShareLevelFilter<$PrismaModel>
 }
 
 export type NestedBoolNullableFilter<$PrismaModel = never> = {

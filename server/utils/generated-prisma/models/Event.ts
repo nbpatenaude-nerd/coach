@@ -63,6 +63,7 @@ export type EventMinAggregateOutputType = {
   startTime: string | null
   syncError: string | null
   syncStatus: string | null
+  teamEventId: string | null
 }
 
 export type EventMaxAggregateOutputType = {
@@ -91,6 +92,7 @@ export type EventMaxAggregateOutputType = {
   startTime: string | null
   syncError: string | null
   syncStatus: string | null
+  teamEventId: string | null
 }
 
 export type EventCountAggregateOutputType = {
@@ -119,6 +121,7 @@ export type EventCountAggregateOutputType = {
   startTime: number
   syncError: number
   syncStatus: number
+  teamEventId: number
   _all: number
 }
 
@@ -160,6 +163,7 @@ export type EventMinAggregateInputType = {
   startTime?: true
   syncError?: true
   syncStatus?: true
+  teamEventId?: true
 }
 
 export type EventMaxAggregateInputType = {
@@ -188,6 +192,7 @@ export type EventMaxAggregateInputType = {
   startTime?: true
   syncError?: true
   syncStatus?: true
+  teamEventId?: true
 }
 
 export type EventCountAggregateInputType = {
@@ -216,6 +221,7 @@ export type EventCountAggregateInputType = {
   startTime?: true
   syncError?: true
   syncStatus?: true
+  teamEventId?: true
   _all?: true
 }
 
@@ -332,6 +338,7 @@ export type EventGroupByOutputType = {
   startTime: string | null
   syncError: string | null
   syncStatus: string | null
+  teamEventId: string | null
   _count: EventCountAggregateOutputType | null
   _avg: EventAvgAggregateOutputType | null
   _sum: EventSumAggregateOutputType | null
@@ -380,7 +387,12 @@ export type EventWhereInput = {
   startTime?: Prisma.StringNullableFilter<'Event'> | string | null
   syncError?: Prisma.StringNullableFilter<'Event'> | string | null
   syncStatus?: Prisma.StringNullableFilter<'Event'> | string | null
+  teamEventId?: Prisma.StringNullableFilter<'Event'> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  teamEvent?: Prisma.XOR<
+    Prisma.TeamEventNullableScalarRelationFilter,
+    Prisma.TeamEventWhereInput
+  > | null
   participants?: Prisma.EventParticipantListRelationFilter
   goals?: Prisma.GoalListRelationFilter
 }
@@ -411,7 +423,9 @@ export type EventOrderByWithRelationInput = {
   startTime?: Prisma.SortOrderInput | Prisma.SortOrder
   syncError?: Prisma.SortOrderInput | Prisma.SortOrder
   syncStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  teamEventId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  teamEvent?: Prisma.TeamEventOrderByWithRelationInput
   participants?: Prisma.EventParticipantOrderByRelationAggregateInput
   goals?: Prisma.GoalOrderByRelationAggregateInput
 }
@@ -447,7 +461,12 @@ export type EventWhereUniqueInput = Prisma.AtLeast<
     startTime?: Prisma.StringNullableFilter<'Event'> | string | null
     syncError?: Prisma.StringNullableFilter<'Event'> | string | null
     syncStatus?: Prisma.StringNullableFilter<'Event'> | string | null
+    teamEventId?: Prisma.StringNullableFilter<'Event'> | string | null
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+    teamEvent?: Prisma.XOR<
+      Prisma.TeamEventNullableScalarRelationFilter,
+      Prisma.TeamEventWhereInput
+    > | null
     participants?: Prisma.EventParticipantListRelationFilter
     goals?: Prisma.GoalListRelationFilter
   },
@@ -480,6 +499,7 @@ export type EventOrderByWithAggregationInput = {
   startTime?: Prisma.SortOrderInput | Prisma.SortOrder
   syncError?: Prisma.SortOrderInput | Prisma.SortOrder
   syncStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  teamEventId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
   _avg?: Prisma.EventAvgOrderByAggregateInput
   _max?: Prisma.EventMaxOrderByAggregateInput
@@ -516,6 +536,7 @@ export type EventScalarWhereWithAggregatesInput = {
   startTime?: Prisma.StringNullableWithAggregatesFilter<'Event'> | string | null
   syncError?: Prisma.StringNullableWithAggregatesFilter<'Event'> | string | null
   syncStatus?: Prisma.StringNullableWithAggregatesFilter<'Event'> | string | null
+  teamEventId?: Prisma.StringNullableWithAggregatesFilter<'Event'> | string | null
 }
 
 export type EventCreateInput = {
@@ -544,6 +565,7 @@ export type EventCreateInput = {
   syncError?: string | null
   syncStatus?: string | null
   user: Prisma.UserCreateNestedOneWithoutEventsInput
+  teamEvent?: Prisma.TeamEventCreateNestedOneWithoutEventsInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
   goals?: Prisma.GoalCreateNestedManyWithoutEventsInput
 }
@@ -574,6 +596,7 @@ export type EventUncheckedCreateInput = {
   startTime?: string | null
   syncError?: string | null
   syncStatus?: string | null
+  teamEventId?: string | null
   participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutEventsInput
 }
@@ -604,6 +627,7 @@ export type EventUpdateInput = {
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutEventsNestedInput
+  teamEvent?: Prisma.TeamEventUpdateOneWithoutEventsNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
   goals?: Prisma.GoalUpdateManyWithoutEventsNestedInput
 }
@@ -634,6 +658,7 @@ export type EventUncheckedUpdateInput = {
   startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutEventsNestedInput
 }
@@ -664,6 +689,7 @@ export type EventCreateManyInput = {
   startTime?: string | null
   syncError?: string | null
   syncStatus?: string | null
+  teamEventId?: string | null
 }
 
 export type EventUpdateManyMutationInput = {
@@ -719,6 +745,7 @@ export type EventUncheckedUpdateManyInput = {
   startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EventListRelationFilter = {
@@ -763,6 +790,7 @@ export type EventCountOrderByAggregateInput = {
   startTime?: Prisma.SortOrder
   syncError?: Prisma.SortOrder
   syncStatus?: Prisma.SortOrder
+  teamEventId?: Prisma.SortOrder
 }
 
 export type EventAvgOrderByAggregateInput = {
@@ -797,6 +825,7 @@ export type EventMaxOrderByAggregateInput = {
   startTime?: Prisma.SortOrder
   syncError?: Prisma.SortOrder
   syncStatus?: Prisma.SortOrder
+  teamEventId?: Prisma.SortOrder
 }
 
 export type EventMinOrderByAggregateInput = {
@@ -825,6 +854,7 @@ export type EventMinOrderByAggregateInput = {
   startTime?: Prisma.SortOrder
   syncError?: Prisma.SortOrder
   syncStatus?: Prisma.SortOrder
+  teamEventId?: Prisma.SortOrder
 }
 
 export type EventSumOrderByAggregateInput = {
@@ -1000,6 +1030,92 @@ export type EventUpdateOneRequiredWithoutParticipantsNestedInput = {
   >
 }
 
+export type EventCreateNestedManyWithoutTeamEventInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.EventCreateWithoutTeamEventInput,
+        Prisma.EventUncheckedCreateWithoutTeamEventInput
+      >
+    | Prisma.EventCreateWithoutTeamEventInput[]
+    | Prisma.EventUncheckedCreateWithoutTeamEventInput[]
+  connectOrCreate?:
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput[]
+  createMany?: Prisma.EventCreateManyTeamEventInputEnvelope
+  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+}
+
+export type EventUncheckedCreateNestedManyWithoutTeamEventInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.EventCreateWithoutTeamEventInput,
+        Prisma.EventUncheckedCreateWithoutTeamEventInput
+      >
+    | Prisma.EventCreateWithoutTeamEventInput[]
+    | Prisma.EventUncheckedCreateWithoutTeamEventInput[]
+  connectOrCreate?:
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput[]
+  createMany?: Prisma.EventCreateManyTeamEventInputEnvelope
+  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+}
+
+export type EventUpdateManyWithoutTeamEventNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.EventCreateWithoutTeamEventInput,
+        Prisma.EventUncheckedCreateWithoutTeamEventInput
+      >
+    | Prisma.EventCreateWithoutTeamEventInput[]
+    | Prisma.EventUncheckedCreateWithoutTeamEventInput[]
+  connectOrCreate?:
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput[]
+  upsert?:
+    | Prisma.EventUpsertWithWhereUniqueWithoutTeamEventInput
+    | Prisma.EventUpsertWithWhereUniqueWithoutTeamEventInput[]
+  createMany?: Prisma.EventCreateManyTeamEventInputEnvelope
+  set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  update?:
+    | Prisma.EventUpdateWithWhereUniqueWithoutTeamEventInput
+    | Prisma.EventUpdateWithWhereUniqueWithoutTeamEventInput[]
+  updateMany?:
+    | Prisma.EventUpdateManyWithWhereWithoutTeamEventInput
+    | Prisma.EventUpdateManyWithWhereWithoutTeamEventInput[]
+  deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
+}
+
+export type EventUncheckedUpdateManyWithoutTeamEventNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.EventCreateWithoutTeamEventInput,
+        Prisma.EventUncheckedCreateWithoutTeamEventInput
+      >
+    | Prisma.EventCreateWithoutTeamEventInput[]
+    | Prisma.EventUncheckedCreateWithoutTeamEventInput[]
+  connectOrCreate?:
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput
+    | Prisma.EventCreateOrConnectWithoutTeamEventInput[]
+  upsert?:
+    | Prisma.EventUpsertWithWhereUniqueWithoutTeamEventInput
+    | Prisma.EventUpsertWithWhereUniqueWithoutTeamEventInput[]
+  createMany?: Prisma.EventCreateManyTeamEventInputEnvelope
+  set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+  update?:
+    | Prisma.EventUpdateWithWhereUniqueWithoutTeamEventInput
+    | Prisma.EventUpdateWithWhereUniqueWithoutTeamEventInput[]
+  updateMany?:
+    | Prisma.EventUpdateManyWithWhereWithoutTeamEventInput
+    | Prisma.EventUpdateManyWithWhereWithoutTeamEventInput[]
+  deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
+}
+
 export type EventCreateWithoutUserInput = {
   id?: string
   externalId?: string | null
@@ -1025,6 +1141,7 @@ export type EventCreateWithoutUserInput = {
   startTime?: string | null
   syncError?: string | null
   syncStatus?: string | null
+  teamEvent?: Prisma.TeamEventCreateNestedOneWithoutEventsInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
   goals?: Prisma.GoalCreateNestedManyWithoutEventsInput
 }
@@ -1054,6 +1171,7 @@ export type EventUncheckedCreateWithoutUserInput = {
   startTime?: string | null
   syncError?: string | null
   syncStatus?: string | null
+  teamEventId?: string | null
   participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutEventsInput
 }
@@ -1125,6 +1243,7 @@ export type EventScalarWhereInput = {
   startTime?: Prisma.StringNullableFilter<'Event'> | string | null
   syncError?: Prisma.StringNullableFilter<'Event'> | string | null
   syncStatus?: Prisma.StringNullableFilter<'Event'> | string | null
+  teamEventId?: Prisma.StringNullableFilter<'Event'> | string | null
 }
 
 export type EventCreateWithoutGoalsInput = {
@@ -1153,6 +1272,7 @@ export type EventCreateWithoutGoalsInput = {
   syncError?: string | null
   syncStatus?: string | null
   user: Prisma.UserCreateNestedOneWithoutEventsInput
+  teamEvent?: Prisma.TeamEventCreateNestedOneWithoutEventsInput
   participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
 }
 
@@ -1182,6 +1302,7 @@ export type EventUncheckedCreateWithoutGoalsInput = {
   startTime?: string | null
   syncError?: string | null
   syncStatus?: string | null
+  teamEventId?: string | null
   participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
 }
 
@@ -1247,6 +1368,7 @@ export type EventCreateWithoutParticipantsInput = {
   syncError?: string | null
   syncStatus?: string | null
   user: Prisma.UserCreateNestedOneWithoutEventsInput
+  teamEvent?: Prisma.TeamEventCreateNestedOneWithoutEventsInput
   goals?: Prisma.GoalCreateNestedManyWithoutEventsInput
 }
 
@@ -1276,6 +1398,7 @@ export type EventUncheckedCreateWithoutParticipantsInput = {
   startTime?: string | null
   syncError?: string | null
   syncStatus?: string | null
+  teamEventId?: string | null
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutEventsInput
 }
 
@@ -1333,6 +1456,7 @@ export type EventUpdateWithoutParticipantsInput = {
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutEventsNestedInput
+  teamEvent?: Prisma.TeamEventUpdateOneWithoutEventsNestedInput
   goals?: Prisma.GoalUpdateManyWithoutEventsNestedInput
 }
 
@@ -1362,7 +1486,109 @@ export type EventUncheckedUpdateWithoutParticipantsInput = {
   startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goals?: Prisma.GoalUncheckedUpdateManyWithoutEventsNestedInput
+}
+
+export type EventCreateWithoutTeamEventInput = {
+  id?: string
+  externalId?: string | null
+  source?: string | null
+  title: string
+  description?: string | null
+  date: Date | string
+  type?: string | null
+  subType?: string | null
+  distance?: number | null
+  elevation?: number | null
+  expectedDuration?: number | null
+  terrain?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  city?: string | null
+  country?: string | null
+  isPublic?: boolean
+  isVirtual?: boolean
+  location?: string | null
+  priority?: string | null
+  websiteUrl?: string | null
+  startTime?: string | null
+  syncError?: string | null
+  syncStatus?: string | null
+  user: Prisma.UserCreateNestedOneWithoutEventsInput
+  participants?: Prisma.EventParticipantCreateNestedManyWithoutEventInput
+  goals?: Prisma.GoalCreateNestedManyWithoutEventsInput
+}
+
+export type EventUncheckedCreateWithoutTeamEventInput = {
+  id?: string
+  userId: string
+  externalId?: string | null
+  source?: string | null
+  title: string
+  description?: string | null
+  date: Date | string
+  type?: string | null
+  subType?: string | null
+  distance?: number | null
+  elevation?: number | null
+  expectedDuration?: number | null
+  terrain?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  city?: string | null
+  country?: string | null
+  isPublic?: boolean
+  isVirtual?: boolean
+  location?: string | null
+  priority?: string | null
+  websiteUrl?: string | null
+  startTime?: string | null
+  syncError?: string | null
+  syncStatus?: string | null
+  participants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutEventInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutEventsInput
+}
+
+export type EventCreateOrConnectWithoutTeamEventInput = {
+  where: Prisma.EventWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.EventCreateWithoutTeamEventInput,
+    Prisma.EventUncheckedCreateWithoutTeamEventInput
+  >
+}
+
+export type EventCreateManyTeamEventInputEnvelope = {
+  data: Prisma.EventCreateManyTeamEventInput | Prisma.EventCreateManyTeamEventInput[]
+  skipDuplicates?: boolean
+}
+
+export type EventUpsertWithWhereUniqueWithoutTeamEventInput = {
+  where: Prisma.EventWhereUniqueInput
+  update: Prisma.XOR<
+    Prisma.EventUpdateWithoutTeamEventInput,
+    Prisma.EventUncheckedUpdateWithoutTeamEventInput
+  >
+  create: Prisma.XOR<
+    Prisma.EventCreateWithoutTeamEventInput,
+    Prisma.EventUncheckedCreateWithoutTeamEventInput
+  >
+}
+
+export type EventUpdateWithWhereUniqueWithoutTeamEventInput = {
+  where: Prisma.EventWhereUniqueInput
+  data: Prisma.XOR<
+    Prisma.EventUpdateWithoutTeamEventInput,
+    Prisma.EventUncheckedUpdateWithoutTeamEventInput
+  >
+}
+
+export type EventUpdateManyWithWhereWithoutTeamEventInput = {
+  where: Prisma.EventScalarWhereInput
+  data: Prisma.XOR<
+    Prisma.EventUpdateManyMutationInput,
+    Prisma.EventUncheckedUpdateManyWithoutTeamEventInput
+  >
 }
 
 export type EventCreateManyUserInput = {
@@ -1390,6 +1616,7 @@ export type EventCreateManyUserInput = {
   startTime?: string | null
   syncError?: string | null
   syncStatus?: string | null
+  teamEventId?: string | null
 }
 
 export type EventUpdateWithoutUserInput = {
@@ -1417,6 +1644,7 @@ export type EventUpdateWithoutUserInput = {
   startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEvent?: Prisma.TeamEventUpdateOneWithoutEventsNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
   goals?: Prisma.GoalUpdateManyWithoutEventsNestedInput
 }
@@ -1446,6 +1674,7 @@ export type EventUncheckedUpdateWithoutUserInput = {
   startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutEventsNestedInput
 }
@@ -1475,6 +1704,7 @@ export type EventUncheckedUpdateManyWithoutUserInput = {
   startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EventUpdateWithoutGoalsInput = {
@@ -1503,6 +1733,7 @@ export type EventUpdateWithoutGoalsInput = {
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutEventsNestedInput
+  teamEvent?: Prisma.TeamEventUpdateOneWithoutEventsNestedInput
   participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
 }
 
@@ -1532,10 +1763,128 @@ export type EventUncheckedUpdateWithoutGoalsInput = {
   startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateManyWithoutGoalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distance?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  elevation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  expectedDuration?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  terrain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVirtual?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teamEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type EventCreateManyTeamEventInput = {
+  id?: string
+  userId: string
+  externalId?: string | null
+  source?: string | null
+  title: string
+  description?: string | null
+  date: Date | string
+  type?: string | null
+  subType?: string | null
+  distance?: number | null
+  elevation?: number | null
+  expectedDuration?: number | null
+  terrain?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  city?: string | null
+  country?: string | null
+  isPublic?: boolean
+  isVirtual?: boolean
+  location?: string | null
+  priority?: string | null
+  websiteUrl?: string | null
+  startTime?: string | null
+  syncError?: string | null
+  syncStatus?: string | null
+}
+
+export type EventUpdateWithoutTeamEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distance?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  elevation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  expectedDuration?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  terrain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVirtual?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutEventsNestedInput
+  participants?: Prisma.EventParticipantUpdateManyWithoutEventNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutEventsNestedInput
+}
+
+export type EventUncheckedUpdateWithoutTeamEventInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distance?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  elevation?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  expectedDuration?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  terrain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isVirtual?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  syncError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  syncStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  participants?: Prisma.EventParticipantUncheckedUpdateManyWithoutEventNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutEventsNestedInput
+}
+
+export type EventUncheckedUpdateManyWithoutTeamEventInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1638,7 +1987,9 @@ export type EventSelect<
     startTime?: boolean
     syncError?: boolean
     syncStatus?: boolean
+    teamEventId?: boolean
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+    teamEvent?: boolean | Prisma.Event$teamEventArgs<ExtArgs>
     participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
     goals?: boolean | Prisma.Event$goalsArgs<ExtArgs>
     _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
@@ -1675,7 +2026,9 @@ export type EventSelectCreateManyAndReturn<
     startTime?: boolean
     syncError?: boolean
     syncStatus?: boolean
+    teamEventId?: boolean
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+    teamEvent?: boolean | Prisma.Event$teamEventArgs<ExtArgs>
   },
   ExtArgs['result']['event']
 >
@@ -1709,7 +2062,9 @@ export type EventSelectUpdateManyAndReturn<
     startTime?: boolean
     syncError?: boolean
     syncStatus?: boolean
+    teamEventId?: boolean
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+    teamEvent?: boolean | Prisma.Event$teamEventArgs<ExtArgs>
   },
   ExtArgs['result']['event']
 >
@@ -1740,6 +2095,7 @@ export type EventSelectScalar = {
   startTime?: boolean
   syncError?: boolean
   syncStatus?: boolean
+  teamEventId?: boolean
 }
 
 export type EventOmit<
@@ -1769,13 +2125,15 @@ export type EventOmit<
   | 'websiteUrl'
   | 'startTime'
   | 'syncError'
-  | 'syncStatus',
+  | 'syncStatus'
+  | 'teamEventId',
   ExtArgs['result']['event']
 >
 export type EventInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  teamEvent?: boolean | Prisma.Event$teamEventArgs<ExtArgs>
   participants?: boolean | Prisma.Event$participantsArgs<ExtArgs>
   goals?: boolean | Prisma.Event$goalsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
@@ -1784,11 +2142,13 @@ export type EventIncludeCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  teamEvent?: boolean | Prisma.Event$teamEventArgs<ExtArgs>
 }
 export type EventIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  teamEvent?: boolean | Prisma.Event$teamEventArgs<ExtArgs>
 }
 
 export type $EventPayload<
@@ -1797,6 +2157,7 @@ export type $EventPayload<
   name: 'Event'
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    teamEvent: Prisma.$TeamEventPayload<ExtArgs> | null
     participants: Prisma.$EventParticipantPayload<ExtArgs>[]
     goals: Prisma.$GoalPayload<ExtArgs>[]
   }
@@ -1827,6 +2188,10 @@ export type $EventPayload<
       startTime: string | null
       syncError: string | null
       syncStatus: string | null
+      /**
+       * Canonical Team Calendar row when this personal event is linked to a shared race.
+       */
+      teamEventId: string | null
     },
     ExtArgs['result']['event']
   >
@@ -2351,6 +2716,19 @@ export interface Prisma__EventClient<
     ExtArgs,
     GlobalOmitOptions
   >
+  teamEvent<T extends Prisma.Event$teamEventArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.Event$teamEventArgs<ExtArgs>>
+  ): Prisma.Prisma__TeamEventClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$TeamEventPayload<ExtArgs>,
+      T,
+      'findUniqueOrThrow',
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >
   participants<T extends Prisma.Event$participantsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.Event$participantsArgs<ExtArgs>>
   ): Prisma.PrismaPromise<
@@ -2424,6 +2802,7 @@ export interface EventFieldRefs {
   readonly startTime: Prisma.FieldRef<'Event', 'String'>
   readonly syncError: Prisma.FieldRef<'Event', 'String'>
   readonly syncStatus: Prisma.FieldRef<'Event', 'String'>
+  readonly teamEventId: Prisma.FieldRef<'Event', 'String'>
 }
 
 // Custom InputTypes
@@ -2849,6 +3228,27 @@ export type EventDeleteManyArgs<
    * Limit how many Events to delete.
    */
   limit?: number
+}
+
+/**
+ * Event.teamEvent
+ */
+export type Event$teamEventArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the TeamEvent
+   */
+  select?: Prisma.TeamEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamEvent
+   */
+  omit?: Prisma.TeamEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamEventInclude<ExtArgs> | null
+  where?: Prisma.TeamEventWhereInput
 }
 
 /**

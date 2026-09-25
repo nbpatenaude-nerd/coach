@@ -1182,6 +1182,9 @@ export type UserWhereInput = {
   emailDeliveries?: Prisma.EmailDeliveryListRelationFilter
   emailPreferences?: Prisma.EmailPreferenceListRelationFilter
   events?: Prisma.EventListRelationFilter
+  TeamEventCreated?: Prisma.TeamEventListRelationFilter
+  TeamEventPinned?: Prisma.TeamEventListRelationFilter
+  TeamEventParticipant?: Prisma.TeamEventParticipantListRelationFilter
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanListRelationFilter
   fitFiles?: Prisma.FitFileListRelationFilter
   goals?: Prisma.GoalListRelationFilter
@@ -1402,6 +1405,9 @@ export type UserOrderByWithRelationInput = {
   emailDeliveries?: Prisma.EmailDeliveryOrderByRelationAggregateInput
   emailPreferences?: Prisma.EmailPreferenceOrderByRelationAggregateInput
   events?: Prisma.EventOrderByRelationAggregateInput
+  TeamEventCreated?: Prisma.TeamEventOrderByRelationAggregateInput
+  TeamEventPinned?: Prisma.TeamEventOrderByRelationAggregateInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantOrderByRelationAggregateInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanOrderByRelationAggregateInput
   fitFiles?: Prisma.FitFileOrderByRelationAggregateInput
   goals?: Prisma.GoalOrderByRelationAggregateInput
@@ -1618,6 +1624,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     emailDeliveries?: Prisma.EmailDeliveryListRelationFilter
     emailPreferences?: Prisma.EmailPreferenceListRelationFilter
     events?: Prisma.EventListRelationFilter
+    TeamEventCreated?: Prisma.TeamEventListRelationFilter
+    TeamEventPinned?: Prisma.TeamEventListRelationFilter
+    TeamEventParticipant?: Prisma.TeamEventParticipantListRelationFilter
     favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanListRelationFilter
     fitFiles?: Prisma.FitFileListRelationFilter
     goals?: Prisma.GoalListRelationFilter
@@ -2111,6 +2120,9 @@ export type UserCreateInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -2322,6 +2334,9 @@ export type UserUncheckedCreateInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -2536,6 +2551,9 @@ export type UserUpdateInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -2752,6 +2770,9 @@ export type UserUncheckedUpdateInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -4445,6 +4466,86 @@ export type UserUpdateOneRequiredWithoutEventParticipantsNestedInput = {
       Prisma.UserUpdateWithoutEventParticipantsInput
     >,
     Prisma.UserUncheckedUpdateWithoutEventParticipantsInput
+  >
+}
+
+export type UserCreateNestedOneWithoutTeamEventCreatedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventCreatedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventCreatedInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEventCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutTeamEventPinnedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventPinnedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventPinnedInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEventPinnedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTeamEventCreatedNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventCreatedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventCreatedInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEventCreatedInput
+  upsert?: Prisma.UserUpsertWithoutTeamEventCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutTeamEventCreatedInput,
+      Prisma.UserUpdateWithoutTeamEventCreatedInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutTeamEventCreatedInput
+  >
+}
+
+export type UserUpdateOneWithoutTeamEventPinnedNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventPinnedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventPinnedInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEventPinnedInput
+  upsert?: Prisma.UserUpsertWithoutTeamEventPinnedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutTeamEventPinnedInput,
+      Prisma.UserUpdateWithoutTeamEventPinnedInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutTeamEventPinnedInput
+  >
+}
+
+export type UserCreateNestedOneWithoutTeamEventParticipantInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventParticipantInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventParticipantInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEventParticipantInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTeamEventParticipantNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventParticipantInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventParticipantInput
+  >
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTeamEventParticipantInput
+  upsert?: Prisma.UserUpsertWithoutTeamEventParticipantInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutTeamEventParticipantInput,
+      Prisma.UserUpdateWithoutTeamEventParticipantInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutTeamEventParticipantInput
   >
 }
 
@@ -6143,6 +6244,9 @@ export type UserCreateWithoutReferralsGivenInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -6353,6 +6457,9 @@ export type UserUncheckedCreateWithoutReferralsGivenInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -6569,6 +6676,9 @@ export type UserCreateWithoutReferredByInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -6778,6 +6888,9 @@ export type UserUncheckedCreateWithoutReferredByInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -7025,6 +7138,9 @@ export type UserUpdateWithoutReferralsGivenInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -7240,6 +7356,9 @@ export type UserUncheckedUpdateWithoutReferralsGivenInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -7605,6 +7724,9 @@ export type UserCreateWithoutReferralAsRefereeInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -7815,6 +7937,9 @@ export type UserUncheckedCreateWithoutReferralAsRefereeInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -8031,6 +8156,9 @@ export type UserCreateWithoutReferralsAsReferrerInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -8241,6 +8369,9 @@ export type UserUncheckedCreateWithoutReferralsAsReferrerInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -8482,6 +8613,9 @@ export type UserUpdateWithoutReferralAsRefereeInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -8697,6 +8831,9 @@ export type UserUncheckedUpdateWithoutReferralAsRefereeInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -8930,6 +9067,9 @@ export type UserUpdateWithoutReferralsAsReferrerInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -9145,6 +9285,9 @@ export type UserUncheckedUpdateWithoutReferralsAsReferrerInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -9353,6 +9496,9 @@ export type UserCreateWithoutCoachNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -9563,6 +9709,9 @@ export type UserUncheckedCreateWithoutCoachNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -9804,6 +9953,9 @@ export type UserUpdateWithoutCoachNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -10019,6 +10171,9 @@ export type UserUncheckedUpdateWithoutCoachNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -10227,6 +10382,9 @@ export type UserCreateWithoutCrmDealsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -10437,6 +10595,9 @@ export type UserUncheckedCreateWithoutCrmDealsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -10678,6 +10839,9 @@ export type UserUpdateWithoutCrmDealsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -10893,6 +11057,9 @@ export type UserUncheckedUpdateWithoutCrmDealsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -11101,6 +11268,9 @@ export type UserCreateWithoutCrmTasksInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -11311,6 +11481,9 @@ export type UserUncheckedCreateWithoutCrmTasksInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -11552,6 +11725,9 @@ export type UserUpdateWithoutCrmTasksInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -11767,6 +11943,9 @@ export type UserUncheckedUpdateWithoutCrmTasksInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -11975,6 +12154,9 @@ export type UserCreateWithoutCrmEmailDraftsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -12185,6 +12367,9 @@ export type UserUncheckedCreateWithoutCrmEmailDraftsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -12426,6 +12611,9 @@ export type UserUpdateWithoutCrmEmailDraftsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -12641,6 +12829,9 @@ export type UserUncheckedUpdateWithoutCrmEmailDraftsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -12849,6 +13040,9 @@ export type UserCreateWithoutSportSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -13059,6 +13253,9 @@ export type UserUncheckedCreateWithoutSportSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -13300,6 +13497,9 @@ export type UserUpdateWithoutSportSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -13515,6 +13715,9 @@ export type UserUncheckedUpdateWithoutSportSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -13723,6 +13926,9 @@ export type UserCreateWithoutSystemMessageDismissalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -13933,6 +14139,9 @@ export type UserUncheckedCreateWithoutSystemMessageDismissalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -14174,6 +14383,9 @@ export type UserUpdateWithoutSystemMessageDismissalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -14389,6 +14601,9 @@ export type UserUncheckedUpdateWithoutSystemMessageDismissalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -14597,6 +14812,9 @@ export type UserCreateWithoutOauthAppsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -14807,6 +15025,9 @@ export type UserUncheckedCreateWithoutOauthAppsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -15048,6 +15269,9 @@ export type UserUpdateWithoutOauthAppsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -15263,6 +15487,9 @@ export type UserUncheckedUpdateWithoutOauthAppsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -15471,6 +15698,9 @@ export type UserCreateWithoutOauthConsentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -15681,6 +15911,9 @@ export type UserUncheckedCreateWithoutOauthConsentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -15922,6 +16155,9 @@ export type UserUpdateWithoutOauthConsentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -16137,6 +16373,9 @@ export type UserUncheckedUpdateWithoutOauthConsentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -16345,6 +16584,9 @@ export type UserCreateWithoutOauthCodesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -16555,6 +16797,9 @@ export type UserUncheckedCreateWithoutOauthCodesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -16796,6 +17041,9 @@ export type UserUpdateWithoutOauthCodesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -17011,6 +17259,9 @@ export type UserUncheckedUpdateWithoutOauthCodesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -17219,6 +17470,9 @@ export type UserCreateWithoutOauthTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -17429,6 +17683,9 @@ export type UserUncheckedCreateWithoutOauthTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -17670,6 +17927,9 @@ export type UserUpdateWithoutOauthTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -17885,6 +18145,9 @@ export type UserUncheckedUpdateWithoutOauthTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -18093,6 +18356,9 @@ export type UserCreateWithoutMcpToolExecutionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -18303,6 +18569,9 @@ export type UserUncheckedCreateWithoutMcpToolExecutionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -18544,6 +18813,9 @@ export type UserUpdateWithoutMcpToolExecutionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -18759,6 +19031,9 @@ export type UserUncheckedUpdateWithoutMcpToolExecutionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -18966,6 +19241,9 @@ export type UserCreateWithoutAuditLogsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -19176,6 +19454,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -19417,6 +19698,9 @@ export type UserUpdateWithoutAuditLogsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -19632,6 +19916,9 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -19841,6 +20128,9 @@ export type UserCreateWithoutShareTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -20051,6 +20341,9 @@ export type UserUncheckedCreateWithoutShareTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -20292,6 +20585,9 @@ export type UserUpdateWithoutShareTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -20507,6 +20803,9 @@ export type UserUncheckedUpdateWithoutShareTokensInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -20714,6 +21013,9 @@ export type UserCreateWithoutApiKeysInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -20924,6 +21226,9 @@ export type UserUncheckedCreateWithoutApiKeysInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -21165,6 +21470,9 @@ export type UserUpdateWithoutApiKeysInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -21380,6 +21688,9 @@ export type UserUncheckedUpdateWithoutApiKeysInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -21588,6 +21899,9 @@ export type UserCreateWithoutCoachesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -21798,6 +22112,9 @@ export type UserUncheckedCreateWithoutCoachesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -22014,6 +22331,9 @@ export type UserCreateWithoutAthletesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -22224,6 +22544,9 @@ export type UserUncheckedCreateWithoutAthletesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -22465,6 +22788,9 @@ export type UserUpdateWithoutCoachesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -22680,6 +23006,9 @@ export type UserUncheckedUpdateWithoutCoachesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -22913,6 +23242,9 @@ export type UserUpdateWithoutAthletesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -23128,6 +23460,9 @@ export type UserUncheckedUpdateWithoutAthletesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -23336,6 +23671,9 @@ export type UserCreateWithoutInvitesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -23546,6 +23884,9 @@ export type UserUncheckedCreateWithoutInvitesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -23787,6 +24128,9 @@ export type UserUpdateWithoutInvitesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -24002,6 +24346,9 @@ export type UserUncheckedUpdateWithoutInvitesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -24210,6 +24557,9 @@ export type UserCreateWithoutCoachAthleteInvitesSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -24420,6 +24770,9 @@ export type UserUncheckedCreateWithoutCoachAthleteInvitesSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -24661,6 +25014,9 @@ export type UserUpdateWithoutCoachAthleteInvitesSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -24876,6 +25232,9 @@ export type UserUncheckedUpdateWithoutCoachAthleteInvitesSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -25084,6 +25443,9 @@ export type UserCreateWithoutCoachingRequestsSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -25294,6 +25656,9 @@ export type UserUncheckedCreateWithoutCoachingRequestsSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -25510,6 +25875,9 @@ export type UserCreateWithoutCoachingRequestsReceivedInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -25720,6 +26088,9 @@ export type UserUncheckedCreateWithoutCoachingRequestsReceivedInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -25961,6 +26332,9 @@ export type UserUpdateWithoutCoachingRequestsSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -26176,6 +26550,9 @@ export type UserUncheckedUpdateWithoutCoachingRequestsSentInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -26409,6 +26786,9 @@ export type UserUpdateWithoutCoachingRequestsReceivedInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -26624,6 +27004,9 @@ export type UserUncheckedUpdateWithoutCoachingRequestsReceivedInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -26833,6 +27216,9 @@ export type UserCreateWithoutGoalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
@@ -27043,6 +27429,9 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
@@ -27281,6 +27670,9 @@ export type UserUpdateWithoutGoalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
@@ -27496,6 +27888,9 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
@@ -27703,6 +28098,9 @@ export type UserCreateWithoutEventsInput = {
   dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -27913,6 +28311,9 @@ export type UserUncheckedCreateWithoutEventsInput = {
   dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -28154,6 +28555,9 @@ export type UserUpdateWithoutEventsInput = {
   dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -28369,6 +28773,9 @@ export type UserUncheckedUpdateWithoutEventsInput = {
   dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -28578,6 +28985,9 @@ export type UserCreateWithoutEventParticipantsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -28788,6 +29198,9 @@ export type UserUncheckedCreateWithoutEventParticipantsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -29029,6 +29442,9 @@ export type UserUpdateWithoutEventParticipantsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -29244,6 +29660,9 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -29295,6 +29714,2664 @@ export type UserUncheckedUpdateWithoutEventParticipantsInput = {
   workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
   workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTeamEventCreatedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsGivenInput
+  referralsGiven?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTeamEventCreatedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  referredByUserId?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportUncheckedCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageUncheckedCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryUncheckedCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionUncheckedCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppUncheckedCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestUncheckedCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenUncheckedCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsUncheckedCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueUncheckedCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedCreateNestedManyWithoutUserInput
+  referralsGiven?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessUncheckedCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetUncheckedCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTeamEventCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventCreatedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventCreatedInput
+  >
+}
+
+export type UserCreateWithoutTeamEventPinnedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsGivenInput
+  referralsGiven?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTeamEventPinnedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  referredByUserId?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportUncheckedCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageUncheckedCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryUncheckedCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionUncheckedCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppUncheckedCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestUncheckedCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenUncheckedCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsUncheckedCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueUncheckedCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedCreateNestedManyWithoutUserInput
+  referralsGiven?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessUncheckedCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetUncheckedCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTeamEventPinnedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventPinnedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventPinnedInput
+  >
+}
+
+export type UserUpsertWithoutTeamEventCreatedInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutTeamEventCreatedInput,
+    Prisma.UserUncheckedUpdateWithoutTeamEventCreatedInput
+  >
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventCreatedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventCreatedInput
+  >
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTeamEventCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutTeamEventCreatedInput,
+    Prisma.UserUncheckedUpdateWithoutTeamEventCreatedInput
+  >
+}
+
+export type UserUpdateWithoutTeamEventCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsGivenNestedInput
+  referralsGiven?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTeamEventCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referredByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUncheckedUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUncheckedUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUncheckedUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUncheckedUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUncheckedUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUncheckedUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUncheckedUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUncheckedUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUncheckedUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedUpdateManyWithoutUserNestedInput
+  referralsGiven?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUncheckedUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUncheckedUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutTeamEventPinnedInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutTeamEventPinnedInput,
+    Prisma.UserUncheckedUpdateWithoutTeamEventPinnedInput
+  >
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventPinnedInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventPinnedInput
+  >
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTeamEventPinnedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutTeamEventPinnedInput,
+    Prisma.UserUncheckedUpdateWithoutTeamEventPinnedInput
+  >
+}
+
+export type UserUpdateWithoutTeamEventPinnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsGivenNestedInput
+  referralsGiven?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTeamEventPinnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referredByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUncheckedUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUncheckedUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUncheckedUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUncheckedUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUncheckedUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUncheckedUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUncheckedUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUncheckedUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUncheckedUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedUpdateManyWithoutUserNestedInput
+  referralsGiven?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUncheckedUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUncheckedUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTeamEventParticipantInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
+  events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderCreateNestedManyWithoutUserInput
+  referredBy?: Prisma.UserCreateNestedOneWithoutReferralsGivenInput
+  referralsGiven?: Prisma.UserCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderCreateNestedManyWithoutUserInput
+  eventParticipants?: Prisma.EventParticipantCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTeamEventParticipantInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  hashedPassword?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ftp?: number | null
+  maxHr?: number | null
+  weight?: number | null
+  dob?: Date | string | null
+  currentFitnessScore?: number | null
+  recoveryCapacityScore?: number | null
+  nutritionComplianceScore?: number | null
+  trainingConsistencyScore?: number | null
+  profileLastUpdated?: Date | string | null
+  currentFitnessExplanation?: string | null
+  recoveryCapacityExplanation?: string | null
+  nutritionComplianceExplanation?: string | null
+  trainingConsistencyExplanation?: string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: boolean
+  aiAutoAnalyzeWorkouts?: boolean
+  aiModelPreference?: string | null
+  aiPersona?: string | null
+  city?: string | null
+  country?: string | null
+  distanceUnits?: string | null
+  form?: string | null
+  height?: number | null
+  heightUnits?: string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: number | null
+  sex?: string | null
+  state?: string | null
+  temperatureUnits?: string | null
+  timezone?: string | null
+  visibility?: string | null
+  weightUnits?: string | null
+  altitude?: number | null
+  isAdmin?: boolean
+  isCoach?: boolean
+  lthr?: number | null
+  healthConsentAcceptedAt?: Date | string | null
+  privacyPolicyVersion?: string | null
+  termsAcceptedAt?: Date | string | null
+  termsVersion?: string | null
+  hrPowerAlignmentExplanation?: string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: number | null
+  aiContext?: string | null
+  nickname?: string | null
+  nutritionTrackingEnabled?: boolean
+  recoverySensitivity?: string | null
+  stripeCustomerId?: string | null
+  stripeSubscriptionId?: string | null
+  subscriptionPeriodEnd?: Date | string | null
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  subscriptionTier?: $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: boolean
+  aiProactivityEnabled?: boolean
+  aiAutoAnalyzeReadiness?: boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Date | string | null
+  lastLoginIp?: string | null
+  registrationCountry?: string | null
+  registrationIp?: string | null
+  aiRequireToolApproval?: boolean
+  subscriptionStartedAt?: Date | string | null
+  updateWorkoutNotesEnabled?: boolean
+  trialEndsAt?: Date | string | null
+  pendingSubscriptionPeriodEnd?: Date | string | null
+  pendingSubscriptionTier?: $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: boolean
+  shareRewardClaimedAt?: Date | string | null
+  shareRewardDaysGranted?: number | null
+  aiTtsStyle?: string | null
+  aiTtsVoiceName?: string | null
+  aiTtsSpeed?: string | null
+  aiTtsAutoReadMessages?: boolean
+  emailError?: string | null
+  emailStatus?: string
+  hasDashboardAccess?: boolean
+  weightSourceMode?: string
+  uiLanguage?: string | null
+  aiMemoryEnabled?: boolean
+  aiWorkoutAutonomyLimit?: number
+  publicAuthorSlug?: string | null
+  publicDisplayName?: string | null
+  publicBio?: string | null
+  publicLocation?: string | null
+  publicWebsiteUrl?: string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: string | null
+  personalBestsBackfilledAt?: Date | string | null
+  teamVisibility?: $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: boolean
+  coachProfileSlug?: string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: boolean
+  athleteProfileSlug?: string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Date | string | null
+  deactivationReason?: string | null
+  referralCode?: string | null
+  referredByUserId?: string | null
+  role?: $Enums.Role
+  intervalsApiKey?: string | null
+  intervalsAthleteId?: string | null
+  pipelineStage?: string | null
+  driveFolderId?: string | null
+  crmTags?: Prisma.UserCreatecrmTagsInput | string[]
+  leadSource?: string | null
+  churnRisk?: string | null
+  lifetimeValue?: number | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedCreateNestedManyWithoutUserInput
+  apiKeys?: Prisma.ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedCreateNestedManyWithoutCoachInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedCreateNestedManyWithoutAthleteInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedCreateNestedManyWithoutUserInput
+  bugReports?: Prisma.BugReportUncheckedCreateNestedManyWithoutUserInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedCreateNestedManyWithoutUserInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedCreateNestedManyWithoutUserInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedCreateNestedManyWithoutUserInput
+  chatTurns?: Prisma.ChatTurnUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedCreateNestedManyWithoutAthleteInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedCreateNestedManyWithoutCoachInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedCreateNestedManyWithoutUserInput
+  invites?: Prisma.CoachingInviteUncheckedCreateNestedManyWithoutAthleteInput
+  coaches?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutAthleteInput
+  athletes?: Prisma.CoachingRelationshipUncheckedCreateNestedManyWithoutCoachInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutAthleteInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedCreateNestedManyWithoutCoachInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedCreateNestedManyWithoutOwnerInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedCreateNestedManyWithoutUserInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedCreateNestedManyWithoutUserInput
+  dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
+  llmUsage?: Prisma.LlmUsageUncheckedCreateNestedManyWithoutUserInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedCreateNestedManyWithoutUserInput
+  metricHistory?: Prisma.MetricHistoryUncheckedCreateNestedManyWithoutUserInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedCreateNestedManyWithoutUserInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedCreateNestedOneWithoutUserInput
+  nutrition?: Prisma.NutritionUncheckedCreateNestedManyWithoutUserInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedCreateNestedManyWithoutUserInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedCreateNestedManyWithoutUserInput
+  oauthApps?: Prisma.OAuthAppUncheckedCreateNestedManyWithoutOwnerInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedCreateNestedManyWithoutUserInput
+  personalBests?: Prisma.PersonalBestUncheckedCreateNestedManyWithoutUserInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedCreateNestedManyWithoutUserInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedCreateNestedManyWithoutUserInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  referralAsReferee?: Prisma.ReferralUncheckedCreateNestedOneWithoutRefereeInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedCreateNestedManyWithoutReferrerInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedCreateNestedManyWithoutUserInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  shareTokens?: Prisma.ShareTokenUncheckedCreateNestedManyWithoutUserInput
+  sportSettings?: Prisma.SportSettingsUncheckedCreateNestedManyWithoutUserInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedCreateNestedManyWithoutUserInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedCreateNestedManyWithoutUserInput
+  supportMessages?: Prisma.SupportMessageUncheckedCreateNestedManyWithoutUserInput
+  syncQueue?: Prisma.SyncQueueUncheckedCreateNestedManyWithoutUserInput
+  ownedTeams?: Prisma.TeamUncheckedCreateNestedManyWithoutOwnerInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedCreateNestedManyWithoutUserInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedCreateNestedManyWithoutUserInput
+  referralsGiven?: Prisma.UserUncheckedCreateNestedManyWithoutReferredByInput
+  memories?: Prisma.UserMemoryUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedCreateNestedOneWithoutUserInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedCreateNestedManyWithoutUserInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedCreateNestedManyWithoutUserInput
+  wellness?: Prisma.WellnessUncheckedCreateNestedManyWithoutUserInput
+  widgets?: Prisma.WidgetUncheckedCreateNestedManyWithoutOwnerInput
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutUserInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedCreateNestedManyWithoutUserInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedCreateNestedManyWithoutUserInput
+  eventParticipants?: Prisma.EventParticipantUncheckedCreateNestedManyWithoutUserInput
+  coachNotes?: Prisma.CoachNoteUncheckedCreateNestedManyWithoutUserInput
+  crmDeals?: Prisma.CrmDealUncheckedCreateNestedManyWithoutUserInput
+  crmTasks?: Prisma.CrmTaskUncheckedCreateNestedManyWithoutUserInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTeamEventParticipantInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventParticipantInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventParticipantInput
+  >
+}
+
+export type UserUpsertWithoutTeamEventParticipantInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutTeamEventParticipantInput,
+    Prisma.UserUncheckedUpdateWithoutTeamEventParticipantInput
+  >
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutTeamEventParticipantInput,
+    Prisma.UserUncheckedCreateWithoutTeamEventParticipantInput
+  >
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTeamEventParticipantInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutTeamEventParticipantInput,
+    Prisma.UserUncheckedUpdateWithoutTeamEventParticipantInput
+  >
+}
+
+export type UserUpdateWithoutTeamEventParticipantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUpdateManyWithoutUserNestedInput
+  referredBy?: Prisma.UserUpdateOneWithoutReferralsGivenNestedInput
+  referralsGiven?: Prisma.UserUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUpdateManyWithoutUserNestedInput
+  eventParticipants?: Prisma.EventParticipantUpdateManyWithoutUserNestedInput
+  coachNotes?: Prisma.CoachNoteUpdateManyWithoutUserNestedInput
+  crmDeals?: Prisma.CrmDealUpdateManyWithoutUserNestedInput
+  crmTasks?: Prisma.CrmTaskUpdateManyWithoutUserNestedInput
+  crmEmailDrafts?: Prisma.CrmEmailDraftUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTeamEventParticipantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ftp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  recoveryCapacityScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nutritionComplianceScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trainingConsistencyScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  profileLastUpdated?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  currentFitnessExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recoveryCapacityExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionComplianceExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trainingConsistencyExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentFitnessExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  recoveryCapacityExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  nutritionComplianceExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  trainingConsistencyExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiAutoAnalyzeNutrition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeWorkouts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiModelPreference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiPersona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distanceUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  form?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  heightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  powerZones?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  restingHr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temperatureUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visibility?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weightUnits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  altitude?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isCoach?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lthr?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthConsentAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  privacyPolicyVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  termsAcceptedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  termsVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hrPowerAlignmentExplanationJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  hrPowerAlignmentScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nickname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nutritionTrackingEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recoverySensitivity?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripeSubscriptionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subscriptionPeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptionStatus?:
+    Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  subscriptionTier?: Prisma.EnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier
+  aiDeepAnalysisEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiProactivityEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiAutoAnalyzeReadiness?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dashboardSettings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationCountry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registrationIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiRequireToolApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  subscriptionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updateWorkoutNotesEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionPeriodEnd?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pendingSubscriptionTier?:
+    Prisma.NullableEnumSubscriptionTierFieldUpdateOperationsInput | $Enums.SubscriptionTier | null
+  aiConversationalEngagement?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shareRewardClaimedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shareRewardDaysGranted?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aiTtsStyle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsVoiceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsSpeed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiTtsAutoReadMessages?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  hasDashboardAccess?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  weightSourceMode?: Prisma.StringFieldUpdateOperationsInput | string
+  uiLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiMemoryEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  aiWorkoutAutonomyLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  publicAuthorSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicDisplayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicBio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicWebsiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicSocialLinks?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  publicCoachingBrand?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personalBestsBackfilledAt?:
+    Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamVisibility?:
+    Prisma.NullableEnumTeamVisibilityFieldUpdateOperationsInput | $Enums.TeamVisibility | null
+  featureFlags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coachProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  coachProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachPublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  athleteProfileEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  athleteProfileSlug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athletePublicPage?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  deactivatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deactivationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referredByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  intervalsApiKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intervalsAthleteId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pipelineStage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  driveFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmTags?: Prisma.UserUpdatecrmTagsInput | string[]
+  leadSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  churnRisk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lifetimeValue?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  activityRecommendations?: Prisma.ActivityRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  apiKeys?: Prisma.ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  athleteGroups?: Prisma.AthleteGroupUncheckedUpdateManyWithoutCoachNestedInput
+  groupMemberships?: Prisma.AthleteGroupMemberUncheckedUpdateManyWithoutAthleteNestedInput
+  journeyEvents?: Prisma.AthleteJourneyEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  bodyMeasurementEntries?: Prisma.BodyMeasurementEntryUncheckedUpdateManyWithoutUserNestedInput
+  bugReports?: Prisma.BugReportUncheckedUpdateManyWithoutUserNestedInput
+  bugReportComments?: Prisma.BugReportCommentUncheckedUpdateManyWithoutUserNestedInput
+  calendarNotes?: Prisma.CalendarNoteUncheckedUpdateManyWithoutUserNestedInput
+  chatParticipations?: Prisma.ChatParticipantUncheckedUpdateManyWithoutUserNestedInput
+  chatTurns?: Prisma.ChatTurnUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  weeklyCheckIns?: Prisma.WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput
+  coachAthleteInvitesSent?: Prisma.CoachAthleteInviteUncheckedUpdateManyWithoutCoachNestedInput
+  feedbacks?: Prisma.CoachFeedbackUncheckedUpdateManyWithoutUserNestedInput
+  invites?: Prisma.CoachingInviteUncheckedUpdateManyWithoutAthleteNestedInput
+  coaches?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutAthleteNestedInput
+  athletes?: Prisma.CoachingRelationshipUncheckedUpdateManyWithoutCoachNestedInput
+  coachingRequestsSent?: Prisma.CoachingRequestUncheckedUpdateManyWithoutAthleteNestedInput
+  coachingRequestsReceived?: Prisma.CoachingRequestUncheckedUpdateManyWithoutCoachNestedInput
+  customFieldDefinitions?: Prisma.CustomFieldDefinitionUncheckedUpdateManyWithoutOwnerNestedInput
+  dailyCheckins?: Prisma.DailyCheckinUncheckedUpdateManyWithoutUserNestedInput
+  dailyMetrics?: Prisma.DailyMetricUncheckedUpdateManyWithoutUserNestedInput
+  dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
+  emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
+  emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
+  llmUsage?: Prisma.LlmUsageUncheckedUpdateManyWithoutUserNestedInput
+  mcpToolExecutions?: Prisma.McpToolExecutionUncheckedUpdateManyWithoutUserNestedInput
+  metricHistory?: Prisma.MetricHistoryUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushDevices?: Prisma.MobilePushDeviceUncheckedUpdateManyWithoutUserNestedInput
+  mobilePushPreference?: Prisma.MobilePushPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  nutrition?: Prisma.NutritionUncheckedUpdateManyWithoutUserNestedInput
+  nutritionPlans?: Prisma.NutritionPlanUncheckedUpdateManyWithoutUserNestedInput
+  nutritionRecommendations?: Prisma.NutritionRecommendationUncheckedUpdateManyWithoutUserNestedInput
+  oauthApps?: Prisma.OAuthAppUncheckedUpdateManyWithoutOwnerNestedInput
+  oauthCodes?: Prisma.OAuthAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthConsents?: Prisma.OAuthConsentUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+  partnerCampaignRedemptions?: Prisma.PartnerCampaignRedemptionUncheckedUpdateManyWithoutUserNestedInput
+  personalBests?: Prisma.PersonalBestUncheckedUpdateManyWithoutUserNestedInput
+  plannedWorkouts?: Prisma.PlannedWorkoutUncheckedUpdateManyWithoutUserNestedInput
+  providerSubscriptions?: Prisma.ProviderSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  quotaDenials?: Prisma.QuotaDenialUncheckedUpdateManyWithoutUserNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  referralAsReferee?: Prisma.ReferralUncheckedUpdateOneWithoutRefereeNestedInput
+  referralsAsReferrer?: Prisma.ReferralUncheckedUpdateManyWithoutReferrerNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  reportTemplates?: Prisma.ReportTemplateUncheckedUpdateManyWithoutUserNestedInput
+  scoreTrendExplanations?: Prisma.ScoreTrendExplanationUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  shareTokens?: Prisma.ShareTokenUncheckedUpdateManyWithoutUserNestedInput
+  sportSettings?: Prisma.SportSettingsUncheckedUpdateManyWithoutUserNestedInput
+  strengthExerciseLibraryItems?: Prisma.StrengthExerciseLibraryItemUncheckedUpdateManyWithoutUserNestedInput
+  subscriptionLifecycleEvents?: Prisma.SubscriptionLifecycleEventUncheckedUpdateManyWithoutUserNestedInput
+  supportMessages?: Prisma.SupportMessageUncheckedUpdateManyWithoutUserNestedInput
+  syncQueue?: Prisma.SyncQueueUncheckedUpdateManyWithoutUserNestedInput
+  ownedTeams?: Prisma.TeamUncheckedUpdateManyWithoutOwnerNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  trainingAvailability?: Prisma.TrainingAvailabilityUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlans?: Prisma.TrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  trainingPlanFolders?: Prisma.TrainingPlanFolderUncheckedUpdateManyWithoutUserNestedInput
+  referralsGiven?: Prisma.UserUncheckedUpdateManyWithoutReferredByNestedInput
+  memories?: Prisma.UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  nutritionSettings?: Prisma.UserNutritionSettingsUncheckedUpdateOneWithoutUserNestedInput
+  systemMessageDismissals?: Prisma.UserSystemMessageDismissalUncheckedUpdateManyWithoutUserNestedInput
+  weeklyTrainingPlans?: Prisma.WeeklyTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
+  wellness?: Prisma.WellnessUncheckedUpdateManyWithoutUserNestedInput
+  widgets?: Prisma.WidgetUncheckedUpdateManyWithoutOwnerNestedInput
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutUserNestedInput
+  workoutStructureGenerationRuns?: Prisma.WorkoutStructureGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplates?: Prisma.WorkoutTemplateUncheckedUpdateManyWithoutUserNestedInput
+  workoutTemplateFolders?: Prisma.WorkoutTemplateFolderUncheckedUpdateManyWithoutUserNestedInput
+  eventParticipants?: Prisma.EventParticipantUncheckedUpdateManyWithoutUserNestedInput
   coachNotes?: Prisma.CoachNoteUncheckedUpdateManyWithoutUserNestedInput
   crmDeals?: Prisma.CrmDealUncheckedUpdateManyWithoutUserNestedInput
   crmTasks?: Prisma.CrmTaskUncheckedUpdateManyWithoutUserNestedInput
@@ -29451,6 +32528,9 @@ export type UserCreateWithoutAccountsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -29661,6 +32741,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -29902,6 +32985,9 @@ export type UserUpdateWithoutAccountsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -30117,6 +33203,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -30326,6 +33415,9 @@ export type UserCreateWithoutSessionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -30536,6 +33628,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -30777,6 +33872,9 @@ export type UserUpdateWithoutSessionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -30992,6 +34090,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -31200,6 +34301,9 @@ export type UserCreateWithoutIntegrationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -31410,6 +34514,9 @@ export type UserUncheckedCreateWithoutIntegrationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -31651,6 +34758,9 @@ export type UserUpdateWithoutIntegrationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -31866,6 +34976,9 @@ export type UserUncheckedUpdateWithoutIntegrationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -32074,6 +35187,9 @@ export type UserCreateWithoutWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -32284,6 +35400,9 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -32525,6 +35644,9 @@ export type UserUpdateWithoutWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -32740,6 +35862,9 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -32948,6 +36073,9 @@ export type UserCreateWithoutWorkoutTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -33158,6 +36286,9 @@ export type UserUncheckedCreateWithoutWorkoutTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -33399,6 +36530,9 @@ export type UserUpdateWithoutWorkoutTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -33614,6 +36748,9 @@ export type UserUncheckedUpdateWithoutWorkoutTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -33822,6 +36959,9 @@ export type UserCreateWithoutWorkoutTemplateFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -34032,6 +37172,9 @@ export type UserUncheckedCreateWithoutWorkoutTemplateFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -34273,6 +37416,9 @@ export type UserUpdateWithoutWorkoutTemplateFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -34488,6 +37634,9 @@ export type UserUncheckedUpdateWithoutWorkoutTemplateFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -34696,6 +37845,9 @@ export type UserCreateWithoutStrengthExerciseLibraryItemsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -34906,6 +38058,9 @@ export type UserUncheckedCreateWithoutStrengthExerciseLibraryItemsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -35147,6 +38302,9 @@ export type UserUpdateWithoutStrengthExerciseLibraryItemsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -35362,6 +38520,9 @@ export type UserUncheckedUpdateWithoutStrengthExerciseLibraryItemsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -35570,6 +38731,9 @@ export type UserCreateWithoutFitFilesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
@@ -35780,6 +38944,9 @@ export type UserUncheckedCreateWithoutFitFilesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
@@ -36021,6 +39188,9 @@ export type UserUpdateWithoutFitFilesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
@@ -36236,6 +39406,9 @@ export type UserUncheckedUpdateWithoutFitFilesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
@@ -36444,6 +39617,9 @@ export type UserCreateWithoutPlannedWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -36654,6 +39830,9 @@ export type UserUncheckedCreateWithoutPlannedWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -36895,6 +40074,9 @@ export type UserUpdateWithoutPlannedWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -37110,6 +40292,9 @@ export type UserUncheckedUpdateWithoutPlannedWorkoutsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -37318,6 +40503,9 @@ export type UserCreateWithoutWorkoutStructureGenerationRunsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -37528,6 +40716,9 @@ export type UserUncheckedCreateWithoutWorkoutStructureGenerationRunsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -37769,6 +40960,9 @@ export type UserUpdateWithoutWorkoutStructureGenerationRunsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -37984,6 +41178,9 @@ export type UserUncheckedUpdateWithoutWorkoutStructureGenerationRunsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -38191,6 +41388,9 @@ export type UserCreateWithoutCalendarNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -38401,6 +41601,9 @@ export type UserUncheckedCreateWithoutCalendarNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -38642,6 +41845,9 @@ export type UserUpdateWithoutCalendarNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -38857,6 +42063,9 @@ export type UserUncheckedUpdateWithoutCalendarNotesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -39065,6 +42274,9 @@ export type UserCreateWithoutDailyMetricsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -39275,6 +42487,9 @@ export type UserUncheckedCreateWithoutDailyMetricsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -39516,6 +42731,9 @@ export type UserUpdateWithoutDailyMetricsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -39731,6 +42949,9 @@ export type UserUncheckedUpdateWithoutDailyMetricsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -39940,6 +43161,9 @@ export type UserCreateWithoutWellnessInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -40150,6 +43374,9 @@ export type UserUncheckedCreateWithoutWellnessInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -40391,6 +43618,9 @@ export type UserUpdateWithoutWellnessInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -40606,6 +43836,9 @@ export type UserUncheckedUpdateWithoutWellnessInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -40814,6 +44047,9 @@ export type UserCreateWithoutNutritionInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -41024,6 +44260,9 @@ export type UserUncheckedCreateWithoutNutritionInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -41265,6 +44504,9 @@ export type UserUpdateWithoutNutritionInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -41480,6 +44722,9 @@ export type UserUncheckedUpdateWithoutNutritionInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -41688,6 +44933,9 @@ export type UserCreateWithoutNutritionSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -41898,6 +45146,9 @@ export type UserUncheckedCreateWithoutNutritionSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -42139,6 +45390,9 @@ export type UserUpdateWithoutNutritionSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -42354,6 +45608,9 @@ export type UserUncheckedUpdateWithoutNutritionSettingsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -42562,6 +45819,9 @@ export type UserCreateWithoutReportTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -42772,6 +46032,9 @@ export type UserUncheckedCreateWithoutReportTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -43013,6 +46276,9 @@ export type UserUpdateWithoutReportTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -43228,6 +46494,9 @@ export type UserUncheckedUpdateWithoutReportTemplatesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -43436,6 +46705,9 @@ export type UserCreateWithoutReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -43646,6 +46918,9 @@ export type UserUncheckedCreateWithoutReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -43887,6 +47162,9 @@ export type UserUpdateWithoutReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -44102,6 +47380,9 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -44309,6 +47590,9 @@ export type UserCreateWithoutActivityRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -44519,6 +47803,9 @@ export type UserUncheckedCreateWithoutActivityRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -44760,6 +48047,9 @@ export type UserUpdateWithoutActivityRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -44975,6 +48265,9 @@ export type UserUncheckedUpdateWithoutActivityRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -45184,6 +48477,9 @@ export type UserCreateWithoutNutritionRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -45394,6 +48690,9 @@ export type UserUncheckedCreateWithoutNutritionRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -45635,6 +48934,9 @@ export type UserUpdateWithoutNutritionRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -45850,6 +49152,9 @@ export type UserUncheckedUpdateWithoutNutritionRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -46058,6 +49363,9 @@ export type UserCreateWithoutNutritionPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -46268,6 +49576,9 @@ export type UserUncheckedCreateWithoutNutritionPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -46509,6 +49820,9 @@ export type UserUpdateWithoutNutritionPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -46724,6 +50038,9 @@ export type UserUncheckedUpdateWithoutNutritionPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -46932,6 +50249,9 @@ export type UserCreateWithoutTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -47142,6 +50462,9 @@ export type UserUncheckedCreateWithoutTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -47383,6 +50706,9 @@ export type UserUpdateWithoutTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -47598,6 +50924,9 @@ export type UserUncheckedUpdateWithoutTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -47806,6 +51135,9 @@ export type UserCreateWithoutTrainingAvailabilityInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -48016,6 +51348,9 @@ export type UserUncheckedCreateWithoutTrainingAvailabilityInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -48257,6 +51592,9 @@ export type UserUpdateWithoutTrainingAvailabilityInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -48472,6 +51810,9 @@ export type UserUncheckedUpdateWithoutTrainingAvailabilityInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -48680,6 +52021,9 @@ export type UserCreateWithoutWeeklyTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -48890,6 +52234,9 @@ export type UserUncheckedCreateWithoutWeeklyTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -49131,6 +52478,9 @@ export type UserUpdateWithoutWeeklyTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -49346,6 +52696,9 @@ export type UserUncheckedUpdateWithoutWeeklyTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -49554,6 +52907,9 @@ export type UserCreateWithoutScoreTrendExplanationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -49764,6 +53120,9 @@ export type UserUncheckedCreateWithoutScoreTrendExplanationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -50005,6 +53364,9 @@ export type UserUpdateWithoutScoreTrendExplanationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -50220,6 +53582,9 @@ export type UserUncheckedUpdateWithoutScoreTrendExplanationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -50428,6 +53793,9 @@ export type UserCreateWithoutRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -50638,6 +54006,9 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -50879,6 +54250,9 @@ export type UserUpdateWithoutRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -51094,6 +54468,9 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -51301,6 +54678,9 @@ export type UserCreateWithoutDailyCheckinsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -51511,6 +54891,9 @@ export type UserUncheckedCreateWithoutDailyCheckinsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -51752,6 +55135,9 @@ export type UserUpdateWithoutDailyCheckinsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -51967,6 +55353,9 @@ export type UserUncheckedUpdateWithoutDailyCheckinsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -52176,6 +55565,9 @@ export type UserCreateWithoutMemoriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -52386,6 +55778,9 @@ export type UserUncheckedCreateWithoutMemoriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -52627,6 +56022,9 @@ export type UserUpdateWithoutMemoriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -52842,6 +56240,9 @@ export type UserUncheckedUpdateWithoutMemoriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -53049,6 +56450,9 @@ export type UserCreateWithoutChatParticipationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -53259,6 +56663,9 @@ export type UserUncheckedCreateWithoutChatParticipationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -53500,6 +56907,9 @@ export type UserUpdateWithoutChatParticipationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -53715,6 +57125,9 @@ export type UserUncheckedUpdateWithoutChatParticipationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -53923,6 +57336,9 @@ export type UserCreateWithoutChatTurnsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -54133,6 +57549,9 @@ export type UserUncheckedCreateWithoutChatTurnsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -54374,6 +57793,9 @@ export type UserUpdateWithoutChatTurnsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -54589,6 +58011,9 @@ export type UserUncheckedUpdateWithoutChatTurnsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -54798,6 +58223,9 @@ export type UserCreateWithoutSyncQueueInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -55008,6 +58436,9 @@ export type UserUncheckedCreateWithoutSyncQueueInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -55249,6 +58680,9 @@ export type UserUpdateWithoutSyncQueueInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -55464,6 +58898,9 @@ export type UserUncheckedUpdateWithoutSyncQueueInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -55672,6 +59109,9 @@ export type UserCreateWithoutQuotaDenialsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -55882,6 +59322,9 @@ export type UserUncheckedCreateWithoutQuotaDenialsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -56123,6 +59566,9 @@ export type UserUpdateWithoutQuotaDenialsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -56338,6 +59784,9 @@ export type UserUncheckedUpdateWithoutQuotaDenialsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -56546,6 +59995,9 @@ export type UserCreateWithoutPartnerCampaignRedemptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -56756,6 +60208,9 @@ export type UserUncheckedCreateWithoutPartnerCampaignRedemptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -56997,6 +60452,9 @@ export type UserUpdateWithoutPartnerCampaignRedemptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -57212,6 +60670,9 @@ export type UserUncheckedUpdateWithoutPartnerCampaignRedemptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -57420,6 +60881,9 @@ export type UserCreateWithoutLlmUsageInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -57630,6 +61094,9 @@ export type UserUncheckedCreateWithoutLlmUsageInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -57871,6 +61338,9 @@ export type UserUpdateWithoutLlmUsageInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -58086,6 +61556,9 @@ export type UserUncheckedUpdateWithoutLlmUsageInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -58294,6 +61767,9 @@ export type UserCreateWithoutSupportMessagesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -58504,6 +61980,9 @@ export type UserUncheckedCreateWithoutSupportMessagesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -58745,6 +62224,9 @@ export type UserUpdateWithoutSupportMessagesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -58960,6 +62442,9 @@ export type UserUncheckedUpdateWithoutSupportMessagesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -59168,6 +62653,9 @@ export type UserCreateWithoutProviderSubscriptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -59378,6 +62866,9 @@ export type UserUncheckedCreateWithoutProviderSubscriptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -59619,6 +63110,9 @@ export type UserUpdateWithoutProviderSubscriptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -59834,6 +63328,9 @@ export type UserUncheckedUpdateWithoutProviderSubscriptionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -60042,6 +63539,9 @@ export type UserCreateWithoutSubscriptionLifecycleEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -60252,6 +63752,9 @@ export type UserUncheckedCreateWithoutSubscriptionLifecycleEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -60493,6 +63996,9 @@ export type UserUpdateWithoutSubscriptionLifecycleEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -60708,6 +64214,9 @@ export type UserUncheckedUpdateWithoutSubscriptionLifecycleEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -60915,6 +64424,9 @@ export type UserCreateWithoutBugReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -61125,6 +64637,9 @@ export type UserUncheckedCreateWithoutBugReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -61366,6 +64881,9 @@ export type UserUpdateWithoutBugReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -61581,6 +65099,9 @@ export type UserUncheckedUpdateWithoutBugReportsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -61789,6 +65310,9 @@ export type UserCreateWithoutBugReportCommentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -61999,6 +65523,9 @@ export type UserUncheckedCreateWithoutBugReportCommentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -62240,6 +65767,9 @@ export type UserUpdateWithoutBugReportCommentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -62455,6 +65985,9 @@ export type UserUncheckedUpdateWithoutBugReportCommentsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -62664,6 +66197,9 @@ export type UserCreateWithoutNotificationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -62874,6 +66410,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -63115,6 +66654,9 @@ export type UserUpdateWithoutNotificationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -63330,6 +66872,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -63538,6 +67083,9 @@ export type UserCreateWithoutMobilePushDevicesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -63748,6 +67296,9 @@ export type UserUncheckedCreateWithoutMobilePushDevicesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -63989,6 +67540,9 @@ export type UserUpdateWithoutMobilePushDevicesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -64204,6 +67758,9 @@ export type UserUncheckedUpdateWithoutMobilePushDevicesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -64412,6 +67969,9 @@ export type UserCreateWithoutMobilePushPreferenceInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -64622,6 +68182,9 @@ export type UserUncheckedCreateWithoutMobilePushPreferenceInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -64863,6 +68426,9 @@ export type UserUpdateWithoutMobilePushPreferenceInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -65078,6 +68644,9 @@ export type UserUncheckedUpdateWithoutMobilePushPreferenceInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -65285,6 +68854,9 @@ export type UserCreateWithoutJourneyEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -65495,6 +69067,9 @@ export type UserUncheckedCreateWithoutJourneyEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -65736,6 +69311,9 @@ export type UserUpdateWithoutJourneyEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -65951,6 +69529,9 @@ export type UserUncheckedUpdateWithoutJourneyEventsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -66159,6 +69740,9 @@ export type UserCreateWithoutEmailPreferencesInput = {
   dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -66369,6 +69953,9 @@ export type UserUncheckedCreateWithoutEmailPreferencesInput = {
   dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -66610,6 +70197,9 @@ export type UserUpdateWithoutEmailPreferencesInput = {
   dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -66825,6 +70415,9 @@ export type UserUncheckedUpdateWithoutEmailPreferencesInput = {
   dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -67033,6 +70626,9 @@ export type UserCreateWithoutEmailDeliveriesInput = {
   dashboards?: Prisma.DashboardCreateNestedManyWithoutOwnerInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -67243,6 +70839,9 @@ export type UserUncheckedCreateWithoutEmailDeliveriesInput = {
   dashboards?: Prisma.DashboardUncheckedCreateNestedManyWithoutOwnerInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -67484,6 +71083,9 @@ export type UserUpdateWithoutEmailDeliveriesInput = {
   dashboards?: Prisma.DashboardUpdateManyWithoutOwnerNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -67699,6 +71301,9 @@ export type UserUncheckedUpdateWithoutEmailDeliveriesInput = {
   dashboards?: Prisma.DashboardUncheckedUpdateManyWithoutOwnerNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -67908,6 +71513,9 @@ export type UserCreateWithoutMetricHistoryInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -68118,6 +71726,9 @@ export type UserUncheckedCreateWithoutMetricHistoryInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -68359,6 +71970,9 @@ export type UserUpdateWithoutMetricHistoryInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -68574,6 +72188,9 @@ export type UserUncheckedUpdateWithoutMetricHistoryInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -68781,6 +72398,9 @@ export type UserCreateWithoutBodyMeasurementEntriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -68991,6 +72611,9 @@ export type UserUncheckedCreateWithoutBodyMeasurementEntriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -69232,6 +72855,9 @@ export type UserUpdateWithoutBodyMeasurementEntriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -69447,6 +73073,9 @@ export type UserUncheckedUpdateWithoutBodyMeasurementEntriesInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -69656,6 +73285,9 @@ export type UserCreateWithoutPersonalBestsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -69866,6 +73498,9 @@ export type UserUncheckedCreateWithoutPersonalBestsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -70107,6 +73742,9 @@ export type UserUpdateWithoutPersonalBestsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -70322,6 +73960,9 @@ export type UserUncheckedUpdateWithoutPersonalBestsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -70530,6 +74171,9 @@ export type UserCreateWithoutOwnedTeamsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -70740,6 +74384,9 @@ export type UserUncheckedCreateWithoutOwnedTeamsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -70981,6 +74628,9 @@ export type UserUpdateWithoutOwnedTeamsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -71196,6 +74846,9 @@ export type UserUncheckedUpdateWithoutOwnedTeamsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -71404,6 +75057,9 @@ export type UserCreateWithoutTeamMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -71614,6 +75270,9 @@ export type UserUncheckedCreateWithoutTeamMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -71855,6 +75514,9 @@ export type UserUpdateWithoutTeamMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -72070,6 +75732,9 @@ export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -72277,6 +75942,9 @@ export type UserCreateWithoutAthleteGroupsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -72487,6 +76155,9 @@ export type UserUncheckedCreateWithoutAthleteGroupsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -72728,6 +76399,9 @@ export type UserUpdateWithoutAthleteGroupsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -72943,6 +76617,9 @@ export type UserUncheckedUpdateWithoutAthleteGroupsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -73151,6 +76828,9 @@ export type UserCreateWithoutGroupMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -73361,6 +77041,9 @@ export type UserUncheckedCreateWithoutGroupMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -73602,6 +77285,9 @@ export type UserUpdateWithoutGroupMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -73817,6 +77503,9 @@ export type UserUncheckedUpdateWithoutGroupMembershipsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -74025,6 +77714,9 @@ export type UserCreateWithoutCustomFieldDefinitionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -74235,6 +77927,9 @@ export type UserUncheckedCreateWithoutCustomFieldDefinitionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -74476,6 +78171,9 @@ export type UserUpdateWithoutCustomFieldDefinitionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -74691,6 +78389,9 @@ export type UserUncheckedUpdateWithoutCustomFieldDefinitionsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -74899,6 +78600,9 @@ export type UserCreateWithoutDashboardsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -75109,6 +78813,9 @@ export type UserUncheckedCreateWithoutDashboardsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -75350,6 +79057,9 @@ export type UserUpdateWithoutDashboardsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -75565,6 +79275,9 @@ export type UserUncheckedUpdateWithoutDashboardsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -75774,6 +79487,9 @@ export type UserCreateWithoutWidgetsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -75984,6 +79700,9 @@ export type UserUncheckedCreateWithoutWidgetsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -76225,6 +79944,9 @@ export type UserUpdateWithoutWidgetsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -76440,6 +80162,9 @@ export type UserUncheckedUpdateWithoutWidgetsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -76648,6 +80373,9 @@ export type UserCreateWithoutTrainingPlanFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -76858,6 +80586,9 @@ export type UserUncheckedCreateWithoutTrainingPlanFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -77099,6 +80830,9 @@ export type UserUpdateWithoutTrainingPlanFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -77314,6 +81048,9 @@ export type UserUncheckedUpdateWithoutTrainingPlanFoldersInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -77522,6 +81259,9 @@ export type UserCreateWithoutFavoriteTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   integrations?: Prisma.IntegrationCreateNestedManyWithoutUserInput
@@ -77732,6 +81472,9 @@ export type UserUncheckedCreateWithoutFavoriteTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   integrations?: Prisma.IntegrationUncheckedCreateNestedManyWithoutUserInput
@@ -77973,6 +81716,9 @@ export type UserUpdateWithoutFavoriteTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   integrations?: Prisma.IntegrationUpdateManyWithoutUserNestedInput
@@ -78188,6 +81934,9 @@ export type UserUncheckedUpdateWithoutFavoriteTrainingPlansInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   integrations?: Prisma.IntegrationUncheckedUpdateManyWithoutUserNestedInput
@@ -78395,6 +82144,9 @@ export type UserCreateWithoutCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -78605,6 +82357,9 @@ export type UserUncheckedCreateWithoutCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -78846,6 +82601,9 @@ export type UserUpdateWithoutCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -79061,6 +82819,9 @@ export type UserUncheckedUpdateWithoutCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -79269,6 +83030,9 @@ export type UserCreateWithoutFeedbacksInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -79479,6 +83243,9 @@ export type UserUncheckedCreateWithoutFeedbacksInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -79720,6 +83487,9 @@ export type UserUpdateWithoutFeedbacksInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -79935,6 +83705,9 @@ export type UserUncheckedUpdateWithoutFeedbacksInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -80143,6 +83916,9 @@ export type UserCreateWithoutWeeklyCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceCreateNestedManyWithoutUserInput
   events?: Prisma.EventCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
@@ -80353,6 +84129,9 @@ export type UserUncheckedCreateWithoutWeeklyCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedCreateNestedManyWithoutUserInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedCreateNestedManyWithoutUserInput
   events?: Prisma.EventUncheckedCreateNestedManyWithoutUserInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedCreateNestedManyWithoutCreatedByInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedCreateNestedManyWithoutPinnedByInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedCreateNestedManyWithoutUserInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedCreateNestedManyWithoutUserInput
   fitFiles?: Prisma.FitFileUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
@@ -80594,6 +84373,9 @@ export type UserUpdateWithoutWeeklyCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -80809,6 +84591,9 @@ export type UserUncheckedUpdateWithoutWeeklyCheckInsInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -81147,6 +84932,9 @@ export type UserUpdateWithoutReferredByInput = {
   emailDeliveries?: Prisma.EmailDeliveryUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
@@ -81361,6 +85149,9 @@ export type UserUncheckedUpdateWithoutReferredByInput = {
   emailDeliveries?: Prisma.EmailDeliveryUncheckedUpdateManyWithoutUserNestedInput
   emailPreferences?: Prisma.EmailPreferenceUncheckedUpdateManyWithoutUserNestedInput
   events?: Prisma.EventUncheckedUpdateManyWithoutUserNestedInput
+  TeamEventCreated?: Prisma.TeamEventUncheckedUpdateManyWithoutCreatedByNestedInput
+  TeamEventPinned?: Prisma.TeamEventUncheckedUpdateManyWithoutPinnedByNestedInput
+  TeamEventParticipant?: Prisma.TeamEventParticipantUncheckedUpdateManyWithoutUserNestedInput
   favoriteTrainingPlans?: Prisma.FavoriteTrainingPlanUncheckedUpdateManyWithoutUserNestedInput
   fitFiles?: Prisma.FitFileUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
@@ -81582,6 +85373,9 @@ export type UserCountOutputType = {
   emailDeliveries: number
   emailPreferences: number
   events: number
+  TeamEventCreated: number
+  TeamEventPinned: number
+  TeamEventParticipant: number
   favoriteTrainingPlans: number
   fitFiles: number
   goals: number
@@ -81669,6 +85463,9 @@ export type UserCountOutputTypeSelect<
   emailDeliveries?: boolean | UserCountOutputTypeCountEmailDeliveriesArgs
   emailPreferences?: boolean | UserCountOutputTypeCountEmailPreferencesArgs
   events?: boolean | UserCountOutputTypeCountEventsArgs
+  TeamEventCreated?: boolean | UserCountOutputTypeCountTeamEventCreatedArgs
+  TeamEventPinned?: boolean | UserCountOutputTypeCountTeamEventPinnedArgs
+  TeamEventParticipant?: boolean | UserCountOutputTypeCountTeamEventParticipantArgs
   favoriteTrainingPlans?: boolean | UserCountOutputTypeCountFavoriteTrainingPlansArgs
   fitFiles?: boolean | UserCountOutputTypeCountFitFilesArgs
   goals?: boolean | UserCountOutputTypeCountGoalsArgs
@@ -81996,6 +85793,33 @@ export type UserCountOutputTypeCountEventsArgs<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   where?: Prisma.EventWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTeamEventCreatedArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  where?: Prisma.TeamEventWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTeamEventPinnedArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  where?: Prisma.TeamEventWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTeamEventParticipantArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  where?: Prisma.TeamEventParticipantWhereInput
 }
 
 /**
@@ -82630,6 +86454,9 @@ export type UserSelect<
     emailDeliveries?: boolean | Prisma.User$emailDeliveriesArgs<ExtArgs>
     emailPreferences?: boolean | Prisma.User$emailPreferencesArgs<ExtArgs>
     events?: boolean | Prisma.User$eventsArgs<ExtArgs>
+    TeamEventCreated?: boolean | Prisma.User$TeamEventCreatedArgs<ExtArgs>
+    TeamEventPinned?: boolean | Prisma.User$TeamEventPinnedArgs<ExtArgs>
+    TeamEventParticipant?: boolean | Prisma.User$TeamEventParticipantArgs<ExtArgs>
     favoriteTrainingPlans?: boolean | Prisma.User$favoriteTrainingPlansArgs<ExtArgs>
     fitFiles?: boolean | Prisma.User$fitFilesArgs<ExtArgs>
     goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
@@ -83239,6 +87066,9 @@ export type UserInclude<
   emailDeliveries?: boolean | Prisma.User$emailDeliveriesArgs<ExtArgs>
   emailPreferences?: boolean | Prisma.User$emailPreferencesArgs<ExtArgs>
   events?: boolean | Prisma.User$eventsArgs<ExtArgs>
+  TeamEventCreated?: boolean | Prisma.User$TeamEventCreatedArgs<ExtArgs>
+  TeamEventPinned?: boolean | Prisma.User$TeamEventPinnedArgs<ExtArgs>
+  TeamEventParticipant?: boolean | Prisma.User$TeamEventParticipantArgs<ExtArgs>
   favoriteTrainingPlans?: boolean | Prisma.User$favoriteTrainingPlansArgs<ExtArgs>
   fitFiles?: boolean | Prisma.User$fitFilesArgs<ExtArgs>
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
@@ -83343,6 +87173,9 @@ export type $UserPayload<
     emailDeliveries: Prisma.$EmailDeliveryPayload<ExtArgs>[]
     emailPreferences: Prisma.$EmailPreferencePayload<ExtArgs>[]
     events: Prisma.$EventPayload<ExtArgs>[]
+    TeamEventCreated: Prisma.$TeamEventPayload<ExtArgs>[]
+    TeamEventPinned: Prisma.$TeamEventPayload<ExtArgs>[]
+    TeamEventParticipant: Prisma.$TeamEventParticipantPayload<ExtArgs>[]
     favoriteTrainingPlans: Prisma.$FavoriteTrainingPlanPayload<ExtArgs>[]
     fitFiles: Prisma.$FitFilePayload<ExtArgs>[]
     goals: Prisma.$GoalPayload<ExtArgs>[]
@@ -84348,6 +88181,39 @@ export interface Prisma__UserClient<
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
         Prisma.$EventPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >
+  TeamEventCreated<T extends Prisma.User$TeamEventCreatedArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$TeamEventCreatedArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$TeamEventPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >
+  TeamEventPinned<T extends Prisma.User$TeamEventPinnedArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$TeamEventPinnedArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$TeamEventPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >
+  TeamEventParticipant<T extends Prisma.User$TeamEventParticipantArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$TeamEventParticipantArgs<ExtArgs>>
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$TeamEventParticipantPayload<ExtArgs>,
         T,
         'findMany',
         GlobalOmitOptions
@@ -86349,6 +90215,87 @@ export type User$eventsArgs<
   take?: number
   skip?: number
   distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[]
+}
+
+/**
+ * User.TeamEventCreated
+ */
+export type User$TeamEventCreatedArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the TeamEvent
+   */
+  select?: Prisma.TeamEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamEvent
+   */
+  omit?: Prisma.TeamEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamEventInclude<ExtArgs> | null
+  where?: Prisma.TeamEventWhereInput
+  orderBy?: Prisma.TeamEventOrderByWithRelationInput | Prisma.TeamEventOrderByWithRelationInput[]
+  cursor?: Prisma.TeamEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamEventScalarFieldEnum | Prisma.TeamEventScalarFieldEnum[]
+}
+
+/**
+ * User.TeamEventPinned
+ */
+export type User$TeamEventPinnedArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the TeamEvent
+   */
+  select?: Prisma.TeamEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamEvent
+   */
+  omit?: Prisma.TeamEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamEventInclude<ExtArgs> | null
+  where?: Prisma.TeamEventWhereInput
+  orderBy?: Prisma.TeamEventOrderByWithRelationInput | Prisma.TeamEventOrderByWithRelationInput[]
+  cursor?: Prisma.TeamEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamEventScalarFieldEnum | Prisma.TeamEventScalarFieldEnum[]
+}
+
+/**
+ * User.TeamEventParticipant
+ */
+export type User$TeamEventParticipantArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the TeamEventParticipant
+   */
+  select?: Prisma.TeamEventParticipantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamEventParticipant
+   */
+  omit?: Prisma.TeamEventParticipantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamEventParticipantInclude<ExtArgs> | null
+  where?: Prisma.TeamEventParticipantWhereInput
+  orderBy?:
+    | Prisma.TeamEventParticipantOrderByWithRelationInput
+    | Prisma.TeamEventParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.TeamEventParticipantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?:
+    Prisma.TeamEventParticipantScalarFieldEnum | Prisma.TeamEventParticipantScalarFieldEnum[]
 }
 
 /**
