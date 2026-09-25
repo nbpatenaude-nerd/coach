@@ -61,4 +61,30 @@ describe('resolveCoachingRole (CW-103)', () => {
     expect(role.isPureAthlete).toBe(false)
     expect(role.showFullCoachingSuite).toBe(true)
   })
+
+  it('unlocks the full suite when isCoachFlag is set even with own coaches and empty roster', () => {
+    const role = resolveCoachingRole({
+      coachedAthletesCount: 0,
+      pendingCoachRequestsCount: 0,
+      ownCoachesCount: 1,
+      isCoachFlag: true
+    })
+
+    expect(role.isCoachForAnyone).toBe(true)
+    expect(role.isPureAthlete).toBe(false)
+    expect(role.showFullCoachingSuite).toBe(true)
+  })
+
+  it('keeps pure-athlete nav when isCoachFlag is false/undefined', () => {
+    const role = resolveCoachingRole({
+      coachedAthletesCount: 0,
+      pendingCoachRequestsCount: 0,
+      ownCoachesCount: 1,
+      isCoachFlag: false
+    })
+
+    expect(role.isCoachForAnyone).toBe(false)
+    expect(role.isPureAthlete).toBe(true)
+    expect(role.showFullCoachingSuite).toBe(false)
+  })
 })

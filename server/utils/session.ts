@@ -15,6 +15,7 @@ export interface CustomSession {
     deactivatedAt?: string | Date | null
     id: string
     isAdmin: boolean
+    isCoach?: boolean
     isImpersonating?: boolean
     isCoaching?: boolean
     originalUserId?: string
@@ -72,6 +73,7 @@ export async function getServerSession(event: H3Event): Promise<CustomSession | 
           uiLanguage: targetUser.uiLanguage ?? null,
           deactivatedAt: targetUser.deactivatedAt ?? null,
           isAdmin: (targetUser as any).isAdmin || false,
+          isCoach: (targetUser as any).isCoach || false,
           isImpersonating: true,
           originalUserId: (session.user as any).id,
           originalUserEmail: session.user.email
@@ -108,6 +110,7 @@ export async function getServerSession(event: H3Event): Promise<CustomSession | 
             uiLanguage: targetUser.uiLanguage ?? null,
             deactivatedAt: targetUser.deactivatedAt ?? null,
             isAdmin: (targetUser as any).isAdmin || false,
+            isCoach: (targetUser as any).isCoach || false,
             isCoaching: true,
             originalUserId: currentUserId,
             originalUserEmail: session.user.email
