@@ -9,13 +9,39 @@ export type StreamOption = { label: string; value: string }
 const STREAM_META: Record<string, { label: string; color: string; unit: string }> = {
   heartrate: { label: 'Heart Rate', color: '#ef4444', unit: ' bpm' },
   altitude: { label: 'Altitude', color: '#10b981', unit: 'm' },
+  velocity: { label: 'Speed/Pace', color: '#3b82f6', unit: '' },
   watts: { label: 'Power', color: '#8b5cf6', unit: 'W' },
-  velocity: { label: 'Pace', color: '#3b82f6', unit: '' },
   cadence: { label: 'Cadence', color: '#f59e0b', unit: ' rpm' },
+  grade: { label: 'Grade', color: '#6b7280', unit: '%' },
+  distance: { label: 'Distance', color: '#4b5563', unit: 'm' },
+  moving: { label: 'Moving', color: '#94a3b8', unit: '' },
+  torque: { label: 'Torque', color: '#f97316', unit: ' N-m' },
   temp: { label: 'Temperature', color: '#06b6d4', unit: '°C' },
-  grade: { label: 'Grade', color: '#14b8a6', unit: '%' },
-  distance: { label: 'Distance', color: '#6366f1', unit: 'm' }
+  respiration: { label: 'Respiration', color: '#ec4899', unit: ' brpm' },
+  hrv: { label: 'HRV', color: '#84cc16', unit: ' ms' },
+  leftRightBalance: { label: 'L/R Balance', color: '#d946ef', unit: '%' },
+  targetPower: { label: 'Target Power', color: '#10b981', unit: 'W' },
+  target_power: { label: 'Target Power', color: '#10b981', unit: 'W' }
 }
+
+/** Preferred display order for Timeline-style channel pills */
+const STREAM_ORDER = [
+  'heartrate',
+  'altitude',
+  'velocity',
+  'watts',
+  'cadence',
+  'grade',
+  'distance',
+  'moving',
+  'torque',
+  'temp',
+  'respiration',
+  'hrv',
+  'leftRightBalance',
+  'targetPower',
+  'target_power'
+]
 
 const STREAM_BLACKLIST = new Set([
   'time',
@@ -38,7 +64,43 @@ const STREAM_BLACKLIST = new Set([
 ])
 
 export function getStreamMetadata(key: string) {
-  return STREAM_META[key] || { label: key, color: '#9ca3af', unit: '' }
+  if (STREAM_META[key]) return STREAM_META[key]
+  // Humanize unknown/calculated stream keys (e.g. verticalOscillation → Vertical Oscillation)
+  const label = key
+    .replace(/_/g, ' ')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+  return { label, color: '#9ca3af', unit: '' }
+}
+
+function isPlottableStream(data: unknown): boolean {
+  if (!Array.isArray(data) || data.length === 0) return false
+  // Accept numeric streams and boolean moving flags
+  const sample = data.find((v) => v != null)
+  return typeof sample === 'number' || typeof sample === 'boolean'
+}
+
+/** Normalize alias keys so charts always read a single canonical key. */
+function normalizeStreams(streams: Record<string, any> | null | undefined) {
+  if (!streams || typeof streams !== 'object') return streams
+  const next = { ...streams }
+  if (
+    (!next.targetPower || !Array.isArray(next.targetPower) || next.targetPower.length === 0) &&
+    Array.isArray(next.target_power) &&
+    next.target_power.length > 0
+  ) {
+    next.targetPower = next.target_power
+  }
+  if (
+    (!next.leftRightBalance ||
+      !Array.isArray(next.leftRightBalance) ||
+      next.leftRightBalance.length === 0) &&
+    Array.isArray(next.left_right_balance) &&
+    next.left_right_balance.length > 0
+  ) {
+    next.leftRightBalance = next.left_right_balance
+  }
+  return next
 }
 
 export function useWorkoutAnalyzerState(options: {
@@ -95,17 +157,36 @@ export function useWorkoutAnalyzerState(options: {
     const availableKeys = new Set(Object.keys(streams))
     selectedStreamValues.value.forEach((key) => availableKeys.add(key))
 
-    return Array.from(availableKeys)
+    // Prefer targetPower over target_power when both exist
+    if (availableKeys.has('targetPower') && availableKeys.has('target_power')) {
+      availableKeys.delete('target_power')
+    }
+    if (availableKeys.has('leftRightBalance') && availableKeys.has('left_right_balance')) {
+      availableKeys.delete('left_right_balance')
+    }
+
+    const options = Array.from(availableKeys)
       .filter((key) => {
+        if (STREAM_BLACKLIST.has(key)) return false
         const data = streams[key]
-        const isArray = Array.isArray(data)
+        const isArray = Array.isArray(data) && data.length > 0
         const isSelected = selectedStreamValues.value.includes(key)
-        return (isArray && STREAM_META[key] && !STREAM_BLACKLIST.has(key)) || isSelected
+        // Known Timeline channels or any other numeric array stream (calculated channels)
+        return (isArray && (STREAM_META[key] || isPlottableStream(data))) || isSelected
       })
       .map((key) => ({
         label: getStreamMetadata(key).label,
         value: key
       }))
+
+    return options.sort((a, b) => {
+      const ai = STREAM_ORDER.indexOf(a.value)
+      const bi = STREAM_ORDER.indexOf(b.value)
+      const aRank = ai === -1 ? STREAM_ORDER.length : ai
+      const bRank = bi === -1 ? STREAM_ORDER.length : bi
+      if (aRank !== bRank) return aRank - bRank
+      return a.label.localeCompare(b.label)
+    })
   })
 
   const zoomedStreams = computed(() => {
@@ -451,10 +532,11 @@ export function useWorkoutAnalyzerState(options: {
     error.value = null
     try {
       const workoutReq = api.workout()
-      const [workoutData, streamsData] = await Promise.all([
+      const [workoutData, streamsDataRaw] = await Promise.all([
         $fetch<any>(workoutReq.url, { query: workoutReq.query as any }),
         $fetch<any>(api.streams())
       ])
+      const streamsData = normalizeStreams(streamsDataRaw)
 
       workout.value = { ...workoutData, streams: streamsData }
       lapSplits.value = Array.isArray(streamsData?.lapSplits) ? streamsData.lapSplits : []

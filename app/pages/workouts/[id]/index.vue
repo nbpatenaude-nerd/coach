@@ -1460,16 +1460,16 @@
                       "
                     />
 
-                    <!-- Map Analysis shortcut -->
+                    <!-- Analyze 360 shortcut (scrolls to embedded Map+Timeline analyzer) -->
                     <UButton
-                      :to="`/workouts/${workout.id}/map`"
-                      icon="i-heroicons-map"
+                      icon="i-heroicons-chart-bar-square"
                       color="primary"
                       variant="subtle"
                       size="sm"
                       class="order-3 w-full justify-center font-bold sm:order-none sm:ml-2 sm:w-auto"
+                      @click="openAnalyze360"
                     >
-                      {{ t('map_analysis') }}
+                      {{ t('analyze_360') }}
                     </UButton>
 
                     <div class="ml-auto flex flex-wrap items-center justify-end gap-2 sm:items-end">
@@ -2713,36 +2713,20 @@
             <AdvancedWorkoutMetrics :workout-id="workout.id" @open-metric="handleOpenMetric" />
           </div>
 
-          <!-- Route Map Section -->
+          <!-- Combined Map + Timeline (TP-style analyzer) -->
           <div
-            v-if="shouldRenderSection('map')"
+            v-if="shouldRenderSection('map') || shouldRenderSection('timeline')"
             id="map"
             class="scroll-mt-20 space-y-4"
-            :style="sectionStyle('map')"
+            :style="shouldRenderSection('map') ? sectionStyle('map') : sectionStyle('timeline')"
           >
-            <h2
-              class="text-base font-black uppercase tracking-widest text-gray-400 px-4 sm:px-0 flex items-center justify-between w-full"
-            >
-              <span>{{ t('sections_map') }}</span>
-              <UButton
-                icon="i-heroicons-arrows-pointing-out"
-                size="xs"
-                variant="ghost"
-                color="neutral"
-                class="font-black uppercase tracking-widest text-[9px]"
-                :to="`/workouts/${workout.id}/map`"
-              >
-                {{ t('map_analysis') }}
-              </UButton>
-            </h2>
-            <UiWorkoutMap
-              :coordinates="workout.streams.latlng"
-              :streams="workout.streams"
+            <WorkoutAnalyzerShell
+              ref="workoutAnalyzerRef"
+              embedded
               :workout-id="workout.id"
-              :interactive="true"
-              :provider="workout.source"
-              :provider-label="getWorkoutSourceLabel(workout, t)"
-              :device-name="workout.deviceName"
+              :scope="{ kind: 'athlete' }"
+              :map-label="t('sections_map')"
+              :timeline-label="t('sections_timeline')"
             />
           </div>
 
@@ -2761,19 +2745,6 @@
               :activity-type="workout.type"
               @open-metric="handleOpenMetric"
             />
-          </div>
-
-          <!-- Timeline -->
-          <div
-            v-if="shouldRenderSection('timeline')"
-            id="timeline"
-            class="scroll-mt-20 space-y-4"
-            :style="sectionStyle('timeline')"
-          >
-            <h2 class="text-base font-black uppercase tracking-widest text-gray-400 px-5 sm:px-0">
-              {{ t('sections_timeline') }}
-            </h2>
-            <WorkoutTimeline :workout-id="workout.id" />
           </div>
 
           <!-- Zones -->
@@ -3800,6 +3771,9 @@
   )
 
   const workout = ref<any>(null)
+  const workoutAnalyzerRef = ref<{
+    setAnalyzerMode?: (mode: 'classic' | 'analyze360') => void
+  } | null>(null)
   const loading = ref(true)
   const error = ref<string | null>(null)
   const deferredSectionsReady = ref(false)
@@ -4759,6 +4733,13 @@
     rating?: string
     ratingColor?: 'success' | 'warning' | 'error' | 'neutral'
   } | null>(null)
+
+  function openAnalyze360() {
+    workoutAnalyzerRef.value?.setAnalyzerMode?.('analyze360')
+    if (import.meta.client) {
+      document.getElementById('map')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   function handleOpenMetric(metric: any) {
     activeMetric.value = metric

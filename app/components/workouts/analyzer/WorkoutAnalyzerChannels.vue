@@ -1,66 +1,70 @@
 <template>
   <div class="flex h-full min-h-0 flex-col">
     <div
-      class="flex flex-col gap-2 border-b border-default/60 bg-muted/10 p-3 sm:flex-row sm:items-center sm:justify-between"
+      class="flex flex-col gap-2 border-b border-default/60 bg-muted/10 p-3 sm:flex-row sm:items-start sm:justify-between"
     >
-      <div class="flex min-w-0 flex-wrap items-center gap-2">
-        <h3 class="text-[10px] font-black uppercase tracking-widest text-muted">Channels</h3>
-        <UButton
-          v-if="hasZoom"
-          icon="i-heroicons-magnifying-glass-minus"
-          size="xs"
-          color="neutral"
-          variant="outline"
-          @click="$emit('reset-zoom')"
-        >
-          Reset Zoom
-        </UButton>
-        <UButton
-          v-if="hasSelection"
-          icon="i-heroicons-x-mark"
-          size="xs"
-          color="neutral"
-          variant="outline"
-          @click="$emit('clear-selection')"
-        >
-          Clear Selection
-        </UButton>
-        <client-only>
-          <USelectMenu
-            :model-value="streamValues"
-            multiple
-            placeholder="Add streams..."
-            :items="availableOptions"
-            value-key="value"
-            label-key="label"
-            size="xs"
-            class="min-w-[10rem]"
-            @update:model-value="$emit('update:stream-values', $event)"
-          />
-        </client-only>
-        <div
-          v-if="!compact"
-          class="inline-flex items-center rounded-lg border border-default/60 p-0.5"
-        >
+      <div class="flex min-w-0 flex-col gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <h3 class="text-[10px] font-black uppercase tracking-widest text-muted">Channels</h3>
           <UButton
+            v-if="hasZoom"
+            icon="i-heroicons-magnifying-glass-minus"
             size="xs"
             color="neutral"
-            :variant="layoutMode === 'default' ? 'soft' : 'ghost'"
-            @click="$emit('update:layout-mode', 'default')"
+            variant="outline"
+            @click="$emit('reset-zoom')"
           >
-            Overlay
+            Reset Zoom
           </UButton>
           <UButton
+            v-if="hasSelection"
+            icon="i-heroicons-x-mark"
             size="xs"
             color="neutral"
-            :variant="layoutMode === 'chart-focus' ? 'soft' : 'ghost'"
-            @click="$emit('update:layout-mode', 'chart-focus')"
+            variant="outline"
+            @click="$emit('clear-selection')"
           >
-            Stacked
+            Clear Selection
+          </UButton>
+          <div
+            v-if="!compact"
+            class="inline-flex items-center rounded-lg border border-default/60 p-0.5"
+          >
+            <UButton
+              size="xs"
+              color="neutral"
+              :variant="layoutMode === 'default' ? 'soft' : 'ghost'"
+              @click="$emit('update:layout-mode', 'default')"
+            >
+              Overlay
+            </UButton>
+            <UButton
+              size="xs"
+              color="neutral"
+              :variant="layoutMode === 'chart-focus' ? 'soft' : 'ghost'"
+              @click="$emit('update:layout-mode', 'chart-focus')"
+            >
+              Stacked
+            </UButton>
+          </div>
+        </div>
+
+        <!-- Timeline-style channel pills -->
+        <div class="flex flex-wrap gap-1.5">
+          <UButton
+            v-for="option in availableOptions"
+            :key="option.value"
+            size="xs"
+            :color="isSelected(option.value) ? 'primary' : 'neutral'"
+            :variant="isSelected(option.value) ? 'solid' : 'ghost'"
+            class="font-black uppercase tracking-widest text-[9px] px-2.5"
+            @click="toggleStream(option)"
+          >
+            {{ option.label }}
           </UButton>
         </div>
       </div>
-      <div v-if="cursorLabel" class="text-[10px] font-black uppercase text-primary">
+      <div v-if="cursorLabel" class="shrink-0 text-[10px] font-black uppercase text-primary">
         {{ cursorLabel }}
       </div>
     </div>
@@ -195,7 +199,25 @@
     return getStreamMetadata(key)
   }
 
+  function isSelected(value: string) {
+    return props.streamValues.includes(value)
+  }
+
+  function toggleStream(option: StreamOption) {
+    if (isSelected(option.value)) {
+      // Keep at least one channel selected
+      if (props.streamValues.length <= 1) return
+      emit(
+        'update:stream-objects',
+        props.streamObjects.filter((s) => s.value !== option.value)
+      )
+      return
+    }
+    emit('update:stream-objects', [...props.streamObjects, option])
+  }
+
   function removeStream(value: string) {
+    if (props.streamObjects.length <= 1) return
     emit(
       'update:stream-objects',
       props.streamObjects.filter((s) => s.value !== value)

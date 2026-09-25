@@ -11,7 +11,9 @@
       :title="error"
     />
     <template v-else>
+      <!-- Standalone page header -->
       <div
+        v-if="!embedded"
         class="flex flex-col gap-3 rounded-xl border border-default/70 bg-default/40 px-3 py-3 sm:flex-row sm:items-center sm:justify-between"
       >
         <div class="min-w-0">
@@ -50,27 +52,68 @@
         </div>
       </div>
 
-      <!-- Classic layout -->
+      <!-- Classic: Map stacked above Timeline -->
       <div
         v-if="analyzerMode === 'classic'"
-        class="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-12 lg:grid-rows-[minmax(240px,0.42fr)_minmax(280px,0.58fr)]"
+        :class="
+          embedded
+            ? 'flex min-h-0 flex-1 flex-col gap-4'
+            : 'grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-12 lg:grid-rows-[minmax(240px,0.42fr)_minmax(280px,0.58fr)]'
+        "
       >
-        <div
-          class="min-h-[240px] overflow-hidden rounded-xl border border-default/70 bg-muted/10 lg:col-span-8 lg:row-start-1"
-        >
-          <UiWorkoutMap
-            :coordinates="workout?.streams?.latlng || summaryPolylineCoordinates"
-            :streams="workout?.streams"
-            :loading="loading"
-            :workout-id="workout?.id"
-            :highlight-index="hoverIndex"
-            :highlight-range="activeHighlightRange"
-            :interactive="true"
-            class="!h-full !rounded-none !border-0"
-          />
+        <!-- MAP -->
+        <div :class="embedded ? 'space-y-2' : 'contents'">
+          <div v-if="embedded" class="flex items-center justify-between gap-2 px-1 sm:px-0">
+            <h2 class="text-base font-black uppercase tracking-widest text-gray-400">
+              {{ mapLabel }}
+            </h2>
+            <div
+              class="inline-flex items-center rounded-xl border border-default/70 bg-muted/20 p-1"
+            >
+              <UButton
+                size="xs"
+                color="neutral"
+                :variant="analyzerMode === 'classic' ? 'soft' : 'ghost'"
+                @click="analyzerMode = 'classic'"
+              >
+                Classic
+              </UButton>
+              <UButton
+                size="xs"
+                color="neutral"
+                :variant="analyzerMode === 'analyze360' ? 'soft' : 'ghost'"
+                @click="analyzerMode = 'analyze360'"
+              >
+                Analyze 360
+              </UButton>
+            </div>
+          </div>
+          <div
+            :class="
+              embedded
+                ? 'min-h-[220px] overflow-hidden rounded-xl border border-default/70 bg-muted/10 sm:min-h-[280px]'
+                : 'min-h-[240px] overflow-hidden rounded-xl border border-default/70 bg-muted/10 lg:col-span-8 lg:row-start-1'
+            "
+            :style="embedded ? { height: '280px' } : undefined"
+          >
+            <UiWorkoutMap
+              :coordinates="workout?.streams?.latlng || summaryPolylineCoordinates"
+              :streams="workout?.streams"
+              :loading="loading"
+              :workout-id="workout?.id"
+              :highlight-index="hoverIndex"
+              :highlight-range="activeHighlightRange"
+              :interactive="true"
+              :provider="workout?.source"
+              :device-name="workout?.deviceName"
+              class="!h-full !rounded-none !border-0"
+            />
+          </div>
         </div>
 
+        <!-- Selection + Laps (standalone classic: right rail) -->
         <div
+          v-if="!embedded"
           class="flex min-h-[280px] flex-col overflow-hidden rounded-xl border border-default/70 bg-default lg:col-span-4 lg:row-span-2"
         >
           <WorkoutAnalyzerSelectionPanel
@@ -99,35 +142,119 @@
           />
         </div>
 
+        <!-- TIMELINE -->
         <div
-          class="flex min-h-[280px] flex-col overflow-hidden rounded-xl border border-default/70 bg-default lg:col-span-8 lg:row-start-2"
+          id="timeline"
+          :class="
+            embedded
+              ? 'scroll-mt-20 space-y-2'
+              : 'flex min-h-[280px] flex-col overflow-hidden rounded-xl border border-default/70 bg-default lg:col-span-8 lg:row-start-2'
+          "
         >
-          <WorkoutAnalyzerChannels
-            :stream-objects="selectedStreamObjects"
-            :stream-values="selectedStreamValues"
-            :available-options="availableStreamOptions"
-            :zoomed-streams="zoomedStreams"
-            :hover-index="zoomedHoverIndex"
-            :highlight-range="zoomedActiveHighlightRange"
-            :layout-mode="layoutMode"
-            :has-zoom="!!zoomRange"
-            :has-selection="!!selectedSegmentRange"
-            :cursor-label="cursorLabel"
-            @update:stream-objects="selectedStreamObjects = $event"
-            @update:stream-values="selectedStreamValues = $event"
-            @update:layout-mode="layoutMode = $event"
-            @hover="onChartHover"
-            @leave="onChartLeave"
-            @zoom="onChartZoom"
-            @select="onChartSelect"
-            @reset-zoom="resetZoom"
-            @clear-selection="clearSelectedSegment"
-          />
+          <h2
+            v-if="embedded"
+            class="px-1 text-base font-black uppercase tracking-widest text-gray-400 sm:px-0"
+          >
+            {{ timelineLabel }}
+          </h2>
+
+          <div
+            :class="
+              embedded ? 'grid grid-cols-1 gap-3 lg:grid-cols-12' : 'flex min-h-0 flex-1 flex-col'
+            "
+          >
+            <div
+              :class="
+                embedded
+                  ? 'min-h-[320px] overflow-hidden rounded-xl border border-default/70 bg-default lg:col-span-8'
+                  : 'flex min-h-0 flex-1 flex-col'
+              "
+            >
+              <WorkoutAnalyzerChannels
+                :stream-objects="selectedStreamObjects"
+                :stream-values="selectedStreamValues"
+                :available-options="availableStreamOptions"
+                :zoomed-streams="zoomedStreams"
+                :hover-index="zoomedHoverIndex"
+                :highlight-range="zoomedActiveHighlightRange"
+                :layout-mode="layoutMode"
+                :has-zoom="!!zoomRange"
+                :has-selection="!!selectedSegmentRange"
+                :cursor-label="cursorLabel"
+                @update:stream-objects="selectedStreamObjects = $event"
+                @update:stream-values="selectedStreamValues = $event"
+                @update:layout-mode="layoutMode = $event"
+                @hover="onChartHover"
+                @leave="onChartLeave"
+                @zoom="onChartZoom"
+                @select="onChartSelect"
+                @reset-zoom="resetZoom"
+                @clear-selection="clearSelectedSegment"
+              />
+            </div>
+
+            <div
+              v-if="embedded"
+              class="flex min-h-[280px] flex-col overflow-hidden rounded-xl border border-default/70 bg-default lg:col-span-4"
+            >
+              <WorkoutAnalyzerSelectionPanel
+                :has-selection="!!selectedSegmentRange"
+                :selection-label="selectedSegmentLabel"
+                :selection-metrics="selectedSegmentMetricItems"
+                :entire-metrics="entireWorkoutMetricItems"
+                :loading="selectedSegmentLoading"
+                :error="selectedSegmentError"
+                @clear="clearSelectedSegment"
+              />
+              <WorkoutAnalyzerLapsPanel
+                class="min-h-0 flex-1"
+                :laps="lapSplits"
+                :intervals="detectedIntervals"
+                :climbs="detectedClimbs"
+                :peaks="peakPowerWindows"
+                :zones="hrZones"
+                :active-tab="segmentTab"
+                :selected-lap="selectedLapNumber"
+                @update:active-tab="segmentTab = $event"
+                @hover="onSplitHover"
+                @leave="onSplitLeave"
+                @select-lap="selectLap"
+                @select-peak="selectPeakWindow"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Analyze 360 -->
       <div v-else class="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-12">
+        <div
+          v-if="embedded"
+          class="flex items-center justify-between gap-2 px-1 sm:px-0 lg:col-span-12"
+        >
+          <h2 class="text-base font-black uppercase tracking-widest text-gray-400">
+            {{ mapLabel }} · {{ timelineLabel }}
+          </h2>
+          <div class="inline-flex items-center rounded-xl border border-default/70 bg-muted/20 p-1">
+            <UButton
+              size="xs"
+              color="neutral"
+              :variant="analyzerMode === 'classic' ? 'soft' : 'ghost'"
+              @click="analyzerMode = 'classic'"
+            >
+              Classic
+            </UButton>
+            <UButton
+              size="xs"
+              color="neutral"
+              :variant="analyzerMode === 'analyze360' ? 'soft' : 'ghost'"
+              @click="analyzerMode = 'analyze360'"
+            >
+              Analyze 360
+            </UButton>
+          </div>
+        </div>
+
         <aside
           class="space-y-3 rounded-xl border border-default/70 bg-default p-3 lg:col-span-2 lg:overflow-y-auto"
         >
@@ -169,11 +296,13 @@
               :highlight-index="hoverIndex"
               :highlight-range="activeHighlightRange"
               :interactive="true"
+              :provider="workout?.source"
+              :device-name="workout?.deviceName"
               class="!h-[220px] !rounded-none !border-0"
             />
           </div>
 
-          <div class="rounded-xl border border-default/70 bg-default">
+          <div id="timeline" class="scroll-mt-20 rounded-xl border border-default/70 bg-default">
             <WorkoutAnalyzerChannels
               :stream-objects="selectedStreamObjects"
               :stream-values="selectedStreamValues"
@@ -239,16 +368,28 @@
 
 <script setup lang="ts">
   import type { WorkoutAnalysisScope } from '~/utils/workoutAnalysisApi'
+  import type { AnalyzerMode } from '~/composables/useWorkoutAnalyzerState'
   import WorkoutAnalyzerChannels from '~/components/workouts/analyzer/WorkoutAnalyzerChannels.vue'
   import WorkoutAnalyzerSelectionPanel from '~/components/workouts/analyzer/WorkoutAnalyzerSelectionPanel.vue'
   import WorkoutAnalyzerLapsPanel from '~/components/workouts/analyzer/WorkoutAnalyzerLapsPanel.vue'
   import WorkoutAnalyzerChartsLibrary from '~/components/workouts/analyzer/WorkoutAnalyzerChartsLibrary.vue'
   import WorkoutAnalyzerExtendedPanels from '~/components/workouts/analyzer/WorkoutAnalyzerExtendedPanels.vue'
 
-  const props = defineProps<{
-    workoutId: string
-    scope: WorkoutAnalysisScope
-  }>()
+  const props = withDefaults(
+    defineProps<{
+      workoutId: string
+      scope: WorkoutAnalysisScope
+      /** Inline on the deep workout analysis page (Map + Timeline stacked). */
+      embedded?: boolean
+      mapLabel?: string
+      timelineLabel?: string
+    }>(),
+    {
+      embedded: false,
+      mapLabel: 'Map',
+      timelineLabel: 'Timeline'
+    }
+  )
 
   const state = useWorkoutAnalyzerState({
     workoutId: props.workoutId,
@@ -320,10 +461,16 @@
     void load()
   })
 
+  function setAnalyzerMode(mode: AnalyzerMode) {
+    analyzerMode.value = mode
+  }
+
   defineExpose({
     loading,
     error,
     workout,
+    analyzerMode,
+    setAnalyzerMode,
     reload: load
   })
 </script>
