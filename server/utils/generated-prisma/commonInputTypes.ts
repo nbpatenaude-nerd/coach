@@ -908,6 +908,27 @@ export type EnumTeamRoleWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumTeamRoleFilter<$PrismaModel>
 }
 
+export type EnumWeeklyCheckInStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyCheckInStatus | Prisma.EnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeeklyCheckInStatusFilter<$PrismaModel> | $Enums.WeeklyCheckInStatus
+}
+
+export type EnumWeeklyCheckInStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyCheckInStatus | Prisma.EnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  not?:
+    | Prisma.NestedEnumWeeklyCheckInStatusWithAggregatesFilter<$PrismaModel>
+    | $Enums.WeeklyCheckInStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWeeklyCheckInStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWeeklyCheckInStatusFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1731,4 +1752,25 @@ export type NestedEnumTeamRoleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumTeamRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumTeamRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumWeeklyCheckInStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyCheckInStatus | Prisma.EnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWeeklyCheckInStatusFilter<$PrismaModel> | $Enums.WeeklyCheckInStatus
+}
+
+export type NestedEnumWeeklyCheckInStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WeeklyCheckInStatus | Prisma.EnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  notIn?:
+    $Enums.WeeklyCheckInStatus[] | Prisma.ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel>
+  not?:
+    | Prisma.NestedEnumWeeklyCheckInStatusWithAggregatesFilter<$PrismaModel>
+    | $Enums.WeeklyCheckInStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWeeklyCheckInStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWeeklyCheckInStatusFilter<$PrismaModel>
 }

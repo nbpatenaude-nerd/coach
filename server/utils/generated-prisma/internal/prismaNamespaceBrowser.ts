@@ -165,6 +165,7 @@ export const ModelName = {
   CoachFeedback: 'CoachFeedback',
   ScheduledTaskConfig: 'ScheduledTaskConfig',
   PasswordResetToken: 'PasswordResetToken',
+  CheckInForm: 'CheckInForm',
   WeeklyCheckIn: 'WeeklyCheckIn'
 } as const
 
@@ -2607,19 +2608,41 @@ export const PasswordResetTokenScalarFieldEnum = {
 export type PasswordResetTokenScalarFieldEnum =
   (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
+export const CheckInFormScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  title: 'title',
+  description: 'description',
+  sections: 'sections',
+  isActive: 'isActive',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CheckInFormScalarFieldEnum =
+  (typeof CheckInFormScalarFieldEnum)[keyof typeof CheckInFormScalarFieldEnum]
+
 export const WeeklyCheckInScalarFieldEnum = {
   id: 'id',
   athleteId: 'athleteId',
-  coachId: 'coachId',
+  formId: 'formId',
   weekStartDate: 'weekStartDate',
+  responses: 'responses',
   submittedAt: 'submittedAt',
+  updatedAt: 'updatedAt',
+  status: 'status',
+  coachId: 'coachId',
+  coachNotes: 'coachNotes',
+  coachVideoUrl: 'coachVideoUrl',
+  coachVideoAddedAt: 'coachVideoAddedAt',
+  coachReviewedAt: 'coachReviewedAt',
   feelingScore: 'feelingScore',
   fatigueScore: 'fatigueScore',
   stressScore: 'stressScore',
   sleepQuality: 'sleepQuality',
   notes: 'notes',
-  coachFeedback: 'coachFeedback',
-  coachReviewedAt: 'coachReviewedAt'
+  coachFeedback: 'coachFeedback'
 } as const
 
 export type WeeklyCheckInScalarFieldEnum =

@@ -2938,26 +2938,60 @@ model PasswordResetToken {
   @@unique([email, token])
 }
 
+/// Form definition for weekly check-ins (sections/fields as JSON).
+model CheckInForm {
+  id          String          @id @default(uuid())
+  slug        String          @unique
+  title       String
+  description String?
+  sections    Json
+  isActive    Boolean         @default(true)
+  version     Int             @default(1)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  checkIns    WeeklyCheckIn[]
+
+  @@index([isActive])
+}
+
+/// One athlete submission for one week. Unique on [athleteId, weekStartDate]
+/// so re-submitting within the window edits rather than duplicates.
 model WeeklyCheckIn {
-  id            String   @id @default(cuid())
-  athleteId     String
-  coachId       String?
-  weekStartDate DateTime // The Sunday that starts this week
-  submittedAt   DateTime @default(now())
+  id                String              @id @default(uuid())
+  athleteId         String
+  formId            String?
+  /// Monday of the week being reported on, in the athlete's timezone.
+  weekStartDate     DateTime            @db.Date
+  /// Answers keyed by CheckInField.id — see shared/check-in.ts.
+  responses         Json                @default("{}")
+  submittedAt       DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  status            WeeklyCheckInStatus @default(SUBMITTED)
+  coachId           String?
+  coachNotes        String?
+  coachVideoUrl     String?
+  coachVideoAddedAt DateTime?
+  coachReviewedAt   DateTime?
 
-  // Basic check-in data
-  feelingScore Int? // 1-10
-  fatigueScore Int? // 1-10
-  stressScore  Int? // 1-10
-  sleepQuality Int? // 1-10
+  /// Transitional shim columns (see 20260921130000_weekly_check_in_back_compat).
+  /// Kept until old generated clients are fully retired.
+  feelingScore      Int?
+  fatigueScore      Int?
+  stressScore       Int?
+  sleepQuality      Int?
+  notes             String?
+  coachFeedback     String?
 
-  notes           String?   @db.Text
-  coachFeedback   String?   @db.Text
-  coachReviewedAt DateTime?
-
-  athlete User @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+  athlete User         @relation(fields: [athleteId], references: [id], onDelete: Cascade)
+  form    CheckInForm? @relation(fields: [formId], references: [id], onDelete: SetNull)
 
   @@unique([athleteId, weekStartDate])
-  @@index([athleteId])
-  @@index([coachId])
+  @@index([athleteId, weekStartDate])
+  @@index([coachId, status])
+  @@index([weekStartDate, status])
+}
+
+enum WeeklyCheckInStatus {
+  SUBMITTED
+  REVIEWED
 }

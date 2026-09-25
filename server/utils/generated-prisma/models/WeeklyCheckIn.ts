@@ -13,7 +13,8 @@ import type * as Prisma from '../internal/prismaNamespace.js'
 
 /**
  * Model WeeklyCheckIn
- *
+ * One athlete submission for one week. Unique on [athleteId, weekStartDate]
+ * so re-submitting within the window edits rather than duplicates.
  */
 export type WeeklyCheckInModel = runtime.Types.Result.DefaultSelection<Prisma.$WeeklyCheckInPayload>
 
@@ -42,46 +43,65 @@ export type WeeklyCheckInSumAggregateOutputType = {
 export type WeeklyCheckInMinAggregateOutputType = {
   id: string | null
   athleteId: string | null
-  coachId: string | null
+  formId: string | null
   weekStartDate: Date | null
   submittedAt: Date | null
+  updatedAt: Date | null
+  status: $Enums.WeeklyCheckInStatus | null
+  coachId: string | null
+  coachNotes: string | null
+  coachVideoUrl: string | null
+  coachVideoAddedAt: Date | null
+  coachReviewedAt: Date | null
   feelingScore: number | null
   fatigueScore: number | null
   stressScore: number | null
   sleepQuality: number | null
   notes: string | null
   coachFeedback: string | null
-  coachReviewedAt: Date | null
 }
 
 export type WeeklyCheckInMaxAggregateOutputType = {
   id: string | null
   athleteId: string | null
-  coachId: string | null
+  formId: string | null
   weekStartDate: Date | null
   submittedAt: Date | null
+  updatedAt: Date | null
+  status: $Enums.WeeklyCheckInStatus | null
+  coachId: string | null
+  coachNotes: string | null
+  coachVideoUrl: string | null
+  coachVideoAddedAt: Date | null
+  coachReviewedAt: Date | null
   feelingScore: number | null
   fatigueScore: number | null
   stressScore: number | null
   sleepQuality: number | null
   notes: string | null
   coachFeedback: string | null
-  coachReviewedAt: Date | null
 }
 
 export type WeeklyCheckInCountAggregateOutputType = {
   id: number
   athleteId: number
-  coachId: number
+  formId: number
   weekStartDate: number
+  responses: number
   submittedAt: number
+  updatedAt: number
+  status: number
+  coachId: number
+  coachNotes: number
+  coachVideoUrl: number
+  coachVideoAddedAt: number
+  coachReviewedAt: number
   feelingScore: number
   fatigueScore: number
   stressScore: number
   sleepQuality: number
   notes: number
   coachFeedback: number
-  coachReviewedAt: number
   _all: number
 }
 
@@ -102,46 +122,65 @@ export type WeeklyCheckInSumAggregateInputType = {
 export type WeeklyCheckInMinAggregateInputType = {
   id?: true
   athleteId?: true
-  coachId?: true
+  formId?: true
   weekStartDate?: true
   submittedAt?: true
+  updatedAt?: true
+  status?: true
+  coachId?: true
+  coachNotes?: true
+  coachVideoUrl?: true
+  coachVideoAddedAt?: true
+  coachReviewedAt?: true
   feelingScore?: true
   fatigueScore?: true
   stressScore?: true
   sleepQuality?: true
   notes?: true
   coachFeedback?: true
-  coachReviewedAt?: true
 }
 
 export type WeeklyCheckInMaxAggregateInputType = {
   id?: true
   athleteId?: true
-  coachId?: true
+  formId?: true
   weekStartDate?: true
   submittedAt?: true
+  updatedAt?: true
+  status?: true
+  coachId?: true
+  coachNotes?: true
+  coachVideoUrl?: true
+  coachVideoAddedAt?: true
+  coachReviewedAt?: true
   feelingScore?: true
   fatigueScore?: true
   stressScore?: true
   sleepQuality?: true
   notes?: true
   coachFeedback?: true
-  coachReviewedAt?: true
 }
 
 export type WeeklyCheckInCountAggregateInputType = {
   id?: true
   athleteId?: true
-  coachId?: true
+  formId?: true
   weekStartDate?: true
+  responses?: true
   submittedAt?: true
+  updatedAt?: true
+  status?: true
+  coachId?: true
+  coachNotes?: true
+  coachVideoUrl?: true
+  coachVideoAddedAt?: true
+  coachReviewedAt?: true
   feelingScore?: true
   fatigueScore?: true
   stressScore?: true
   sleepQuality?: true
   notes?: true
   coachFeedback?: true
-  coachReviewedAt?: true
   _all?: true
 }
 
@@ -238,16 +277,23 @@ export type WeeklyCheckInGroupByArgs<
 export type WeeklyCheckInGroupByOutputType = {
   id: string
   athleteId: string
-  coachId: string | null
+  formId: string | null
   weekStartDate: Date
+  responses: runtime.JsonValue
   submittedAt: Date
+  updatedAt: Date
+  status: $Enums.WeeklyCheckInStatus
+  coachId: string | null
+  coachNotes: string | null
+  coachVideoUrl: string | null
+  coachVideoAddedAt: Date | null
+  coachReviewedAt: Date | null
   feelingScore: number | null
   fatigueScore: number | null
   stressScore: number | null
   sleepQuality: number | null
   notes: string | null
   coachFeedback: string | null
-  coachReviewedAt: Date | null
   _count: WeeklyCheckInCountAggregateOutputType | null
   _avg: WeeklyCheckInAvgAggregateOutputType | null
   _sum: WeeklyCheckInSumAggregateOutputType | null
@@ -274,33 +320,52 @@ export type WeeklyCheckInWhereInput = {
   NOT?: Prisma.WeeklyCheckInWhereInput | Prisma.WeeklyCheckInWhereInput[]
   id?: Prisma.StringFilter<'WeeklyCheckIn'> | string
   athleteId?: Prisma.StringFilter<'WeeklyCheckIn'> | string
-  coachId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  formId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
   weekStartDate?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+  responses?: Prisma.JsonFilter<'WeeklyCheckIn'>
   submittedAt?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFilter<'WeeklyCheckIn'> | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  coachNotes?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  coachVideoUrl?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  coachVideoAddedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
+  coachReviewedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
   feelingScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   fatigueScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   stressScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   sleepQuality?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   notes?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
   coachFeedback?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
-  coachReviewedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
   athlete?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  form?: Prisma.XOR<
+    Prisma.CheckInFormNullableScalarRelationFilter,
+    Prisma.CheckInFormWhereInput
+  > | null
 }
 
 export type WeeklyCheckInOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   athleteId?: Prisma.SortOrder
-  coachId?: Prisma.SortOrderInput | Prisma.SortOrder
+  formId?: Prisma.SortOrderInput | Prisma.SortOrder
   weekStartDate?: Prisma.SortOrder
+  responses?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  coachId?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachVideoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachVideoAddedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   feelingScore?: Prisma.SortOrderInput | Prisma.SortOrder
   fatigueScore?: Prisma.SortOrderInput | Prisma.SortOrder
   stressScore?: Prisma.SortOrderInput | Prisma.SortOrder
   sleepQuality?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   coachFeedback?: Prisma.SortOrderInput | Prisma.SortOrder
-  coachReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   athlete?: Prisma.UserOrderByWithRelationInput
+  form?: Prisma.CheckInFormOrderByWithRelationInput
 }
 
 export type WeeklyCheckInWhereUniqueInput = Prisma.AtLeast<
@@ -311,17 +376,28 @@ export type WeeklyCheckInWhereUniqueInput = Prisma.AtLeast<
     OR?: Prisma.WeeklyCheckInWhereInput[]
     NOT?: Prisma.WeeklyCheckInWhereInput | Prisma.WeeklyCheckInWhereInput[]
     athleteId?: Prisma.StringFilter<'WeeklyCheckIn'> | string
-    coachId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+    formId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
     weekStartDate?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+    responses?: Prisma.JsonFilter<'WeeklyCheckIn'>
     submittedAt?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+    updatedAt?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+    status?: Prisma.EnumWeeklyCheckInStatusFilter<'WeeklyCheckIn'> | $Enums.WeeklyCheckInStatus
+    coachId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+    coachNotes?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+    coachVideoUrl?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+    coachVideoAddedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
+    coachReviewedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
     feelingScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
     fatigueScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
     stressScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
     sleepQuality?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
     notes?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
     coachFeedback?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
-    coachReviewedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
     athlete?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+    form?: Prisma.XOR<
+      Prisma.CheckInFormNullableScalarRelationFilter,
+      Prisma.CheckInFormWhereInput
+    > | null
   },
   'id' | 'athleteId_weekStartDate'
 >
@@ -329,16 +405,23 @@ export type WeeklyCheckInWhereUniqueInput = Prisma.AtLeast<
 export type WeeklyCheckInOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   athleteId?: Prisma.SortOrder
-  coachId?: Prisma.SortOrderInput | Prisma.SortOrder
+  formId?: Prisma.SortOrderInput | Prisma.SortOrder
   weekStartDate?: Prisma.SortOrder
+  responses?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  coachId?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachVideoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachVideoAddedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  coachReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   feelingScore?: Prisma.SortOrderInput | Prisma.SortOrder
   fatigueScore?: Prisma.SortOrderInput | Prisma.SortOrder
   stressScore?: Prisma.SortOrderInput | Prisma.SortOrder
   sleepQuality?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   coachFeedback?: Prisma.SortOrderInput | Prisma.SortOrder
-  coachReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.WeeklyCheckInCountOrderByAggregateInput
   _avg?: Prisma.WeeklyCheckInAvgOrderByAggregateInput
   _max?: Prisma.WeeklyCheckInMaxOrderByAggregateInput
@@ -356,121 +439,178 @@ export type WeeklyCheckInScalarWhereWithAggregatesInput = {
     | Prisma.WeeklyCheckInScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<'WeeklyCheckIn'> | string
   athleteId?: Prisma.StringWithAggregatesFilter<'WeeklyCheckIn'> | string
-  coachId?: Prisma.StringNullableWithAggregatesFilter<'WeeklyCheckIn'> | string | null
+  formId?: Prisma.StringNullableWithAggregatesFilter<'WeeklyCheckIn'> | string | null
   weekStartDate?: Prisma.DateTimeWithAggregatesFilter<'WeeklyCheckIn'> | Date | string
+  responses?: Prisma.JsonWithAggregatesFilter<'WeeklyCheckIn'>
   submittedAt?: Prisma.DateTimeWithAggregatesFilter<'WeeklyCheckIn'> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<'WeeklyCheckIn'> | Date | string
+  status?:
+    Prisma.EnumWeeklyCheckInStatusWithAggregatesFilter<'WeeklyCheckIn'> | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.StringNullableWithAggregatesFilter<'WeeklyCheckIn'> | string | null
+  coachNotes?: Prisma.StringNullableWithAggregatesFilter<'WeeklyCheckIn'> | string | null
+  coachVideoUrl?: Prisma.StringNullableWithAggregatesFilter<'WeeklyCheckIn'> | string | null
+  coachVideoAddedAt?:
+    Prisma.DateTimeNullableWithAggregatesFilter<'WeeklyCheckIn'> | Date | string | null
+  coachReviewedAt?:
+    Prisma.DateTimeNullableWithAggregatesFilter<'WeeklyCheckIn'> | Date | string | null
   feelingScore?: Prisma.IntNullableWithAggregatesFilter<'WeeklyCheckIn'> | number | null
   fatigueScore?: Prisma.IntNullableWithAggregatesFilter<'WeeklyCheckIn'> | number | null
   stressScore?: Prisma.IntNullableWithAggregatesFilter<'WeeklyCheckIn'> | number | null
   sleepQuality?: Prisma.IntNullableWithAggregatesFilter<'WeeklyCheckIn'> | number | null
   notes?: Prisma.StringNullableWithAggregatesFilter<'WeeklyCheckIn'> | string | null
   coachFeedback?: Prisma.StringNullableWithAggregatesFilter<'WeeklyCheckIn'> | string | null
-  coachReviewedAt?:
-    Prisma.DateTimeNullableWithAggregatesFilter<'WeeklyCheckIn'> | Date | string | null
 }
 
 export type WeeklyCheckInCreateInput = {
   id?: string
-  coachId?: string | null
   weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
   feelingScore?: number | null
   fatigueScore?: number | null
   stressScore?: number | null
   sleepQuality?: number | null
   notes?: string | null
   coachFeedback?: string | null
-  coachReviewedAt?: Date | string | null
   athlete: Prisma.UserCreateNestedOneWithoutWeeklyCheckInsInput
+  form?: Prisma.CheckInFormCreateNestedOneWithoutCheckInsInput
 }
 
 export type WeeklyCheckInUncheckedCreateInput = {
   id?: string
   athleteId: string
-  coachId?: string | null
+  formId?: string | null
   weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
   feelingScore?: number | null
   fatigueScore?: number | null
   stressScore?: number | null
   sleepQuality?: number | null
   notes?: string | null
   coachFeedback?: string | null
-  coachReviewedAt?: Date | string | null
 }
 
 export type WeeklyCheckInUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   athlete?: Prisma.UserUpdateOneRequiredWithoutWeeklyCheckInsNestedInput
+  form?: Prisma.CheckInFormUpdateOneWithoutCheckInsNestedInput
 }
 
 export type WeeklyCheckInUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   athleteId?: Prisma.StringFieldUpdateOperationsInput | string
-  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  formId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type WeeklyCheckInCreateManyInput = {
   id?: string
   athleteId: string
-  coachId?: string | null
+  formId?: string | null
   weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
   feelingScore?: number | null
   fatigueScore?: number | null
   stressScore?: number | null
   sleepQuality?: number | null
   notes?: string | null
   coachFeedback?: string | null
-  coachReviewedAt?: Date | string | null
 }
 
 export type WeeklyCheckInUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type WeeklyCheckInUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   athleteId?: Prisma.StringFieldUpdateOperationsInput | string
-  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  formId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type WeeklyCheckInListRelationFilter = {
@@ -491,16 +631,23 @@ export type WeeklyCheckInAthleteIdWeekStartDateCompoundUniqueInput = {
 export type WeeklyCheckInCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   athleteId?: Prisma.SortOrder
-  coachId?: Prisma.SortOrder
+  formId?: Prisma.SortOrder
   weekStartDate?: Prisma.SortOrder
+  responses?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  coachId?: Prisma.SortOrder
+  coachNotes?: Prisma.SortOrder
+  coachVideoUrl?: Prisma.SortOrder
+  coachVideoAddedAt?: Prisma.SortOrder
+  coachReviewedAt?: Prisma.SortOrder
   feelingScore?: Prisma.SortOrder
   fatigueScore?: Prisma.SortOrder
   stressScore?: Prisma.SortOrder
   sleepQuality?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   coachFeedback?: Prisma.SortOrder
-  coachReviewedAt?: Prisma.SortOrder
 }
 
 export type WeeklyCheckInAvgOrderByAggregateInput = {
@@ -513,31 +660,43 @@ export type WeeklyCheckInAvgOrderByAggregateInput = {
 export type WeeklyCheckInMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   athleteId?: Prisma.SortOrder
-  coachId?: Prisma.SortOrder
+  formId?: Prisma.SortOrder
   weekStartDate?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  coachId?: Prisma.SortOrder
+  coachNotes?: Prisma.SortOrder
+  coachVideoUrl?: Prisma.SortOrder
+  coachVideoAddedAt?: Prisma.SortOrder
+  coachReviewedAt?: Prisma.SortOrder
   feelingScore?: Prisma.SortOrder
   fatigueScore?: Prisma.SortOrder
   stressScore?: Prisma.SortOrder
   sleepQuality?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   coachFeedback?: Prisma.SortOrder
-  coachReviewedAt?: Prisma.SortOrder
 }
 
 export type WeeklyCheckInMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   athleteId?: Prisma.SortOrder
-  coachId?: Prisma.SortOrder
+  formId?: Prisma.SortOrder
   weekStartDate?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  coachId?: Prisma.SortOrder
+  coachNotes?: Prisma.SortOrder
+  coachVideoUrl?: Prisma.SortOrder
+  coachVideoAddedAt?: Prisma.SortOrder
+  coachReviewedAt?: Prisma.SortOrder
   feelingScore?: Prisma.SortOrder
   fatigueScore?: Prisma.SortOrder
   stressScore?: Prisma.SortOrder
   sleepQuality?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   coachFeedback?: Prisma.SortOrder
-  coachReviewedAt?: Prisma.SortOrder
 }
 
 export type WeeklyCheckInSumOrderByAggregateInput = {
@@ -633,32 +792,136 @@ export type WeeklyCheckInUncheckedUpdateManyWithoutAthleteNestedInput = {
   deleteMany?: Prisma.WeeklyCheckInScalarWhereInput | Prisma.WeeklyCheckInScalarWhereInput[]
 }
 
+export type WeeklyCheckInCreateNestedManyWithoutFormInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.WeeklyCheckInCreateWithoutFormInput,
+        Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput
+      >
+    | Prisma.WeeklyCheckInCreateWithoutFormInput[]
+    | Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput[]
+  connectOrCreate?:
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput[]
+  createMany?: Prisma.WeeklyCheckInCreateManyFormInputEnvelope
+  connect?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+}
+
+export type WeeklyCheckInUncheckedCreateNestedManyWithoutFormInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.WeeklyCheckInCreateWithoutFormInput,
+        Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput
+      >
+    | Prisma.WeeklyCheckInCreateWithoutFormInput[]
+    | Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput[]
+  connectOrCreate?:
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput[]
+  createMany?: Prisma.WeeklyCheckInCreateManyFormInputEnvelope
+  connect?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+}
+
+export type WeeklyCheckInUpdateManyWithoutFormNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.WeeklyCheckInCreateWithoutFormInput,
+        Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput
+      >
+    | Prisma.WeeklyCheckInCreateWithoutFormInput[]
+    | Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput[]
+  connectOrCreate?:
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput[]
+  upsert?:
+    | Prisma.WeeklyCheckInUpsertWithWhereUniqueWithoutFormInput
+    | Prisma.WeeklyCheckInUpsertWithWhereUniqueWithoutFormInput[]
+  createMany?: Prisma.WeeklyCheckInCreateManyFormInputEnvelope
+  set?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  disconnect?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  delete?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  connect?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  update?:
+    | Prisma.WeeklyCheckInUpdateWithWhereUniqueWithoutFormInput
+    | Prisma.WeeklyCheckInUpdateWithWhereUniqueWithoutFormInput[]
+  updateMany?:
+    | Prisma.WeeklyCheckInUpdateManyWithWhereWithoutFormInput
+    | Prisma.WeeklyCheckInUpdateManyWithWhereWithoutFormInput[]
+  deleteMany?: Prisma.WeeklyCheckInScalarWhereInput | Prisma.WeeklyCheckInScalarWhereInput[]
+}
+
+export type WeeklyCheckInUncheckedUpdateManyWithoutFormNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.WeeklyCheckInCreateWithoutFormInput,
+        Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput
+      >
+    | Prisma.WeeklyCheckInCreateWithoutFormInput[]
+    | Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput[]
+  connectOrCreate?:
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput
+    | Prisma.WeeklyCheckInCreateOrConnectWithoutFormInput[]
+  upsert?:
+    | Prisma.WeeklyCheckInUpsertWithWhereUniqueWithoutFormInput
+    | Prisma.WeeklyCheckInUpsertWithWhereUniqueWithoutFormInput[]
+  createMany?: Prisma.WeeklyCheckInCreateManyFormInputEnvelope
+  set?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  disconnect?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  delete?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  connect?: Prisma.WeeklyCheckInWhereUniqueInput | Prisma.WeeklyCheckInWhereUniqueInput[]
+  update?:
+    | Prisma.WeeklyCheckInUpdateWithWhereUniqueWithoutFormInput
+    | Prisma.WeeklyCheckInUpdateWithWhereUniqueWithoutFormInput[]
+  updateMany?:
+    | Prisma.WeeklyCheckInUpdateManyWithWhereWithoutFormInput
+    | Prisma.WeeklyCheckInUpdateManyWithWhereWithoutFormInput[]
+  deleteMany?: Prisma.WeeklyCheckInScalarWhereInput | Prisma.WeeklyCheckInScalarWhereInput[]
+}
+
+export type EnumWeeklyCheckInStatusFieldUpdateOperationsInput = {
+  set?: $Enums.WeeklyCheckInStatus
+}
+
 export type WeeklyCheckInCreateWithoutAthleteInput = {
   id?: string
-  coachId?: string | null
   weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
   feelingScore?: number | null
   fatigueScore?: number | null
   stressScore?: number | null
   sleepQuality?: number | null
   notes?: string | null
   coachFeedback?: string | null
-  coachReviewedAt?: Date | string | null
+  form?: Prisma.CheckInFormCreateNestedOneWithoutCheckInsInput
 }
 
 export type WeeklyCheckInUncheckedCreateWithoutAthleteInput = {
   id?: string
-  coachId?: string | null
+  formId?: string | null
   weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
   feelingScore?: number | null
   fatigueScore?: number | null
   stressScore?: number | null
   sleepQuality?: number | null
   notes?: string | null
   coachFeedback?: string | null
-  coachReviewedAt?: Date | string | null
 }
 
 export type WeeklyCheckInCreateOrConnectWithoutAthleteInput = {
@@ -708,72 +971,274 @@ export type WeeklyCheckInScalarWhereInput = {
   NOT?: Prisma.WeeklyCheckInScalarWhereInput | Prisma.WeeklyCheckInScalarWhereInput[]
   id?: Prisma.StringFilter<'WeeklyCheckIn'> | string
   athleteId?: Prisma.StringFilter<'WeeklyCheckIn'> | string
-  coachId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  formId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
   weekStartDate?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+  responses?: Prisma.JsonFilter<'WeeklyCheckIn'>
   submittedAt?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<'WeeklyCheckIn'> | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFilter<'WeeklyCheckIn'> | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  coachNotes?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  coachVideoUrl?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
+  coachVideoAddedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
+  coachReviewedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
   feelingScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   fatigueScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   stressScore?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   sleepQuality?: Prisma.IntNullableFilter<'WeeklyCheckIn'> | number | null
   notes?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
   coachFeedback?: Prisma.StringNullableFilter<'WeeklyCheckIn'> | string | null
-  coachReviewedAt?: Prisma.DateTimeNullableFilter<'WeeklyCheckIn'> | Date | string | null
 }
 
-export type WeeklyCheckInCreateManyAthleteInput = {
+export type WeeklyCheckInCreateWithoutFormInput = {
   id?: string
-  coachId?: string | null
   weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
   feelingScore?: number | null
   fatigueScore?: number | null
   stressScore?: number | null
   sleepQuality?: number | null
   notes?: string | null
   coachFeedback?: string | null
+  athlete: Prisma.UserCreateNestedOneWithoutWeeklyCheckInsInput
+}
+
+export type WeeklyCheckInUncheckedCreateWithoutFormInput = {
+  id?: string
+  athleteId: string
+  weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
   coachReviewedAt?: Date | string | null
+  feelingScore?: number | null
+  fatigueScore?: number | null
+  stressScore?: number | null
+  sleepQuality?: number | null
+  notes?: string | null
+  coachFeedback?: string | null
+}
+
+export type WeeklyCheckInCreateOrConnectWithoutFormInput = {
+  where: Prisma.WeeklyCheckInWhereUniqueInput
+  create: Prisma.XOR<
+    Prisma.WeeklyCheckInCreateWithoutFormInput,
+    Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput
+  >
+}
+
+export type WeeklyCheckInCreateManyFormInputEnvelope = {
+  data: Prisma.WeeklyCheckInCreateManyFormInput | Prisma.WeeklyCheckInCreateManyFormInput[]
+  skipDuplicates?: boolean
+}
+
+export type WeeklyCheckInUpsertWithWhereUniqueWithoutFormInput = {
+  where: Prisma.WeeklyCheckInWhereUniqueInput
+  update: Prisma.XOR<
+    Prisma.WeeklyCheckInUpdateWithoutFormInput,
+    Prisma.WeeklyCheckInUncheckedUpdateWithoutFormInput
+  >
+  create: Prisma.XOR<
+    Prisma.WeeklyCheckInCreateWithoutFormInput,
+    Prisma.WeeklyCheckInUncheckedCreateWithoutFormInput
+  >
+}
+
+export type WeeklyCheckInUpdateWithWhereUniqueWithoutFormInput = {
+  where: Prisma.WeeklyCheckInWhereUniqueInput
+  data: Prisma.XOR<
+    Prisma.WeeklyCheckInUpdateWithoutFormInput,
+    Prisma.WeeklyCheckInUncheckedUpdateWithoutFormInput
+  >
+}
+
+export type WeeklyCheckInUpdateManyWithWhereWithoutFormInput = {
+  where: Prisma.WeeklyCheckInScalarWhereInput
+  data: Prisma.XOR<
+    Prisma.WeeklyCheckInUpdateManyMutationInput,
+    Prisma.WeeklyCheckInUncheckedUpdateManyWithoutFormInput
+  >
+}
+
+export type WeeklyCheckInCreateManyAthleteInput = {
+  id?: string
+  formId?: string | null
+  weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
+  feelingScore?: number | null
+  fatigueScore?: number | null
+  stressScore?: number | null
+  sleepQuality?: number | null
+  notes?: string | null
+  coachFeedback?: string | null
 }
 
 export type WeeklyCheckInUpdateWithoutAthleteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  form?: Prisma.CheckInFormUpdateOneWithoutCheckInsNestedInput
 }
 
 export type WeeklyCheckInUncheckedUpdateWithoutAthleteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  formId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type WeeklyCheckInUncheckedUpdateManyWithoutAthleteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  formId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type WeeklyCheckInCreateManyFormInput = {
+  id?: string
+  athleteId: string
+  weekStartDate: Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Date | string
+  updatedAt?: Date | string
+  status?: $Enums.WeeklyCheckInStatus
+  coachId?: string | null
+  coachNotes?: string | null
+  coachVideoUrl?: string | null
+  coachVideoAddedAt?: Date | string | null
+  coachReviewedAt?: Date | string | null
+  feelingScore?: number | null
+  fatigueScore?: number | null
+  stressScore?: number | null
+  sleepQuality?: number | null
+  notes?: string | null
+  coachFeedback?: string | null
+}
+
+export type WeeklyCheckInUpdateWithoutFormInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  athlete?: Prisma.UserUpdateOneRequiredWithoutWeeklyCheckInsNestedInput
+}
+
+export type WeeklyCheckInUncheckedUpdateWithoutFormInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  athleteId?: Prisma.StringFieldUpdateOperationsInput | string
+  weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type WeeklyCheckInUncheckedUpdateManyWithoutFormInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  athleteId?: Prisma.StringFieldUpdateOperationsInput | string
+  weekStartDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  responses?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumWeeklyCheckInStatusFieldUpdateOperationsInput | $Enums.WeeklyCheckInStatus
+  coachId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachVideoAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  coachReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  feelingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fatigueScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  stressScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sleepQuality?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coachFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type WeeklyCheckInSelect<
@@ -782,17 +1247,25 @@ export type WeeklyCheckInSelect<
   {
     id?: boolean
     athleteId?: boolean
-    coachId?: boolean
+    formId?: boolean
     weekStartDate?: boolean
+    responses?: boolean
     submittedAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    coachId?: boolean
+    coachNotes?: boolean
+    coachVideoUrl?: boolean
+    coachVideoAddedAt?: boolean
+    coachReviewedAt?: boolean
     feelingScore?: boolean
     fatigueScore?: boolean
     stressScore?: boolean
     sleepQuality?: boolean
     notes?: boolean
     coachFeedback?: boolean
-    coachReviewedAt?: boolean
     athlete?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+    form?: boolean | Prisma.WeeklyCheckIn$formArgs<ExtArgs>
   },
   ExtArgs['result']['weeklyCheckIn']
 >
@@ -803,17 +1276,25 @@ export type WeeklyCheckInSelectCreateManyAndReturn<
   {
     id?: boolean
     athleteId?: boolean
-    coachId?: boolean
+    formId?: boolean
     weekStartDate?: boolean
+    responses?: boolean
     submittedAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    coachId?: boolean
+    coachNotes?: boolean
+    coachVideoUrl?: boolean
+    coachVideoAddedAt?: boolean
+    coachReviewedAt?: boolean
     feelingScore?: boolean
     fatigueScore?: boolean
     stressScore?: boolean
     sleepQuality?: boolean
     notes?: boolean
     coachFeedback?: boolean
-    coachReviewedAt?: boolean
     athlete?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+    form?: boolean | Prisma.WeeklyCheckIn$formArgs<ExtArgs>
   },
   ExtArgs['result']['weeklyCheckIn']
 >
@@ -824,17 +1305,25 @@ export type WeeklyCheckInSelectUpdateManyAndReturn<
   {
     id?: boolean
     athleteId?: boolean
-    coachId?: boolean
+    formId?: boolean
     weekStartDate?: boolean
+    responses?: boolean
     submittedAt?: boolean
+    updatedAt?: boolean
+    status?: boolean
+    coachId?: boolean
+    coachNotes?: boolean
+    coachVideoUrl?: boolean
+    coachVideoAddedAt?: boolean
+    coachReviewedAt?: boolean
     feelingScore?: boolean
     fatigueScore?: boolean
     stressScore?: boolean
     sleepQuality?: boolean
     notes?: boolean
     coachFeedback?: boolean
-    coachReviewedAt?: boolean
     athlete?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+    form?: boolean | Prisma.WeeklyCheckIn$formArgs<ExtArgs>
   },
   ExtArgs['result']['weeklyCheckIn']
 >
@@ -842,16 +1331,23 @@ export type WeeklyCheckInSelectUpdateManyAndReturn<
 export type WeeklyCheckInSelectScalar = {
   id?: boolean
   athleteId?: boolean
-  coachId?: boolean
+  formId?: boolean
   weekStartDate?: boolean
+  responses?: boolean
   submittedAt?: boolean
+  updatedAt?: boolean
+  status?: boolean
+  coachId?: boolean
+  coachNotes?: boolean
+  coachVideoUrl?: boolean
+  coachVideoAddedAt?: boolean
+  coachReviewedAt?: boolean
   feelingScore?: boolean
   fatigueScore?: boolean
   stressScore?: boolean
   sleepQuality?: boolean
   notes?: boolean
   coachFeedback?: boolean
-  coachReviewedAt?: boolean
 }
 
 export type WeeklyCheckInOmit<
@@ -859,32 +1355,42 @@ export type WeeklyCheckInOmit<
 > = runtime.Types.Extensions.GetOmit<
   | 'id'
   | 'athleteId'
-  | 'coachId'
+  | 'formId'
   | 'weekStartDate'
+  | 'responses'
   | 'submittedAt'
+  | 'updatedAt'
+  | 'status'
+  | 'coachId'
+  | 'coachNotes'
+  | 'coachVideoUrl'
+  | 'coachVideoAddedAt'
+  | 'coachReviewedAt'
   | 'feelingScore'
   | 'fatigueScore'
   | 'stressScore'
   | 'sleepQuality'
   | 'notes'
-  | 'coachFeedback'
-  | 'coachReviewedAt',
+  | 'coachFeedback',
   ExtArgs['result']['weeklyCheckIn']
 >
 export type WeeklyCheckInInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   athlete?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  form?: boolean | Prisma.WeeklyCheckIn$formArgs<ExtArgs>
 }
 export type WeeklyCheckInIncludeCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   athlete?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  form?: boolean | Prisma.WeeklyCheckIn$formArgs<ExtArgs>
 }
 export type WeeklyCheckInIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > = {
   athlete?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  form?: boolean | Prisma.WeeklyCheckIn$formArgs<ExtArgs>
 }
 
 export type $WeeklyCheckInPayload<
@@ -893,21 +1399,39 @@ export type $WeeklyCheckInPayload<
   name: 'WeeklyCheckIn'
   objects: {
     athlete: Prisma.$UserPayload<ExtArgs>
+    form: Prisma.$CheckInFormPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
       id: string
       athleteId: string
-      coachId: string | null
+      formId: string | null
+      /**
+       * Monday of the week being reported on, in the athlete's timezone.
+       */
       weekStartDate: Date
+      /**
+       * Answers keyed by CheckInField.id — see shared/check-in.ts.
+       */
+      responses: runtime.JsonValue
       submittedAt: Date
+      updatedAt: Date
+      status: $Enums.WeeklyCheckInStatus
+      coachId: string | null
+      coachNotes: string | null
+      coachVideoUrl: string | null
+      coachVideoAddedAt: Date | null
+      coachReviewedAt: Date | null
+      /**
+       * Transitional shim columns (see 20260921130000_weekly_check_in_back_compat).
+       * Kept until old generated clients are fully retired.
+       */
       feelingScore: number | null
       fatigueScore: number | null
       stressScore: number | null
       sleepQuality: number | null
       notes: string | null
       coachFeedback: string | null
-      coachReviewedAt: Date | null
     },
     ExtArgs['result']['weeklyCheckIn']
   >
@@ -1461,6 +1985,19 @@ export interface Prisma__WeeklyCheckInClient<
     ExtArgs,
     GlobalOmitOptions
   >
+  form<T extends Prisma.WeeklyCheckIn$formArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.WeeklyCheckIn$formArgs<ExtArgs>>
+  ): Prisma.Prisma__CheckInFormClient<
+    runtime.Types.Result.GetResult<
+      Prisma.$CheckInFormPayload<ExtArgs>,
+      T,
+      'findUniqueOrThrow',
+      GlobalOmitOptions
+    > | null,
+    null,
+    ExtArgs,
+    GlobalOmitOptions
+  >
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1494,16 +2031,23 @@ export interface Prisma__WeeklyCheckInClient<
 export interface WeeklyCheckInFieldRefs {
   readonly id: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
   readonly athleteId: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
-  readonly coachId: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
+  readonly formId: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
   readonly weekStartDate: Prisma.FieldRef<'WeeklyCheckIn', 'DateTime'>
+  readonly responses: Prisma.FieldRef<'WeeklyCheckIn', 'Json'>
   readonly submittedAt: Prisma.FieldRef<'WeeklyCheckIn', 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<'WeeklyCheckIn', 'DateTime'>
+  readonly status: Prisma.FieldRef<'WeeklyCheckIn', 'WeeklyCheckInStatus'>
+  readonly coachId: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
+  readonly coachNotes: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
+  readonly coachVideoUrl: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
+  readonly coachVideoAddedAt: Prisma.FieldRef<'WeeklyCheckIn', 'DateTime'>
+  readonly coachReviewedAt: Prisma.FieldRef<'WeeklyCheckIn', 'DateTime'>
   readonly feelingScore: Prisma.FieldRef<'WeeklyCheckIn', 'Int'>
   readonly fatigueScore: Prisma.FieldRef<'WeeklyCheckIn', 'Int'>
   readonly stressScore: Prisma.FieldRef<'WeeklyCheckIn', 'Int'>
   readonly sleepQuality: Prisma.FieldRef<'WeeklyCheckIn', 'Int'>
   readonly notes: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
   readonly coachFeedback: Prisma.FieldRef<'WeeklyCheckIn', 'String'>
-  readonly coachReviewedAt: Prisma.FieldRef<'WeeklyCheckIn', 'DateTime'>
 }
 
 // Custom InputTypes
@@ -1938,6 +2482,27 @@ export type WeeklyCheckInDeleteManyArgs<
    * Limit how many WeeklyCheckIns to delete.
    */
   limit?: number
+}
+
+/**
+ * WeeklyCheckIn.form
+ */
+export type WeeklyCheckIn$formArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+> = {
+  /**
+   * Select specific fields to fetch from the CheckInForm
+   */
+  select?: Prisma.CheckInFormSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CheckInForm
+   */
+  omit?: Prisma.CheckInFormOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CheckInFormInclude<ExtArgs> | null
+  where?: Prisma.CheckInFormWhereInput
 }
 
 /**
