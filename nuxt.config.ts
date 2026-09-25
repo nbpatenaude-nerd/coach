@@ -380,6 +380,7 @@ export default defineNuxtConfig({
       subscriptionsEnabled: process.env.NUXT_PUBLIC_SUBSCRIPTIONS_ENABLED !== 'false',
       nativeSubscriptionsEnabled: process.env.NUXT_PUBLIC_NATIVE_SUBSCRIPTIONS_ENABLED === 'true',
       stravaEnabled: process.env.NUXT_PUBLIC_STRAVA_ENABLED !== 'false',
+      turnstileSiteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || '',
       // Sign in with Apple (Guideline 4.8) — true when Services ID + key env are present
       appleSignInEnabled: Boolean(
         process.env.NUXT_PUBLIC_APPLE_SIGN_IN_ENABLED === 'true' ||
