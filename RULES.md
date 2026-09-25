@@ -33,6 +33,7 @@ This file aggregates all critical development rules and guidelines for the Journ
 ### Environment Verification
 
 - Ensure `NUXT_AUTH_ORIGIN`, `NUXT_PUBLIC_SITE_URL`, `DATABASE_URL`, and `NUXT_AUTH_SECRET` are set correctly.
+- `NUXT_AUTH_ORIGIN` should be the public coaching app origin ending in `/api/auth` (e.g. `https://app.journeyendurance.ca/api/auth`), or a bare origin — `start.sh` normalizes either form.
 - Verify OAuth callback URLs for Google, Strava, etc.
 
 ### Database & Migrations
@@ -45,7 +46,14 @@ This file aggregates all critical development rules and guidelines for the Journ
 - Clean install: `pnpm install --frozen-lockfile`.
 - Generate client: `pnpm prisma generate`.
 - Build: `pnpm build`.
-- Start: `node .output/server/index.mjs`.
+- **Start: `pnpm start` → `sh start.sh`** (migrations + Sidebase `NUXT_AUTH_ORIGIN_UNUSED`). **Never** change `"start"` to bare `node .output/server/index.mjs` — that skips auth origin setup and crashes with `AUTH_NO_ORIGIN`.
+
+### Production pitfalls (do not regress)
+
+- Prisma **value** imports: use `server/utils/generated-prisma/client` (or `server/utils/db`), not `@prisma/client`.
+- Do **not** Nitro-alias `@prisma/client` → `client.ts` (breaks `/runtime/*` subpaths).
+- Keep `googleapis` in `package.json` if calendar booking remains.
+- Keep `sendPasswordResetEmail` exported if `forgot-password` imports it.
 
 ---
 
