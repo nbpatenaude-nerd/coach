@@ -2,16 +2,33 @@
 
 Journey Endurance Coaching Platform uses standard OAuth 2.0 with **PKCE (Proof Key for Code Exchange)** to secure user data.
 
-**Human login (web IdP):** athletes sign in with **Sign in with Apple** (when configured), Google, Strava, or Intervals.icu via Auth.js — see [sign-in-with-apple.md](./sign-in-with-apple.md). Existing athletes can also request a one-time **email magic link** from `/login` (no new accounts are created on this path). There is no first-party email/password login on `/login`. The official mobile app uses the OAuth2+PKCE API below after the athlete authenticates on `/oauth/login`.
+**Human login (web IdP):** athletes sign in with **Sign in with Apple** (when configured), Google, **email magic link**, or Intervals.icu via Auth.js — see [sign-in-with-apple.md](./sign-in-with-apple.md). Strava is not offered on `/login` (connect it later under Settings → Apps). There is no first-party email/password login on `/login`. The official mobile app uses the OAuth2+PKCE API below after the athlete authenticates on `/oauth/login`.
 
 ### Email magic-link (legacy / existing accounts)
 
-For athletes who already have an account but cannot use OAuth (for example a legacy `@telus.net` address), `/login` offers **Email me a sign-in link**:
+For athletes who already have an account but cannot use OAuth (for example a legacy `@telus.net` address), `/login` → **Sign in with Email** opens `/login/email`:
 
-1. `POST /api/auth/email-magic-link/request` with `{ email, returnTo? }` — always returns `{ success: true }` (anti-enumeration). If a non-deactivated user exists, the server mints a one-time token and emails the link. Rate-limited by IP and email. Honours `CW_DISABLE_EMAILS=1`.
-2. Athlete opens the link → `GET /api/auth/email-magic-link/consume?code=…&returnTo=…` creates a web session cookie and redirects (default `/dashboard`). Expired or reused codes redirect to `/login`.
+1. Athlete completes optional Cloudflare Turnstile (when `TURNSTILE_SECRET_KEY` / `NUXT_PUBLIC_TURNSTILE_SITE_KEY` are set) and submits their email.
+2. `POST /api/auth/email-magic-link/request` with `{ email, returnTo?, turnstileToken? }` — always returns `{ success: true }` (anti-enumeration). If a non-deactivated user exists, the server mints a one-time token and emails the link. Rate-limited by IP and email. Honours `CW_DISABLE_EMAILS=1`.
+3. Athlete opens the link → `GET /api/auth/email-magic-link/consume?code=…&returnTo=…` creates a web session cookie and redirects (default `/dashboard`). Expired or reused codes redirect to `/login`.
 
 Support can still mint and send a link via CLI: `pnpm cw:cli users magic-link <email> --send`.
+
+### Intervals.icu sign-in
+
+Auth.js callback URL (must be registered on the Intervals OAuth app for client id `INTERVALS_CLIENT_ID`):
+
+```
+https://app.journeyendurance.ca/api/auth/callback/intervals
+```
+
+Local:
+
+```
+http://localhost:3099/api/auth/callback/intervals
+```
+
+`Invalid redirect_uri` means the Intervals developer console does not list that exact URL for the client. Update the Intervals app settings (or create a Journey-specific OAuth client) — no code change required once the URI matches.
 
 ## The Authorization Code Flow
 

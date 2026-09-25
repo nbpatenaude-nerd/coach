@@ -84,20 +84,14 @@
               <UButton
                 block
                 size="xl"
+                icon="i-heroicons-envelope"
                 color="neutral"
                 variant="outline"
                 class="h-14 min-w-full rounded-xl border-white/10 text-xs font-bold uppercase tracking-[0.12em]"
-                :loading="loadingStrava || isInitializing"
-                @click="
-                  () => {
-                    void handleStravaLogin()
-                  }
-                "
+                :disabled="isInitializing"
+                :to="emailLoginTo"
               >
-                <template #leading>
-                  <UIcon name="i-simple-icons-strava" class="h-5 w-5 text-[#FC4C02]" />
-                </template>
-                {{ isInitializing ? t('login.connecting') : t('login.strava') }}
+                {{ t('login.email') }}
               </UButton>
 
               <UButton
@@ -230,6 +224,11 @@
   })
 
   const callbackUrl = (route.query.callbackUrl as string) || '/dashboard'
+  const emailLoginTo = computed(() =>
+    callbackUrl === '/dashboard'
+      ? '/login/email'
+      : `/login/email?callbackUrl=${encodeURIComponent(callbackUrl)}`
+  )
 
   useSeoMeta({
     title: () => t.value('login.seo_title'),
@@ -245,7 +244,6 @@
 
   const loading = ref(false)
   const loadingApple = ref(false)
-  const loadingStrava = ref(false)
   const loadingIntervals = ref(false)
   const loadingMagicLink = ref(false)
   const magicLinkEmail = ref('')
@@ -283,23 +281,6 @@
       })
       isInitializing.value = false
       loading.value = false
-    }
-  }
-
-  async function handleStravaLogin() {
-    trackLogin('strava')
-    isInitializing.value = true
-    loadingStrava.value = true
-    try {
-      await signIn('strava', { callbackUrl })
-    } catch (error: any) {
-      toast.add({
-        title: t.value('login.error_title'),
-        description: error.message || t.value('login.error_strava'),
-        color: 'error'
-      })
-      isInitializing.value = false
-      loadingStrava.value = false
     }
   }
 

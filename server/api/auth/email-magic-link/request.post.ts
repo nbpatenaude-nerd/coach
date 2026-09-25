@@ -9,10 +9,14 @@ import {
 } from '../../../utils/email-magic-link'
 import { sanitizeReturnTo, siteOriginForEvent } from '../../../utils/app-web-handoff'
 import { checkRateLimit, getRateLimitKeyFromEvent } from '../../../utils/rate-limit'
+import { verifyTurnstileToken } from '../../../utils/turnstile'
 
 const schema = z.object({
   email: z.string().email(),
-  returnTo: z.string().optional()
+  returnTo: z.string().optional(),
+  turnstileToken: z.string().optional(),
+  /** Honeypot — must stay empty. */
+  website: z.string().optional()
 })
 
 defineRouteMeta({
@@ -23,7 +27,7 @@ defineRouteMeta({
       'Emails a one-time sign-in link to an existing athlete. Always returns success to avoid account enumeration. Used for legacy athletes without OAuth.',
     responses: {
       200: { description: 'Request accepted (email may or may not have been sent)' },
-      400: { description: 'Invalid email' },
+      400: { description: 'Invalid email or captcha' },
       429: { description: 'Too many requests' }
     }
   }
@@ -33,13 +37,20 @@ export default defineEventHandler(async (event) => {
   const raw = await readBody(event).catch(() => ({}))
   const body = schema.safeParse({
     email: typeof raw?.email === 'string' ? raw.email.trim().toLowerCase() : raw?.email,
-    returnTo: raw?.returnTo
+    returnTo: raw?.returnTo,
+    turnstileToken: raw?.turnstileToken,
+    website: raw?.website
   })
   if (!body.success) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Invalid email address'
     })
+  }
+
+  // Bots that fill honeypot get a fake success (no email).
+  if (body.data.website) {
+    return { success: true }
   }
 
   const email = body.data.email
@@ -49,6 +60,14 @@ export default defineEventHandler(async (event) => {
       'x-forwarded-for': getHeader(event, 'x-forwarded-for') || undefined
     }
   })
+
+  const captcha = await verifyTurnstileToken(body.data.turnstileToken, ip === 'unknown' ? null : ip)
+  if (!captcha.ok) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Please complete the captcha and try again.'
+    })
+  }
 
   const ipLimit = checkRateLimit('email-magic-link-ip', ip, {
     windowMs: 15 * 60 * 1000,
