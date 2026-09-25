@@ -9,7 +9,9 @@
         <aside
           class="relative hidden flex-col justify-center border-r border-white/8 p-10 lg:col-span-5 lg:flex lg:p-12"
         >
-          <p class="text-xs font-bold uppercase tracking-widest text-primary-400">Journey Endurance</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-primary-400">
+            Journey Endurance
+          </p>
           <h2
             class="font-athletic mt-6 text-3xl font-bold uppercase leading-[0.95] tracking-tight text-white"
           >
@@ -118,6 +120,52 @@
               </UButton>
             </div>
 
+            <div class="mt-8 flex items-center gap-3">
+              <div class="h-px flex-1 bg-white/10" />
+              <span class="text-xs font-bold uppercase tracking-widest text-gray-500">{{
+                t('login.email_divider')
+              }}</span>
+              <div class="h-px flex-1 bg-white/10" />
+            </div>
+
+            <div
+              v-if="magicLinkSent"
+              class="mt-6 rounded-xl border border-primary-500/20 bg-primary-500/10 p-4 text-center"
+            >
+              <UIcon
+                name="i-heroicons-check-circle-solid"
+                class="mx-auto mb-2 h-8 w-8 text-primary-400"
+              />
+              <p class="text-sm text-gray-300">
+                {{ t('login.email_success') }}
+              </p>
+            </div>
+
+            <form v-else class="mt-6 space-y-3" @submit.prevent="handleMagicLinkRequest">
+              <UInput
+                v-model="magicLinkEmail"
+                type="email"
+                :placeholder="t('login.email_placeholder')"
+                required
+                autocomplete="email"
+                size="xl"
+                class="w-full"
+                :disabled="loadingMagicLink || isInitializing"
+              />
+              <UButton
+                type="submit"
+                block
+                size="xl"
+                color="neutral"
+                variant="outline"
+                class="h-14 min-w-full rounded-xl border-white/10 text-xs font-bold uppercase tracking-[0.12em]"
+                :loading="loadingMagicLink"
+                :disabled="isInitializing"
+              >
+                {{ t('login.email_submit') }}
+              </UButton>
+            </form>
+
             <p class="mt-8 text-sm text-gray-400">
               {{ t('login.new_athlete') }}
               <NuxtLink
@@ -199,6 +247,9 @@
   const loadingApple = ref(false)
   const loadingStrava = ref(false)
   const loadingIntervals = ref(false)
+  const loadingMagicLink = ref(false)
+  const magicLinkEmail = ref('')
+  const magicLinkSent = ref(false)
   const isInitializing = ref(false)
 
   async function handleAppleLogin() {
@@ -266,6 +317,29 @@
       })
       isInitializing.value = false
       loadingIntervals.value = false
+    }
+  }
+
+  async function handleMagicLinkRequest() {
+    loadingMagicLink.value = true
+    try {
+      await $fetch('/api/auth/email-magic-link/request', {
+        method: 'POST',
+        body: {
+          email: magicLinkEmail.value.trim(),
+          returnTo: callbackUrl
+        }
+      })
+      magicLinkSent.value = true
+      trackLogin('email')
+    } catch (error: any) {
+      toast.add({
+        title: t.value('login.error_title'),
+        description: error.data?.statusMessage || error.message || t.value('login.error_email'),
+        color: 'error'
+      })
+    } finally {
+      loadingMagicLink.value = false
     }
   }
 </script>
