@@ -60,35 +60,55 @@
         <!-- Recommended Plan -->
         <div v-if="recommendedTier && subscriptionsEnabled">
           <div class="flex items-center gap-2 mb-4">
-            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400"
-              >{{ tp('upgrade_modal.eyebrow') }}</span
-            >
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">{{
+              tp('upgrade_modal.eyebrow')
+            }}</span>
             <div class="h-px bg-gray-100 dark:bg-gray-800 flex-1" />
           </div>
 
           <!-- Selectors -->
           <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
-              <button
-                v-for="interval in ['monthly', 'annual'] as const"
-                :key="interval"
-                class="px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-wider transition-all"
-                :class="
-                  billingInterval === interval
-                    ? 'bg-white dark:bg-gray-900 shadow-sm text-primary-600 dark:text-primary-400'
-                    : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
-                "
-                @click="
-                  () => {
-                    billingInterval = interval
-                  }
-                "
+            <div class="inline-flex flex-col gap-2">
+              <div
+                class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg"
               >
-                {{ interval }}
-                <span v-if="interval === 'annual' && toggleSavings" class="ml-1 text-green-500">
-                -{{ toggleSavings }}%
-              </span>
-              </button>
+                <button
+                  v-for="interval in ['monthly', 'annual'] as const"
+                  :key="`guild-${interval}`"
+                  class="px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-wider transition-all"
+                  :class="
+                    guildInterval === interval
+                      ? 'bg-white dark:bg-gray-900 shadow-sm text-primary-600 dark:text-primary-400'
+                      : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
+                  "
+                  @click="guildInterval = interval"
+                >
+                  {{ interval === 'monthly' ? tp('billing.monthly') : tp('billing.annual') }}
+                </button>
+              </div>
+              <div
+                class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg"
+              >
+                <button
+                  v-for="interval in ['1-phase', '6-phase', '12-phase'] as const"
+                  :key="interval"
+                  class="px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-wider transition-all"
+                  :class="
+                    phaseInterval === interval
+                      ? 'bg-white dark:bg-gray-900 shadow-sm text-primary-600 dark:text-primary-400'
+                      : 'text-gray-500 hover:text-gray-900 dark:hover:text-gray-200'
+                  "
+                  @click="phaseInterval = interval"
+                >
+                  {{
+                    interval === '1-phase'
+                      ? tp('billing.phase_1')
+                      : interval === '6-phase'
+                        ? tp('billing.phase_6')
+                        : tp('billing.phase_12')
+                  }}
+                </button>
+              </div>
             </div>
 
             <div class="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
@@ -117,7 +137,7 @@
             :show-popular="false"
             :highlight="true"
             :currency="currency"
-            :interval="billingInterval"
+            :interval="selectedInterval"
             @select="handlePlanSelect"
           />
           <p class="mt-3 text-center text-[10px] text-gray-500 font-bold uppercase tracking-widest">
@@ -138,9 +158,7 @@
             }
           "
         >
-          {{
-            subscriptionsEnabled ? tp('upgrade_modal.maybe_later') : tp('upgrade_modal.close')
-          }}
+          {{ subscriptionsEnabled ? tp('upgrade_modal.maybe_later') : tp('upgrade_modal.close') }}
         </UButton>
         <div class="flex items-center gap-3">
           <UButton
@@ -180,9 +198,13 @@
   import {
     PRICING_PLANS,
     getStripePriceId,
+    intervalForPlan,
+    toStripeBillingInterval,
+    type BillingInterval,
+    type GuildBillingInterval,
     type PricingTier,
     type PricingPlan,
-    type BillingInterval
+    type UiBillingInterval
   } from '~/utils/pricing'
 
   interface Props {
@@ -211,9 +233,6 @@
   const isOpen = defineModel<boolean>('open', { default: false })
   const userStore = useUserStore()
   const { currency, setCurrency } = useCurrency()
-  const { bestAnnualSavings } = useLivePricing()
-  // Real saving across paid plans; the badge used to assert a flat -33%.
-  const toggleSavings = computed(() => bestAnnualSavings(PRICING_PLANS, currency.value))
   const { createCheckoutSession, openCustomerPortal } = useStripe()
   const config = useRuntimeConfig()
   const {
@@ -225,11 +244,17 @@
   } = useAnalytics()
   const subscriptionsEnabled = computed(() => config.public.subscriptionsEnabled)
 
-  const billingInterval = ref<BillingInterval>('monthly')
+  const guildInterval = ref<GuildBillingInterval>('monthly')
+  const phaseInterval = ref<BillingInterval>('1-phase')
 
   const recommendedPlan = computed(() => {
     if (!props.recommendedTier) return null
     return PRICING_PLANS.find((p) => p.key === props.recommendedTier)
+  })
+
+  const selectedInterval = computed<UiBillingInterval>(() => {
+    if (!recommendedPlan.value) return phaseInterval.value
+    return intervalForPlan(recommendedPlan.value, guildInterval.value, phaseInterval.value)
   })
 
   async function handlePlanSelect(plan: PricingPlan) {
@@ -240,15 +265,18 @@
       return
     }
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const interval = intervalForPlan(plan, guildInterval.value, phaseInterval.value)
+    const priceId = getStripePriceId(plan, interval, currency.value)
     if (!priceId) {
-      console.error('No Stripe price ID found for plan:', plan.key, billingInterval.value)
+      console.error('No Stripe price ID found for plan:', plan.key, interval)
       return
     }
 
     // Track begin checkout
-    const priceValue = billingInterval.value === 'monthly' ? plan.monthlyPrice : plan.annualPrice
-    trackCheckoutStart(priceId, plan.name, billingInterval.value, priceValue || 0, currency.value)
+    const stripeInterval = toStripeBillingInterval(interval)
+    const priceValue =
+      stripeInterval === '12-phase' ? plan.phase12Price || plan.phase1Price : plan.phase1Price
+    trackCheckoutStart(priceId, plan.name, interval, priceValue || 0, currency.value)
     trackModalComplete('upgrade_modal', 'checkout')
 
     await createCheckoutSession(priceId, {

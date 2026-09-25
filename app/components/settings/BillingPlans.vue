@@ -1,45 +1,62 @@
 <template>
   <div class="space-y-8">
     <div class="flex flex-wrap justify-center items-center gap-4">
-      <div
-        class="inline-flex items-center gap-1 bg-white/5 rounded-2xl border border-white/5 backdrop-blur-md p-1"
-      >
-        <button
-          :class="[
-            'rounded-xl px-5 py-2 text-[10px] font-black uppercase tracking-widest transition-all',
-            billingInterval === 'monthly'
-              ? 'bg-primary-500 text-black shadow-lg shadow-primary-500/20'
-              : 'text-gray-400 hover:text-white'
-          ]"
-          @click="
-            () => {
-              billingInterval = 'monthly'
-            }
-          "
+      <div class="flex flex-col items-center gap-1.5">
+        <span class="text-[9px] font-black uppercase tracking-widest text-gray-500">
+          {{ t('billing.toggle_guild') }}
+        </span>
+        <div
+          class="inline-flex items-center gap-1 bg-white/5 rounded-2xl border border-white/5 backdrop-blur-md p-1"
         >
-          {{ t('billing.monthly') }}
-        </button>
-        <button
-          :class="[
-            'rounded-xl px-5 py-2 text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2',
-            billingInterval === 'annual'
-              ? 'bg-primary-500 text-black shadow-lg shadow-primary-500/20'
-              : 'text-gray-400 hover:text-white'
-          ]"
-          @click="
-            () => {
-              billingInterval = 'annual'
-            }
-          "
-        >
-          {{ t('billing.annual') }}
-          <span
-            v-if="billingInterval !== 'annual' && toggleSavings"
-            class="text-[9px] bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded-full border border-primary-500/20"
+          <button
+            v-for="option in guildIntervalOptions"
+            :key="option.value"
+            :class="[
+              'rounded-xl px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2',
+              guildInterval === option.value
+                ? 'bg-primary-500 text-black shadow-lg shadow-primary-500/20'
+                : 'text-gray-400 hover:text-white'
+            ]"
+            @click="guildInterval = option.value"
           >
-            {{ t('billing.save_pct', { pct: toggleSavings }) }}
-          </span>
-        </button>
+            {{ option.label }}
+            <span
+              v-if="option.value === 'annual' && guildInterval !== 'annual' && guildSavings"
+              class="text-[9px] bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded-full border border-primary-500/20"
+            >
+              {{ t('billing.save_pct', { pct: guildSavings }) }}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-1.5">
+        <span class="text-[9px] font-black uppercase tracking-widest text-gray-500">
+          {{ t('billing.toggle_coaching') }}
+        </span>
+        <div
+          class="inline-flex items-center gap-1 bg-white/5 rounded-2xl border border-white/5 backdrop-blur-md p-1"
+        >
+          <button
+            v-for="option in phaseIntervalOptions"
+            :key="option.value"
+            :class="[
+              'rounded-xl px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2',
+              phaseInterval === option.value
+                ? 'bg-primary-500 text-black shadow-lg shadow-primary-500/20'
+                : 'text-gray-400 hover:text-white'
+            ]"
+            @click="phaseInterval = option.value"
+          >
+            {{ option.label }}
+            <span
+              v-if="option.value === '12-phase' && phaseInterval !== '12-phase' && coachingSavings"
+              class="text-[9px] bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded-full border border-primary-500/20"
+            >
+              {{ t('billing.save_pct', { pct: coachingSavings }) }}
+            </span>
+          </button>
+        </div>
       </div>
 
       <div
@@ -115,30 +132,25 @@
 
           <div class="flex items-baseline gap-2 font-athletic italic mb-1.5">
             <span class="font-black text-white leading-none text-5xl xl:text-[3.75rem]">
-              {{ formatPrice(priceFor(plan, billingInterval, currency), currency) }}
+              {{ formatPrice(priceFor(plan, planInterval(plan), currency), currency) }}
             </span>
             <span
               class="text-[10px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1"
             >
-              {{
-                plan.key === 'free'
-                  ? ''
-                  : billingInterval === 'annual'
-                    ? t('billing.per_year')
-                    : t('billing.per_month')
-              }}
+              {{ priceSuffix(plan) }}
             </span>
           </div>
 
           <div class="min-h-8">
-            <template v-if="billingInterval === 'annual' && plan.annualPrice">
+            <template v-if="showsLongTermSavings(plan)">
               <div class="text-[10px] font-black text-primary-500 uppercase tracking-widest mb-1">
                 {{ formatPrice(monthlyEquivalent(plan, currency), currency) }} /
                 {{ t('billing.per_month') }}
               </div>
               <div class="flex items-center gap-3">
                 <span class="text-[10px] font-bold text-gray-600 line-through tracking-wider">
-                  {{ formatPrice(priceFor(plan, 'monthly', currency), currency) }}/mo
+                  {{ formatPrice(priceFor(plan, '1-phase', currency), currency) }}
+                  {{ plan.key === 'guild' ? '/mo' : '/phase' }}
                 </span>
                 <span
                   v-if="annualSavings(plan, currency)"
@@ -148,9 +160,18 @@
                 </span>
               </div>
             </template>
+            <template v-else-if="plan.key === 'guild'">
+              <div class="text-[10px] font-black text-gray-600 uppercase tracking-widest">
+                {{
+                  guildInterval === 'annual'
+                    ? t('billing.guild_annual')
+                    : t('billing.guild_monthly')
+                }}
+              </div>
+            </template>
             <template v-else-if="plan.key !== 'free'">
               <div class="text-[10px] font-black text-gray-600 uppercase tracking-widest">
-                {{ t('billing.billed_monthly') }}
+                {{ phaseBillingHint }}
               </div>
             </template>
           </div>
@@ -249,9 +270,15 @@
     PRICING_PLANS,
     formatPrice,
     getStripePriceId,
+    intervalForPlan,
+    planKeyForSubscriptionTier,
+    subscriptionTierForPlan,
+    toStripeBillingInterval,
     type BillingInterval,
+    type GuildBillingInterval,
     type PricingPlan,
-    type PricingTier
+    type PricingTier,
+    type UiBillingInterval
   } from '~/utils/pricing'
 
   const { t } = useTranslate('pricing')
@@ -278,24 +305,61 @@
   const userStore = useUserStore()
   const { createCheckoutSession, openCustomerPortal, changePlan } = useStripe()
   const { currency, setCurrency } = useCurrency()
-  const { priceFor, monthlyEquivalent, annualSavings, bestAnnualSavings } = useLivePricing()
+  const { priceFor, monthlyEquivalent, annualSavings } = useLivePricing()
   const { data: currentSubscription } = useAsyncData<{
     priceId: string | null
-    interval: 'monthly' | 'annual' | null
+    interval: BillingInterval | 'monthly' | 'annual' | null
   }>('current-stripe-subscription', () => ($fetch as any)('/api/stripe/subscription'), {
     lazy: true
   })
 
-  // Best real saving across paid plans — the toggle used to promise a flat 33%
-  // while the cards below it showed the actual (different) figures.
-  const toggleSavings = computed(() => bestAnnualSavings(PRICING_PLANS, currency.value))
-
-  /** Matches server proration: upgrade → always_invoice; interval/downgrade → next invoice. */
   type PlanChangeKind = 'upgrade' | 'interval' | 'downgrade'
 
-  const PLAN_TIERS = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH'] as const
+  const PLAN_TIERS = ['FREE', 'SUPPORTER', 'UNCOVER', 'UNLOCK', 'UNLEASH'] as const
 
-  const billingInterval = ref<BillingInterval>('monthly')
+  const guildInterval = ref<GuildBillingInterval>('monthly')
+  const phaseInterval = ref<BillingInterval>('1-phase')
+
+  const guildIntervalOptions = computed(() => [
+    { value: 'monthly' as const, label: translate('billing.monthly') },
+    { value: 'annual' as const, label: translate('billing.annual') }
+  ])
+
+  const phaseIntervalOptions = computed(() => [
+    { value: '1-phase' as const, label: translate('billing.phase_1') },
+    { value: '6-phase' as const, label: translate('billing.phase_6') },
+    { value: '12-phase' as const, label: translate('billing.phase_12') }
+  ])
+
+  const guildPlan = computed(() => PRICING_PLANS.find((p) => p.key === 'guild')!)
+  const coachingPlans = computed(() =>
+    PRICING_PLANS.filter((p) => p.key === 'uncover' || p.key === 'unlock' || p.key === 'unleash')
+  )
+
+  const guildSavings = computed(() => annualSavings(guildPlan.value, currency.value))
+  const coachingSavings = computed(() => {
+    const savings = coachingPlans.value
+      .map((plan) => annualSavings(plan, currency.value))
+      .filter((value): value is number => value !== null)
+    return savings.length > 0 ? Math.max(...savings) : null
+  })
+
+  function planInterval(plan: PricingPlan): UiBillingInterval {
+    return intervalForPlan(plan, guildInterval.value, phaseInterval.value)
+  }
+
+  function showsLongTermSavings(plan: PricingPlan): boolean {
+    if (!plan.phase12Price) return false
+    if (plan.key === 'guild') return guildInterval.value === 'annual'
+    return phaseInterval.value === '12-phase'
+  }
+
+  const phaseBillingHint = computed(() => {
+    if (phaseInterval.value === '6-phase') return translate('billing.billed_6_phase')
+    if (phaseInterval.value === '12-phase') return translate('billing.billed_12_phase')
+    return translate('billing.billed_1_phase')
+  })
+
   const loading = ref(false)
   const selectedPlan = ref<string | null>(null)
   const showConfirmModal = ref(false)
@@ -305,15 +369,23 @@
   const pendingPriceLabel = computed(() =>
     planToChangeTo.value
       ? formatPrice(
-          priceFor(planToChangeTo.value, billingInterval.value, currency.value),
+          priceFor(planToChangeTo.value, planInterval(planToChangeTo.value), currency.value),
           currency.value
         )
       : ''
   )
 
-  const pendingIntervalLabel = computed(() =>
-    billingInterval.value === 'annual' ? translate('billing.annual') : translate('billing.monthly')
-  )
+  const pendingIntervalLabel = computed(() => {
+    if (!planToChangeTo.value) return ''
+    if (planToChangeTo.value.key === 'guild') {
+      return guildInterval.value === 'annual'
+        ? translate('billing.annual')
+        : translate('billing.monthly')
+    }
+    if (phaseInterval.value === '6-phase') return translate('billing.phase_6')
+    if (phaseInterval.value === '12-phase') return translate('billing.phase_12')
+    return translate('billing.phase_1')
+  })
 
   const pendingModalTitle = computed(() => {
     if (pendingChangeKind.value === 'upgrade') return translate('modal.upgrade_title')
@@ -343,10 +415,25 @@
     return translate('modal.confirm_change')
   })
 
+  function priceSuffix(plan: PricingPlan): string {
+    if (plan.key === 'free') return ''
+    if (plan.key === 'guild') {
+      return guildInterval.value === 'annual'
+        ? translate('billing.per_52_weeks')
+        : translate('billing.per_month')
+    }
+    if (phaseInterval.value === '6-phase') return translate('billing.per_6_phases')
+    if (phaseInterval.value === '12-phase') return translate('billing.per_12_phases')
+    return translate('billing.per_phase')
+  }
+
   function planChangeKind(plan: PricingPlan): PlanChangeKind {
-    const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-    const currentLevel = PLAN_TIERS.indexOf(currentTier as (typeof PLAN_TIERS)[number])
-    const planLevel = PLAN_TIERS.indexOf(plan.key.toUpperCase() as (typeof PLAN_TIERS)[number])
+    const currentLevel = PLAN_TIERS.indexOf(
+      (userStore.user?.subscriptionTier || 'FREE').toUpperCase() as (typeof PLAN_TIERS)[number]
+    )
+    const planLevel = PLAN_TIERS.indexOf(
+      subscriptionTierForPlan(plan.key) as (typeof PLAN_TIERS)[number]
+    )
     if (planLevel > currentLevel) return 'upgrade'
     if (planLevel === currentLevel) return 'interval'
     return 'downgrade'
@@ -356,8 +443,8 @@
     const planByKey = new Map(PRICING_PLANS.map((plan) => [plan.key, plan]))
     const orderedKeys: PricingTier[] =
       props.conversionGoal === 'unleash'
-        ? ['unleash', 'unlock', 'uncover', 'free']
-        : ['free', 'uncover', 'unlock', 'unleash']
+        ? ['unleash', 'unlock', 'uncover', 'guild']
+        : ['guild', 'uncover', 'unlock', 'unleash']
 
     return orderedKeys
       .map((key) => planByKey.get(key))
@@ -366,23 +453,21 @@
 
   function isCurrentTier(plan: PricingPlan): boolean {
     if (!userStore.user || status.value !== 'authenticated') return false
-    return userStore.user.subscriptionTier?.toLowerCase() === plan.key
+    return planKeyForSubscriptionTier(userStore.user.subscriptionTier) === plan.key
   }
 
-  /**
-   * Same tier *and* same billing interval. Comparing tier alone left monthly
-   * subscribers unable to switch to annual — the annual card was disabled as
-   * "current plan".
-   */
   function isCurrentPlan(plan: PricingPlan): boolean {
     if (!isCurrentTier(plan)) return false
     if (plan.key === 'free') return true
     const current = currentSubscription.value
-    // Without a known interval, fall back to tier-only matching rather than
-    // offering a "switch" that might be a no-op.
     if (!current?.priceId) return true
-    if (current.interval) return current.interval === billingInterval.value
-    return current.priceId === getStripePriceId(plan, billingInterval.value, currency.value)
+    if (current.interval) {
+      return (
+        toStripeBillingInterval(current.interval as UiBillingInterval) ===
+        toStripeBillingInterval(planInterval(plan))
+      )
+    }
+    return current.priceId === getStripePriceId(plan, planInterval(plan), currency.value)
   }
 
   function isPrimaryPlan(plan: PricingPlan): boolean {
@@ -417,29 +502,31 @@
     if (isCurrentPlan(plan)) return translate('btn.current_plan')
     if (status.value !== 'authenticated') {
       if (plan.key === 'free') return translate('btn.start_free')
+      if (plan.key === 'guild') return translate('btn.join_guild')
       if (plan.key === 'uncover') return translate('btn.get_uncover')
       if (plan.key === 'unlock') return translate('btn.get_unlock')
       return translate('btn.get_unleash')
     }
 
-    const currentTier = (userStore.user?.subscriptionTier || 'FREE').toUpperCase()
-    const tiers = ['FREE', 'UNCOVER', 'UNLOCK', 'UNLEASH']
-    const currentLevel = tiers.indexOf(currentTier)
-    const planLevel = tiers.indexOf(plan.key.toUpperCase())
+    const currentLevel = PLAN_TIERS.indexOf(
+      (userStore.user?.subscriptionTier || 'FREE').toUpperCase() as (typeof PLAN_TIERS)[number]
+    )
+    const planLevel = PLAN_TIERS.indexOf(
+      subscriptionTierForPlan(plan.key) as (typeof PLAN_TIERS)[number]
+    )
 
-    if (planLevel > currentLevel) {
-      return translate('btn.upgrade')
+    if (planLevel > currentLevel) return translate('btn.upgrade')
+    if (planLevel < currentLevel) return translate('btn.downgrade')
+    if (plan.key === 'guild') {
+      return guildInterval.value === 'annual'
+        ? translate('billing.annual')
+        : translate('billing.monthly')
     }
-    if (planLevel < currentLevel) {
-      return translate('btn.downgrade')
-    }
-    // Same tier, different interval — a switch, not a no-op.
-    return billingInterval.value === 'annual'
-      ? translate('billing.annual')
-      : translate('billing.monthly')
+    if (phaseInterval.value === '6-phase') return translate('billing.phase_6')
+    if (phaseInterval.value === '12-phase') return translate('billing.phase_12')
+    return translate('billing.phase_1')
   }
 
-  /** Every feature: truncating hid the differentiator that justifies Pro. */
   function getVisibleFeatures(plan: PricingPlan): string[] {
     return plan.features
   }
@@ -448,10 +535,8 @@
     loading.value = true
     selectedPlan.value = plan.key
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const priceId = getStripePriceId(plan, planInterval(plan), currency.value)
     if (priceId) {
-      // API contract is upgrade | downgrade. Same-tier interval switches share the
-      // create_prorations path with downgrades (next invoice, not charged now).
       const kind = planChangeKind(plan)
       const direction = kind === 'upgrade' ? 'upgrade' : 'downgrade'
 
@@ -472,8 +557,6 @@
     if (userStore.user?.stripeCustomerId && userStore.user?.subscriptionTier !== 'FREE') {
       const kind = planChangeKind(plan)
 
-      // Paid upgrades, interval switches, and paid downgrades all confirm first.
-      // Only true tier upgrades invoice immediately (always_invoice on the server).
       if (kind === 'upgrade' || kind === 'interval') {
         planToChangeTo.value = plan
         pendingChangeKind.value = kind
@@ -502,11 +585,11 @@
     }
 
     if (status.value !== 'authenticated') {
-      navigateTo(`/join?plan=${plan.key}&interval=${billingInterval.value}`)
+      navigateTo(`/join?plan=${plan.key}&interval=${planInterval(plan)}`)
       return
     }
 
-    const priceId = getStripePriceId(plan, billingInterval.value, currency.value)
+    const priceId = getStripePriceId(plan, planInterval(plan), currency.value)
     if (!priceId) return
 
     loading.value = true

@@ -44,6 +44,14 @@ const syncCommand = new Command('sync')
         : process.env[`STRIPE_${key}`]
 
     const tierConfig = {
+      stripeGuildProductId: envPrice('GUILD_PRODUCT_ID') || envPrice('SUPPORTER_PRODUCT_ID'),
+      stripeGuildMonthlyPriceId:
+        envPrice('GUILD_MONTHLY_PRICE_ID') || envPrice('SUPPORTER_MONTHLY_PRICE_ID'),
+      stripeGuild52WeekPriceId:
+        envPrice('GUILD_52_WEEK_PRICE_ID') || envPrice('SUPPORTER_ANNUAL_PRICE_ID'),
+      stripeSupporterProductId: envPrice('SUPPORTER_PRODUCT_ID'),
+      stripeSupporterMonthlyPriceId: envPrice('SUPPORTER_MONTHLY_PRICE_ID'),
+      stripeSupporterAnnualPriceId: envPrice('SUPPORTER_ANNUAL_PRICE_ID'),
       stripeUncoverProductId: envPrice('UNCOVER_PRODUCT_ID'),
       stripeUncover1PhasePriceId: envPrice('UNCOVER_1_PHASE_PRICE_ID'),
       stripeUncover6PhasePriceId: envPrice('UNCOVER_6_PHASE_PRICE_ID'),

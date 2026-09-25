@@ -15,7 +15,7 @@
         <UCard>
           <template #header>
             <div class="flex items-center gap-3">
-              <UIcon name="i-simple-icons-discord" class="w-8 h-8 text-[#5865F2]" />
+              <UIcon name="i-simple-icons-telegram" class="w-8 h-8 text-[#26A5E4]" />
               <h2 class="text-xl font-semibold">{{ t('community.title') }}</h2>
             </div>
           </template>
@@ -24,12 +24,12 @@
 
           <template #footer>
             <UButton
-              to="https://discord.gg/dPYkzg49T9"
+              to="https://t.me/+lQyDZWNsNhthZTcx"
               target="_blank"
               color="primary"
               variant="solid"
               block
-              icon="i-simple-icons-discord"
+              icon="i-simple-icons-telegram"
             >
               {{ t('community.btn') }}
             </UButton>
@@ -49,7 +49,7 @@
 
           <template #footer>
             <UButton
-              to="https://github.com/newpush/coach/issues"
+              to="https://github.com/nbpatenaude-nerd/coach/issues"
               target="_blank"
               color="neutral"
               variant="solid"

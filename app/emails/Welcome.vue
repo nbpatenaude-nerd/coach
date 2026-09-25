@@ -30,7 +30,7 @@
     }
   )
   const connectSourceUrl = computed(() => `${props.siteUrl}/settings/apps`)
-  const discordUrl = 'https://discord.gg/dPYkzg49T9'
+  const telegramUrl = 'https://t.me/+lQyDZWNsNhthZTcx'
 </script>
 
 <template>
@@ -229,12 +229,12 @@
               >Community</EText
             >
             <EText style="font-size: 15px; line-height: 1.6; color: #52525b; margin: 0">
-              Questions or feedback? Join our Discord community and connect with other athletes:
+              Questions or feedback? Join our Telegram community and connect with other athletes:
               <ELink
-                :href="discordUrl + (utmQuery || '') + '&utm_content=join_discord'"
+                :href="telegramUrl + (utmQuery || '')"
                 style="color: #00c16a; text-decoration: underline"
               >
-                Join Journey Endurance on Discord
+                Join Journey Endurance on Telegram
               </ELink>
             </EText>
           </EContainer>

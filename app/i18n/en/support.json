@@ -1,7 +1,7 @@
 {
   "community": {
-    "btn": "Join our Discord",
-    "desc": "Join our Discord server to ask questions, share feedback, and connect with other users. This is the fastest way to get help.",
+    "btn": "Join our Telegram",
+    "desc": "Join our Telegram community to ask questions, share feedback, and connect with other athletes. This is the fastest way to get help.",
     "title": "Community Support"
   },
   "email": {
@@ -30,7 +30,7 @@
   "subtitle": "We're here to help. Choose the channel that works best for you.",
   "title": "Support",
   "meta_title": "Support | Journey Endurance",
-  "meta_description": "Get help with Journey Endurance. Join our Discord community or contact our support team.",
+  "meta_description": "Get help with Journey Endurance. Join our Telegram community or contact our support team.",
   "toast": {
     "error": "Failed to send message",
     "missing_content": "Subject and Message are required",

@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { useTranslate } from '@tolgee/vue'
+  import { JOURNEY_GITHUB_REPO_URL, JOURNEY_TELEGRAM_COMMUNITY_URL } from '#shared/community-links'
 
   const props = defineProps<{
     user: { name?: string | null; email?: string | null } | null | undefined
@@ -39,15 +40,15 @@
         to: '/settings/changelog'
       },
       {
-        label: ready.value ? t.value('sidebar_community_discord') : 'Discord',
-        icon: 'i-simple-icons-discord',
-        to: 'https://discord.gg/dPYkzg49T9',
+        label: ready.value ? t.value('sidebar_community_telegram') : 'Telegram',
+        icon: 'i-simple-icons-telegram',
+        to: JOURNEY_TELEGRAM_COMMUNITY_URL,
         target: '_blank'
       },
       {
         label: ready.value ? t.value('sidebar_community_github') : 'GitHub',
         icon: 'i-simple-icons-github',
-        to: 'https://github.com/newpush/coach',
+        to: JOURNEY_GITHUB_REPO_URL,
         target: '_blank'
       },
       {

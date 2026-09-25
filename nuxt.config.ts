@@ -335,6 +335,18 @@ export default defineNuxtConfig({
     // Stripe Configuration
     stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
     stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
+    // The Guild (baseline membership) — falls back to legacy Supporter IDs
+    stripeGuildProductId:
+      process.env.STRIPE_GUILD_PRODUCT_ID || process.env.STRIPE_SUPPORTER_PRODUCT_ID || '',
+    stripeGuildMonthlyPriceId:
+      process.env.STRIPE_GUILD_MONTHLY_PRICE_ID ||
+      process.env.STRIPE_SUPPORTER_MONTHLY_PRICE_ID ||
+      '',
+    stripeGuild52WeekPriceId:
+      process.env.STRIPE_GUILD_52_WEEK_PRICE_ID ||
+      process.env.STRIPE_SUPPORTER_ANNUAL_PRICE_ID ||
+      '',
+    // Legacy Supporter/Pro env keys (RevenueCat / older portals)
     stripeSupporterProductId: process.env.STRIPE_SUPPORTER_PRODUCT_ID || '',
     stripeSupporterMonthlyPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_PRICE_ID || '',
     stripeSupporterAnnualPriceId: process.env.STRIPE_SUPPORTER_ANNUAL_PRICE_ID || '',
@@ -345,6 +357,19 @@ export default defineNuxtConfig({
     stripeProAnnualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
     stripeProMonthlyEurPriceId: process.env.STRIPE_PRO_MONTHLY_EUR_PRICE_ID || '',
     stripeProAnnualEurPriceId: process.env.STRIPE_PRO_ANNUAL_EUR_PRICE_ID || '',
+    // Current Journey Uncover / Unlock / Unleash phase prices
+    stripeUncoverProductId: process.env.STRIPE_UNCOVER_PRODUCT_ID || '',
+    stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID || '',
+    stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID || '',
+    stripeUncover12PhasePriceId: process.env.STRIPE_UNCOVER_12_PHASE_PRICE_ID || '',
+    stripeUnlockProductId: process.env.STRIPE_UNLOCK_PRODUCT_ID || '',
+    stripeUnlock1PhasePriceId: process.env.STRIPE_UNLOCK_1_PHASE_PRICE_ID || '',
+    stripeUnlock6PhasePriceId: process.env.STRIPE_UNLOCK_6_PHASE_PRICE_ID || '',
+    stripeUnlock12PhasePriceId: process.env.STRIPE_UNLOCK_12_PHASE_PRICE_ID || '',
+    stripeUnleashProductId: process.env.STRIPE_UNLEASH_PRODUCT_ID || '',
+    stripeUnleash1PhasePriceId: process.env.STRIPE_UNLEASH_1_PHASE_PRICE_ID || '',
+    stripeUnleash6PhasePriceId: process.env.STRIPE_UNLEASH_6_PHASE_PRICE_ID || '',
+    stripeUnleash12PhasePriceId: process.env.STRIPE_UNLEASH_12_PHASE_PRICE_ID || '',
 
     // RevenueCat and provider-neutral subscription reconciliation (server-only keys)
     revenueCatApiBaseUrl: process.env.REVENUECAT_API_BASE_URL || 'https://api.revenuecat.com/v1',
@@ -369,6 +394,14 @@ export default defineNuxtConfig({
       authBypassUser: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_USER || '',
       authBypassName: process.env.E2E_MODE === 'true' ? '' : process.env.AUTH_BYPASS_NAME || '',
       stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
+      stripeGuildMonthlyPriceId:
+        process.env.STRIPE_GUILD_MONTHLY_PRICE_ID ||
+        process.env.STRIPE_SUPPORTER_MONTHLY_PRICE_ID ||
+        '',
+      stripeGuild52WeekPriceId:
+        process.env.STRIPE_GUILD_52_WEEK_PRICE_ID ||
+        process.env.STRIPE_SUPPORTER_ANNUAL_PRICE_ID ||
+        '',
       stripeSupporterMonthlyPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_PRICE_ID || '',
       stripeSupporterAnnualPriceId: process.env.STRIPE_SUPPORTER_ANNUAL_PRICE_ID || '',
       stripeSupporterMonthlyEurPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_EUR_PRICE_ID || '',
@@ -377,6 +410,15 @@ export default defineNuxtConfig({
       stripeProAnnualPriceId: process.env.STRIPE_PRO_ANNUAL_PRICE_ID || '',
       stripeProMonthlyEurPriceId: process.env.STRIPE_PRO_MONTHLY_EUR_PRICE_ID || '',
       stripeProAnnualEurPriceId: process.env.STRIPE_PRO_ANNUAL_EUR_PRICE_ID || '',
+      stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID || '',
+      stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID || '',
+      stripeUncover12PhasePriceId: process.env.STRIPE_UNCOVER_12_PHASE_PRICE_ID || '',
+      stripeUnlock1PhasePriceId: process.env.STRIPE_UNLOCK_1_PHASE_PRICE_ID || '',
+      stripeUnlock6PhasePriceId: process.env.STRIPE_UNLOCK_6_PHASE_PRICE_ID || '',
+      stripeUnlock12PhasePriceId: process.env.STRIPE_UNLOCK_12_PHASE_PRICE_ID || '',
+      stripeUnleash1PhasePriceId: process.env.STRIPE_UNLEASH_1_PHASE_PRICE_ID || '',
+      stripeUnleash6PhasePriceId: process.env.STRIPE_UNLEASH_6_PHASE_PRICE_ID || '',
+      stripeUnleash12PhasePriceId: process.env.STRIPE_UNLEASH_12_PHASE_PRICE_ID || '',
       subscriptionsEnabled: process.env.NUXT_PUBLIC_SUBSCRIPTIONS_ENABLED !== 'false',
       nativeSubscriptionsEnabled: process.env.NUXT_PUBLIC_NATIVE_SUBSCRIPTIONS_ENABLED === 'true',
       stravaEnabled: process.env.NUXT_PUBLIC_STRAVA_ENABLED !== 'false',
