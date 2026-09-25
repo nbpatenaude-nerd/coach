@@ -621,7 +621,13 @@ export type ScheduledTaskConfig = Prisma.ScheduledTaskConfigModel
  */
 export type PasswordResetToken = Prisma.PasswordResetTokenModel
 /**
+ * Model CheckInForm
+ * Form definition for weekly check-ins (sections/fields as JSON).
+ */
+export type CheckInForm = Prisma.CheckInFormModel
+/**
  * Model WeeklyCheckIn
- *
+ * One athlete submission for one week. Unique on [athleteId, weekStartDate]
+ * so re-submitting within the window edits rather than duplicates.
  */
 export type WeeklyCheckIn = Prisma.WeeklyCheckInModel

@@ -489,6 +489,7 @@ export const ModelName = {
   CoachFeedback: 'CoachFeedback',
   ScheduledTaskConfig: 'ScheduledTaskConfig',
   PasswordResetToken: 'PasswordResetToken',
+  CheckInForm: 'CheckInForm',
   WeeklyCheckIn: 'WeeklyCheckIn'
 } as const
 
@@ -625,6 +626,7 @@ export type TypeMap<
       | 'coachFeedback'
       | 'scheduledTaskConfig'
       | 'passwordResetToken'
+      | 'checkInForm'
       | 'weeklyCheckIn'
     txIsolationLevel: TransactionIsolationLevel
   }
@@ -9232,6 +9234,80 @@ export type TypeMap<
         }
       }
     }
+    CheckInForm: {
+      payload: Prisma.$CheckInFormPayload<ExtArgs>
+      fields: Prisma.CheckInFormFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CheckInFormFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CheckInFormFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>
+        }
+        findFirst: {
+          args: Prisma.CheckInFormFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CheckInFormFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>
+        }
+        findMany: {
+          args: Prisma.CheckInFormFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>[]
+        }
+        create: {
+          args: Prisma.CheckInFormCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>
+        }
+        createMany: {
+          args: Prisma.CheckInFormCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CheckInFormCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>[]
+        }
+        delete: {
+          args: Prisma.CheckInFormDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>
+        }
+        update: {
+          args: Prisma.CheckInFormUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>
+        }
+        deleteMany: {
+          args: Prisma.CheckInFormDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CheckInFormUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CheckInFormUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>[]
+        }
+        upsert: {
+          args: Prisma.CheckInFormUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CheckInFormPayload>
+        }
+        aggregate: {
+          args: Prisma.CheckInFormAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCheckInForm>
+        }
+        groupBy: {
+          args: Prisma.CheckInFormGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CheckInFormGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CheckInFormCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CheckInFormCountAggregateOutputType> | number
+        }
+      }
+    }
     WeeklyCheckIn: {
       payload: Prisma.$WeeklyCheckInPayload<ExtArgs>
       fields: Prisma.WeeklyCheckInFieldRefs
@@ -11727,19 +11803,41 @@ export const PasswordResetTokenScalarFieldEnum = {
 export type PasswordResetTokenScalarFieldEnum =
   (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
+export const CheckInFormScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  title: 'title',
+  description: 'description',
+  sections: 'sections',
+  isActive: 'isActive',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CheckInFormScalarFieldEnum =
+  (typeof CheckInFormScalarFieldEnum)[keyof typeof CheckInFormScalarFieldEnum]
+
 export const WeeklyCheckInScalarFieldEnum = {
   id: 'id',
   athleteId: 'athleteId',
-  coachId: 'coachId',
+  formId: 'formId',
   weekStartDate: 'weekStartDate',
+  responses: 'responses',
   submittedAt: 'submittedAt',
+  updatedAt: 'updatedAt',
+  status: 'status',
+  coachId: 'coachId',
+  coachNotes: 'coachNotes',
+  coachVideoUrl: 'coachVideoUrl',
+  coachVideoAddedAt: 'coachVideoAddedAt',
+  coachReviewedAt: 'coachReviewedAt',
   feelingScore: 'feelingScore',
   fatigueScore: 'fatigueScore',
   stressScore: 'stressScore',
   sleepQuality: 'sleepQuality',
   notes: 'notes',
-  coachFeedback: 'coachFeedback',
-  coachReviewedAt: 'coachReviewedAt'
+  coachFeedback: 'coachFeedback'
 } as const
 
 export type WeeklyCheckInScalarFieldEnum =
@@ -12187,6 +12285,22 @@ export type ListEnumTeamRoleFieldRefInput<$PrismaModel> = FieldRefInputType<
 >
 
 /**
+ * Reference to a field of type 'WeeklyCheckInStatus'
+ */
+export type EnumWeeklyCheckInStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'WeeklyCheckInStatus'
+>
+
+/**
+ * Reference to a field of type 'WeeklyCheckInStatus[]'
+ */
+export type ListEnumWeeklyCheckInStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'WeeklyCheckInStatus[]'
+>
+
+/**
  * Batch Payload for updateMany & deleteMany & createMany
  */
 export type BatchPayload = {
@@ -12419,6 +12533,7 @@ export type GlobalOmitConfig = {
   coachFeedback?: Prisma.CoachFeedbackOmit
   scheduledTaskConfig?: Prisma.ScheduledTaskConfigOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
+  checkInForm?: Prisma.CheckInFormOmit
   weeklyCheckIn?: Prisma.WeeklyCheckInOmit
 }
 

@@ -207,3 +207,10 @@ export const TeamRole = {
 } as const
 
 export type TeamRole = (typeof TeamRole)[keyof typeof TeamRole]
+
+export const WeeklyCheckInStatus = {
+  SUBMITTED: 'SUBMITTED',
+  REVIEWED: 'REVIEWED'
+} as const
+
+export type WeeklyCheckInStatus = (typeof WeeklyCheckInStatus)[keyof typeof WeeklyCheckInStatus]
