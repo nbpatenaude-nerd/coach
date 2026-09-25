@@ -5,6 +5,7 @@ declare module 'next-auth' {
     user: {
       id: string
       isAdmin: boolean
+      isCoach: boolean
       termsAcceptedAt: string | null
       timezone: string | null
       deactivatedAt: string | null
@@ -13,6 +14,7 @@ declare module 'next-auth' {
 
   interface User {
     isAdmin: boolean
+    isCoach: boolean
     deactivatedAt: Date | null
   }
 }

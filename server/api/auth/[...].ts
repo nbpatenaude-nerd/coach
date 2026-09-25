@@ -307,6 +307,7 @@ export default NuxtAuthHandler({
       if (session.user) {
         ;(session.user as any).id = user.id
         session.user.isAdmin = user.isAdmin || false
+        session.user.isCoach = user.isCoach || false
         session.user.timezone = user.timezone || null
         session.user.language = user.language || 'English'
         session.user.uiLanguage = user.uiLanguage || 'en'

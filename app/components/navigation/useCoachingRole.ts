@@ -5,6 +5,11 @@ export interface CoachingRoleSignals {
   pendingCoachRequestsCount: number
   /** Active coaching relationships where the current user is the athlete. */
   ownCoachesCount: number
+  /**
+   * From session User.isCoach (or isAdmin). Unlocks the full coaching suite
+   * even with an empty roster so new coaches can invite athletes.
+   */
+  isCoachFlag?: boolean
 }
 
 export interface CoachingRoleResult {
@@ -30,7 +35,10 @@ export interface CoachingRoleResult {
  * tested without a Nuxt runtime. See `useCoachingRole` below for the wiring.
  */
 export function resolveCoachingRole(signals: CoachingRoleSignals): CoachingRoleResult {
-  const isCoachForAnyone = signals.coachedAthletesCount > 0 || signals.pendingCoachRequestsCount > 0
+  const isCoachForAnyone =
+    signals.coachedAthletesCount > 0 ||
+    signals.pendingCoachRequestsCount > 0 ||
+    signals.isCoachFlag === true
   const isPureAthlete = signals.ownCoachesCount > 0 && !isCoachForAnyone
 
   return {
@@ -49,6 +57,12 @@ export function resolveCoachingRole(signals: CoachingRoleSignals): CoachingRoleR
  * every route change.
  */
 export function useCoachingRole() {
+  const { data: session } = useAuth()
+
+  const isCoachFlag = computed(
+    () => session.value?.user?.isCoach === true || session.value?.user?.isAdmin === true
+  )
+
   const { data: coachedAthletes } = useLazyFetch<any[], Error, string & {}>(
     '/api/coaching/athletes',
     {
@@ -79,7 +93,8 @@ export function useCoachingRole() {
       pendingCoachRequestsCount: Array.isArray(pendingCoachRequests.value)
         ? pendingCoachRequests.value.length
         : 0,
-      ownCoachesCount: Array.isArray(ownCoaches.value) ? ownCoaches.value.length : 0
+      ownCoachesCount: Array.isArray(ownCoaches.value) ? ownCoaches.value.length : 0,
+      isCoachFlag: isCoachFlag.value
     })
   )
 
