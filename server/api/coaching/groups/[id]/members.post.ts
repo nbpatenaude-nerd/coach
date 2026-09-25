@@ -37,7 +37,11 @@ export default defineEventHandler(async (event) => {
   const result = addMemberSchema.safeParse(body)
 
   if (!groupId || !result.success) {
-    throw createError({ statusCode: 400, message: 'Invalid input' })
+    throw createError({
+      statusCode: 400,
+      message: 'Invalid input',
+      data: result.success ? undefined : result.error.flatten()
+    })
   }
 
   const { athleteId } = result.data

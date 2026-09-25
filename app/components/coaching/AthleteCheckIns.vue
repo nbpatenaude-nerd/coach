@@ -11,26 +11,32 @@
       </UButton>
     </div>
 
-    <div v-else-if="checkIns.length === 0">
+    <div v-else-if="displayedCheckIns.length === 0">
       <div
         class="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 px-6 py-10 text-center"
       >
         <UIcon name="i-lucide-clipboard-list" class="w-8 h-8 mx-auto text-gray-400 mb-2" />
-        <p class="text-sm text-gray-500 dark:text-gray-400">No weekly check-ins submitted yet.</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          {{
+            checkIns.length
+              ? 'No weekly check-ins in the selected date range.'
+              : 'No weekly check-ins submitted yet.'
+          }}
+        </p>
       </div>
     </div>
 
     <div v-else class="space-y-4">
       <CoachingCheckInTrendChart
         v-if="showTrends"
-        :rows="checkIns"
+        :rows="displayedCheckIns"
         title="Athlete trends"
         subtitle="Ratings across their weekly check-ins"
       />
 
       <div class="space-y-3">
         <div
-          v-for="checkIn in checkIns"
+          v-for="checkIn in displayedCheckIns"
           :key="checkIn.id"
           class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden"
         >
@@ -245,8 +251,10 @@
     defineProps<{
       athleteId: string
       showTrends?: boolean
+      dateFrom?: string | null
+      dateTo?: string | null
     }>(),
-    { showTrends: true }
+    { showTrends: true, dateFrom: null, dateTo: null }
   )
 
   const loading = ref(true)
@@ -258,6 +266,16 @@
   const editing = ref<Record<string, boolean>>({})
   const replyDrafts = ref<Record<string, { notes: string; videoUrl: string }>>({})
   const toast = useToast()
+
+  const displayedCheckIns = computed(() => {
+    const from = props.dateFrom
+    const to = props.dateTo
+    if (!from || !to) return checkIns.value
+    return checkIns.value.filter((row) => {
+      const key = (row.weekStartDate || row.submittedAt || '').slice(0, 10)
+      return key >= from && key <= to
+    })
+  })
 
   function formatWeek(isoDate: string) {
     return new Date(`${isoDate}T12:00:00`).toLocaleDateString(undefined, {

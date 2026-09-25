@@ -154,6 +154,7 @@
             <USelect
               v-model="newGroup.teamId"
               :items="teamOptions"
+              value-key="value"
               :placeholder="t('group_private_option', 'Private (Only Me)')"
               class="w-full"
             />
@@ -207,6 +208,7 @@
               <USelect
                 v-model="selectedAthleteId"
                 :items="availableAthleteOptions"
+                value-key="value"
                 :placeholder="t('group_select_athlete_placeholder', 'Select an athlete...')"
                 class="flex-1"
               />
@@ -339,9 +341,10 @@
     if (!newGroup.value.name) return
     creating.value = true
     try {
+      const teamIdRaw = resolveSelectValue(newGroup.value.teamId)
       const payload = {
         ...newGroup.value,
-        teamId: newGroup.value.teamId === 'private' ? undefined : newGroup.value.teamId
+        teamId: !teamIdRaw || teamIdRaw === 'private' ? undefined : teamIdRaw
       }
       await ($fetch as any)('/api/coaching/groups', {
         method: 'POST',
@@ -378,13 +381,23 @@
     }
   }
 
+  function resolveSelectValue(model: unknown): string {
+    if (typeof model === 'string') return model
+    if (model && typeof model === 'object' && 'value' in model) {
+      const value = (model as { value: unknown }).value
+      return typeof value === 'string' ? value : ''
+    }
+    return ''
+  }
+
   async function addMember() {
-    if (!selectedAthleteId.value || !editingGroup.value) return
+    const athleteId = resolveSelectValue(selectedAthleteId.value)
+    if (!athleteId || !editingGroup.value) return
     addingMember.value = true
     try {
       await ($fetch as any)(`/api/coaching/groups/${editingGroup.value.id}/members`, {
         method: 'POST',
-        body: { athleteId: selectedAthleteId.value }
+        body: { athleteId }
       })
       toast.add({
         title: t.value('group_toast_member_added', 'Athlete added to group'),
