@@ -4,6 +4,7 @@ import { generateStructuredAnalysis, buildConciseWorkoutSummary } from '../serve
 import { prisma } from '../server/utils/db'
 import { userReportsQueue } from './queues'
 import { syncPlannedWorkoutToIntervals } from '../server/utils/intervals-sync'
+import { maybeAutoPublishPlannedWorkoutToGarmin } from '../server/utils/planned-workout-garmin-publish'
 import { serializeCanonicalForIntervals } from '../server/utils/canonical-workout-serializer'
 import { workoutRepository } from '../server/utils/repositories/workoutRepository'
 import { sportSettingsRepository } from '../server/utils/repositories/sportSettingsRepository'
@@ -1882,6 +1883,8 @@ OUTPUT JSON matching the schema.`
           }
         }
       }
+
+      await maybeAutoPublishPlannedWorkoutToGarmin(workout.userId, entityId)
     } else {
       // WorkoutTemplate - Strictly filter fields
       const templateData = {

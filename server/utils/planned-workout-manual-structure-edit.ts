@@ -1,6 +1,7 @@
 import { prisma } from './db'
 import { sportSettingsRepository } from './repositories/sportSettingsRepository'
 import { syncPlannedWorkoutToIntervals } from './intervals-sync'
+import { maybeAutoPublishPlannedWorkoutToGarmin } from './planned-workout-garmin-publish'
 import { serializeCanonicalForIntervals } from './canonical-workout-serializer'
 import { buildStructurePublishFields } from './planned-workout-structure-sync'
 import { hasActiveStructureGenerationRun } from './structure-generation-run'
@@ -372,6 +373,8 @@ export async function applyManualPlannedWorkoutStructureEdit(options: {
   const workoutResult = sync.synced
     ? await prisma.plannedWorkout.findUnique({ where: { id: plannedWorkoutId } })
     : updatedWorkout
+
+  await maybeAutoPublishPlannedWorkoutToGarmin(ownerUserId, plannedWorkoutId)
 
   return {
     success: true,

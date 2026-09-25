@@ -10,6 +10,7 @@ import { workoutRepository } from '../server/utils/repositories/workoutRepositor
 import { checkQuota } from '../server/utils/quotas/engine'
 import { serializeCanonicalForIntervals } from '../server/utils/canonical-workout-serializer'
 import { syncPlannedWorkoutToIntervals } from '../server/utils/intervals-sync'
+import { maybeAutoPublishPlannedWorkoutToGarmin } from '../server/utils/planned-workout-garmin-publish'
 import { enforceCyclingCadenceVariation, resolveCyclingCadence } from './utils/cadence'
 import {
   resolveWorkoutTargeting,
@@ -1571,6 +1572,8 @@ OUTPUT JSON matching the schema.`
           syncError: syncResult.error || null
         })
       }
+
+      await maybeAutoPublishPlannedWorkoutToGarmin(workout.userId, plannedWorkoutId!)
     } else {
       const updatedTemplate = await (prisma as any).workoutTemplate.update({
         where: { id: workoutTemplateId! },
