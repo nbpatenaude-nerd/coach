@@ -4,6 +4,7 @@ import { z } from 'zod/v3'
 import { getServerSession } from '../../../../utils/session'
 import { publishTaskRunStartedEvent } from '../../../../utils/task-run-events'
 import { structureGenerationRunTags } from '../../../../utils/trigger-run-tags'
+import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
 
 const messageRequestSchema = z.object({
   tone: z.string().optional(),
@@ -16,22 +17,22 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
 
+  const viewerId = (session.user as any).id
   const workoutId = getRouterParam(event, 'id')
   const body = await readBody(event)
   const { tone, context } = messageRequestSchema.parse(body)
 
   const workout = await prisma.plannedWorkout.findFirst({
-    where: {
-      id: workoutId,
-      userId: (session.user as any).id
-    }
+    where: { id: workoutId }
   })
 
   if (!workout) {
     throw createError({ statusCode: 404, message: 'Workout not found' })
   }
 
-  const userId = (session.user as any).id
+  await assertPlannedWorkoutAccess(viewerId, workout.userId)
+
+  const userId = workout.userId
   const tags = structureGenerationRunTags({
     userId,
     plannedWorkoutId: workout.id,

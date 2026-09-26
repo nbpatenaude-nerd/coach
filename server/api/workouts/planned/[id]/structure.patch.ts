@@ -14,13 +14,14 @@ import {
 import { writeCanonicalPlannedWorkoutStructure } from '../../../../utils/canonical-planned-workout-write'
 import { hasActiveStructureGenerationRun } from '../../../../utils/structure-generation-run'
 import { syncManualPlannedWorkoutStructureToIntervalsIfSynced } from '../../../../utils/planned-workout-manual-structure-edit'
+import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
   if (!session?.user?.id) {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
-  const userId = session.user.id
+  const viewerId = session.user.id
 
   const id = getRouterParam(event, 'id')
   if (!id) {
@@ -48,7 +49,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // 1. Verify ownership
+  // 1. Verify ownership or active coaching relationship
   const workout = await prisma.plannedWorkout.findUnique({
     where: { id },
     include: {
@@ -62,9 +63,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Planned workout not found' })
   }
 
-  if (workout.userId !== userId) {
-    throw createError({ statusCode: 403, message: 'Access denied' })
-  }
+  await assertPlannedWorkoutAccess(viewerId, workout.userId)
 
   if (await hasActiveStructureGenerationRun(id)) {
     throw createError({
@@ -116,7 +115,10 @@ export default defineEventHandler(async (event) => {
     ...(Array.isArray(providedSteps) || typeof text === 'string' ? { steps } : {}),
     ...(normalizedStrengthStructure || {})
   }
-  const sportSettings = await sportSettingsRepository.getForActivityType(userId, workout.type || '')
+  const sportSettings = await sportSettingsRepository.getForActivityType(
+    workout.userId,
+    workout.type || ''
+  )
   const { targetPolicy, targetFormatPolicy } = resolveWorkoutTargeting(sportSettings)
   const refs = {
     ftp: Number(sportSettings?.ftp || (workout.user as any)?.ftp || 250),
@@ -171,7 +173,7 @@ export default defineEventHandler(async (event) => {
   const updatedWorkout = persisted.workout!
 
   const sync = await syncManualPlannedWorkoutStructureToIntervalsIfSynced({
-    userId,
+    userId: workout.userId,
     plannedWorkoutId: id,
     priorSyncStatus: workout.syncStatus,
     updatedWorkout,

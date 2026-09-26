@@ -247,28 +247,58 @@
   const entitlements = computed(() => {
     if (!userStore.user) return null
 
-    // Simple client-side entitlements calculation
+    // Match server resolveEffectiveTier (paid period, contributor, trial, promo grant).
     const tier = userStore.user.subscriptionTier
     const status = userStore.user.subscriptionStatus
     const periodEnd = userStore.user.subscriptionPeriodEnd
+    const promotionalGrantTier =
+      ((userStore.user as any).promotionalGrantTier as SubscriptionTier | null | undefined) ||
+      ((userStore.user as any).activePromotionalGrant?.tier as SubscriptionTier | null | undefined)
 
     const isEffectivePremium =
       status === 'ACTIVE' ||
       status === 'CONTRIBUTOR' ||
       (periodEnd && new Date(periodEnd) > new Date())
 
-    // Match server resolveEffectiveTier: lifetime contributors are always Pro.
-    const effectiveTier = status === 'CONTRIBUTOR' ? 'PRO' : isEffectivePremium ? tier : 'FREE'
+    let effectiveTier: SubscriptionTier =
+      status === 'CONTRIBUTOR' ? 'PRO' : isEffectivePremium ? tier : 'FREE'
+
+    if (
+      userStore.user.trialEndsAt &&
+      new Date(userStore.user.trialEndsAt) > new Date() &&
+      tier === 'FREE' &&
+      !isEffectivePremium
+    ) {
+      effectiveTier = 'SUPPORTER'
+    }
+
+    if (promotionalGrantTier) {
+      const rank: Record<string, number> = {
+        FREE: 0,
+        SUPPORTER: 1,
+        PRO: 2,
+        UNCOVER: 3,
+        UNLOCK: 4,
+        UNLEASH: 5
+      }
+      if ((rank[promotionalGrantTier] ?? 0) > (rank[effectiveTier] ?? 0)) {
+        effectiveTier = promotionalGrantTier
+      }
+    }
 
     return {
       tier: effectiveTier,
       autoSync: effectiveTier !== 'FREE',
       autoAnalysis: effectiveTier !== 'FREE',
-      aiModel: effectiveTier === 'PRO' ? 'pro' : 'flash',
+      aiModel: effectiveTier === 'PRO' || effectiveTier === 'UNLEASH' ? 'pro' : 'flash',
       priorityProcessing: effectiveTier !== 'FREE',
-      proactivity: effectiveTier === 'PRO'
+      proactivity: effectiveTier === 'PRO' || effectiveTier === 'UNLEASH'
     }
   })
+
+  const displayPlanTier = computed(
+    () => entitlements.value?.tier || userStore.user?.subscriptionTier || 'FREE'
+  )
 
   const billingTrustSignals = computed(
     () =>
@@ -377,10 +407,12 @@
     }
   }
   function formatTier(tier: SubscriptionTier | undefined): string {
-    if (!tier) return t.value('billing_tier_free')
+    if (!tier || tier === 'FREE') return t.value('billing_tier_free')
     if (tier === 'UNLEASH') return t.value('billing_tier_unleash')
     if (tier === 'UNLOCK') return t.value('billing_tier_unlock')
     if (tier === 'UNCOVER') return t.value('billing_tier_uncover')
+    if (tier === 'PRO') return t.value('billing_tier_pro')
+    if (tier === 'SUPPORTER') return t.value('billing_tier_supporter')
     return t.value('billing_tier_free')
   }
 
@@ -518,7 +550,7 @@
               :color="getStatusColor(userStore.user?.subscriptionStatus) as any"
               class="font-semibold"
             >
-              {{ formatTier(userStore.user?.subscriptionTier) }} •
+              {{ formatTier(displayPlanTier) }} •
               {{ formatStatus(userStore.user?.subscriptionStatus) }}
             </UBadge>
           </div>
@@ -748,29 +780,21 @@
           <template #header>
             <div class="flex items-center justify-between">
               <h3 class="text-lg font-semibold">{{ t('billing_active_subscription') }}</h3>
-              <UIcon
-                :name="getTierIcon(userStore.user?.subscriptionTier)"
-                class="w-5 h-5 text-primary"
-              />
+              <UIcon :name="getTierIcon(displayPlanTier)" class="w-5 h-5 text-primary" />
             </div>
           </template>
 
           <div class="space-y-6">
             <div class="flex items-start gap-4">
               <div class="p-3 bg-primary/10 rounded-lg">
-                <UIcon
-                  :name="getTierIcon(userStore.user?.subscriptionTier)"
-                  class="w-8 h-8 text-primary"
-                />
+                <UIcon :name="getTierIcon(displayPlanTier)" class="w-8 h-8 text-primary" />
               </div>
               <div>
                 <div class="text-xl font-bold">
-                  {{
-                    t('billing_plan_name', { tier: formatTier(userStore.user?.subscriptionTier) })
-                  }}
+                  {{ t('billing_plan_name', { tier: formatTier(displayPlanTier) }) }}
                 </div>
                 <p class="text-sm text-neutral-500">
-                  {{ getTierDescription(userStore.user?.subscriptionTier) }}
+                  {{ getTierDescription(displayPlanTier) }}
                 </p>
                 <!-- Pending Change Indicator -->
                 <div

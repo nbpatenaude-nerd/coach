@@ -19,3 +19,25 @@ export async function requireCoachAccessToAthlete(
 
   return coach
 }
+
+export type PlannedWorkoutAccessRole = 'owner' | 'coach'
+
+/**
+ * Owner or active coach may view/edit an athlete's planned workout detail page.
+ * Write routes (structure, generate, adjust) use the same gate so coaches can
+ * build workouts from /workouts/planned/:id without Access Denied.
+ */
+export async function assertPlannedWorkoutAccess(
+  viewerId: string,
+  workoutOwnerId: string
+): Promise<PlannedWorkoutAccessRole> {
+  if (viewerId === workoutOwnerId) return 'owner'
+
+  const isCoach = await coachingRepository.checkRelationship(viewerId, workoutOwnerId)
+  if (isCoach) return 'coach'
+
+  throw createError({
+    statusCode: 403,
+    message: 'Access denied'
+  })
+}

@@ -3,6 +3,9 @@ import { getServerSession } from '../../../../utils/session'
 import { enqueuePlannedWorkoutStructureAdjustment } from '../../../../utils/planned-workout-structure-trigger'
 import { prisma } from '../../../../utils/db'
 import { checkQuota } from '../../../../utils/quotas/engine'
+import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
+import { resolveEffectiveTier } from '../../../../../shared/effective-tier'
+import { getActivePromotionalGrant } from '../../../../utils/partner-campaigns'
 
 const adjustSchema = z.object({
   durationMinutes: z.number().optional(),
@@ -16,19 +19,20 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
 
+  const viewerId = (session.user as any).id
   const workoutId = getRouterParam(event, 'id')
   const body = await readBody(event)
   const adjustments = adjustSchema.parse(body)
 
   const workout = await prisma.plannedWorkout.findFirst({
-    where: {
-      id: workoutId,
-      userId: (session.user as any).id
-    },
+    where: { id: workoutId },
     include: {
       user: {
         select: {
           subscriptionTier: true,
+          subscriptionStatus: true,
+          subscriptionPeriodEnd: true,
+          trialEndsAt: true,
           timezone: true
         }
       }
@@ -39,10 +43,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Workout not found' })
   }
 
-  const userId = (session.user as any).id
+  await assertPlannedWorkoutAccess(viewerId, workout.userId)
 
   try {
-    await checkQuota(userId, 'generate_structured_workout')
+    await checkQuota(workout.userId, 'generate_structured_workout')
   } catch (error: any) {
     if (error.statusCode === 429) {
       throw createError({
@@ -53,7 +57,16 @@ export default defineEventHandler(async (event) => {
     throw error
   }
 
-  if (workout.user.subscriptionTier === 'FREE') {
+  const activeGrant = await getActivePromotionalGrant(workout.userId)
+  const effectiveTier = resolveEffectiveTier({
+    subscriptionTier: workout.user.subscriptionTier,
+    subscriptionStatus: workout.user.subscriptionStatus,
+    subscriptionPeriodEnd: workout.user.subscriptionPeriodEnd,
+    trialEndsAt: workout.user.trialEndsAt,
+    promotionalGrantTier: activeGrant?.tier ?? null
+  })
+
+  if (effectiveTier === 'FREE') {
     const { getUserLocalDate } = await import('../../../../utils/date')
     const timezone = workout.user.timezone || 'UTC'
     const today = getUserLocalDate(timezone)
@@ -64,13 +77,13 @@ export default defineEventHandler(async (event) => {
       throw createError({
         statusCode: 403,
         message:
-          'Structured workout adjustment is limited to 4 weeks in advance for free users. Please upgrade to Pro to plan further ahead.'
+          'Structured workout adjustment is limited to 4 weeks in advance for free users. Please upgrade to unlock longer-range planning.'
       })
     }
   }
 
   const queued = await enqueuePlannedWorkoutStructureAdjustment({
-    userId,
+    userId: workout.userId,
     plannedWorkoutId: workout.id,
     adjustments,
     source: 'api',

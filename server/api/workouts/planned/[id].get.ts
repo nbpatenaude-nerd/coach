@@ -4,6 +4,7 @@ import { sportSettingsRepository } from '../../../utils/repositories/sportSettin
 import { assessWorkoutSettingsStaleness } from '../../../../shared/workout-settings-staleness'
 import { hasActiveStructureGenerationRun } from '../../../utils/structure-generation-run'
 import { hasRenderableStructure } from '../../../utils/structured-workout-persistence'
+import { assertPlannedWorkoutAccess } from '../../../utils/coaching-auth'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
@@ -11,14 +12,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { id: true, ftp: true }
-  })
-
-  if (!user) {
-    throw createError({ statusCode: 404, message: 'User not found' })
-  }
+  const viewerId = session.user.id
 
   const id = getRouterParam(event, 'id')
   if (!id) {
@@ -68,6 +62,9 @@ export default defineEventHandler(async (event) => {
             }
           }
         }
+      },
+      user: {
+        select: { id: true, ftp: true }
       }
     }
   })
@@ -76,10 +73,9 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Planned workout not found' })
   }
 
-  // Verify ownership
-  if (workout.userId !== user.id) {
-    throw createError({ statusCode: 403, message: 'Access denied' })
-  }
+  await assertPlannedWorkoutAccess(viewerId, workout.userId)
+
+  const ownerFtp = workout.user?.ftp ?? null
 
   // Fetch most recent LLM usage for feedback
   const llmUsage = await prisma.llmUsage.findFirst({
@@ -96,9 +92,9 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  // Fetch sport settings for this workout type
+  // Sport settings / FTP always from the athlete who owns the workout
   const sportSettings = await sportSettingsRepository.getForActivityType(
-    user.id,
+    workout.userId,
     workout.type || ''
   )
   const settingsStaleness = assessWorkoutSettingsStaleness({
@@ -106,13 +102,15 @@ export default defineEventHandler(async (event) => {
     lastGenerationSettingsSnapshot: workout.lastGenerationSettingsSnapshot,
     createdFromSettingsSnapshot: workout.createdFromSettingsSnapshot,
     liveSportSettings: sportSettings,
-    liveUserFtp: user.ftp
+    liveUserFtp: ownerFtp
   })
   const structureGenerationInFlight = await hasActiveStructureGenerationRun(id)
 
+  const { user: _owner, ...workoutPayload } = workout
+
   return {
-    workout,
-    userFtp: user.ftp,
+    workout: workoutPayload,
+    userFtp: ownerFtp,
     llmUsageId: llmUsage?.id,
     initialFeedback: llmUsage?.feedback,
     initialFeedbackText: llmUsage?.feedbackText,

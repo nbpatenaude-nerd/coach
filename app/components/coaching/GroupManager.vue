@@ -325,16 +325,18 @@
   const availableAthleteOptions = computed(() => {
     return props.athletes
       .filter((a) => {
-        const athleteId = a.athlete?.id || a.id
-        return !currentMembers.value.some((m) => m.athleteId === athleteId)
+        const athleteId = a.athlete?.id || a.athleteId || a.id
+        return Boolean(athleteId) && !currentMembers.value.some((m) => m.athleteId === athleteId)
       })
       .map((a) => {
         const athlete = a.athlete || a
+        const id = athlete.id || a.athleteId || a.id
         return {
-          label: athlete.name || athlete.email,
-          value: athlete.id
+          label: athlete.name || athlete.email || String(id),
+          value: String(id)
         }
       })
+      .filter((opt) => Boolean(opt.value))
   })
 
   async function createGroup() {
@@ -382,10 +384,22 @@
   }
 
   function resolveSelectValue(model: unknown): string {
-    if (typeof model === 'string') return model
-    if (model && typeof model === 'object' && 'value' in model) {
-      const value = (model as { value: unknown }).value
-      return typeof value === 'string' ? value : ''
+    if (typeof model === 'string' || typeof model === 'number') return String(model)
+    if (Array.isArray(model)) {
+      // USelect multi / chip edge case — take first resolvable entry
+      for (const entry of model) {
+        const resolved = resolveSelectValue(entry)
+        if (resolved) return resolved
+      }
+      return ''
+    }
+    if (model && typeof model === 'object') {
+      const record = model as Record<string, unknown>
+      for (const key of ['value', 'id', 'athleteId']) {
+        const candidate = record[key]
+        if (typeof candidate === 'string' && candidate) return candidate
+        if (typeof candidate === 'number') return String(candidate)
+      }
     }
     return ''
   }

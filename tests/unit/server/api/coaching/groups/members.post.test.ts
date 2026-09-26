@@ -53,12 +53,40 @@ describe('coaching groups members.post', () => {
     await expect(
       handler({
         params: { id: groupId },
-        body: { athleteId: { label: 'Drew', value: athleteId } }
+        body: { athleteId: 'not-a-uuid' }
       })
     ).rejects.toMatchObject({
       statusCode: 400,
       message: 'Invalid input'
     })
+  })
+
+  it('coerces athleteId from a select option object', async () => {
+    const handler = await loadHandler()
+    const { teamRepository } =
+      await import('../../../../../../server/utils/repositories/teamRepository')
+    const { coachingRepository } =
+      await import('../../../../../../server/utils/repositories/coachingRepository')
+
+    vi.mocked(teamRepository.getGroupDetails).mockResolvedValue({
+      id: groupId,
+      coachId: 'coach-1',
+      teamId: null
+    } as any)
+    vi.mocked(coachingRepository.checkRelationship).mockResolvedValue(true as any)
+    vi.mocked(teamRepository.addAthleteToGroup).mockResolvedValue({
+      groupId,
+      athleteId
+    } as any)
+
+    const event: any = {
+      params: { id: groupId },
+      body: { athleteId: { label: 'Drew', value: athleteId } }
+    }
+    const membership = await handler(event)
+
+    expect(membership).toEqual({ groupId, athleteId })
+    expect(teamRepository.addAthleteToGroup).toHaveBeenCalledWith(groupId, athleteId)
   })
 
   it('returns 400 when athleteId is missing', async () => {

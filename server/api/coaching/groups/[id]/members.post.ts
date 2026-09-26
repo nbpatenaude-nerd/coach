@@ -4,7 +4,17 @@ import { teamRepository } from '../../../../utils/repositories/teamRepository'
 import { coachingRepository } from '../../../../utils/repositories/coachingRepository'
 
 const addMemberSchema = z.object({
-  athleteId: z.string().uuid()
+  athleteId: z.preprocess((value) => {
+    if (typeof value === 'string') return value
+    if (value && typeof value === 'object') {
+      const record = value as Record<string, unknown>
+      for (const key of ['value', 'id', 'athleteId']) {
+        const candidate = record[key]
+        if (typeof candidate === 'string') return candidate
+      }
+    }
+    return value
+  }, z.string().uuid())
 })
 
 defineRouteMeta({

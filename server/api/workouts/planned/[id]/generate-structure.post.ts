@@ -2,17 +2,19 @@ import { requireAuth } from '../../../../utils/auth-guard'
 import { prisma } from '../../../../utils/db'
 import { checkQuota } from '../../../../utils/quotas/engine'
 import { enqueuePlannedWorkoutStructureGeneration } from '../../../../utils/planned-workout-structure-trigger'
+import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
+import { resolveEffectiveTier } from '../../../../../shared/effective-tier'
+import { getActivePromotionalGrant } from '../../../../utils/partner-campaigns'
 
 export default defineEventHandler(async (event) => {
   const authUser = await requireAuth(event, ['workout:write'])
-  const userId = authUser.id
+  const viewerId = authUser.id
 
   const id = getRouterParam(event, 'id')
   if (!id) {
     throw createError({ statusCode: 400, message: 'Workout ID is required' })
   }
 
-  // Verify ownership and load necessary fields
   const workout = await prisma.plannedWorkout.findUnique({
     where: { id },
     select: {
@@ -23,6 +25,9 @@ export default defineEventHandler(async (event) => {
       user: {
         select: {
           subscriptionTier: true,
+          subscriptionStatus: true,
+          subscriptionPeriodEnd: true,
+          trialEndsAt: true,
           isAdmin: true,
           timezone: true
         }
@@ -34,14 +39,12 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Planned workout not found' })
   }
 
-  // Verify ownership
-  if (workout.userId !== userId) {
-    throw createError({ statusCode: 403, message: 'Access denied' })
-  }
+  await assertPlannedWorkoutAccess(viewerId, workout.userId)
 
-  // 0. Quota Check
+  // Quota is always against the athlete who owns the workout (coach acting for them).
+  const quotaUserId = workout.userId
   try {
-    await checkQuota(userId, 'generate_structured_workout')
+    await checkQuota(quotaUserId, 'generate_structured_workout')
   } catch (error: any) {
     if (error.statusCode === 429) {
       throw createError({
@@ -52,8 +55,17 @@ export default defineEventHandler(async (event) => {
     throw error
   }
 
-  // Subscription Limit Check
-  if (workout.user.subscriptionTier === 'FREE') {
+  const activeGrant = await getActivePromotionalGrant(quotaUserId)
+  const effectiveTier = resolveEffectiveTier({
+    subscriptionTier: workout.user.subscriptionTier,
+    subscriptionStatus: workout.user.subscriptionStatus,
+    subscriptionPeriodEnd: workout.user.subscriptionPeriodEnd,
+    trialEndsAt: workout.user.trialEndsAt,
+    promotionalGrantTier: activeGrant?.tier ?? null
+  })
+
+  // Free athletes: generation limited to 4 weeks ahead. Any paid/active effective tier is exempt.
+  if (effectiveTier === 'FREE') {
     const { getUserLocalDate } = await import('../../../../utils/date')
     const timezone = workout.user.timezone || 'UTC'
     const today = getUserLocalDate(timezone)
@@ -64,15 +76,14 @@ export default defineEventHandler(async (event) => {
       throw createError({
         statusCode: 403,
         message:
-          'Structured workout generation is limited to 4 weeks in advance for free users. Please upgrade to Pro to plan further ahead.'
+          'Structured workout generation is limited to 4 weeks in advance for free users. Please upgrade to unlock longer-range planning.'
       })
     }
   }
 
-  // Trigger the generation task
   try {
     const queued = await enqueuePlannedWorkoutStructureGeneration({
-      userId,
+      userId: workout.userId,
       plannedWorkoutId: id,
       source: 'api',
       quotaCheckedAtEnqueue: true
@@ -81,14 +92,15 @@ export default defineEventHandler(async (event) => {
 
     return {
       success: true,
-      taskId: queued.runId,
-      message: 'Workout structure generation started'
+      message: 'Workout structure generation started',
+      runId: queued.runId,
+      publicAccessToken: queued.publicAccessToken
     }
-  } catch (error) {
-    console.error('Failed to trigger workout generation:', error)
+  } catch (error: any) {
+    console.error('Failed to enqueue structure generation:', error)
     throw createError({
       statusCode: 500,
-      message: 'Failed to start workout generation'
+      message: error?.message || 'Failed to start workout structure generation'
     })
   }
 })

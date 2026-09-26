@@ -109,7 +109,7 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 8, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 12, window: '7 days', enforcement: 'STRICT' },
     wellness_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
@@ -130,7 +130,7 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 6, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 8, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 12, window: '7 days', enforcement: 'STRICT' },
     wellness_analysis: { limit: 7, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 4, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 2, window: '7 days', enforcement: 'STRICT' }
@@ -151,7 +151,7 @@ export const QUOTA_REGISTRY: Record<
       resetType: 'CALENDAR'
     },
     meal_recommendation: { limit: 10, window: '24 hours', enforcement: 'STRICT' },
-    generate_structured_workout: { limit: 12, window: '7 days', enforcement: 'STRICT' },
+    generate_structured_workout: { limit: 20, window: '7 days', enforcement: 'STRICT' },
     wellness_analysis: { limit: 14, window: '7 days', enforcement: 'STRICT' },
     custom_report_generation: { limit: 8, window: '30 days', enforcement: 'STRICT' },
     weekly_plan_generation: { limit: 4, window: '7 days', enforcement: 'STRICT' }
