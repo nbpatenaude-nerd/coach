@@ -1,8 +1,19 @@
-import type { BillingInterval, PricingPlan, SupportedCurrency } from '~/utils/pricing'
-import { calculateAnnualSavings, computeSavingsPercent, getPrice } from '~/utils/pricing'
+import type {
+  BillingInterval,
+  PricingPlan,
+  PricingTier,
+  SupportedCurrency,
+  UiBillingInterval
+} from '~/utils/pricing'
+import {
+  calculateAnnualSavings,
+  computeSavingsPercent,
+  getPrice,
+  toStripeBillingInterval
+} from '~/utils/pricing'
 
 type StripePriceInfo = {
-  tier: 'supporter' | 'pro'
+  tier: Exclude<PricingTier, 'free'>
   interval: BillingInterval
   currency: SupportedCurrency
   amount: number
@@ -25,13 +36,14 @@ export function useLivePricing() {
 
   function findPrice(
     plan: PricingPlan,
-    interval: BillingInterval,
+    interval: BillingInterval | UiBillingInterval,
     currency: SupportedCurrency
   ): number | null {
     if (plan.key === 'free') return 0
+    const stripeInterval = toStripeBillingInterval(interval)
     const match = data.value?.prices?.find(
       (price: StripePriceInfo) =>
-        price.tier === plan.key && price.interval === interval && price.currency === currency
+        price.tier === plan.key && price.interval === stripeInterval && price.currency === currency
     )
     return match ? match.amount : null
   }
@@ -39,23 +51,24 @@ export function useLivePricing() {
   /** Live amount when Stripe answered, otherwise the bundled constant. */
   function priceFor(
     plan: PricingPlan,
-    interval: BillingInterval,
+    interval: BillingInterval | UiBillingInterval,
     currency: SupportedCurrency
   ): number {
-    return findPrice(plan, interval, currency) ?? getPrice(plan, interval)
+    const stripeInterval = toStripeBillingInterval(interval)
+    return findPrice(plan, stripeInterval, currency) ?? getPrice(plan, stripeInterval)
   }
 
   function monthlyEquivalent(plan: PricingPlan, currency: SupportedCurrency): number {
-    return priceFor(plan, 'annual', currency) / 12
+    return priceFor(plan, '12-phase', currency) / 12
   }
 
   /**
-   * Real annual saving for this plan, or null when there is nothing to compare
-   * against — never claim a discount that isn't in the prices.
+   * Real annual (12-phase) saving for this plan, or null when there is nothing
+   * to compare against — never claim a discount that isn't in the prices.
    */
   function annualSavings(plan: PricingPlan, currency: SupportedCurrency): number | null {
-    const monthly = findPrice(plan, 'monthly', currency)
-    const annual = findPrice(plan, 'annual', currency)
+    const monthly = findPrice(plan, '1-phase', currency)
+    const annual = findPrice(plan, '12-phase', currency)
     if (monthly === null || annual === null) {
       const fallback = calculateAnnualSavings(plan)
       return fallback > 0 ? fallback : null
@@ -63,7 +76,7 @@ export function useLivePricing() {
     return computeSavingsPercent(monthly, annual)
   }
 
-  /** Best saving across paid plans — for the Monthly/Annual toggle badge. */
+  /** Best saving across paid plans — for the interval toggle badge. */
   function bestAnnualSavings(plans: PricingPlan[], currency: SupportedCurrency): number | null {
     const savings = plans
       .filter((plan) => plan.key !== 'free')

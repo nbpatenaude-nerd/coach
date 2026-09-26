@@ -6,6 +6,12 @@ function getStripeConfig() {
   } catch {
     return {
       stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+      stripeGuildProductId: process.env.STRIPE_GUILD_PRODUCT_ID,
+      stripeGuildMonthlyPriceId: process.env.STRIPE_GUILD_MONTHLY_PRICE_ID,
+      stripeGuild52WeekPriceId: process.env.STRIPE_GUILD_52_WEEK_PRICE_ID,
+      stripeSupporterProductId: process.env.STRIPE_SUPPORTER_PRODUCT_ID,
+      stripeSupporterMonthlyPriceId: process.env.STRIPE_SUPPORTER_MONTHLY_PRICE_ID,
+      stripeSupporterAnnualPriceId: process.env.STRIPE_SUPPORTER_ANNUAL_PRICE_ID,
       stripeUncover1PhasePriceId: process.env.STRIPE_UNCOVER_1_PHASE_PRICE_ID,
       stripeUncover6PhasePriceId: process.env.STRIPE_UNCOVER_6_PHASE_PRICE_ID,
       stripeUncover12PhasePriceId: process.env.STRIPE_UNCOVER_12_PHASE_PRICE_ID,
@@ -48,6 +54,11 @@ export const stripe = config.stripeSecretKey
  */
 export function getStripePriceIds() {
   return {
+    guild: {
+      phase1: config.stripeGuildMonthlyPriceId || config.stripeSupporterMonthlyPriceId,
+      phase6: null,
+      phase12: config.stripeGuild52WeekPriceId || config.stripeSupporterAnnualPriceId
+    },
     uncover: {
       phase1: config.stripeUncover1PhasePriceId,
       phase6: config.stripeUncover6PhasePriceId,
@@ -71,6 +82,7 @@ export function getStripePriceIds() {
  */
 export function getStripeProductIds() {
   return {
+    guild: config.stripeGuildProductId || config.stripeSupporterProductId,
     uncover: config.stripeUncoverProductId,
     unlock: config.stripeUnlockProductId,
     unleash: config.stripeUnleashProductId

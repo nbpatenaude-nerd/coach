@@ -1,7 +1,7 @@
 <template>
   <div class="workout-chart-container">
     <div
-      v-if="normalizedSteps.length === 0"
+      v-if="normalizedSteps.length === 0 && !allowEdit"
       class="rounded-xl border border-default/70 bg-muted/10 p-5"
     >
       <div class="text-sm font-semibold text-highlighted">No interval steps available</div>
@@ -11,6 +11,17 @@
           'This workout does not currently include structured interval steps that can be rendered here.'
         }}
       </p>
+    </div>
+
+    <div v-else-if="normalizedSteps.length === 0 && allowEdit" class="space-y-4">
+      <WorkoutStepsEditor
+        :steps="emptyEditSteps"
+        :user-ftp="userFtp"
+        :sport-settings="sportSettings"
+        :preference="chartPreference"
+        @update:steps="handleEmptyEditStepsUpdate"
+        @save="$emit('save', $event)"
+      />
     </div>
 
     <div v-else class="space-y-4">
@@ -535,6 +546,8 @@
   }
 
   const previewSteps = ref<any[] | null>(null)
+  /** Stable steps list for the empty-structure bootstrap editor (avoids `:steps="[]"` remount resets). */
+  const emptyEditSteps = ref<any[]>([])
 
   const workoutData = computed(() => {
     const base = getStructuredWorkoutPayload(props.workout)
@@ -599,6 +612,10 @@
   function handleStepsUpdate(newSteps: any[]) {
     previewSteps.value = newSteps
     emit('update:steps', newSteps)
+  }
+
+  function handleEmptyEditStepsUpdate(newSteps: any[]) {
+    emptyEditSteps.value = newSteps
   }
 
   const totalDuration = computed(() => {

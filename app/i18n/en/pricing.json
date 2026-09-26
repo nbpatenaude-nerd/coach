@@ -9,16 +9,31 @@
     "annual": "Annual",
     "billed_annually": "{price}/mo billed annually",
     "billed_monthly": "Billed monthly",
+    "billed_1_phase": "1 Phase of training",
+    "billed_6_phase": "6 Phases of training",
+    "billed_12_phase": "12 Phases of training",
+    "guild_monthly": "Monthly Guild membership",
+    "guild_annual": "Annual Guild membership (52 weeks)",
     "monthly": "Monthly",
+    "phase_1": "1 Phase",
+    "phase_6": "6 Phases",
+    "phase_12": "12 Phases",
     "per_month": "/ month",
+    "per_phase": "/ phase",
+    "per_6_phases": "/ 6 phases",
+    "per_12_phases": "/ 12 phases",
+    "per_52_weeks": "/ 52 weeks",
     "per_year": "/ year",
-    "save_pct": "Save {pct}%"
+    "save_pct": "Save {pct}%",
+    "toggle_guild": "Guild",
+    "toggle_coaching": "Coaching"
   },
   "btn": {
     "current_plan": "Current Plan",
     "downgrade": "Downgrade",
     "upgrade": "Upgrade",
     "start_free": "Start Free",
+    "join_guild": "Join The Guild",
     "get_uncover": "Get Uncover",
     "get_unlock": "Get Unlock",
     "get_unleash": "Get Unleash",
@@ -53,25 +68,33 @@
       "feature_2": "Manual sync mode",
       "feature_3": "On-demand analysis",
       "feature_4": "Quick AI analysis",
-      "name": "Tri Nerds"
+      "name": "Free"
+    },
+    "guild": {
+      "description": "Community membership and the coaching floor.",
+      "feature_1": "Guild community access",
+      "feature_2": "Weekly check-ins and coach feedback",
+      "feature_3": "Training log and analytics",
+      "feature_4": "Priority roadmap input",
+      "name": "The Guild"
     },
     "uncover": {
-      "description": "Automated insights for the self-coached athlete.",
-      "feature_1": "Automatic sync for workouts and health metrics",
-      "feature_2": "Always-on AI analysis after new activities",
-      "feature_3": "Priority processing during peak usage",
+      "description": "1–12 phases of coached training foundation.",
+      "feature_1": "Structured training phases with your coach",
+      "feature_2": "Weekly check-ins and video feedback",
+      "feature_3": "Automatic sync for workouts and health metrics",
       "feature_4": "Reliable trend tracking and weekly summaries",
       "name": "Uncover"
     },
     "unlock": {
-      "description": "Unlock your true potential with detailed planning.",
+      "description": "Deeper periodization and race-focused coaching.",
       "feature_1": "Adaptive race strategy and periodized planning",
       "feature_2": "Thoughtful AI-assisted coaching with scenario analysis",
       "feature_3": "Advanced trend intelligence with forecasting",
       "name": "Unlock"
     },
     "unleash": {
-      "description": "Your full-service Digital Twin and Coach.",
+      "description": "Full-service coaching and Digital Twin support.",
       "feature_1": "Proactive alerts for readiness and overreaching risk",
       "feature_2": "Fast-lane priority processing and response",
       "feature_3": "Premium access to new models",

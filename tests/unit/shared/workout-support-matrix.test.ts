@@ -17,6 +17,22 @@ describe('workout support matrix', () => {
     expect(destinationAllowsExport('rejected')).toBe(false)
   })
 
+  it('allows freeform/display_only steps for FIT and Garmin as open targets', () => {
+    expect(getSupportLevel('other', 'freeform', 'fit')).toBe('display_only')
+    expect(destinationAllowsExport('display_only', 'fit')).toBe(true)
+    expect(destinationAllowsExport('display_only', 'garmin')).toBe(true)
+    expect(destinationAllowsExport('display_only', 'mrc')).toBe(false)
+
+    const issues = validateCanonicalForDestination(
+      {
+        steps: [{ duration: 300, text: 'Easy spin — tech notes only' }]
+      },
+      'Other',
+      'fit'
+    )
+    expect(issues).toEqual([])
+  })
+
   it('flags unsupported targets during destination validation', () => {
     const issues = validateCanonicalForDestination(
       {

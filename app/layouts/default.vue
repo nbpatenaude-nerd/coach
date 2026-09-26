@@ -1361,19 +1361,19 @@
             <USeparator class="mb-4" />
             <div class="flex items-center justify-center gap-2">
               <UButton
-                to="https://discord.gg/dPYkzg49T9"
+                to="https://t.me/+lQyDZWNsNhthZTcx"
                 target="_blank"
                 color="neutral"
                 variant="ghost"
-                icon="i-simple-icons-discord"
+                icon="i-simple-icons-telegram"
                 size="xs"
                 class="flex-1 justify-center"
               >
-                Discord
+                Telegram
               </UButton>
               <USeparator orientation="vertical" class="h-4" />
               <UButton
-                to="https://github.com/newpush/coach"
+                to="https://github.com/nbpatenaude-nerd/coach"
                 target="_blank"
                 color="neutral"
                 variant="ghost"

@@ -1,15 +1,15 @@
 import { stripe } from '../../utils/stripe'
 
 type PriceKey = {
-  tier: 'supporter' | 'pro'
-  interval: 'monthly' | 'annual'
+  tier: 'guild' | 'uncover' | 'unlock' | 'unleash'
+  interval: '1-phase' | '6-phase' | '12-phase'
   currency: 'usd' | 'eur'
   configKey: string
 }
 
 export type StripePriceInfo = {
-  tier: 'supporter' | 'pro'
-  interval: 'monthly' | 'annual'
+  tier: 'guild' | 'uncover' | 'unlock' | 'unleash'
+  interval: '1-phase' | '6-phase' | '12-phase'
   currency: 'usd' | 'eur'
   /** Major units (9.99), so the client never does cent maths. */
   amount: number
@@ -19,53 +19,134 @@ export type StripePriceInfo = {
 function priceKeys(config: Record<string, unknown>): PriceKey[] {
   const keys: PriceKey[] = [
     {
-      tier: 'supporter',
-      interval: 'monthly',
+      tier: 'guild',
+      interval: '1-phase',
       currency: 'usd',
-      configKey: 'stripeSupporterMonthlyPriceId'
+      configKey: 'stripeGuildMonthlyPriceId'
     },
     {
-      tier: 'supporter',
-      interval: 'annual',
+      tier: 'guild',
+      interval: '12-phase',
       currency: 'usd',
-      configKey: 'stripeSupporterAnnualPriceId'
+      configKey: 'stripeGuild52WeekPriceId'
     },
     {
-      tier: 'supporter',
-      interval: 'monthly',
-      currency: 'eur',
-      configKey: 'stripeSupporterMonthlyEurPriceId'
+      tier: 'uncover',
+      interval: '1-phase',
+      currency: 'usd',
+      configKey: 'stripeUncover1PhasePriceId'
     },
     {
-      tier: 'supporter',
-      interval: 'annual',
-      currency: 'eur',
-      configKey: 'stripeSupporterAnnualEurPriceId'
+      tier: 'uncover',
+      interval: '6-phase',
+      currency: 'usd',
+      configKey: 'stripeUncover6PhasePriceId'
     },
-    { tier: 'pro', interval: 'monthly', currency: 'usd', configKey: 'stripeProMonthlyPriceId' },
-    { tier: 'pro', interval: 'annual', currency: 'usd', configKey: 'stripeProAnnualPriceId' },
-    { tier: 'pro', interval: 'monthly', currency: 'eur', configKey: 'stripeProMonthlyEurPriceId' },
-    { tier: 'pro', interval: 'annual', currency: 'eur', configKey: 'stripeProAnnualEurPriceId' }
+    {
+      tier: 'uncover',
+      interval: '12-phase',
+      currency: 'usd',
+      configKey: 'stripeUncover12PhasePriceId'
+    },
+    {
+      tier: 'unlock',
+      interval: '1-phase',
+      currency: 'usd',
+      configKey: 'stripeUnlock1PhasePriceId'
+    },
+    {
+      tier: 'unlock',
+      interval: '6-phase',
+      currency: 'usd',
+      configKey: 'stripeUnlock6PhasePriceId'
+    },
+    {
+      tier: 'unlock',
+      interval: '12-phase',
+      currency: 'usd',
+      configKey: 'stripeUnlock12PhasePriceId'
+    },
+    {
+      tier: 'unleash',
+      interval: '1-phase',
+      currency: 'usd',
+      configKey: 'stripeUnleash1PhasePriceId'
+    },
+    {
+      tier: 'unleash',
+      interval: '6-phase',
+      currency: 'usd',
+      configKey: 'stripeUnleash6PhasePriceId'
+    },
+    {
+      tier: 'unleash',
+      interval: '12-phase',
+      currency: 'usd',
+      configKey: 'stripeUnleash12PhasePriceId'
+    }
   ]
 
-  return keys.filter((key) => typeof config[key.configKey] === 'string' && config[key.configKey])
+  return keys.filter((key) => {
+    const primary = config[key.configKey]
+    if (typeof primary === 'string' && primary) return true
+    // Guild can fall back to legacy Supporter price IDs.
+    if (key.tier === 'guild' && key.interval === '1-phase') {
+      return Boolean(config.stripeSupporterMonthlyPriceId)
+    }
+    if (key.tier === 'guild' && key.interval === '12-phase') {
+      return Boolean(config.stripeSupporterAnnualPriceId)
+    }
+    return false
+  })
+}
+
+function resolvePriceId(config: Record<string, unknown>, key: PriceKey): string {
+  const primary = String(config[key.configKey] || '')
+  if (primary) return primary
+  if (key.tier === 'guild' && key.interval === '1-phase') {
+    return String(config.stripeSupporterMonthlyPriceId || '')
+  }
+  if (key.tier === 'guild' && key.interval === '12-phase') {
+    return String(config.stripeSupporterAnnualPriceId || '')
+  }
+  return ''
 }
 
 /**
  * Live price amounts for the configured Stripe price IDs.
  *
- * The pricing UI used to render hardcoded numbers and re-format the *same* USD
- * figure as EUR, so a mismatch between the constants and Stripe (or between the
- * USD and EUR price objects) would show one price and charge another. Reading
- * the amounts from Stripe keeps the page and the invoice in agreement, and lets
- * savings badges be computed instead of asserted.
- *
  * Cached for an hour: prices change rarely and this is on the public landing.
  */
 export default defineCachedEventHandler(
   async (): Promise<{ prices: StripePriceInfo[] }> => {
-    // Bypassed Stripe API calls because Stripe is not used in this project
-    return { prices: [] }
+    const config = useRuntimeConfig() as Record<string, unknown>
+    const keys = priceKeys(config)
+    if (!keys.length || !config.stripeSecretKey) {
+      return { prices: [] }
+    }
+
+    const prices: StripePriceInfo[] = []
+    await Promise.all(
+      keys.map(async (key) => {
+        const priceId = resolvePriceId(config, key)
+        if (!priceId) return
+        try {
+          const price = await stripe.prices.retrieve(priceId)
+          if (typeof price.unit_amount !== 'number') return
+          prices.push({
+            tier: key.tier,
+            interval: key.interval,
+            currency: (price.currency?.toLowerCase() === 'eur' ? 'eur' : 'usd') as 'usd' | 'eur',
+            amount: price.unit_amount / 100,
+            priceId
+          })
+        } catch {
+          /* skip missing/invalid price ids */
+        }
+      })
+    )
+
+    return { prices }
   },
   { maxAge: 60 * 60, name: 'stripe-prices', getKey: () => 'all' }
 )

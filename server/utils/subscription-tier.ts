@@ -1,6 +1,12 @@
 import type Stripe from 'stripe'
 import type { SubscriptionTier } from '#server/utils/generated-prisma/client'
 type StripeTierConfig = {
+  stripeGuildProductId?: string
+  stripeGuildMonthlyPriceId?: string
+  stripeGuild52WeekPriceId?: string
+  stripeSupporterProductId?: string
+  stripeSupporterMonthlyPriceId?: string
+  stripeSupporterAnnualPriceId?: string
   stripeUncoverProductId?: string
   stripeUncover1PhasePriceId?: string
   stripeUncover6PhasePriceId?: string
@@ -29,6 +35,7 @@ function inferTierFromText(value?: string | null): SubscriptionTier | null {
   if (normalized.includes('uncover')) return 'UNCOVER'
   if (normalized.includes('unlock')) return 'UNLOCK'
   if (normalized.includes('unleash')) return 'UNLEASH'
+  if (normalized.includes('guild') || normalized.includes('supporter')) return 'SUPPORTER'
 
   return null
 }
@@ -52,6 +59,12 @@ export async function resolveSubscriptionTier(
   const priceId = price?.id
   const productId = getPriceProductId((price?.product as Stripe.Price['product']) ?? null)
 
+  const guildPriceIds = [
+    config.stripeGuildMonthlyPriceId,
+    config.stripeGuild52WeekPriceId,
+    config.stripeSupporterMonthlyPriceId,
+    config.stripeSupporterAnnualPriceId
+  ].filter(Boolean)
   const uncoverPriceIds = [
     config.stripeUncover1PhasePriceId,
     config.stripeUncover6PhasePriceId,
@@ -68,9 +81,16 @@ export async function resolveSubscriptionTier(
     config.stripeUnleash12PhasePriceId
   ].filter(Boolean)
 
+  if (priceId && guildPriceIds.includes(priceId)) return 'SUPPORTER'
   if (priceId && uncoverPriceIds.includes(priceId)) return 'UNCOVER'
   if (priceId && unlockPriceIds.includes(priceId)) return 'UNLOCK'
   if (priceId && unleashPriceIds.includes(priceId)) return 'UNLEASH'
+  if (
+    productId &&
+    (productId === config.stripeGuildProductId || productId === config.stripeSupporterProductId)
+  ) {
+    return 'SUPPORTER'
+  }
   if (productId && productId === config.stripeUncoverProductId) return 'UNCOVER'
   if (productId && productId === config.stripeUnlockProductId) return 'UNLOCK'
   if (productId && productId === config.stripeUnleashProductId) return 'UNLEASH'

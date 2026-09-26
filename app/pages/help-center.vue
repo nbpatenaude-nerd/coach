@@ -3,6 +3,10 @@
   import { useTranslate } from '@tolgee/vue'
   import IssueFormModal from '~/components/issues/IssueFormModal.vue'
   import { mobileListCardUi } from '~/utils/mobile-surface-ui'
+  import {
+    JOURNEY_GITHUB_ISSUES_URL,
+    JOURNEY_TELEGRAM_COMMUNITY_URL
+  } from '#shared/community-links'
 
   const { t } = useTranslate('common')
 
@@ -73,17 +77,17 @@
       disabled: false
     },
     {
-      title: t.value('help_resource_discord_title'),
-      description: t.value('help_resource_discord_desc'),
-      icon: 'i-simple-icons-discord',
-      to: 'https://discord.gg/dPYkzg49T9',
+      title: t.value('help_resource_telegram_title'),
+      description: t.value('help_resource_telegram_desc'),
+      icon: 'i-simple-icons-telegram',
+      to: JOURNEY_TELEGRAM_COMMUNITY_URL,
       external: true
     },
     {
       title: t.value('help_resource_github_title'),
       description: t.value('help_resource_github_desc'),
       icon: 'i-simple-icons-github',
-      to: 'https://github.com/newpush/coach/issues',
+      to: JOURNEY_GITHUB_ISSUES_URL,
       external: true
     }
   ])

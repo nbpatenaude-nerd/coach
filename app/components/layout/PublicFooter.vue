@@ -48,14 +48,14 @@
             t('footer.terms')
           }}</NuxtLink>
           <a
-            href="https://discord.gg/dPYkzg49T9"
+            :href="JOURNEY_TELEGRAM_COMMUNITY_URL"
             target="_blank"
             rel="noopener noreferrer"
             class="whitespace-nowrap transition-colors hover:text-white"
-            >Discord</a
+            >Telegram</a
           >
           <a
-            href="https://github.com/newpush/coach"
+            :href="JOURNEY_GITHUB_REPO_URL"
             target="_blank"
             rel="noopener noreferrer"
             class="whitespace-nowrap transition-colors hover:text-white"
@@ -73,5 +73,6 @@
 
 <script setup lang="ts">
   import { useTranslate } from '@tolgee/vue'
+  import { JOURNEY_GITHUB_REPO_URL, JOURNEY_TELEGRAM_COMMUNITY_URL } from '#shared/community-links'
   const { t } = useTranslate('common')
 </script>

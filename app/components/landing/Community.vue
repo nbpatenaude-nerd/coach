@@ -70,14 +70,14 @@
 
       <div class="mt-12 flex justify-start">
         <UButton
-          to="https://discord.gg/dPYkzg49T9"
+          to="https://t.me/+lQyDZWNsNhthZTcx"
           target="_blank"
           color="neutral"
           variant="link"
           size="xl"
           class="group font-bold uppercase tracking-[0.15em] text-slate-400 hover:text-white"
         >
-          {{ t('discord_cta') }} <span class="ml-2 text-primary-400">Discord</span>
+          {{ t('discord_cta') }} <span class="ml-2 text-primary-400">Telegram</span>
           <UIcon
             name="i-heroicons-arrow-right"
             class="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"

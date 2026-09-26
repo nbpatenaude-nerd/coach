@@ -59,6 +59,45 @@ describe('structured workout persistence', () => {
     expect(normalized.steps[0].heartRate).toBeUndefined()
   })
 
+  it('normalizes distance-based run steps with LTHR without throwing', () => {
+    const normalized = normalizeStructuredWorkoutForPersistence(
+      {
+        steps: [
+          {
+            name: 'New Step',
+            type: 'Active',
+            durationSeconds: 0,
+            distance: 3500,
+            primaryTarget: 'heartRate',
+            heartRate: { value: 0.7, units: 'LTHR' }
+          }
+        ]
+      },
+      {
+        refs,
+        workoutType: 'Run',
+        targetPolicy: {
+          primaryMetric: 'heartRate',
+          fallbackOrder: ['heartRate', 'pace', 'power', 'rpe'],
+          strictPrimary: false,
+          allowMixedTargetsPerStep: false,
+          defaultTargetStyle: 'value',
+          preferRangesForSteady: false
+        },
+        targetFormatPolicy: {
+          heartRate: { mode: 'percentLthr', preferRange: false },
+          power: { mode: 'percentFtp', preferRange: true },
+          pace: { mode: 'percentPace', preferRange: true },
+          cadence: { mode: 'spm' }
+        }
+      }
+    )
+
+    expect(normalized.steps[0].primaryTarget).toBe('heartRate')
+    expect(normalized.steps[0].heartRate).toMatchObject({ value: 0.7, units: 'LTHR' })
+    expect(normalized.steps[0].distance).toBe(3500)
+  })
+
   it('computes metrics from the primary target before secondary guardrails', () => {
     const metrics = computeStructuredWorkoutMetrics(
       {

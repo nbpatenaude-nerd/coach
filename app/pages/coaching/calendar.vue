@@ -384,6 +384,7 @@
                 @duplicate-planned-workout="onDuplicatePlannedWorkout"
                 @activity-click="onActivityClick"
                 @compare-activity="addWorkoutToComparison"
+                @create-blank="onCreateBlankPlannedWorkout"
               />
 
               <CoachCalendarPanel
@@ -403,6 +404,7 @@
                 @duplicate-planned-workout="onDuplicatePlannedWorkout"
                 @activity-click="onActivityClick"
                 @compare-activity="addWorkoutToComparison"
+                @create-blank="onCreateBlankPlannedWorkout"
               />
             </div>
 
@@ -495,10 +497,15 @@
         v-model="showPlannedWorkoutModal"
         :planned-workout="selectedPlannedWorkout"
         :endpoint-base="selectedPlannedWorkoutEndpointBase"
+        :all-sport-settings="selectedPlannedWorkoutSportSettings"
+        :user-ftp="selectedPlannedWorkoutSportSettings?.[0]?.ftp"
         :show-completion-actions="false"
         :show-structure-actions="false"
+        :allow-structure-edit="true"
+        :show-view-details="false"
         :show-save-to-library="false"
         @completed="refreshAffectedPanel(selectedPlannedWorkoutAthleteId)"
+        @structure-saved="onPlannedWorkoutStructureSaved"
         @deleted="handlePlannedWorkoutDeleted"
       />
 
@@ -544,6 +551,21 @@
                 </div>
               </div>
             </div>
+          </div>
+        </template>
+        <template #footer>
+          <div class="flex w-full justify-end gap-2">
+            <UButton color="neutral" variant="ghost" @click="showWorkoutPreviewModal = false">
+              Close
+            </UButton>
+            <UButton
+              color="primary"
+              icon="i-heroicons-chart-bar-square"
+              :disabled="!selectedWorkout?.id || !selectedWorkoutAthleteId"
+              @click="openSelectedWorkoutAnalyzer"
+            >
+              Open Analyzer
+            </UButton>
           </div>
         </template>
       </UModal>
@@ -712,8 +734,17 @@
   const showPlannedWorkoutModal = ref(false)
   const selectedPlannedWorkout = ref<any | null>(null)
   const selectedPlannedWorkoutAthleteId = ref<string | null>(null)
+  const selectedPlannedWorkoutSportSettings = ref<any[]>([])
   const showWorkoutPreviewModal = ref(false)
   const selectedWorkout = ref<any | null>(null)
+  const selectedWorkoutAthleteId = ref<string | null>(null)
+
+  function applySelectedPlannedWorkout(workout: any) {
+    selectedPlannedWorkout.value = workout
+    selectedPlannedWorkoutSportSettings.value = workout?.sportSettings
+      ? [workout.sportSettings]
+      : []
+  }
 
   const athletes = ref<any[]>([])
   const loadingAthletes = ref(true)
@@ -1105,6 +1136,47 @@
     }
   }
 
+  async function onCreateBlankPlannedWorkout(athleteId: string, date: Date, type = 'Ride') {
+    try {
+      const workoutType = type || 'Ride'
+      const isGym = workoutType === 'WeightTraining' || workoutType === 'Gym'
+      const result = await $fetch<any, string & {}>(
+        `/api/coaching/athletes/${athleteId}/planned-workouts`,
+        {
+          method: 'POST',
+          body: {
+            date: formatDateUTC(date, 'yyyy-MM-dd'),
+            title: isGym ? 'New Gym Session' : 'New Workout',
+            type: workoutType,
+            category: 'Workout',
+            durationSec: isGym ? 2700 : 3600,
+            description: ''
+          }
+        }
+      )
+      const workout = result?.workout || result
+      await refreshAffectedPanel(athleteId)
+      selectedPlannedWorkoutAthleteId.value = athleteId
+      // Re-fetch so coach modal gets athlete sport settings for pace/power resolution.
+      const hydrated = await $fetch<any, string & {}>(
+        `/api/coaching/athletes/${athleteId}/planned-workouts/${workout.id}`
+      )
+      applySelectedPlannedWorkout(hydrated)
+      showPlannedWorkoutModal.value = true
+      toast.add({
+        title: 'Workout created',
+        description: `Blank workout added to ${formatDateUTC(date, 'MMM d')}. Edit the structure to build it.`,
+        color: 'success'
+      })
+    } catch (error: any) {
+      toast.add({
+        title: 'Create failed',
+        description: error.data?.message || 'Could not create blank workout.',
+        color: 'error'
+      })
+    }
+  }
+
   async function onDuplicatePlannedWorkout({
     sourceAthleteId,
     targetAthleteId,
@@ -1187,14 +1259,16 @@
     try {
       if (activity.source === 'planned') {
         selectedPlannedWorkoutAthleteId.value = athleteId
-        selectedPlannedWorkout.value = await $fetch<any, string & {}>(
+        const workout = await $fetch<any, string & {}>(
           `/api/coaching/athletes/${athleteId}/planned-workouts/${activity.id}`
         )
+        applySelectedPlannedWorkout(workout)
         showPlannedWorkoutModal.value = true
         return
       }
 
       if (activity.source === 'completed') {
+        selectedWorkoutAthleteId.value = athleteId
         selectedWorkout.value = await $fetch<any, string & {}>(
           `/api/coaching/athletes/${athleteId}/workouts/${activity.id}`
         )
@@ -1215,9 +1289,26 @@
     }
   }
 
+  function openSelectedWorkoutAnalyzer() {
+    if (!selectedWorkout.value?.id || !selectedWorkoutAthleteId.value) return
+    showWorkoutPreviewModal.value = false
+    void navigateTo(
+      `/coaching/athletes/${selectedWorkoutAthleteId.value}/workouts/${selectedWorkout.value.id}/analyze`
+    )
+  }
+
   function handlePlannedWorkoutDeleted() {
     showPlannedWorkoutModal.value = false
     void refreshAffectedPanel(selectedPlannedWorkoutAthleteId.value)
+  }
+
+  function onPlannedWorkoutStructureSaved(workout: any) {
+    if (workout?.id) {
+      applySelectedPlannedWorkout({
+        ...workout,
+        sportSettings: workout.sportSettings || selectedPlannedWorkoutSportSettings.value[0] || null
+      })
+    }
   }
 
   function toggleDrawer() {

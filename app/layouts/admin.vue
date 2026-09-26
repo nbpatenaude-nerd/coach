@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { useAppLogout } from '#imports'
+  import { JOURNEY_GITHUB_REPO_URL, JOURNEY_TELEGRAM_COMMUNITY_URL } from '#shared/community-links'
 
   const { data } = useAuth()
   const { logout } = useAppLogout()
@@ -408,19 +409,19 @@
             <USeparator class="mb-4" />
             <div class="flex items-center justify-center gap-2">
               <UButton
-                to="https://discord.gg/dPYkzg49T9"
+                :to="JOURNEY_TELEGRAM_COMMUNITY_URL"
                 target="_blank"
                 color="neutral"
                 variant="ghost"
-                icon="i-simple-icons-discord"
+                icon="i-simple-icons-telegram"
                 size="xs"
                 class="flex-1 justify-center"
               >
-                Discord
+                Telegram
               </UButton>
               <USeparator orientation="vertical" class="h-4" />
               <UButton
-                to="https://github.com/newpush/coach"
+                :to="JOURNEY_GITHUB_REPO_URL"
                 target="_blank"
                 color="neutral"
                 variant="ghost"

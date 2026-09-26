@@ -25,7 +25,9 @@ const STRENGTH_LOAD_MODES = new Set([
   'weight_lb',
   'weight_kg',
   'weight_per_side_lb',
-  'weight_per_side_kg'
+  'weight_per_side_kg',
+  'percent_1rm',
+  'rir'
 ])
 
 function parseUrl(value: unknown) {
@@ -105,6 +107,8 @@ function inferLoadMode(weight: unknown) {
     .toLowerCase()
 
   if (!normalized) return 'none'
+  if (normalized.includes('%') && normalized.includes('1rm')) return 'percent_1rm'
+  if (/\brir\b/.test(normalized) || normalized.includes('reps in reserve')) return 'rir'
   if (normalized.includes('/side') && normalized.includes('lb')) return 'weight_per_side_lb'
   if (normalized.includes('/side') && normalized.includes('kg')) return 'weight_per_side_kg'
   if (normalized.includes('lb')) return 'weight_lb'

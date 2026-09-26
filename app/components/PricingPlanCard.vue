@@ -30,7 +30,18 @@
           {{ formatPrice(priceFor(plan, interval, currency), currency) }}
         </span>
         <span class="text-sm text-gray-500 dark:text-gray-400">
-          / {{ interval === 'annual' ? 'year' : 'month' }}
+          /
+          {{
+            plan.key === 'guild'
+              ? toStripeBillingInterval(interval || 'monthly') === '12-phase'
+                ? '52 weeks'
+                : 'month'
+              : toStripeBillingInterval(interval || '1-phase') === '12-phase'
+                ? '12 phases'
+                : toStripeBillingInterval(interval || '1-phase') === '6-phase'
+                  ? '6 phases'
+                  : 'phase'
+          }}
         </span>
       </div>
       <p
@@ -66,14 +77,20 @@
         :color="plan.popular || highlight ? 'primary' : 'neutral'"
         :variant="plan.popular || highlight ? 'solid' : 'outline'"
         block
-        :disabled="isCurrentPlan || (!subscriptionsEnabled && plan.key !== 'free')"
+        :disabled="
+          isCurrentPlan || (!subscriptionsEnabled && plan.key !== 'free' && plan.key !== 'guild')
+        "
         @click="
           () => {
             void $emit('select', plan)
           }
         "
       >
-        {{ subscriptionsEnabled || plan.key === 'free' ? buttonLabel : 'Unavailable' }}
+        {{
+          subscriptionsEnabled || plan.key === 'free' || plan.key === 'guild'
+            ? buttonLabel
+            : 'Unavailable'
+        }}
       </UButton>
     </template>
   </UCard>
@@ -82,9 +99,10 @@
 <script setup lang="ts">
   import {
     formatPrice,
+    toStripeBillingInterval,
     type PricingPlan,
     type SupportedCurrency,
-    type BillingInterval
+    type UiBillingInterval
   } from '~/utils/pricing'
 
   // Prices come from Stripe so the card cannot disagree with the invoice.
@@ -96,7 +114,7 @@
     showPopular?: boolean
     highlight?: boolean
     currency?: SupportedCurrency
-    interval?: BillingInterval
+    interval?: UiBillingInterval
   }
 
   const props = withDefaults(defineProps<Props>(), {

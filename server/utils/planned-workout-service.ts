@@ -7,6 +7,7 @@ import {
   cleanIntervalsDescription
 } from './intervals'
 import { syncPlannedWorkoutToIntervals } from './intervals-sync'
+import { maybeAutoPublishPlannedWorkoutToGarmin } from './planned-workout-garmin-publish'
 import { plannedWorkoutRepository } from './repositories/plannedWorkoutRepository'
 import { metabolicService } from './services/metabolicService'
 import { isNutritionTrackingEnabled } from './nutrition/feature'
@@ -193,6 +194,8 @@ export async function createPlannedWorkoutForUser(userId: string, body: any) {
     console.error('[PlannedWorkoutCreate] Failed fanout to program subscribers:', err)
   }
 
+  await maybeAutoPublishPlannedWorkoutToGarmin(userId, plannedWorkout.id)
+
   return {
     success: true,
     workout: plannedWorkout
@@ -317,6 +320,8 @@ export async function updatePlannedWorkoutForUser(userId: string, workoutId: str
         })
     })
 
+    await maybeAutoPublishPlannedWorkoutToGarmin(userId, workoutId)
+
     return {
       success: true,
       workout: finalWorkout,
@@ -324,6 +329,8 @@ export async function updatePlannedWorkoutForUser(userId: string, workoutId: str
       message: syncResult.message || 'Workout updated successfully'
     }
   }
+
+  await maybeAutoPublishPlannedWorkoutToGarmin(userId, workoutId)
 
   return {
     success: true,
@@ -405,6 +412,11 @@ export async function movePlannedWorkoutForUser(
       data: { date: targetDate }
     })
   })
+
+  await maybeAutoPublishPlannedWorkoutToGarmin(userId, workoutId)
+  if (conflictingWorkout) {
+    await maybeAutoPublishPlannedWorkoutToGarmin(userId, conflictingWorkout.id)
+  }
 
   return { success: true }
 }

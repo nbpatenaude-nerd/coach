@@ -173,44 +173,33 @@ export const WorkoutConverter = {
       // Safely access power
       const power = step.power || { value: 0 }
       const isRamp = !!power.range
+      const hasPowerTarget = !!(power.range || (typeof power.value === 'number' && power.value > 0))
+      const hasHrTarget = !!(step.heartRate || step.hr)
 
       // Target Value: Power
-      // 1000 = 100% FTP?
-      // According to FIT SDK, 'power' steps typically use:
-      // target_type: 'power_3s' or 'power_10s' or 'power_30s' or 'power_lap'
-      // BUT for workout steps, we define intensity target.
       // target_type: 0 (speed), 1 (heart_rate), 2 (open), 3 (cadence), 4 (power)
 
       let targetType: 'power' | 'heart_rate' | 'open' = 'power' // 4
       let customTargetValueLow = 0
       let customTargetValueHigh = 0
 
-      // Check if HR based
-      if (!power.value && !power.range && step.heartRate) {
-        // targetType = 'heart_rate'; // 1
-
-        // HR values are typically BPM in FIT files, or % max HR?
-        // FIT SDK usually expects BPM for absolute values.
-        // But we store % LTHR.
-        // We'd need the user's LTHR to convert to BPM.
-        // Or we use zone numbers (1-5).
-
-        // For now, let's assume we can't easily export HR targets without knowing absolute BPM zones reliably here.
-        // We'll skip complex HR export logic for FIT for now or use open targets.
-        targetType = 'open' // 2
+      if (!hasPowerTarget) {
+        // Freeform / notes-only / HR-without-BPM: open target so the step still syncs.
+        targetType = 'open'
       } else {
-        // Let's calculate ABSOLUTE WATTS if FTP is provided, otherwise fallback to a default 250W.
+        // Absolute watts when FTP is known; otherwise fall back to 250W.
         const ftp = workout.ftp || 250
 
         if (isRamp && power.range) {
           customTargetValueLow = Math.round((power.range.start ?? 0) * ftp)
           customTargetValueHigh = Math.round((power.range.end ?? 0) * ftp)
         } else {
-          // Steady: Low and High define the zone window.
-          // Usually target - 5% to target + 5%
           const val = (power.value || 0) * ftp
           customTargetValueLow = Math.round(val - 10)
           customTargetValueHigh = Math.round(val + 10)
+        }
+        if (hasHrTarget) {
+          // Primary stays power; device shows cadence/notes separately if present.
         }
       }
 

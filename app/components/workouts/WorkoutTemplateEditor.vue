@@ -6,7 +6,12 @@
       </UFormField>
 
       <UFormField label="Type">
-        <USelect v-model="localTemplate.type" :items="WORKOUT_TYPES" />
+        <USelect
+          v-model="localTemplate.type"
+          :items="workoutTypeOptions"
+          value-key="value"
+          class="w-full"
+        />
       </UFormField>
 
       <UFormField label="Category">
@@ -16,7 +21,9 @@
       <UFormField label="Sport">
         <USelect
           v-model="localTemplate.sport"
-          :items="['Cycling', 'Running', 'Swimming', 'Strength']"
+          :items="sportOptions"
+          value-key="value"
+          class="w-full"
         />
       </UFormField>
 
@@ -36,75 +43,14 @@
     <USeparator />
 
     <div class="space-y-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-sm font-black uppercase tracking-widest text-primary">Workout Structure</h3>
-        <UButton
-          color="neutral"
-          variant="ghost"
-          icon="i-heroicons-plus"
-          size="xs"
-          @click="
-            () => {
-              void addStep()
-            }
-          "
-          >Add Step</UButton
-        >
-      </div>
-
-      <div
-        v-if="!localTemplate.structuredWorkout?.steps?.length"
-        class="text-center py-8 bg-gray-50 dark:bg-gray-900 rounded-lg border border-dashed border-gray-200 dark:border-gray-800"
-      >
-        <p class="text-xs text-muted">No steps defined. Add intervals to build the structure.</p>
-      </div>
-
-      <div v-else class="space-y-2">
-        <div
-          v-for="(step, index) in localTemplate.structuredWorkout.steps"
-          :key="index"
-          class="flex items-center gap-2 bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700 shadow-sm group"
-        >
-          <div class="flex-none text-[10px] font-bold text-gray-400 w-4">
-            {{ Number(index) + 1 }}
-          </div>
-
-          <div class="flex-1 grid grid-cols-1 sm:grid-cols-4 gap-2">
-            <UInput v-model="step.name" placeholder="Step name" size="xs" class="sm:col-span-1" />
-
-            <div class="flex items-center gap-1 sm:col-span-1">
-              <UInput v-model.number="step.duration" type="number" size="xs" class="w-16" />
-              <span class="text-[10px] text-muted uppercase font-bold">min</span>
-            </div>
-
-            <div class="flex items-center gap-1 sm:col-span-1">
-              <UInput v-model.number="step.intensity" type="number" size="xs" class="w-16" />
-              <span class="text-[10px] text-muted uppercase font-bold">% FTP</span>
-            </div>
-
-            <div class="flex items-center gap-1 sm:col-span-1">
-              <USelect
-                v-model="step.type"
-                :items="['WORK', 'REST', 'WARMUP', 'COOLDOWN']"
-                size="xs"
-              />
-            </div>
-          </div>
-
-          <UButton
-            color="error"
-            variant="ghost"
-            icon="i-heroicons-trash"
-            size="xs"
-            class="opacity-0 group-hover:opacity-100 transition-opacity"
-            @click="
-              () => {
-                removeStep(Number(index))
-              }
-            "
-          />
-        </div>
-      </div>
+      <h3 class="text-sm font-black uppercase tracking-widest text-primary">Workout Structure</h3>
+      <WorkoutStepsEditor
+        :steps="editorSteps"
+        :saving="saving"
+        @update:steps="onStepsUpdate"
+        @save="onStepsSave"
+        @cancel="() => {}"
+      />
     </div>
 
     <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
@@ -133,6 +79,8 @@
 </template>
 
 <script setup lang="ts">
+  import WorkoutStepsEditor from '~/components/workouts/planned/WorkoutStepsEditor.vue'
+
   const props = defineProps<{
     template?: any
     ownerScope?: 'athlete' | 'coach'
@@ -149,10 +97,50 @@
   })
 
   const WORKOUT_TYPES = ['Ride', 'VirtualRide', 'Run', 'Swim', 'WeightTraining', 'Hike', 'Walk']
+  const workoutTypeOptions = WORKOUT_TYPES.map((type) => ({ label: type, value: type }))
+  const sportOptions = [
+    { label: 'Cycling', value: 'Cycling' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Swimming', value: 'Swimming' },
+    { label: 'Strength', value: 'Strength' }
+  ]
+
+  function normalizeIncomingSteps(steps: any[] | undefined) {
+    if (!Array.isArray(steps)) return []
+    return steps.map((step) => {
+      // Legacy template editor used duration minutes + intensity % FTP.
+      if (step.power || step.heartRate || step.pace || step.rpe || step.durationSeconds) {
+        return step
+      }
+      const durationMin = Number(step.duration || 0)
+      const intensityPct = Number(step.intensity || 70)
+      return {
+        name: step.name || 'Step',
+        type:
+          step.type === 'REST'
+            ? 'Rest'
+            : step.type === 'WARMUP'
+              ? 'Warmup'
+              : step.type === 'COOLDOWN'
+                ? 'Cooldown'
+                : 'Active',
+        durationSeconds: Math.round(durationMin * 60),
+        duration: Math.round(durationMin * 60),
+        power: { value: intensityPct / 100, units: '%' },
+        primaryTarget: 'power'
+      }
+    })
+  }
 
   const localTemplate = ref(
     props.template
-      ? JSON.parse(JSON.stringify(props.template))
+      ? {
+          ...JSON.parse(JSON.stringify(props.template)),
+          structuredWorkout: {
+            ...(props.template.structuredWorkout || {}),
+            steps: normalizeIncomingSteps(props.template.structuredWorkout?.steps)
+          }
+        }
       : {
           title: '',
           description: '',
@@ -167,6 +155,14 @@
         }
   )
 
+  // Stable steps ref so the editor does not receive a fresh `[]` each render
+  // and so parent↔child updates do not wipe in-progress edits.
+  const editorSteps = ref<any[]>(
+    Array.isArray(localTemplate.value.structuredWorkout?.steps)
+      ? localTemplate.value.structuredWorkout.steps
+      : []
+  )
+
   const folderOptions = computed(() => [
     { label: 'Unfiled', value: null },
     ...flat.value.map((folder) => ({
@@ -179,20 +175,17 @@
     void ensureFoldersLoaded()
   })
 
-  function addStep() {
+  function onStepsUpdate(steps: any[]) {
+    editorSteps.value = steps
     if (!localTemplate.value.structuredWorkout) {
       localTemplate.value.structuredWorkout = { steps: [] }
     }
-    localTemplate.value.structuredWorkout.steps.push({
-      name: 'Interval',
-      duration: 10,
-      intensity: 80,
-      type: 'WORK'
-    })
+    localTemplate.value.structuredWorkout.steps = steps
   }
 
-  function removeStep(index: number) {
-    localTemplate.value.structuredWorkout.steps.splice(index, 1)
+  function onStepsSave(steps: any[]) {
+    onStepsUpdate(steps)
+    void saveTemplate()
   }
 
   async function saveTemplate() {
@@ -200,6 +193,11 @@
       toast.add({ title: 'Title required', color: 'error' })
       return
     }
+
+    if (!localTemplate.value.structuredWorkout) {
+      localTemplate.value.structuredWorkout = { steps: [] }
+    }
+    localTemplate.value.structuredWorkout.steps = editorSteps.value
 
     saving.value = true
     try {

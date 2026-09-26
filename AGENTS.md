@@ -70,11 +70,14 @@ Rules:
 bin/worktree-dev.sh   # dev server in a worktree (pnpm dev only in the main checkout)
 pnpm dev              # dev server — main checkout only (port 3099)
 pnpm build            # production build
+pnpm start            # production start — MUST be sh start.sh (auth origin + migrations)
 pnpm typecheck        # tsc
 pnpm test             # unit tests
 pnpm lint             # eslint
 pnpm exec prisma migrate deploy   # apply committed migrations (never 'migrate dev' in an agent shell)
 ```
+
+**Railway / prod:** keep `"start": "sh start.sh"` — never bare `node .output/server/index.mjs`. Prisma value imports use `server/utils/generated-prisma` (not `@prisma/client`). Full pitfalls: [`.cursor/rules/railway-deploy-pitfalls.mdc`](.cursor/rules/railway-deploy-pitfalls.mdc).
 
 See [`docs/04-guides/`](docs/04-guides/) for typechecking, e2e testing, chat development, localization, and analytics guides.
 

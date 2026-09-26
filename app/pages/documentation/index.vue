@@ -214,7 +214,7 @@
           >FAQ</UButton
         >
         <UButton
-          to="https://github.com/newpush/coach"
+          to="https://github.com/nbpatenaude-nerd/coach"
           target="_blank"
           variant="ghost"
           color="neutral"

@@ -70,11 +70,24 @@ Connect web (`gc-api/workout-service`) and Partner Training API use **different 
 
 ## Code map
 
-| Concern                | Location                                                  |
-| ---------------------- | --------------------------------------------------------- |
-| Payload builder        | `server/utils/garmin-push.ts`                             |
-| Canonical → Garmin     | `server/utils/canonical-workout-serializer.ts`            |
-| HTTP publish           | `server/api/workouts/planned/[id]/publish-garmin.post.ts` |
-| Support matrix         | `shared/workout-support-matrix.ts`                        |
-| Unit tests             | `tests/unit/server/utils/garmin-push.test.ts`             |
-| Local OpenAPI snapshot | `tmp/garmin-api/training-api-workouts.json`               |
+| Concern                | Location                                                         |
+| ---------------------- | ---------------------------------------------------------------- |
+| Payload builder        | `server/utils/garmin-push.ts`                                    |
+| Canonical → Garmin     | `server/utils/canonical-workout-serializer.ts`                   |
+| HTTP publish           | `server/api/workouts/planned/[id]/publish-garmin.post.ts`        |
+| Shared publish helper  | `server/utils/planned-workout-garmin-publish.ts`                 |
+| Auto-publish hooks     | create/update/move + structure edit + AI generate/adjust         |
+| Support matrix         | `shared/workout-support-matrix.ts`                               |
+| Unit tests             | `tests/unit/server/utils/garmin-push.test.ts`                    |
+| Auto-publish tests     | `tests/unit/server/utils/planned-workout-garmin-publish.test.ts` |
+| Local OpenAPI snapshot | `tmp/garmin-api/training-api-workouts.json`                      |
+
+## Auto-publish
+
+When an athlete has Garmin connected with `WORKOUT_IMPORT`, Journey publishes/updates the Training API workout + schedule on:
+
+- planned workout create / update / calendar move
+- manual structure save (athlete or coach)
+- AI structure generate / adjust completion
+
+Failures are logged and never block the local save. Workouts without structure yet are skipped until structure exists.

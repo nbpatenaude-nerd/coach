@@ -62,6 +62,7 @@
   "level_up_sync_note": "Updates sync to Journey Endurance and Intervals.icu. Don't forget to manually update Garmin Connect to align your watch zones.",
   "level_up_update_now": "UPDATE NOW",
   "map_analysis": "Map Analysis",
+  "analyze_360": "Analyze 360",
   "metrics_ai_analyzed": "AI Analyzed",
   "metrics_avg_cadence": "Avg Cadence",
   "metrics_avg_hr": "Avg HR",

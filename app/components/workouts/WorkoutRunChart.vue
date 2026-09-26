@@ -1,10 +1,26 @@
 <template>
   <div class="workout-chart-container">
     <div
-      v-if="!workoutData || !workoutData.steps || workoutData.steps.length === 0"
+      v-if="(!workoutData || !workoutData.steps || workoutData.steps.length === 0) && !allowEdit"
       class="text-center py-8 text-muted text-sm"
     >
       No structured workout data available.
+    </div>
+
+    <div
+      v-else-if="
+        (!workoutData || !workoutData.steps || workoutData.steps.length === 0) && allowEdit
+      "
+      class="space-y-4"
+    >
+      <WorkoutStepsEditor
+        :steps="emptyEditSteps"
+        :user-ftp="userFtp"
+        :sport-settings="sportSettings"
+        :preference="chartPreference"
+        @update:steps="handleEmptyEditStepsUpdate"
+        @save="$emit('save', $event)"
+      />
     </div>
 
     <div v-else class="space-y-4">
@@ -640,6 +656,8 @@
   }
 
   const previewSteps = ref<any[] | null>(null)
+  /** Stable steps list for the empty-structure bootstrap editor (avoids `:steps="[]"` remount resets). */
+  const emptyEditSteps = ref<any[]>([])
 
   const absUnit = computed(() => {
     if (chartPreference.value === 'hr') return 'BPM'
@@ -767,6 +785,10 @@
   function handleStepsUpdate(newSteps: any[]) {
     previewSteps.value = newSteps
     emit('update:steps', newSteps)
+  }
+
+  function handleEmptyEditStepsUpdate(newSteps: any[]) {
+    emptyEditSteps.value = newSteps
   }
 
   const totalDuration = computed(() => {

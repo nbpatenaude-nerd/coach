@@ -1161,7 +1161,7 @@
               </div>
             </template>
 
-            <SettingsBillingPlans conversion-goal="pro" @close="showPlansModal = false" />
+            <SettingsBillingPlans conversion-goal="unlock" @close="showPlansModal = false" />
 
             <div v-if="!subscriptionsEnabled" class="mt-8">
               <UAlert

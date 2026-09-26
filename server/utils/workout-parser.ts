@@ -143,13 +143,15 @@ export const WorkoutParser = {
       step.durationSeconds = totalSeconds
     }
 
-    // 4. Extract Distance: "1000m", "1.5km", "400mtr"
+    // 4. Extract Distance: "1000m", "1.5km", "400mtr", "0.5mi", "1 mile"
     if (!step.distance) {
-      const distanceMatch = text.match(/\b(\d+(\.\d+)?)\s*(km|mtr|mtrs|m)\b/i)
+      const distanceMatch = text.match(/\b(\d+(\.\d+)?)\s*(km|mtr|mtrs|mi|miles?|m)\b/i)
       if (distanceMatch) {
         const val = parseFloat(distanceMatch[1] || '0')
         const unit = (distanceMatch[3] || 'm').toLowerCase()
-        step.distance = unit === 'km' ? val * 1000 : val
+        if (unit === 'km') step.distance = val * 1000
+        else if (unit === 'mi' || unit.startsWith('mile')) step.distance = val * 1609.344
+        else step.distance = val
         text = text.replace(distanceMatch[0] || '', '').trim()
       }
     }
@@ -195,6 +197,12 @@ export const WorkoutParser = {
     if (bpmMatch) {
       step.heartRate = { value: parseInt(bpmMatch[1] || '0', 10), units: 'bpm' }
       text = text.replace(bpmMatch[0] || '', '').trim()
+    }
+    const rpeMatch =
+      text.match(/\brpe\s*(\d+(?:\.\d+)?)\b/i) || text.match(/\b(\d+(?:\.\d+)?)\s*rpe\b/i)
+    if (rpeMatch) {
+      step.rpe = { value: parseFloat(rpeMatch[1] || '0'), units: 'rpe' }
+      text = text.replace(rpeMatch[0] || '', '').trim()
     }
 
     // Remove metric labels left behind after intensity extraction so they do not
@@ -291,29 +299,56 @@ export const WorkoutParser = {
       }
 
       if (step.power) {
+        const units = String(step.power.units || '').toLowerCase()
+        const isWatts = units === 'w' || units === 'watts'
         if (step.power.range) {
-          line += `${step.power.ramp ? 'ramp ' : ''}${Math.round(step.power.range.start * 100)}-${Math.round(step.power.range.end * 100)}% `
-        } else if (step.power.value) {
-          if (step.power.units === 'w') line += `${step.power.value}w `
+          const start = isWatts
+            ? Math.round(step.power.range.start)
+            : Math.round(step.power.range.start * 100)
+          const end = isWatts
+            ? Math.round(step.power.range.end)
+            : Math.round(step.power.range.end * 100)
+          line += `${step.power.ramp ? 'ramp ' : ''}${start}-${end}${isWatts ? 'w' : '%'} `
+        } else if (step.power.value != null) {
+          if (isWatts) line += `${step.power.value}w `
           else line += `${Math.round(step.power.value * 100)}% `
         }
       }
 
       if (step.heartRate) {
+        const units = String(step.heartRate.units || '').toLowerCase()
+        const isBpm = units === 'bpm'
         if (step.heartRate.range) {
-          line += `${Math.round(step.heartRate.range.start * 100)}-${Math.round(step.heartRate.range.end * 100)}%lthr `
-        } else if (step.heartRate.value) {
-          if (step.heartRate.units === 'bpm') line += `${step.heartRate.value}bpm `
+          const start = isBpm
+            ? Math.round(step.heartRate.range.start)
+            : Math.round(step.heartRate.range.start * 100)
+          const end = isBpm
+            ? Math.round(step.heartRate.range.end)
+            : Math.round(step.heartRate.range.end * 100)
+          line += `${start}-${end}${isBpm ? 'bpm' : '%lthr'} `
+        } else if (step.heartRate.value != null) {
+          if (isBpm) line += `${step.heartRate.value}bpm `
           else line += `${Math.round(step.heartRate.value * 100)}%lthr `
         }
       }
 
       if (step.pace) {
-        if (step.pace.range) {
+        if (step.pace.kind === 'absolute' && step.pace.rangeMps) {
+          // Absolute pace is stored as m/s; Intervals text prefers %pace relative when possible.
+          // Fall back to a freeform note using m/s so the value is not lost.
+          const mid =
+            (Number(step.pace.rangeMps.min) + Number(step.pace.rangeMps.max)) / 2 ||
+            Number(step.pace.value || 0)
+          if (mid > 0) line += `${mid.toFixed(2)}m/s `
+        } else if (step.pace.range) {
           line += `${Math.round(step.pace.range.start * 100)}-${Math.round(step.pace.range.end * 100)}%pace `
         } else if (step.pace.value) {
           line += `${Math.round(step.pace.value * 100)}%pace `
         }
+      }
+
+      if (step.rpe?.value != null) {
+        line += `rpe${step.rpe.value} `
       }
 
       if (step.cadence) {
