@@ -29,7 +29,13 @@ export default defineEventHandler(async (event) => {
         userId: user.id
       },
       include: {
-        goals: true
+        goals: true,
+        teamEvent: {
+          select: {
+            shareLevel: true,
+            hideAttendeeNames: true
+          }
+        }
       }
     })
 
@@ -37,7 +43,15 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 404, message: 'Event not found' })
     }
 
-    return eventData
+    const { teamEvent, ...rest } = eventData
+    return {
+      ...rest,
+      // Form binds shareLevel / hideAttendeeNames; they live on TeamEvent.
+      shareLevel: teamEvent?.shareLevel ?? 'FULL',
+      hideAttendeeNames: teamEvent?.hideAttendeeNames ?? false,
+      // If linked to Team Calendar, treat as shared even if isPublic drifted.
+      isPublic: rest.isPublic || Boolean(rest.teamEventId)
+    }
   } catch (error: any) {
     console.error('Error fetching event:', error)
     if (error.statusCode === 404) throw error

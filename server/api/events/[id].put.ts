@@ -3,6 +3,7 @@ import { getServerSession } from '../../utils/session'
 import { eventRepository } from '../../utils/repositories/eventRepository'
 import { syncEventToIntervals } from '../../utils/intervals-sync'
 import { prisma } from '../../utils/db'
+import { afterPersonalEventUpdated } from '../../utils/community-events'
 
 const eventSchema = z.object({
   title: z.string().min(1),
@@ -14,6 +15,8 @@ const eventSchema = z.object({
   priority: z.enum(['A', 'B', 'C']).or(z.literal('')).nullable().optional(),
   isVirtual: z.boolean().default(false),
   isPublic: z.boolean().default(false),
+  shareLevel: z.enum(['FULL', 'SUMMARY']).optional(),
+  hideAttendeeNames: z.boolean().optional(),
   country: z.string().optional(),
   city: z.string().optional(),
   location: z.string().optional(),
@@ -40,6 +43,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const userId = (session.user as any).id
+  const { shareLevel, hideAttendeeNames, ...eventFields } = result.data
 
   try {
     // 1. Fetch integration
@@ -49,17 +53,22 @@ export default defineEventHandler(async (event) => {
 
     // 2. Update local event
     const updatedEvent = await eventRepository.update(id, userId, {
-      ...result.data,
-      priority: result.data.priority || null,
-      date: new Date(result.data.date),
+      ...eventFields,
+      priority: eventFields.priority || null,
+      date: new Date(eventFields.date),
       syncStatus: integration ? 'PENDING' : 'LOCAL_ONLY'
     })
 
-    let finalEvent = updatedEvent
+    // 3. Promote / sync Team Calendar when Share on Team Calendar is set
+    const community = await afterPersonalEventUpdated(userId, updatedEvent, {
+      shareLevel,
+      hideAttendeeNames
+    })
+    let finalEvent = community.event
 
-    // 3. Sync if needed
-    if (integration && updatedEvent.externalId && updatedEvent.source === 'intervals') {
-      const syncResult = await syncEventToIntervals('UPDATE', updatedEvent, userId)
+    // 4. Sync if needed
+    if (integration && finalEvent.externalId && finalEvent.source === 'intervals') {
+      const syncResult = await syncEventToIntervals('UPDATE', finalEvent, userId)
       if (syncResult.synced) {
         finalEvent = await eventRepository.update(id, userId, {
           syncStatus: 'SYNCED'
@@ -67,7 +76,11 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    return { success: true, event: finalEvent }
+    return {
+      success: true,
+      event: finalEvent,
+      community: { teamEventId: community.teamEventId }
+    }
   } catch (error: any) {
     if (error.message.includes('Not authorized')) {
       throw createError({ statusCode: 403, message: error.message })

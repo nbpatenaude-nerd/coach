@@ -290,6 +290,61 @@ export type AfterCreateCommunityOptions = {
   hideAttendeeNames?: boolean
 }
 
+export type AfterUpdateCommunityOptions = {
+  shareLevel?: TeamEventShareLevel
+  hideAttendeeNames?: boolean
+}
+
+/**
+ * Post-update Team Calendar hook.
+ * Checking "Share on Team Calendar" on edit must create/link a TeamEvent —
+ * the calendar lists TeamEvent rows, not Event.isPublic alone.
+ */
+export async function afterPersonalEventUpdated(
+  userId: string,
+  event: Event,
+  options: AfterUpdateCommunityOptions = {}
+): Promise<{
+  event: Event
+  teamEventId: string | null
+}> {
+  if (event.isPublic) {
+    if (event.teamEventId) {
+      await prisma.teamEvent.update({
+        where: { id: event.teamEventId },
+        data: {
+          ...teamEventFieldsFromEvent(event),
+          ...(options.shareLevel ? { shareLevel: options.shareLevel } : {}),
+          ...(typeof options.hideAttendeeNames === 'boolean'
+            ? { hideAttendeeNames: options.hideAttendeeNames }
+            : {})
+        }
+      })
+      await ensureTeamParticipant(event.teamEventId, userId, event.priority)
+      const refreshed = await prisma.event.findUniqueOrThrow({ where: { id: event.id } })
+      return { event: refreshed, teamEventId: event.teamEventId }
+    }
+
+    const team = await createTeamEventFromPersonal(userId, event, {
+      shareLevel: options.shareLevel,
+      hideAttendeeNames: options.hideAttendeeNames
+    })
+    const refreshed = await prisma.event.findUniqueOrThrow({ where: { id: event.id } })
+    return { event: refreshed, teamEventId: team.id }
+  }
+
+  // Unchecking share leaves an existing TeamEvent (teammates may already attend).
+  // Still sync field updates when linked so the calendar stays accurate.
+  if (event.teamEventId) {
+    await prisma.teamEvent.update({
+      where: { id: event.teamEventId },
+      data: teamEventFieldsFromEvent(event)
+    })
+  }
+
+  return { event, teamEventId: event.teamEventId }
+}
+
 /**
  * Post-create Team Calendar hook. Never silent-joins without joinTeamEventId —
  * the client must confirm matches first.
