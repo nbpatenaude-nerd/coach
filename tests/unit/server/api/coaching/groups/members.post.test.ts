@@ -33,6 +33,7 @@ vi.mock('../../../../../../server/utils/repositories/coachingRepository', () => 
 }))
 
 const athleteId = '11111111-1111-4111-8111-111111111111'
+const legacyFirebaseId = 'xK9mPqR2sT4uV6wY8zA1bC3dE5f'
 const groupId = '22222222-2222-4222-8222-222222222222'
 
 describe('coaching groups members.post', () => {
@@ -47,22 +48,7 @@ describe('coaching groups members.post', () => {
     return handler
   }
 
-  it('returns 400 when athleteId is not a UUID string', async () => {
-    const handler = await loadHandler()
-
-    await expect(
-      handler({
-        params: { id: groupId },
-        body: { athleteId: 'not-a-uuid' }
-      })
-    ).rejects.toMatchObject({
-      statusCode: 400,
-      message: 'Invalid input'
-    })
-  })
-
-  it('coerces athleteId from a select option object', async () => {
-    const handler = await loadHandler()
+  async function mockHappyPath(id: string) {
     const { teamRepository } =
       await import('../../../../../../server/utils/repositories/teamRepository')
     const { coachingRepository } =
@@ -76,8 +62,30 @@ describe('coaching groups members.post', () => {
     vi.mocked(coachingRepository.checkRelationship).mockResolvedValue(true as any)
     vi.mocked(teamRepository.addAthleteToGroup).mockResolvedValue({
       groupId,
-      athleteId
+      athleteId: id
     } as any)
+  }
+
+  it('accepts legacy Firebase-style athlete ids (non-UUID)', async () => {
+    const handler = await loadHandler()
+    await mockHappyPath(legacyFirebaseId)
+    const { teamRepository } =
+      await import('../../../../../../server/utils/repositories/teamRepository')
+
+    const membership = await handler({
+      params: { id: groupId },
+      body: { athleteId: legacyFirebaseId }
+    })
+
+    expect(membership).toEqual({ groupId, athleteId: legacyFirebaseId })
+    expect(teamRepository.addAthleteToGroup).toHaveBeenCalledWith(groupId, legacyFirebaseId)
+  })
+
+  it('coerces athleteId from a select option object', async () => {
+    const handler = await loadHandler()
+    await mockHappyPath(athleteId)
+    const { teamRepository } =
+      await import('../../../../../../server/utils/repositories/teamRepository')
 
     const event: any = {
       params: { id: groupId },
@@ -98,28 +106,15 @@ describe('coaching groups members.post', () => {
         body: {}
       })
     ).rejects.toMatchObject({
-      statusCode: 400,
-      message: 'Invalid input'
+      statusCode: 400
     })
   })
 
   it('adds a member when athleteId is a valid UUID', async () => {
     const handler = await loadHandler()
+    await mockHappyPath(athleteId)
     const { teamRepository } =
       await import('../../../../../../server/utils/repositories/teamRepository')
-    const { coachingRepository } =
-      await import('../../../../../../server/utils/repositories/coachingRepository')
-
-    vi.mocked(teamRepository.getGroupDetails).mockResolvedValue({
-      id: groupId,
-      coachId: 'coach-1',
-      teamId: null
-    } as any)
-    vi.mocked(coachingRepository.checkRelationship).mockResolvedValue(true as any)
-    vi.mocked(teamRepository.addAthleteToGroup).mockResolvedValue({
-      groupId,
-      athleteId
-    } as any)
 
     const event: any = {
       params: { id: groupId },

@@ -2,13 +2,18 @@ import { requireAuth } from '../../../../utils/auth-guard'
 import { prisma } from '../../../../utils/db'
 import { checkQuota } from '../../../../utils/quotas/engine'
 import { enqueuePlannedWorkoutStructureGeneration } from '../../../../utils/planned-workout-structure-trigger'
-import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
+import {
+  assertPlannedWorkoutAccess,
+  shouldBypassAthleteQuota
+} from '../../../../utils/coaching-auth'
 import { resolveEffectiveTier } from '../../../../../shared/effective-tier'
 import { getActivePromotionalGrant } from '../../../../utils/partner-campaigns'
+import { getServerSession } from '../../../../utils/session'
 
 export default defineEventHandler(async (event) => {
   const authUser = await requireAuth(event, ['workout:write'])
   const viewerId = authUser.id
+  const session = (await getServerSession(event)) || (event.context.session as any)
 
   const id = getRouterParam(event, 'id')
   if (!id) {
@@ -39,20 +44,27 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Planned workout not found' })
   }
 
-  await assertPlannedWorkoutAccess(viewerId, workout.userId)
+  const accessRole = await assertPlannedWorkoutAccess(viewerId, workout.userId)
+  const bypassQuota = shouldBypassAthleteQuota({
+    accessRole,
+    isCoaching: session?.user?.isCoaching,
+    originalUserId: session?.user?.originalUserId
+  })
 
-  // Quota is always against the athlete who owns the workout (coach acting for them).
+  // Quota is against the athlete who owns the workout, unless a coach is acting.
   const quotaUserId = workout.userId
-  try {
-    await checkQuota(quotaUserId, 'generate_structured_workout')
-  } catch (error: any) {
-    if (error.statusCode === 429) {
-      throw createError({
-        statusCode: 429,
-        message: error.message || 'Quota exceeded for structured workout generation.'
-      })
+  if (!bypassQuota) {
+    try {
+      await checkQuota(quotaUserId, 'generate_structured_workout')
+    } catch (error: any) {
+      if (error.statusCode === 429) {
+        throw createError({
+          statusCode: 429,
+          message: error.message || 'Quota exceeded for structured workout generation.'
+        })
+      }
+      throw error
     }
-    throw error
   }
 
   const activeGrant = await getActivePromotionalGrant(quotaUserId)
@@ -64,8 +76,8 @@ export default defineEventHandler(async (event) => {
     promotionalGrantTier: activeGrant?.tier ?? null
   })
 
-  // Free athletes: generation limited to 4 weeks ahead. Any paid/active effective tier is exempt.
-  if (effectiveTier === 'FREE') {
+  // Free athletes: generation limited to 4 weeks ahead. Coaches and paid tiers are exempt.
+  if (!bypassQuota && effectiveTier === 'FREE') {
     const { getUserLocalDate } = await import('../../../../utils/date')
     const timezone = workout.user.timezone || 'UTC'
     const today = getUserLocalDate(timezone)

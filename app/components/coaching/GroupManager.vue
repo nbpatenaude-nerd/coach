@@ -330,7 +330,8 @@
       })
       .map((a) => {
         const athlete = a.athlete || a
-        const id = athlete.id || a.athleteId || a.id
+        // Prefer nested athlete user id / relationship athleteId — never the relationship row id.
+        const id = a.athlete?.id || a.athleteId || athlete.id
         return {
           label: athlete.name || athlete.email || String(id),
           value: String(id)
@@ -422,9 +423,13 @@
       const data = await ($fetch as any)(`/api/coaching/groups/${editingGroup.value.id}`)
       currentMembers.value = (data as any).members
       emit('refresh')
-    } catch (e) {
+    } catch (e: any) {
       toast.add({
         title: t.value('group_toast_add_member_failed', 'Failed to add member'),
+        description:
+          e?.data?.message ||
+          e?.statusMessage ||
+          t.value('group_toast_add_member_failed_desc', 'Could not add this athlete to the group.'),
         color: 'error'
       })
     } finally {

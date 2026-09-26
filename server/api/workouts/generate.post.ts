@@ -33,21 +33,26 @@ defineRouteMeta({
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event, ['workout:write'])
   const userId = user.id
+  const session = event.context.session as
+    { user?: { isCoaching?: boolean; originalUserId?: string } } | undefined
+  const coachActing = Boolean(session?.user?.isCoaching) || Boolean(session?.user?.originalUserId)
 
   const body = await readBody(event)
   const { type, durationMinutes, intensity, notes } = body ?? {}
 
-  // 0. Quota Check
-  try {
-    await checkQuota(userId, 'generate_structured_workout')
-  } catch (error: any) {
-    if (error.statusCode === 429) {
-      throw createError({
-        statusCode: 429,
-        message: error.message || 'Quota exceeded for workout generation.'
-      })
+  // Quota Check — coaches View-as-Athlete should not hit the athlete paywall
+  if (!coachActing) {
+    try {
+      await checkQuota(userId, 'generate_structured_workout')
+    } catch (error: any) {
+      if (error.statusCode === 429) {
+        throw createError({
+          statusCode: 429,
+          message: error.message || 'Quota exceeded for workout generation.'
+        })
+      }
+      throw error
     }
-    throw error
   }
 
   const now = new Date()

@@ -41,3 +41,18 @@ export async function assertPlannedWorkoutAccess(
     message: 'Access denied'
   })
 }
+
+/**
+ * Coaches acting for an athlete (View as Athlete / act-as) or editing as coach
+ * should not burn the athlete's structured-workout quota.
+ */
+export function shouldBypassAthleteQuota(opts: {
+  accessRole?: PlannedWorkoutAccessRole | null
+  isCoaching?: boolean | null
+  originalUserId?: string | null
+}): boolean {
+  if (opts.accessRole === 'coach') return true
+  if (opts.isCoaching) return true
+  if (opts.originalUserId) return true
+  return false
+}

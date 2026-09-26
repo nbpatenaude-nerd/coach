@@ -4,17 +4,23 @@ import { teamRepository } from '../../../../utils/repositories/teamRepository'
 import { coachingRepository } from '../../../../utils/repositories/coachingRepository'
 
 const addMemberSchema = z.object({
-  athleteId: z.preprocess((value) => {
-    if (typeof value === 'string') return value
-    if (value && typeof value === 'object') {
-      const record = value as Record<string, unknown>
-      for (const key of ['value', 'id', 'athleteId']) {
-        const candidate = record[key]
-        if (typeof candidate === 'string') return candidate
+  // Legacy Firebase localIds are not RFC UUIDs — accept any non-empty user id.
+  athleteId: z.preprocess(
+    (value) => {
+      if (typeof value === 'string') return value.trim()
+      if (typeof value === 'number') return String(value)
+      if (value && typeof value === 'object') {
+        const record = value as Record<string, unknown>
+        for (const key of ['value', 'id', 'athleteId']) {
+          const candidate = record[key]
+          if (typeof candidate === 'string' && candidate.trim()) return candidate.trim()
+          if (typeof candidate === 'number') return String(candidate)
+        }
       }
-    }
-    return value
-  }, z.string().uuid())
+      return value
+    },
+    z.string().min(1, 'athleteId is required')
+  )
 })
 
 defineRouteMeta({
@@ -46,11 +52,16 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const result = addMemberSchema.safeParse(body)
 
-  if (!groupId || !result.success) {
+  if (!groupId) {
+    throw createError({ statusCode: 400, message: 'Group ID is required' })
+  }
+
+  if (!result.success) {
+    const issue = result.error.issues[0]
     throw createError({
       statusCode: 400,
-      message: 'Invalid input',
-      data: result.success ? undefined : result.error.flatten()
+      message: issue?.message || 'Invalid athlete selection',
+      data: result.error.flatten()
     })
   }
 

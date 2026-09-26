@@ -157,6 +157,13 @@ export function useQuotaPaywall() {
   }) {
     // Paid tiers have limits too — skipping the check here sent Supporter and
     // Pro athletes into a raw server error instead of the paywall.
+    // Coaches View-as-Athlete must not hit the athlete paywall.
+    const coachingStore = useCoachingStore()
+    if (coachingStore.isCoachingMode) {
+      await params.onAllowed()
+      return
+    }
+
     await ensureQuotasLoaded()
     const quota = getQuotaForOperation(params.operation)
     if (isQuotaExhausted(quota)) {

@@ -1,6 +1,7 @@
 import { prisma } from '../../../../utils/db'
 import { getServerSession } from '../../../../utils/session'
 import { serializeCanonicalForIntervals } from '../../../../utils/canonical-workout-serializer'
+import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
@@ -13,7 +14,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Workout ID is required' })
   }
 
-  const userId = (session.user as any).id
+  const viewerId = (session.user as any).id
 
   const workout = await prisma.plannedWorkout.findUnique({
     where: { id },
@@ -27,9 +28,7 @@ export default defineEventHandler(async (event) => {
   if (!workout) {
     throw createError({ statusCode: 404, message: 'Planned workout not found' })
   }
-  if (workout.userId !== userId) {
-    throw createError({ statusCode: 403, message: 'Access denied' })
-  }
+  await assertPlannedWorkoutAccess(viewerId, workout.userId)
   if (!workout.structuredWorkout) {
     return { intervalsDescription: '', hasStructure: false }
   }

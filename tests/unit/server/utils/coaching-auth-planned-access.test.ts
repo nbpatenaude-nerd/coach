@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { coachingRepository } from '../../../../server/utils/repositories/coachingRepository'
-import { assertPlannedWorkoutAccess } from '../../../../server/utils/coaching-auth'
+import {
+  assertPlannedWorkoutAccess,
+  shouldBypassAthleteQuota
+} from '../../../../server/utils/coaching-auth'
 
 vi.mock('../../../../server/utils/db', () => ({
   prisma: {}
@@ -40,5 +43,23 @@ describe('assertPlannedWorkoutAccess', () => {
     await expect(assertPlannedWorkoutAccess('stranger', 'athlete-1')).rejects.toMatchObject({
       statusCode: 403
     })
+  })
+})
+
+describe('shouldBypassAthleteQuota', () => {
+  it('bypasses when access role is coach', () => {
+    expect(shouldBypassAthleteQuota({ accessRole: 'coach' })).toBe(true)
+  })
+
+  it('bypasses when View-as-Athlete (isCoaching)', () => {
+    expect(shouldBypassAthleteQuota({ accessRole: 'owner', isCoaching: true })).toBe(true)
+  })
+
+  it('bypasses when originalUserId is set', () => {
+    expect(shouldBypassAthleteQuota({ originalUserId: 'coach-1' })).toBe(true)
+  })
+
+  it('does not bypass for a normal athlete owner session', () => {
+    expect(shouldBypassAthleteQuota({ accessRole: 'owner', isCoaching: false })).toBe(false)
   })
 })

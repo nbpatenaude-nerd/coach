@@ -1,11 +1,12 @@
 import { getServerSession } from '../../../../utils/session'
 import { prisma } from '../../../../utils/db'
+import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
 
 export default defineEventHandler(async (event) => {
   const session = await getServerSession(event)
-  const userId = session?.user?.id
+  const viewerId = session?.user?.id
 
-  if (!userId) {
+  if (!viewerId) {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
   }
 
@@ -23,9 +24,11 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  if (!workout || workout.userId !== userId) {
+  if (!workout) {
     throw createError({ statusCode: 404, message: 'Planned workout not found' })
   }
+  await assertPlannedWorkoutAccess(viewerId, workout.userId)
+  const userId = workout.userId
 
   const select = {
     id: true,

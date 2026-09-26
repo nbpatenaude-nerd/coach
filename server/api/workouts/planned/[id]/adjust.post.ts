@@ -3,7 +3,10 @@ import { getServerSession } from '../../../../utils/session'
 import { enqueuePlannedWorkoutStructureAdjustment } from '../../../../utils/planned-workout-structure-trigger'
 import { prisma } from '../../../../utils/db'
 import { checkQuota } from '../../../../utils/quotas/engine'
-import { assertPlannedWorkoutAccess } from '../../../../utils/coaching-auth'
+import {
+  assertPlannedWorkoutAccess,
+  shouldBypassAthleteQuota
+} from '../../../../utils/coaching-auth'
 import { resolveEffectiveTier } from '../../../../../shared/effective-tier'
 import { getActivePromotionalGrant } from '../../../../utils/partner-campaigns'
 
@@ -43,18 +46,25 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, message: 'Workout not found' })
   }
 
-  await assertPlannedWorkoutAccess(viewerId, workout.userId)
+  const accessRole = await assertPlannedWorkoutAccess(viewerId, workout.userId)
+  const bypassQuota = shouldBypassAthleteQuota({
+    accessRole,
+    isCoaching: (session.user as any)?.isCoaching,
+    originalUserId: (session.user as any)?.originalUserId
+  })
 
-  try {
-    await checkQuota(workout.userId, 'generate_structured_workout')
-  } catch (error: any) {
-    if (error.statusCode === 429) {
-      throw createError({
-        statusCode: 429,
-        message: error.message || 'Quota exceeded for structured workout generation.'
-      })
+  if (!bypassQuota) {
+    try {
+      await checkQuota(workout.userId, 'generate_structured_workout')
+    } catch (error: any) {
+      if (error.statusCode === 429) {
+        throw createError({
+          statusCode: 429,
+          message: error.message || 'Quota exceeded for structured workout generation.'
+        })
+      }
+      throw error
     }
-    throw error
   }
 
   const activeGrant = await getActivePromotionalGrant(workout.userId)
@@ -66,7 +76,7 @@ export default defineEventHandler(async (event) => {
     promotionalGrantTier: activeGrant?.tier ?? null
   })
 
-  if (effectiveTier === 'FREE') {
+  if (!bypassQuota && effectiveTier === 'FREE') {
     const { getUserLocalDate } = await import('../../../../utils/date')
     const timezone = workout.user.timezone || 'UTC'
     const today = getUserLocalDate(timezone)

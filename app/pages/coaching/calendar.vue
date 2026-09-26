@@ -500,9 +500,10 @@
         :all-sport-settings="selectedPlannedWorkoutSportSettings"
         :user-ftp="selectedPlannedWorkoutSportSettings?.[0]?.ftp"
         :show-completion-actions="false"
-        :show-structure-actions="false"
+        :show-structure-actions="true"
         :allow-structure-edit="true"
-        :show-view-details="false"
+        :show-view-details="true"
+        :view-path-base="selectedPlannedWorkoutViewBase"
         :show-save-to-library="false"
         @completed="refreshAffectedPanel(selectedPlannedWorkoutAthleteId)"
         @structure-saved="onPlannedWorkoutStructureSaved"
@@ -512,7 +513,7 @@
       <UModal
         v-model:open="showWorkoutPreviewModal"
         title="Workout Overview"
-        description="A quick coach-facing summary of the completed session."
+        description="Open the full athlete-style analysis for this completed session."
       >
         <template #body>
           <div v-if="selectedWorkout" class="space-y-4 p-2">
@@ -547,7 +548,9 @@
                   CTL / ATL
                 </div>
                 <div class="mt-1 text-base font-black">
-                  {{ selectedWorkout.ctl ?? '--' }} / {{ selectedWorkout.atl ?? '--' }}
+                  {{ selectedWorkout.ctl != null ? Math.round(Number(selectedWorkout.ctl)) : '--' }}
+                  /
+                  {{ selectedWorkout.atl != null ? Math.round(Number(selectedWorkout.atl)) : '--' }}
                 </div>
               </div>
             </div>
@@ -564,7 +567,7 @@
               :disabled="!selectedWorkout?.id || !selectedWorkoutAthleteId"
               @click="openSelectedWorkoutAnalyzer"
             >
-              Open Analyzer
+              View Full Analysis
             </UButton>
           </div>
         </template>
@@ -864,6 +867,7 @@
       ? `/api/coaching/athletes/${selectedPlannedWorkoutAthleteId.value}/planned-workouts`
       : '/api/planned-workouts'
   )
+  const selectedPlannedWorkoutViewBase = computed(() => '/workouts/planned')
   const calendarViewportClass = computed(() =>
     viewMode.value === 'week-board' ? 'overflow-auto' : 'overflow-hidden'
   )
@@ -1272,7 +1276,8 @@
         selectedWorkout.value = await $fetch<any, string & {}>(
           `/api/coaching/athletes/${athleteId}/workouts/${activity.id}`
         )
-        showWorkoutPreviewModal.value = true
+        // Coaches need the full athlete-style analysis, not just the summary card.
+        void navigateTo(`/coaching/athletes/${athleteId}/workouts/${activity.id}/analyze`)
       }
     } catch (error: any) {
       console.error('Failed to load calendar activity:', error)
